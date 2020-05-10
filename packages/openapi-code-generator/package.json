@@ -1,0 +1,47 @@
+{
+  "name": "openapi-code-generator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist ",
+    "prebuild": "npm run clean",
+    "build": "tsc -p ./tsconfig.json",
+    "test": "mocha --require source-map-support/register ./dist/**/*.spec.js",
+    "analyse": "eslint ./src --cache --fix --ext .js,.jsx,.ts,.tsx",
+    "ci-build": "npm run build",
+    "ci-test": "nyc mocha --reporter mocha-teamcity-reporter -r ts-node/register './src/**/*.spec.ts'",
+    "ci-analyse": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "ci-pipeline": " npm run ci-build && npm run ci-test && npm run ci-analyse"
+  },
+  "author": "Michael Nahkies",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/prettier": "^2.0.1",
+    "@types/convict": "^5.2.1",
+    "@types/js-yaml": "^3.12.4",
+    "@types/lodash": "^4.14.155",
+    "nodemon": "*",
+    "nyc": "*",
+    "ts-node": "*",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "ajv": "^6.12.2",
+    "convict": "^6.0.0",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.15",
+    "prettier": "^2.0.5",
+    "source-map-support": "^0.5.19",
+    "tslib": "^2.0.0"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "reporter": [
+      "lcov",
+      "teamcity",
+      "text"
+    ],
+    "all": true
+  }
+}

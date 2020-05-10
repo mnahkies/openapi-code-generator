@@ -1,0 +1,25 @@
+{
+  "name": "typescript-koa",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "author": "Michael Nahkies",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "generate": "./generate.sh",
+    "validate": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^9.0.1",
+    "koa": "^2.12.1",
+    "koa-body": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa__cors": "^3.0.1",
+    "@types/koa__router": "^8.0.2",
+    "koa-body": "^4.2.0",
+    "typescript": "*"
+  }
+}

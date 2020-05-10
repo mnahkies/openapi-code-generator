@@ -1,0 +1,19 @@
+{
+  "name": "typescript-fetch",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "author": "Michael Nahkies",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "generate": "./generate.sh",
+    "validate": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "typescript": "*"
+  }
+}
