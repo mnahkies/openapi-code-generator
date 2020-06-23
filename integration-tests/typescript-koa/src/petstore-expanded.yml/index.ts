@@ -17,25 +17,25 @@ server.use(koaBody())
 
 const router = new KoaRouter()
 
-router.get("/pets", async (ctx, next) => {
+router.get("findPets", "/pets", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/pets", async (ctx, next) => {
+router.post("addPet", "/pets", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/pets/:id", async (ctx, next) => {
+router.get("findPetById", "/pets/:id", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/pets/:id", async (ctx, next) => {
+router.delete("deletePet", "/pets/:id", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()

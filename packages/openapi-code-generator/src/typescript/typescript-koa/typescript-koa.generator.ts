@@ -28,7 +28,7 @@ export class ServerBuilder {
   add(operation: IROperation): void {
     const models = this.models
 
-    this.operations.push(`router.${ operation.method.toLowerCase() }('${ route(operation.route) }', async (ctx, next) => {
+    this.operations.push(`router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }', async (ctx, next) => {
 
     ctx.status = 501
     ctx.body = {error: "not implemented"}
