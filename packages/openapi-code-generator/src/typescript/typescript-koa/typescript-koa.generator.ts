@@ -3,6 +3,7 @@ import { IROperation } from "../../core/openapi-types-normalized"
 import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
+import _ from "lodash"
 
 export class ServerBuilder {
   private readonly imports: ImportBuilder
@@ -27,7 +28,7 @@ export class ServerBuilder {
   add(operation: IROperation): void {
     const models = this.models
 
-    this.operations.push(`router.${ operation.method.toLowerCase() }('${ operation.route }', async (ctx, next) => {
+    this.operations.push(`router.${ operation.method.toLowerCase() }('${ route(operation.route) }', async (ctx, next) => {
 
     ctx.status = 501
     ctx.body = {error: "not implemented"}
@@ -63,6 +64,15 @@ server.listen(PORT, () => {
 });
 `
   }
+}
+
+function route(route: string): string {
+  const placeholder = /{([^{}]+)}/g
+
+  return Array.from(route.matchAll(placeholder))
+    .reduce((result, match) => {
+      return result.replace(match[0], ':' + _.camelCase(match[1]))
+    }, route)
 }
 
 export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {

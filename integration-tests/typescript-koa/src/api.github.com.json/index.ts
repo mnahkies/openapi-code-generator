@@ -23,7 +23,7 @@ router.get("/app", async (ctx, next) => {
   return next()
 })
 
-router.post("/app-manifests/{code}/conversions", async (ctx, next) => {
+router.post("/app-manifests/:code/conversions", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -35,20 +35,20 @@ router.get("/app/installations", async (ctx, next) => {
   return next()
 })
 
-router.get("/app/installations/{installation_id}", async (ctx, next) => {
+router.get("/app/installations/:installationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/app/installations/{installation_id}", async (ctx, next) => {
+router.delete("/app/installations/:installationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.post(
-  "/app/installations/{installation_id}/access_tokens",
+  "/app/installations/:installationId/access_tokens",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -57,7 +57,7 @@ router.post(
 )
 
 router.put(
-  "/app/installations/{installation_id}/suspended",
+  "/app/installations/:installationId/suspended",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -66,7 +66,7 @@ router.put(
 )
 
 router.delete(
-  "/app/installations/{installation_id}/suspended",
+  "/app/installations/:installationId/suspended",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -80,26 +80,26 @@ router.get("/applications/grants", async (ctx, next) => {
   return next()
 })
 
-router.get("/applications/grants/{grant_id}", async (ctx, next) => {
+router.get("/applications/grants/:grantId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/applications/grants/{grant_id}", async (ctx, next) => {
+router.delete("/applications/grants/:grantId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/applications/{client_id}/grant", async (ctx, next) => {
+router.delete("/applications/:clientId/grant", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.delete(
-  "/applications/{client_id}/grants/{access_token}",
+  "/applications/:clientId/grants/:accessToken",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -107,35 +107,32 @@ router.delete(
   }
 )
 
-router.post("/applications/{client_id}/token", async (ctx, next) => {
+router.post("/applications/:clientId/token", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/applications/{client_id}/token", async (ctx, next) => {
+router.patch("/applications/:clientId/token", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/applications/{client_id}/token", async (ctx, next) => {
+router.delete("/applications/:clientId/token", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get(
-  "/applications/{client_id}/tokens/{access_token}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.get("/applications/:clientId/tokens/:accessToken", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.post(
-  "/applications/{client_id}/tokens/{access_token}",
+  "/applications/:clientId/tokens/:accessToken",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -144,7 +141,7 @@ router.post(
 )
 
 router.delete(
-  "/applications/{client_id}/tokens/{access_token}",
+  "/applications/:clientId/tokens/:accessToken",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -152,7 +149,7 @@ router.delete(
   }
 )
 
-router.get("/apps/{app_slug}", async (ctx, next) => {
+router.get("/apps/:appSlug", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -170,14 +167,14 @@ router.post("/authorizations", async (ctx, next) => {
   return next()
 })
 
-router.put("/authorizations/clients/{client_id}", async (ctx, next) => {
+router.put("/authorizations/clients/:clientId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.put(
-  "/authorizations/clients/{client_id}/{fingerprint}",
+  "/authorizations/clients/:clientId/:fingerprint",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -185,19 +182,19 @@ router.put(
   }
 )
 
-router.get("/authorizations/{authorization_id}", async (ctx, next) => {
+router.get("/authorizations/:authorizationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/authorizations/{authorization_id}", async (ctx, next) => {
+router.patch("/authorizations/:authorizationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/authorizations/{authorization_id}", async (ctx, next) => {
+router.delete("/authorizations/:authorizationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -209,14 +206,14 @@ router.get("/codes_of_conduct", async (ctx, next) => {
   return next()
 })
 
-router.get("/codes_of_conduct/{key}", async (ctx, next) => {
+router.get("/codes_of_conduct/:key", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.post(
-  "/content_references/{content_reference_id}/attachments",
+  "/content_references/:contentReferenceId/attachments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -266,91 +263,91 @@ router.get("/gists/starred", async (ctx, next) => {
   return next()
 })
 
-router.get("/gists/{gist_id}", async (ctx, next) => {
+router.get("/gists/:gistId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/gists/{gist_id}", async (ctx, next) => {
+router.patch("/gists/:gistId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/gists/{gist_id}", async (ctx, next) => {
+router.delete("/gists/:gistId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/comments", async (ctx, next) => {
+router.get("/gists/:gistId/comments", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/gists/{gist_id}/comments", async (ctx, next) => {
+router.post("/gists/:gistId/comments", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/comments/{comment_id}", async (ctx, next) => {
+router.get("/gists/:gistId/comments/:commentId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/gists/{gist_id}/comments/{comment_id}", async (ctx, next) => {
+router.patch("/gists/:gistId/comments/:commentId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/gists/{gist_id}/comments/{comment_id}", async (ctx, next) => {
+router.delete("/gists/:gistId/comments/:commentId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/commits", async (ctx, next) => {
+router.get("/gists/:gistId/commits", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/gists/{gist_id}/forks", async (ctx, next) => {
+router.post("/gists/:gistId/forks", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/forks", async (ctx, next) => {
+router.get("/gists/:gistId/forks", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/gists/{gist_id}/star", async (ctx, next) => {
+router.put("/gists/:gistId/star", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/gists/{gist_id}/star", async (ctx, next) => {
+router.delete("/gists/:gistId/star", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/star", async (ctx, next) => {
+router.get("/gists/:gistId/star", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/gists/{gist_id}/{sha}", async (ctx, next) => {
+router.get("/gists/:gistId/:sha", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -362,7 +359,7 @@ router.get("/gitignore/templates", async (ctx, next) => {
   return next()
 })
 
-router.get("/gitignore/templates/{name}", async (ctx, next) => {
+router.get("/gitignore/templates/:name", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -392,7 +389,7 @@ router.get("/licenses", async (ctx, next) => {
   return next()
 })
 
-router.get("/licenses/{license}", async (ctx, next) => {
+router.get("/licenses/:license", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -410,7 +407,7 @@ router.post("/markdown/raw", async (ctx, next) => {
   return next()
 })
 
-router.get("/marketplace_listing/accounts/{account_id}", async (ctx, next) => {
+router.get("/marketplace_listing/accounts/:accountId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -422,17 +419,14 @@ router.get("/marketplace_listing/plans", async (ctx, next) => {
   return next()
 })
 
-router.get(
-  "/marketplace_listing/plans/{plan_id}/accounts",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.get("/marketplace_listing/plans/:planId/accounts", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.get(
-  "/marketplace_listing/stubbed/accounts/{account_id}",
+  "/marketplace_listing/stubbed/accounts/:accountId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -447,7 +441,7 @@ router.get("/marketplace_listing/stubbed/plans", async (ctx, next) => {
 })
 
 router.get(
-  "/marketplace_listing/stubbed/plans/{plan_id}/accounts",
+  "/marketplace_listing/stubbed/plans/:planId/accounts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -461,7 +455,7 @@ router.get("/meta", async (ctx, next) => {
   return next()
 })
 
-router.get("/networks/{owner}/{repo}/events", async (ctx, next) => {
+router.get("/networks/:owner/:repo/events", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -479,20 +473,20 @@ router.put("/notifications", async (ctx, next) => {
   return next()
 })
 
-router.get("/notifications/threads/{thread_id}", async (ctx, next) => {
+router.get("/notifications/threads/:threadId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/notifications/threads/{thread_id}", async (ctx, next) => {
+router.patch("/notifications/threads/:threadId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/notifications/threads/{thread_id}/subscription",
+  "/notifications/threads/:threadId/subscription",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -501,7 +495,7 @@ router.get(
 )
 
 router.put(
-  "/notifications/threads/{thread_id}/subscription",
+  "/notifications/threads/:threadId/subscription",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -510,7 +504,7 @@ router.put(
 )
 
 router.delete(
-  "/notifications/threads/{thread_id}/subscription",
+  "/notifications/threads/:threadId/subscription",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -524,32 +518,32 @@ router.get("/organizations", async (ctx, next) => {
   return next()
 })
 
-router.get("/orgs/{org}", async (ctx, next) => {
+router.get("/orgs/:org", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/orgs/{org}", async (ctx, next) => {
+router.patch("/orgs/:org", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/runners", async (ctx, next) => {
+router.get("/orgs/:org/actions/runners", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/runners/downloads", async (ctx, next) => {
+router.get("/orgs/:org/actions/runners/downloads", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.post(
-  "/orgs/{org}/actions/runners/registration-token",
+  "/orgs/:org/actions/runners/registration-token",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -557,59 +551,56 @@ router.post(
   }
 )
 
-router.post("/orgs/{org}/actions/runners/remove-token", async (ctx, next) => {
+router.post("/orgs/:org/actions/runners/remove-token", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/runners/{runner_id}", async (ctx, next) => {
+router.get("/orgs/:org/actions/runners/:runnerId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/actions/runners/{runner_id}", async (ctx, next) => {
+router.delete("/orgs/:org/actions/runners/:runnerId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/secrets", async (ctx, next) => {
+router.get("/orgs/:org/actions/secrets", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/secrets/public-key", async (ctx, next) => {
+router.get("/orgs/:org/actions/secrets/public-key", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/actions/secrets/{secret_name}", async (ctx, next) => {
+router.get("/orgs/:org/actions/secrets/:secretName", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/orgs/{org}/actions/secrets/{secret_name}", async (ctx, next) => {
+router.put("/orgs/:org/actions/secrets/:secretName", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete(
-  "/orgs/{org}/actions/secrets/{secret_name}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.delete("/orgs/:org/actions/secrets/:secretName", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.get(
-  "/orgs/{org}/actions/secrets/{secret_name}/repositories",
+  "/orgs/:org/actions/secrets/:secretName/repositories",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -618,7 +609,7 @@ router.get(
 )
 
 router.put(
-  "/orgs/{org}/actions/secrets/{secret_name}/repositories",
+  "/orgs/:org/actions/secrets/:secretName/repositories",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -627,7 +618,7 @@ router.put(
 )
 
 router.put(
-  "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+  "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -636,7 +627,7 @@ router.put(
 )
 
 router.delete(
-  "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
+  "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -644,38 +635,38 @@ router.delete(
   }
 )
 
-router.get("/orgs/{org}/blocks", async (ctx, next) => {
+router.get("/orgs/:org/blocks", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/blocks/{username}", async (ctx, next) => {
+router.get("/orgs/:org/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/orgs/{org}/blocks/{username}", async (ctx, next) => {
+router.put("/orgs/:org/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/blocks/{username}", async (ctx, next) => {
+router.delete("/orgs/:org/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/credential-authorizations", async (ctx, next) => {
+router.get("/orgs/:org/credential-authorizations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.delete(
-  "/orgs/{org}/credential-authorizations/{credential_id}",
+  "/orgs/:org/credential-authorizations/:credentialId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -683,170 +674,164 @@ router.delete(
   }
 )
 
-router.get("/orgs/{org}/events", async (ctx, next) => {
+router.get("/orgs/:org/events", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/hooks", async (ctx, next) => {
+router.get("/orgs/:org/hooks", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/hooks", async (ctx, next) => {
+router.post("/orgs/:org/hooks", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/hooks/{hook_id}", async (ctx, next) => {
+router.get("/orgs/:org/hooks/:hookId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/orgs/{org}/hooks/{hook_id}", async (ctx, next) => {
+router.patch("/orgs/:org/hooks/:hookId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/hooks/{hook_id}", async (ctx, next) => {
+router.delete("/orgs/:org/hooks/:hookId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/hooks/{hook_id}/pings", async (ctx, next) => {
+router.post("/orgs/:org/hooks/:hookId/pings", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/installation", async (ctx, next) => {
+router.get("/orgs/:org/installation", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/installations", async (ctx, next) => {
+router.get("/orgs/:org/installations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/interaction-limits", async (ctx, next) => {
+router.get("/orgs/:org/interaction-limits", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/orgs/{org}/interaction-limits", async (ctx, next) => {
+router.put("/orgs/:org/interaction-limits", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/interaction-limits", async (ctx, next) => {
+router.delete("/orgs/:org/interaction-limits", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/invitations", async (ctx, next) => {
+router.get("/orgs/:org/invitations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/invitations", async (ctx, next) => {
+router.post("/orgs/:org/invitations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get(
-  "/orgs/{org}/invitations/{invitation_id}/teams",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/orgs/{org}/issues", async (ctx, next) => {
+router.get("/orgs/:org/invitations/:invitationId/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/members", async (ctx, next) => {
+router.get("/orgs/:org/issues", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/members/{username}", async (ctx, next) => {
+router.get("/orgs/:org/members", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/members/{username}", async (ctx, next) => {
+router.get("/orgs/:org/members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/memberships/{username}", async (ctx, next) => {
+router.delete("/orgs/:org/members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/orgs/{org}/memberships/{username}", async (ctx, next) => {
+router.get("/orgs/:org/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/memberships/{username}", async (ctx, next) => {
+router.put("/orgs/:org/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/migrations", async (ctx, next) => {
+router.delete("/orgs/:org/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/migrations", async (ctx, next) => {
+router.post("/orgs/:org/migrations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/migrations/{migration_id}", async (ctx, next) => {
+router.get("/orgs/:org/migrations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get(
-  "/orgs/{org}/migrations/{migration_id}/archive",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.get("/orgs/:org/migrations/:migrationId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/orgs/:org/migrations/:migrationId/archive", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.delete(
-  "/orgs/{org}/migrations/{migration_id}/archive",
+  "/orgs/:org/migrations/:migrationId/archive",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -855,7 +840,7 @@ router.delete(
 )
 
 router.delete(
-  "/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock",
+  "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -864,7 +849,7 @@ router.delete(
 )
 
 router.get(
-  "/orgs/{org}/migrations/{migration_id}/repositories",
+  "/orgs/:org/migrations/:migrationId/repositories",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -872,14 +857,14 @@ router.get(
   }
 )
 
-router.get("/orgs/{org}/outside_collaborators", async (ctx, next) => {
+router.get("/orgs/:org/outside_collaborators", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.delete(
-  "/orgs/{org}/outside_collaborators/{username}",
+  "/orgs/:org/outside_collaborators/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -887,113 +872,110 @@ router.delete(
   }
 )
 
-router.put(
-  "/orgs/{org}/outside_collaborators/{username}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/orgs/{org}/projects", async (ctx, next) => {
+router.put("/orgs/:org/outside_collaborators/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/projects", async (ctx, next) => {
+router.get("/orgs/:org/projects", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/public_members", async (ctx, next) => {
+router.post("/orgs/:org/projects", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/public_members/{username}", async (ctx, next) => {
+router.get("/orgs/:org/public_members", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/orgs/{org}/public_members/{username}", async (ctx, next) => {
+router.get("/orgs/:org/public_members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/public_members/{username}", async (ctx, next) => {
+router.put("/orgs/:org/public_members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/repos", async (ctx, next) => {
+router.delete("/orgs/:org/public_members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/repos", async (ctx, next) => {
+router.get("/orgs/:org/repos", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/team-sync/groups", async (ctx, next) => {
+router.post("/orgs/:org/repos", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/teams", async (ctx, next) => {
+router.get("/orgs/:org/team-sync/groups", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/teams", async (ctx, next) => {
+router.get("/orgs/:org/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/teams/{team_slug}", async (ctx, next) => {
+router.post("/orgs/:org/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/orgs/{org}/teams/{team_slug}", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/orgs/{org}/teams/{team_slug}", async (ctx, next) => {
+router.patch("/orgs/:org/teams/:teamSlug", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/teams/{team_slug}/discussions", async (ctx, next) => {
+router.delete("/orgs/:org/teams/:teamSlug", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/orgs/{org}/teams/{team_slug}/discussions", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/discussions", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/orgs/:org/teams/:teamSlug/discussions", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1002,7 +984,7 @@ router.get(
 )
 
 router.patch(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1011,7 +993,7 @@ router.patch(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1020,7 +1002,7 @@ router.delete(
 )
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1029,7 +1011,7 @@ router.get(
 )
 
 router.post(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1038,7 +1020,7 @@ router.post(
 )
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1047,7 +1029,7 @@ router.get(
 )
 
 router.patch(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1056,7 +1038,7 @@ router.patch(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1065,7 +1047,7 @@ router.delete(
 )
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1074,7 +1056,7 @@ router.get(
 )
 
 router.post(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1083,7 +1065,7 @@ router.post(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1092,7 +1074,7 @@ router.delete(
 )
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1101,7 +1083,7 @@ router.get(
 )
 
 router.post(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1110,7 +1092,7 @@ router.post(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}",
+  "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1118,20 +1100,20 @@ router.delete(
   }
 )
 
-router.get("/orgs/{org}/teams/{team_slug}/invitations", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/invitations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/orgs/{org}/teams/{team_slug}/members", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/members", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+  "/orgs/:org/teams/:teamSlug/memberships/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1140,7 +1122,7 @@ router.get(
 )
 
 router.put(
-  "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+  "/orgs/:org/teams/:teamSlug/memberships/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1149,7 +1131,7 @@ router.put(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/memberships/{username}",
+  "/orgs/:org/teams/:teamSlug/memberships/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1157,14 +1139,14 @@ router.delete(
   }
 )
 
-router.get("/orgs/{org}/teams/{team_slug}/projects", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/projects", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+  "/orgs/:org/teams/:teamSlug/projects/:projectId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1173,7 +1155,7 @@ router.get(
 )
 
 router.put(
-  "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+  "/orgs/:org/teams/:teamSlug/projects/:projectId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1182,7 +1164,7 @@ router.put(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/projects/{project_id}",
+  "/orgs/:org/teams/:teamSlug/projects/:projectId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1190,14 +1172,14 @@ router.delete(
   }
 )
 
-router.get("/orgs/{org}/teams/{team_slug}/repos", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/repos", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+  "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1206,7 +1188,7 @@ router.get(
 )
 
 router.put(
-  "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+  "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1215,7 +1197,7 @@ router.put(
 )
 
 router.delete(
-  "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}",
+  "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1224,7 +1206,7 @@ router.delete(
 )
 
 router.get(
-  "/orgs/{org}/teams/{team_slug}/team-sync/group-mappings",
+  "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1233,7 +1215,7 @@ router.get(
 )
 
 router.patch(
-  "/orgs/{org}/teams/{team_slug}/team-sync/group-mappings",
+  "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1241,98 +1223,98 @@ router.patch(
   }
 )
 
-router.get("/orgs/{org}/teams/{team_slug}/teams", async (ctx, next) => {
+router.get("/orgs/:org/teams/:teamSlug/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/projects/columns/cards/{card_id}", async (ctx, next) => {
+router.get("/projects/columns/cards/:cardId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/projects/columns/cards/{card_id}", async (ctx, next) => {
+router.patch("/projects/columns/cards/:cardId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/projects/columns/cards/{card_id}", async (ctx, next) => {
+router.delete("/projects/columns/cards/:cardId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/projects/columns/cards/{card_id}/moves", async (ctx, next) => {
+router.post("/projects/columns/cards/:cardId/moves", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/projects/columns/{column_id}", async (ctx, next) => {
+router.get("/projects/columns/:columnId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/projects/columns/{column_id}", async (ctx, next) => {
+router.patch("/projects/columns/:columnId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/projects/columns/{column_id}", async (ctx, next) => {
+router.delete("/projects/columns/:columnId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/projects/columns/{column_id}/cards", async (ctx, next) => {
+router.get("/projects/columns/:columnId/cards", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/projects/columns/{column_id}/cards", async (ctx, next) => {
+router.post("/projects/columns/:columnId/cards", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/projects/columns/{column_id}/moves", async (ctx, next) => {
+router.post("/projects/columns/:columnId/moves", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/projects/{project_id}", async (ctx, next) => {
+router.get("/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/projects/{project_id}", async (ctx, next) => {
+router.patch("/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/projects/{project_id}", async (ctx, next) => {
+router.delete("/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/projects/{project_id}/collaborators", async (ctx, next) => {
+router.get("/projects/:projectId/collaborators", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.put(
-  "/projects/{project_id}/collaborators/{username}",
+  "/projects/:projectId/collaborators/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1341,7 +1323,7 @@ router.put(
 )
 
 router.delete(
-  "/projects/{project_id}/collaborators/{username}",
+  "/projects/:projectId/collaborators/:username",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1350,7 +1332,7 @@ router.delete(
 )
 
 router.get(
-  "/projects/{project_id}/collaborators/{username}/permission",
+  "/projects/:projectId/collaborators/:username/permission",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1358,13 +1340,13 @@ router.get(
   }
 )
 
-router.get("/projects/{project_id}/columns", async (ctx, next) => {
+router.get("/projects/:projectId/columns", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/projects/{project_id}/columns", async (ctx, next) => {
+router.post("/projects/:projectId/columns", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -1376,38 +1358,38 @@ router.get("/rate_limit", async (ctx, next) => {
   return next()
 })
 
-router.delete("/reactions/{reaction_id}", async (ctx, next) => {
+router.delete("/reactions/:reactionId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}", async (ctx, next) => {
+router.get("/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/repos/{owner}/{repo}", async (ctx, next) => {
+router.patch("/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/repos/{owner}/{repo}", async (ctx, next) => {
+router.delete("/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/actions/artifacts", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/artifacts", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+  "/repos/:owner/:repo/actions/artifacts/:artifactId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1416,7 +1398,7 @@ router.get(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
+  "/repos/:owner/:repo/actions/artifacts/:artifactId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1425,7 +1407,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}",
+  "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1433,14 +1415,14 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/actions/jobs/{job_id}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/jobs/:jobId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/jobs/{job_id}/logs",
+  "/repos/:owner/:repo/actions/jobs/:jobId/logs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1448,14 +1430,14 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/actions/runners", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/runners", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runners/downloads",
+  "/repos/:owner/:repo/actions/runners/downloads",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1464,7 +1446,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/actions/runners/registration-token",
+  "/repos/:owner/:repo/actions/runners/registration-token",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1473,7 +1455,7 @@ router.post(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/actions/runners/remove-token",
+  "/repos/:owner/:repo/actions/runners/remove-token",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1482,7 +1464,7 @@ router.post(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runners/{runner_id}",
+  "/repos/:owner/:repo/actions/runners/:runnerId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1491,7 +1473,7 @@ router.get(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/actions/runners/{runner_id}",
+  "/repos/:owner/:repo/actions/runners/:runnerId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1499,20 +1481,20 @@ router.delete(
   }
 )
 
-router.get("/repos/{owner}/{repo}/actions/runs", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/runs", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/actions/runs/{run_id}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/runs/:runId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+  "/repos/:owner/:repo/actions/runs/:runId/artifacts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1521,7 +1503,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/cancel",
+  "/repos/:owner/:repo/actions/runs/:runId/cancel",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1530,7 +1512,7 @@ router.post(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+  "/repos/:owner/:repo/actions/runs/:runId/jobs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1539,7 +1521,7 @@ router.get(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+  "/repos/:owner/:repo/actions/runs/:runId/logs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1548,7 +1530,7 @@ router.get(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/logs",
+  "/repos/:owner/:repo/actions/runs/:runId/logs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1557,7 +1539,7 @@ router.delete(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun",
+  "/repos/:owner/:repo/actions/runs/:runId/rerun",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1566,7 +1548,7 @@ router.post(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/runs/{run_id}/timing",
+  "/repos/:owner/:repo/actions/runs/:runId/timing",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1574,14 +1556,14 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/actions/secrets", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/secrets", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/secrets/public-key",
+  "/repos/:owner/:repo/actions/secrets/public-key",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1590,7 +1572,7 @@ router.get(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+  "/repos/:owner/:repo/actions/secrets/:secretName",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1599,7 +1581,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+  "/repos/:owner/:repo/actions/secrets/:secretName",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1608,7 +1590,7 @@ router.put(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/actions/secrets/{secret_name}",
+  "/repos/:owner/:repo/actions/secrets/:secretName",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1616,14 +1598,14 @@ router.delete(
   }
 )
 
-router.get("/repos/{owner}/{repo}/actions/workflows", async (ctx, next) => {
+router.get("/repos/:owner/:repo/actions/workflows", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/actions/workflows/{workflow_id}",
+  "/repos/:owner/:repo/actions/workflows/:workflowId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1632,7 +1614,7 @@ router.get(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
+  "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1641,7 +1623,7 @@ router.get(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing",
+  "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1649,20 +1631,20 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/assignees", async (ctx, next) => {
+router.get("/repos/:owner/:repo/assignees", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/assignees/{assignee}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/assignees/:assignee", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.put(
-  "/repos/{owner}/{repo}/automated-security-fixes",
+  "/repos/:owner/:repo/automated-security-fixes",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1671,7 +1653,7 @@ router.put(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/automated-security-fixes",
+  "/repos/:owner/:repo/automated-security-fixes",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1679,20 +1661,20 @@ router.delete(
   }
 )
 
-router.get("/repos/{owner}/{repo}/branches", async (ctx, next) => {
+router.get("/repos/:owner/:repo/branches", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/branches/{branch}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/branches/:branch", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection",
+  "/repos/:owner/:repo/branches/:branch/protection",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1701,7 +1683,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/branches/{branch}/protection",
+  "/repos/:owner/:repo/branches/:branch/protection",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1710,7 +1692,7 @@ router.put(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection",
+  "/repos/:owner/:repo/branches/:branch/protection",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1719,7 +1701,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+  "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1728,7 +1710,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+  "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1737,7 +1719,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+  "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1746,7 +1728,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+  "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1755,7 +1737,7 @@ router.get(
 )
 
 router.patch(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+  "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1764,7 +1746,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
+  "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1773,7 +1755,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+  "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1782,7 +1764,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+  "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1791,7 +1773,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
+  "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1800,7 +1782,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1809,7 +1791,7 @@ router.get(
 )
 
 router.patch(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1818,7 +1800,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1827,7 +1809,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1836,7 +1818,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1845,7 +1827,7 @@ router.put(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1854,7 +1836,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
+  "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1863,7 +1845,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1872,7 +1854,7 @@ router.get(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1881,7 +1863,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1890,7 +1872,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1899,7 +1881,7 @@ router.put(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1908,7 +1890,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1917,7 +1899,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1926,7 +1908,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1935,7 +1917,7 @@ router.put(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1944,7 +1926,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1953,7 +1935,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1962,7 +1944,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1971,7 +1953,7 @@ router.put(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1980,7 +1962,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users",
+  "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1988,23 +1970,29 @@ router.delete(
   }
 )
 
-router.post("/repos/{owner}/{repo}/check-runs", async (ctx, next) => {
+router.post("/repos/:owner/:repo/check-runs", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.patch(
-  "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+  "/repos/:owner/:repo/check-runs/:checkRunId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+router.get("/repos/:owner/:repo/check-runs/:checkRunId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.get(
-  "/repos/{owner}/{repo}/check-runs/{check_run_id}",
+  "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2012,23 +2000,14 @@ router.get(
   }
 )
 
-router.get(
-  "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post("/repos/{owner}/{repo}/check-suites", async (ctx, next) => {
+router.post("/repos/:owner/:repo/check-suites", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.patch(
-  "/repos/{owner}/{repo}/check-suites/preferences",
+  "/repos/:owner/:repo/check-suites/preferences",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2037,7 +2016,7 @@ router.patch(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/check-suites/{check_suite_id}",
+  "/repos/:owner/:repo/check-suites/:checkSuiteId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2046,7 +2025,7 @@ router.get(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+  "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2055,7 +2034,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
+  "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2063,14 +2042,14 @@ router.post(
   }
 )
 
-router.get("/repos/{owner}/{repo}/code-scanning/alerts", async (ctx, next) => {
+router.get("/repos/:owner/:repo/code-scanning/alerts", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/code-scanning/alerts/{alert_id}",
+  "/repos/:owner/:repo/code-scanning/alerts/:alertId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2078,14 +2057,665 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/collaborators", async (ctx, next) => {
+router.get("/repos/:owner/:repo/collaborators", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/collaborators/:username", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.put("/repos/:owner/:repo/collaborators/:username", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete(
+  "/repos/:owner/:repo/collaborators/:username",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/collaborators/:username/permission",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/comments", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/comments/:commentId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/comments/:commentId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/comments/:commentId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/collaborators/{username}",
+  "/repos/:owner/:repo/comments/:commentId/reactions",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/comments/:commentId/reactions",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.delete(
+  "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/commits", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get(
+  "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/commits/:commitSha/comments",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/commits/:commitSha/comments",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/commits/:commitSha/pulls",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/commits/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/commits/:ref/check-runs", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get(
+  "/repos/:owner/:repo/commits/:ref/check-suites",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/commits/:ref/status", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/commits/:ref/statuses", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get(
+  "/repos/:owner/:repo/community/code_of_conduct",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/community/profile", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/compare/:base...:head", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/contents/:path", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.put("/repos/:owner/:repo/contents/:path", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/contents/:path", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/contributors", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/deployments", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/deployments", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get(
+  "/repos/:owner/:repo/deployments/:deploymentId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.delete(
+  "/repos/:owner/:repo/deployments/:deploymentId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post("/repos/:owner/:repo/dispatches", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/events", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/forks", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/forks", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/git/blobs", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/blobs/:fileSha", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/git/commits", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/commits/:commitSha", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/matching-refs/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/ref/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/git/refs", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/git/refs/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/git/refs/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/git/tags", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/tags/:tagSha", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/git/trees", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/git/trees/:treeSha", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/hooks", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/hooks", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/hooks/:hookId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/hooks/:hookId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/hooks/:hookId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/hooks/:hookId/pings", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/hooks/:hookId/tests", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.put("/repos/:owner/:repo/import", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/import", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/import", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/import", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/import/authors", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch(
+  "/repos/:owner/:repo/import/authors/:authorId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/import/large_files", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/import/lfs", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/installation", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/interaction-limits", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.put("/repos/:owner/:repo/interaction-limits", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete("/repos/:owner/:repo/interaction-limits", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/invitations", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.delete(
+  "/repos/:owner/:repo/invitations/:invitationId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.patch(
+  "/repos/:owner/:repo/invitations/:invitationId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/issues", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/issues", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/issues/comments", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get(
+  "/repos/:owner/:repo/issues/comments/:commentId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.patch(
+  "/repos/:owner/:repo/issues/comments/:commentId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.delete(
+  "/repos/:owner/:repo/issues/comments/:commentId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.delete(
+  "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get("/repos/:owner/:repo/issues/events", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/issues/events/:eventId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/issues/:issueNumber", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.patch("/repos/:owner/:repo/issues/:issueNumber", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post(
+  "/repos/:owner/:repo/issues/:issueNumber/assignees",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.delete(
+  "/repos/:owner/:repo/issues/:issueNumber/assignees",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/issues/:issueNumber/comments",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/issues/:issueNumber/comments",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/issues/:issueNumber/events",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.get(
+  "/repos/:owner/:repo/issues/:issueNumber/labels",
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+router.post(
+  "/repos/:owner/:repo/issues/:issueNumber/labels",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2094,7 +2724,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/collaborators/{username}",
+  "/repos/:owner/:repo/issues/:issueNumber/labels",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2103,37 +2733,7 @@ router.put(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/collaborators/{username}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/collaborators/{username}/permission",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/comments", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/comments/{comment_id}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch(
-  "/repos/{owner}/{repo}/comments/{comment_id}",
+  "/repos/:owner/:repo/issues/:issueNumber/labels",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2142,640 +2742,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/comments/{comment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/comments/{comment_id}/reactions",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/commits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{commit_sha}/comments",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/commits/{commit_sha}/comments",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{commit_sha}/pulls",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/commits/{ref}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{ref}/check-runs",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{ref}/check-suites",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/commits/{ref}/status", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/commits/{ref}/statuses",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/community/code_of_conduct",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/community/profile", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/compare/{base}...{head}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/contents/{path}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.put("/repos/{owner}/{repo}/contents/{path}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete("/repos/{owner}/{repo}/contents/{path}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/contributors", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/deployments", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/deployments", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/deployments/{deployment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/deployments/{deployment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post("/repos/{owner}/{repo}/dispatches", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/events", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/forks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/forks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/git/blobs", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/git/blobs/{file_sha}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/git/commits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/git/commits/{commit_sha}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/git/matching-refs/{ref}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/git/ref/{ref}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/git/refs", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch("/repos/{owner}/{repo}/git/refs/{ref}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete("/repos/{owner}/{repo}/git/refs/{ref}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/git/tags", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/git/tags/{tag_sha}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/git/trees", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/git/trees/{tree_sha}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/hooks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/hooks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/hooks/{hook_id}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch("/repos/{owner}/{repo}/hooks/{hook_id}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete("/repos/{owner}/{repo}/hooks/{hook_id}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post(
-  "/repos/{owner}/{repo}/hooks/{hook_id}/pings",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/hooks/{hook_id}/tests",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.put("/repos/{owner}/{repo}/import", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/import", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch("/repos/{owner}/{repo}/import", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete("/repos/{owner}/{repo}/import", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/import/authors", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch(
-  "/repos/{owner}/{repo}/import/authors/{author_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/import/large_files", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch("/repos/{owner}/{repo}/import/lfs", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/installation", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/interaction-limits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.put("/repos/{owner}/{repo}/interaction-limits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete("/repos/{owner}/{repo}/interaction-limits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/invitations", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.delete(
-  "/repos/{owner}/{repo}/invitations/{invitation_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.patch(
-  "/repos/{owner}/{repo}/invitations/{invitation_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/issues", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/issues", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/issues/comments", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.patch(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/issues/events", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/issues/events/{event_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/issues/{issue_number}", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.patch(
-  "/repos/{owner}/{repo}/issues/{issue_number}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/issues/{issue_number}/assignees",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/issues/{issue_number}/comments",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/issues/{issue_number}/comments",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/issues/{issue_number}/events",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/issues/{issue_number}/labels",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.post(
-  "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+  "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2784,7 +2751,7 @@ router.post(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/issues/{issue_number}/labels",
+  "/repos/:owner/:repo/issues/:issueNumber/lock",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2793,34 +2760,7 @@ router.put(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/issues/{issue_number}/labels",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.put(
-  "/repos/{owner}/{repo}/issues/{issue_number}/lock",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.delete(
-  "/repos/{owner}/{repo}/issues/{issue_number}/lock",
+  "/repos/:owner/:repo/issues/:issueNumber/lock",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2829,7 +2769,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+  "/repos/:owner/:repo/issues/:issueNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2838,7 +2778,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/issues/{issue_number}/reactions",
+  "/repos/:owner/:repo/issues/:issueNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2847,7 +2787,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}",
+  "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2856,7 +2796,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/issues/{issue_number}/timeline",
+  "/repos/:owner/:repo/issues/:issueNumber/timeline",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2864,92 +2804,92 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/keys", async (ctx, next) => {
+router.get("/repos/:owner/:repo/keys", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/keys", async (ctx, next) => {
+router.post("/repos/:owner/:repo/keys", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/keys/{key_id}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/keys/:keyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/repos/{owner}/{repo}/keys/{key_id}", async (ctx, next) => {
+router.delete("/repos/:owner/:repo/keys/:keyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/labels", async (ctx, next) => {
+router.get("/repos/:owner/:repo/labels", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/labels", async (ctx, next) => {
+router.post("/repos/:owner/:repo/labels", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/labels/{name}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/labels/:name", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/repos/{owner}/{repo}/labels/{name}", async (ctx, next) => {
+router.patch("/repos/:owner/:repo/labels/:name", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/repos/{owner}/{repo}/labels/{name}", async (ctx, next) => {
+router.delete("/repos/:owner/:repo/labels/:name", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/languages", async (ctx, next) => {
+router.get("/repos/:owner/:repo/languages", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/license", async (ctx, next) => {
+router.get("/repos/:owner/:repo/license", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/merges", async (ctx, next) => {
+router.post("/repos/:owner/:repo/merges", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/milestones", async (ctx, next) => {
+router.get("/repos/:owner/:repo/milestones", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/milestones", async (ctx, next) => {
+router.post("/repos/:owner/:repo/milestones", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/milestones/{milestone_number}",
+  "/repos/:owner/:repo/milestones/:milestoneNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2958,7 +2898,7 @@ router.get(
 )
 
 router.patch(
-  "/repos/{owner}/{repo}/milestones/{milestone_number}",
+  "/repos/:owner/:repo/milestones/:milestoneNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2967,7 +2907,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/milestones/{milestone_number}",
+  "/repos/:owner/:repo/milestones/:milestoneNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2976,7 +2916,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/milestones/{milestone_number}/labels",
+  "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -2984,101 +2924,98 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/notifications", async (ctx, next) => {
+router.get("/repos/:owner/:repo/notifications", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/repos/{owner}/{repo}/notifications", async (ctx, next) => {
+router.put("/repos/:owner/:repo/notifications", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/pages", async (ctx, next) => {
+router.get("/repos/:owner/:repo/pages", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/pages", async (ctx, next) => {
+router.post("/repos/:owner/:repo/pages", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/repos/{owner}/{repo}/pages", async (ctx, next) => {
+router.delete("/repos/:owner/:repo/pages", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/repos/{owner}/{repo}/pages", async (ctx, next) => {
+router.put("/repos/:owner/:repo/pages", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/pages/builds", async (ctx, next) => {
+router.post("/repos/:owner/:repo/pages/builds", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/pages/builds", async (ctx, next) => {
+router.get("/repos/:owner/:repo/pages/builds", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/pages/builds/latest", async (ctx, next) => {
+router.get("/repos/:owner/:repo/pages/builds/latest", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/pages/builds/:buildId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/projects", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/projects", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/pulls", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.post("/repos/:owner/:repo/pulls", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/pulls/comments", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/pages/builds/{build_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get("/repos/{owner}/{repo}/projects", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/projects", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/pulls", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.post("/repos/{owner}/{repo}/pulls", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get("/repos/{owner}/{repo}/pulls/comments", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
-
-router.get(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+  "/repos/:owner/:repo/pulls/comments/:commentId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3087,7 +3024,7 @@ router.get(
 )
 
 router.patch(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+  "/repos/:owner/:repo/pulls/comments/:commentId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3096,7 +3033,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}",
+  "/repos/:owner/:repo/pulls/comments/:commentId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3105,7 +3042,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+  "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3114,7 +3051,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+  "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3123,7 +3060,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}",
+  "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3131,20 +3068,20 @@ router.delete(
   }
 )
 
-router.get("/repos/{owner}/{repo}/pulls/{pull_number}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/pulls/:pullNumber", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/repos/{owner}/{repo}/pulls/{pull_number}", async (ctx, next) => {
+router.patch("/repos/:owner/:repo/pulls/:pullNumber", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+  "/repos/:owner/:repo/pulls/:pullNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3153,7 +3090,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/comments",
+  "/repos/:owner/:repo/pulls/:pullNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3162,7 +3099,7 @@ router.post(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies",
+  "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3171,43 +3108,34 @@ router.post(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/commits",
+  "/repos/:owner/:repo/pulls/:pullNumber/commits",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+router.get("/repos/:owner/:repo/pulls/:pullNumber/files", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.get("/repos/:owner/:repo/pulls/:pullNumber/merge", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
+
+router.put("/repos/:owner/:repo/pulls/:pullNumber/merge", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/files",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.put(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
-
-router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+  "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3216,7 +3144,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+  "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3225,7 +3153,7 @@ router.post(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+  "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3234,7 +3162,7 @@ router.delete(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3243,7 +3171,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3252,7 +3180,7 @@ router.post(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3261,7 +3189,7 @@ router.get(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3270,7 +3198,7 @@ router.delete(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3279,7 +3207,7 @@ router.put(
 )
 
 router.get(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3288,7 +3216,7 @@ router.get(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3297,7 +3225,7 @@ router.put(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events",
+  "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3306,7 +3234,7 @@ router.post(
 )
 
 router.put(
-  "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch",
+  "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3314,26 +3242,26 @@ router.put(
   }
 )
 
-router.get("/repos/{owner}/{repo}/readme", async (ctx, next) => {
+router.get("/repos/:owner/:repo/readme", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/releases", async (ctx, next) => {
+router.get("/repos/:owner/:repo/releases", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/releases", async (ctx, next) => {
+router.post("/repos/:owner/:repo/releases", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+  "/repos/:owner/:repo/releases/assets/:assetId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3342,7 +3270,7 @@ router.get(
 )
 
 router.patch(
-  "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+  "/repos/:owner/:repo/releases/assets/:assetId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3351,7 +3279,7 @@ router.patch(
 )
 
 router.delete(
-  "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+  "/repos/:owner/:repo/releases/assets/:assetId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3359,44 +3287,38 @@ router.delete(
   }
 )
 
-router.get("/repos/{owner}/{repo}/releases/latest", async (ctx, next) => {
+router.get("/repos/:owner/:repo/releases/latest", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/releases/tags/{tag}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/releases/tags/:tag", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/releases/{release_id}", async (ctx, next) => {
+router.get("/repos/:owner/:repo/releases/:releaseId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch(
-  "/repos/{owner}/{repo}/releases/{release_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.patch("/repos/:owner/:repo/releases/:releaseId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
-router.delete(
-  "/repos/{owner}/{repo}/releases/{release_id}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.delete("/repos/:owner/:repo/releases/:releaseId", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.get(
-  "/repos/{owner}/{repo}/releases/{release_id}/assets",
+  "/repos/:owner/:repo/releases/:releaseId/assets",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3405,7 +3327,7 @@ router.get(
 )
 
 router.post(
-  "/repos/{owner}/{repo}/releases/{release_id}/assets",
+  "/repos/:owner/:repo/releases/:releaseId/assets",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3413,110 +3335,110 @@ router.post(
   }
 )
 
-router.get("/repos/{owner}/{repo}/stargazers", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stargazers", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/stats/code_frequency", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stats/code_frequency", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/stats/commit_activity", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stats/commit_activity", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/stats/contributors", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stats/contributors", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/stats/participation", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stats/participation", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/stats/punch_card", async (ctx, next) => {
+router.get("/repos/:owner/:repo/stats/punch_card", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/statuses/{sha}", async (ctx, next) => {
+router.post("/repos/:owner/:repo/statuses/:sha", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/subscribers", async (ctx, next) => {
+router.get("/repos/:owner/:repo/subscribers", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/subscription", async (ctx, next) => {
+router.get("/repos/:owner/:repo/subscription", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/repos/{owner}/{repo}/subscription", async (ctx, next) => {
+router.put("/repos/:owner/:repo/subscription", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/repos/{owner}/{repo}/subscription", async (ctx, next) => {
+router.delete("/repos/:owner/:repo/subscription", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/tags", async (ctx, next) => {
+router.get("/repos/:owner/:repo/tags", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/teams", async (ctx, next) => {
+router.get("/repos/:owner/:repo/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/topics", async (ctx, next) => {
+router.get("/repos/:owner/:repo/topics", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/repos/{owner}/{repo}/topics", async (ctx, next) => {
+router.put("/repos/:owner/:repo/topics", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/traffic/clones", async (ctx, next) => {
+router.get("/repos/:owner/:repo/traffic/clones", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/traffic/popular/paths", async (ctx, next) => {
+router.get("/repos/:owner/:repo/traffic/popular/paths", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/repos/{owner}/{repo}/traffic/popular/referrers",
+  "/repos/:owner/:repo/traffic/popular/referrers",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3524,50 +3446,44 @@ router.get(
   }
 )
 
-router.get("/repos/{owner}/{repo}/traffic/views", async (ctx, next) => {
+router.get("/repos/:owner/:repo/traffic/views", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/repos/{owner}/{repo}/transfer", async (ctx, next) => {
+router.post("/repos/:owner/:repo/transfer", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/repos/{owner}/{repo}/vulnerability-alerts", async (ctx, next) => {
+router.get("/repos/:owner/:repo/vulnerability-alerts", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/repos/{owner}/{repo}/vulnerability-alerts", async (ctx, next) => {
+router.put("/repos/:owner/:repo/vulnerability-alerts", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete(
-  "/repos/{owner}/{repo}/vulnerability-alerts",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.delete("/repos/:owner/:repo/vulnerability-alerts", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
-router.get(
-  "/repos/{owner}/{repo}/{archive_format}/{ref}",
-  async (ctx, next) => {
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
-    return next()
-  }
-)
+router.get("/repos/:owner/:repo/:archiveFormat/:ref", async (ctx, next) => {
+  ctx.status = 501
+  ctx.body = { error: "not implemented" }
+  return next()
+})
 
 router.post(
-  "/repos/{template_owner}/{template_repo}/generate",
+  "/repos/:templateOwner/:templateRepo/generate",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3581,20 +3497,20 @@ router.get("/repositories", async (ctx, next) => {
   return next()
 })
 
-router.get("/scim/v2/organizations/{org}/Users", async (ctx, next) => {
+router.get("/scim/v2/organizations/:org/Users", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/scim/v2/organizations/{org}/Users", async (ctx, next) => {
+router.post("/scim/v2/organizations/:org/Users", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/scim/v2/organizations/{org}/Users/{scim_user_id}",
+  "/scim/v2/organizations/:org/Users/:scimUserId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3603,7 +3519,7 @@ router.get(
 )
 
 router.put(
-  "/scim/v2/organizations/{org}/Users/{scim_user_id}",
+  "/scim/v2/organizations/:org/Users/:scimUserId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3612,7 +3528,7 @@ router.put(
 )
 
 router.patch(
-  "/scim/v2/organizations/{org}/Users/{scim_user_id}",
+  "/scim/v2/organizations/:org/Users/:scimUserId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3621,7 +3537,7 @@ router.patch(
 )
 
 router.delete(
-  "/scim/v2/organizations/{org}/Users/{scim_user_id}",
+  "/scim/v2/organizations/:org/Users/:scimUserId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3671,38 +3587,38 @@ router.get("/search/users", async (ctx, next) => {
   return next()
 })
 
-router.get("/teams/{team_id}", async (ctx, next) => {
+router.get("/teams/:teamId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/teams/{team_id}", async (ctx, next) => {
+router.patch("/teams/:teamId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/teams/{team_id}", async (ctx, next) => {
+router.delete("/teams/:teamId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/discussions", async (ctx, next) => {
+router.get("/teams/:teamId/discussions", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.post("/teams/{team_id}/discussions", async (ctx, next) => {
+router.post("/teams/:teamId/discussions", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.get(
-  "/teams/{team_id}/discussions/{discussion_number}",
+  "/teams/:teamId/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3711,7 +3627,7 @@ router.get(
 )
 
 router.patch(
-  "/teams/{team_id}/discussions/{discussion_number}",
+  "/teams/:teamId/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3720,7 +3636,7 @@ router.patch(
 )
 
 router.delete(
-  "/teams/{team_id}/discussions/{discussion_number}",
+  "/teams/:teamId/discussions/:discussionNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3729,7 +3645,7 @@ router.delete(
 )
 
 router.get(
-  "/teams/{team_id}/discussions/{discussion_number}/comments",
+  "/teams/:teamId/discussions/:discussionNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3738,7 +3654,7 @@ router.get(
 )
 
 router.post(
-  "/teams/{team_id}/discussions/{discussion_number}/comments",
+  "/teams/:teamId/discussions/:discussionNumber/comments",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3747,7 +3663,7 @@ router.post(
 )
 
 router.get(
-  "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+  "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3756,7 +3672,7 @@ router.get(
 )
 
 router.patch(
-  "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+  "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3765,7 +3681,7 @@ router.patch(
 )
 
 router.delete(
-  "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}",
+  "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3774,7 +3690,7 @@ router.delete(
 )
 
 router.get(
-  "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+  "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3783,7 +3699,7 @@ router.get(
 )
 
 router.post(
-  "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+  "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3792,7 +3708,7 @@ router.post(
 )
 
 router.get(
-  "/teams/{team_id}/discussions/{discussion_number}/reactions",
+  "/teams/:teamId/discussions/:discussionNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3801,7 +3717,7 @@ router.get(
 )
 
 router.post(
-  "/teams/{team_id}/discussions/{discussion_number}/reactions",
+  "/teams/:teamId/discussions/:discussionNumber/reactions",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3809,115 +3725,115 @@ router.post(
   }
 )
 
-router.get("/teams/{team_id}/invitations", async (ctx, next) => {
+router.get("/teams/:teamId/invitations", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/members", async (ctx, next) => {
+router.get("/teams/:teamId/members", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/members/{username}", async (ctx, next) => {
+router.get("/teams/:teamId/members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/teams/{team_id}/members/{username}", async (ctx, next) => {
+router.put("/teams/:teamId/members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/teams/{team_id}/members/{username}", async (ctx, next) => {
+router.delete("/teams/:teamId/members/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/memberships/{username}", async (ctx, next) => {
+router.get("/teams/:teamId/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/teams/{team_id}/memberships/{username}", async (ctx, next) => {
+router.put("/teams/:teamId/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/teams/{team_id}/memberships/{username}", async (ctx, next) => {
+router.delete("/teams/:teamId/memberships/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/projects", async (ctx, next) => {
+router.get("/teams/:teamId/projects", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/projects/{project_id}", async (ctx, next) => {
+router.get("/teams/:teamId/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/teams/{team_id}/projects/{project_id}", async (ctx, next) => {
+router.put("/teams/:teamId/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/teams/{team_id}/projects/{project_id}", async (ctx, next) => {
+router.delete("/teams/:teamId/projects/:projectId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/repos", async (ctx, next) => {
+router.get("/teams/:teamId/repos", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/repos/{owner}/{repo}", async (ctx, next) => {
+router.get("/teams/:teamId/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/teams/{team_id}/repos/{owner}/{repo}", async (ctx, next) => {
+router.put("/teams/:teamId/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/teams/{team_id}/repos/{owner}/{repo}", async (ctx, next) => {
+router.delete("/teams/:teamId/repos/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/team-sync/group-mappings", async (ctx, next) => {
+router.get("/teams/:teamId/team-sync/group-mappings", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/teams/{team_id}/team-sync/group-mappings", async (ctx, next) => {
+router.patch("/teams/:teamId/team-sync/group-mappings", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/teams/{team_id}/teams", async (ctx, next) => {
+router.get("/teams/:teamId/teams", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -3941,19 +3857,19 @@ router.get("/user/blocks", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/blocks/{username}", async (ctx, next) => {
+router.get("/user/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/user/blocks/{username}", async (ctx, next) => {
+router.put("/user/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/blocks/{username}", async (ctx, next) => {
+router.delete("/user/blocks/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -3995,19 +3911,19 @@ router.get("/user/following", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/following/{username}", async (ctx, next) => {
+router.get("/user/following/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/user/following/{username}", async (ctx, next) => {
+router.put("/user/following/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/following/{username}", async (ctx, next) => {
+router.delete("/user/following/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4025,13 +3941,13 @@ router.post("/user/gpg_keys", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/gpg_keys/{gpg_key_id}", async (ctx, next) => {
+router.get("/user/gpg_keys/:gpgKeyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/gpg_keys/{gpg_key_id}", async (ctx, next) => {
+router.delete("/user/gpg_keys/:gpgKeyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4044,7 +3960,7 @@ router.get("/user/installations", async (ctx, next) => {
 })
 
 router.get(
-  "/user/installations/{installation_id}/repositories",
+  "/user/installations/:installationId/repositories",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4053,7 +3969,7 @@ router.get(
 )
 
 router.put(
-  "/user/installations/{installation_id}/repositories/{repository_id}",
+  "/user/installations/:installationId/repositories/:repositoryId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4062,7 +3978,7 @@ router.put(
 )
 
 router.delete(
-  "/user/installations/{installation_id}/repositories/{repository_id}",
+  "/user/installations/:installationId/repositories/:repositoryId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4088,13 +4004,13 @@ router.post("/user/keys", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/keys/{key_id}", async (ctx, next) => {
+router.get("/user/keys/:keyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/keys/{key_id}", async (ctx, next) => {
+router.delete("/user/keys/:keyId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4118,13 +4034,13 @@ router.get("/user/memberships/orgs", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/memberships/orgs/{org}", async (ctx, next) => {
+router.get("/user/memberships/orgs/:org", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.patch("/user/memberships/orgs/{org}", async (ctx, next) => {
+router.patch("/user/memberships/orgs/:org", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4142,26 +4058,26 @@ router.get("/user/migrations", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/migrations/{migration_id}", async (ctx, next) => {
+router.get("/user/migrations/:migrationId", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/user/migrations/{migration_id}/archive", async (ctx, next) => {
+router.get("/user/migrations/:migrationId/archive", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/migrations/{migration_id}/archive", async (ctx, next) => {
+router.delete("/user/migrations/:migrationId/archive", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
 router.delete(
-  "/user/migrations/{migration_id}/repos/{repo_name}/lock",
+  "/user/migrations/:migrationId/repos/:repoName/lock",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4206,7 +4122,7 @@ router.get("/user/repository_invitations", async (ctx, next) => {
 })
 
 router.patch(
-  "/user/repository_invitations/{invitation_id}",
+  "/user/repository_invitations/:invitationId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4215,7 +4131,7 @@ router.patch(
 )
 
 router.delete(
-  "/user/repository_invitations/{invitation_id}",
+  "/user/repository_invitations/:invitationId",
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4229,19 +4145,19 @@ router.get("/user/starred", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/starred/{owner}/{repo}", async (ctx, next) => {
+router.get("/user/starred/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.put("/user/starred/{owner}/{repo}", async (ctx, next) => {
+router.put("/user/starred/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/user/starred/{owner}/{repo}", async (ctx, next) => {
+router.delete("/user/starred/:owner/:repo", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4259,7 +4175,7 @@ router.get("/user/teams", async (ctx, next) => {
   return next()
 })
 
-router.get("/user/{migration_id}/repositories", async (ctx, next) => {
+router.get("/user/:migrationId/repositories", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
@@ -4271,115 +4187,115 @@ router.get("/users", async (ctx, next) => {
   return next()
 })
 
-router.get("/users/{username}", async (ctx, next) => {
+router.get("/users/:username", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/events", async (ctx, next) => {
+router.get("/users/:username/events", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/events/orgs/{org}", async (ctx, next) => {
+router.get("/users/:username/events/orgs/:org", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/events/public", async (ctx, next) => {
+router.get("/users/:username/events/public", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/followers", async (ctx, next) => {
+router.get("/users/:username/followers", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/following", async (ctx, next) => {
+router.get("/users/:username/following", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/following/{target_user}", async (ctx, next) => {
+router.get("/users/:username/following/:targetUser", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/gists", async (ctx, next) => {
+router.get("/users/:username/gists", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/gpg_keys", async (ctx, next) => {
+router.get("/users/:username/gpg_keys", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/hovercard", async (ctx, next) => {
+router.get("/users/:username/hovercard", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/installation", async (ctx, next) => {
+router.get("/users/:username/installation", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/keys", async (ctx, next) => {
+router.get("/users/:username/keys", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/orgs", async (ctx, next) => {
+router.get("/users/:username/orgs", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/projects", async (ctx, next) => {
+router.get("/users/:username/projects", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/received_events", async (ctx, next) => {
+router.get("/users/:username/received_events", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/received_events/public", async (ctx, next) => {
+router.get("/users/:username/received_events/public", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/repos", async (ctx, next) => {
+router.get("/users/:username/repos", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/starred", async (ctx, next) => {
+router.get("/users/:username/starred", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.get("/users/{username}/subscriptions", async (ctx, next) => {
+router.get("/users/:username/subscriptions", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()

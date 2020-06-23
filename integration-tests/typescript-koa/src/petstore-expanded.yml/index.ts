@@ -29,13 +29,13 @@ router.post("/pets", async (ctx, next) => {
   return next()
 })
 
-router.get("/pets/{id}", async (ctx, next) => {
+router.get("/pets/:id", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
 })
 
-router.delete("/pets/{id}", async (ctx, next) => {
+router.delete("/pets/:id", async (ctx, next) => {
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
