@@ -1,0 +1,249 @@
+openapi: 3.0.3
+servers:
+  - url: http://auth-service.internal.nahkies.co.nz/
+    description: Prod Environment
+  - url: http://auth-service.internal.staging.nahkies.co.nz/
+    description: Prod Environment
+  - url: http://localhost:3000
+    description: Local Instance
+info:
+  description: This services allows registration and authentication of users
+  version: "0.0.1"
+  title: Authentication Service
+  contact:
+    email: support@nahkies.co.nz
+tags:
+  - name: registration
+    description: Operations related to registration
+  - name: authentication
+    description: Operations related to authentication
+  - name: authorization
+    description: Operations related authorization
+  - name: applications
+    description: Operations related to applications
+paths:
+  '/apps/{applicationId}/customers/{customerId}/auth/login':
+    parameters:
+      - $ref: '#/components/parameters/applicationId'
+      - $ref: '#/components/parameters/customerId'
+      - $ref: '#/components/parameters/userId'
+    post:
+      tags:
+        - authentication
+      summary: Login
+      operationId: login
+      description: |
+        Obtains a new session token for a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Failed
+  '/apps/{applicationId}/customers/{customerId}/auth/{userId}/sessions/{sessionId}':
+    parameters:
+      - $ref: '#/components/parameters/applicationId'
+      - $ref: '#/components/parameters/customerId'
+      - $ref: '#/components/parameters/userId'
+      - $ref: '#/components/parameters/sessionId'
+    get:
+      tags:
+        - authentication
+      summary: Session Details
+      operationId: getSession
+      description: Retrieve a session
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - authentication
+      summary: Delete Session
+      operationId: deleteSession
+      description: End a session
+      responses:
+        '204':
+          description: Success
+  #  '/apps/{applicationId}/customers/{customerId}/auth/{userId}/sessions':
+  #    parameters:
+  #      - $ref: '#/components/parameters/applicationId'
+  #      - $ref: '#/components/parameters/customerId'
+  #      - $ref: '#/components/parameters/userId'
+  #    get:
+  #    delete:
+  '/apps/{applicationId}/customers/{customerId}/users/':
+    parameters:
+      - $ref: '#/components/parameters/applicationId'
+      - $ref: '#/components/parameters/customerId'
+    post:
+      tags:
+        - registration
+      summary: Create a user
+      operationId: createUser
+      description: |
+        Creates a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '204':
+          description: Success
+        '401':
+          description: Failed
+#  '/apps/{applicationId}/customers/{customerId}/users/{userId}/email/change'
+#  '/apps/{applicationId}/customers/{customerId}/users/{userId}/email/confirm'
+#  '/apps/{applicationId}/customers/{customerId}/users/{userId}/password/change'
+#  '/apps/{applicationId}/customers/{customerId}/users/{userId}/password/forgot'
+#  '/apps/{applicationId}/customers/{customerId}/users/{userId}/password/reset'
+components:
+  parameters:
+    applicationId:
+      name: applicationId
+      in: path
+      description: Application Id
+      required: true
+      schema:
+        type: string
+        format: id
+    customerId:
+      name: customerId
+      in: path
+      description: Customer Id
+      required: true
+      schema:
+        type: string
+        format: id
+    userId:
+      name: userId
+      in: path
+      description: User Id
+      required: true
+      schema:
+        type: string
+        format: id
+    sessionId:
+      name: sessionId
+      in: path
+      description: Session Id
+      required: true
+      schema:
+        type: string
+        format: id
+  schemas:
+    LoginRequest:
+      required:
+        - username
+        - password
+      properties:
+        username:
+          description: |
+            Username
+          type: string
+          example: first.last@email.com
+        password:
+          description: |
+            Password
+          type: string
+          format: password
+          example: correct-horse-battery-staple
+    LoginResponse:
+      required:
+        - userId
+        - sessionId
+      properties:
+        userId:
+          description: |
+            User Id
+          type: string
+          readOnly: true
+        sessionId:
+          description: |
+            Session Id
+          type: string
+          readOnly: true
+    Session:
+      properties:
+        created:
+          description: Creation time (UTC ISO-8601)
+          type: string
+          format: date-time
+          example: 2020-05-09T13:42:32.850Z
+          readOnly: true
+        expires:
+          description: Expiry time (UTC ISO-8601)
+          type: string
+          format: date-time
+          example: 2020-05-09T13:42:32.850Z
+          readOnly: true
+    CreateUserRequest:
+      additionalProperties: true
+    Array:
+      type: array
+      items:
+        $ref: '#/components/schemas/ComplexObject'
+#    UnionArray:
+#      type: array
+#      items:
+#        - type: string
+#        - type: number
+    SimpleObject:
+      properties:
+        type:
+          type: string
+    BaseError:
+      properties:
+        errorCode:
+          type: string
+    AllOfError:
+      allOf:
+        - $ref: '#/components/schemas/BaseError'
+        - properties:
+            someOtherProperty:
+              type: string
+          required:
+            - someOtherProperty
+    ComplexObject:
+      properties:
+        array:
+          type: array
+          items:
+            properties:
+              name:
+                type: string
+        refObj:
+          $ref: '#/components/schemas/SimpleObject'
+        nestedObj:
+          type: object
+          properties:
+            name:
+              type: string
+            count:
+              type: number
+            enum:
+              type: string
+              enum:
+                - works
+                - does_not_work
+            numericEnum:
+              type: number
+              enum:
+                - 0
+                - 1
