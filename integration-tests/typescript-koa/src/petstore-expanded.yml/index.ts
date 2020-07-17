@@ -8,6 +8,9 @@ import KoaRouter from "@koa/router"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
 
+//region safe-edit-region-header
+//endregion safe-edit-region-header
+
 function paramValidationFactory<Type>(
   schema: joi.Schema
 ): Middleware<{}, { params: Type }> {
@@ -59,16 +62,24 @@ router.get(
   "/pets",
   queryValidationFactory<any>(findPetsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-findPets
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-findPets
   }
 )
 
 router.post("addPet", "/pets", async (ctx, next) => {
+  //region safe-edit-region-addPet
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-addPet
 })
 
 const findPetByIdParamSchema = joi
@@ -80,9 +91,13 @@ router.get(
   "/pets/:id",
   paramValidationFactory<any>(findPetByIdParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-findPetById
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-findPetById
   }
 )
 
@@ -93,9 +108,13 @@ router.delete(
   "/pets/:id",
   paramValidationFactory<any>(deletePetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-deletePet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-deletePet
   }
 )
 

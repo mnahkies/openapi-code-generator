@@ -8,6 +8,9 @@ import KoaRouter from "@koa/router"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
 
+//region safe-edit-region-header
+//endregion safe-edit-region-header
+
 function paramValidationFactory<Type>(
   schema: joi.Schema
 ): Middleware<{}, { params: Type }> {
@@ -51,9 +54,13 @@ server.use(koaBody())
 const router = new KoaRouter()
 
 router.get("appsGetAuthenticated", "/app", async (ctx, next) => {
+  //region safe-edit-region-appsGetAuthenticated
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-appsGetAuthenticated
 })
 
 const appsCreateFromManifestParamSchema = joi
@@ -65,9 +72,13 @@ router.post(
   "/app-manifests/:code/conversions",
   paramValidationFactory<any>(appsCreateFromManifestParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsCreateFromManifest
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsCreateFromManifest
   }
 )
 
@@ -80,9 +91,13 @@ router.get(
   "/app/installations",
   queryValidationFactory<any>(appsListInstallationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListInstallations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListInstallations
   }
 )
 
@@ -95,9 +110,13 @@ router.get(
   "/app/installations/:installationId",
   paramValidationFactory<any>(appsGetInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetInstallation
   }
 )
 
@@ -110,9 +129,13 @@ router.delete(
   "/app/installations/:installationId",
   paramValidationFactory<any>(appsDeleteInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsDeleteInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsDeleteInstallation
   }
 )
 
@@ -125,9 +148,13 @@ router.post(
   "/app/installations/:installationId/access_tokens",
   paramValidationFactory<any>(appsCreateInstallationAccessTokenParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsCreateInstallationAccessToken
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsCreateInstallationAccessToken
   }
 )
 
@@ -140,9 +167,13 @@ router.put(
   "/app/installations/:installationId/suspended",
   paramValidationFactory<any>(appsSuspendInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsSuspendInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsSuspendInstallation
   }
 )
 
@@ -155,9 +186,13 @@ router.delete(
   "/app/installations/:installationId/suspended",
   paramValidationFactory<any>(appsUnsuspendInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsUnsuspendInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsUnsuspendInstallation
   }
 )
 
@@ -170,9 +205,13 @@ router.get(
   "/applications/grants",
   queryValidationFactory<any>(oauthAuthorizationsListGrantsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsListGrants
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsListGrants
   }
 )
 
@@ -185,9 +224,13 @@ router.get(
   "/applications/grants/:grantId",
   paramValidationFactory<any>(oauthAuthorizationsGetGrantParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsGetGrant
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsGetGrant
   }
 )
 
@@ -200,9 +243,13 @@ router.delete(
   "/applications/grants/:grantId",
   paramValidationFactory<any>(oauthAuthorizationsDeleteGrantParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsDeleteGrant
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsDeleteGrant
   }
 )
 
@@ -215,9 +262,13 @@ router.delete(
   "/applications/:clientId/grant",
   paramValidationFactory<any>(appsDeleteAuthorizationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsDeleteAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsDeleteAuthorization
   }
 )
 
@@ -233,9 +284,13 @@ router.delete(
   "/applications/:clientId/grants/:accessToken",
   paramValidationFactory<any>(appsRevokeGrantForApplicationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsRevokeGrantForApplication
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsRevokeGrantForApplication
   }
 )
 
@@ -248,9 +303,13 @@ router.post(
   "/applications/:clientId/token",
   paramValidationFactory<any>(appsCheckTokenParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsCheckToken
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsCheckToken
   }
 )
 
@@ -263,9 +322,13 @@ router.patch(
   "/applications/:clientId/token",
   paramValidationFactory<any>(appsResetTokenParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsResetToken
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsResetToken
   }
 )
 
@@ -278,9 +341,13 @@ router.delete(
   "/applications/:clientId/token",
   paramValidationFactory<any>(appsDeleteTokenParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsDeleteToken
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsDeleteToken
   }
 )
 
@@ -296,9 +363,13 @@ router.get(
   "/applications/:clientId/tokens/:accessToken",
   paramValidationFactory<any>(appsCheckAuthorizationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsCheckAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsCheckAuthorization
   }
 )
 
@@ -314,9 +385,13 @@ router.post(
   "/applications/:clientId/tokens/:accessToken",
   paramValidationFactory<any>(appsResetAuthorizationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsResetAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsResetAuthorization
   }
 )
 
@@ -332,9 +407,13 @@ router.delete(
   "/applications/:clientId/tokens/:accessToken",
   paramValidationFactory<any>(appsRevokeAuthorizationForApplicationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsRevokeAuthorizationForApplication
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsRevokeAuthorizationForApplication
   }
 )
 
@@ -347,9 +426,13 @@ router.get(
   "/apps/:appSlug",
   paramValidationFactory<any>(appsGetBySlugParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetBySlug
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetBySlug
   }
 )
 
@@ -362,9 +445,13 @@ router.get(
   "/authorizations",
   queryValidationFactory<any>(oauthAuthorizationsListAuthorizationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsListAuthorizations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsListAuthorizations
   }
 )
 
@@ -372,9 +459,13 @@ router.post(
   "oauthAuthorizationsCreateAuthorization",
   "/authorizations",
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsCreateAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsCreateAuthorization
   }
 )
 
@@ -389,9 +480,13 @@ router.put(
     oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForApp
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForApp
   }
 )
 
@@ -409,9 +504,13 @@ router.put(
     oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint
   }
 )
 
@@ -424,9 +523,13 @@ router.get(
   "/authorizations/:authorizationId",
   paramValidationFactory<any>(oauthAuthorizationsGetAuthorizationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsGetAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsGetAuthorization
   }
 )
 
@@ -441,9 +544,13 @@ router.patch(
     oauthAuthorizationsUpdateAuthorizationParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsUpdateAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsUpdateAuthorization
   }
 )
 
@@ -458,9 +565,13 @@ router.delete(
     oauthAuthorizationsDeleteAuthorizationParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-oauthAuthorizationsDeleteAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-oauthAuthorizationsDeleteAuthorization
   }
 )
 
@@ -468,9 +579,13 @@ router.get(
   "codesOfConductGetAllCodesOfConduct",
   "/codes_of_conduct",
   async (ctx, next) => {
+    //region safe-edit-region-codesOfConductGetAllCodesOfConduct
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-codesOfConductGetAllCodesOfConduct
   }
 )
 
@@ -483,9 +598,13 @@ router.get(
   "/codes_of_conduct/:key",
   paramValidationFactory<any>(codesOfConductGetConductCodeParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-codesOfConductGetConductCode
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-codesOfConductGetConductCode
   }
 )
 
@@ -498,16 +617,24 @@ router.post(
   "/content_references/:contentReferenceId/attachments",
   paramValidationFactory<any>(appsCreateContentAttachmentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsCreateContentAttachment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsCreateContentAttachment
   }
 )
 
 router.get("emojisGet", "/emojis", async (ctx, next) => {
+  //region safe-edit-region-emojisGet
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-emojisGet
 })
 
 const activityListPublicEventsQuerySchema = joi
@@ -519,16 +646,24 @@ router.get(
   "/events",
   queryValidationFactory<any>(activityListPublicEventsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListPublicEvents
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListPublicEvents
   }
 )
 
 router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
+  //region safe-edit-region-activityGetFeeds
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-activityGetFeeds
 })
 
 const gistsListQuerySchema = joi
@@ -540,16 +675,24 @@ router.get(
   "/gists",
   queryValidationFactory<any>(gistsListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsList
   }
 )
 
 router.post("gistsCreate", "/gists", async (ctx, next) => {
+  //region safe-edit-region-gistsCreate
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-gistsCreate
 })
 
 const gistsListPublicQuerySchema = joi
@@ -561,9 +704,13 @@ router.get(
   "/gists/public",
   queryValidationFactory<any>(gistsListPublicQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListPublic
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListPublic
   }
 )
 
@@ -576,9 +723,13 @@ router.get(
   "/gists/starred",
   queryValidationFactory<any>(gistsListStarredQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListStarred
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListStarred
   }
 )
 
@@ -591,9 +742,13 @@ router.get(
   "/gists/:gistId",
   paramValidationFactory<any>(gistsGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsGet
   }
 )
 
@@ -606,9 +761,13 @@ router.patch(
   "/gists/:gistId",
   paramValidationFactory<any>(gistsUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsUpdate
   }
 )
 
@@ -621,9 +780,13 @@ router.delete(
   "/gists/:gistId",
   paramValidationFactory<any>(gistsDeleteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsDelete
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsDelete
   }
 )
 
@@ -641,9 +804,13 @@ router.get(
   paramValidationFactory<any>(gistsListCommentsParamSchema),
   queryValidationFactory<any>(gistsListCommentsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListComments
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListComments
   }
 )
 
@@ -656,9 +823,13 @@ router.post(
   "/gists/:gistId/comments",
   paramValidationFactory<any>(gistsCreateCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsCreateComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsCreateComment
   }
 )
 
@@ -674,9 +845,13 @@ router.get(
   "/gists/:gistId/comments/:commentId",
   paramValidationFactory<any>(gistsGetCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsGetComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsGetComment
   }
 )
 
@@ -692,9 +867,13 @@ router.patch(
   "/gists/:gistId/comments/:commentId",
   paramValidationFactory<any>(gistsUpdateCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsUpdateComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsUpdateComment
   }
 )
 
@@ -710,9 +889,13 @@ router.delete(
   "/gists/:gistId/comments/:commentId",
   paramValidationFactory<any>(gistsDeleteCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsDeleteComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsDeleteComment
   }
 )
 
@@ -730,9 +913,13 @@ router.get(
   paramValidationFactory<any>(gistsListCommitsParamSchema),
   queryValidationFactory<any>(gistsListCommitsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListCommits
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListCommits
   }
 )
 
@@ -745,9 +932,13 @@ router.post(
   "/gists/:gistId/forks",
   paramValidationFactory<any>(gistsForkParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsFork
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsFork
   }
 )
 
@@ -765,9 +956,13 @@ router.get(
   paramValidationFactory<any>(gistsListForksParamSchema),
   queryValidationFactory<any>(gistsListForksQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListForks
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListForks
   }
 )
 
@@ -780,9 +975,13 @@ router.put(
   "/gists/:gistId/star",
   paramValidationFactory<any>(gistsStarParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsStar
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsStar
   }
 )
 
@@ -795,9 +994,13 @@ router.delete(
   "/gists/:gistId/star",
   paramValidationFactory<any>(gistsUnstarParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsUnstar
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsUnstar
   }
 )
 
@@ -810,9 +1013,13 @@ router.get(
   "/gists/:gistId/star",
   paramValidationFactory<any>(gistsCheckIsStarredParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsCheckIsStarred
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsCheckIsStarred
   }
 )
 
@@ -825,9 +1032,13 @@ router.get(
   "/gists/:gistId/:sha",
   paramValidationFactory<any>(gistsGetRevisionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsGetRevision
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsGetRevision
   }
 )
 
@@ -835,9 +1046,13 @@ router.get(
   "gitignoreGetAllTemplates",
   "/gitignore/templates",
   async (ctx, next) => {
+    //region safe-edit-region-gitignoreGetAllTemplates
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitignoreGetAllTemplates
   }
 )
 
@@ -850,9 +1065,13 @@ router.get(
   "/gitignore/templates/:name",
   paramValidationFactory<any>(gitignoreGetTemplateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitignoreGetTemplate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitignoreGetTemplate
   }
 )
 
@@ -865,9 +1084,13 @@ router.get(
   "/installation/repositories",
   queryValidationFactory<any>(appsListReposAccessibleToInstallationQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListReposAccessibleToInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListReposAccessibleToInstallation
   }
 )
 
@@ -875,9 +1098,13 @@ router.delete(
   "appsRevokeInstallationAccessToken",
   "/installation/token",
   async (ctx, next) => {
+    //region safe-edit-region-appsRevokeInstallationAccessToken
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsRevokeInstallationAccessToken
   }
 )
 
@@ -899,16 +1126,24 @@ router.get(
   "/issues",
   queryValidationFactory<any>(issuesListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesList
   }
 )
 
 router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
+  //region safe-edit-region-licensesGetAllCommonlyUsed
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-licensesGetAllCommonlyUsed
 })
 
 const licensesGetParamSchema = joi
@@ -920,22 +1155,34 @@ router.get(
   "/licenses/:license",
   paramValidationFactory<any>(licensesGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-licensesGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-licensesGet
   }
 )
 
 router.post("markdownRender", "/markdown", async (ctx, next) => {
+  //region safe-edit-region-markdownRender
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-markdownRender
 })
 
 router.post("markdownRenderRaw", "/markdown/raw", async (ctx, next) => {
+  //region safe-edit-region-markdownRenderRaw
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-markdownRenderRaw
 })
 
 const appsGetSubscriptionPlanForAccountParamSchema = joi
@@ -947,9 +1194,13 @@ router.get(
   "/marketplace_listing/accounts/:accountId",
   paramValidationFactory<any>(appsGetSubscriptionPlanForAccountParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetSubscriptionPlanForAccount
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetSubscriptionPlanForAccount
   }
 )
 
@@ -962,9 +1213,13 @@ router.get(
   "/marketplace_listing/plans",
   queryValidationFactory<any>(appsListPlansQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListPlans
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListPlans
   }
 )
 
@@ -987,9 +1242,13 @@ router.get(
   paramValidationFactory<any>(appsListAccountsForPlanParamSchema),
   queryValidationFactory<any>(appsListAccountsForPlanQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListAccountsForPlan
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListAccountsForPlan
   }
 )
 
@@ -1004,9 +1263,13 @@ router.get(
     appsGetSubscriptionPlanForAccountStubbedParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetSubscriptionPlanForAccountStubbed
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetSubscriptionPlanForAccountStubbed
   }
 )
 
@@ -1019,9 +1282,13 @@ router.get(
   "/marketplace_listing/stubbed/plans",
   queryValidationFactory<any>(appsListPlansStubbedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListPlansStubbed
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListPlansStubbed
   }
 )
 
@@ -1044,16 +1311,24 @@ router.get(
   paramValidationFactory<any>(appsListAccountsForPlanStubbedParamSchema),
   queryValidationFactory<any>(appsListAccountsForPlanStubbedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsListAccountsForPlanStubbed
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListAccountsForPlanStubbed
   }
 )
 
 router.get("metaGet", "/meta", async (ctx, next) => {
+  //region safe-edit-region-metaGet
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-metaGet
 })
 
 const activityListPublicEventsForRepoNetworkParamSchema = joi
@@ -1074,9 +1349,13 @@ router.get(
     activityListPublicEventsForRepoNetworkQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListPublicEventsForRepoNetwork
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListPublicEventsForRepoNetwork
   }
 )
 
@@ -1098,9 +1377,13 @@ router.get(
     activityListNotificationsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListNotificationsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListNotificationsForAuthenticatedUser
   }
 )
 
@@ -1108,9 +1391,13 @@ router.put(
   "activityMarkNotificationsAsRead",
   "/notifications",
   async (ctx, next) => {
+    //region safe-edit-region-activityMarkNotificationsAsRead
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityMarkNotificationsAsRead
   }
 )
 
@@ -1123,9 +1410,13 @@ router.get(
   "/notifications/threads/:threadId",
   paramValidationFactory<any>(activityGetThreadParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityGetThread
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityGetThread
   }
 )
 
@@ -1138,9 +1429,13 @@ router.patch(
   "/notifications/threads/:threadId",
   paramValidationFactory<any>(activityMarkThreadAsReadParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityMarkThreadAsRead
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityMarkThreadAsRead
   }
 )
 
@@ -1155,9 +1450,13 @@ router.get(
     activityGetThreadSubscriptionForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityGetThreadSubscriptionForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityGetThreadSubscriptionForAuthenticatedUser
   }
 )
 
@@ -1170,9 +1469,13 @@ router.put(
   "/notifications/threads/:threadId/subscription",
   paramValidationFactory<any>(activitySetThreadSubscriptionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activitySetThreadSubscription
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activitySetThreadSubscription
   }
 )
 
@@ -1185,9 +1488,13 @@ router.delete(
   "/notifications/threads/:threadId/subscription",
   paramValidationFactory<any>(activityDeleteThreadSubscriptionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityDeleteThreadSubscription
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityDeleteThreadSubscription
   }
 )
 
@@ -1198,9 +1505,13 @@ router.get(
   "/organizations",
   queryValidationFactory<any>(orgsListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsList
   }
 )
 
@@ -1211,9 +1522,13 @@ router.get(
   "/orgs/:org",
   paramValidationFactory<any>(orgsGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsGet
   }
 )
 
@@ -1226,9 +1541,13 @@ router.patch(
   "/orgs/:org",
   paramValidationFactory<any>(orgsUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsUpdate
   }
 )
 
@@ -1246,9 +1565,13 @@ router.get(
   paramValidationFactory<any>(actionsListSelfHostedRunnersForOrgParamSchema),
   queryValidationFactory<any>(actionsListSelfHostedRunnersForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListSelfHostedRunnersForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListSelfHostedRunnersForOrg
   }
 )
 
@@ -1261,9 +1584,13 @@ router.get(
   "/orgs/:org/actions/runners/downloads",
   paramValidationFactory<any>(actionsListRunnerApplicationsForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListRunnerApplicationsForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListRunnerApplicationsForOrg
   }
 )
 
@@ -1276,9 +1603,13 @@ router.post(
   "/orgs/:org/actions/runners/registration-token",
   paramValidationFactory<any>(actionsCreateRegistrationTokenForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateRegistrationTokenForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateRegistrationTokenForOrg
   }
 )
 
@@ -1291,9 +1622,13 @@ router.post(
   "/orgs/:org/actions/runners/remove-token",
   paramValidationFactory<any>(actionsCreateRemoveTokenForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateRemoveTokenForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateRemoveTokenForOrg
   }
 )
 
@@ -1306,9 +1641,13 @@ router.get(
   "/orgs/:org/actions/runners/:runnerId",
   paramValidationFactory<any>(actionsGetSelfHostedRunnerForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetSelfHostedRunnerForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetSelfHostedRunnerForOrg
   }
 )
 
@@ -1321,9 +1660,13 @@ router.delete(
   "/orgs/:org/actions/runners/:runnerId",
   paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteSelfHostedRunnerFromOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteSelfHostedRunnerFromOrg
   }
 )
 
@@ -1341,9 +1684,13 @@ router.get(
   paramValidationFactory<any>(actionsListOrgSecretsParamSchema),
   queryValidationFactory<any>(actionsListOrgSecretsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListOrgSecrets
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListOrgSecrets
   }
 )
 
@@ -1356,9 +1703,13 @@ router.get(
   "/orgs/:org/actions/secrets/public-key",
   paramValidationFactory<any>(actionsGetOrgPublicKeyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetOrgPublicKey
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetOrgPublicKey
   }
 )
 
@@ -1371,9 +1722,13 @@ router.get(
   "/orgs/:org/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsGetOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetOrgSecret
   }
 )
 
@@ -1386,9 +1741,13 @@ router.put(
   "/orgs/:org/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsCreateOrUpdateOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateOrUpdateOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateOrUpdateOrgSecret
   }
 )
 
@@ -1401,9 +1760,13 @@ router.delete(
   "/orgs/:org/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsDeleteOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteOrgSecret
   }
 )
 
@@ -1416,9 +1779,13 @@ router.get(
   "/orgs/:org/actions/secrets/:secretName/repositories",
   paramValidationFactory<any>(actionsListSelectedReposForOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListSelectedReposForOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListSelectedReposForOrgSecret
   }
 )
 
@@ -1431,9 +1798,13 @@ router.put(
   "/orgs/:org/actions/secrets/:secretName/repositories",
   paramValidationFactory<any>(actionsSetSelectedReposForOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsSetSelectedReposForOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsSetSelectedReposForOrgSecret
   }
 )
 
@@ -1450,9 +1821,13 @@ router.put(
   "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
   paramValidationFactory<any>(actionsAddSelectedRepoToOrgSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsAddSelectedRepoToOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsAddSelectedRepoToOrgSecret
   }
 )
 
@@ -1471,9 +1846,13 @@ router.delete(
     actionsRemoveSelectedRepoFromOrgSecretParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-actionsRemoveSelectedRepoFromOrgSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsRemoveSelectedRepoFromOrgSecret
   }
 )
 
@@ -1486,9 +1865,13 @@ router.get(
   "/orgs/:org/blocks",
   paramValidationFactory<any>(orgsListBlockedUsersParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListBlockedUsers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListBlockedUsers
   }
 )
 
@@ -1501,9 +1884,13 @@ router.get(
   "/orgs/:org/blocks/:username",
   paramValidationFactory<any>(orgsCheckBlockedUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsCheckBlockedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsCheckBlockedUser
   }
 )
 
@@ -1516,9 +1903,13 @@ router.put(
   "/orgs/:org/blocks/:username",
   paramValidationFactory<any>(orgsBlockUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsBlockUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsBlockUser
   }
 )
 
@@ -1531,9 +1922,13 @@ router.delete(
   "/orgs/:org/blocks/:username",
   paramValidationFactory<any>(orgsUnblockUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsUnblockUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsUnblockUser
   }
 )
 
@@ -1546,9 +1941,13 @@ router.get(
   "/orgs/:org/credential-authorizations",
   paramValidationFactory<any>(orgsListSamlSsoAuthorizationsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListSamlSsoAuthorizations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListSamlSsoAuthorizations
   }
 )
 
@@ -1564,9 +1963,13 @@ router.delete(
   "/orgs/:org/credential-authorizations/:credentialId",
   paramValidationFactory<any>(orgsRemoveSamlSsoAuthorizationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsRemoveSamlSsoAuthorization
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsRemoveSamlSsoAuthorization
   }
 )
 
@@ -1584,9 +1987,13 @@ router.get(
   paramValidationFactory<any>(activityListPublicOrgEventsParamSchema),
   queryValidationFactory<any>(activityListPublicOrgEventsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListPublicOrgEvents
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListPublicOrgEvents
   }
 )
 
@@ -1604,9 +2011,13 @@ router.get(
   paramValidationFactory<any>(orgsListWebhooksParamSchema),
   queryValidationFactory<any>(orgsListWebhooksQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListWebhooks
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListWebhooks
   }
 )
 
@@ -1619,9 +2030,13 @@ router.post(
   "/orgs/:org/hooks",
   paramValidationFactory<any>(orgsCreateWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsCreateWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsCreateWebhook
   }
 )
 
@@ -1634,9 +2049,13 @@ router.get(
   "/orgs/:org/hooks/:hookId",
   paramValidationFactory<any>(orgsGetWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsGetWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsGetWebhook
   }
 )
 
@@ -1649,9 +2068,13 @@ router.patch(
   "/orgs/:org/hooks/:hookId",
   paramValidationFactory<any>(orgsUpdateWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsUpdateWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsUpdateWebhook
   }
 )
 
@@ -1664,9 +2087,13 @@ router.delete(
   "/orgs/:org/hooks/:hookId",
   paramValidationFactory<any>(orgsDeleteWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsDeleteWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsDeleteWebhook
   }
 )
 
@@ -1679,9 +2106,13 @@ router.post(
   "/orgs/:org/hooks/:hookId/pings",
   paramValidationFactory<any>(orgsPingWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsPingWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsPingWebhook
   }
 )
 
@@ -1694,9 +2125,13 @@ router.get(
   "/orgs/:org/installation",
   paramValidationFactory<any>(appsGetOrgInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetOrgInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetOrgInstallation
   }
 )
 
@@ -1714,9 +2149,13 @@ router.get(
   paramValidationFactory<any>(orgsListAppInstallationsParamSchema),
   queryValidationFactory<any>(orgsListAppInstallationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListAppInstallations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListAppInstallations
   }
 )
 
@@ -1729,9 +2168,13 @@ router.get(
   "/orgs/:org/interaction-limits",
   paramValidationFactory<any>(interactionsGetRestrictionsForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsGetRestrictionsForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsGetRestrictionsForOrg
   }
 )
 
@@ -1744,9 +2187,13 @@ router.put(
   "/orgs/:org/interaction-limits",
   paramValidationFactory<any>(interactionsSetRestrictionsForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsSetRestrictionsForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsSetRestrictionsForOrg
   }
 )
 
@@ -1759,9 +2206,13 @@ router.delete(
   "/orgs/:org/interaction-limits",
   paramValidationFactory<any>(interactionsRemoveRestrictionsForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsRemoveRestrictionsForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsRemoveRestrictionsForOrg
   }
 )
 
@@ -1779,9 +2230,13 @@ router.get(
   paramValidationFactory<any>(orgsListPendingInvitationsParamSchema),
   queryValidationFactory<any>(orgsListPendingInvitationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListPendingInvitations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListPendingInvitations
   }
 )
 
@@ -1794,9 +2249,13 @@ router.post(
   "/orgs/:org/invitations",
   paramValidationFactory<any>(orgsCreateInvitationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsCreateInvitation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsCreateInvitation
   }
 )
 
@@ -1817,9 +2276,13 @@ router.get(
   paramValidationFactory<any>(orgsListInvitationTeamsParamSchema),
   queryValidationFactory<any>(orgsListInvitationTeamsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListInvitationTeams
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListInvitationTeams
   }
 )
 
@@ -1846,9 +2309,13 @@ router.get(
   paramValidationFactory<any>(issuesListForOrgParamSchema),
   queryValidationFactory<any>(issuesListForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListForOrg
   }
 )
 
@@ -1871,9 +2338,13 @@ router.get(
   paramValidationFactory<any>(orgsListMembersParamSchema),
   queryValidationFactory<any>(orgsListMembersQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListMembers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListMembers
   }
 )
 
@@ -1886,9 +2357,13 @@ router.get(
   "/orgs/:org/members/:username",
   paramValidationFactory<any>(orgsCheckMembershipForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsCheckMembershipForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsCheckMembershipForUser
   }
 )
 
@@ -1901,9 +2376,13 @@ router.delete(
   "/orgs/:org/members/:username",
   paramValidationFactory<any>(orgsRemoveMemberParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsRemoveMember
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsRemoveMember
   }
 )
 
@@ -1916,9 +2395,13 @@ router.get(
   "/orgs/:org/memberships/:username",
   paramValidationFactory<any>(orgsGetMembershipForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsGetMembershipForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsGetMembershipForUser
   }
 )
 
@@ -1931,9 +2414,13 @@ router.put(
   "/orgs/:org/memberships/:username",
   paramValidationFactory<any>(orgsSetMembershipForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsSetMembershipForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsSetMembershipForUser
   }
 )
 
@@ -1946,9 +2433,13 @@ router.delete(
   "/orgs/:org/memberships/:username",
   paramValidationFactory<any>(orgsRemoveMembershipForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsRemoveMembershipForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsRemoveMembershipForUser
   }
 )
 
@@ -1961,9 +2452,13 @@ router.post(
   "/orgs/:org/migrations",
   paramValidationFactory<any>(migrationsStartForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsStartForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsStartForOrg
   }
 )
 
@@ -1981,9 +2476,13 @@ router.get(
   paramValidationFactory<any>(migrationsListForOrgParamSchema),
   queryValidationFactory<any>(migrationsListForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsListForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsListForOrg
   }
 )
 
@@ -1996,9 +2495,13 @@ router.get(
   "/orgs/:org/migrations/:migrationId",
   paramValidationFactory<any>(migrationsGetStatusForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetStatusForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetStatusForOrg
   }
 )
 
@@ -2011,9 +2514,13 @@ router.get(
   "/orgs/:org/migrations/:migrationId/archive",
   paramValidationFactory<any>(migrationsDownloadArchiveForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsDownloadArchiveForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsDownloadArchiveForOrg
   }
 )
 
@@ -2026,9 +2533,13 @@ router.delete(
   "/orgs/:org/migrations/:migrationId/archive",
   paramValidationFactory<any>(migrationsDeleteArchiveForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsDeleteArchiveForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsDeleteArchiveForOrg
   }
 )
 
@@ -2045,9 +2556,13 @@ router.delete(
   "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
   paramValidationFactory<any>(migrationsUnlockRepoForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsUnlockRepoForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsUnlockRepoForOrg
   }
 )
 
@@ -2065,9 +2580,13 @@ router.get(
   paramValidationFactory<any>(migrationsListReposForOrgParamSchema),
   queryValidationFactory<any>(migrationsListReposForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsListReposForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsListReposForOrg
   }
 )
 
@@ -2085,9 +2604,13 @@ router.get(
   paramValidationFactory<any>(orgsListOutsideCollaboratorsParamSchema),
   queryValidationFactory<any>(orgsListOutsideCollaboratorsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListOutsideCollaborators
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListOutsideCollaborators
   }
 )
 
@@ -2100,9 +2623,13 @@ router.delete(
   "/orgs/:org/outside_collaborators/:username",
   paramValidationFactory<any>(orgsRemoveOutsideCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsRemoveOutsideCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsRemoveOutsideCollaborator
   }
 )
 
@@ -2117,9 +2644,13 @@ router.put(
     orgsConvertMemberToOutsideCollaboratorParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-orgsConvertMemberToOutsideCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsConvertMemberToOutsideCollaborator
   }
 )
 
@@ -2137,9 +2668,13 @@ router.get(
   paramValidationFactory<any>(projectsListForOrgParamSchema),
   queryValidationFactory<any>(projectsListForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListForOrg
   }
 )
 
@@ -2152,9 +2687,13 @@ router.post(
   "/orgs/:org/projects",
   paramValidationFactory<any>(projectsCreateForOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsCreateForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsCreateForOrg
   }
 )
 
@@ -2172,9 +2711,13 @@ router.get(
   paramValidationFactory<any>(orgsListPublicMembersParamSchema),
   queryValidationFactory<any>(orgsListPublicMembersQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListPublicMembers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListPublicMembers
   }
 )
 
@@ -2187,9 +2730,13 @@ router.get(
   "/orgs/:org/public_members/:username",
   paramValidationFactory<any>(orgsCheckPublicMembershipForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsCheckPublicMembershipForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsCheckPublicMembershipForUser
   }
 )
 
@@ -2204,9 +2751,13 @@ router.put(
     orgsSetPublicMembershipForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-orgsSetPublicMembershipForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsSetPublicMembershipForAuthenticatedUser
   }
 )
 
@@ -2221,9 +2772,13 @@ router.delete(
     orgsRemovePublicMembershipForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-orgsRemovePublicMembershipForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsRemovePublicMembershipForAuthenticatedUser
   }
 )
 
@@ -2247,9 +2802,13 @@ router.get(
   paramValidationFactory<any>(reposListForOrgParamSchema),
   queryValidationFactory<any>(reposListForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListForOrg
   }
 )
 
@@ -2262,9 +2821,13 @@ router.post(
   "/orgs/:org/repos",
   paramValidationFactory<any>(reposCreateInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateInOrg
   }
 )
 
@@ -2282,9 +2845,13 @@ router.get(
   paramValidationFactory<any>(teamsListIdPGroupsForOrgParamSchema),
   queryValidationFactory<any>(teamsListIdPGroupsForOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListIdPGroupsForOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListIdPGroupsForOrg
   }
 )
 
@@ -2300,9 +2867,13 @@ router.get(
   paramValidationFactory<any>(teamsListParamSchema),
   queryValidationFactory<any>(teamsListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsList
   }
 )
 
@@ -2315,9 +2886,13 @@ router.post(
   "/orgs/:org/teams",
   paramValidationFactory<any>(teamsCreateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreate
   }
 )
 
@@ -2330,9 +2905,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug",
   paramValidationFactory<any>(teamsGetByNameParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetByName
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetByName
   }
 )
 
@@ -2345,9 +2924,13 @@ router.patch(
   "/orgs/:org/teams/:teamSlug",
   paramValidationFactory<any>(teamsUpdateInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateInOrg
   }
 )
 
@@ -2360,9 +2943,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug",
   paramValidationFactory<any>(teamsDeleteInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteInOrg
   }
 )
 
@@ -2380,9 +2967,13 @@ router.get(
   paramValidationFactory<any>(teamsListDiscussionsInOrgParamSchema),
   queryValidationFactory<any>(teamsListDiscussionsInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListDiscussionsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListDiscussionsInOrg
   }
 )
 
@@ -2395,9 +2986,13 @@ router.post(
   "/orgs/:org/teams/:teamSlug/discussions",
   paramValidationFactory<any>(teamsCreateDiscussionInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateDiscussionInOrg
   }
 )
 
@@ -2414,9 +3009,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsGetDiscussionInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetDiscussionInOrg
   }
 )
 
@@ -2433,9 +3032,13 @@ router.patch(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsUpdateDiscussionInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateDiscussionInOrg
   }
 )
 
@@ -2452,9 +3055,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsDeleteDiscussionInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteDiscussionInOrg
   }
 )
 
@@ -2476,9 +3083,13 @@ router.get(
   paramValidationFactory<any>(teamsListDiscussionCommentsInOrgParamSchema),
   queryValidationFactory<any>(teamsListDiscussionCommentsInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListDiscussionCommentsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListDiscussionCommentsInOrg
   }
 )
 
@@ -2495,9 +3106,13 @@ router.post(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
   paramValidationFactory<any>(teamsCreateDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateDiscussionCommentInOrg
   }
 )
 
@@ -2515,9 +3130,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsGetDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetDiscussionCommentInOrg
   }
 )
 
@@ -2535,9 +3154,13 @@ router.patch(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsUpdateDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateDiscussionCommentInOrg
   }
 )
 
@@ -2555,9 +3178,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsDeleteDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteDiscussionCommentInOrg
   }
 )
 
@@ -2584,9 +3211,13 @@ router.get(
     reactionsListForTeamDiscussionCommentInOrgQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForTeamDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForTeamDiscussionCommentInOrg
   }
 )
 
@@ -2606,9 +3237,13 @@ router.post(
     reactionsCreateForTeamDiscussionCommentInOrgParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForTeamDiscussionCommentInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForTeamDiscussionCommentInOrg
   }
 )
 
@@ -2629,9 +3264,13 @@ router.delete(
     reactionsDeleteForTeamDiscussionCommentParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForTeamDiscussionComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForTeamDiscussionComment
   }
 )
 
@@ -2653,9 +3292,13 @@ router.get(
   paramValidationFactory<any>(reactionsListForTeamDiscussionInOrgParamSchema),
   queryValidationFactory<any>(reactionsListForTeamDiscussionInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForTeamDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForTeamDiscussionInOrg
   }
 )
 
@@ -2672,9 +3315,13 @@ router.post(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
   paramValidationFactory<any>(reactionsCreateForTeamDiscussionInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForTeamDiscussionInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForTeamDiscussionInOrg
   }
 )
 
@@ -2692,9 +3339,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteForTeamDiscussionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForTeamDiscussion
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForTeamDiscussion
   }
 )
 
@@ -2712,9 +3363,13 @@ router.get(
   paramValidationFactory<any>(teamsListPendingInvitationsInOrgParamSchema),
   queryValidationFactory<any>(teamsListPendingInvitationsInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListPendingInvitationsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListPendingInvitationsInOrg
   }
 )
 
@@ -2732,9 +3387,13 @@ router.get(
   paramValidationFactory<any>(teamsListMembersInOrgParamSchema),
   queryValidationFactory<any>(teamsListMembersInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListMembersInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListMembersInOrg
   }
 )
 
@@ -2751,9 +3410,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/memberships/:username",
   paramValidationFactory<any>(teamsGetMembershipForUserInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetMembershipForUserInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetMembershipForUserInOrg
   }
 )
 
@@ -2772,9 +3435,13 @@ router.put(
     teamsAddOrUpdateMembershipForUserInOrgParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateMembershipForUserInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateMembershipForUserInOrg
   }
 )
 
@@ -2791,9 +3458,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/memberships/:username",
   paramValidationFactory<any>(teamsRemoveMembershipForUserInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveMembershipForUserInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveMembershipForUserInOrg
   }
 )
 
@@ -2811,9 +3482,13 @@ router.get(
   paramValidationFactory<any>(teamsListProjectsInOrgParamSchema),
   queryValidationFactory<any>(teamsListProjectsInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListProjectsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListProjectsInOrg
   }
 )
 
@@ -2830,9 +3505,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
   paramValidationFactory<any>(teamsCheckPermissionsForProjectInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCheckPermissionsForProjectInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCheckPermissionsForProjectInOrg
   }
 )
 
@@ -2851,9 +3530,13 @@ router.put(
     teamsAddOrUpdateProjectPermissionsInOrgParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateProjectPermissionsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateProjectPermissionsInOrg
   }
 )
 
@@ -2870,9 +3553,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
   paramValidationFactory<any>(teamsRemoveProjectInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveProjectInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveProjectInOrg
   }
 )
 
@@ -2890,9 +3577,13 @@ router.get(
   paramValidationFactory<any>(teamsListReposInOrgParamSchema),
   queryValidationFactory<any>(teamsListReposInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListReposInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListReposInOrg
   }
 )
 
@@ -2910,9 +3601,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   paramValidationFactory<any>(teamsCheckPermissionsForRepoInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCheckPermissionsForRepoInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCheckPermissionsForRepoInOrg
   }
 )
 
@@ -2930,9 +3625,13 @@ router.put(
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateRepoPermissionsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateRepoPermissionsInOrg
   }
 )
 
@@ -2950,9 +3649,13 @@ router.delete(
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
   paramValidationFactory<any>(teamsRemoveRepoInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveRepoInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveRepoInOrg
   }
 )
 
@@ -2965,9 +3668,13 @@ router.get(
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
   paramValidationFactory<any>(teamsListIdPGroupsInOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListIdPGroupsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListIdPGroupsInOrg
   }
 )
 
@@ -2982,9 +3689,13 @@ router.patch(
     teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsInOrg
   }
 )
 
@@ -3002,9 +3713,13 @@ router.get(
   paramValidationFactory<any>(teamsListChildInOrgParamSchema),
   queryValidationFactory<any>(teamsListChildInOrgQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListChildInOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListChildInOrg
   }
 )
 
@@ -3017,9 +3732,13 @@ router.get(
   "/projects/columns/cards/:cardId",
   paramValidationFactory<any>(projectsGetCardParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsGetCard
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsGetCard
   }
 )
 
@@ -3032,9 +3751,13 @@ router.patch(
   "/projects/columns/cards/:cardId",
   paramValidationFactory<any>(projectsUpdateCardParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsUpdateCard
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsUpdateCard
   }
 )
 
@@ -3047,9 +3770,13 @@ router.delete(
   "/projects/columns/cards/:cardId",
   paramValidationFactory<any>(projectsDeleteCardParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsDeleteCard
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsDeleteCard
   }
 )
 
@@ -3062,9 +3789,13 @@ router.post(
   "/projects/columns/cards/:cardId/moves",
   paramValidationFactory<any>(projectsMoveCardParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsMoveCard
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsMoveCard
   }
 )
 
@@ -3077,9 +3808,13 @@ router.get(
   "/projects/columns/:columnId",
   paramValidationFactory<any>(projectsGetColumnParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsGetColumn
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsGetColumn
   }
 )
 
@@ -3092,9 +3827,13 @@ router.patch(
   "/projects/columns/:columnId",
   paramValidationFactory<any>(projectsUpdateColumnParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsUpdateColumn
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsUpdateColumn
   }
 )
 
@@ -3107,9 +3846,13 @@ router.delete(
   "/projects/columns/:columnId",
   paramValidationFactory<any>(projectsDeleteColumnParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsDeleteColumn
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsDeleteColumn
   }
 )
 
@@ -3131,9 +3874,13 @@ router.get(
   paramValidationFactory<any>(projectsListCardsParamSchema),
   queryValidationFactory<any>(projectsListCardsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListCards
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListCards
   }
 )
 
@@ -3146,9 +3893,13 @@ router.post(
   "/projects/columns/:columnId/cards",
   paramValidationFactory<any>(projectsCreateCardParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsCreateCard
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsCreateCard
   }
 )
 
@@ -3161,9 +3912,13 @@ router.post(
   "/projects/columns/:columnId/moves",
   paramValidationFactory<any>(projectsMoveColumnParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsMoveColumn
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsMoveColumn
   }
 )
 
@@ -3176,9 +3931,13 @@ router.get(
   "/projects/:projectId",
   paramValidationFactory<any>(projectsGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsGet
   }
 )
 
@@ -3191,9 +3950,13 @@ router.patch(
   "/projects/:projectId",
   paramValidationFactory<any>(projectsUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsUpdate
   }
 )
 
@@ -3206,9 +3969,13 @@ router.delete(
   "/projects/:projectId",
   paramValidationFactory<any>(projectsDeleteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsDelete
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsDelete
   }
 )
 
@@ -3230,9 +3997,13 @@ router.get(
   paramValidationFactory<any>(projectsListCollaboratorsParamSchema),
   queryValidationFactory<any>(projectsListCollaboratorsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListCollaborators
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListCollaborators
   }
 )
 
@@ -3248,9 +4019,13 @@ router.put(
   "/projects/:projectId/collaborators/:username",
   paramValidationFactory<any>(projectsAddCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsAddCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsAddCollaborator
   }
 )
 
@@ -3266,9 +4041,13 @@ router.delete(
   "/projects/:projectId/collaborators/:username",
   paramValidationFactory<any>(projectsRemoveCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsRemoveCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsRemoveCollaborator
   }
 )
 
@@ -3284,9 +4063,13 @@ router.get(
   "/projects/:projectId/collaborators/:username/permission",
   paramValidationFactory<any>(projectsGetPermissionForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsGetPermissionForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsGetPermissionForUser
   }
 )
 
@@ -3304,9 +4087,13 @@ router.get(
   paramValidationFactory<any>(projectsListColumnsParamSchema),
   queryValidationFactory<any>(projectsListColumnsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListColumns
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListColumns
   }
 )
 
@@ -3319,16 +4106,24 @@ router.post(
   "/projects/:projectId/columns",
   paramValidationFactory<any>(projectsCreateColumnParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsCreateColumn
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsCreateColumn
   }
 )
 
 router.get("rateLimitGet", "/rate_limit", async (ctx, next) => {
+  //region safe-edit-region-rateLimitGet
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-rateLimitGet
 })
 
 const reactionsDeleteLegacyParamSchema = joi
@@ -3340,9 +4135,13 @@ router.delete(
   "/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteLegacy
   }
 )
 
@@ -3355,9 +4154,13 @@ router.get(
   "/repos/:owner/:repo",
   paramValidationFactory<any>(reposGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGet
   }
 )
 
@@ -3370,9 +4173,13 @@ router.patch(
   "/repos/:owner/:repo",
   paramValidationFactory<any>(reposUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdate
   }
 )
 
@@ -3385,9 +4192,13 @@ router.delete(
   "/repos/:owner/:repo",
   paramValidationFactory<any>(reposDeleteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDelete
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDelete
   }
 )
 
@@ -3405,9 +4216,13 @@ router.get(
   paramValidationFactory<any>(actionsListArtifactsForRepoParamSchema),
   queryValidationFactory<any>(actionsListArtifactsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListArtifactsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListArtifactsForRepo
   }
 )
 
@@ -3424,9 +4239,13 @@ router.get(
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
   paramValidationFactory<any>(actionsGetArtifactParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetArtifact
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetArtifact
   }
 )
 
@@ -3443,9 +4262,13 @@ router.delete(
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
   paramValidationFactory<any>(actionsDeleteArtifactParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteArtifact
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteArtifact
   }
 )
 
@@ -3463,9 +4286,13 @@ router.get(
   "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
   paramValidationFactory<any>(actionsDownloadArtifactParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDownloadArtifact
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDownloadArtifact
   }
 )
 
@@ -3482,9 +4309,13 @@ router.get(
   "/repos/:owner/:repo/actions/jobs/:jobId",
   paramValidationFactory<any>(actionsGetJobForWorkflowRunParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetJobForWorkflowRun
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetJobForWorkflowRun
   }
 )
 
@@ -3501,9 +4332,13 @@ router.get(
   "/repos/:owner/:repo/actions/jobs/:jobId/logs",
   paramValidationFactory<any>(actionsDownloadJobLogsForWorkflowRunParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDownloadJobLogsForWorkflowRun
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDownloadJobLogsForWorkflowRun
   }
 )
 
@@ -3521,9 +4356,13 @@ router.get(
   paramValidationFactory<any>(actionsListSelfHostedRunnersForRepoParamSchema),
   queryValidationFactory<any>(actionsListSelfHostedRunnersForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListSelfHostedRunnersForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListSelfHostedRunnersForRepo
   }
 )
 
@@ -3536,9 +4375,13 @@ router.get(
   "/repos/:owner/:repo/actions/runners/downloads",
   paramValidationFactory<any>(actionsListRunnerApplicationsForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListRunnerApplicationsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListRunnerApplicationsForRepo
   }
 )
 
@@ -3551,9 +4394,13 @@ router.post(
   "/repos/:owner/:repo/actions/runners/registration-token",
   paramValidationFactory<any>(actionsCreateRegistrationTokenForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateRegistrationTokenForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateRegistrationTokenForRepo
   }
 )
 
@@ -3566,9 +4413,13 @@ router.post(
   "/repos/:owner/:repo/actions/runners/remove-token",
   paramValidationFactory<any>(actionsCreateRemoveTokenForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateRemoveTokenForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateRemoveTokenForRepo
   }
 )
 
@@ -3585,9 +4436,13 @@ router.get(
   "/repos/:owner/:repo/actions/runners/:runnerId",
   paramValidationFactory<any>(actionsGetSelfHostedRunnerForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetSelfHostedRunnerForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetSelfHostedRunnerForRepo
   }
 )
 
@@ -3604,9 +4459,13 @@ router.delete(
   "/repos/:owner/:repo/actions/runners/:runnerId",
   paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteSelfHostedRunnerFromRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteSelfHostedRunnerFromRepo
   }
 )
 
@@ -3631,9 +4490,13 @@ router.get(
   paramValidationFactory<any>(actionsListWorkflowRunsForRepoParamSchema),
   queryValidationFactory<any>(actionsListWorkflowRunsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListWorkflowRunsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListWorkflowRunsForRepo
   }
 )
 
@@ -3650,9 +4513,13 @@ router.get(
   "/repos/:owner/:repo/actions/runs/:runId",
   paramValidationFactory<any>(actionsGetWorkflowRunParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetWorkflowRun
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetWorkflowRun
   }
 )
 
@@ -3674,9 +4541,13 @@ router.get(
   paramValidationFactory<any>(actionsListWorkflowRunArtifactsParamSchema),
   queryValidationFactory<any>(actionsListWorkflowRunArtifactsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListWorkflowRunArtifacts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListWorkflowRunArtifacts
   }
 )
 
@@ -3693,9 +4564,13 @@ router.post(
   "/repos/:owner/:repo/actions/runs/:runId/cancel",
   paramValidationFactory<any>(actionsCancelWorkflowRunParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCancelWorkflowRun
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCancelWorkflowRun
   }
 )
 
@@ -3717,9 +4592,13 @@ router.get(
   paramValidationFactory<any>(actionsListJobsForWorkflowRunParamSchema),
   queryValidationFactory<any>(actionsListJobsForWorkflowRunQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListJobsForWorkflowRun
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListJobsForWorkflowRun
   }
 )
 
@@ -3736,9 +4615,13 @@ router.get(
   "/repos/:owner/:repo/actions/runs/:runId/logs",
   paramValidationFactory<any>(actionsDownloadWorkflowRunLogsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDownloadWorkflowRunLogs
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDownloadWorkflowRunLogs
   }
 )
 
@@ -3755,9 +4638,13 @@ router.delete(
   "/repos/:owner/:repo/actions/runs/:runId/logs",
   paramValidationFactory<any>(actionsDeleteWorkflowRunLogsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteWorkflowRunLogs
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteWorkflowRunLogs
   }
 )
 
@@ -3774,9 +4661,13 @@ router.post(
   "/repos/:owner/:repo/actions/runs/:runId/rerun",
   paramValidationFactory<any>(actionsReRunWorkflowParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsReRunWorkflow
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsReRunWorkflow
   }
 )
 
@@ -3793,9 +4684,13 @@ router.get(
   "/repos/:owner/:repo/actions/runs/:runId/timing",
   paramValidationFactory<any>(actionsGetWorkflowRunUsageParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetWorkflowRunUsage
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetWorkflowRunUsage
   }
 )
 
@@ -3813,9 +4708,13 @@ router.get(
   paramValidationFactory<any>(actionsListRepoSecretsParamSchema),
   queryValidationFactory<any>(actionsListRepoSecretsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListRepoSecrets
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListRepoSecrets
   }
 )
 
@@ -3828,9 +4727,13 @@ router.get(
   "/repos/:owner/:repo/actions/secrets/public-key",
   paramValidationFactory<any>(actionsGetRepoPublicKeyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetRepoPublicKey
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetRepoPublicKey
   }
 )
 
@@ -3847,9 +4750,13 @@ router.get(
   "/repos/:owner/:repo/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsGetRepoSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetRepoSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetRepoSecret
   }
 )
 
@@ -3866,9 +4773,13 @@ router.put(
   "/repos/:owner/:repo/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsCreateOrUpdateRepoSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsCreateOrUpdateRepoSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsCreateOrUpdateRepoSecret
   }
 )
 
@@ -3885,9 +4796,13 @@ router.delete(
   "/repos/:owner/:repo/actions/secrets/:secretName",
   paramValidationFactory<any>(actionsDeleteRepoSecretParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsDeleteRepoSecret
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsDeleteRepoSecret
   }
 )
 
@@ -3905,9 +4820,13 @@ router.get(
   paramValidationFactory<any>(actionsListRepoWorkflowsParamSchema),
   queryValidationFactory<any>(actionsListRepoWorkflowsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListRepoWorkflows
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListRepoWorkflows
   }
 )
 
@@ -3924,9 +4843,13 @@ router.get(
   "/repos/:owner/:repo/actions/workflows/:workflowId",
   paramValidationFactory<any>(actionsGetWorkflowParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetWorkflow
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetWorkflow
   }
 )
 
@@ -3955,9 +4878,13 @@ router.get(
   paramValidationFactory<any>(actionsListWorkflowRunsParamSchema),
   queryValidationFactory<any>(actionsListWorkflowRunsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsListWorkflowRuns
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsListWorkflowRuns
   }
 )
 
@@ -3974,9 +4901,13 @@ router.get(
   "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
   paramValidationFactory<any>(actionsGetWorkflowUsageParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-actionsGetWorkflowUsage
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-actionsGetWorkflowUsage
   }
 )
 
@@ -3994,9 +4925,13 @@ router.get(
   paramValidationFactory<any>(issuesListAssigneesParamSchema),
   queryValidationFactory<any>(issuesListAssigneesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListAssignees
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListAssignees
   }
 )
 
@@ -4013,9 +4948,13 @@ router.get(
   "/repos/:owner/:repo/assignees/:assignee",
   paramValidationFactory<any>(issuesCheckUserCanBeAssignedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesCheckUserCanBeAssigned
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesCheckUserCanBeAssigned
   }
 )
 
@@ -4028,9 +4967,13 @@ router.put(
   "/repos/:owner/:repo/automated-security-fixes",
   paramValidationFactory<any>(reposEnableAutomatedSecurityFixesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposEnableAutomatedSecurityFixes
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposEnableAutomatedSecurityFixes
   }
 )
 
@@ -4043,9 +4986,13 @@ router.delete(
   "/repos/:owner/:repo/automated-security-fixes",
   paramValidationFactory<any>(reposDisableAutomatedSecurityFixesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDisableAutomatedSecurityFixes
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDisableAutomatedSecurityFixes
   }
 )
 
@@ -4067,9 +5014,13 @@ router.get(
   paramValidationFactory<any>(reposListBranchesParamSchema),
   queryValidationFactory<any>(reposListBranchesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListBranches
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListBranches
   }
 )
 
@@ -4086,9 +5037,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch",
   paramValidationFactory<any>(reposGetBranchParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetBranch
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetBranch
   }
 )
 
@@ -4105,9 +5060,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection",
   paramValidationFactory<any>(reposGetBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetBranchProtection
   }
 )
 
@@ -4124,9 +5083,13 @@ router.put(
   "/repos/:owner/:repo/branches/:branch/protection",
   paramValidationFactory<any>(reposUpdateBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateBranchProtection
   }
 )
 
@@ -4143,9 +5106,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection",
   paramValidationFactory<any>(reposDeleteBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteBranchProtection
   }
 )
 
@@ -4162,9 +5129,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   paramValidationFactory<any>(reposGetAdminBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetAdminBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetAdminBranchProtection
   }
 )
 
@@ -4181,9 +5152,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   paramValidationFactory<any>(reposSetAdminBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposSetAdminBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposSetAdminBranchProtection
   }
 )
 
@@ -4200,9 +5175,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
   paramValidationFactory<any>(reposDeleteAdminBranchProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteAdminBranchProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteAdminBranchProtection
   }
 )
 
@@ -4219,9 +5198,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
   paramValidationFactory<any>(reposGetPullRequestReviewProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetPullRequestReviewProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetPullRequestReviewProtection
   }
 )
 
@@ -4240,9 +5223,13 @@ router.patch(
     reposUpdatePullRequestReviewProtectionParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdatePullRequestReviewProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdatePullRequestReviewProtection
   }
 )
 
@@ -4261,9 +5248,13 @@ router.delete(
     reposDeletePullRequestReviewProtectionParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeletePullRequestReviewProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeletePullRequestReviewProtection
   }
 )
 
@@ -4280,9 +5271,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   paramValidationFactory<any>(reposGetCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCommitSignatureProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCommitSignatureProtection
   }
 )
 
@@ -4299,9 +5294,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   paramValidationFactory<any>(reposCreateCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateCommitSignatureProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateCommitSignatureProtection
   }
 )
 
@@ -4318,9 +5317,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
   paramValidationFactory<any>(reposDeleteCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteCommitSignatureProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteCommitSignatureProtection
   }
 )
 
@@ -4337,9 +5340,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   paramValidationFactory<any>(reposGetStatusChecksProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetStatusChecksProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetStatusChecksProtection
   }
 )
 
@@ -4356,9 +5363,13 @@ router.patch(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   paramValidationFactory<any>(reposUpdateStatusCheckPotectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateStatusCheckPotection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateStatusCheckPotection
   }
 )
 
@@ -4375,9 +5386,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
   paramValidationFactory<any>(reposRemoveStatusCheckProtectionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveStatusCheckProtection
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveStatusCheckProtection
   }
 )
 
@@ -4394,9 +5409,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   paramValidationFactory<any>(reposGetAllStatusCheckContextsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetAllStatusCheckContexts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetAllStatusCheckContexts
   }
 )
 
@@ -4413,9 +5432,13 @@ router.put(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   paramValidationFactory<any>(reposSetStatusCheckContextsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposSetStatusCheckContexts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposSetStatusCheckContexts
   }
 )
 
@@ -4432,9 +5455,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   paramValidationFactory<any>(reposAddStatusCheckContextsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAddStatusCheckContexts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAddStatusCheckContexts
   }
 )
 
@@ -4451,9 +5478,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
   paramValidationFactory<any>(reposRemoveStatusCheckContextsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveStatusCheckContexts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveStatusCheckContexts
   }
 )
 
@@ -4470,9 +5501,13 @@ router.get(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
   paramValidationFactory<any>(reposGetAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetAccessRestrictions
   }
 )
 
@@ -4489,9 +5524,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
   paramValidationFactory<any>(reposDeleteAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteAccessRestrictions
   }
 )
 
@@ -4510,9 +5549,13 @@ router.get(
     reposGetAppsWithAccessToProtectedBranchParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetAppsWithAccessToProtectedBranch
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetAppsWithAccessToProtectedBranch
   }
 )
 
@@ -4529,9 +5572,13 @@ router.put(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   paramValidationFactory<any>(reposSetAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposSetAppAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposSetAppAccessRestrictions
   }
 )
 
@@ -4548,9 +5595,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   paramValidationFactory<any>(reposAddAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAddAppAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAddAppAccessRestrictions
   }
 )
 
@@ -4567,9 +5618,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
   paramValidationFactory<any>(reposRemoveAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveAppAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveAppAccessRestrictions
   }
 )
 
@@ -4588,9 +5643,13 @@ router.get(
     reposGetTeamsWithAccessToProtectedBranchParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetTeamsWithAccessToProtectedBranch
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetTeamsWithAccessToProtectedBranch
   }
 )
 
@@ -4607,9 +5666,13 @@ router.put(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   paramValidationFactory<any>(reposSetTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposSetTeamAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposSetTeamAccessRestrictions
   }
 )
 
@@ -4626,9 +5689,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   paramValidationFactory<any>(reposAddTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAddTeamAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAddTeamAccessRestrictions
   }
 )
 
@@ -4645,9 +5712,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
   paramValidationFactory<any>(reposRemoveTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveTeamAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveTeamAccessRestrictions
   }
 )
 
@@ -4666,9 +5737,13 @@ router.get(
     reposGetUsersWithAccessToProtectedBranchParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetUsersWithAccessToProtectedBranch
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetUsersWithAccessToProtectedBranch
   }
 )
 
@@ -4685,9 +5760,13 @@ router.put(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   paramValidationFactory<any>(reposSetUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposSetUserAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposSetUserAccessRestrictions
   }
 )
 
@@ -4704,9 +5783,13 @@ router.post(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   paramValidationFactory<any>(reposAddUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAddUserAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAddUserAccessRestrictions
   }
 )
 
@@ -4723,9 +5806,13 @@ router.delete(
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
   paramValidationFactory<any>(reposRemoveUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveUserAccessRestrictions
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveUserAccessRestrictions
   }
 )
 
@@ -4738,9 +5825,13 @@ router.post(
   "/repos/:owner/:repo/check-runs",
   paramValidationFactory<any>(checksCreateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksCreate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksCreate
   }
 )
 
@@ -4757,9 +5848,13 @@ router.patch(
   "/repos/:owner/:repo/check-runs/:checkRunId",
   paramValidationFactory<any>(checksUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksUpdate
   }
 )
 
@@ -4776,9 +5871,13 @@ router.get(
   "/repos/:owner/:repo/check-runs/:checkRunId",
   paramValidationFactory<any>(checksGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksGet
   }
 )
 
@@ -4800,9 +5899,13 @@ router.get(
   paramValidationFactory<any>(checksListAnnotationsParamSchema),
   queryValidationFactory<any>(checksListAnnotationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksListAnnotations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksListAnnotations
   }
 )
 
@@ -4815,9 +5918,13 @@ router.post(
   "/repos/:owner/:repo/check-suites",
   paramValidationFactory<any>(checksCreateSuiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksCreateSuite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksCreateSuite
   }
 )
 
@@ -4830,9 +5937,13 @@ router.patch(
   "/repos/:owner/:repo/check-suites/preferences",
   paramValidationFactory<any>(checksSetSuitesPreferencesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksSetSuitesPreferences
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksSetSuitesPreferences
   }
 )
 
@@ -4849,9 +5960,13 @@ router.get(
   "/repos/:owner/:repo/check-suites/:checkSuiteId",
   paramValidationFactory<any>(checksGetSuiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksGetSuite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksGetSuite
   }
 )
 
@@ -4879,9 +5994,13 @@ router.get(
   paramValidationFactory<any>(checksListForSuiteParamSchema),
   queryValidationFactory<any>(checksListForSuiteQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksListForSuite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksListForSuite
   }
 )
 
@@ -4898,9 +6017,13 @@ router.post(
   "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
   paramValidationFactory<any>(checksRerequestSuiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksRerequestSuite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksRerequestSuite
   }
 )
 
@@ -4918,9 +6041,13 @@ router.get(
   paramValidationFactory<any>(codeScanningListAlertsForRepoParamSchema),
   queryValidationFactory<any>(codeScanningListAlertsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-codeScanningListAlertsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-codeScanningListAlertsForRepo
   }
 )
 
@@ -4937,9 +6064,13 @@ router.get(
   "/repos/:owner/:repo/code-scanning/alerts/:alertId",
   paramValidationFactory<any>(codeScanningGetAlertParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-codeScanningGetAlert
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-codeScanningGetAlert
   }
 )
 
@@ -4961,9 +6092,13 @@ router.get(
   paramValidationFactory<any>(reposListCollaboratorsParamSchema),
   queryValidationFactory<any>(reposListCollaboratorsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListCollaborators
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListCollaborators
   }
 )
 
@@ -4980,9 +6115,13 @@ router.get(
   "/repos/:owner/:repo/collaborators/:username",
   paramValidationFactory<any>(reposCheckCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCheckCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCheckCollaborator
   }
 )
 
@@ -4999,9 +6138,13 @@ router.put(
   "/repos/:owner/:repo/collaborators/:username",
   paramValidationFactory<any>(reposAddCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAddCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAddCollaborator
   }
 )
 
@@ -5018,9 +6161,13 @@ router.delete(
   "/repos/:owner/:repo/collaborators/:username",
   paramValidationFactory<any>(reposRemoveCollaboratorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRemoveCollaborator
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRemoveCollaborator
   }
 )
 
@@ -5037,9 +6184,13 @@ router.get(
   "/repos/:owner/:repo/collaborators/:username/permission",
   paramValidationFactory<any>(reposGetCollaboratorPermissionLevelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCollaboratorPermissionLevel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCollaboratorPermissionLevel
   }
 )
 
@@ -5057,9 +6208,13 @@ router.get(
   paramValidationFactory<any>(reposListCommitCommentsForRepoParamSchema),
   queryValidationFactory<any>(reposListCommitCommentsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListCommitCommentsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListCommitCommentsForRepo
   }
 )
 
@@ -5076,9 +6231,13 @@ router.get(
   "/repos/:owner/:repo/comments/:commentId",
   paramValidationFactory<any>(reposGetCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCommitComment
   }
 )
 
@@ -5095,9 +6254,13 @@ router.patch(
   "/repos/:owner/:repo/comments/:commentId",
   paramValidationFactory<any>(reposUpdateCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateCommitComment
   }
 )
 
@@ -5114,9 +6277,13 @@ router.delete(
   "/repos/:owner/:repo/comments/:commentId",
   paramValidationFactory<any>(reposDeleteCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteCommitComment
   }
 )
 
@@ -5138,9 +6305,13 @@ router.get(
   paramValidationFactory<any>(reactionsListForCommitCommentParamSchema),
   queryValidationFactory<any>(reactionsListForCommitCommentQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForCommitComment
   }
 )
 
@@ -5157,9 +6328,13 @@ router.post(
   "/repos/:owner/:repo/comments/:commentId/reactions",
   paramValidationFactory<any>(reactionsCreateForCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForCommitComment
   }
 )
 
@@ -5177,9 +6352,13 @@ router.delete(
   "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteForCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForCommitComment
   }
 )
 
@@ -5205,9 +6384,13 @@ router.get(
   paramValidationFactory<any>(reposListCommitsParamSchema),
   queryValidationFactory<any>(reposListCommitsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListCommits
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListCommits
   }
 )
 
@@ -5224,9 +6407,13 @@ router.get(
   "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
   paramValidationFactory<any>(reposListBranchesForHeadCommitParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListBranchesForHeadCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListBranchesForHeadCommit
   }
 )
 
@@ -5248,9 +6435,13 @@ router.get(
   paramValidationFactory<any>(reposListCommentsForCommitParamSchema),
   queryValidationFactory<any>(reposListCommentsForCommitQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListCommentsForCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListCommentsForCommit
   }
 )
 
@@ -5267,9 +6458,13 @@ router.post(
   "/repos/:owner/:repo/commits/:commitSha/comments",
   paramValidationFactory<any>(reposCreateCommitCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateCommitComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateCommitComment
   }
 )
 
@@ -5295,9 +6490,13 @@ router.get(
     reposListPullRequestsAssociatedWithCommitQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposListPullRequestsAssociatedWithCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListPullRequestsAssociatedWithCommit
   }
 )
 
@@ -5314,9 +6513,13 @@ router.get(
   "/repos/:owner/:repo/commits/:ref",
   paramValidationFactory<any>(reposGetCommitParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCommit
   }
 )
 
@@ -5344,9 +6547,13 @@ router.get(
   paramValidationFactory<any>(checksListForRefParamSchema),
   queryValidationFactory<any>(checksListForRefQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksListForRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksListForRef
   }
 )
 
@@ -5373,9 +6580,13 @@ router.get(
   paramValidationFactory<any>(checksListSuitesForRefParamSchema),
   queryValidationFactory<any>(checksListSuitesForRefQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-checksListSuitesForRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-checksListSuitesForRef
   }
 )
 
@@ -5392,9 +6603,13 @@ router.get(
   "/repos/:owner/:repo/commits/:ref/status",
   paramValidationFactory<any>(reposGetCombinedStatusForRefParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCombinedStatusForRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCombinedStatusForRef
   }
 )
 
@@ -5416,9 +6631,13 @@ router.get(
   paramValidationFactory<any>(reposListCommitStatusesForRefParamSchema),
   queryValidationFactory<any>(reposListCommitStatusesForRefQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListCommitStatusesForRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListCommitStatusesForRef
   }
 )
 
@@ -5431,9 +6650,13 @@ router.get(
   "/repos/:owner/:repo/community/code_of_conduct",
   paramValidationFactory<any>(codesOfConductGetForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-codesOfConductGetForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-codesOfConductGetForRepo
   }
 )
 
@@ -5446,9 +6669,13 @@ router.get(
   "/repos/:owner/:repo/community/profile",
   paramValidationFactory<any>(reposGetCommunityProfileMetricsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCommunityProfileMetrics
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCommunityProfileMetrics
   }
 )
 
@@ -5466,9 +6693,13 @@ router.get(
   "/repos/:owner/:repo/compare/:base...:head",
   paramValidationFactory<any>(reposCompareCommitsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCompareCommits
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCompareCommits
   }
 )
 
@@ -5488,9 +6719,13 @@ router.get(
   paramValidationFactory<any>(reposGetContentParamSchema),
   queryValidationFactory<any>(reposGetContentQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetContent
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetContent
   }
 )
 
@@ -5507,9 +6742,13 @@ router.put(
   "/repos/:owner/:repo/contents/:path",
   paramValidationFactory<any>(reposCreateOrUpdateFileContentsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateOrUpdateFileContents
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateOrUpdateFileContents
   }
 )
 
@@ -5526,9 +6765,13 @@ router.delete(
   "/repos/:owner/:repo/contents/:path",
   paramValidationFactory<any>(reposDeleteFileParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteFile
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteFile
   }
 )
 
@@ -5546,9 +6789,13 @@ router.get(
   paramValidationFactory<any>(reposListContributorsParamSchema),
   queryValidationFactory<any>(reposListContributorsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListContributors
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListContributors
   }
 )
 
@@ -5573,9 +6820,13 @@ router.get(
   paramValidationFactory<any>(reposListDeploymentsParamSchema),
   queryValidationFactory<any>(reposListDeploymentsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListDeployments
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListDeployments
   }
 )
 
@@ -5588,9 +6839,13 @@ router.post(
   "/repos/:owner/:repo/deployments",
   paramValidationFactory<any>(reposCreateDeploymentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateDeployment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateDeployment
   }
 )
 
@@ -5607,9 +6862,13 @@ router.get(
   "/repos/:owner/:repo/deployments/:deploymentId",
   paramValidationFactory<any>(reposGetDeploymentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetDeployment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetDeployment
   }
 )
 
@@ -5626,9 +6885,13 @@ router.delete(
   "/repos/:owner/:repo/deployments/:deploymentId",
   paramValidationFactory<any>(reposDeleteDeploymentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteDeployment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteDeployment
   }
 )
 
@@ -5650,9 +6913,13 @@ router.get(
   paramValidationFactory<any>(reposListDeploymentStatusesParamSchema),
   queryValidationFactory<any>(reposListDeploymentStatusesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListDeploymentStatuses
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListDeploymentStatuses
   }
 )
 
@@ -5669,9 +6936,13 @@ router.post(
   "/repos/:owner/:repo/deployments/:deploymentId/statuses",
   paramValidationFactory<any>(reposCreateDeploymentStatusParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateDeploymentStatus
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateDeploymentStatus
   }
 )
 
@@ -5689,9 +6960,13 @@ router.get(
   "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
   paramValidationFactory<any>(reposGetDeploymentStatusParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetDeploymentStatus
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetDeploymentStatus
   }
 )
 
@@ -5704,9 +6979,13 @@ router.post(
   "/repos/:owner/:repo/dispatches",
   paramValidationFactory<any>(reposCreateDispatchEventParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateDispatchEvent
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateDispatchEvent
   }
 )
 
@@ -5724,9 +7003,13 @@ router.get(
   paramValidationFactory<any>(activityListRepoEventsParamSchema),
   queryValidationFactory<any>(activityListRepoEventsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListRepoEvents
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListRepoEvents
   }
 )
 
@@ -5744,9 +7027,13 @@ router.get(
   paramValidationFactory<any>(reposListForksParamSchema),
   queryValidationFactory<any>(reposListForksQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListForks
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListForks
   }
 )
 
@@ -5759,9 +7046,13 @@ router.post(
   "/repos/:owner/:repo/forks",
   paramValidationFactory<any>(reposCreateForkParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateFork
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateFork
   }
 )
 
@@ -5774,9 +7065,13 @@ router.post(
   "/repos/:owner/:repo/git/blobs",
   paramValidationFactory<any>(gitCreateBlobParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitCreateBlob
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitCreateBlob
   }
 )
 
@@ -5793,9 +7088,13 @@ router.get(
   "/repos/:owner/:repo/git/blobs/:fileSha",
   paramValidationFactory<any>(gitGetBlobParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitGetBlob
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitGetBlob
   }
 )
 
@@ -5808,9 +7107,13 @@ router.post(
   "/repos/:owner/:repo/git/commits",
   paramValidationFactory<any>(gitCreateCommitParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitCreateCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitCreateCommit
   }
 )
 
@@ -5827,9 +7130,13 @@ router.get(
   "/repos/:owner/:repo/git/commits/:commitSha",
   paramValidationFactory<any>(gitGetCommitParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitGetCommit
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitGetCommit
   }
 )
 
@@ -5851,9 +7158,13 @@ router.get(
   paramValidationFactory<any>(gitListMatchingRefsParamSchema),
   queryValidationFactory<any>(gitListMatchingRefsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitListMatchingRefs
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitListMatchingRefs
   }
 )
 
@@ -5870,9 +7181,13 @@ router.get(
   "/repos/:owner/:repo/git/ref/:ref",
   paramValidationFactory<any>(gitGetRefParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitGetRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitGetRef
   }
 )
 
@@ -5885,9 +7200,13 @@ router.post(
   "/repos/:owner/:repo/git/refs",
   paramValidationFactory<any>(gitCreateRefParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitCreateRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitCreateRef
   }
 )
 
@@ -5904,9 +7223,13 @@ router.patch(
   "/repos/:owner/:repo/git/refs/:ref",
   paramValidationFactory<any>(gitUpdateRefParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitUpdateRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitUpdateRef
   }
 )
 
@@ -5923,9 +7246,13 @@ router.delete(
   "/repos/:owner/:repo/git/refs/:ref",
   paramValidationFactory<any>(gitDeleteRefParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitDeleteRef
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitDeleteRef
   }
 )
 
@@ -5938,9 +7265,13 @@ router.post(
   "/repos/:owner/:repo/git/tags",
   paramValidationFactory<any>(gitCreateTagParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitCreateTag
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitCreateTag
   }
 )
 
@@ -5957,9 +7288,13 @@ router.get(
   "/repos/:owner/:repo/git/tags/:tagSha",
   paramValidationFactory<any>(gitGetTagParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitGetTag
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitGetTag
   }
 )
 
@@ -5972,9 +7307,13 @@ router.post(
   "/repos/:owner/:repo/git/trees",
   paramValidationFactory<any>(gitCreateTreeParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitCreateTree
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitCreateTree
   }
 )
 
@@ -5994,9 +7333,13 @@ router.get(
   paramValidationFactory<any>(gitGetTreeParamSchema),
   queryValidationFactory<any>(gitGetTreeQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gitGetTree
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gitGetTree
   }
 )
 
@@ -6014,9 +7357,13 @@ router.get(
   paramValidationFactory<any>(reposListWebhooksParamSchema),
   queryValidationFactory<any>(reposListWebhooksQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListWebhooks
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListWebhooks
   }
 )
 
@@ -6029,9 +7376,13 @@ router.post(
   "/repos/:owner/:repo/hooks",
   paramValidationFactory<any>(reposCreateWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateWebhook
   }
 )
 
@@ -6048,9 +7399,13 @@ router.get(
   "/repos/:owner/:repo/hooks/:hookId",
   paramValidationFactory<any>(reposGetWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetWebhook
   }
 )
 
@@ -6067,9 +7422,13 @@ router.patch(
   "/repos/:owner/:repo/hooks/:hookId",
   paramValidationFactory<any>(reposUpdateWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateWebhook
   }
 )
 
@@ -6086,9 +7445,13 @@ router.delete(
   "/repos/:owner/:repo/hooks/:hookId",
   paramValidationFactory<any>(reposDeleteWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteWebhook
   }
 )
 
@@ -6105,9 +7468,13 @@ router.post(
   "/repos/:owner/:repo/hooks/:hookId/pings",
   paramValidationFactory<any>(reposPingWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposPingWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposPingWebhook
   }
 )
 
@@ -6124,9 +7491,13 @@ router.post(
   "/repos/:owner/:repo/hooks/:hookId/tests",
   paramValidationFactory<any>(reposTestPushWebhookParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposTestPushWebhook
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposTestPushWebhook
   }
 )
 
@@ -6139,9 +7510,13 @@ router.put(
   "/repos/:owner/:repo/import",
   paramValidationFactory<any>(migrationsStartImportParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsStartImport
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsStartImport
   }
 )
 
@@ -6154,9 +7529,13 @@ router.get(
   "/repos/:owner/:repo/import",
   paramValidationFactory<any>(migrationsGetImportStatusParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetImportStatus
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetImportStatus
   }
 )
 
@@ -6169,9 +7548,13 @@ router.patch(
   "/repos/:owner/:repo/import",
   paramValidationFactory<any>(migrationsUpdateImportParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsUpdateImport
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsUpdateImport
   }
 )
 
@@ -6184,9 +7567,13 @@ router.delete(
   "/repos/:owner/:repo/import",
   paramValidationFactory<any>(migrationsCancelImportParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsCancelImport
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsCancelImport
   }
 )
 
@@ -6204,9 +7591,13 @@ router.get(
   paramValidationFactory<any>(migrationsGetCommitAuthorsParamSchema),
   queryValidationFactory<any>(migrationsGetCommitAuthorsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetCommitAuthors
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetCommitAuthors
   }
 )
 
@@ -6223,9 +7614,13 @@ router.patch(
   "/repos/:owner/:repo/import/authors/:authorId",
   paramValidationFactory<any>(migrationsMapCommitAuthorParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsMapCommitAuthor
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsMapCommitAuthor
   }
 )
 
@@ -6238,9 +7633,13 @@ router.get(
   "/repos/:owner/:repo/import/large_files",
   paramValidationFactory<any>(migrationsGetLargeFilesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetLargeFiles
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetLargeFiles
   }
 )
 
@@ -6253,9 +7652,13 @@ router.patch(
   "/repos/:owner/:repo/import/lfs",
   paramValidationFactory<any>(migrationsSetLfsPreferenceParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsSetLfsPreference
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsSetLfsPreference
   }
 )
 
@@ -6268,9 +7671,13 @@ router.get(
   "/repos/:owner/:repo/installation",
   paramValidationFactory<any>(appsGetRepoInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetRepoInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetRepoInstallation
   }
 )
 
@@ -6283,9 +7690,13 @@ router.get(
   "/repos/:owner/:repo/interaction-limits",
   paramValidationFactory<any>(interactionsGetRestrictionsForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsGetRestrictionsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsGetRestrictionsForRepo
   }
 )
 
@@ -6298,9 +7709,13 @@ router.put(
   "/repos/:owner/:repo/interaction-limits",
   paramValidationFactory<any>(interactionsSetRestrictionsForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsSetRestrictionsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsSetRestrictionsForRepo
   }
 )
 
@@ -6313,9 +7728,13 @@ router.delete(
   "/repos/:owner/:repo/interaction-limits",
   paramValidationFactory<any>(interactionsRemoveRestrictionsForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-interactionsRemoveRestrictionsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-interactionsRemoveRestrictionsForRepo
   }
 )
 
@@ -6333,9 +7752,13 @@ router.get(
   paramValidationFactory<any>(reposListInvitationsParamSchema),
   queryValidationFactory<any>(reposListInvitationsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListInvitations
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListInvitations
   }
 )
 
@@ -6352,9 +7775,13 @@ router.delete(
   "/repos/:owner/:repo/invitations/:invitationId",
   paramValidationFactory<any>(reposDeleteInvitationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteInvitation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteInvitation
   }
 )
 
@@ -6371,9 +7798,13 @@ router.patch(
   "/repos/:owner/:repo/invitations/:invitationId",
   paramValidationFactory<any>(reposUpdateInvitationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateInvitation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateInvitation
   }
 )
 
@@ -6403,9 +7834,13 @@ router.get(
   paramValidationFactory<any>(issuesListForRepoParamSchema),
   queryValidationFactory<any>(issuesListForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListForRepo
   }
 )
 
@@ -6418,9 +7853,13 @@ router.post(
   "/repos/:owner/:repo/issues",
   paramValidationFactory<any>(issuesCreateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesCreate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesCreate
   }
 )
 
@@ -6444,9 +7883,13 @@ router.get(
   paramValidationFactory<any>(issuesListCommentsForRepoParamSchema),
   queryValidationFactory<any>(issuesListCommentsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListCommentsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListCommentsForRepo
   }
 )
 
@@ -6463,9 +7906,13 @@ router.get(
   "/repos/:owner/:repo/issues/comments/:commentId",
   paramValidationFactory<any>(issuesGetCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesGetComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesGetComment
   }
 )
 
@@ -6482,9 +7929,13 @@ router.patch(
   "/repos/:owner/:repo/issues/comments/:commentId",
   paramValidationFactory<any>(issuesUpdateCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesUpdateComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesUpdateComment
   }
 )
 
@@ -6501,9 +7952,13 @@ router.delete(
   "/repos/:owner/:repo/issues/comments/:commentId",
   paramValidationFactory<any>(issuesDeleteCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesDeleteComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesDeleteComment
   }
 )
 
@@ -6525,9 +7980,13 @@ router.get(
   paramValidationFactory<any>(reactionsListForIssueCommentParamSchema),
   queryValidationFactory<any>(reactionsListForIssueCommentQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForIssueComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForIssueComment
   }
 )
 
@@ -6544,9 +8003,13 @@ router.post(
   "/repos/:owner/:repo/issues/comments/:commentId/reactions",
   paramValidationFactory<any>(reactionsCreateForIssueCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForIssueComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForIssueComment
   }
 )
 
@@ -6564,9 +8027,13 @@ router.delete(
   "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteForIssueCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForIssueComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForIssueComment
   }
 )
 
@@ -6584,9 +8051,13 @@ router.get(
   paramValidationFactory<any>(issuesListEventsForRepoParamSchema),
   queryValidationFactory<any>(issuesListEventsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListEventsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListEventsForRepo
   }
 )
 
@@ -6603,9 +8074,13 @@ router.get(
   "/repos/:owner/:repo/issues/events/:eventId",
   paramValidationFactory<any>(issuesGetEventParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesGetEvent
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesGetEvent
   }
 )
 
@@ -6622,9 +8097,13 @@ router.get(
   "/repos/:owner/:repo/issues/:issueNumber",
   paramValidationFactory<any>(issuesGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesGet
   }
 )
 
@@ -6641,9 +8120,13 @@ router.patch(
   "/repos/:owner/:repo/issues/:issueNumber",
   paramValidationFactory<any>(issuesUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesUpdate
   }
 )
 
@@ -6660,9 +8143,13 @@ router.post(
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
   paramValidationFactory<any>(issuesAddAssigneesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesAddAssignees
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesAddAssignees
   }
 )
 
@@ -6679,9 +8166,13 @@ router.delete(
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
   paramValidationFactory<any>(issuesRemoveAssigneesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesRemoveAssignees
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesRemoveAssignees
   }
 )
 
@@ -6703,9 +8194,13 @@ router.get(
   paramValidationFactory<any>(issuesListCommentsParamSchema),
   queryValidationFactory<any>(issuesListCommentsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListComments
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListComments
   }
 )
 
@@ -6722,9 +8217,13 @@ router.post(
   "/repos/:owner/:repo/issues/:issueNumber/comments",
   paramValidationFactory<any>(issuesCreateCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesCreateComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesCreateComment
   }
 )
 
@@ -6746,9 +8245,13 @@ router.get(
   paramValidationFactory<any>(issuesListEventsParamSchema),
   queryValidationFactory<any>(issuesListEventsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListEvents
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListEvents
   }
 )
 
@@ -6770,9 +8273,13 @@ router.get(
   paramValidationFactory<any>(issuesListLabelsOnIssueParamSchema),
   queryValidationFactory<any>(issuesListLabelsOnIssueQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListLabelsOnIssue
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListLabelsOnIssue
   }
 )
 
@@ -6789,9 +8296,13 @@ router.post(
   "/repos/:owner/:repo/issues/:issueNumber/labels",
   paramValidationFactory<any>(issuesAddLabelsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesAddLabels
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesAddLabels
   }
 )
 
@@ -6808,9 +8319,13 @@ router.put(
   "/repos/:owner/:repo/issues/:issueNumber/labels",
   paramValidationFactory<any>(issuesSetLabelsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesSetLabels
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesSetLabels
   }
 )
 
@@ -6827,9 +8342,13 @@ router.delete(
   "/repos/:owner/:repo/issues/:issueNumber/labels",
   paramValidationFactory<any>(issuesRemoveAllLabelsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesRemoveAllLabels
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesRemoveAllLabels
   }
 )
 
@@ -6847,9 +8366,13 @@ router.delete(
   "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
   paramValidationFactory<any>(issuesRemoveLabelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesRemoveLabel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesRemoveLabel
   }
 )
 
@@ -6866,9 +8389,13 @@ router.put(
   "/repos/:owner/:repo/issues/:issueNumber/lock",
   paramValidationFactory<any>(issuesLockParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesLock
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesLock
   }
 )
 
@@ -6885,9 +8412,13 @@ router.delete(
   "/repos/:owner/:repo/issues/:issueNumber/lock",
   paramValidationFactory<any>(issuesUnlockParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesUnlock
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesUnlock
   }
 )
 
@@ -6909,9 +8440,13 @@ router.get(
   paramValidationFactory<any>(reactionsListForIssueParamSchema),
   queryValidationFactory<any>(reactionsListForIssueQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForIssue
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForIssue
   }
 )
 
@@ -6928,9 +8463,13 @@ router.post(
   "/repos/:owner/:repo/issues/:issueNumber/reactions",
   paramValidationFactory<any>(reactionsCreateForIssueParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForIssue
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForIssue
   }
 )
 
@@ -6948,9 +8487,13 @@ router.delete(
   "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteForIssueParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForIssue
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForIssue
   }
 )
 
@@ -6972,9 +8515,13 @@ router.get(
   paramValidationFactory<any>(issuesListEventsForTimelineParamSchema),
   queryValidationFactory<any>(issuesListEventsForTimelineQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListEventsForTimeline
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListEventsForTimeline
   }
 )
 
@@ -6992,9 +8539,13 @@ router.get(
   paramValidationFactory<any>(reposListDeployKeysParamSchema),
   queryValidationFactory<any>(reposListDeployKeysQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListDeployKeys
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListDeployKeys
   }
 )
 
@@ -7007,9 +8558,13 @@ router.post(
   "/repos/:owner/:repo/keys",
   paramValidationFactory<any>(reposCreateDeployKeyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateDeployKey
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateDeployKey
   }
 )
 
@@ -7026,9 +8581,13 @@ router.get(
   "/repos/:owner/:repo/keys/:keyId",
   paramValidationFactory<any>(reposGetDeployKeyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetDeployKey
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetDeployKey
   }
 )
 
@@ -7045,9 +8604,13 @@ router.delete(
   "/repos/:owner/:repo/keys/:keyId",
   paramValidationFactory<any>(reposDeleteDeployKeyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteDeployKey
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteDeployKey
   }
 )
 
@@ -7065,9 +8628,13 @@ router.get(
   paramValidationFactory<any>(issuesListLabelsForRepoParamSchema),
   queryValidationFactory<any>(issuesListLabelsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListLabelsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListLabelsForRepo
   }
 )
 
@@ -7080,9 +8647,13 @@ router.post(
   "/repos/:owner/:repo/labels",
   paramValidationFactory<any>(issuesCreateLabelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesCreateLabel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesCreateLabel
   }
 )
 
@@ -7099,9 +8670,13 @@ router.get(
   "/repos/:owner/:repo/labels/:name",
   paramValidationFactory<any>(issuesGetLabelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesGetLabel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesGetLabel
   }
 )
 
@@ -7118,9 +8693,13 @@ router.patch(
   "/repos/:owner/:repo/labels/:name",
   paramValidationFactory<any>(issuesUpdateLabelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesUpdateLabel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesUpdateLabel
   }
 )
 
@@ -7137,9 +8716,13 @@ router.delete(
   "/repos/:owner/:repo/labels/:name",
   paramValidationFactory<any>(issuesDeleteLabelParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesDeleteLabel
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesDeleteLabel
   }
 )
 
@@ -7152,9 +8735,13 @@ router.get(
   "/repos/:owner/:repo/languages",
   paramValidationFactory<any>(reposListLanguagesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListLanguages
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListLanguages
   }
 )
 
@@ -7167,9 +8754,13 @@ router.get(
   "/repos/:owner/:repo/license",
   paramValidationFactory<any>(licensesGetForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-licensesGetForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-licensesGetForRepo
   }
 )
 
@@ -7182,9 +8773,13 @@ router.post(
   "/repos/:owner/:repo/merges",
   paramValidationFactory<any>(reposMergeParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposMerge
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposMerge
   }
 )
 
@@ -7208,9 +8803,13 @@ router.get(
   paramValidationFactory<any>(issuesListMilestonesParamSchema),
   queryValidationFactory<any>(issuesListMilestonesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListMilestones
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListMilestones
   }
 )
 
@@ -7223,9 +8822,13 @@ router.post(
   "/repos/:owner/:repo/milestones",
   paramValidationFactory<any>(issuesCreateMilestoneParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesCreateMilestone
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesCreateMilestone
   }
 )
 
@@ -7242,9 +8845,13 @@ router.get(
   "/repos/:owner/:repo/milestones/:milestoneNumber",
   paramValidationFactory<any>(issuesGetMilestoneParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesGetMilestone
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesGetMilestone
   }
 )
 
@@ -7261,9 +8868,13 @@ router.patch(
   "/repos/:owner/:repo/milestones/:milestoneNumber",
   paramValidationFactory<any>(issuesUpdateMilestoneParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesUpdateMilestone
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesUpdateMilestone
   }
 )
 
@@ -7280,9 +8891,13 @@ router.delete(
   "/repos/:owner/:repo/milestones/:milestoneNumber",
   paramValidationFactory<any>(issuesDeleteMilestoneParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesDeleteMilestone
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesDeleteMilestone
   }
 )
 
@@ -7304,9 +8919,13 @@ router.get(
   paramValidationFactory<any>(issuesListLabelsForMilestoneParamSchema),
   queryValidationFactory<any>(issuesListLabelsForMilestoneQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListLabelsForMilestone
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListLabelsForMilestone
   }
 )
 
@@ -7335,9 +8954,13 @@ router.get(
     activityListRepoNotificationsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListRepoNotificationsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListRepoNotificationsForAuthenticatedUser
   }
 )
 
@@ -7350,9 +8973,13 @@ router.put(
   "/repos/:owner/:repo/notifications",
   paramValidationFactory<any>(activityMarkRepoNotificationsAsReadParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityMarkRepoNotificationsAsRead
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityMarkRepoNotificationsAsRead
   }
 )
 
@@ -7365,9 +8992,13 @@ router.get(
   "/repos/:owner/:repo/pages",
   paramValidationFactory<any>(reposGetPagesParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetPages
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetPages
   }
 )
 
@@ -7380,9 +9011,13 @@ router.post(
   "/repos/:owner/:repo/pages",
   paramValidationFactory<any>(reposCreatePagesSiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreatePagesSite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreatePagesSite
   }
 )
 
@@ -7395,9 +9030,13 @@ router.delete(
   "/repos/:owner/:repo/pages",
   paramValidationFactory<any>(reposDeletePagesSiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeletePagesSite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeletePagesSite
   }
 )
 
@@ -7410,9 +9049,13 @@ router.put(
   "/repos/:owner/:repo/pages",
   paramValidationFactory<any>(reposUpdateInformationAboutPagesSiteParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateInformationAboutPagesSite
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateInformationAboutPagesSite
   }
 )
 
@@ -7425,9 +9068,13 @@ router.post(
   "/repos/:owner/:repo/pages/builds",
   paramValidationFactory<any>(reposRequestPagesBuildParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposRequestPagesBuild
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposRequestPagesBuild
   }
 )
 
@@ -7445,9 +9092,13 @@ router.get(
   paramValidationFactory<any>(reposListPagesBuildsParamSchema),
   queryValidationFactory<any>(reposListPagesBuildsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListPagesBuilds
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListPagesBuilds
   }
 )
 
@@ -7460,9 +9111,13 @@ router.get(
   "/repos/:owner/:repo/pages/builds/latest",
   paramValidationFactory<any>(reposGetLatestPagesBuildParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetLatestPagesBuild
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetLatestPagesBuild
   }
 )
 
@@ -7479,9 +9134,13 @@ router.get(
   "/repos/:owner/:repo/pages/builds/:buildId",
   paramValidationFactory<any>(reposGetPagesBuildParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetPagesBuild
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetPagesBuild
   }
 )
 
@@ -7499,9 +9158,13 @@ router.get(
   paramValidationFactory<any>(projectsListForRepoParamSchema),
   queryValidationFactory<any>(projectsListForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListForRepo
   }
 )
 
@@ -7514,9 +9177,13 @@ router.post(
   "/repos/:owner/:repo/projects",
   paramValidationFactory<any>(projectsCreateForRepoParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsCreateForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsCreateForRepo
   }
 )
 
@@ -7542,9 +9209,13 @@ router.get(
   paramValidationFactory<any>(pullsListParamSchema),
   queryValidationFactory<any>(pullsListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsList
   }
 )
 
@@ -7557,9 +9228,13 @@ router.post(
   "/repos/:owner/:repo/pulls",
   paramValidationFactory<any>(pullsCreateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsCreate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsCreate
   }
 )
 
@@ -7583,9 +9258,13 @@ router.get(
   paramValidationFactory<any>(pullsListReviewCommentsForRepoParamSchema),
   queryValidationFactory<any>(pullsListReviewCommentsForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListReviewCommentsForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListReviewCommentsForRepo
   }
 )
 
@@ -7602,9 +9281,13 @@ router.get(
   "/repos/:owner/:repo/pulls/comments/:commentId",
   paramValidationFactory<any>(pullsGetReviewCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsGetReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsGetReviewComment
   }
 )
 
@@ -7621,9 +9304,13 @@ router.patch(
   "/repos/:owner/:repo/pulls/comments/:commentId",
   paramValidationFactory<any>(pullsUpdateReviewCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsUpdateReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsUpdateReviewComment
   }
 )
 
@@ -7640,9 +9327,13 @@ router.delete(
   "/repos/:owner/:repo/pulls/comments/:commentId",
   paramValidationFactory<any>(pullsDeleteReviewCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsDeleteReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsDeleteReviewComment
   }
 )
 
@@ -7668,9 +9359,13 @@ router.get(
     reactionsListForPullRequestReviewCommentQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForPullRequestReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForPullRequestReviewComment
   }
 )
 
@@ -7689,9 +9384,13 @@ router.post(
     reactionsCreateForPullRequestReviewCommentParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForPullRequestReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForPullRequestReviewComment
   }
 )
 
@@ -7709,9 +9408,13 @@ router.delete(
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
   paramValidationFactory<any>(reactionsDeleteForPullRequestCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsDeleteForPullRequestComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsDeleteForPullRequestComment
   }
 )
 
@@ -7728,9 +9431,13 @@ router.get(
   "/repos/:owner/:repo/pulls/:pullNumber",
   paramValidationFactory<any>(pullsGetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsGet
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsGet
   }
 )
 
@@ -7747,9 +9454,13 @@ router.patch(
   "/repos/:owner/:repo/pulls/:pullNumber",
   paramValidationFactory<any>(pullsUpdateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsUpdate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsUpdate
   }
 )
 
@@ -7777,9 +9488,13 @@ router.get(
   paramValidationFactory<any>(pullsListReviewCommentsParamSchema),
   queryValidationFactory<any>(pullsListReviewCommentsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListReviewComments
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListReviewComments
   }
 )
 
@@ -7796,9 +9511,13 @@ router.post(
   "/repos/:owner/:repo/pulls/:pullNumber/comments",
   paramValidationFactory<any>(pullsCreateReviewCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsCreateReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsCreateReviewComment
   }
 )
 
@@ -7816,9 +9535,13 @@ router.post(
   "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
   paramValidationFactory<any>(pullsCreateReplyForReviewCommentParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsCreateReplyForReviewComment
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsCreateReplyForReviewComment
   }
 )
 
@@ -7840,9 +9563,13 @@ router.get(
   paramValidationFactory<any>(pullsListCommitsParamSchema),
   queryValidationFactory<any>(pullsListCommitsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListCommits
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListCommits
   }
 )
 
@@ -7864,9 +9591,13 @@ router.get(
   paramValidationFactory<any>(pullsListFilesParamSchema),
   queryValidationFactory<any>(pullsListFilesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListFiles
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListFiles
   }
 )
 
@@ -7883,9 +9614,13 @@ router.get(
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
   paramValidationFactory<any>(pullsCheckIfMergedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsCheckIfMerged
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsCheckIfMerged
   }
 )
 
@@ -7902,9 +9637,13 @@ router.put(
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
   paramValidationFactory<any>(pullsMergeParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsMerge
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsMerge
   }
 )
 
@@ -7926,9 +9665,13 @@ router.get(
   paramValidationFactory<any>(pullsListRequestedReviewersParamSchema),
   queryValidationFactory<any>(pullsListRequestedReviewersQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListRequestedReviewers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListRequestedReviewers
   }
 )
 
@@ -7945,9 +9688,13 @@ router.post(
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
   paramValidationFactory<any>(pullsRequestReviewersParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsRequestReviewers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsRequestReviewers
   }
 )
 
@@ -7964,9 +9711,13 @@ router.delete(
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
   paramValidationFactory<any>(pullsRemoveRequestedReviewersParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsRemoveRequestedReviewers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsRemoveRequestedReviewers
   }
 )
 
@@ -7988,9 +9739,13 @@ router.get(
   paramValidationFactory<any>(pullsListReviewsParamSchema),
   queryValidationFactory<any>(pullsListReviewsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListReviews
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListReviews
   }
 )
 
@@ -8007,9 +9762,13 @@ router.post(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews",
   paramValidationFactory<any>(pullsCreateReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsCreateReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsCreateReview
   }
 )
 
@@ -8027,9 +9786,13 @@ router.get(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   paramValidationFactory<any>(pullsGetReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsGetReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsGetReview
   }
 )
 
@@ -8047,9 +9810,13 @@ router.delete(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   paramValidationFactory<any>(pullsDeletePendingReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsDeletePendingReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsDeletePendingReview
   }
 )
 
@@ -8067,9 +9834,13 @@ router.put(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   paramValidationFactory<any>(pullsUpdateReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsUpdateReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsUpdateReview
   }
 )
 
@@ -8092,9 +9863,13 @@ router.get(
   paramValidationFactory<any>(pullsListCommentsForReviewParamSchema),
   queryValidationFactory<any>(pullsListCommentsForReviewQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsListCommentsForReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsListCommentsForReview
   }
 )
 
@@ -8112,9 +9887,13 @@ router.put(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
   paramValidationFactory<any>(pullsDismissReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsDismissReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsDismissReview
   }
 )
 
@@ -8132,9 +9911,13 @@ router.post(
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
   paramValidationFactory<any>(pullsSubmitReviewParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsSubmitReview
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsSubmitReview
   }
 )
 
@@ -8151,9 +9934,13 @@ router.put(
   "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
   paramValidationFactory<any>(pullsUpdateBranchParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-pullsUpdateBranch
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-pullsUpdateBranch
   }
 )
 
@@ -8169,9 +9956,13 @@ router.get(
   paramValidationFactory<any>(reposGetReadmeParamSchema),
   queryValidationFactory<any>(reposGetReadmeQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetReadme
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetReadme
   }
 )
 
@@ -8189,9 +9980,13 @@ router.get(
   paramValidationFactory<any>(reposListReleasesParamSchema),
   queryValidationFactory<any>(reposListReleasesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListReleases
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListReleases
   }
 )
 
@@ -8204,9 +9999,13 @@ router.post(
   "/repos/:owner/:repo/releases",
   paramValidationFactory<any>(reposCreateReleaseParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateRelease
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateRelease
   }
 )
 
@@ -8223,9 +10022,13 @@ router.get(
   "/repos/:owner/:repo/releases/assets/:assetId",
   paramValidationFactory<any>(reposGetReleaseAssetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetReleaseAsset
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetReleaseAsset
   }
 )
 
@@ -8242,9 +10045,13 @@ router.patch(
   "/repos/:owner/:repo/releases/assets/:assetId",
   paramValidationFactory<any>(reposUpdateReleaseAssetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateReleaseAsset
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateReleaseAsset
   }
 )
 
@@ -8261,9 +10068,13 @@ router.delete(
   "/repos/:owner/:repo/releases/assets/:assetId",
   paramValidationFactory<any>(reposDeleteReleaseAssetParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteReleaseAsset
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteReleaseAsset
   }
 )
 
@@ -8276,9 +10087,13 @@ router.get(
   "/repos/:owner/:repo/releases/latest",
   paramValidationFactory<any>(reposGetLatestReleaseParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetLatestRelease
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetLatestRelease
   }
 )
 
@@ -8295,9 +10110,13 @@ router.get(
   "/repos/:owner/:repo/releases/tags/:tag",
   paramValidationFactory<any>(reposGetReleaseByTagParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetReleaseByTag
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetReleaseByTag
   }
 )
 
@@ -8314,9 +10133,13 @@ router.get(
   "/repos/:owner/:repo/releases/:releaseId",
   paramValidationFactory<any>(reposGetReleaseParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetRelease
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetRelease
   }
 )
 
@@ -8333,9 +10156,13 @@ router.patch(
   "/repos/:owner/:repo/releases/:releaseId",
   paramValidationFactory<any>(reposUpdateReleaseParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUpdateRelease
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUpdateRelease
   }
 )
 
@@ -8352,9 +10179,13 @@ router.delete(
   "/repos/:owner/:repo/releases/:releaseId",
   paramValidationFactory<any>(reposDeleteReleaseParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeleteRelease
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeleteRelease
   }
 )
 
@@ -8376,9 +10207,13 @@ router.get(
   paramValidationFactory<any>(reposListReleaseAssetsParamSchema),
   queryValidationFactory<any>(reposListReleaseAssetsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListReleaseAssets
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListReleaseAssets
   }
 )
 
@@ -8400,9 +10235,13 @@ router.post(
   paramValidationFactory<any>(reposUploadReleaseAssetParamSchema),
   queryValidationFactory<any>(reposUploadReleaseAssetQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposUploadReleaseAsset
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposUploadReleaseAsset
   }
 )
 
@@ -8420,9 +10259,13 @@ router.get(
   paramValidationFactory<any>(activityListStargazersForRepoParamSchema),
   queryValidationFactory<any>(activityListStargazersForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListStargazersForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListStargazersForRepo
   }
 )
 
@@ -8435,9 +10278,13 @@ router.get(
   "/repos/:owner/:repo/stats/code_frequency",
   paramValidationFactory<any>(reposGetCodeFrequencyStatsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCodeFrequencyStats
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCodeFrequencyStats
   }
 )
 
@@ -8450,9 +10297,13 @@ router.get(
   "/repos/:owner/:repo/stats/commit_activity",
   paramValidationFactory<any>(reposGetCommitActivityStatsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetCommitActivityStats
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetCommitActivityStats
   }
 )
 
@@ -8465,9 +10316,13 @@ router.get(
   "/repos/:owner/:repo/stats/contributors",
   paramValidationFactory<any>(reposGetContributorsStatsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetContributorsStats
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetContributorsStats
   }
 )
 
@@ -8480,9 +10335,13 @@ router.get(
   "/repos/:owner/:repo/stats/participation",
   paramValidationFactory<any>(reposGetParticipationStatsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetParticipationStats
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetParticipationStats
   }
 )
 
@@ -8495,9 +10354,13 @@ router.get(
   "/repos/:owner/:repo/stats/punch_card",
   paramValidationFactory<any>(reposGetPunchCardStatsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetPunchCardStats
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetPunchCardStats
   }
 )
 
@@ -8514,9 +10377,13 @@ router.post(
   "/repos/:owner/:repo/statuses/:sha",
   paramValidationFactory<any>(reposCreateCommitStatusParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateCommitStatus
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateCommitStatus
   }
 )
 
@@ -8534,9 +10401,13 @@ router.get(
   paramValidationFactory<any>(activityListWatchersForRepoParamSchema),
   queryValidationFactory<any>(activityListWatchersForRepoQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListWatchersForRepo
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListWatchersForRepo
   }
 )
 
@@ -8549,9 +10420,13 @@ router.get(
   "/repos/:owner/:repo/subscription",
   paramValidationFactory<any>(activityGetRepoSubscriptionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityGetRepoSubscription
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityGetRepoSubscription
   }
 )
 
@@ -8564,9 +10439,13 @@ router.put(
   "/repos/:owner/:repo/subscription",
   paramValidationFactory<any>(activitySetRepoSubscriptionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activitySetRepoSubscription
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activitySetRepoSubscription
   }
 )
 
@@ -8579,9 +10458,13 @@ router.delete(
   "/repos/:owner/:repo/subscription",
   paramValidationFactory<any>(activityDeleteRepoSubscriptionParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityDeleteRepoSubscription
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityDeleteRepoSubscription
   }
 )
 
@@ -8599,9 +10482,13 @@ router.get(
   paramValidationFactory<any>(reposListTagsParamSchema),
   queryValidationFactory<any>(reposListTagsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListTags
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListTags
   }
 )
 
@@ -8619,9 +10506,13 @@ router.get(
   paramValidationFactory<any>(reposListTeamsParamSchema),
   queryValidationFactory<any>(reposListTeamsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListTeams
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListTeams
   }
 )
 
@@ -8634,9 +10525,13 @@ router.get(
   "/repos/:owner/:repo/topics",
   paramValidationFactory<any>(reposGetAllTopicsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetAllTopics
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetAllTopics
   }
 )
 
@@ -8649,9 +10544,13 @@ router.put(
   "/repos/:owner/:repo/topics",
   paramValidationFactory<any>(reposReplaceAllTopicsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposReplaceAllTopics
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposReplaceAllTopics
   }
 )
 
@@ -8667,9 +10566,13 @@ router.get(
   paramValidationFactory<any>(reposGetClonesParamSchema),
   queryValidationFactory<any>(reposGetClonesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetClones
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetClones
   }
 )
 
@@ -8682,9 +10585,13 @@ router.get(
   "/repos/:owner/:repo/traffic/popular/paths",
   paramValidationFactory<any>(reposGetTopPathsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetTopPaths
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetTopPaths
   }
 )
 
@@ -8697,9 +10604,13 @@ router.get(
   "/repos/:owner/:repo/traffic/popular/referrers",
   paramValidationFactory<any>(reposGetTopReferrersParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetTopReferrers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetTopReferrers
   }
 )
 
@@ -8715,9 +10626,13 @@ router.get(
   paramValidationFactory<any>(reposGetViewsParamSchema),
   queryValidationFactory<any>(reposGetViewsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposGetViews
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposGetViews
   }
 )
 
@@ -8730,9 +10645,13 @@ router.post(
   "/repos/:owner/:repo/transfer",
   paramValidationFactory<any>(reposTransferParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposTransfer
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposTransfer
   }
 )
 
@@ -8745,9 +10664,13 @@ router.get(
   "/repos/:owner/:repo/vulnerability-alerts",
   paramValidationFactory<any>(reposCheckVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCheckVulnerabilityAlerts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCheckVulnerabilityAlerts
   }
 )
 
@@ -8760,9 +10683,13 @@ router.put(
   "/repos/:owner/:repo/vulnerability-alerts",
   paramValidationFactory<any>(reposEnableVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposEnableVulnerabilityAlerts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposEnableVulnerabilityAlerts
   }
 )
 
@@ -8775,9 +10702,13 @@ router.delete(
   "/repos/:owner/:repo/vulnerability-alerts",
   paramValidationFactory<any>(reposDisableVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDisableVulnerabilityAlerts
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDisableVulnerabilityAlerts
   }
 )
 
@@ -8795,9 +10726,13 @@ router.get(
   "/repos/:owner/:repo/:archiveFormat/:ref",
   paramValidationFactory<any>(reposDownloadArchiveParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDownloadArchive
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDownloadArchive
   }
 )
 
@@ -8813,9 +10748,13 @@ router.post(
   "/repos/:templateOwner/:templateRepo/generate",
   paramValidationFactory<any>(reposCreateUsingTemplateParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateUsingTemplate
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateUsingTemplate
   }
 )
 
@@ -8826,9 +10765,13 @@ router.get(
   "/repositories",
   queryValidationFactory<any>(reposListPublicQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListPublic
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListPublic
   }
 )
 
@@ -8846,9 +10789,13 @@ router.get(
   paramValidationFactory<any>(scimListProvisionedIdentitiesParamSchema),
   queryValidationFactory<any>(scimListProvisionedIdentitiesQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimListProvisionedIdentities
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimListProvisionedIdentities
   }
 )
 
@@ -8861,9 +10808,13 @@ router.post(
   "/scim/v2/organizations/:org/Users",
   paramValidationFactory<any>(scimProvisionAndInviteUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimProvisionAndInviteUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimProvisionAndInviteUser
   }
 )
 
@@ -8876,9 +10827,13 @@ router.get(
   "/scim/v2/organizations/:org/Users/:scimUserId",
   paramValidationFactory<any>(scimGetProvisioningInformationForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimGetProvisioningInformationForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimGetProvisioningInformationForUser
   }
 )
 
@@ -8891,9 +10846,13 @@ router.put(
   "/scim/v2/organizations/:org/Users/:scimUserId",
   paramValidationFactory<any>(scimSetInformationForProvisionedUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimSetInformationForProvisionedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimSetInformationForProvisionedUser
   }
 )
 
@@ -8906,9 +10865,13 @@ router.patch(
   "/scim/v2/organizations/:org/Users/:scimUserId",
   paramValidationFactory<any>(scimUpdateAttributeForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimUpdateAttributeForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimUpdateAttributeForUser
   }
 )
 
@@ -8921,9 +10884,13 @@ router.delete(
   "/scim/v2/organizations/:org/Users/:scimUserId",
   paramValidationFactory<any>(scimDeleteUserFromOrgParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-scimDeleteUserFromOrg
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-scimDeleteUserFromOrg
   }
 )
 
@@ -8942,9 +10909,13 @@ router.get(
   "/search/code",
   queryValidationFactory<any>(searchCodeQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchCode
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchCode
   }
 )
 
@@ -8963,9 +10934,13 @@ router.get(
   "/search/commits",
   queryValidationFactory<any>(searchCommitsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchCommits
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchCommits
   }
 )
 
@@ -8984,9 +10959,13 @@ router.get(
   "/search/issues",
   queryValidationFactory<any>(searchIssuesAndPullRequestsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchIssuesAndPullRequests
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchIssuesAndPullRequests
   }
 )
 
@@ -9004,9 +10983,13 @@ router.get(
   "/search/labels",
   queryValidationFactory<any>(searchLabelsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchLabels
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchLabels
   }
 )
 
@@ -9025,9 +11008,13 @@ router.get(
   "/search/repositories",
   queryValidationFactory<any>(searchReposQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchRepos
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchRepos
   }
 )
 
@@ -9040,9 +11027,13 @@ router.get(
   "/search/topics",
   queryValidationFactory<any>(searchTopicsQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchTopics
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchTopics
   }
 )
 
@@ -9061,9 +11052,13 @@ router.get(
   "/search/users",
   queryValidationFactory<any>(searchUsersQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-searchUsers
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-searchUsers
   }
 )
 
@@ -9076,9 +11071,13 @@ router.get(
   "/teams/:teamId",
   paramValidationFactory<any>(teamsGetLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetLegacy
   }
 )
 
@@ -9091,9 +11090,13 @@ router.patch(
   "/teams/:teamId",
   paramValidationFactory<any>(teamsUpdateLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateLegacy
   }
 )
 
@@ -9106,9 +11109,13 @@ router.delete(
   "/teams/:teamId",
   paramValidationFactory<any>(teamsDeleteLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteLegacy
   }
 )
 
@@ -9126,9 +11133,13 @@ router.get(
   paramValidationFactory<any>(teamsListDiscussionsLegacyParamSchema),
   queryValidationFactory<any>(teamsListDiscussionsLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListDiscussionsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListDiscussionsLegacy
   }
 )
 
@@ -9141,9 +11152,13 @@ router.post(
   "/teams/:teamId/discussions",
   paramValidationFactory<any>(teamsCreateDiscussionLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateDiscussionLegacy
   }
 )
 
@@ -9159,9 +11174,13 @@ router.get(
   "/teams/:teamId/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsGetDiscussionLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetDiscussionLegacy
   }
 )
 
@@ -9177,9 +11196,13 @@ router.patch(
   "/teams/:teamId/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsUpdateDiscussionLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateDiscussionLegacy
   }
 )
 
@@ -9195,9 +11218,13 @@ router.delete(
   "/teams/:teamId/discussions/:discussionNumber",
   paramValidationFactory<any>(teamsDeleteDiscussionLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteDiscussionLegacy
   }
 )
 
@@ -9218,9 +11245,13 @@ router.get(
   paramValidationFactory<any>(teamsListDiscussionCommentsLegacyParamSchema),
   queryValidationFactory<any>(teamsListDiscussionCommentsLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListDiscussionCommentsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListDiscussionCommentsLegacy
   }
 )
 
@@ -9236,9 +11267,13 @@ router.post(
   "/teams/:teamId/discussions/:discussionNumber/comments",
   paramValidationFactory<any>(teamsCreateDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateDiscussionCommentLegacy
   }
 )
 
@@ -9255,9 +11290,13 @@ router.get(
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsGetDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetDiscussionCommentLegacy
   }
 )
 
@@ -9274,9 +11313,13 @@ router.patch(
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsUpdateDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsUpdateDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsUpdateDiscussionCommentLegacy
   }
 )
 
@@ -9293,9 +11336,13 @@ router.delete(
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
   paramValidationFactory<any>(teamsDeleteDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsDeleteDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsDeleteDiscussionCommentLegacy
   }
 )
 
@@ -9321,9 +11368,13 @@ router.get(
     reactionsListForTeamDiscussionCommentLegacyQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForTeamDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForTeamDiscussionCommentLegacy
   }
 )
 
@@ -9342,9 +11393,13 @@ router.post(
     reactionsCreateForTeamDiscussionCommentLegacyParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForTeamDiscussionCommentLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForTeamDiscussionCommentLegacy
   }
 )
 
@@ -9365,9 +11420,13 @@ router.get(
   paramValidationFactory<any>(reactionsListForTeamDiscussionLegacyParamSchema),
   queryValidationFactory<any>(reactionsListForTeamDiscussionLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsListForTeamDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsListForTeamDiscussionLegacy
   }
 )
 
@@ -9385,9 +11444,13 @@ router.post(
     reactionsCreateForTeamDiscussionLegacyParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reactionsCreateForTeamDiscussionLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reactionsCreateForTeamDiscussionLegacy
   }
 )
 
@@ -9405,9 +11468,13 @@ router.get(
   paramValidationFactory<any>(teamsListPendingInvitationsLegacyParamSchema),
   queryValidationFactory<any>(teamsListPendingInvitationsLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListPendingInvitationsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListPendingInvitationsLegacy
   }
 )
 
@@ -9425,9 +11492,13 @@ router.get(
   paramValidationFactory<any>(teamsListMembersLegacyParamSchema),
   queryValidationFactory<any>(teamsListMembersLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListMembersLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListMembersLegacy
   }
 )
 
@@ -9440,9 +11511,13 @@ router.get(
   "/teams/:teamId/members/:username",
   paramValidationFactory<any>(teamsGetMemberLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetMemberLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetMemberLegacy
   }
 )
 
@@ -9455,9 +11530,13 @@ router.put(
   "/teams/:teamId/members/:username",
   paramValidationFactory<any>(teamsAddMemberLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddMemberLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddMemberLegacy
   }
 )
 
@@ -9470,9 +11549,13 @@ router.delete(
   "/teams/:teamId/members/:username",
   paramValidationFactory<any>(teamsRemoveMemberLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveMemberLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveMemberLegacy
   }
 )
 
@@ -9485,9 +11568,13 @@ router.get(
   "/teams/:teamId/memberships/:username",
   paramValidationFactory<any>(teamsGetMembershipForUserLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsGetMembershipForUserLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsGetMembershipForUserLegacy
   }
 )
 
@@ -9502,9 +11589,13 @@ router.put(
     teamsAddOrUpdateMembershipForUserLegacyParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateMembershipForUserLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateMembershipForUserLegacy
   }
 )
 
@@ -9517,9 +11608,13 @@ router.delete(
   "/teams/:teamId/memberships/:username",
   paramValidationFactory<any>(teamsRemoveMembershipForUserLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveMembershipForUserLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveMembershipForUserLegacy
   }
 )
 
@@ -9537,9 +11632,13 @@ router.get(
   paramValidationFactory<any>(teamsListProjectsLegacyParamSchema),
   queryValidationFactory<any>(teamsListProjectsLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListProjectsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListProjectsLegacy
   }
 )
 
@@ -9555,9 +11654,13 @@ router.get(
   "/teams/:teamId/projects/:projectId",
   paramValidationFactory<any>(teamsCheckPermissionsForProjectLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCheckPermissionsForProjectLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCheckPermissionsForProjectLegacy
   }
 )
 
@@ -9575,9 +11678,13 @@ router.put(
     teamsAddOrUpdateProjectPermissionsLegacyParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateProjectPermissionsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateProjectPermissionsLegacy
   }
 )
 
@@ -9593,9 +11700,13 @@ router.delete(
   "/teams/:teamId/projects/:projectId",
   paramValidationFactory<any>(teamsRemoveProjectLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveProjectLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveProjectLegacy
   }
 )
 
@@ -9613,9 +11724,13 @@ router.get(
   paramValidationFactory<any>(teamsListReposLegacyParamSchema),
   queryValidationFactory<any>(teamsListReposLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListReposLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListReposLegacy
   }
 )
 
@@ -9632,9 +11747,13 @@ router.get(
   "/teams/:teamId/repos/:owner/:repo",
   paramValidationFactory<any>(teamsCheckPermissionsForRepoLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCheckPermissionsForRepoLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCheckPermissionsForRepoLegacy
   }
 )
 
@@ -9651,9 +11770,13 @@ router.put(
   "/teams/:teamId/repos/:owner/:repo",
   paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsAddOrUpdateRepoPermissionsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsAddOrUpdateRepoPermissionsLegacy
   }
 )
 
@@ -9670,9 +11793,13 @@ router.delete(
   "/teams/:teamId/repos/:owner/:repo",
   paramValidationFactory<any>(teamsRemoveRepoLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsRemoveRepoLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsRemoveRepoLegacy
   }
 )
 
@@ -9685,9 +11812,13 @@ router.get(
   "/teams/:teamId/team-sync/group-mappings",
   paramValidationFactory<any>(teamsListIdPGroupsForLegacyParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListIdPGroupsForLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListIdPGroupsForLegacy
   }
 )
 
@@ -9702,9 +11833,13 @@ router.patch(
     teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsLegacy
   }
 )
 
@@ -9722,31 +11857,47 @@ router.get(
   paramValidationFactory<any>(teamsListChildLegacyParamSchema),
   queryValidationFactory<any>(teamsListChildLegacyQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListChildLegacy
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListChildLegacy
   }
 )
 
 router.get("usersGetAuthenticated", "/user", async (ctx, next) => {
+  //region safe-edit-region-usersGetAuthenticated
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-usersGetAuthenticated
 })
 
 router.patch("usersUpdateAuthenticated", "/user", async (ctx, next) => {
+  //region safe-edit-region-usersUpdateAuthenticated
+
   ctx.status = 501
   ctx.body = { error: "not implemented" }
   return next()
+
+  //endregion safe-edit-region-usersUpdateAuthenticated
 })
 
 router.get(
   "usersListBlockedByAuthenticated",
   "/user/blocks",
   async (ctx, next) => {
+    //region safe-edit-region-usersListBlockedByAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListBlockedByAuthenticated
   }
 )
 
@@ -9759,9 +11910,13 @@ router.get(
   "/user/blocks/:username",
   paramValidationFactory<any>(usersCheckBlockedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersCheckBlocked
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersCheckBlocked
   }
 )
 
@@ -9774,9 +11929,13 @@ router.put(
   "/user/blocks/:username",
   paramValidationFactory<any>(usersBlockParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersBlock
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersBlock
   }
 )
 
@@ -9789,9 +11948,13 @@ router.delete(
   "/user/blocks/:username",
   paramValidationFactory<any>(usersUnblockParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersUnblock
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersUnblock
   }
 )
 
@@ -9799,9 +11962,13 @@ router.patch(
   "usersSetPrimaryEmailVisibilityForAuthenticated",
   "/user/email/visibility",
   async (ctx, next) => {
+    //region safe-edit-region-usersSetPrimaryEmailVisibilityForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersSetPrimaryEmailVisibilityForAuthenticated
   }
 )
 
@@ -9814,9 +11981,13 @@ router.get(
   "/user/emails",
   queryValidationFactory<any>(usersListEmailsForAuthenticatedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListEmailsForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListEmailsForAuthenticated
   }
 )
 
@@ -9824,9 +11995,13 @@ router.post(
   "usersAddEmailForAuthenticated",
   "/user/emails",
   async (ctx, next) => {
+    //region safe-edit-region-usersAddEmailForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersAddEmailForAuthenticated
   }
 )
 
@@ -9834,9 +12009,13 @@ router.delete(
   "usersDeleteEmailForAuthenticated",
   "/user/emails",
   async (ctx, next) => {
+    //region safe-edit-region-usersDeleteEmailForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersDeleteEmailForAuthenticated
   }
 )
 
@@ -9851,9 +12030,13 @@ router.get(
     usersListFollowersForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-usersListFollowersForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListFollowersForAuthenticatedUser
   }
 )
 
@@ -9866,9 +12049,13 @@ router.get(
   "/user/following",
   queryValidationFactory<any>(usersListFollowedByAuthenticatedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListFollowedByAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListFollowedByAuthenticated
   }
 )
 
@@ -9883,9 +12070,13 @@ router.get(
     usersCheckPersonIsFollowedByAuthenticatedParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-usersCheckPersonIsFollowedByAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersCheckPersonIsFollowedByAuthenticated
   }
 )
 
@@ -9898,9 +12089,13 @@ router.put(
   "/user/following/:username",
   paramValidationFactory<any>(usersFollowParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersFollow
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersFollow
   }
 )
 
@@ -9913,9 +12108,13 @@ router.delete(
   "/user/following/:username",
   paramValidationFactory<any>(usersUnfollowParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersUnfollow
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersUnfollow
   }
 )
 
@@ -9928,9 +12127,13 @@ router.get(
   "/user/gpg_keys",
   queryValidationFactory<any>(usersListGpgKeysForAuthenticatedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListGpgKeysForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListGpgKeysForAuthenticated
   }
 )
 
@@ -9938,9 +12141,13 @@ router.post(
   "usersCreateGpgKeyForAuthenticated",
   "/user/gpg_keys",
   async (ctx, next) => {
+    //region safe-edit-region-usersCreateGpgKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersCreateGpgKeyForAuthenticated
   }
 )
 
@@ -9953,9 +12160,13 @@ router.get(
   "/user/gpg_keys/:gpgKeyId",
   paramValidationFactory<any>(usersGetGpgKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersGetGpgKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersGetGpgKeyForAuthenticated
   }
 )
 
@@ -9968,9 +12179,13 @@ router.delete(
   "/user/gpg_keys/:gpgKeyId",
   paramValidationFactory<any>(usersDeleteGpgKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersDeleteGpgKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersDeleteGpgKeyForAuthenticated
   }
 )
 
@@ -9985,9 +12200,13 @@ router.get(
     appsListInstallationsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-appsListInstallationsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListInstallationsForAuthenticatedUser
   }
 )
 
@@ -10009,9 +12228,13 @@ router.get(
     appsListInstallationReposForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-appsListInstallationReposForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListInstallationReposForAuthenticatedUser
   }
 )
 
@@ -10027,9 +12250,13 @@ router.put(
   "/user/installations/:installationId/repositories/:repositoryId",
   paramValidationFactory<any>(appsAddRepoToInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsAddRepoToInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsAddRepoToInstallation
   }
 )
 
@@ -10045,9 +12272,13 @@ router.delete(
   "/user/installations/:installationId/repositories/:repositoryId",
   paramValidationFactory<any>(appsRemoveRepoFromInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsRemoveRepoFromInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsRemoveRepoFromInstallation
   }
 )
 
@@ -10069,9 +12300,13 @@ router.get(
   "/user/issues",
   queryValidationFactory<any>(issuesListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-issuesListForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-issuesListForAuthenticatedUser
   }
 )
 
@@ -10086,9 +12321,13 @@ router.get(
     usersListPublicSshKeysForAuthenticatedQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-usersListPublicSshKeysForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListPublicSshKeysForAuthenticated
   }
 )
 
@@ -10096,9 +12335,13 @@ router.post(
   "usersCreatePublicSshKeyForAuthenticated",
   "/user/keys",
   async (ctx, next) => {
+    //region safe-edit-region-usersCreatePublicSshKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersCreatePublicSshKeyForAuthenticated
   }
 )
 
@@ -10111,9 +12354,13 @@ router.get(
   "/user/keys/:keyId",
   paramValidationFactory<any>(usersGetPublicSshKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersGetPublicSshKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersGetPublicSshKeyForAuthenticated
   }
 )
 
@@ -10128,9 +12375,13 @@ router.delete(
     usersDeletePublicSshKeyForAuthenticatedParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-usersDeletePublicSshKeyForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersDeletePublicSshKeyForAuthenticated
   }
 )
 
@@ -10145,9 +12396,13 @@ router.get(
     appsListSubscriptionsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-appsListSubscriptionsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListSubscriptionsForAuthenticatedUser
   }
 )
 
@@ -10162,9 +12417,13 @@ router.get(
     appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-appsListSubscriptionsForAuthenticatedUserStubbed
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsListSubscriptionsForAuthenticatedUserStubbed
   }
 )
 
@@ -10179,9 +12438,13 @@ router.get(
     orgsListMembershipsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListMembershipsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListMembershipsForAuthenticatedUser
   }
 )
 
@@ -10194,9 +12457,13 @@ router.get(
   "/user/memberships/orgs/:org",
   paramValidationFactory<any>(orgsGetMembershipForAuthenticatedUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsGetMembershipForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsGetMembershipForAuthenticatedUser
   }
 )
 
@@ -10211,9 +12478,13 @@ router.patch(
     orgsUpdateMembershipForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-orgsUpdateMembershipForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsUpdateMembershipForAuthenticatedUser
   }
 )
 
@@ -10221,9 +12492,13 @@ router.post(
   "migrationsStartForAuthenticatedUser",
   "/user/migrations",
   async (ctx, next) => {
+    //region safe-edit-region-migrationsStartForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsStartForAuthenticatedUser
   }
 )
 
@@ -10236,9 +12511,13 @@ router.get(
   "/user/migrations",
   queryValidationFactory<any>(migrationsListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsListForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsListForAuthenticatedUser
   }
 )
 
@@ -10253,9 +12532,13 @@ router.get(
     migrationsGetStatusForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetStatusForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetStatusForAuthenticatedUser
   }
 )
 
@@ -10270,9 +12553,13 @@ router.get(
     migrationsGetArchiveForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsGetArchiveForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsGetArchiveForAuthenticatedUser
   }
 )
 
@@ -10287,9 +12574,13 @@ router.delete(
     migrationsDeleteArchiveForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsDeleteArchiveForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsDeleteArchiveForAuthenticatedUser
   }
 )
 
@@ -10307,9 +12598,13 @@ router.delete(
     migrationsUnlockRepoForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsUnlockRepoForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsUnlockRepoForAuthenticatedUser
   }
 )
 
@@ -10322,9 +12617,13 @@ router.get(
   "/user/orgs",
   queryValidationFactory<any>(orgsListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListForAuthenticatedUser
   }
 )
 
@@ -10332,9 +12631,13 @@ router.post(
   "projectsCreateForAuthenticatedUser",
   "/user/projects",
   async (ctx, next) => {
+    //region safe-edit-region-projectsCreateForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsCreateForAuthenticatedUser
   }
 )
 
@@ -10347,9 +12650,13 @@ router.get(
   "/user/public_emails",
   queryValidationFactory<any>(usersListPublicEmailsForAuthenticatedQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListPublicEmailsForAuthenticated
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListPublicEmailsForAuthenticated
   }
 )
 
@@ -10370,9 +12677,13 @@ router.get(
   "/user/repos",
   queryValidationFactory<any>(reposListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListForAuthenticatedUser
   }
 )
 
@@ -10380,9 +12691,13 @@ router.post(
   "reposCreateForAuthenticatedUser",
   "/user/repos",
   async (ctx, next) => {
+    //region safe-edit-region-reposCreateForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposCreateForAuthenticatedUser
   }
 )
 
@@ -10397,9 +12712,13 @@ router.get(
     reposListInvitationsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-reposListInvitationsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListInvitationsForAuthenticatedUser
   }
 )
 
@@ -10412,9 +12731,13 @@ router.patch(
   "/user/repository_invitations/:invitationId",
   paramValidationFactory<any>(reposAcceptInvitationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposAcceptInvitation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposAcceptInvitation
   }
 )
 
@@ -10427,9 +12750,13 @@ router.delete(
   "/user/repository_invitations/:invitationId",
   paramValidationFactory<any>(reposDeclineInvitationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposDeclineInvitation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposDeclineInvitation
   }
 )
 
@@ -10449,9 +12776,13 @@ router.get(
     activityListReposStarredByAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListReposStarredByAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListReposStarredByAuthenticatedUser
   }
 )
 
@@ -10466,9 +12797,13 @@ router.get(
     activityCheckRepoIsStarredByAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityCheckRepoIsStarredByAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityCheckRepoIsStarredByAuthenticatedUser
   }
 )
 
@@ -10481,9 +12816,13 @@ router.put(
   "/user/starred/:owner/:repo",
   paramValidationFactory<any>(activityStarRepoForAuthenticatedUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityStarRepoForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityStarRepoForAuthenticatedUser
   }
 )
 
@@ -10498,9 +12837,13 @@ router.delete(
     activityUnstarRepoForAuthenticatedUserParamSchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityUnstarRepoForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityUnstarRepoForAuthenticatedUser
   }
 )
 
@@ -10515,9 +12858,13 @@ router.get(
     activityListWatchedReposForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListWatchedReposForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListWatchedReposForAuthenticatedUser
   }
 )
 
@@ -10530,9 +12877,13 @@ router.get(
   "/user/teams",
   queryValidationFactory<any>(teamsListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-teamsListForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-teamsListForAuthenticatedUser
   }
 )
 
@@ -10550,9 +12901,13 @@ router.get(
   paramValidationFactory<any>(migrationsListReposForUserParamSchema),
   queryValidationFactory<any>(migrationsListReposForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-migrationsListReposForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-migrationsListReposForUser
   }
 )
 
@@ -10563,9 +12918,13 @@ router.get(
   "/users",
   queryValidationFactory<any>(usersListQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersList
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersList
   }
 )
 
@@ -10578,9 +12937,13 @@ router.get(
   "/users/:username",
   paramValidationFactory<any>(usersGetByUsernameParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersGetByUsername
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersGetByUsername
   }
 )
 
@@ -10602,9 +12965,13 @@ router.get(
     activityListEventsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListEventsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListEventsForAuthenticatedUser
   }
 )
 
@@ -10626,9 +12993,13 @@ router.get(
     activityListOrgEventsForAuthenticatedUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListOrgEventsForAuthenticatedUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListOrgEventsForAuthenticatedUser
   }
 )
 
@@ -10646,9 +13017,13 @@ router.get(
   paramValidationFactory<any>(activityListPublicEventsForUserParamSchema),
   queryValidationFactory<any>(activityListPublicEventsForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListPublicEventsForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListPublicEventsForUser
   }
 )
 
@@ -10666,9 +13041,13 @@ router.get(
   paramValidationFactory<any>(usersListFollowersForUserParamSchema),
   queryValidationFactory<any>(usersListFollowersForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListFollowersForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListFollowersForUser
   }
 )
 
@@ -10686,9 +13065,13 @@ router.get(
   paramValidationFactory<any>(usersListFollowingForUserParamSchema),
   queryValidationFactory<any>(usersListFollowingForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListFollowingForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListFollowingForUser
   }
 )
 
@@ -10704,9 +13087,13 @@ router.get(
   "/users/:username/following/:targetUser",
   paramValidationFactory<any>(usersCheckFollowingForUserParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersCheckFollowingForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersCheckFollowingForUser
   }
 )
 
@@ -10724,9 +13111,13 @@ router.get(
   paramValidationFactory<any>(gistsListForUserParamSchema),
   queryValidationFactory<any>(gistsListForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-gistsListForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-gistsListForUser
   }
 )
 
@@ -10744,9 +13135,13 @@ router.get(
   paramValidationFactory<any>(usersListGpgKeysForUserParamSchema),
   queryValidationFactory<any>(usersListGpgKeysForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListGpgKeysForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListGpgKeysForUser
   }
 )
 
@@ -10764,9 +13159,13 @@ router.get(
   paramValidationFactory<any>(usersGetContextForUserParamSchema),
   queryValidationFactory<any>(usersGetContextForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersGetContextForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersGetContextForUser
   }
 )
 
@@ -10779,9 +13178,13 @@ router.get(
   "/users/:username/installation",
   paramValidationFactory<any>(appsGetUserInstallationParamSchema),
   async (ctx, next) => {
+    //region safe-edit-region-appsGetUserInstallation
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-appsGetUserInstallation
   }
 )
 
@@ -10799,9 +13202,13 @@ router.get(
   paramValidationFactory<any>(usersListPublicKeysForUserParamSchema),
   queryValidationFactory<any>(usersListPublicKeysForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-usersListPublicKeysForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-usersListPublicKeysForUser
   }
 )
 
@@ -10819,9 +13226,13 @@ router.get(
   paramValidationFactory<any>(orgsListForUserParamSchema),
   queryValidationFactory<any>(orgsListForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-orgsListForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-orgsListForUser
   }
 )
 
@@ -10839,9 +13250,13 @@ router.get(
   paramValidationFactory<any>(projectsListForUserParamSchema),
   queryValidationFactory<any>(projectsListForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-projectsListForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-projectsListForUser
   }
 )
 
@@ -10859,9 +13274,13 @@ router.get(
   paramValidationFactory<any>(activityListReceivedEventsForUserParamSchema),
   queryValidationFactory<any>(activityListReceivedEventsForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListReceivedEventsForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListReceivedEventsForUser
   }
 )
 
@@ -10883,9 +13302,13 @@ router.get(
     activityListReceivedPublicEventsForUserQuerySchema
   ),
   async (ctx, next) => {
+    //region safe-edit-region-activityListReceivedPublicEventsForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListReceivedPublicEventsForUser
   }
 )
 
@@ -10909,9 +13332,13 @@ router.get(
   paramValidationFactory<any>(reposListForUserParamSchema),
   queryValidationFactory<any>(reposListForUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-reposListForUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-reposListForUser
   }
 )
 
@@ -10934,9 +13361,13 @@ router.get(
   paramValidationFactory<any>(activityListReposStarredByUserParamSchema),
   queryValidationFactory<any>(activityListReposStarredByUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListReposStarredByUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListReposStarredByUser
   }
 )
 
@@ -10954,9 +13385,13 @@ router.get(
   paramValidationFactory<any>(activityListReposWatchedByUserParamSchema),
   queryValidationFactory<any>(activityListReposWatchedByUserQuerySchema),
   async (ctx, next) => {
+    //region safe-edit-region-activityListReposWatchedByUser
+
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
+
+    //endregion safe-edit-region-activityListReposWatchedByUser
   }
 )
 
