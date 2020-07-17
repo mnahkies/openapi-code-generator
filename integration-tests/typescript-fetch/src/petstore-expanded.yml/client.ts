@@ -61,10 +61,11 @@ export class ApiClient {
 
   async findPetById(p: {
     id: number
+    species: string
   }): Promise<Res<200, Pet> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/pets/${p["id"]}`, {
+    return fetch(this.config.basePath + `/pets/${p["id"]}/${p["species"]}`, {
       method: "GET",
       headers: this.headers(headers),
     }).then((res) => res.json())
@@ -75,7 +76,7 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/pets/${p["id"]}`, {
+    return fetch(this.config.basePath + `/pets/${p["id"]}/${p["species"]}`, {
       method: "DELETE",
       headers: this.headers(headers),
     }).then((res) => res.json())

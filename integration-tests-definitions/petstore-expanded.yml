@@ -77,7 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /pets/{id}:
+  /pets/{id}/{species}:
     get:
       description: Returns a user based on a single ID, if the user does not have access to the pet
       operationId: find pet by id
@@ -89,6 +89,12 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: species
+          in: path
+          description: species of pet to fetch
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: pet response
@@ -129,7 +135,7 @@ components:
         - $ref: '#/components/schemas/NewPet'
         - type: object
           required:
-          - id
+            - id
           properties:
             id:
               type: integer
@@ -138,12 +144,12 @@ components:
     NewPet:
       type: object
       required:
-        - name  
+        - name
       properties:
         name:
           type: string
         tag:
-          type: string    
+          type: string
 
     Error:
       type: object

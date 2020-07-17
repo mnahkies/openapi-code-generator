@@ -84,11 +84,11 @@ router.post("addPet", "/pets", async (ctx, next) => {
 
 const findPetByIdParamSchema = joi
   .object()
-  .keys({ id: joi.number().required() })
+  .keys({ id: joi.number().required(), species: joi.string().required() })
 
 router.get(
   "findPetById",
-  "/pets/:id",
+  "/pets/:id/:species",
   paramValidationFactory<any>(findPetByIdParamSchema),
   async (ctx, next) => {
     //region safe-edit-region-findPetById
@@ -105,7 +105,7 @@ const deletePetParamSchema = joi.object().keys({ id: joi.number().required() })
 
 router.delete(
   "deletePet",
-  "/pets/:id",
+  "/pets/:id/:species",
   paramValidationFactory<any>(deletePetParamSchema),
   async (ctx, next) => {
     //region safe-edit-region-deletePet

@@ -82,14 +82,14 @@ export class ApiClient {
     )
   }
 
-  findPetById(p: { id: number }): Observable<Pet | Error> {
+  findPetById(p: { id: number; species: string }): Observable<Pet | Error> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
 
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath + `/pets/${p["id"]}`,
+      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
       {
         params: this.queryParams(queryParameters),
         headers: this.headers(headers),
@@ -107,7 +107,7 @@ export class ApiClient {
 
     return this.httpClient.request<any>(
       "DELETE",
-      this.config.basePath + `/pets/${p["id"]}`,
+      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
       {
         params: this.queryParams(queryParameters),
         headers: this.headers(headers),
