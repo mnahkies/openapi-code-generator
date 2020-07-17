@@ -1,9 +1,9 @@
+import _ from "lodash"
 import { Input } from "../../core/input"
 import { IRModel, IROperation, IRParameter } from "../../core/openapi-types-normalized"
 import { ImportBuilder } from "../common/import-builder"
-import { emitGenerationResult } from "../common/output-utils"
+import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
-import _ from "lodash"
 import { isDefined } from "../../core/utils"
 
 
@@ -70,6 +70,7 @@ export class ServerBuilder {
     private readonly name: string,
     private readonly input: Input,
     models: ModelBuilder,
+    private existingRegions: { [operationId: string]: string },
   ) {
     this.imports = new ImportBuilder()
     this.imports.addModule('Koa', 'koa')
@@ -107,10 +108,13 @@ export class ServerBuilder {
       paramSchema && `paramValidationFactory<any>(${ operation.operationId }ParamSchema),`,
       querySchema && `queryValidationFactory<any>(${ operation.operationId }QuerySchema),`,
       `async (ctx, next) => {
-
-      ctx.status = 501
-      ctx.body = {error: "not implemented"}
-      return next();
+        //region safe-edit-region-${ operation.operationId }
+        ${ this.existingRegions[operation.operationId] ?? `
+        ctx.status = 501
+        ctx.body = {error: "not implemented"}
+        return next();
+        ` }
+        //endregion safe-edit-region-${ operation.operationId }
       })`,
     ].filter(isDefined).join('\n'))
   }
@@ -122,6 +126,9 @@ export class ServerBuilder {
 
     return `
 ${ imports.toString() }
+
+//region safe-edit-region-header
+//endregion safe-edit-region-header
 
 function paramValidationFactory<Type>(schema: joi.Schema): Middleware<{}, { params: Type }> {
   return function (ctx: Context, next: Next) {
@@ -184,7 +191,7 @@ function route(route: string): string {
 
 export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {
   const models = ModelBuilder.fromInput('./models.ts', input)
-  const server = new ServerBuilder('index.ts', 'ApiClient', input, models)
+  const server = new ServerBuilder('index.ts', 'ApiClient', input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: 'index.ts' })))
 
   input.allOperations()
     .map(it => server.add(it))
@@ -193,4 +200,30 @@ export async function generateTypescriptKoa({ dest, input }: { dest: string, inp
     models,
     server,
   ])
+}
+
+const regionBoundary = /.+safe-edit-region-(.+)/
+
+function loadExistingImplementations(data: string): Record<string, string> {
+  const result: Record<string, string> = {}
+
+  let safeRegionName = ''
+  let buffer = []
+
+  for (const line of data.split('\n')) {
+    if (regionBoundary.test(line)) {
+
+      if (safeRegionName) {
+        result[safeRegionName] = buffer.join('\n')
+        buffer = []
+        safeRegionName = ''
+      } else {
+        safeRegionName = regionBoundary.exec(line)![1]
+      }
+    } else if(safeRegionName) {
+      buffer.push(line)
+    }
+  }
+
+  return result
 }
