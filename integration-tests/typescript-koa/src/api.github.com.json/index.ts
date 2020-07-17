@@ -2,10 +2,43 @@
 /* tslint:disable */
 /* eslint:disable */
 
+import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
-import Koa from "koa"
+import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
+
+function paramValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{}, { params: Type }> {
+  return function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.params, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.params = result.value
+
+    next()
+  }
+}
+
+function queryValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{}, { query: Type }> {
+  return function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.query, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.query = result.value
+
+    next()
+  }
+}
 
 const PORT = 3000
 
@@ -23,9 +56,14 @@ router.get("appsGetAuthenticated", "/app", async (ctx, next) => {
   return next()
 })
 
+const appsCreateFromManifestParamSchema = joi
+  .object()
+  .keys({ code: joi.string().required() })
+
 router.post(
   "appsCreateFromManifest",
   "/app-manifests/:code/conversions",
+  paramValidationFactory<any>(appsCreateFromManifestParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -33,165 +71,266 @@ router.post(
   }
 )
 
-router.get("appsListInstallations", "/app/installations", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const appsListInstallationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "appsListInstallations",
+  "/app/installations",
+  queryValidationFactory<any>(appsListInstallationsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const appsGetInstallationParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
 
 router.get(
   "appsGetInstallation",
   "/app/installations/:installationId",
+  paramValidationFactory<any>(appsGetInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsDeleteInstallationParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
 
 router.delete(
   "appsDeleteInstallation",
   "/app/installations/:installationId",
+  paramValidationFactory<any>(appsDeleteInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsCreateInstallationAccessTokenParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
 
 router.post(
   "appsCreateInstallationAccessToken",
   "/app/installations/:installationId/access_tokens",
+  paramValidationFactory<any>(appsCreateInstallationAccessTokenParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsSuspendInstallationParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
 
 router.put(
   "appsSuspendInstallation",
   "/app/installations/:installationId/suspended",
+  paramValidationFactory<any>(appsSuspendInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsUnsuspendInstallationParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
 
 router.delete(
   "appsUnsuspendInstallation",
   "/app/installations/:installationId/suspended",
+  paramValidationFactory<any>(appsUnsuspendInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsListGrantsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "oauthAuthorizationsListGrants",
   "/applications/grants",
+  queryValidationFactory<any>(oauthAuthorizationsListGrantsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsGetGrantParamSchema = joi
+  .object()
+  .keys({ grant_id: joi.number().required() })
 
 router.get(
   "oauthAuthorizationsGetGrant",
   "/applications/grants/:grantId",
+  paramValidationFactory<any>(oauthAuthorizationsGetGrantParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsDeleteGrantParamSchema = joi
+  .object()
+  .keys({ grant_id: joi.number().required() })
 
 router.delete(
   "oauthAuthorizationsDeleteGrant",
   "/applications/grants/:grantId",
+  paramValidationFactory<any>(oauthAuthorizationsDeleteGrantParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsDeleteAuthorizationParamSchema = joi
+  .object()
+  .keys({ client_id: joi.string().required() })
 
 router.delete(
   "appsDeleteAuthorization",
   "/applications/:clientId/grant",
+  paramValidationFactory<any>(appsDeleteAuthorizationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsRevokeGrantForApplicationParamSchema = joi
+  .object()
+  .keys({
+    client_id: joi.string().required(),
+    access_token: joi.string().required(),
+  })
 
 router.delete(
   "appsRevokeGrantForApplication",
   "/applications/:clientId/grants/:accessToken",
+  paramValidationFactory<any>(appsRevokeGrantForApplicationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsCheckTokenParamSchema = joi
+  .object()
+  .keys({ client_id: joi.string().required() })
 
 router.post(
   "appsCheckToken",
   "/applications/:clientId/token",
+  paramValidationFactory<any>(appsCheckTokenParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsResetTokenParamSchema = joi
+  .object()
+  .keys({ client_id: joi.string().required() })
 
 router.patch(
   "appsResetToken",
   "/applications/:clientId/token",
+  paramValidationFactory<any>(appsResetTokenParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsDeleteTokenParamSchema = joi
+  .object()
+  .keys({ client_id: joi.string().required() })
 
 router.delete(
   "appsDeleteToken",
   "/applications/:clientId/token",
+  paramValidationFactory<any>(appsDeleteTokenParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsCheckAuthorizationParamSchema = joi
+  .object()
+  .keys({
+    client_id: joi.string().required(),
+    access_token: joi.string().required(),
+  })
 
 router.get(
   "appsCheckAuthorization",
   "/applications/:clientId/tokens/:accessToken",
+  paramValidationFactory<any>(appsCheckAuthorizationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsResetAuthorizationParamSchema = joi
+  .object()
+  .keys({
+    client_id: joi.string().required(),
+    access_token: joi.string().required(),
+  })
 
 router.post(
   "appsResetAuthorization",
   "/applications/:clientId/tokens/:accessToken",
+  paramValidationFactory<any>(appsResetAuthorizationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsRevokeAuthorizationForApplicationParamSchema = joi
+  .object()
+  .keys({
+    client_id: joi.string().required(),
+    access_token: joi.string().required(),
+  })
 
 router.delete(
   "appsRevokeAuthorizationForApplication",
   "/applications/:clientId/tokens/:accessToken",
+  paramValidationFactory<any>(appsRevokeAuthorizationForApplicationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -199,15 +338,29 @@ router.delete(
   }
 )
 
-router.get("appsGetBySlug", "/apps/:appSlug", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const appsGetBySlugParamSchema = joi
+  .object()
+  .keys({ app_slug: joi.string().required() })
+
+router.get(
+  "appsGetBySlug",
+  "/apps/:appSlug",
+  paramValidationFactory<any>(appsGetBySlugParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const oauthAuthorizationsListAuthorizationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "oauthAuthorizationsListAuthorizations",
   "/authorizations",
+  queryValidationFactory<any>(oauthAuthorizationsListAuthorizationsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -225,39 +378,68 @@ router.post(
   }
 )
 
+const oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema = joi
+  .object()
+  .keys({ client_id: joi.string().required() })
+
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForApp",
   "/authorizations/clients/:clientId",
+  paramValidationFactory<any>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema = joi
+  .object()
+  .keys({
+    client_id: joi.string().required(),
+    fingerprint: joi.string().required(),
+  })
 
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint",
   "/authorizations/clients/:clientId/:fingerprint",
+  paramValidationFactory<any>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsGetAuthorizationParamSchema = joi
+  .object()
+  .keys({ authorization_id: joi.number().required() })
 
 router.get(
   "oauthAuthorizationsGetAuthorization",
   "/authorizations/:authorizationId",
+  paramValidationFactory<any>(oauthAuthorizationsGetAuthorizationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const oauthAuthorizationsUpdateAuthorizationParamSchema = joi
+  .object()
+  .keys({ authorization_id: joi.number().required() })
 
 router.patch(
   "oauthAuthorizationsUpdateAuthorization",
   "/authorizations/:authorizationId",
+  paramValidationFactory<any>(
+    oauthAuthorizationsUpdateAuthorizationParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -265,9 +447,16 @@ router.patch(
   }
 )
 
+const oauthAuthorizationsDeleteAuthorizationParamSchema = joi
+  .object()
+  .keys({ authorization_id: joi.number().required() })
+
 router.delete(
   "oauthAuthorizationsDeleteAuthorization",
   "/authorizations/:authorizationId",
+  paramValidationFactory<any>(
+    oauthAuthorizationsDeleteAuthorizationParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -285,9 +474,14 @@ router.get(
   }
 )
 
+const codesOfConductGetConductCodeParamSchema = joi
+  .object()
+  .keys({ key: joi.string().required() })
+
 router.get(
   "codesOfConductGetConductCode",
   "/codes_of_conduct/:key",
+  paramValidationFactory<any>(codesOfConductGetConductCodeParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -295,9 +489,14 @@ router.get(
   }
 )
 
+const appsCreateContentAttachmentParamSchema = joi
+  .object()
+  .keys({ content_reference_id: joi.number().required() })
+
 router.post(
   "appsCreateContentAttachment",
   "/content_references/:contentReferenceId/attachments",
+  paramValidationFactory<any>(appsCreateContentAttachmentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -311,11 +510,20 @@ router.get("emojisGet", "/emojis", async (ctx, next) => {
   return next()
 })
 
-router.get("activityListPublicEvents", "/events", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const activityListPublicEventsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "activityListPublicEvents",
+  "/events",
+  queryValidationFactory<any>(activityListPublicEventsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
   ctx.status = 501
@@ -323,11 +531,20 @@ router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
   return next()
 })
 
-router.get("gistsList", "/gists", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListQuerySchema = joi
+  .object()
+  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "gistsList",
+  "/gists",
+  queryValidationFactory<any>(gistsListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.post("gistsCreate", "/gists", async (ctx, next) => {
   ctx.status = 501
@@ -335,79 +552,163 @@ router.post("gistsCreate", "/gists", async (ctx, next) => {
   return next()
 })
 
-router.get("gistsListPublic", "/gists/public", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListPublicQuerySchema = joi
+  .object()
+  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
 
-router.get("gistsListStarred", "/gists/starred", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "gistsListPublic",
+  "/gists/public",
+  queryValidationFactory<any>(gistsListPublicQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.get("gistsGet", "/gists/:gistId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListStarredQuerySchema = joi
+  .object()
+  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
 
-router.patch("gistsUpdate", "/gists/:gistId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "gistsListStarred",
+  "/gists/starred",
+  queryValidationFactory<any>(gistsListStarredQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.delete("gistsDelete", "/gists/:gistId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsGetParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.get(
+  "gistsGet",
+  "/gists/:gistId",
+  paramValidationFactory<any>(gistsGetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsUpdateParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.patch(
+  "gistsUpdate",
+  "/gists/:gistId",
+  paramValidationFactory<any>(gistsUpdateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsDeleteParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.delete(
+  "gistsDelete",
+  "/gists/:gistId",
+  paramValidationFactory<any>(gistsDeleteParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsListCommentsParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+const gistsListCommentsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "gistsListComments",
   "/gists/:gistId/comments",
+  paramValidationFactory<any>(gistsListCommentsParamSchema),
+  queryValidationFactory<any>(gistsListCommentsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gistsCreateCommentParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
 
 router.post(
   "gistsCreateComment",
   "/gists/:gistId/comments",
+  paramValidationFactory<any>(gistsCreateCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gistsGetCommentParamSchema = joi
+  .object()
+  .keys({
+    gist_id: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.get(
   "gistsGetComment",
   "/gists/:gistId/comments/:commentId",
+  paramValidationFactory<any>(gistsGetCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gistsUpdateCommentParamSchema = joi
+  .object()
+  .keys({
+    gist_id: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.patch(
   "gistsUpdateComment",
   "/gists/:gistId/comments/:commentId",
+  paramValidationFactory<any>(gistsUpdateCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gistsDeleteCommentParamSchema = joi
+  .object()
+  .keys({
+    gist_id: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.delete(
   "gistsDeleteComment",
   "/gists/:gistId/comments/:commentId",
+  paramValidationFactory<any>(gistsDeleteCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -415,47 +716,120 @@ router.delete(
   }
 )
 
-router.get("gistsListCommits", "/gists/:gistId/commits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListCommitsParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
 
-router.post("gistsFork", "/gists/:gistId/forks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListCommitsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
-router.get("gistsListForks", "/gists/:gistId/forks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "gistsListCommits",
+  "/gists/:gistId/commits",
+  paramValidationFactory<any>(gistsListCommitsParamSchema),
+  queryValidationFactory<any>(gistsListCommitsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.put("gistsStar", "/gists/:gistId/star", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsForkParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
 
-router.delete("gistsUnstar", "/gists/:gistId/star", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.post(
+  "gistsFork",
+  "/gists/:gistId/forks",
+  paramValidationFactory<any>(gistsForkParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.get("gistsCheckIsStarred", "/gists/:gistId/star", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListForksParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
 
-router.get("gistsGetRevision", "/gists/:gistId/:sha", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListForksQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "gistsListForks",
+  "/gists/:gistId/forks",
+  paramValidationFactory<any>(gistsListForksParamSchema),
+  queryValidationFactory<any>(gistsListForksQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsStarParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.put(
+  "gistsStar",
+  "/gists/:gistId/star",
+  paramValidationFactory<any>(gistsStarParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsUnstarParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.delete(
+  "gistsUnstar",
+  "/gists/:gistId/star",
+  paramValidationFactory<any>(gistsUnstarParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsCheckIsStarredParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required() })
+
+router.get(
+  "gistsCheckIsStarred",
+  "/gists/:gistId/star",
+  paramValidationFactory<any>(gistsCheckIsStarredParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const gistsGetRevisionParamSchema = joi
+  .object()
+  .keys({ gist_id: joi.string().required(), sha: joi.string().required() })
+
+router.get(
+  "gistsGetRevision",
+  "/gists/:gistId/:sha",
+  paramValidationFactory<any>(gistsGetRevisionParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.get(
   "gitignoreGetAllTemplates",
@@ -467,9 +841,14 @@ router.get(
   }
 )
 
+const gitignoreGetTemplateParamSchema = joi
+  .object()
+  .keys({ name: joi.string().required() })
+
 router.get(
   "gitignoreGetTemplate",
   "/gitignore/templates/:name",
+  paramValidationFactory<any>(gitignoreGetTemplateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -477,9 +856,14 @@ router.get(
   }
 )
 
+const appsListReposAccessibleToInstallationQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "appsListReposAccessibleToInstallation",
   "/installation/repositories",
+  queryValidationFactory<any>(appsListReposAccessibleToInstallationQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -497,11 +881,29 @@ router.delete(
   }
 )
 
-router.get("issuesList", "/issues", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const issuesListQuerySchema = joi
+  .object()
+  .keys({
+    filter: joi.string(),
+    state: joi.string(),
+    labels: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "issuesList",
+  "/issues",
+  queryValidationFactory<any>(issuesListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
   ctx.status = 501
@@ -509,11 +911,20 @@ router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
   return next()
 })
 
-router.get("licensesGet", "/licenses/:license", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const licensesGetParamSchema = joi
+  .object()
+  .keys({ license: joi.string().required() })
+
+router.get(
+  "licensesGet",
+  "/licenses/:license",
+  paramValidationFactory<any>(licensesGetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.post("markdownRender", "/markdown", async (ctx, next) => {
   ctx.status = 501
@@ -527,9 +938,14 @@ router.post("markdownRenderRaw", "/markdown/raw", async (ctx, next) => {
   return next()
 })
 
+const appsGetSubscriptionPlanForAccountParamSchema = joi
+  .object()
+  .keys({ account_id: joi.number().required() })
+
 router.get(
   "appsGetSubscriptionPlanForAccount",
   "/marketplace_listing/accounts/:accountId",
+  paramValidationFactory<any>(appsGetSubscriptionPlanForAccountParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -537,35 +953,71 @@ router.get(
   }
 )
 
-router.get("appsListPlans", "/marketplace_listing/plans", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const appsListPlansQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "appsListPlans",
+  "/marketplace_listing/plans",
+  queryValidationFactory<any>(appsListPlansQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const appsListAccountsForPlanParamSchema = joi
+  .object()
+  .keys({ plan_id: joi.number().required() })
+
+const appsListAccountsForPlanQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "appsListAccountsForPlan",
   "/marketplace_listing/plans/:planId/accounts",
+  paramValidationFactory<any>(appsListAccountsForPlanParamSchema),
+  queryValidationFactory<any>(appsListAccountsForPlanQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsGetSubscriptionPlanForAccountStubbedParamSchema = joi
+  .object()
+  .keys({ account_id: joi.number().required() })
 
 router.get(
   "appsGetSubscriptionPlanForAccountStubbed",
   "/marketplace_listing/stubbed/accounts/:accountId",
+  paramValidationFactory<any>(
+    appsGetSubscriptionPlanForAccountStubbedParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsListPlansStubbedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "appsListPlansStubbed",
   "/marketplace_listing/stubbed/plans",
+  queryValidationFactory<any>(appsListPlansStubbedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -573,9 +1025,24 @@ router.get(
   }
 )
 
+const appsListAccountsForPlanStubbedParamSchema = joi
+  .object()
+  .keys({ plan_id: joi.number().required() })
+
+const appsListAccountsForPlanStubbedQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
 router.get(
   "appsListAccountsForPlanStubbed",
   "/marketplace_listing/stubbed/plans/:planId/accounts",
+  paramValidationFactory<any>(appsListAccountsForPlanStubbedParamSchema),
+  queryValidationFactory<any>(appsListAccountsForPlanStubbedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -589,9 +1056,23 @@ router.get("metaGet", "/meta", async (ctx, next) => {
   return next()
 })
 
+const activityListPublicEventsForRepoNetworkParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const activityListPublicEventsForRepoNetworkQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "activityListPublicEventsForRepoNetwork",
   "/networks/:owner/:repo/events",
+  paramValidationFactory<any>(
+    activityListPublicEventsForRepoNetworkParamSchema
+  ),
+  queryValidationFactory<any>(
+    activityListPublicEventsForRepoNetworkQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -599,9 +1080,23 @@ router.get(
   }
 )
 
+const activityListNotificationsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({
+    all: joi.boolean(),
+    participating: joi.boolean(),
+    since: joi.string(),
+    before: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
 router.get(
   "activityListNotificationsForAuthenticatedUser",
   "/notifications",
+  queryValidationFactory<any>(
+    activityListNotificationsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -619,49 +1114,76 @@ router.put(
   }
 )
 
+const activityGetThreadParamSchema = joi
+  .object()
+  .keys({ thread_id: joi.number().required() })
+
 router.get(
   "activityGetThread",
   "/notifications/threads/:threadId",
+  paramValidationFactory<any>(activityGetThreadParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityMarkThreadAsReadParamSchema = joi
+  .object()
+  .keys({ thread_id: joi.number().required() })
 
 router.patch(
   "activityMarkThreadAsRead",
   "/notifications/threads/:threadId",
+  paramValidationFactory<any>(activityMarkThreadAsReadParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ thread_id: joi.number().required() })
 
 router.get(
   "activityGetThreadSubscriptionForAuthenticatedUser",
   "/notifications/threads/:threadId/subscription",
+  paramValidationFactory<any>(
+    activityGetThreadSubscriptionForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activitySetThreadSubscriptionParamSchema = joi
+  .object()
+  .keys({ thread_id: joi.number().required() })
 
 router.put(
   "activitySetThreadSubscription",
   "/notifications/threads/:threadId/subscription",
+  paramValidationFactory<any>(activitySetThreadSubscriptionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityDeleteThreadSubscriptionParamSchema = joi
+  .object()
+  .keys({ thread_id: joi.number().required() })
 
 router.delete(
   "activityDeleteThreadSubscription",
   "/notifications/threads/:threadId/subscription",
+  paramValidationFactory<any>(activityDeleteThreadSubscriptionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -669,167 +1191,285 @@ router.delete(
   }
 )
 
-router.get("orgsList", "/organizations", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListQuerySchema = joi.object().keys({ since: joi.number() })
 
-router.get("orgsGet", "/orgs/:org", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "orgsList",
+  "/organizations",
+  queryValidationFactory<any>(orgsListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.patch("orgsUpdate", "/orgs/:org", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsGetParamSchema = joi.object().keys({ org: joi.string().required() })
+
+router.get(
+  "orgsGet",
+  "/orgs/:org",
+  paramValidationFactory<any>(orgsGetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsUpdateParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+router.patch(
+  "orgsUpdate",
+  "/orgs/:org",
+  paramValidationFactory<any>(orgsUpdateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const actionsListSelfHostedRunnersForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const actionsListSelfHostedRunnersForOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListSelfHostedRunnersForOrg",
   "/orgs/:org/actions/runners",
+  paramValidationFactory<any>(actionsListSelfHostedRunnersForOrgParamSchema),
+  queryValidationFactory<any>(actionsListSelfHostedRunnersForOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListRunnerApplicationsForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "actionsListRunnerApplicationsForOrg",
   "/orgs/:org/actions/runners/downloads",
+  paramValidationFactory<any>(actionsListRunnerApplicationsForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateRegistrationTokenForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "actionsCreateRegistrationTokenForOrg",
   "/orgs/:org/actions/runners/registration-token",
+  paramValidationFactory<any>(actionsCreateRegistrationTokenForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateRemoveTokenForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "actionsCreateRemoveTokenForOrg",
   "/orgs/:org/actions/runners/remove-token",
+  paramValidationFactory<any>(actionsCreateRemoveTokenForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetSelfHostedRunnerForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
 
 router.get(
   "actionsGetSelfHostedRunnerForOrg",
   "/orgs/:org/actions/runners/:runnerId",
+  paramValidationFactory<any>(actionsGetSelfHostedRunnerForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteSelfHostedRunnerFromOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromOrg",
   "/orgs/:org/actions/runners/:runnerId",
+  paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListOrgSecretsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const actionsListOrgSecretsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListOrgSecrets",
   "/orgs/:org/actions/secrets",
+  paramValidationFactory<any>(actionsListOrgSecretsParamSchema),
+  queryValidationFactory<any>(actionsListOrgSecretsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetOrgPublicKeyParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "actionsGetOrgPublicKey",
   "/orgs/:org/actions/secrets/public-key",
+  paramValidationFactory<any>(actionsGetOrgPublicKeyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetOrgSecretParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
 
 router.get(
   "actionsGetOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsGetOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateOrUpdateOrgSecretParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
 
 router.put(
   "actionsCreateOrUpdateOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsCreateOrUpdateOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteOrgSecretParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
 
 router.delete(
   "actionsDeleteOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsDeleteOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListSelectedReposForOrgSecretParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
 
 router.get(
   "actionsListSelectedReposForOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories",
+  paramValidationFactory<any>(actionsListSelectedReposForOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsSetSelectedReposForOrgSecretParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
 
 router.put(
   "actionsSetSelectedReposForOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories",
+  paramValidationFactory<any>(actionsSetSelectedReposForOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsAddSelectedRepoToOrgSecretParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    secret_name: joi.string().required(),
+    repository_id: joi.number().required(),
+  })
 
 router.put(
   "actionsAddSelectedRepoToOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
+  paramValidationFactory<any>(actionsAddSelectedRepoToOrgSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsRemoveSelectedRepoFromOrgSecretParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    secret_name: joi.string().required(),
+    repository_id: joi.number().required(),
+  })
 
 router.delete(
   "actionsRemoveSelectedRepoFromOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
+  paramValidationFactory<any>(
+    actionsRemoveSelectedRepoFromOrgSecretParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -837,65 +1477,112 @@ router.delete(
   }
 )
 
-router.get("orgsListBlockedUsers", "/orgs/:org/blocks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListBlockedUsersParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+router.get(
+  "orgsListBlockedUsers",
+  "/orgs/:org/blocks",
+  paramValidationFactory<any>(orgsListBlockedUsersParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsCheckBlockedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.get(
   "orgsCheckBlockedUser",
   "/orgs/:org/blocks/:username",
+  paramValidationFactory<any>(orgsCheckBlockedUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsBlockUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.put(
   "orgsBlockUser",
   "/orgs/:org/blocks/:username",
+  paramValidationFactory<any>(orgsBlockUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsUnblockUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.delete(
   "orgsUnblockUser",
   "/orgs/:org/blocks/:username",
+  paramValidationFactory<any>(orgsUnblockUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListSamlSsoAuthorizationsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "orgsListSamlSsoAuthorizations",
   "/orgs/:org/credential-authorizations",
+  paramValidationFactory<any>(orgsListSamlSsoAuthorizationsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsRemoveSamlSsoAuthorizationParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    credential_id: joi.number().required(),
+  })
 
 router.delete(
   "orgsRemoveSamlSsoAuthorization",
   "/orgs/:org/credential-authorizations/:credentialId",
+  paramValidationFactory<any>(orgsRemoveSamlSsoAuthorizationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListPublicOrgEventsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const activityListPublicOrgEventsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListPublicOrgEvents",
   "/orgs/:org/events",
+  paramValidationFactory<any>(activityListPublicOrgEventsParamSchema),
+  queryValidationFactory<any>(activityListPublicOrgEventsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -903,127 +1590,232 @@ router.get(
   }
 )
 
-router.get("orgsListWebhooks", "/orgs/:org/hooks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListWebhooksParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
-router.post("orgsCreateWebhook", "/orgs/:org/hooks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListWebhooksQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
-router.get("orgsGetWebhook", "/orgs/:org/hooks/:hookId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "orgsListWebhooks",
+  "/orgs/:org/hooks",
+  paramValidationFactory<any>(orgsListWebhooksParamSchema),
+  queryValidationFactory<any>(orgsListWebhooksQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsCreateWebhookParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+router.post(
+  "orgsCreateWebhook",
+  "/orgs/:org/hooks",
+  paramValidationFactory<any>(orgsCreateWebhookParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsGetWebhookParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
+
+router.get(
+  "orgsGetWebhook",
+  "/orgs/:org/hooks/:hookId",
+  paramValidationFactory<any>(orgsGetWebhookParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsUpdateWebhookParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
 
 router.patch(
   "orgsUpdateWebhook",
   "/orgs/:org/hooks/:hookId",
+  paramValidationFactory<any>(orgsUpdateWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsDeleteWebhookParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
 
 router.delete(
   "orgsDeleteWebhook",
   "/orgs/:org/hooks/:hookId",
+  paramValidationFactory<any>(orgsDeleteWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsPingWebhookParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
 
 router.post(
   "orgsPingWebhook",
   "/orgs/:org/hooks/:hookId/pings",
+  paramValidationFactory<any>(orgsPingWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsGetOrgInstallationParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "appsGetOrgInstallation",
   "/orgs/:org/installation",
+  paramValidationFactory<any>(appsGetOrgInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListAppInstallationsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const orgsListAppInstallationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListAppInstallations",
   "/orgs/:org/installations",
+  paramValidationFactory<any>(orgsListAppInstallationsParamSchema),
+  queryValidationFactory<any>(orgsListAppInstallationsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsGetRestrictionsForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "interactionsGetRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
+  paramValidationFactory<any>(interactionsGetRestrictionsForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsSetRestrictionsForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.put(
   "interactionsSetRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
+  paramValidationFactory<any>(interactionsSetRestrictionsForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsRemoveRestrictionsForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.delete(
   "interactionsRemoveRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
+  paramValidationFactory<any>(interactionsRemoveRestrictionsForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListPendingInvitationsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const orgsListPendingInvitationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListPendingInvitations",
   "/orgs/:org/invitations",
+  paramValidationFactory<any>(orgsListPendingInvitationsParamSchema),
+  queryValidationFactory<any>(orgsListPendingInvitationsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsCreateInvitationParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "orgsCreateInvitation",
   "/orgs/:org/invitations",
+  paramValidationFactory<any>(orgsCreateInvitationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListInvitationTeamsParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    invitation_id: joi.number().required(),
+  })
+
+const orgsListInvitationTeamsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListInvitationTeams",
   "/orgs/:org/invitations/:invitationId/teams",
+  paramValidationFactory<any>(orgsListInvitationTeamsParamSchema),
+  queryValidationFactory<any>(orgsListInvitationTeamsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1031,161 +1823,299 @@ router.get(
   }
 )
 
-router.get("issuesListForOrg", "/orgs/:org/issues", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const issuesListForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
-router.get("orgsListMembers", "/orgs/:org/members", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const issuesListForOrgQuerySchema = joi
+  .object()
+  .keys({
+    filter: joi.string(),
+    state: joi.string(),
+    labels: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "issuesListForOrg",
+  "/orgs/:org/issues",
+  paramValidationFactory<any>(issuesListForOrgParamSchema),
+  queryValidationFactory<any>(issuesListForOrgQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsListMembersParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const orgsListMembersQuerySchema = joi
+  .object()
+  .keys({
+    filter: joi.string(),
+    role: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "orgsListMembers",
+  "/orgs/:org/members",
+  paramValidationFactory<any>(orgsListMembersParamSchema),
+  queryValidationFactory<any>(orgsListMembersQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const orgsCheckMembershipForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.get(
   "orgsCheckMembershipForUser",
   "/orgs/:org/members/:username",
+  paramValidationFactory<any>(orgsCheckMembershipForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsRemoveMemberParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.delete(
   "orgsRemoveMember",
   "/orgs/:org/members/:username",
+  paramValidationFactory<any>(orgsRemoveMemberParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsGetMembershipForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.get(
   "orgsGetMembershipForUser",
   "/orgs/:org/memberships/:username",
+  paramValidationFactory<any>(orgsGetMembershipForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsSetMembershipForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.put(
   "orgsSetMembershipForUser",
   "/orgs/:org/memberships/:username",
+  paramValidationFactory<any>(orgsSetMembershipForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsRemoveMembershipForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.delete(
   "orgsRemoveMembershipForUser",
   "/orgs/:org/memberships/:username",
+  paramValidationFactory<any>(orgsRemoveMembershipForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsStartForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "migrationsStartForOrg",
   "/orgs/:org/migrations",
+  paramValidationFactory<any>(migrationsStartForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsListForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const migrationsListForOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "migrationsListForOrg",
   "/orgs/:org/migrations",
+  paramValidationFactory<any>(migrationsListForOrgParamSchema),
+  queryValidationFactory<any>(migrationsListForOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetStatusForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
 
 router.get(
   "migrationsGetStatusForOrg",
   "/orgs/:org/migrations/:migrationId",
+  paramValidationFactory<any>(migrationsGetStatusForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsDownloadArchiveForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
 
 router.get(
   "migrationsDownloadArchiveForOrg",
   "/orgs/:org/migrations/:migrationId/archive",
+  paramValidationFactory<any>(migrationsDownloadArchiveForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsDeleteArchiveForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
 
 router.delete(
   "migrationsDeleteArchiveForOrg",
   "/orgs/:org/migrations/:migrationId/archive",
+  paramValidationFactory<any>(migrationsDeleteArchiveForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsUnlockRepoForOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    migration_id: joi.number().required(),
+    repo_name: joi.string().required(),
+  })
 
 router.delete(
   "migrationsUnlockRepoForOrg",
   "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
+  paramValidationFactory<any>(migrationsUnlockRepoForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsListReposForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
+
+const migrationsListReposForOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "migrationsListReposForOrg",
   "/orgs/:org/migrations/:migrationId/repositories",
+  paramValidationFactory<any>(migrationsListReposForOrgParamSchema),
+  queryValidationFactory<any>(migrationsListReposForOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListOutsideCollaboratorsParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const orgsListOutsideCollaboratorsQuerySchema = joi
+  .object()
+  .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListOutsideCollaborators",
   "/orgs/:org/outside_collaborators",
+  paramValidationFactory<any>(orgsListOutsideCollaboratorsParamSchema),
+  queryValidationFactory<any>(orgsListOutsideCollaboratorsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsRemoveOutsideCollaboratorParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.delete(
   "orgsRemoveOutsideCollaborator",
   "/orgs/:org/outside_collaborators/:username",
+  paramValidationFactory<any>(orgsRemoveOutsideCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsConvertMemberToOutsideCollaboratorParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.put(
   "orgsConvertMemberToOutsideCollaborator",
   "/orgs/:org/outside_collaborators/:username",
+  paramValidationFactory<any>(
+    orgsConvertMemberToOutsideCollaboratorParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1193,55 +2123,103 @@ router.put(
   }
 )
 
-router.get("projectsListForOrg", "/orgs/:org/projects", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const projectsListForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const projectsListForOrgQuerySchema = joi
+  .object()
+  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "projectsListForOrg",
+  "/orgs/:org/projects",
+  paramValidationFactory<any>(projectsListForOrgParamSchema),
+  queryValidationFactory<any>(projectsListForOrgQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const projectsCreateForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "projectsCreateForOrg",
   "/orgs/:org/projects",
+  paramValidationFactory<any>(projectsCreateForOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListPublicMembersParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const orgsListPublicMembersQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListPublicMembers",
   "/orgs/:org/public_members",
+  paramValidationFactory<any>(orgsListPublicMembersParamSchema),
+  queryValidationFactory<any>(orgsListPublicMembersQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsCheckPublicMembershipForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.get(
   "orgsCheckPublicMembershipForUser",
   "/orgs/:org/public_members/:username",
+  paramValidationFactory<any>(orgsCheckPublicMembershipForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsSetPublicMembershipForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.put(
   "orgsSetPublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
+  paramValidationFactory<any>(
+    orgsSetPublicMembershipForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), username: joi.string().required() })
 
 router.delete(
   "orgsRemovePublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
+  paramValidationFactory<any>(
+    orgsRemovePublicMembershipForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1249,21 +2227,60 @@ router.delete(
   }
 )
 
-router.get("reposListForOrg", "/orgs/:org/repos", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
-router.post("reposCreateInOrg", "/orgs/:org/repos", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListForOrgQuerySchema = joi
+  .object()
+  .keys({
+    type: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "reposListForOrg",
+  "/orgs/:org/repos",
+  paramValidationFactory<any>(reposListForOrgParamSchema),
+  queryValidationFactory<any>(reposListForOrgQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposCreateInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+router.post(
+  "reposCreateInOrg",
+  "/orgs/:org/repos",
+  paramValidationFactory<any>(reposCreateInOrgParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsListIdPGroupsForOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const teamsListIdPGroupsForOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListIdPGroupsForOrg",
   "/orgs/:org/team-sync/groups",
+  paramValidationFactory<any>(teamsListIdPGroupsForOrgParamSchema),
+  queryValidationFactory<any>(teamsListIdPGroupsForOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1271,461 +2288,878 @@ router.get(
   }
 )
 
-router.get("teamsList", "/orgs/:org/teams", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const teamsListParamSchema = joi.object().keys({ org: joi.string().required() })
 
-router.post("teamsCreate", "/orgs/:org/teams", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const teamsListQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "teamsList",
+  "/orgs/:org/teams",
+  paramValidationFactory<any>(teamsListParamSchema),
+  queryValidationFactory<any>(teamsListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsCreateParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+router.post(
+  "teamsCreate",
+  "/orgs/:org/teams",
+  paramValidationFactory<any>(teamsCreateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsGetByNameParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.get(
   "teamsGetByName",
   "/orgs/:org/teams/:teamSlug",
+  paramValidationFactory<any>(teamsGetByNameParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsUpdateInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.patch(
   "teamsUpdateInOrg",
   "/orgs/:org/teams/:teamSlug",
+  paramValidationFactory<any>(teamsUpdateInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsDeleteInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.delete(
   "teamsDeleteInOrg",
   "/orgs/:org/teams/:teamSlug",
+  paramValidationFactory<any>(teamsDeleteInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListDiscussionsInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListDiscussionsInOrgQuerySchema = joi
+  .object()
+  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListDiscussionsInOrg",
   "/orgs/:org/teams/:teamSlug/discussions",
+  paramValidationFactory<any>(teamsListDiscussionsInOrgParamSchema),
+  queryValidationFactory<any>(teamsListDiscussionsInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.post(
   "teamsCreateDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions",
+  paramValidationFactory<any>(teamsCreateDiscussionInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.get(
   "teamsGetDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsGetDiscussionInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsUpdateDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.patch(
   "teamsUpdateDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsUpdateDiscussionInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsDeleteDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.delete(
   "teamsDeleteDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsDeleteDiscussionInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListDiscussionCommentsInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
+
+const teamsListDiscussionCommentsInOrgQuerySchema = joi
+  .object()
+  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListDiscussionCommentsInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
+  paramValidationFactory<any>(teamsListDiscussionCommentsInOrgParamSchema),
+  queryValidationFactory<any>(teamsListDiscussionCommentsInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.post(
   "teamsCreateDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
+  paramValidationFactory<any>(teamsCreateDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.get(
   "teamsGetDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsGetDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsUpdateDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.patch(
   "teamsUpdateDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsUpdateDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsDeleteDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.delete(
   "teamsDeleteDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsDeleteDiscussionCommentInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForTeamDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
+
+const reactionsListForTeamDiscussionCommentInOrgQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForTeamDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
+  paramValidationFactory<any>(
+    reactionsListForTeamDiscussionCommentInOrgParamSchema
+  ),
+  queryValidationFactory<any>(
+    reactionsListForTeamDiscussionCommentInOrgQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
+  paramValidationFactory<any>(
+    reactionsCreateForTeamDiscussionCommentInOrgParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForTeamDiscussionCommentParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForTeamDiscussionComment",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
+  paramValidationFactory<any>(
+    reactionsDeleteForTeamDiscussionCommentParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForTeamDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
+
+const reactionsListForTeamDiscussionInOrgQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForTeamDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
+  paramValidationFactory<any>(reactionsListForTeamDiscussionInOrgParamSchema),
+  queryValidationFactory<any>(reactionsListForTeamDiscussionInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForTeamDiscussionInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForTeamDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
+  paramValidationFactory<any>(reactionsCreateForTeamDiscussionInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForTeamDiscussionParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    discussion_number: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForTeamDiscussion",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteForTeamDiscussionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListPendingInvitationsInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListPendingInvitationsInOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListPendingInvitationsInOrg",
   "/orgs/:org/teams/:teamSlug/invitations",
+  paramValidationFactory<any>(teamsListPendingInvitationsInOrgParamSchema),
+  queryValidationFactory<any>(teamsListPendingInvitationsInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListMembersInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListMembersInOrgQuerySchema = joi
+  .object()
+  .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListMembersInOrg",
   "/orgs/:org/teams/:teamSlug/members",
+  paramValidationFactory<any>(teamsListMembersInOrgParamSchema),
+  queryValidationFactory<any>(teamsListMembersInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetMembershipForUserInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.get(
   "teamsGetMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
+  paramValidationFactory<any>(teamsGetMembershipForUserInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateMembershipForUserInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.put(
   "teamsAddOrUpdateMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
+  paramValidationFactory<any>(
+    teamsAddOrUpdateMembershipForUserInOrgParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveMembershipForUserInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.delete(
   "teamsRemoveMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
+  paramValidationFactory<any>(teamsRemoveMembershipForUserInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListProjectsInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListProjectsInOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListProjectsInOrg",
   "/orgs/:org/teams/:teamSlug/projects",
+  paramValidationFactory<any>(teamsListProjectsInOrgParamSchema),
+  queryValidationFactory<any>(teamsListProjectsInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCheckPermissionsForProjectInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    project_id: joi.number().required(),
+  })
 
 router.get(
   "teamsCheckPermissionsForProjectInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
+  paramValidationFactory<any>(teamsCheckPermissionsForProjectInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    project_id: joi.number().required(),
+  })
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
+  paramValidationFactory<any>(
+    teamsAddOrUpdateProjectPermissionsInOrgParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveProjectInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    project_id: joi.number().required(),
+  })
 
 router.delete(
   "teamsRemoveProjectInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
+  paramValidationFactory<any>(teamsRemoveProjectInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListReposInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListReposInOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListReposInOrg",
   "/orgs/:org/teams/:teamSlug/repos",
+  paramValidationFactory<any>(teamsListReposInOrgParamSchema),
+  queryValidationFactory<any>(teamsListReposInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCheckPermissionsForRepoInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.get(
   "teamsCheckPermissionsForRepoInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsCheckPermissionsForRepoInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveRepoInOrgParamSchema = joi
+  .object()
+  .keys({
+    org: joi.string().required(),
+    team_slug: joi.string().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.delete(
   "teamsRemoveRepoInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsRemoveRepoInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListIdPGroupsInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.get(
   "teamsListIdPGroupsInOrg",
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
+  paramValidationFactory<any>(teamsListIdPGroupsInOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
 
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsInOrg",
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
+  paramValidationFactory<any>(
+    teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListChildInOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+
+const teamsListChildInOrgQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListChildInOrg",
   "/orgs/:org/teams/:teamSlug/teams",
+  paramValidationFactory<any>(teamsListChildInOrgParamSchema),
+  queryValidationFactory<any>(teamsListChildInOrgQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsGetCardParamSchema = joi
+  .object()
+  .keys({ card_id: joi.number().required() })
 
 router.get(
   "projectsGetCard",
   "/projects/columns/cards/:cardId",
+  paramValidationFactory<any>(projectsGetCardParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsUpdateCardParamSchema = joi
+  .object()
+  .keys({ card_id: joi.number().required() })
 
 router.patch(
   "projectsUpdateCard",
   "/projects/columns/cards/:cardId",
+  paramValidationFactory<any>(projectsUpdateCardParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsDeleteCardParamSchema = joi
+  .object()
+  .keys({ card_id: joi.number().required() })
 
 router.delete(
   "projectsDeleteCard",
   "/projects/columns/cards/:cardId",
+  paramValidationFactory<any>(projectsDeleteCardParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsMoveCardParamSchema = joi
+  .object()
+  .keys({ card_id: joi.number().required() })
 
 router.post(
   "projectsMoveCard",
   "/projects/columns/cards/:cardId/moves",
+  paramValidationFactory<any>(projectsMoveCardParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsGetColumnParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
 
 router.get(
   "projectsGetColumn",
   "/projects/columns/:columnId",
+  paramValidationFactory<any>(projectsGetColumnParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsUpdateColumnParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
 
 router.patch(
   "projectsUpdateColumn",
   "/projects/columns/:columnId",
+  paramValidationFactory<any>(projectsUpdateColumnParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsDeleteColumnParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
 
 router.delete(
   "projectsDeleteColumn",
   "/projects/columns/:columnId",
+  paramValidationFactory<any>(projectsDeleteColumnParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsListCardsParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
+
+const projectsListCardsQuerySchema = joi
+  .object()
+  .keys({
+    archived_state: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "projectsListCards",
   "/projects/columns/:columnId/cards",
+  paramValidationFactory<any>(projectsListCardsParamSchema),
+  queryValidationFactory<any>(projectsListCardsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsCreateCardParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
 
 router.post(
   "projectsCreateCard",
   "/projects/columns/:columnId/cards",
+  paramValidationFactory<any>(projectsCreateCardParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsMoveColumnParamSchema = joi
+  .object()
+  .keys({ column_id: joi.number().required() })
 
 router.post(
   "projectsMoveColumn",
   "/projects/columns/:columnId/moves",
+  paramValidationFactory<any>(projectsMoveColumnParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1733,67 +3167,142 @@ router.post(
   }
 )
 
-router.get("projectsGet", "/projects/:projectId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const projectsGetParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
 
-router.patch("projectsUpdate", "/projects/:projectId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "projectsGet",
+  "/projects/:projectId",
+  paramValidationFactory<any>(projectsGetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.delete("projectsDelete", "/projects/:projectId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const projectsUpdateParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
+
+router.patch(
+  "projectsUpdate",
+  "/projects/:projectId",
+  paramValidationFactory<any>(projectsUpdateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const projectsDeleteParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
+
+router.delete(
+  "projectsDelete",
+  "/projects/:projectId",
+  paramValidationFactory<any>(projectsDeleteParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const projectsListCollaboratorsParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
+
+const projectsListCollaboratorsQuerySchema = joi
+  .object()
+  .keys({
+    affiliation: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "projectsListCollaborators",
   "/projects/:projectId/collaborators",
+  paramValidationFactory<any>(projectsListCollaboratorsParamSchema),
+  queryValidationFactory<any>(projectsListCollaboratorsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsAddCollaboratorParamSchema = joi
+  .object()
+  .keys({
+    project_id: joi.number().required(),
+    username: joi.string().required(),
+  })
 
 router.put(
   "projectsAddCollaborator",
   "/projects/:projectId/collaborators/:username",
+  paramValidationFactory<any>(projectsAddCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsRemoveCollaboratorParamSchema = joi
+  .object()
+  .keys({
+    project_id: joi.number().required(),
+    username: joi.string().required(),
+  })
 
 router.delete(
   "projectsRemoveCollaborator",
   "/projects/:projectId/collaborators/:username",
+  paramValidationFactory<any>(projectsRemoveCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsGetPermissionForUserParamSchema = joi
+  .object()
+  .keys({
+    project_id: joi.number().required(),
+    username: joi.string().required(),
+  })
 
 router.get(
   "projectsGetPermissionForUser",
   "/projects/:projectId/collaborators/:username/permission",
+  paramValidationFactory<any>(projectsGetPermissionForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsListColumnsParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
+
+const projectsListColumnsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "projectsListColumns",
   "/projects/:projectId/columns",
+  paramValidationFactory<any>(projectsListColumnsParamSchema),
+  queryValidationFactory<any>(projectsListColumnsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1801,9 +3310,14 @@ router.get(
   }
 )
 
+const projectsCreateColumnParamSchema = joi
+  .object()
+  .keys({ project_id: joi.number().required() })
+
 router.post(
   "projectsCreateColumn",
   "/projects/:projectId/columns",
+  paramValidationFactory<any>(projectsCreateColumnParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1817,9 +3331,14 @@ router.get("rateLimitGet", "/rate_limit", async (ctx, next) => {
   return next()
 })
 
+const reactionsDeleteLegacyParamSchema = joi
+  .object()
+  .keys({ reaction_id: joi.number().required() })
+
 router.delete(
   "reactionsDeleteLegacy",
   "/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -1827,1197 +3346,2383 @@ router.delete(
   }
 )
 
-router.get("reposGet", "/repos/:owner/:repo", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposGetParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
-router.patch("reposUpdate", "/repos/:owner/:repo", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "reposGet",
+  "/repos/:owner/:repo",
+  paramValidationFactory<any>(reposGetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.delete("reposDelete", "/repos/:owner/:repo", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposUpdateParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.patch(
+  "reposUpdate",
+  "/repos/:owner/:repo",
+  paramValidationFactory<any>(reposUpdateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposDeleteParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.delete(
+  "reposDelete",
+  "/repos/:owner/:repo",
+  paramValidationFactory<any>(reposDeleteParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const actionsListArtifactsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const actionsListArtifactsForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListArtifactsForRepo",
   "/repos/:owner/:repo/actions/artifacts",
+  paramValidationFactory<any>(actionsListArtifactsForRepoParamSchema),
+  queryValidationFactory<any>(actionsListArtifactsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetArtifactParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    artifact_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
+  paramValidationFactory<any>(actionsGetArtifactParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteArtifactParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    artifact_id: joi.number().required(),
+  })
 
 router.delete(
   "actionsDeleteArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
+  paramValidationFactory<any>(actionsDeleteArtifactParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDownloadArtifactParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    artifact_id: joi.number().required(),
+    archive_format: joi.string().required(),
+  })
 
 router.get(
   "actionsDownloadArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
+  paramValidationFactory<any>(actionsDownloadArtifactParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetJobForWorkflowRunParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    job_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetJobForWorkflowRun",
   "/repos/:owner/:repo/actions/jobs/:jobId",
+  paramValidationFactory<any>(actionsGetJobForWorkflowRunParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDownloadJobLogsForWorkflowRunParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    job_id: joi.number().required(),
+  })
 
 router.get(
   "actionsDownloadJobLogsForWorkflowRun",
   "/repos/:owner/:repo/actions/jobs/:jobId/logs",
+  paramValidationFactory<any>(actionsDownloadJobLogsForWorkflowRunParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListSelfHostedRunnersForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const actionsListSelfHostedRunnersForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListSelfHostedRunnersForRepo",
   "/repos/:owner/:repo/actions/runners",
+  paramValidationFactory<any>(actionsListSelfHostedRunnersForRepoParamSchema),
+  queryValidationFactory<any>(actionsListSelfHostedRunnersForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListRunnerApplicationsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "actionsListRunnerApplicationsForRepo",
   "/repos/:owner/:repo/actions/runners/downloads",
+  paramValidationFactory<any>(actionsListRunnerApplicationsForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateRegistrationTokenForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "actionsCreateRegistrationTokenForRepo",
   "/repos/:owner/:repo/actions/runners/registration-token",
+  paramValidationFactory<any>(actionsCreateRegistrationTokenForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateRemoveTokenForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "actionsCreateRemoveTokenForRepo",
   "/repos/:owner/:repo/actions/runners/remove-token",
+  paramValidationFactory<any>(actionsCreateRemoveTokenForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetSelfHostedRunnerForRepoParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    runner_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetSelfHostedRunnerForRepo",
   "/repos/:owner/:repo/actions/runners/:runnerId",
+  paramValidationFactory<any>(actionsGetSelfHostedRunnerForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteSelfHostedRunnerFromRepoParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    runner_id: joi.number().required(),
+  })
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromRepo",
   "/repos/:owner/:repo/actions/runners/:runnerId",
+  paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListWorkflowRunsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const actionsListWorkflowRunsForRepoQuerySchema = joi
+  .object()
+  .keys({
+    actor: joi.string(),
+    branch: joi.string(),
+    event: joi.string(),
+    status: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "actionsListWorkflowRunsForRepo",
   "/repos/:owner/:repo/actions/runs",
+  paramValidationFactory<any>(actionsListWorkflowRunsForRepoParamSchema),
+  queryValidationFactory<any>(actionsListWorkflowRunsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetWorkflowRunParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId",
+  paramValidationFactory<any>(actionsGetWorkflowRunParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListWorkflowRunArtifactsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
+
+const actionsListWorkflowRunArtifactsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListWorkflowRunArtifacts",
   "/repos/:owner/:repo/actions/runs/:runId/artifacts",
+  paramValidationFactory<any>(actionsListWorkflowRunArtifactsParamSchema),
+  queryValidationFactory<any>(actionsListWorkflowRunArtifactsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCancelWorkflowRunParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.post(
   "actionsCancelWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId/cancel",
+  paramValidationFactory<any>(actionsCancelWorkflowRunParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListJobsForWorkflowRunParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
+
+const actionsListJobsForWorkflowRunQuerySchema = joi
+  .object()
+  .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListJobsForWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId/jobs",
+  paramValidationFactory<any>(actionsListJobsForWorkflowRunParamSchema),
+  queryValidationFactory<any>(actionsListJobsForWorkflowRunQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDownloadWorkflowRunLogsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.get(
   "actionsDownloadWorkflowRunLogs",
   "/repos/:owner/:repo/actions/runs/:runId/logs",
+  paramValidationFactory<any>(actionsDownloadWorkflowRunLogsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteWorkflowRunLogsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.delete(
   "actionsDeleteWorkflowRunLogs",
   "/repos/:owner/:repo/actions/runs/:runId/logs",
+  paramValidationFactory<any>(actionsDeleteWorkflowRunLogsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsReRunWorkflowParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.post(
   "actionsReRunWorkflow",
   "/repos/:owner/:repo/actions/runs/:runId/rerun",
+  paramValidationFactory<any>(actionsReRunWorkflowParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetWorkflowRunUsageParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    run_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetWorkflowRunUsage",
   "/repos/:owner/:repo/actions/runs/:runId/timing",
+  paramValidationFactory<any>(actionsGetWorkflowRunUsageParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListRepoSecretsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const actionsListRepoSecretsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListRepoSecrets",
   "/repos/:owner/:repo/actions/secrets",
+  paramValidationFactory<any>(actionsListRepoSecretsParamSchema),
+  queryValidationFactory<any>(actionsListRepoSecretsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetRepoPublicKeyParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "actionsGetRepoPublicKey",
   "/repos/:owner/:repo/actions/secrets/public-key",
+  paramValidationFactory<any>(actionsGetRepoPublicKeyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetRepoSecretParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    secret_name: joi.string().required(),
+  })
 
 router.get(
   "actionsGetRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsGetRepoSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsCreateOrUpdateRepoSecretParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    secret_name: joi.string().required(),
+  })
 
 router.put(
   "actionsCreateOrUpdateRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsCreateOrUpdateRepoSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsDeleteRepoSecretParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    secret_name: joi.string().required(),
+  })
 
 router.delete(
   "actionsDeleteRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
+  paramValidationFactory<any>(actionsDeleteRepoSecretParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListRepoWorkflowsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const actionsListRepoWorkflowsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "actionsListRepoWorkflows",
   "/repos/:owner/:repo/actions/workflows",
+  paramValidationFactory<any>(actionsListRepoWorkflowsParamSchema),
+  queryValidationFactory<any>(actionsListRepoWorkflowsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetWorkflowParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    workflow_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetWorkflow",
   "/repos/:owner/:repo/actions/workflows/:workflowId",
+  paramValidationFactory<any>(actionsGetWorkflowParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsListWorkflowRunsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    workflow_id: joi.number().required(),
+  })
+
+const actionsListWorkflowRunsQuerySchema = joi
+  .object()
+  .keys({
+    actor: joi.string(),
+    branch: joi.string(),
+    event: joi.string(),
+    status: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "actionsListWorkflowRuns",
   "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
+  paramValidationFactory<any>(actionsListWorkflowRunsParamSchema),
+  queryValidationFactory<any>(actionsListWorkflowRunsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const actionsGetWorkflowUsageParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    workflow_id: joi.number().required(),
+  })
 
 router.get(
   "actionsGetWorkflowUsage",
   "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
+  paramValidationFactory<any>(actionsGetWorkflowUsageParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListAssigneesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListAssigneesQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListAssignees",
   "/repos/:owner/:repo/assignees",
+  paramValidationFactory<any>(issuesListAssigneesParamSchema),
+  queryValidationFactory<any>(issuesListAssigneesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesCheckUserCanBeAssignedParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    assignee: joi.string().required(),
+  })
 
 router.get(
   "issuesCheckUserCanBeAssigned",
   "/repos/:owner/:repo/assignees/:assignee",
+  paramValidationFactory<any>(issuesCheckUserCanBeAssignedParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposEnableAutomatedSecurityFixesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "reposEnableAutomatedSecurityFixes",
   "/repos/:owner/:repo/automated-security-fixes",
+  paramValidationFactory<any>(reposEnableAutomatedSecurityFixesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDisableAutomatedSecurityFixesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "reposDisableAutomatedSecurityFixes",
   "/repos/:owner/:repo/automated-security-fixes",
+  paramValidationFactory<any>(reposDisableAutomatedSecurityFixesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListBranchesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListBranchesQuerySchema = joi
+  .object()
+  .keys({
+    protected: joi.boolean(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "reposListBranches",
   "/repos/:owner/:repo/branches",
+  paramValidationFactory<any>(reposListBranchesParamSchema),
+  queryValidationFactory<any>(reposListBranchesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetBranchParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetBranch",
   "/repos/:owner/:repo/branches/:branch",
+  paramValidationFactory<any>(reposGetBranchParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
+  paramValidationFactory<any>(reposGetBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.put(
   "reposUpdateBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
+  paramValidationFactory<any>(reposUpdateBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposDeleteBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
+  paramValidationFactory<any>(reposDeleteBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetAdminBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
+  paramValidationFactory<any>(reposGetAdminBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposSetAdminBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposSetAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
+  paramValidationFactory<any>(reposSetAdminBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteAdminBranchProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposDeleteAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
+  paramValidationFactory<any>(reposDeleteAdminBranchProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetPullRequestReviewProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetPullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
+  paramValidationFactory<any>(reposGetPullRequestReviewProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdatePullRequestReviewProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.patch(
   "reposUpdatePullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
+  paramValidationFactory<any>(
+    reposUpdatePullRequestReviewProtectionParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeletePullRequestReviewProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposDeletePullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
+  paramValidationFactory<any>(
+    reposDeletePullRequestReviewProtectionParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCommitSignatureProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
+  paramValidationFactory<any>(reposGetCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateCommitSignatureProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposCreateCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
+  paramValidationFactory<any>(reposCreateCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteCommitSignatureProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposDeleteCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
+  paramValidationFactory<any>(reposDeleteCommitSignatureProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetStatusChecksProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetStatusChecksProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
+  paramValidationFactory<any>(reposGetStatusChecksProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateStatusCheckPotectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.patch(
   "reposUpdateStatusCheckPotection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
+  paramValidationFactory<any>(reposUpdateStatusCheckPotectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveStatusCheckProtectionParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveStatusCheckProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
+  paramValidationFactory<any>(reposRemoveStatusCheckProtectionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetAllStatusCheckContextsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetAllStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
+  paramValidationFactory<any>(reposGetAllStatusCheckContextsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposSetStatusCheckContextsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.put(
   "reposSetStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
+  paramValidationFactory<any>(reposSetStatusCheckContextsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAddStatusCheckContextsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposAddStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
+  paramValidationFactory<any>(reposAddStatusCheckContextsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveStatusCheckContextsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
+  paramValidationFactory<any>(reposRemoveStatusCheckContextsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
+  paramValidationFactory<any>(reposGetAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposDeleteAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
+  paramValidationFactory<any>(reposDeleteAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetAppsWithAccessToProtectedBranchParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetAppsWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
+  paramValidationFactory<any>(
+    reposGetAppsWithAccessToProtectedBranchParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposSetAppAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.put(
   "reposSetAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
+  paramValidationFactory<any>(reposSetAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAddAppAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposAddAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
+  paramValidationFactory<any>(reposAddAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveAppAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
+  paramValidationFactory<any>(reposRemoveAppAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetTeamsWithAccessToProtectedBranchParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetTeamsWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
+  paramValidationFactory<any>(
+    reposGetTeamsWithAccessToProtectedBranchParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposSetTeamAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.put(
   "reposSetTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
+  paramValidationFactory<any>(reposSetTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAddTeamAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposAddTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
+  paramValidationFactory<any>(reposAddTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveTeamAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
+  paramValidationFactory<any>(reposRemoveTeamAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetUsersWithAccessToProtectedBranchParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.get(
   "reposGetUsersWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
+  paramValidationFactory<any>(
+    reposGetUsersWithAccessToProtectedBranchParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposSetUserAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.put(
   "reposSetUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
+  paramValidationFactory<any>(reposSetUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAddUserAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.post(
   "reposAddUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
+  paramValidationFactory<any>(reposAddUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveUserAccessRestrictionsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    branch: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
+  paramValidationFactory<any>(reposRemoveUserAccessRestrictionsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksCreateParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "checksCreate",
   "/repos/:owner/:repo/check-runs",
+  paramValidationFactory<any>(checksCreateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksUpdateParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_run_id: joi.number().required(),
+  })
 
 router.patch(
   "checksUpdate",
   "/repos/:owner/:repo/check-runs/:checkRunId",
+  paramValidationFactory<any>(checksUpdateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksGetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_run_id: joi.number().required(),
+  })
 
 router.get(
   "checksGet",
   "/repos/:owner/:repo/check-runs/:checkRunId",
+  paramValidationFactory<any>(checksGetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksListAnnotationsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_run_id: joi.number().required(),
+  })
+
+const checksListAnnotationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "checksListAnnotations",
   "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
+  paramValidationFactory<any>(checksListAnnotationsParamSchema),
+  queryValidationFactory<any>(checksListAnnotationsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksCreateSuiteParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "checksCreateSuite",
   "/repos/:owner/:repo/check-suites",
+  paramValidationFactory<any>(checksCreateSuiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksSetSuitesPreferencesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.patch(
   "checksSetSuitesPreferences",
   "/repos/:owner/:repo/check-suites/preferences",
+  paramValidationFactory<any>(checksSetSuitesPreferencesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksGetSuiteParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_suite_id: joi.number().required(),
+  })
 
 router.get(
   "checksGetSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId",
+  paramValidationFactory<any>(checksGetSuiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksListForSuiteParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_suite_id: joi.number().required(),
+  })
+
+const checksListForSuiteQuerySchema = joi
+  .object()
+  .keys({
+    check_name: joi.string(),
+    status: joi.string(),
+    filter: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "checksListForSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
+  paramValidationFactory<any>(checksListForSuiteParamSchema),
+  queryValidationFactory<any>(checksListForSuiteQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksRerequestSuiteParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    check_suite_id: joi.number().required(),
+  })
 
 router.post(
   "checksRerequestSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
+  paramValidationFactory<any>(checksRerequestSuiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const codeScanningListAlertsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const codeScanningListAlertsForRepoQuerySchema = joi
+  .object()
+  .keys({ state: joi.string(), ref: joi.string() })
 
 router.get(
   "codeScanningListAlertsForRepo",
   "/repos/:owner/:repo/code-scanning/alerts",
+  paramValidationFactory<any>(codeScanningListAlertsForRepoParamSchema),
+  queryValidationFactory<any>(codeScanningListAlertsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const codeScanningGetAlertParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    alert_id: joi.number().required(),
+  })
 
 router.get(
   "codeScanningGetAlert",
   "/repos/:owner/:repo/code-scanning/alerts/:alertId",
+  paramValidationFactory<any>(codeScanningGetAlertParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListCollaboratorsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListCollaboratorsQuerySchema = joi
+  .object()
+  .keys({
+    affiliation: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "reposListCollaborators",
   "/repos/:owner/:repo/collaborators",
+  paramValidationFactory<any>(reposListCollaboratorsParamSchema),
+  queryValidationFactory<any>(reposListCollaboratorsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCheckCollaboratorParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.get(
   "reposCheckCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
+  paramValidationFactory<any>(reposCheckCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAddCollaboratorParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.put(
   "reposAddCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
+  paramValidationFactory<any>(reposAddCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRemoveCollaboratorParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.delete(
   "reposRemoveCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
+  paramValidationFactory<any>(reposRemoveCollaboratorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCollaboratorPermissionLevelParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    username: joi.string().required(),
+  })
 
 router.get(
   "reposGetCollaboratorPermissionLevel",
   "/repos/:owner/:repo/collaborators/:username/permission",
+  paramValidationFactory<any>(reposGetCollaboratorPermissionLevelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListCommitCommentsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListCommitCommentsForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListCommitCommentsForRepo",
   "/repos/:owner/:repo/comments",
+  paramValidationFactory<any>(reposListCommitCommentsForRepoParamSchema),
+  queryValidationFactory<any>(reposListCommitCommentsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
+  paramValidationFactory<any>(reposGetCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.patch(
   "reposUpdateCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
+  paramValidationFactory<any>(reposUpdateCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
+  paramValidationFactory<any>(reposDeleteCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
+
+const reactionsListForCommitCommentQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions",
+  paramValidationFactory<any>(reactionsListForCommitCommentParamSchema),
+  queryValidationFactory<any>(reactionsListForCommitCommentQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions",
+  paramValidationFactory<any>(reactionsCreateForCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteForCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListCommitsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListCommitsQuerySchema = joi
+  .object()
+  .keys({
+    sha: joi.string(),
+    path: joi.string(),
+    author: joi.string(),
+    since: joi.string(),
+    until: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "reposListCommits",
   "/repos/:owner/:repo/commits",
+  paramValidationFactory<any>(reposListCommitsParamSchema),
+  queryValidationFactory<any>(reposListCommitsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListBranchesForHeadCommitParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    commit_sha: joi.string().required(),
+  })
 
 router.get(
   "reposListBranchesForHeadCommit",
   "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
+  paramValidationFactory<any>(reposListBranchesForHeadCommitParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListCommentsForCommitParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    commit_sha: joi.string().required(),
+  })
+
+const reposListCommentsForCommitQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListCommentsForCommit",
   "/repos/:owner/:repo/commits/:commitSha/comments",
+  paramValidationFactory<any>(reposListCommentsForCommitParamSchema),
+  queryValidationFactory<any>(reposListCommentsForCommitQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateCommitCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    commit_sha: joi.string().required(),
+  })
 
 router.post(
   "reposCreateCommitComment",
   "/repos/:owner/:repo/commits/:commitSha/comments",
+  paramValidationFactory<any>(reposCreateCommitCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListPullRequestsAssociatedWithCommitParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    commit_sha: joi.string().required(),
+  })
+
+const reposListPullRequestsAssociatedWithCommitQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListPullRequestsAssociatedWithCommit",
   "/repos/:owner/:repo/commits/:commitSha/pulls",
+  paramValidationFactory<any>(
+    reposListPullRequestsAssociatedWithCommitParamSchema
+  ),
+  queryValidationFactory<any>(
+    reposListPullRequestsAssociatedWithCommitQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCommitParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.get(
   "reposGetCommit",
   "/repos/:owner/:repo/commits/:ref",
+  paramValidationFactory<any>(reposGetCommitParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksListForRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
+
+const checksListForRefQuerySchema = joi
+  .object()
+  .keys({
+    check_name: joi.string(),
+    status: joi.string(),
+    filter: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "checksListForRef",
   "/repos/:owner/:repo/commits/:ref/check-runs",
+  paramValidationFactory<any>(checksListForRefParamSchema),
+  queryValidationFactory<any>(checksListForRefQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const checksListSuitesForRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
+
+const checksListSuitesForRefQuerySchema = joi
+  .object()
+  .keys({
+    app_id: joi.number(),
+    check_name: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "checksListSuitesForRef",
   "/repos/:owner/:repo/commits/:ref/check-suites",
+  paramValidationFactory<any>(checksListSuitesForRefParamSchema),
+  queryValidationFactory<any>(checksListSuitesForRefQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCombinedStatusForRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.get(
   "reposGetCombinedStatusForRef",
   "/repos/:owner/:repo/commits/:ref/status",
+  paramValidationFactory<any>(reposGetCombinedStatusForRefParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListCommitStatusesForRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
+
+const reposListCommitStatusesForRefQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListCommitStatusesForRef",
   "/repos/:owner/:repo/commits/:ref/statuses",
+  paramValidationFactory<any>(reposListCommitStatusesForRefParamSchema),
+  queryValidationFactory<any>(reposListCommitStatusesForRefQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const codesOfConductGetForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "codesOfConductGetForRepo",
   "/repos/:owner/:repo/community/code_of_conduct",
+  paramValidationFactory<any>(codesOfConductGetForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCommunityProfileMetricsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetCommunityProfileMetrics",
   "/repos/:owner/:repo/community/profile",
+  paramValidationFactory<any>(reposGetCommunityProfileMetricsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCompareCommitsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    base: joi.string().required(),
+    head: joi.string().required(),
+  })
 
 router.get(
   "reposCompareCommits",
   "/repos/:owner/:repo/compare/:base...:head",
+  paramValidationFactory<any>(reposCompareCommitsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetContentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    path: joi.string().required(),
+  })
+
+const reposGetContentQuerySchema = joi.object().keys({ ref: joi.string() })
 
 router.get(
   "reposGetContent",
   "/repos/:owner/:repo/contents/:path",
+  paramValidationFactory<any>(reposGetContentParamSchema),
+  queryValidationFactory<any>(reposGetContentQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateOrUpdateFileContentsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    path: joi.string().required(),
+  })
 
 router.put(
   "reposCreateOrUpdateFileContents",
   "/repos/:owner/:repo/contents/:path",
+  paramValidationFactory<any>(reposCreateOrUpdateFileContentsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteFileParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    path: joi.string().required(),
+  })
 
 router.delete(
   "reposDeleteFile",
   "/repos/:owner/:repo/contents/:path",
+  paramValidationFactory<any>(reposDeleteFileParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListContributorsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListContributorsQuerySchema = joi
+  .object()
+  .keys({ anon: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListContributors",
   "/repos/:owner/:repo/contributors",
+  paramValidationFactory<any>(reposListContributorsParamSchema),
+  queryValidationFactory<any>(reposListContributorsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListDeploymentsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListDeploymentsQuerySchema = joi
+  .object()
+  .keys({
+    sha: joi.string(),
+    ref: joi.string(),
+    task: joi.string(),
+    environment: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "reposListDeployments",
   "/repos/:owner/:repo/deployments",
+  paramValidationFactory<any>(reposListDeploymentsParamSchema),
+  queryValidationFactory<any>(reposListDeploymentsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateDeploymentParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateDeployment",
   "/repos/:owner/:repo/deployments",
+  paramValidationFactory<any>(reposCreateDeploymentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetDeploymentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    deployment_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetDeployment",
   "/repos/:owner/:repo/deployments/:deploymentId",
+  paramValidationFactory<any>(reposGetDeploymentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteDeploymentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    deployment_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteDeployment",
   "/repos/:owner/:repo/deployments/:deploymentId",
+  paramValidationFactory<any>(reposDeleteDeploymentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListDeploymentStatusesParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    deployment_id: joi.number().required(),
+  })
+
+const reposListDeploymentStatusesQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListDeploymentStatuses",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+  paramValidationFactory<any>(reposListDeploymentStatusesParamSchema),
+  queryValidationFactory<any>(reposListDeploymentStatusesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateDeploymentStatusParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    deployment_id: joi.number().required(),
+  })
 
 router.post(
   "reposCreateDeploymentStatus",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses",
+  paramValidationFactory<any>(reposCreateDeploymentStatusParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetDeploymentStatusParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    deployment_id: joi.number().required(),
+    status_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetDeploymentStatus",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
+  paramValidationFactory<any>(reposGetDeploymentStatusParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateDispatchEventParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateDispatchEvent",
   "/repos/:owner/:repo/dispatches",
+  paramValidationFactory<any>(reposCreateDispatchEventParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListRepoEventsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const activityListRepoEventsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListRepoEvents",
   "/repos/:owner/:repo/events",
+  paramValidationFactory<any>(activityListRepoEventsParamSchema),
+  queryValidationFactory<any>(activityListRepoEventsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3025,375 +5730,678 @@ router.get(
   }
 )
 
-router.get("reposListForks", "/repos/:owner/:repo/forks", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListForksParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListForksQuerySchema = joi
+  .object()
+  .keys({ sort: joi.string(), per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "reposListForks",
+  "/repos/:owner/:repo/forks",
+  paramValidationFactory<any>(reposListForksParamSchema),
+  queryValidationFactory<any>(reposListForksQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposCreateForkParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateFork",
   "/repos/:owner/:repo/forks",
+  paramValidationFactory<any>(reposCreateForkParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitCreateBlobParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "gitCreateBlob",
   "/repos/:owner/:repo/git/blobs",
+  paramValidationFactory<any>(gitCreateBlobParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitGetBlobParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    file_sha: joi.string().required(),
+  })
 
 router.get(
   "gitGetBlob",
   "/repos/:owner/:repo/git/blobs/:fileSha",
+  paramValidationFactory<any>(gitGetBlobParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitCreateCommitParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "gitCreateCommit",
   "/repos/:owner/:repo/git/commits",
+  paramValidationFactory<any>(gitCreateCommitParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitGetCommitParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    commit_sha: joi.string().required(),
+  })
 
 router.get(
   "gitGetCommit",
   "/repos/:owner/:repo/git/commits/:commitSha",
+  paramValidationFactory<any>(gitGetCommitParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitListMatchingRefsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
+
+const gitListMatchingRefsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "gitListMatchingRefs",
   "/repos/:owner/:repo/git/matching-refs/:ref",
+  paramValidationFactory<any>(gitListMatchingRefsParamSchema),
+  queryValidationFactory<any>(gitListMatchingRefsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitGetRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.get(
   "gitGetRef",
   "/repos/:owner/:repo/git/ref/:ref",
+  paramValidationFactory<any>(gitGetRefParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitCreateRefParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "gitCreateRef",
   "/repos/:owner/:repo/git/refs",
+  paramValidationFactory<any>(gitCreateRefParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitUpdateRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.patch(
   "gitUpdateRef",
   "/repos/:owner/:repo/git/refs/:ref",
+  paramValidationFactory<any>(gitUpdateRefParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitDeleteRefParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.delete(
   "gitDeleteRef",
   "/repos/:owner/:repo/git/refs/:ref",
+  paramValidationFactory<any>(gitDeleteRefParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitCreateTagParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "gitCreateTag",
   "/repos/:owner/:repo/git/tags",
+  paramValidationFactory<any>(gitCreateTagParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitGetTagParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    tag_sha: joi.string().required(),
+  })
 
 router.get(
   "gitGetTag",
   "/repos/:owner/:repo/git/tags/:tagSha",
+  paramValidationFactory<any>(gitGetTagParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitCreateTreeParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "gitCreateTree",
   "/repos/:owner/:repo/git/trees",
+  paramValidationFactory<any>(gitCreateTreeParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const gitGetTreeParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    tree_sha: joi.string().required(),
+  })
+
+const gitGetTreeQuerySchema = joi.object().keys({ recursive: joi.string() })
 
 router.get(
   "gitGetTree",
   "/repos/:owner/:repo/git/trees/:treeSha",
+  paramValidationFactory<any>(gitGetTreeParamSchema),
+  queryValidationFactory<any>(gitGetTreeQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListWebhooksParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListWebhooksQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListWebhooks",
   "/repos/:owner/:repo/hooks",
+  paramValidationFactory<any>(reposListWebhooksParamSchema),
+  queryValidationFactory<any>(reposListWebhooksQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateWebhookParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateWebhook",
   "/repos/:owner/:repo/hooks",
+  paramValidationFactory<any>(reposCreateWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetWebhookParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    hook_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
+  paramValidationFactory<any>(reposGetWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateWebhookParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    hook_id: joi.number().required(),
+  })
 
 router.patch(
   "reposUpdateWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
+  paramValidationFactory<any>(reposUpdateWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteWebhookParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    hook_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
+  paramValidationFactory<any>(reposDeleteWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposPingWebhookParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    hook_id: joi.number().required(),
+  })
 
 router.post(
   "reposPingWebhook",
   "/repos/:owner/:repo/hooks/:hookId/pings",
+  paramValidationFactory<any>(reposPingWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposTestPushWebhookParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    hook_id: joi.number().required(),
+  })
 
 router.post(
   "reposTestPushWebhook",
   "/repos/:owner/:repo/hooks/:hookId/tests",
+  paramValidationFactory<any>(reposTestPushWebhookParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsStartImportParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "migrationsStartImport",
   "/repos/:owner/:repo/import",
+  paramValidationFactory<any>(migrationsStartImportParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetImportStatusParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "migrationsGetImportStatus",
   "/repos/:owner/:repo/import",
+  paramValidationFactory<any>(migrationsGetImportStatusParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsUpdateImportParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.patch(
   "migrationsUpdateImport",
   "/repos/:owner/:repo/import",
+  paramValidationFactory<any>(migrationsUpdateImportParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsCancelImportParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "migrationsCancelImport",
   "/repos/:owner/:repo/import",
+  paramValidationFactory<any>(migrationsCancelImportParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetCommitAuthorsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const migrationsGetCommitAuthorsQuerySchema = joi
+  .object()
+  .keys({ since: joi.string() })
 
 router.get(
   "migrationsGetCommitAuthors",
   "/repos/:owner/:repo/import/authors",
+  paramValidationFactory<any>(migrationsGetCommitAuthorsParamSchema),
+  queryValidationFactory<any>(migrationsGetCommitAuthorsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsMapCommitAuthorParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    author_id: joi.number().required(),
+  })
 
 router.patch(
   "migrationsMapCommitAuthor",
   "/repos/:owner/:repo/import/authors/:authorId",
+  paramValidationFactory<any>(migrationsMapCommitAuthorParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetLargeFilesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "migrationsGetLargeFiles",
   "/repos/:owner/:repo/import/large_files",
+  paramValidationFactory<any>(migrationsGetLargeFilesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsSetLfsPreferenceParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.patch(
   "migrationsSetLfsPreference",
   "/repos/:owner/:repo/import/lfs",
+  paramValidationFactory<any>(migrationsSetLfsPreferenceParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsGetRepoInstallationParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "appsGetRepoInstallation",
   "/repos/:owner/:repo/installation",
+  paramValidationFactory<any>(appsGetRepoInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsGetRestrictionsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "interactionsGetRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
+  paramValidationFactory<any>(interactionsGetRestrictionsForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsSetRestrictionsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "interactionsSetRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
+  paramValidationFactory<any>(interactionsSetRestrictionsForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const interactionsRemoveRestrictionsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "interactionsRemoveRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
+  paramValidationFactory<any>(interactionsRemoveRestrictionsForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListInvitationsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListInvitationsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListInvitations",
   "/repos/:owner/:repo/invitations",
+  paramValidationFactory<any>(reposListInvitationsParamSchema),
+  queryValidationFactory<any>(reposListInvitationsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteInvitationParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    invitation_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteInvitation",
   "/repos/:owner/:repo/invitations/:invitationId",
+  paramValidationFactory<any>(reposDeleteInvitationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateInvitationParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    invitation_id: joi.number().required(),
+  })
 
 router.patch(
   "reposUpdateInvitation",
   "/repos/:owner/:repo/invitations/:invitationId",
+  paramValidationFactory<any>(reposUpdateInvitationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListForRepoQuerySchema = joi
+  .object()
+  .keys({
+    milestone: joi.string(),
+    state: joi.string(),
+    assignee: joi.string(),
+    creator: joi.string(),
+    mentioned: joi.string(),
+    labels: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "issuesListForRepo",
   "/repos/:owner/:repo/issues",
+  paramValidationFactory<any>(issuesListForRepoParamSchema),
+  queryValidationFactory<any>(issuesListForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3401,385 +6409,763 @@ router.get(
   }
 )
 
-router.post("issuesCreate", "/repos/:owner/:repo/issues", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const issuesCreateParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.post(
+  "issuesCreate",
+  "/repos/:owner/:repo/issues",
+  paramValidationFactory<any>(issuesCreateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const issuesListCommentsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListCommentsForRepoQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "issuesListCommentsForRepo",
   "/repos/:owner/:repo/issues/comments",
+  paramValidationFactory<any>(issuesListCommentsForRepoParamSchema),
+  queryValidationFactory<any>(issuesListCommentsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesGetCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.get(
   "issuesGetComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
+  paramValidationFactory<any>(issuesGetCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesUpdateCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.patch(
   "issuesUpdateComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
+  paramValidationFactory<any>(issuesUpdateCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesDeleteCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.delete(
   "issuesDeleteComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
+  paramValidationFactory<any>(issuesDeleteCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForIssueCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
+
+const reactionsListForIssueCommentQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+  paramValidationFactory<any>(reactionsListForIssueCommentParamSchema),
+  queryValidationFactory<any>(reactionsListForIssueCommentQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForIssueCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions",
+  paramValidationFactory<any>(reactionsCreateForIssueCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForIssueCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteForIssueCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListEventsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListEventsForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListEventsForRepo",
   "/repos/:owner/:repo/issues/events",
+  paramValidationFactory<any>(issuesListEventsForRepoParamSchema),
+  queryValidationFactory<any>(issuesListEventsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesGetEventParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    event_id: joi.number().required(),
+  })
 
 router.get(
   "issuesGetEvent",
   "/repos/:owner/:repo/issues/events/:eventId",
+  paramValidationFactory<any>(issuesGetEventParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesGetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.get(
   "issuesGet",
   "/repos/:owner/:repo/issues/:issueNumber",
+  paramValidationFactory<any>(issuesGetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesUpdateParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.patch(
   "issuesUpdate",
   "/repos/:owner/:repo/issues/:issueNumber",
+  paramValidationFactory<any>(issuesUpdateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesAddAssigneesParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.post(
   "issuesAddAssignees",
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
+  paramValidationFactory<any>(issuesAddAssigneesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesRemoveAssigneesParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.delete(
   "issuesRemoveAssignees",
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
+  paramValidationFactory<any>(issuesRemoveAssigneesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListCommentsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
+
+const issuesListCommentsQuerySchema = joi
+  .object()
+  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListComments",
   "/repos/:owner/:repo/issues/:issueNumber/comments",
+  paramValidationFactory<any>(issuesListCommentsParamSchema),
+  queryValidationFactory<any>(issuesListCommentsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesCreateCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.post(
   "issuesCreateComment",
   "/repos/:owner/:repo/issues/:issueNumber/comments",
+  paramValidationFactory<any>(issuesCreateCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListEventsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
+
+const issuesListEventsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListEvents",
   "/repos/:owner/:repo/issues/:issueNumber/events",
+  paramValidationFactory<any>(issuesListEventsParamSchema),
+  queryValidationFactory<any>(issuesListEventsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListLabelsOnIssueParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
+
+const issuesListLabelsOnIssueQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListLabelsOnIssue",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
+  paramValidationFactory<any>(issuesListLabelsOnIssueParamSchema),
+  queryValidationFactory<any>(issuesListLabelsOnIssueQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesAddLabelsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.post(
   "issuesAddLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
+  paramValidationFactory<any>(issuesAddLabelsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesSetLabelsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.put(
   "issuesSetLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
+  paramValidationFactory<any>(issuesSetLabelsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesRemoveAllLabelsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.delete(
   "issuesRemoveAllLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
+  paramValidationFactory<any>(issuesRemoveAllLabelsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesRemoveLabelParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+    name: joi.string().required(),
+  })
 
 router.delete(
   "issuesRemoveLabel",
   "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
+  paramValidationFactory<any>(issuesRemoveLabelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesLockParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.put(
   "issuesLock",
   "/repos/:owner/:repo/issues/:issueNumber/lock",
+  paramValidationFactory<any>(issuesLockParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesUnlockParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.delete(
   "issuesUnlock",
   "/repos/:owner/:repo/issues/:issueNumber/lock",
+  paramValidationFactory<any>(issuesUnlockParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForIssueParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
+
+const reactionsListForIssueQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions",
+  paramValidationFactory<any>(reactionsListForIssueParamSchema),
+  queryValidationFactory<any>(reactionsListForIssueQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForIssueParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions",
+  paramValidationFactory<any>(reactionsCreateForIssueParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForIssueParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteForIssueParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListEventsForTimelineParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    issue_number: joi.number().required(),
+  })
+
+const issuesListEventsForTimelineQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListEventsForTimeline",
   "/repos/:owner/:repo/issues/:issueNumber/timeline",
+  paramValidationFactory<any>(issuesListEventsForTimelineParamSchema),
+  queryValidationFactory<any>(issuesListEventsForTimelineQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListDeployKeysParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListDeployKeysQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListDeployKeys",
   "/repos/:owner/:repo/keys",
+  paramValidationFactory<any>(reposListDeployKeysParamSchema),
+  queryValidationFactory<any>(reposListDeployKeysQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateDeployKeyParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateDeployKey",
   "/repos/:owner/:repo/keys",
+  paramValidationFactory<any>(reposCreateDeployKeyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetDeployKeyParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    key_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetDeployKey",
   "/repos/:owner/:repo/keys/:keyId",
+  paramValidationFactory<any>(reposGetDeployKeyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteDeployKeyParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    key_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteDeployKey",
   "/repos/:owner/:repo/keys/:keyId",
+  paramValidationFactory<any>(reposDeleteDeployKeyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListLabelsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListLabelsForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListLabelsForRepo",
   "/repos/:owner/:repo/labels",
+  paramValidationFactory<any>(issuesListLabelsForRepoParamSchema),
+  queryValidationFactory<any>(issuesListLabelsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesCreateLabelParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "issuesCreateLabel",
   "/repos/:owner/:repo/labels",
+  paramValidationFactory<any>(issuesCreateLabelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesGetLabelParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    name: joi.string().required(),
+  })
 
 router.get(
   "issuesGetLabel",
   "/repos/:owner/:repo/labels/:name",
+  paramValidationFactory<any>(issuesGetLabelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesUpdateLabelParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    name: joi.string().required(),
+  })
 
 router.patch(
   "issuesUpdateLabel",
   "/repos/:owner/:repo/labels/:name",
+  paramValidationFactory<any>(issuesUpdateLabelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesDeleteLabelParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    name: joi.string().required(),
+  })
 
 router.delete(
   "issuesDeleteLabel",
   "/repos/:owner/:repo/labels/:name",
+  paramValidationFactory<any>(issuesDeleteLabelParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListLanguagesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposListLanguages",
   "/repos/:owner/:repo/languages",
+  paramValidationFactory<any>(reposListLanguagesParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const licensesGetForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "licensesGetForRepo",
   "/repos/:owner/:repo/license",
+  paramValidationFactory<any>(licensesGetForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3787,85 +7173,182 @@ router.get(
   }
 )
 
-router.post("reposMerge", "/repos/:owner/:repo/merges", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposMergeParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.post(
+  "reposMerge",
+  "/repos/:owner/:repo/merges",
+  paramValidationFactory<any>(reposMergeParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const issuesListMilestonesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const issuesListMilestonesQuerySchema = joi
+  .object()
+  .keys({
+    state: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "issuesListMilestones",
   "/repos/:owner/:repo/milestones",
+  paramValidationFactory<any>(issuesListMilestonesParamSchema),
+  queryValidationFactory<any>(issuesListMilestonesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesCreateMilestoneParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "issuesCreateMilestone",
   "/repos/:owner/:repo/milestones",
+  paramValidationFactory<any>(issuesCreateMilestoneParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesGetMilestoneParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    milestone_number: joi.number().required(),
+  })
 
 router.get(
   "issuesGetMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
+  paramValidationFactory<any>(issuesGetMilestoneParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesUpdateMilestoneParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    milestone_number: joi.number().required(),
+  })
 
 router.patch(
   "issuesUpdateMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
+  paramValidationFactory<any>(issuesUpdateMilestoneParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesDeleteMilestoneParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    milestone_number: joi.number().required(),
+  })
 
 router.delete(
   "issuesDeleteMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
+  paramValidationFactory<any>(issuesDeleteMilestoneParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListLabelsForMilestoneParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    milestone_number: joi.number().required(),
+  })
+
+const issuesListLabelsForMilestoneQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "issuesListLabelsForMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
+  paramValidationFactory<any>(issuesListLabelsForMilestoneParamSchema),
+  queryValidationFactory<any>(issuesListLabelsForMilestoneQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListRepoNotificationsForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const activityListRepoNotificationsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({
+    all: joi.boolean(),
+    participating: joi.boolean(),
+    since: joi.string(),
+    before: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "activityListRepoNotificationsForAuthenticatedUser",
   "/repos/:owner/:repo/notifications",
+  paramValidationFactory<any>(
+    activityListRepoNotificationsForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<any>(
+    activityListRepoNotificationsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityMarkRepoNotificationsAsReadParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "activityMarkRepoNotificationsAsRead",
   "/repos/:owner/:repo/notifications",
+  paramValidationFactory<any>(activityMarkRepoNotificationsAsReadParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3873,95 +7356,163 @@ router.put(
   }
 )
 
-router.get("reposGetPages", "/repos/:owner/:repo/pages", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposGetPagesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.get(
+  "reposGetPages",
+  "/repos/:owner/:repo/pages",
+  paramValidationFactory<any>(reposGetPagesParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposCreatePagesSiteParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreatePagesSite",
   "/repos/:owner/:repo/pages",
+  paramValidationFactory<any>(reposCreatePagesSiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeletePagesSiteParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "reposDeletePagesSite",
   "/repos/:owner/:repo/pages",
+  paramValidationFactory<any>(reposDeletePagesSiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateInformationAboutPagesSiteParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "reposUpdateInformationAboutPagesSite",
   "/repos/:owner/:repo/pages",
+  paramValidationFactory<any>(reposUpdateInformationAboutPagesSiteParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposRequestPagesBuildParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposRequestPagesBuild",
   "/repos/:owner/:repo/pages/builds",
+  paramValidationFactory<any>(reposRequestPagesBuildParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListPagesBuildsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListPagesBuildsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListPagesBuilds",
   "/repos/:owner/:repo/pages/builds",
+  paramValidationFactory<any>(reposListPagesBuildsParamSchema),
+  queryValidationFactory<any>(reposListPagesBuildsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetLatestPagesBuildParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetLatestPagesBuild",
   "/repos/:owner/:repo/pages/builds/latest",
+  paramValidationFactory<any>(reposGetLatestPagesBuildParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetPagesBuildParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    build_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetPagesBuild",
   "/repos/:owner/:repo/pages/builds/:buildId",
+  paramValidationFactory<any>(reposGetPagesBuildParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsListForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const projectsListForRepoQuerySchema = joi
+  .object()
+  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "projectsListForRepo",
   "/repos/:owner/:repo/projects",
+  paramValidationFactory<any>(projectsListForRepoParamSchema),
+  queryValidationFactory<any>(projectsListForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const projectsCreateForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "projectsCreateForRepo",
   "/repos/:owner/:repo/projects",
+  paramValidationFactory<any>(projectsCreateForRepoParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -3969,531 +7520,1064 @@ router.post(
   }
 )
 
-router.get("pullsList", "/repos/:owner/:repo/pulls", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const pullsListParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
-router.post("pullsCreate", "/repos/:owner/:repo/pulls", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const pullsListQuerySchema = joi
+  .object()
+  .keys({
+    state: joi.string(),
+    head: joi.string(),
+    base: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "pullsList",
+  "/repos/:owner/:repo/pulls",
+  paramValidationFactory<any>(pullsListParamSchema),
+  queryValidationFactory<any>(pullsListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const pullsCreateParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+router.post(
+  "pullsCreate",
+  "/repos/:owner/:repo/pulls",
+  paramValidationFactory<any>(pullsCreateParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const pullsListReviewCommentsForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const pullsListReviewCommentsForRepoQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "pullsListReviewCommentsForRepo",
   "/repos/:owner/:repo/pulls/comments",
+  paramValidationFactory<any>(pullsListReviewCommentsForRepoParamSchema),
+  queryValidationFactory<any>(pullsListReviewCommentsForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsGetReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.get(
   "pullsGetReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
+  paramValidationFactory<any>(pullsGetReviewCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsUpdateReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.patch(
   "pullsUpdateReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
+  paramValidationFactory<any>(pullsUpdateReviewCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsDeleteReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.delete(
   "pullsDeleteReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
+  paramValidationFactory<any>(pullsDeleteReviewCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForPullRequestReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
+
+const reactionsListForPullRequestReviewCommentQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForPullRequestReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
+  paramValidationFactory<any>(
+    reactionsListForPullRequestReviewCommentParamSchema
+  ),
+  queryValidationFactory<any>(
+    reactionsListForPullRequestReviewCommentQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForPullRequestReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForPullRequestReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
+  paramValidationFactory<any>(
+    reactionsCreateForPullRequestReviewCommentParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsDeleteForPullRequestCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    comment_id: joi.number().required(),
+    reaction_id: joi.number().required(),
+  })
 
 router.delete(
   "reactionsDeleteForPullRequestComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
+  paramValidationFactory<any>(reactionsDeleteForPullRequestCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsGetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.get(
   "pullsGet",
   "/repos/:owner/:repo/pulls/:pullNumber",
+  paramValidationFactory<any>(pullsGetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsUpdateParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.patch(
   "pullsUpdate",
   "/repos/:owner/:repo/pulls/:pullNumber",
+  paramValidationFactory<any>(pullsUpdateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListReviewCommentsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
+
+const pullsListReviewCommentsQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "pullsListReviewComments",
   "/repos/:owner/:repo/pulls/:pullNumber/comments",
+  paramValidationFactory<any>(pullsListReviewCommentsParamSchema),
+  queryValidationFactory<any>(pullsListReviewCommentsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsCreateReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.post(
   "pullsCreateReviewComment",
   "/repos/:owner/:repo/pulls/:pullNumber/comments",
+  paramValidationFactory<any>(pullsCreateReviewCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsCreateReplyForReviewCommentParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    comment_id: joi.number().required(),
+  })
 
 router.post(
   "pullsCreateReplyForReviewComment",
   "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
+  paramValidationFactory<any>(pullsCreateReplyForReviewCommentParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListCommitsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
+
+const pullsListCommitsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "pullsListCommits",
   "/repos/:owner/:repo/pulls/:pullNumber/commits",
+  paramValidationFactory<any>(pullsListCommitsParamSchema),
+  queryValidationFactory<any>(pullsListCommitsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListFilesParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
+
+const pullsListFilesQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "pullsListFiles",
   "/repos/:owner/:repo/pulls/:pullNumber/files",
+  paramValidationFactory<any>(pullsListFilesParamSchema),
+  queryValidationFactory<any>(pullsListFilesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsCheckIfMergedParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.get(
   "pullsCheckIfMerged",
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
+  paramValidationFactory<any>(pullsCheckIfMergedParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsMergeParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.put(
   "pullsMerge",
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
+  paramValidationFactory<any>(pullsMergeParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListRequestedReviewersParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
+
+const pullsListRequestedReviewersQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "pullsListRequestedReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+  paramValidationFactory<any>(pullsListRequestedReviewersParamSchema),
+  queryValidationFactory<any>(pullsListRequestedReviewersQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsRequestReviewersParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.post(
   "pullsRequestReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+  paramValidationFactory<any>(pullsRequestReviewersParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsRemoveRequestedReviewersParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.delete(
   "pullsRemoveRequestedReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
+  paramValidationFactory<any>(pullsRemoveRequestedReviewersParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListReviewsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
+
+const pullsListReviewsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "pullsListReviews",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews",
+  paramValidationFactory<any>(pullsListReviewsParamSchema),
+  queryValidationFactory<any>(pullsListReviewsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsCreateReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.post(
   "pullsCreateReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews",
+  paramValidationFactory<any>(pullsCreateReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsGetReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
 
 router.get(
   "pullsGetReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+  paramValidationFactory<any>(pullsGetReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsDeletePendingReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
 
 router.delete(
   "pullsDeletePendingReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+  paramValidationFactory<any>(pullsDeletePendingReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsUpdateReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
 
 router.put(
   "pullsUpdateReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
+  paramValidationFactory<any>(pullsUpdateReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsListCommentsForReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
+
+const pullsListCommentsForReviewQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "pullsListCommentsForReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
+  paramValidationFactory<any>(pullsListCommentsForReviewParamSchema),
+  queryValidationFactory<any>(pullsListCommentsForReviewQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsDismissReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
 
 router.put(
   "pullsDismissReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
+  paramValidationFactory<any>(pullsDismissReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsSubmitReviewParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+    review_id: joi.number().required(),
+  })
 
 router.post(
   "pullsSubmitReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
+  paramValidationFactory<any>(pullsSubmitReviewParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const pullsUpdateBranchParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    pull_number: joi.number().required(),
+  })
 
 router.put(
   "pullsUpdateBranch",
   "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
+  paramValidationFactory<any>(pullsUpdateBranchParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetReadmeParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposGetReadmeQuerySchema = joi.object().keys({ ref: joi.string() })
 
 router.get(
   "reposGetReadme",
   "/repos/:owner/:repo/readme",
+  paramValidationFactory<any>(reposGetReadmeParamSchema),
+  queryValidationFactory<any>(reposGetReadmeQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListReleasesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListReleasesQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListReleases",
   "/repos/:owner/:repo/releases",
+  paramValidationFactory<any>(reposListReleasesParamSchema),
+  queryValidationFactory<any>(reposListReleasesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateReleaseParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposCreateRelease",
   "/repos/:owner/:repo/releases",
+  paramValidationFactory<any>(reposCreateReleaseParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetReleaseAssetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    asset_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
+  paramValidationFactory<any>(reposGetReleaseAssetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateReleaseAssetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    asset_id: joi.number().required(),
+  })
 
 router.patch(
   "reposUpdateReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
+  paramValidationFactory<any>(reposUpdateReleaseAssetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteReleaseAssetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    asset_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
+  paramValidationFactory<any>(reposDeleteReleaseAssetParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetLatestReleaseParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetLatestRelease",
   "/repos/:owner/:repo/releases/latest",
+  paramValidationFactory<any>(reposGetLatestReleaseParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetReleaseByTagParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    tag: joi.string().required(),
+  })
 
 router.get(
   "reposGetReleaseByTag",
   "/repos/:owner/:repo/releases/tags/:tag",
+  paramValidationFactory<any>(reposGetReleaseByTagParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetReleaseParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    release_id: joi.number().required(),
+  })
 
 router.get(
   "reposGetRelease",
   "/repos/:owner/:repo/releases/:releaseId",
+  paramValidationFactory<any>(reposGetReleaseParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUpdateReleaseParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    release_id: joi.number().required(),
+  })
 
 router.patch(
   "reposUpdateRelease",
   "/repos/:owner/:repo/releases/:releaseId",
+  paramValidationFactory<any>(reposUpdateReleaseParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeleteReleaseParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    release_id: joi.number().required(),
+  })
 
 router.delete(
   "reposDeleteRelease",
   "/repos/:owner/:repo/releases/:releaseId",
+  paramValidationFactory<any>(reposDeleteReleaseParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposListReleaseAssetsParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    release_id: joi.number().required(),
+  })
+
+const reposListReleaseAssetsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reposListReleaseAssets",
   "/repos/:owner/:repo/releases/:releaseId/assets",
+  paramValidationFactory<any>(reposListReleaseAssetsParamSchema),
+  queryValidationFactory<any>(reposListReleaseAssetsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposUploadReleaseAssetParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    release_id: joi.number().required(),
+  })
+
+const reposUploadReleaseAssetQuerySchema = joi
+  .object()
+  .keys({ name: joi.string(), label: joi.string() })
 
 router.post(
   "reposUploadReleaseAsset",
   "/repos/:owner/:repo/releases/:releaseId/assets",
+  paramValidationFactory<any>(reposUploadReleaseAssetParamSchema),
+  queryValidationFactory<any>(reposUploadReleaseAssetQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListStargazersForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const activityListStargazersForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListStargazersForRepo",
   "/repos/:owner/:repo/stargazers",
+  paramValidationFactory<any>(activityListStargazersForRepoParamSchema),
+  queryValidationFactory<any>(activityListStargazersForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCodeFrequencyStatsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetCodeFrequencyStats",
   "/repos/:owner/:repo/stats/code_frequency",
+  paramValidationFactory<any>(reposGetCodeFrequencyStatsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetCommitActivityStatsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetCommitActivityStats",
   "/repos/:owner/:repo/stats/commit_activity",
+  paramValidationFactory<any>(reposGetCommitActivityStatsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetContributorsStatsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetContributorsStats",
   "/repos/:owner/:repo/stats/contributors",
+  paramValidationFactory<any>(reposGetContributorsStatsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetParticipationStatsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetParticipationStats",
   "/repos/:owner/:repo/stats/participation",
+  paramValidationFactory<any>(reposGetParticipationStatsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetPunchCardStatsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetPunchCardStats",
   "/repos/:owner/:repo/stats/punch_card",
+  paramValidationFactory<any>(reposGetPunchCardStatsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateCommitStatusParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    sha: joi.string().required(),
+  })
 
 router.post(
   "reposCreateCommitStatus",
   "/repos/:owner/:repo/statuses/:sha",
+  paramValidationFactory<any>(reposCreateCommitStatusParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListWatchersForRepoParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const activityListWatchersForRepoQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListWatchersForRepo",
   "/repos/:owner/:repo/subscribers",
+  paramValidationFactory<any>(activityListWatchersForRepoParamSchema),
+  queryValidationFactory<any>(activityListWatchersForRepoQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityGetRepoSubscriptionParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "activityGetRepoSubscription",
   "/repos/:owner/:repo/subscription",
+  paramValidationFactory<any>(activityGetRepoSubscriptionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activitySetRepoSubscriptionParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "activitySetRepoSubscription",
   "/repos/:owner/:repo/subscription",
+  paramValidationFactory<any>(activitySetRepoSubscriptionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityDeleteRepoSubscriptionParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "activityDeleteRepoSubscription",
   "/repos/:owner/:repo/subscription",
+  paramValidationFactory<any>(activityDeleteRepoSubscriptionParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4501,131 +8585,233 @@ router.delete(
   }
 )
 
-router.get("reposListTags", "/repos/:owner/:repo/tags", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListTagsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
-router.get("reposListTeams", "/repos/:owner/:repo/teams", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListTagsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "reposListTags",
+  "/repos/:owner/:repo/tags",
+  paramValidationFactory<any>(reposListTagsParamSchema),
+  queryValidationFactory<any>(reposListTagsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposListTeamsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposListTeamsQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "reposListTeams",
+  "/repos/:owner/:repo/teams",
+  paramValidationFactory<any>(reposListTeamsParamSchema),
+  queryValidationFactory<any>(reposListTeamsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const reposGetAllTopicsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetAllTopics",
   "/repos/:owner/:repo/topics",
+  paramValidationFactory<any>(reposGetAllTopicsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposReplaceAllTopicsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "reposReplaceAllTopics",
   "/repos/:owner/:repo/topics",
+  paramValidationFactory<any>(reposReplaceAllTopicsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetClonesParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposGetClonesQuerySchema = joi.object().keys({ per: joi.string() })
 
 router.get(
   "reposGetClones",
   "/repos/:owner/:repo/traffic/clones",
+  paramValidationFactory<any>(reposGetClonesParamSchema),
+  queryValidationFactory<any>(reposGetClonesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetTopPathsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetTopPaths",
   "/repos/:owner/:repo/traffic/popular/paths",
+  paramValidationFactory<any>(reposGetTopPathsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetTopReferrersParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposGetTopReferrers",
   "/repos/:owner/:repo/traffic/popular/referrers",
+  paramValidationFactory<any>(reposGetTopReferrersParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposGetViewsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
+
+const reposGetViewsQuerySchema = joi.object().keys({ per: joi.string() })
 
 router.get(
   "reposGetViews",
   "/repos/:owner/:repo/traffic/views",
+  paramValidationFactory<any>(reposGetViewsParamSchema),
+  queryValidationFactory<any>(reposGetViewsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposTransferParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.post(
   "reposTransfer",
   "/repos/:owner/:repo/transfer",
+  paramValidationFactory<any>(reposTransferParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCheckVulnerabilityAlertsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "reposCheckVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
+  paramValidationFactory<any>(reposCheckVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposEnableVulnerabilityAlertsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "reposEnableVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
+  paramValidationFactory<any>(reposEnableVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDisableVulnerabilityAlertsParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "reposDisableVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
+  paramValidationFactory<any>(reposDisableVulnerabilityAlertsParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDownloadArchiveParamSchema = joi
+  .object()
+  .keys({
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+    archive_format: joi.string().required(),
+    ref: joi.string().required(),
+  })
 
 router.get(
   "reposDownloadArchive",
   "/repos/:owner/:repo/:archiveFormat/:ref",
+  paramValidationFactory<any>(reposDownloadArchiveParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposCreateUsingTemplateParamSchema = joi
+  .object()
+  .keys({
+    template_owner: joi.string().required(),
+    template_repo: joi.string().required(),
+  })
 
 router.post(
   "reposCreateUsingTemplate",
   "/repos/:templateOwner/:templateRepo/generate",
+  paramValidationFactory<any>(reposCreateUsingTemplateParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4633,65 +8819,107 @@ router.post(
   }
 )
 
-router.get("reposListPublic", "/repositories", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListPublicQuerySchema = joi.object().keys({ since: joi.number() })
+
+router.get(
+  "reposListPublic",
+  "/repositories",
+  queryValidationFactory<any>(reposListPublicQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const scimListProvisionedIdentitiesParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
+const scimListProvisionedIdentitiesQuerySchema = joi
+  .object()
+  .keys({ startIndex: joi.number(), count: joi.number(), filter: joi.string() })
 
 router.get(
   "scimListProvisionedIdentities",
   "/scim/v2/organizations/:org/Users",
+  paramValidationFactory<any>(scimListProvisionedIdentitiesParamSchema),
+  queryValidationFactory<any>(scimListProvisionedIdentitiesQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const scimProvisionAndInviteUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.post(
   "scimProvisionAndInviteUser",
   "/scim/v2/organizations/:org/Users",
+  paramValidationFactory<any>(scimProvisionAndInviteUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const scimGetProvisioningInformationForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
 
 router.get(
   "scimGetProvisioningInformationForUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
+  paramValidationFactory<any>(scimGetProvisioningInformationForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const scimSetInformationForProvisionedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
 
 router.put(
   "scimSetInformationForProvisionedUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
+  paramValidationFactory<any>(scimSetInformationForProvisionedUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const scimUpdateAttributeForUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
 
 router.patch(
   "scimUpdateAttributeForUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
+  paramValidationFactory<any>(scimUpdateAttributeForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const scimDeleteUserFromOrgParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
 
 router.delete(
   "scimDeleteUserFromOrg",
   "/scim/v2/organizations/:org/Users/:scimUserId",
+  paramValidationFactory<any>(scimDeleteUserFromOrgParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4699,21 +8927,62 @@ router.delete(
   }
 )
 
-router.get("searchCode", "/search/code", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const searchCodeQuerySchema = joi
+  .object()
+  .keys({
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
-router.get("searchCommits", "/search/commits", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "searchCode",
+  "/search/code",
+  queryValidationFactory<any>(searchCodeQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const searchCommitsQuerySchema = joi
+  .object()
+  .keys({
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "searchCommits",
+  "/search/commits",
+  queryValidationFactory<any>(searchCommitsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const searchIssuesAndPullRequestsQuerySchema = joi
+  .object()
+  .keys({
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "searchIssuesAndPullRequests",
   "/search/issues",
+  queryValidationFactory<any>(searchIssuesAndPullRequestsQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -4721,361 +8990,717 @@ router.get(
   }
 )
 
-router.get("searchLabels", "/search/labels", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const searchLabelsQuerySchema = joi
+  .object()
+  .keys({
+    repository_id: joi.number().required(),
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+  })
 
-router.get("searchRepos", "/search/repositories", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "searchLabels",
+  "/search/labels",
+  queryValidationFactory<any>(searchLabelsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.get("searchTopics", "/search/topics", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const searchReposQuerySchema = joi
+  .object()
+  .keys({
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
-router.get("searchUsers", "/search/users", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "searchRepos",
+  "/search/repositories",
+  queryValidationFactory<any>(searchReposQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.get("teamsGetLegacy", "/teams/:teamId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const searchTopicsQuerySchema = joi
+  .object()
+  .keys({ q: joi.string().required() })
 
-router.patch("teamsUpdateLegacy", "/teams/:teamId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "searchTopics",
+  "/search/topics",
+  queryValidationFactory<any>(searchTopicsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.delete("teamsDeleteLegacy", "/teams/:teamId", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const searchUsersQuerySchema = joi
+  .object()
+  .keys({
+    q: joi.string().required(),
+    sort: joi.string(),
+    order: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "searchUsers",
+  "/search/users",
+  queryValidationFactory<any>(searchUsersQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsGetLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+router.get(
+  "teamsGetLegacy",
+  "/teams/:teamId",
+  paramValidationFactory<any>(teamsGetLegacyParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsUpdateLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+router.patch(
+  "teamsUpdateLegacy",
+  "/teams/:teamId",
+  paramValidationFactory<any>(teamsUpdateLegacyParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsDeleteLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+router.delete(
+  "teamsDeleteLegacy",
+  "/teams/:teamId",
+  paramValidationFactory<any>(teamsDeleteLegacyParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const teamsListDiscussionsLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListDiscussionsLegacyQuerySchema = joi
+  .object()
+  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListDiscussionsLegacy",
   "/teams/:teamId/discussions",
+  paramValidationFactory<any>(teamsListDiscussionsLegacyParamSchema),
+  queryValidationFactory<any>(teamsListDiscussionsLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
 
 router.post(
   "teamsCreateDiscussionLegacy",
   "/teams/:teamId/discussions",
+  paramValidationFactory<any>(teamsCreateDiscussionLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.get(
   "teamsGetDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsGetDiscussionLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsUpdateDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.patch(
   "teamsUpdateDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsUpdateDiscussionLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsDeleteDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.delete(
   "teamsDeleteDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
+  paramValidationFactory<any>(teamsDeleteDiscussionLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListDiscussionCommentsLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
+
+const teamsListDiscussionCommentsLegacyQuerySchema = joi
+  .object()
+  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListDiscussionCommentsLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments",
+  paramValidationFactory<any>(teamsListDiscussionCommentsLegacyParamSchema),
+  queryValidationFactory<any>(teamsListDiscussionCommentsLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.post(
   "teamsCreateDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments",
+  paramValidationFactory<any>(teamsCreateDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.get(
   "teamsGetDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsGetDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsUpdateDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.patch(
   "teamsUpdateDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsUpdateDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsDeleteDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.delete(
   "teamsDeleteDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
+  paramValidationFactory<any>(teamsDeleteDiscussionCommentLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForTeamDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
+
+const reactionsListForTeamDiscussionCommentLegacyQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
+  paramValidationFactory<any>(
+    reactionsListForTeamDiscussionCommentLegacyParamSchema
+  ),
+  queryValidationFactory<any>(
+    reactionsListForTeamDiscussionCommentLegacyQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+    comment_number: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
+  paramValidationFactory<any>(
+    reactionsCreateForTeamDiscussionCommentLegacyParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsListForTeamDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
+
+const reactionsListForTeamDiscussionLegacyQuerySchema = joi
+  .object()
+  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "reactionsListForTeamDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber/reactions",
+  paramValidationFactory<any>(reactionsListForTeamDiscussionLegacyParamSchema),
+  queryValidationFactory<any>(reactionsListForTeamDiscussionLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reactionsCreateForTeamDiscussionLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    discussion_number: joi.number().required(),
+  })
 
 router.post(
   "reactionsCreateForTeamDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber/reactions",
+  paramValidationFactory<any>(
+    reactionsCreateForTeamDiscussionLegacyParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListPendingInvitationsLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListPendingInvitationsLegacyQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListPendingInvitationsLegacy",
   "/teams/:teamId/invitations",
+  paramValidationFactory<any>(teamsListPendingInvitationsLegacyParamSchema),
+  queryValidationFactory<any>(teamsListPendingInvitationsLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListMembersLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListMembersLegacyQuerySchema = joi
+  .object()
+  .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListMembersLegacy",
   "/teams/:teamId/members",
+  paramValidationFactory<any>(teamsListMembersLegacyParamSchema),
+  queryValidationFactory<any>(teamsListMembersLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetMemberLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.get(
   "teamsGetMemberLegacy",
   "/teams/:teamId/members/:username",
+  paramValidationFactory<any>(teamsGetMemberLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddMemberLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.put(
   "teamsAddMemberLegacy",
   "/teams/:teamId/members/:username",
+  paramValidationFactory<any>(teamsAddMemberLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveMemberLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.delete(
   "teamsRemoveMemberLegacy",
   "/teams/:teamId/members/:username",
+  paramValidationFactory<any>(teamsRemoveMemberLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsGetMembershipForUserLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.get(
   "teamsGetMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
+  paramValidationFactory<any>(teamsGetMembershipForUserLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateMembershipForUserLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.put(
   "teamsAddOrUpdateMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
+  paramValidationFactory<any>(
+    teamsAddOrUpdateMembershipForUserLegacyParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveMembershipForUserLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required(), username: joi.string().required() })
 
 router.delete(
   "teamsRemoveMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
+  paramValidationFactory<any>(teamsRemoveMembershipForUserLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListProjectsLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListProjectsLegacyQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListProjectsLegacy",
   "/teams/:teamId/projects",
+  paramValidationFactory<any>(teamsListProjectsLegacyParamSchema),
+  queryValidationFactory<any>(teamsListProjectsLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCheckPermissionsForProjectLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    project_id: joi.number().required(),
+  })
 
 router.get(
   "teamsCheckPermissionsForProjectLegacy",
   "/teams/:teamId/projects/:projectId",
+  paramValidationFactory<any>(teamsCheckPermissionsForProjectLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    project_id: joi.number().required(),
+  })
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsLegacy",
   "/teams/:teamId/projects/:projectId",
+  paramValidationFactory<any>(
+    teamsAddOrUpdateProjectPermissionsLegacyParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveProjectLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    project_id: joi.number().required(),
+  })
 
 router.delete(
   "teamsRemoveProjectLegacy",
   "/teams/:teamId/projects/:projectId",
+  paramValidationFactory<any>(teamsRemoveProjectLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListReposLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListReposLegacyQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListReposLegacy",
   "/teams/:teamId/repos",
+  paramValidationFactory<any>(teamsListReposLegacyParamSchema),
+  queryValidationFactory<any>(teamsListReposLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCheckPermissionsForRepoLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.get(
   "teamsCheckPermissionsForRepoLegacy",
   "/teams/:teamId/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsCheckPermissionsForRepoLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsLegacy",
   "/teams/:teamId/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsRemoveRepoLegacyParamSchema = joi
+  .object()
+  .keys({
+    team_id: joi.number().required(),
+    owner: joi.string().required(),
+    repo: joi.string().required(),
+  })
 
 router.delete(
   "teamsRemoveRepoLegacy",
   "/teams/:teamId/repos/:owner/:repo",
+  paramValidationFactory<any>(teamsRemoveRepoLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListIdPGroupsForLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
 
 router.get(
   "teamsListIdPGroupsForLegacy",
   "/teams/:teamId/team-sync/group-mappings",
+  paramValidationFactory<any>(teamsListIdPGroupsForLegacyParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
 
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsLegacy",
   "/teams/:teamId/team-sync/group-mappings",
+  paramValidationFactory<any>(
+    teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5083,9 +9708,19 @@ router.patch(
   }
 )
 
+const teamsListChildLegacyParamSchema = joi
+  .object()
+  .keys({ team_id: joi.number().required() })
+
+const teamsListChildLegacyQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "teamsListChildLegacy",
   "/teams/:teamId/teams",
+  paramValidationFactory<any>(teamsListChildLegacyParamSchema),
+  queryValidationFactory<any>(teamsListChildLegacyQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5115,23 +9750,50 @@ router.get(
   }
 )
 
-router.get("usersCheckBlocked", "/user/blocks/:username", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const usersCheckBlockedParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
 
-router.put("usersBlock", "/user/blocks/:username", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "usersCheckBlocked",
+  "/user/blocks/:username",
+  paramValidationFactory<any>(usersCheckBlockedParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
-router.delete("usersUnblock", "/user/blocks/:username", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const usersBlockParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+router.put(
+  "usersBlock",
+  "/user/blocks/:username",
+  paramValidationFactory<any>(usersBlockParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const usersUnblockParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+router.delete(
+  "usersUnblock",
+  "/user/blocks/:username",
+  paramValidationFactory<any>(usersUnblockParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.patch(
   "usersSetPrimaryEmailVisibilityForAuthenticated",
@@ -5143,9 +9805,14 @@ router.patch(
   }
 )
 
+const usersListEmailsForAuthenticatedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "usersListEmailsForAuthenticated",
   "/user/emails",
+  queryValidationFactory<any>(usersListEmailsForAuthenticatedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5173,29 +9840,48 @@ router.delete(
   }
 )
 
+const usersListFollowersForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "usersListFollowersForAuthenticatedUser",
   "/user/followers",
+  queryValidationFactory<any>(
+    usersListFollowersForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersListFollowedByAuthenticatedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "usersListFollowedByAuthenticated",
   "/user/following",
+  queryValidationFactory<any>(usersListFollowedByAuthenticatedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersCheckPersonIsFollowedByAuthenticatedParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
 
 router.get(
   "usersCheckPersonIsFollowedByAuthenticated",
   "/user/following/:username",
+  paramValidationFactory<any>(
+    usersCheckPersonIsFollowedByAuthenticatedParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5203,15 +9889,29 @@ router.get(
   }
 )
 
-router.put("usersFollow", "/user/following/:username", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const usersFollowParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+router.put(
+  "usersFollow",
+  "/user/following/:username",
+  paramValidationFactory<any>(usersFollowParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const usersUnfollowParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
 
 router.delete(
   "usersUnfollow",
   "/user/following/:username",
+  paramValidationFactory<any>(usersUnfollowParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5219,9 +9919,14 @@ router.delete(
   }
 )
 
+const usersListGpgKeysForAuthenticatedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "usersListGpgKeysForAuthenticated",
   "/user/gpg_keys",
+  queryValidationFactory<any>(usersListGpgKeysForAuthenticatedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5239,69 +9944,130 @@ router.post(
   }
 )
 
+const usersGetGpgKeyForAuthenticatedParamSchema = joi
+  .object()
+  .keys({ gpg_key_id: joi.number().required() })
+
 router.get(
   "usersGetGpgKeyForAuthenticated",
   "/user/gpg_keys/:gpgKeyId",
+  paramValidationFactory<any>(usersGetGpgKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersDeleteGpgKeyForAuthenticatedParamSchema = joi
+  .object()
+  .keys({ gpg_key_id: joi.number().required() })
 
 router.delete(
   "usersDeleteGpgKeyForAuthenticated",
   "/user/gpg_keys/:gpgKeyId",
+  paramValidationFactory<any>(usersDeleteGpgKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsListInstallationsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "appsListInstallationsForAuthenticatedUser",
   "/user/installations",
+  queryValidationFactory<any>(
+    appsListInstallationsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsListInstallationReposForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ installation_id: joi.number().required() })
+
+const appsListInstallationReposForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "appsListInstallationReposForAuthenticatedUser",
   "/user/installations/:installationId/repositories",
+  paramValidationFactory<any>(
+    appsListInstallationReposForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<any>(
+    appsListInstallationReposForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsAddRepoToInstallationParamSchema = joi
+  .object()
+  .keys({
+    installation_id: joi.number().required(),
+    repository_id: joi.number().required(),
+  })
 
 router.put(
   "appsAddRepoToInstallation",
   "/user/installations/:installationId/repositories/:repositoryId",
+  paramValidationFactory<any>(appsAddRepoToInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsRemoveRepoFromInstallationParamSchema = joi
+  .object()
+  .keys({
+    installation_id: joi.number().required(),
+    repository_id: joi.number().required(),
+  })
 
 router.delete(
   "appsRemoveRepoFromInstallation",
   "/user/installations/:installationId/repositories/:repositoryId",
+  paramValidationFactory<any>(appsRemoveRepoFromInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const issuesListForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({
+    filter: joi.string(),
+    state: joi.string(),
+    labels: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    since: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "issuesListForAuthenticatedUser",
   "/user/issues",
+  queryValidationFactory<any>(issuesListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5309,9 +10075,16 @@ router.get(
   }
 )
 
+const usersListPublicSshKeysForAuthenticatedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "usersListPublicSshKeysForAuthenticated",
   "/user/keys",
+  queryValidationFactory<any>(
+    usersListPublicSshKeysForAuthenticatedQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5329,59 +10102,97 @@ router.post(
   }
 )
 
+const usersGetPublicSshKeyForAuthenticatedParamSchema = joi
+  .object()
+  .keys({ key_id: joi.number().required() })
+
 router.get(
   "usersGetPublicSshKeyForAuthenticated",
   "/user/keys/:keyId",
+  paramValidationFactory<any>(usersGetPublicSshKeyForAuthenticatedParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersDeletePublicSshKeyForAuthenticatedParamSchema = joi
+  .object()
+  .keys({ key_id: joi.number().required() })
 
 router.delete(
   "usersDeletePublicSshKeyForAuthenticated",
   "/user/keys/:keyId",
+  paramValidationFactory<any>(
+    usersDeletePublicSshKeyForAuthenticatedParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsListSubscriptionsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUser",
   "/user/marketplace_purchases",
+  queryValidationFactory<any>(
+    appsListSubscriptionsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUserStubbed",
   "/user/marketplace_purchases/stubbed",
+  queryValidationFactory<any>(
+    appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsListMembershipsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "orgsListMembershipsForAuthenticatedUser",
   "/user/memberships/orgs",
+  queryValidationFactory<any>(
+    orgsListMembershipsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const orgsGetMembershipForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
 
 router.get(
   "orgsGetMembershipForAuthenticatedUser",
   "/user/memberships/orgs/:org",
+  paramValidationFactory<any>(orgsGetMembershipForAuthenticatedUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5389,9 +10200,16 @@ router.get(
   }
 )
 
+const orgsUpdateMembershipForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+
 router.patch(
   "orgsUpdateMembershipForAuthenticatedUser",
   "/user/memberships/orgs/:org",
+  paramValidationFactory<any>(
+    orgsUpdateMembershipForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5409,49 +10227,85 @@ router.post(
   }
 )
 
+const migrationsListForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "migrationsListForAuthenticatedUser",
   "/user/migrations",
+  queryValidationFactory<any>(migrationsListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetStatusForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ migration_id: joi.number().required() })
 
 router.get(
   "migrationsGetStatusForAuthenticatedUser",
   "/user/migrations/:migrationId",
+  paramValidationFactory<any>(
+    migrationsGetStatusForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsGetArchiveForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ migration_id: joi.number().required() })
 
 router.get(
   "migrationsGetArchiveForAuthenticatedUser",
   "/user/migrations/:migrationId/archive",
+  paramValidationFactory<any>(
+    migrationsGetArchiveForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsDeleteArchiveForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ migration_id: joi.number().required() })
 
 router.delete(
   "migrationsDeleteArchiveForAuthenticatedUser",
   "/user/migrations/:migrationId/archive",
+  paramValidationFactory<any>(
+    migrationsDeleteArchiveForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsUnlockRepoForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({
+    migration_id: joi.number().required(),
+    repo_name: joi.string().required(),
+  })
 
 router.delete(
   "migrationsUnlockRepoForAuthenticatedUser",
   "/user/migrations/:migrationId/repos/:repoName/lock",
+  paramValidationFactory<any>(
+    migrationsUnlockRepoForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5459,11 +10313,20 @@ router.delete(
   }
 )
 
-router.get("orgsListForAuthenticatedUser", "/user/orgs", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "orgsListForAuthenticatedUser",
+  "/user/orgs",
+  queryValidationFactory<any>(orgsListForAuthenticatedUserQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.post(
   "projectsCreateForAuthenticatedUser",
@@ -5475,9 +10338,14 @@ router.post(
   }
 )
 
+const usersListPublicEmailsForAuthenticatedQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "usersListPublicEmailsForAuthenticated",
   "/user/public_emails",
+  queryValidationFactory<any>(usersListPublicEmailsForAuthenticatedQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5485,9 +10353,22 @@ router.get(
   }
 )
 
+const reposListForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({
+    visibility: joi.string(),
+    affiliation: joi.string(),
+    type: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
 router.get(
   "reposListForAuthenticatedUser",
   "/user/repos",
+  queryValidationFactory<any>(reposListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5505,99 +10386,169 @@ router.post(
   }
 )
 
+const reposListInvitationsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "reposListInvitationsForAuthenticatedUser",
   "/user/repository_invitations",
+  queryValidationFactory<any>(
+    reposListInvitationsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposAcceptInvitationParamSchema = joi
+  .object()
+  .keys({ invitation_id: joi.number().required() })
 
 router.patch(
   "reposAcceptInvitation",
   "/user/repository_invitations/:invitationId",
+  paramValidationFactory<any>(reposAcceptInvitationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const reposDeclineInvitationParamSchema = joi
+  .object()
+  .keys({ invitation_id: joi.number().required() })
 
 router.delete(
   "reposDeclineInvitation",
   "/user/repository_invitations/:invitationId",
+  paramValidationFactory<any>(reposDeclineInvitationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListReposStarredByAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "activityListReposStarredByAuthenticatedUser",
   "/user/starred",
+  queryValidationFactory<any>(
+    activityListReposStarredByAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.get(
   "activityCheckRepoIsStarredByAuthenticatedUser",
   "/user/starred/:owner/:repo",
+  paramValidationFactory<any>(
+    activityCheckRepoIsStarredByAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityStarRepoForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.put(
   "activityStarRepoForAuthenticatedUser",
   "/user/starred/:owner/:repo",
+  paramValidationFactory<any>(activityStarRepoForAuthenticatedUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityUnstarRepoForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ owner: joi.string().required(), repo: joi.string().required() })
 
 router.delete(
   "activityUnstarRepoForAuthenticatedUser",
   "/user/starred/:owner/:repo",
+  paramValidationFactory<any>(
+    activityUnstarRepoForAuthenticatedUserParamSchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListWatchedReposForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListWatchedReposForAuthenticatedUser",
   "/user/subscriptions",
+  queryValidationFactory<any>(
+    activityListWatchedReposForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const teamsListForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "teamsListForAuthenticatedUser",
   "/user/teams",
+  queryValidationFactory<any>(teamsListForAuthenticatedUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const migrationsListReposForUserParamSchema = joi
+  .object()
+  .keys({ migration_id: joi.number().required() })
+
+const migrationsListReposForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "migrationsListReposForUser",
   "/user/:migrationId/repositories",
+  paramValidationFactory<any>(migrationsListReposForUserParamSchema),
+  queryValidationFactory<any>(migrationsListReposForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5605,71 +10556,153 @@ router.get(
   }
 )
 
-router.get("usersList", "/users", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const usersListQuerySchema = joi.object().keys({ since: joi.string() })
 
-router.get("usersGetByUsername", "/users/:username", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "usersList",
+  "/users",
+  queryValidationFactory<any>(usersListQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const usersGetByUsernameParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+router.get(
+  "usersGetByUsername",
+  "/users/:username",
+  paramValidationFactory<any>(usersGetByUsernameParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const activityListEventsForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListEventsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListEventsForAuthenticatedUser",
   "/users/:username/events",
+  paramValidationFactory<any>(
+    activityListEventsForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<any>(
+    activityListEventsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListOrgEventsForAuthenticatedUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required(), org: joi.string().required() })
+
+const activityListOrgEventsForAuthenticatedUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListOrgEventsForAuthenticatedUser",
   "/users/:username/events/orgs/:org",
+  paramValidationFactory<any>(
+    activityListOrgEventsForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<any>(
+    activityListOrgEventsForAuthenticatedUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListPublicEventsForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListPublicEventsForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListPublicEventsForUser",
   "/users/:username/events/public",
+  paramValidationFactory<any>(activityListPublicEventsForUserParamSchema),
+  queryValidationFactory<any>(activityListPublicEventsForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersListFollowersForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const usersListFollowersForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "usersListFollowersForUser",
   "/users/:username/followers",
+  paramValidationFactory<any>(usersListFollowersForUserParamSchema),
+  queryValidationFactory<any>(usersListFollowersForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersListFollowingForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const usersListFollowingForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "usersListFollowingForUser",
   "/users/:username/following",
+  paramValidationFactory<any>(usersListFollowingForUserParamSchema),
+  queryValidationFactory<any>(usersListFollowingForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersCheckFollowingForUserParamSchema = joi
+  .object()
+  .keys({
+    username: joi.string().required(),
+    target_user: joi.string().required(),
+  })
 
 router.get(
   "usersCheckFollowingForUser",
   "/users/:username/following/:targetUser",
+  paramValidationFactory<any>(usersCheckFollowingForUserParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5677,45 +10710,94 @@ router.get(
   }
 )
 
-router.get("gistsListForUser", "/users/:username/gists", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const gistsListForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const gistsListForUserQuerySchema = joi
+  .object()
+  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "gistsListForUser",
+  "/users/:username/gists",
+  paramValidationFactory<any>(gistsListForUserParamSchema),
+  queryValidationFactory<any>(gistsListForUserQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const usersListGpgKeysForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const usersListGpgKeysForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "usersListGpgKeysForUser",
   "/users/:username/gpg_keys",
+  paramValidationFactory<any>(usersListGpgKeysForUserParamSchema),
+  queryValidationFactory<any>(usersListGpgKeysForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersGetContextForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const usersGetContextForUserQuerySchema = joi
+  .object()
+  .keys({ subject_type: joi.string(), subject_id: joi.string() })
 
 router.get(
   "usersGetContextForUser",
   "/users/:username/hovercard",
+  paramValidationFactory<any>(usersGetContextForUserParamSchema),
+  queryValidationFactory<any>(usersGetContextForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const appsGetUserInstallationParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
 
 router.get(
   "appsGetUserInstallation",
   "/users/:username/installation",
+  paramValidationFactory<any>(appsGetUserInstallationParamSchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const usersListPublicKeysForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const usersListPublicKeysForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "usersListPublicKeysForUser",
   "/users/:username/keys",
+  paramValidationFactory<any>(usersListPublicKeysForUserParamSchema),
+  queryValidationFactory<any>(usersListPublicKeysForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5723,35 +10805,83 @@ router.get(
   }
 )
 
-router.get("orgsListForUser", "/users/:username/orgs", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const orgsListForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const orgsListForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
+router.get(
+  "orgsListForUser",
+  "/users/:username/orgs",
+  paramValidationFactory<any>(orgsListForUserParamSchema),
+  queryValidationFactory<any>(orgsListForUserQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const projectsListForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const projectsListForUserQuerySchema = joi
+  .object()
+  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
 
 router.get(
   "projectsListForUser",
   "/users/:username/projects",
+  paramValidationFactory<any>(projectsListForUserParamSchema),
+  queryValidationFactory<any>(projectsListForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListReceivedEventsForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListReceivedEventsForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListReceivedEventsForUser",
   "/users/:username/received_events",
+  paramValidationFactory<any>(activityListReceivedEventsForUserParamSchema),
+  queryValidationFactory<any>(activityListReceivedEventsForUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
     return next()
   }
 )
+
+const activityListReceivedPublicEventsForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListReceivedPublicEventsForUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
 
 router.get(
   "activityListReceivedPublicEventsForUser",
   "/users/:username/received_events/public",
+  paramValidationFactory<any>(
+    activityListReceivedPublicEventsForUserParamSchema
+  ),
+  queryValidationFactory<any>(
+    activityListReceivedPublicEventsForUserQuerySchema
+  ),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5759,15 +10889,50 @@ router.get(
   }
 )
 
-router.get("reposListForUser", "/users/:username/repos", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const reposListForUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const reposListForUserQuerySchema = joi
+  .object()
+  .keys({
+    type: joi.string(),
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
+
+router.get(
+  "reposListForUser",
+  "/users/:username/repos",
+  paramValidationFactory<any>(reposListForUserParamSchema),
+  queryValidationFactory<any>(reposListForUserQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const activityListReposStarredByUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListReposStarredByUserQuerySchema = joi
+  .object()
+  .keys({
+    sort: joi.string(),
+    direction: joi.string(),
+    per_page: joi.number(),
+    page: joi.number(),
+  })
 
 router.get(
   "activityListReposStarredByUser",
   "/users/:username/starred",
+  paramValidationFactory<any>(activityListReposStarredByUserParamSchema),
+  queryValidationFactory<any>(activityListReposStarredByUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }
@@ -5775,9 +10940,19 @@ router.get(
   }
 )
 
+const activityListReposWatchedByUserParamSchema = joi
+  .object()
+  .keys({ username: joi.string().required() })
+
+const activityListReposWatchedByUserQuerySchema = joi
+  .object()
+  .keys({ per_page: joi.number(), page: joi.number() })
+
 router.get(
   "activityListReposWatchedByUser",
   "/users/:username/subscriptions",
+  paramValidationFactory<any>(activityListReposWatchedByUserParamSchema),
+  queryValidationFactory<any>(activityListReposWatchedByUserQuerySchema),
   async (ctx, next) => {
     ctx.status = 501
     ctx.body = { error: "not implemented" }

@@ -2,10 +2,43 @@
 /* tslint:disable */
 /* eslint:disable */
 
+import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
-import Koa from "koa"
+import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
+
+function paramValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{}, { params: Type }> {
+  return function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.params, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.params = result.value
+
+    next()
+  }
+}
+
+function queryValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{}, { query: Type }> {
+  return function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.query, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.query = result.value
+
+    next()
+  }
+}
 
 const PORT = 3000
 
@@ -17,11 +50,20 @@ server.use(koaBody())
 
 const router = new KoaRouter()
 
-router.get("findPets", "/pets", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const findPetsQuerySchema = joi
+  .object()
+  .keys({ tags: joi.array(), limit: joi.number() })
+
+router.get(
+  "findPets",
+  "/pets",
+  queryValidationFactory<any>(findPetsQuerySchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 router.post("addPet", "/pets", async (ctx, next) => {
   ctx.status = 501
@@ -29,17 +71,33 @@ router.post("addPet", "/pets", async (ctx, next) => {
   return next()
 })
 
-router.get("findPetById", "/pets/:id", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+const findPetByIdParamSchema = joi
+  .object()
+  .keys({ id: joi.number().required() })
 
-router.delete("deletePet", "/pets/:id", async (ctx, next) => {
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
-})
+router.get(
+  "findPetById",
+  "/pets/:id",
+  paramValidationFactory<any>(findPetByIdParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
+
+const deletePetParamSchema = joi.object().keys({ id: joi.number().required() })
+
+router.delete(
+  "deletePet",
+  "/pets/:id",
+  paramValidationFactory<any>(deletePetParamSchema),
+  async (ctx, next) => {
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+  }
+)
 
 server.use(router.allowedMethods())
 server.use(router.routes())
