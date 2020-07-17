@@ -93,8 +93,8 @@ router.get(
   async (ctx, next) => {
     //region safe-edit-region-findPetById
 
-    ctx.status = 501
-    ctx.body = { error: "not implemented" }
+    ctx.status = 200
+    ctx.body = { name: "Jake", species: "dog", breed: "border-collie" }
     return next()
 
     //endregion safe-edit-region-findPetById
