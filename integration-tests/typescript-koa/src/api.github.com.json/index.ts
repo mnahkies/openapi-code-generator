@@ -2,6 +2,881 @@
 /* tslint:disable */
 /* eslint:disable */
 
+import {
+  ActionsAddSelectedRepoToOrgSecretParamSchema,
+  ActionsCancelWorkflowRunParamSchema,
+  ActionsCreateOrUpdateOrgSecretBodySchema,
+  ActionsCreateOrUpdateOrgSecretParamSchema,
+  ActionsCreateOrUpdateRepoSecretBodySchema,
+  ActionsCreateOrUpdateRepoSecretParamSchema,
+  ActionsCreateRegistrationTokenForOrgParamSchema,
+  ActionsCreateRegistrationTokenForRepoParamSchema,
+  ActionsCreateRemoveTokenForOrgParamSchema,
+  ActionsCreateRemoveTokenForRepoParamSchema,
+  ActionsDeleteArtifactParamSchema,
+  ActionsDeleteOrgSecretParamSchema,
+  ActionsDeleteRepoSecretParamSchema,
+  ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
+  ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
+  ActionsDeleteWorkflowRunLogsParamSchema,
+  ActionsDownloadArtifactParamSchema,
+  ActionsDownloadJobLogsForWorkflowRunParamSchema,
+  ActionsDownloadWorkflowRunLogsParamSchema,
+  ActionsGetArtifactParamSchema,
+  ActionsGetJobForWorkflowRunParamSchema,
+  ActionsGetOrgPublicKeyParamSchema,
+  ActionsGetOrgSecretParamSchema,
+  ActionsGetRepoPublicKeyParamSchema,
+  ActionsGetRepoSecretParamSchema,
+  ActionsGetSelfHostedRunnerForOrgParamSchema,
+  ActionsGetSelfHostedRunnerForRepoParamSchema,
+  ActionsGetWorkflowParamSchema,
+  ActionsGetWorkflowRunParamSchema,
+  ActionsGetWorkflowRunUsageParamSchema,
+  ActionsGetWorkflowUsageParamSchema,
+  ActionsListArtifactsForRepoParamSchema,
+  ActionsListArtifactsForRepoQuerySchema,
+  ActionsListJobsForWorkflowRunParamSchema,
+  ActionsListJobsForWorkflowRunQuerySchema,
+  ActionsListOrgSecretsParamSchema,
+  ActionsListOrgSecretsQuerySchema,
+  ActionsListRepoSecretsParamSchema,
+  ActionsListRepoSecretsQuerySchema,
+  ActionsListRepoWorkflowsParamSchema,
+  ActionsListRepoWorkflowsQuerySchema,
+  ActionsListRunnerApplicationsForOrgParamSchema,
+  ActionsListRunnerApplicationsForRepoParamSchema,
+  ActionsListSelectedReposForOrgSecretParamSchema,
+  ActionsListSelfHostedRunnersForOrgParamSchema,
+  ActionsListSelfHostedRunnersForOrgQuerySchema,
+  ActionsListSelfHostedRunnersForRepoParamSchema,
+  ActionsListSelfHostedRunnersForRepoQuerySchema,
+  ActionsListWorkflowRunArtifactsParamSchema,
+  ActionsListWorkflowRunArtifactsQuerySchema,
+  ActionsListWorkflowRunsForRepoParamSchema,
+  ActionsListWorkflowRunsForRepoQuerySchema,
+  ActionsListWorkflowRunsParamSchema,
+  ActionsListWorkflowRunsQuerySchema,
+  ActionsReRunWorkflowParamSchema,
+  ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
+  ActionsSetSelectedReposForOrgSecretBodySchema,
+  ActionsSetSelectedReposForOrgSecretParamSchema,
+  ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
+  ActivityDeleteRepoSubscriptionParamSchema,
+  ActivityDeleteThreadSubscriptionParamSchema,
+  ActivityGetRepoSubscriptionParamSchema,
+  ActivityGetThreadParamSchema,
+  ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema,
+  ActivityListEventsForAuthenticatedUserParamSchema,
+  ActivityListEventsForAuthenticatedUserQuerySchema,
+  ActivityListNotificationsForAuthenticatedUserQuerySchema,
+  ActivityListOrgEventsForAuthenticatedUserParamSchema,
+  ActivityListOrgEventsForAuthenticatedUserQuerySchema,
+  ActivityListPublicEventsForRepoNetworkParamSchema,
+  ActivityListPublicEventsForRepoNetworkQuerySchema,
+  ActivityListPublicEventsForUserParamSchema,
+  ActivityListPublicEventsForUserQuerySchema,
+  ActivityListPublicEventsQuerySchema,
+  ActivityListPublicOrgEventsParamSchema,
+  ActivityListPublicOrgEventsQuerySchema,
+  ActivityListReceivedEventsForUserParamSchema,
+  ActivityListReceivedEventsForUserQuerySchema,
+  ActivityListReceivedPublicEventsForUserParamSchema,
+  ActivityListReceivedPublicEventsForUserQuerySchema,
+  ActivityListRepoEventsParamSchema,
+  ActivityListRepoEventsQuerySchema,
+  ActivityListRepoNotificationsForAuthenticatedUserParamSchema,
+  ActivityListRepoNotificationsForAuthenticatedUserQuerySchema,
+  ActivityListReposStarredByAuthenticatedUserQuerySchema,
+  ActivityListReposStarredByUserParamSchema,
+  ActivityListReposStarredByUserQuerySchema,
+  ActivityListReposWatchedByUserParamSchema,
+  ActivityListReposWatchedByUserQuerySchema,
+  ActivityListStargazersForRepoParamSchema,
+  ActivityListStargazersForRepoQuerySchema,
+  ActivityListWatchedReposForAuthenticatedUserQuerySchema,
+  ActivityListWatchersForRepoParamSchema,
+  ActivityListWatchersForRepoQuerySchema,
+  ActivityMarkNotificationsAsReadBodySchema,
+  ActivityMarkRepoNotificationsAsReadBodySchema,
+  ActivityMarkRepoNotificationsAsReadParamSchema,
+  ActivityMarkThreadAsReadParamSchema,
+  ActivitySetRepoSubscriptionBodySchema,
+  ActivitySetRepoSubscriptionParamSchema,
+  ActivitySetThreadSubscriptionBodySchema,
+  ActivitySetThreadSubscriptionParamSchema,
+  ActivityStarRepoForAuthenticatedUserParamSchema,
+  ActivityUnstarRepoForAuthenticatedUserParamSchema,
+  AppsAddRepoToInstallationParamSchema,
+  AppsCheckAuthorizationParamSchema,
+  AppsCheckTokenBodySchema,
+  AppsCheckTokenParamSchema,
+  AppsCreateContentAttachmentBodySchema,
+  AppsCreateContentAttachmentParamSchema,
+  AppsCreateFromManifestParamSchema,
+  AppsCreateInstallationAccessTokenBodySchema,
+  AppsCreateInstallationAccessTokenParamSchema,
+  AppsDeleteAuthorizationBodySchema,
+  AppsDeleteAuthorizationParamSchema,
+  AppsDeleteInstallationParamSchema,
+  AppsDeleteTokenBodySchema,
+  AppsDeleteTokenParamSchema,
+  AppsGetBySlugParamSchema,
+  AppsGetInstallationParamSchema,
+  AppsGetOrgInstallationParamSchema,
+  AppsGetRepoInstallationParamSchema,
+  AppsGetSubscriptionPlanForAccountParamSchema,
+  AppsGetSubscriptionPlanForAccountStubbedParamSchema,
+  AppsGetUserInstallationParamSchema,
+  AppsListAccountsForPlanParamSchema,
+  AppsListAccountsForPlanQuerySchema,
+  AppsListAccountsForPlanStubbedParamSchema,
+  AppsListAccountsForPlanStubbedQuerySchema,
+  AppsListInstallationReposForAuthenticatedUserParamSchema,
+  AppsListInstallationReposForAuthenticatedUserQuerySchema,
+  AppsListInstallationsForAuthenticatedUserQuerySchema,
+  AppsListInstallationsQuerySchema,
+  AppsListPlansQuerySchema,
+  AppsListPlansStubbedQuerySchema,
+  AppsListReposAccessibleToInstallationQuerySchema,
+  AppsListSubscriptionsForAuthenticatedUserQuerySchema,
+  AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
+  AppsRemoveRepoFromInstallationParamSchema,
+  AppsResetAuthorizationParamSchema,
+  AppsResetTokenBodySchema,
+  AppsResetTokenParamSchema,
+  AppsRevokeAuthorizationForApplicationParamSchema,
+  AppsRevokeGrantForApplicationParamSchema,
+  AppsSuspendInstallationParamSchema,
+  AppsUnsuspendInstallationParamSchema,
+  ChecksCreateBodySchema,
+  ChecksCreateParamSchema,
+  ChecksCreateSuiteBodySchema,
+  ChecksCreateSuiteParamSchema,
+  ChecksGetParamSchema,
+  ChecksGetSuiteParamSchema,
+  ChecksListAnnotationsParamSchema,
+  ChecksListAnnotationsQuerySchema,
+  ChecksListForRefParamSchema,
+  ChecksListForRefQuerySchema,
+  ChecksListForSuiteParamSchema,
+  ChecksListForSuiteQuerySchema,
+  ChecksListSuitesForRefParamSchema,
+  ChecksListSuitesForRefQuerySchema,
+  ChecksRerequestSuiteParamSchema,
+  ChecksSetSuitesPreferencesBodySchema,
+  ChecksSetSuitesPreferencesParamSchema,
+  ChecksUpdateBodySchema,
+  ChecksUpdateParamSchema,
+  CodeScanningGetAlertParamSchema,
+  CodeScanningListAlertsForRepoParamSchema,
+  CodeScanningListAlertsForRepoQuerySchema,
+  CodesOfConductGetConductCodeParamSchema,
+  CodesOfConductGetForRepoParamSchema,
+  GistsCheckIsStarredParamSchema,
+  GistsCreateBodySchema,
+  GistsCreateCommentBodySchema,
+  GistsCreateCommentParamSchema,
+  GistsDeleteCommentParamSchema,
+  GistsDeleteParamSchema,
+  GistsForkParamSchema,
+  GistsGetCommentParamSchema,
+  GistsGetParamSchema,
+  GistsGetRevisionParamSchema,
+  GistsListCommentsParamSchema,
+  GistsListCommentsQuerySchema,
+  GistsListCommitsParamSchema,
+  GistsListCommitsQuerySchema,
+  GistsListForUserParamSchema,
+  GistsListForUserQuerySchema,
+  GistsListForksParamSchema,
+  GistsListForksQuerySchema,
+  GistsListPublicQuerySchema,
+  GistsListQuerySchema,
+  GistsListStarredQuerySchema,
+  GistsStarParamSchema,
+  GistsUnstarParamSchema,
+  GistsUpdateBodySchema,
+  GistsUpdateCommentBodySchema,
+  GistsUpdateCommentParamSchema,
+  GistsUpdateParamSchema,
+  GitCreateBlobBodySchema,
+  GitCreateBlobParamSchema,
+  GitCreateCommitBodySchema,
+  GitCreateCommitParamSchema,
+  GitCreateRefBodySchema,
+  GitCreateRefParamSchema,
+  GitCreateTagBodySchema,
+  GitCreateTagParamSchema,
+  GitCreateTreeBodySchema,
+  GitCreateTreeParamSchema,
+  GitDeleteRefParamSchema,
+  GitGetBlobParamSchema,
+  GitGetCommitParamSchema,
+  GitGetRefParamSchema,
+  GitGetTagParamSchema,
+  GitGetTreeParamSchema,
+  GitGetTreeQuerySchema,
+  GitListMatchingRefsParamSchema,
+  GitListMatchingRefsQuerySchema,
+  GitUpdateRefBodySchema,
+  GitUpdateRefParamSchema,
+  GitignoreGetTemplateParamSchema,
+  InteractionsGetRestrictionsForOrgParamSchema,
+  InteractionsGetRestrictionsForRepoParamSchema,
+  InteractionsRemoveRestrictionsForOrgParamSchema,
+  InteractionsRemoveRestrictionsForRepoParamSchema,
+  InteractionsSetRestrictionsForOrgBodySchema,
+  InteractionsSetRestrictionsForOrgParamSchema,
+  InteractionsSetRestrictionsForRepoBodySchema,
+  InteractionsSetRestrictionsForRepoParamSchema,
+  IssuesAddAssigneesBodySchema,
+  IssuesAddAssigneesParamSchema,
+  IssuesAddLabelsBodySchema,
+  IssuesAddLabelsParamSchema,
+  IssuesCheckUserCanBeAssignedParamSchema,
+  IssuesCreateBodySchema,
+  IssuesCreateCommentBodySchema,
+  IssuesCreateCommentParamSchema,
+  IssuesCreateLabelBodySchema,
+  IssuesCreateLabelParamSchema,
+  IssuesCreateMilestoneBodySchema,
+  IssuesCreateMilestoneParamSchema,
+  IssuesCreateParamSchema,
+  IssuesDeleteCommentParamSchema,
+  IssuesDeleteLabelParamSchema,
+  IssuesDeleteMilestoneParamSchema,
+  IssuesGetCommentParamSchema,
+  IssuesGetEventParamSchema,
+  IssuesGetLabelParamSchema,
+  IssuesGetMilestoneParamSchema,
+  IssuesGetParamSchema,
+  IssuesListAssigneesParamSchema,
+  IssuesListAssigneesQuerySchema,
+  IssuesListCommentsForRepoParamSchema,
+  IssuesListCommentsForRepoQuerySchema,
+  IssuesListCommentsParamSchema,
+  IssuesListCommentsQuerySchema,
+  IssuesListEventsForRepoParamSchema,
+  IssuesListEventsForRepoQuerySchema,
+  IssuesListEventsForTimelineParamSchema,
+  IssuesListEventsForTimelineQuerySchema,
+  IssuesListEventsParamSchema,
+  IssuesListEventsQuerySchema,
+  IssuesListForAuthenticatedUserQuerySchema,
+  IssuesListForOrgParamSchema,
+  IssuesListForOrgQuerySchema,
+  IssuesListForRepoParamSchema,
+  IssuesListForRepoQuerySchema,
+  IssuesListLabelsForMilestoneParamSchema,
+  IssuesListLabelsForMilestoneQuerySchema,
+  IssuesListLabelsForRepoParamSchema,
+  IssuesListLabelsForRepoQuerySchema,
+  IssuesListLabelsOnIssueParamSchema,
+  IssuesListLabelsOnIssueQuerySchema,
+  IssuesListMilestonesParamSchema,
+  IssuesListMilestonesQuerySchema,
+  IssuesListQuerySchema,
+  IssuesLockBodySchema,
+  IssuesLockParamSchema,
+  IssuesRemoveAllLabelsParamSchema,
+  IssuesRemoveAssigneesBodySchema,
+  IssuesRemoveAssigneesParamSchema,
+  IssuesRemoveLabelParamSchema,
+  IssuesSetLabelsBodySchema,
+  IssuesSetLabelsParamSchema,
+  IssuesUnlockParamSchema,
+  IssuesUpdateBodySchema,
+  IssuesUpdateCommentBodySchema,
+  IssuesUpdateCommentParamSchema,
+  IssuesUpdateLabelBodySchema,
+  IssuesUpdateLabelParamSchema,
+  IssuesUpdateMilestoneBodySchema,
+  IssuesUpdateMilestoneParamSchema,
+  IssuesUpdateParamSchema,
+  LicensesGetForRepoParamSchema,
+  LicensesGetParamSchema,
+  MarkdownRenderBodySchema,
+  MarkdownRenderRawBodySchema,
+  MigrationsCancelImportParamSchema,
+  MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
+  MigrationsDeleteArchiveForOrgParamSchema,
+  MigrationsDownloadArchiveForOrgParamSchema,
+  MigrationsGetArchiveForAuthenticatedUserParamSchema,
+  MigrationsGetCommitAuthorsParamSchema,
+  MigrationsGetCommitAuthorsQuerySchema,
+  MigrationsGetImportStatusParamSchema,
+  MigrationsGetLargeFilesParamSchema,
+  MigrationsGetStatusForAuthenticatedUserParamSchema,
+  MigrationsGetStatusForOrgParamSchema,
+  MigrationsListForAuthenticatedUserQuerySchema,
+  MigrationsListForOrgParamSchema,
+  MigrationsListForOrgQuerySchema,
+  MigrationsListReposForOrgParamSchema,
+  MigrationsListReposForOrgQuerySchema,
+  MigrationsListReposForUserParamSchema,
+  MigrationsListReposForUserQuerySchema,
+  MigrationsMapCommitAuthorBodySchema,
+  MigrationsMapCommitAuthorParamSchema,
+  MigrationsSetLfsPreferenceBodySchema,
+  MigrationsSetLfsPreferenceParamSchema,
+  MigrationsStartForAuthenticatedUserBodySchema,
+  MigrationsStartForOrgBodySchema,
+  MigrationsStartForOrgParamSchema,
+  MigrationsStartImportBodySchema,
+  MigrationsStartImportParamSchema,
+  MigrationsUnlockRepoForAuthenticatedUserParamSchema,
+  MigrationsUnlockRepoForOrgParamSchema,
+  MigrationsUpdateImportBodySchema,
+  MigrationsUpdateImportParamSchema,
+  OauthAuthorizationsCreateAuthorizationBodySchema,
+  OauthAuthorizationsDeleteAuthorizationParamSchema,
+  OauthAuthorizationsDeleteGrantParamSchema,
+  OauthAuthorizationsGetAuthorizationParamSchema,
+  OauthAuthorizationsGetGrantParamSchema,
+  OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema,
+  OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema,
+  OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema,
+  OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema,
+  OauthAuthorizationsListAuthorizationsQuerySchema,
+  OauthAuthorizationsListGrantsQuerySchema,
+  OauthAuthorizationsUpdateAuthorizationBodySchema,
+  OauthAuthorizationsUpdateAuthorizationParamSchema,
+  OrgsBlockUserParamSchema,
+  OrgsCheckBlockedUserParamSchema,
+  OrgsCheckMembershipForUserParamSchema,
+  OrgsCheckPublicMembershipForUserParamSchema,
+  OrgsConvertMemberToOutsideCollaboratorParamSchema,
+  OrgsCreateInvitationBodySchema,
+  OrgsCreateInvitationParamSchema,
+  OrgsCreateWebhookBodySchema,
+  OrgsCreateWebhookParamSchema,
+  OrgsDeleteWebhookParamSchema,
+  OrgsGetMembershipForAuthenticatedUserParamSchema,
+  OrgsGetMembershipForUserParamSchema,
+  OrgsGetParamSchema,
+  OrgsGetWebhookParamSchema,
+  OrgsListAppInstallationsParamSchema,
+  OrgsListAppInstallationsQuerySchema,
+  OrgsListBlockedUsersParamSchema,
+  OrgsListForAuthenticatedUserQuerySchema,
+  OrgsListForUserParamSchema,
+  OrgsListForUserQuerySchema,
+  OrgsListInvitationTeamsParamSchema,
+  OrgsListInvitationTeamsQuerySchema,
+  OrgsListMembersParamSchema,
+  OrgsListMembersQuerySchema,
+  OrgsListMembershipsForAuthenticatedUserQuerySchema,
+  OrgsListOutsideCollaboratorsParamSchema,
+  OrgsListOutsideCollaboratorsQuerySchema,
+  OrgsListPendingInvitationsParamSchema,
+  OrgsListPendingInvitationsQuerySchema,
+  OrgsListPublicMembersParamSchema,
+  OrgsListPublicMembersQuerySchema,
+  OrgsListQuerySchema,
+  OrgsListSamlSsoAuthorizationsParamSchema,
+  OrgsListWebhooksParamSchema,
+  OrgsListWebhooksQuerySchema,
+  OrgsPingWebhookParamSchema,
+  OrgsRemoveMemberParamSchema,
+  OrgsRemoveMembershipForUserParamSchema,
+  OrgsRemoveOutsideCollaboratorParamSchema,
+  OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
+  OrgsRemoveSamlSsoAuthorizationParamSchema,
+  OrgsSetMembershipForUserBodySchema,
+  OrgsSetMembershipForUserParamSchema,
+  OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
+  OrgsUnblockUserParamSchema,
+  OrgsUpdateBodySchema,
+  OrgsUpdateMembershipForAuthenticatedUserBodySchema,
+  OrgsUpdateMembershipForAuthenticatedUserParamSchema,
+  OrgsUpdateParamSchema,
+  OrgsUpdateWebhookBodySchema,
+  OrgsUpdateWebhookParamSchema,
+  ProjectsAddCollaboratorBodySchema,
+  ProjectsAddCollaboratorParamSchema,
+  ProjectsCreateCardBodySchema,
+  ProjectsCreateCardParamSchema,
+  ProjectsCreateColumnBodySchema,
+  ProjectsCreateColumnParamSchema,
+  ProjectsCreateForAuthenticatedUserBodySchema,
+  ProjectsCreateForOrgBodySchema,
+  ProjectsCreateForOrgParamSchema,
+  ProjectsCreateForRepoBodySchema,
+  ProjectsCreateForRepoParamSchema,
+  ProjectsDeleteCardParamSchema,
+  ProjectsDeleteColumnParamSchema,
+  ProjectsDeleteParamSchema,
+  ProjectsGetCardParamSchema,
+  ProjectsGetColumnParamSchema,
+  ProjectsGetParamSchema,
+  ProjectsGetPermissionForUserParamSchema,
+  ProjectsListCardsParamSchema,
+  ProjectsListCardsQuerySchema,
+  ProjectsListCollaboratorsParamSchema,
+  ProjectsListCollaboratorsQuerySchema,
+  ProjectsListColumnsParamSchema,
+  ProjectsListColumnsQuerySchema,
+  ProjectsListForOrgParamSchema,
+  ProjectsListForOrgQuerySchema,
+  ProjectsListForRepoParamSchema,
+  ProjectsListForRepoQuerySchema,
+  ProjectsListForUserParamSchema,
+  ProjectsListForUserQuerySchema,
+  ProjectsMoveCardBodySchema,
+  ProjectsMoveCardParamSchema,
+  ProjectsMoveColumnBodySchema,
+  ProjectsMoveColumnParamSchema,
+  ProjectsRemoveCollaboratorParamSchema,
+  ProjectsUpdateBodySchema,
+  ProjectsUpdateCardBodySchema,
+  ProjectsUpdateCardParamSchema,
+  ProjectsUpdateColumnBodySchema,
+  ProjectsUpdateColumnParamSchema,
+  ProjectsUpdateParamSchema,
+  PullsCheckIfMergedParamSchema,
+  PullsCreateBodySchema,
+  PullsCreateParamSchema,
+  PullsCreateReplyForReviewCommentBodySchema,
+  PullsCreateReplyForReviewCommentParamSchema,
+  PullsCreateReviewBodySchema,
+  PullsCreateReviewCommentBodySchema,
+  PullsCreateReviewCommentParamSchema,
+  PullsCreateReviewParamSchema,
+  PullsDeletePendingReviewParamSchema,
+  PullsDeleteReviewCommentParamSchema,
+  PullsDismissReviewBodySchema,
+  PullsDismissReviewParamSchema,
+  PullsGetParamSchema,
+  PullsGetReviewCommentParamSchema,
+  PullsGetReviewParamSchema,
+  PullsListCommentsForReviewParamSchema,
+  PullsListCommentsForReviewQuerySchema,
+  PullsListCommitsParamSchema,
+  PullsListCommitsQuerySchema,
+  PullsListFilesParamSchema,
+  PullsListFilesQuerySchema,
+  PullsListParamSchema,
+  PullsListQuerySchema,
+  PullsListRequestedReviewersParamSchema,
+  PullsListRequestedReviewersQuerySchema,
+  PullsListReviewCommentsForRepoParamSchema,
+  PullsListReviewCommentsForRepoQuerySchema,
+  PullsListReviewCommentsParamSchema,
+  PullsListReviewCommentsQuerySchema,
+  PullsListReviewsParamSchema,
+  PullsListReviewsQuerySchema,
+  PullsMergeBodySchema,
+  PullsMergeParamSchema,
+  PullsRemoveRequestedReviewersBodySchema,
+  PullsRemoveRequestedReviewersParamSchema,
+  PullsRequestReviewersBodySchema,
+  PullsRequestReviewersParamSchema,
+  PullsSubmitReviewBodySchema,
+  PullsSubmitReviewParamSchema,
+  PullsUpdateBodySchema,
+  PullsUpdateBranchBodySchema,
+  PullsUpdateBranchParamSchema,
+  PullsUpdateParamSchema,
+  PullsUpdateReviewBodySchema,
+  PullsUpdateReviewCommentBodySchema,
+  PullsUpdateReviewCommentParamSchema,
+  PullsUpdateReviewParamSchema,
+  ReactionsCreateForCommitCommentBodySchema,
+  ReactionsCreateForCommitCommentParamSchema,
+  ReactionsCreateForIssueBodySchema,
+  ReactionsCreateForIssueCommentBodySchema,
+  ReactionsCreateForIssueCommentParamSchema,
+  ReactionsCreateForIssueParamSchema,
+  ReactionsCreateForPullRequestReviewCommentBodySchema,
+  ReactionsCreateForPullRequestReviewCommentParamSchema,
+  ReactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+  ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
+  ReactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+  ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
+  ReactionsCreateForTeamDiscussionInOrgBodySchema,
+  ReactionsCreateForTeamDiscussionInOrgParamSchema,
+  ReactionsCreateForTeamDiscussionLegacyBodySchema,
+  ReactionsCreateForTeamDiscussionLegacyParamSchema,
+  ReactionsDeleteForCommitCommentParamSchema,
+  ReactionsDeleteForIssueCommentParamSchema,
+  ReactionsDeleteForIssueParamSchema,
+  ReactionsDeleteForPullRequestCommentParamSchema,
+  ReactionsDeleteForTeamDiscussionCommentParamSchema,
+  ReactionsDeleteForTeamDiscussionParamSchema,
+  ReactionsDeleteLegacyParamSchema,
+  ReactionsListForCommitCommentParamSchema,
+  ReactionsListForCommitCommentQuerySchema,
+  ReactionsListForIssueCommentParamSchema,
+  ReactionsListForIssueCommentQuerySchema,
+  ReactionsListForIssueParamSchema,
+  ReactionsListForIssueQuerySchema,
+  ReactionsListForPullRequestReviewCommentParamSchema,
+  ReactionsListForPullRequestReviewCommentQuerySchema,
+  ReactionsListForTeamDiscussionCommentInOrgParamSchema,
+  ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
+  ReactionsListForTeamDiscussionCommentLegacyParamSchema,
+  ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
+  ReactionsListForTeamDiscussionInOrgParamSchema,
+  ReactionsListForTeamDiscussionInOrgQuerySchema,
+  ReactionsListForTeamDiscussionLegacyParamSchema,
+  ReactionsListForTeamDiscussionLegacyQuerySchema,
+  ReposAcceptInvitationParamSchema,
+  ReposAddAppAccessRestrictionsBodySchema,
+  ReposAddAppAccessRestrictionsParamSchema,
+  ReposAddCollaboratorBodySchema,
+  ReposAddCollaboratorParamSchema,
+  ReposAddStatusCheckContextsBodySchema,
+  ReposAddStatusCheckContextsParamSchema,
+  ReposAddTeamAccessRestrictionsBodySchema,
+  ReposAddTeamAccessRestrictionsParamSchema,
+  ReposAddUserAccessRestrictionsBodySchema,
+  ReposAddUserAccessRestrictionsParamSchema,
+  ReposCheckCollaboratorParamSchema,
+  ReposCheckVulnerabilityAlertsParamSchema,
+  ReposCompareCommitsParamSchema,
+  ReposCreateCommitCommentBodySchema,
+  ReposCreateCommitCommentParamSchema,
+  ReposCreateCommitSignatureProtectionParamSchema,
+  ReposCreateCommitStatusBodySchema,
+  ReposCreateCommitStatusParamSchema,
+  ReposCreateDeployKeyBodySchema,
+  ReposCreateDeployKeyParamSchema,
+  ReposCreateDeploymentBodySchema,
+  ReposCreateDeploymentParamSchema,
+  ReposCreateDeploymentStatusBodySchema,
+  ReposCreateDeploymentStatusParamSchema,
+  ReposCreateDispatchEventBodySchema,
+  ReposCreateDispatchEventParamSchema,
+  ReposCreateForAuthenticatedUserBodySchema,
+  ReposCreateForkBodySchema,
+  ReposCreateForkParamSchema,
+  ReposCreateInOrgBodySchema,
+  ReposCreateInOrgParamSchema,
+  ReposCreateOrUpdateFileContentsBodySchema,
+  ReposCreateOrUpdateFileContentsParamSchema,
+  ReposCreatePagesSiteBodySchema,
+  ReposCreatePagesSiteParamSchema,
+  ReposCreateReleaseBodySchema,
+  ReposCreateReleaseParamSchema,
+  ReposCreateUsingTemplateBodySchema,
+  ReposCreateUsingTemplateParamSchema,
+  ReposCreateWebhookBodySchema,
+  ReposCreateWebhookParamSchema,
+  ReposDeclineInvitationParamSchema,
+  ReposDeleteAccessRestrictionsParamSchema,
+  ReposDeleteAdminBranchProtectionParamSchema,
+  ReposDeleteBranchProtectionParamSchema,
+  ReposDeleteCommitCommentParamSchema,
+  ReposDeleteCommitSignatureProtectionParamSchema,
+  ReposDeleteDeployKeyParamSchema,
+  ReposDeleteDeploymentParamSchema,
+  ReposDeleteFileBodySchema,
+  ReposDeleteFileParamSchema,
+  ReposDeleteInvitationParamSchema,
+  ReposDeletePagesSiteParamSchema,
+  ReposDeleteParamSchema,
+  ReposDeletePullRequestReviewProtectionParamSchema,
+  ReposDeleteReleaseAssetParamSchema,
+  ReposDeleteReleaseParamSchema,
+  ReposDeleteWebhookParamSchema,
+  ReposDisableAutomatedSecurityFixesParamSchema,
+  ReposDisableVulnerabilityAlertsParamSchema,
+  ReposDownloadArchiveParamSchema,
+  ReposEnableAutomatedSecurityFixesParamSchema,
+  ReposEnableVulnerabilityAlertsParamSchema,
+  ReposGetAccessRestrictionsParamSchema,
+  ReposGetAdminBranchProtectionParamSchema,
+  ReposGetAllStatusCheckContextsParamSchema,
+  ReposGetAllTopicsParamSchema,
+  ReposGetAppsWithAccessToProtectedBranchParamSchema,
+  ReposGetBranchParamSchema,
+  ReposGetBranchProtectionParamSchema,
+  ReposGetClonesParamSchema,
+  ReposGetClonesQuerySchema,
+  ReposGetCodeFrequencyStatsParamSchema,
+  ReposGetCollaboratorPermissionLevelParamSchema,
+  ReposGetCombinedStatusForRefParamSchema,
+  ReposGetCommitActivityStatsParamSchema,
+  ReposGetCommitCommentParamSchema,
+  ReposGetCommitParamSchema,
+  ReposGetCommitSignatureProtectionParamSchema,
+  ReposGetCommunityProfileMetricsParamSchema,
+  ReposGetContentParamSchema,
+  ReposGetContentQuerySchema,
+  ReposGetContributorsStatsParamSchema,
+  ReposGetDeployKeyParamSchema,
+  ReposGetDeploymentParamSchema,
+  ReposGetDeploymentStatusParamSchema,
+  ReposGetLatestPagesBuildParamSchema,
+  ReposGetLatestReleaseParamSchema,
+  ReposGetPagesBuildParamSchema,
+  ReposGetPagesParamSchema,
+  ReposGetParamSchema,
+  ReposGetParticipationStatsParamSchema,
+  ReposGetPullRequestReviewProtectionParamSchema,
+  ReposGetPunchCardStatsParamSchema,
+  ReposGetReadmeParamSchema,
+  ReposGetReadmeQuerySchema,
+  ReposGetReleaseAssetParamSchema,
+  ReposGetReleaseByTagParamSchema,
+  ReposGetReleaseParamSchema,
+  ReposGetStatusChecksProtectionParamSchema,
+  ReposGetTeamsWithAccessToProtectedBranchParamSchema,
+  ReposGetTopPathsParamSchema,
+  ReposGetTopReferrersParamSchema,
+  ReposGetUsersWithAccessToProtectedBranchParamSchema,
+  ReposGetViewsParamSchema,
+  ReposGetViewsQuerySchema,
+  ReposGetWebhookParamSchema,
+  ReposListBranchesForHeadCommitParamSchema,
+  ReposListBranchesParamSchema,
+  ReposListBranchesQuerySchema,
+  ReposListCollaboratorsParamSchema,
+  ReposListCollaboratorsQuerySchema,
+  ReposListCommentsForCommitParamSchema,
+  ReposListCommentsForCommitQuerySchema,
+  ReposListCommitCommentsForRepoParamSchema,
+  ReposListCommitCommentsForRepoQuerySchema,
+  ReposListCommitStatusesForRefParamSchema,
+  ReposListCommitStatusesForRefQuerySchema,
+  ReposListCommitsParamSchema,
+  ReposListCommitsQuerySchema,
+  ReposListContributorsParamSchema,
+  ReposListContributorsQuerySchema,
+  ReposListDeployKeysParamSchema,
+  ReposListDeployKeysQuerySchema,
+  ReposListDeploymentStatusesParamSchema,
+  ReposListDeploymentStatusesQuerySchema,
+  ReposListDeploymentsParamSchema,
+  ReposListDeploymentsQuerySchema,
+  ReposListForAuthenticatedUserQuerySchema,
+  ReposListForOrgParamSchema,
+  ReposListForOrgQuerySchema,
+  ReposListForUserParamSchema,
+  ReposListForUserQuerySchema,
+  ReposListForksParamSchema,
+  ReposListForksQuerySchema,
+  ReposListInvitationsForAuthenticatedUserQuerySchema,
+  ReposListInvitationsParamSchema,
+  ReposListInvitationsQuerySchema,
+  ReposListLanguagesParamSchema,
+  ReposListPagesBuildsParamSchema,
+  ReposListPagesBuildsQuerySchema,
+  ReposListPublicQuerySchema,
+  ReposListPullRequestsAssociatedWithCommitParamSchema,
+  ReposListPullRequestsAssociatedWithCommitQuerySchema,
+  ReposListReleaseAssetsParamSchema,
+  ReposListReleaseAssetsQuerySchema,
+  ReposListReleasesParamSchema,
+  ReposListReleasesQuerySchema,
+  ReposListTagsParamSchema,
+  ReposListTagsQuerySchema,
+  ReposListTeamsParamSchema,
+  ReposListTeamsQuerySchema,
+  ReposListWebhooksParamSchema,
+  ReposListWebhooksQuerySchema,
+  ReposMergeBodySchema,
+  ReposMergeParamSchema,
+  ReposPingWebhookParamSchema,
+  ReposRemoveAppAccessRestrictionsBodySchema,
+  ReposRemoveAppAccessRestrictionsParamSchema,
+  ReposRemoveCollaboratorParamSchema,
+  ReposRemoveStatusCheckContextsBodySchema,
+  ReposRemoveStatusCheckContextsParamSchema,
+  ReposRemoveStatusCheckProtectionParamSchema,
+  ReposRemoveTeamAccessRestrictionsBodySchema,
+  ReposRemoveTeamAccessRestrictionsParamSchema,
+  ReposRemoveUserAccessRestrictionsBodySchema,
+  ReposRemoveUserAccessRestrictionsParamSchema,
+  ReposReplaceAllTopicsBodySchema,
+  ReposReplaceAllTopicsParamSchema,
+  ReposRequestPagesBuildParamSchema,
+  ReposSetAdminBranchProtectionParamSchema,
+  ReposSetAppAccessRestrictionsBodySchema,
+  ReposSetAppAccessRestrictionsParamSchema,
+  ReposSetStatusCheckContextsBodySchema,
+  ReposSetStatusCheckContextsParamSchema,
+  ReposSetTeamAccessRestrictionsBodySchema,
+  ReposSetTeamAccessRestrictionsParamSchema,
+  ReposSetUserAccessRestrictionsBodySchema,
+  ReposSetUserAccessRestrictionsParamSchema,
+  ReposTestPushWebhookParamSchema,
+  ReposTransferBodySchema,
+  ReposTransferParamSchema,
+  ReposUpdateBodySchema,
+  ReposUpdateBranchProtectionBodySchema,
+  ReposUpdateBranchProtectionParamSchema,
+  ReposUpdateCommitCommentBodySchema,
+  ReposUpdateCommitCommentParamSchema,
+  ReposUpdateInformationAboutPagesSiteBodySchema,
+  ReposUpdateInformationAboutPagesSiteParamSchema,
+  ReposUpdateInvitationBodySchema,
+  ReposUpdateInvitationParamSchema,
+  ReposUpdateParamSchema,
+  ReposUpdatePullRequestReviewProtectionBodySchema,
+  ReposUpdatePullRequestReviewProtectionParamSchema,
+  ReposUpdateReleaseAssetBodySchema,
+  ReposUpdateReleaseAssetParamSchema,
+  ReposUpdateReleaseBodySchema,
+  ReposUpdateReleaseParamSchema,
+  ReposUpdateStatusCheckPotectionBodySchema,
+  ReposUpdateStatusCheckPotectionParamSchema,
+  ReposUpdateWebhookBodySchema,
+  ReposUpdateWebhookParamSchema,
+  ReposUploadReleaseAssetBodySchema,
+  ReposUploadReleaseAssetParamSchema,
+  ReposUploadReleaseAssetQuerySchema,
+  ScimDeleteUserFromOrgParamSchema,
+  ScimGetProvisioningInformationForUserParamSchema,
+  ScimListProvisionedIdentitiesParamSchema,
+  ScimListProvisionedIdentitiesQuerySchema,
+  ScimProvisionAndInviteUserParamSchema,
+  ScimSetInformationForProvisionedUserParamSchema,
+  ScimUpdateAttributeForUserParamSchema,
+  SearchCodeQuerySchema,
+  SearchCommitsQuerySchema,
+  SearchIssuesAndPullRequestsQuerySchema,
+  SearchLabelsQuerySchema,
+  SearchReposQuerySchema,
+  SearchTopicsQuerySchema,
+  SearchUsersQuerySchema,
+  TeamsAddMemberLegacyParamSchema,
+  TeamsAddOrUpdateMembershipForUserInOrgBodySchema,
+  TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
+  TeamsAddOrUpdateMembershipForUserLegacyBodySchema,
+  TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
+  TeamsAddOrUpdateProjectPermissionsInOrgBodySchema,
+  TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
+  TeamsAddOrUpdateProjectPermissionsLegacyBodySchema,
+  TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
+  TeamsAddOrUpdateRepoPermissionsInOrgBodySchema,
+  TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
+  TeamsAddOrUpdateRepoPermissionsLegacyBodySchema,
+  TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
+  TeamsCheckPermissionsForProjectInOrgParamSchema,
+  TeamsCheckPermissionsForProjectLegacyParamSchema,
+  TeamsCheckPermissionsForRepoInOrgParamSchema,
+  TeamsCheckPermissionsForRepoLegacyParamSchema,
+  TeamsCreateBodySchema,
+  TeamsCreateDiscussionCommentInOrgBodySchema,
+  TeamsCreateDiscussionCommentInOrgParamSchema,
+  TeamsCreateDiscussionCommentLegacyBodySchema,
+  TeamsCreateDiscussionCommentLegacyParamSchema,
+  TeamsCreateDiscussionInOrgBodySchema,
+  TeamsCreateDiscussionInOrgParamSchema,
+  TeamsCreateDiscussionLegacyBodySchema,
+  TeamsCreateDiscussionLegacyParamSchema,
+  TeamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema,
+  TeamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema,
+  TeamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema,
+  TeamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema,
+  TeamsCreateParamSchema,
+  TeamsDeleteDiscussionCommentInOrgParamSchema,
+  TeamsDeleteDiscussionCommentLegacyParamSchema,
+  TeamsDeleteDiscussionInOrgParamSchema,
+  TeamsDeleteDiscussionLegacyParamSchema,
+  TeamsDeleteInOrgParamSchema,
+  TeamsDeleteLegacyParamSchema,
+  TeamsGetByNameParamSchema,
+  TeamsGetDiscussionCommentInOrgParamSchema,
+  TeamsGetDiscussionCommentLegacyParamSchema,
+  TeamsGetDiscussionInOrgParamSchema,
+  TeamsGetDiscussionLegacyParamSchema,
+  TeamsGetLegacyParamSchema,
+  TeamsGetMemberLegacyParamSchema,
+  TeamsGetMembershipForUserInOrgParamSchema,
+  TeamsGetMembershipForUserLegacyParamSchema,
+  TeamsListChildInOrgParamSchema,
+  TeamsListChildInOrgQuerySchema,
+  TeamsListChildLegacyParamSchema,
+  TeamsListChildLegacyQuerySchema,
+  TeamsListDiscussionCommentsInOrgParamSchema,
+  TeamsListDiscussionCommentsInOrgQuerySchema,
+  TeamsListDiscussionCommentsLegacyParamSchema,
+  TeamsListDiscussionCommentsLegacyQuerySchema,
+  TeamsListDiscussionsInOrgParamSchema,
+  TeamsListDiscussionsInOrgQuerySchema,
+  TeamsListDiscussionsLegacyParamSchema,
+  TeamsListDiscussionsLegacyQuerySchema,
+  TeamsListForAuthenticatedUserQuerySchema,
+  TeamsListIdPGroupsForLegacyParamSchema,
+  TeamsListIdPGroupsForOrgParamSchema,
+  TeamsListIdPGroupsForOrgQuerySchema,
+  TeamsListIdPGroupsInOrgParamSchema,
+  TeamsListMembersInOrgParamSchema,
+  TeamsListMembersInOrgQuerySchema,
+  TeamsListMembersLegacyParamSchema,
+  TeamsListMembersLegacyQuerySchema,
+  TeamsListParamSchema,
+  TeamsListPendingInvitationsInOrgParamSchema,
+  TeamsListPendingInvitationsInOrgQuerySchema,
+  TeamsListPendingInvitationsLegacyParamSchema,
+  TeamsListPendingInvitationsLegacyQuerySchema,
+  TeamsListProjectsInOrgParamSchema,
+  TeamsListProjectsInOrgQuerySchema,
+  TeamsListProjectsLegacyParamSchema,
+  TeamsListProjectsLegacyQuerySchema,
+  TeamsListQuerySchema,
+  TeamsListReposInOrgParamSchema,
+  TeamsListReposInOrgQuerySchema,
+  TeamsListReposLegacyParamSchema,
+  TeamsListReposLegacyQuerySchema,
+  TeamsRemoveMemberLegacyParamSchema,
+  TeamsRemoveMembershipForUserInOrgParamSchema,
+  TeamsRemoveMembershipForUserLegacyParamSchema,
+  TeamsRemoveProjectInOrgParamSchema,
+  TeamsRemoveProjectLegacyParamSchema,
+  TeamsRemoveRepoInOrgParamSchema,
+  TeamsRemoveRepoLegacyParamSchema,
+  TeamsUpdateDiscussionCommentInOrgBodySchema,
+  TeamsUpdateDiscussionCommentInOrgParamSchema,
+  TeamsUpdateDiscussionCommentLegacyBodySchema,
+  TeamsUpdateDiscussionCommentLegacyParamSchema,
+  TeamsUpdateDiscussionInOrgBodySchema,
+  TeamsUpdateDiscussionInOrgParamSchema,
+  TeamsUpdateDiscussionLegacyBodySchema,
+  TeamsUpdateDiscussionLegacyParamSchema,
+  TeamsUpdateInOrgBodySchema,
+  TeamsUpdateInOrgParamSchema,
+  TeamsUpdateLegacyBodySchema,
+  TeamsUpdateLegacyParamSchema,
+  UsersAddEmailForAuthenticatedBodySchema,
+  UsersBlockParamSchema,
+  UsersCheckBlockedParamSchema,
+  UsersCheckFollowingForUserParamSchema,
+  UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
+  UsersCreateGpgKeyForAuthenticatedBodySchema,
+  UsersCreatePublicSshKeyForAuthenticatedBodySchema,
+  UsersDeleteEmailForAuthenticatedBodySchema,
+  UsersDeleteGpgKeyForAuthenticatedParamSchema,
+  UsersDeletePublicSshKeyForAuthenticatedParamSchema,
+  UsersFollowParamSchema,
+  UsersGetByUsernameParamSchema,
+  UsersGetContextForUserParamSchema,
+  UsersGetContextForUserQuerySchema,
+  UsersGetGpgKeyForAuthenticatedParamSchema,
+  UsersGetPublicSshKeyForAuthenticatedParamSchema,
+  UsersListEmailsForAuthenticatedQuerySchema,
+  UsersListFollowedByAuthenticatedQuerySchema,
+  UsersListFollowersForAuthenticatedUserQuerySchema,
+  UsersListFollowersForUserParamSchema,
+  UsersListFollowersForUserQuerySchema,
+  UsersListFollowingForUserParamSchema,
+  UsersListFollowingForUserQuerySchema,
+  UsersListGpgKeysForAuthenticatedQuerySchema,
+  UsersListGpgKeysForUserParamSchema,
+  UsersListGpgKeysForUserQuerySchema,
+  UsersListPublicEmailsForAuthenticatedQuerySchema,
+  UsersListPublicKeysForUserParamSchema,
+  UsersListPublicKeysForUserQuerySchema,
+  UsersListPublicSshKeysForAuthenticatedQuerySchema,
+  UsersListQuerySchema,
+  UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema,
+  UsersUnblockParamSchema,
+  UsersUnfollowParamSchema,
+  UsersUpdateAuthenticatedBodySchema,
+} from "./models"
 import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
@@ -13,34 +888,54 @@ import koaBody from "koa-body"
 
 function paramValidationFactory<Type>(
   schema: joi.Schema
-): Middleware<{}, { params: Type }> {
-  return function (ctx: Context, next: Next) {
+): Middleware<{ params: Type }> {
+  return async function (ctx: Context, next: Next) {
     const result = schema.validate(ctx.params, { stripUnknown: true })
 
     if (result.error) {
       throw new Error("validation error")
     }
 
-    ctx.params = result.value
+    ctx.state.params = result.value
 
-    next()
+    return next()
   }
 }
 
 function queryValidationFactory<Type>(
   schema: joi.Schema
-): Middleware<{}, { query: Type }> {
-  return function (ctx: Context, next: Next) {
+): Middleware<{ query: Type }> {
+  return async function (ctx: Context, next: Next) {
     const result = schema.validate(ctx.query, { stripUnknown: true })
 
     if (result.error) {
       throw new Error("validation error")
     }
 
-    ctx.query = result.value
+    ctx.state.query = result.value
 
-    next()
+    return next()
   }
+}
+
+function bodyValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{ body: Type }> {
+  return async function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.query, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.state.body = result.value
+
+    return next()
+  }
+}
+
+interface ValidatedCtx<Params, Query, Body> extends Context {
+  state: { params: Params; query: Query; body: Body }
 }
 
 const PORT = 3000
@@ -53,25 +948,35 @@ server.use(koaBody())
 
 const router = new KoaRouter()
 
-router.get("appsGetAuthenticated", "/app", async (ctx, next) => {
-  //region safe-edit-region-appsGetAuthenticated
+router.get(
+  "appsGetAuthenticated",
+  "/app",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-appsGetAuthenticated
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-appsGetAuthenticated
-})
+    //endregion safe-edit-region-appsGetAuthenticated
+  }
+)
 
 const appsCreateFromManifestParamSchema = joi
   .object()
   .keys({ code: joi.string().required() })
+  .required()
 
 router.post(
   "appsCreateFromManifest",
   "/app-manifests/:code/conversions",
-  paramValidationFactory<any>(appsCreateFromManifestParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsCreateFromManifestParamSchema>(
+    appsCreateFromManifestParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsCreateFromManifestParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsCreateFromManifest
 
     ctx.status = 501
@@ -85,12 +990,18 @@ router.post(
 const appsListInstallationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListInstallations",
   "/app/installations",
-  queryValidationFactory<any>(appsListInstallationsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<AppsListInstallationsQuerySchema>(
+    appsListInstallationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, AppsListInstallationsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-appsListInstallations
 
     ctx.status = 501
@@ -104,12 +1015,18 @@ router.get(
 const appsGetInstallationParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
 
 router.get(
   "appsGetInstallation",
   "/app/installations/:installationId",
-  paramValidationFactory<any>(appsGetInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetInstallationParamSchema>(
+    appsGetInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsGetInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsGetInstallation
 
     ctx.status = 501
@@ -123,12 +1040,18 @@ router.get(
 const appsDeleteInstallationParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
 
 router.delete(
   "appsDeleteInstallation",
   "/app/installations/:installationId",
-  paramValidationFactory<any>(appsDeleteInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsDeleteInstallationParamSchema>(
+    appsDeleteInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsDeleteInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsDeleteInstallation
 
     ctx.status = 501
@@ -142,12 +1065,33 @@ router.delete(
 const appsCreateInstallationAccessTokenParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
+
+const appsCreateInstallationAccessTokenBodySchema = joi
+  .object()
+  .keys({
+    repository_ids: joi.array().items(joi.number()),
+    permissions: joi.object().keys({}),
+  })
+  .required()
 
 router.post(
   "appsCreateInstallationAccessToken",
   "/app/installations/:installationId/access_tokens",
-  paramValidationFactory<any>(appsCreateInstallationAccessTokenParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsCreateInstallationAccessTokenParamSchema>(
+    appsCreateInstallationAccessTokenParamSchema
+  ),
+  bodyValidationFactory<AppsCreateInstallationAccessTokenBodySchema>(
+    appsCreateInstallationAccessTokenBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsCreateInstallationAccessTokenParamSchema,
+      void,
+      AppsCreateInstallationAccessTokenBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsCreateInstallationAccessToken
 
     ctx.status = 501
@@ -161,12 +1105,18 @@ router.post(
 const appsSuspendInstallationParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
 
 router.put(
   "appsSuspendInstallation",
   "/app/installations/:installationId/suspended",
-  paramValidationFactory<any>(appsSuspendInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsSuspendInstallationParamSchema>(
+    appsSuspendInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsSuspendInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsSuspendInstallation
 
     ctx.status = 501
@@ -180,12 +1130,18 @@ router.put(
 const appsUnsuspendInstallationParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
 
 router.delete(
   "appsUnsuspendInstallation",
   "/app/installations/:installationId/suspended",
-  paramValidationFactory<any>(appsUnsuspendInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsUnsuspendInstallationParamSchema>(
+    appsUnsuspendInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsUnsuspendInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsUnsuspendInstallation
 
     ctx.status = 501
@@ -199,12 +1155,18 @@ router.delete(
 const oauthAuthorizationsListGrantsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "oauthAuthorizationsListGrants",
   "/applications/grants",
-  queryValidationFactory<any>(oauthAuthorizationsListGrantsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<OauthAuthorizationsListGrantsQuerySchema>(
+    oauthAuthorizationsListGrantsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, OauthAuthorizationsListGrantsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsListGrants
 
     ctx.status = 501
@@ -218,12 +1180,18 @@ router.get(
 const oauthAuthorizationsGetGrantParamSchema = joi
   .object()
   .keys({ grant_id: joi.number().required() })
+  .required()
 
 router.get(
   "oauthAuthorizationsGetGrant",
   "/applications/grants/:grantId",
-  paramValidationFactory<any>(oauthAuthorizationsGetGrantParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OauthAuthorizationsGetGrantParamSchema>(
+    oauthAuthorizationsGetGrantParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OauthAuthorizationsGetGrantParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsGetGrant
 
     ctx.status = 501
@@ -237,12 +1205,18 @@ router.get(
 const oauthAuthorizationsDeleteGrantParamSchema = joi
   .object()
   .keys({ grant_id: joi.number().required() })
+  .required()
 
 router.delete(
   "oauthAuthorizationsDeleteGrant",
   "/applications/grants/:grantId",
-  paramValidationFactory<any>(oauthAuthorizationsDeleteGrantParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OauthAuthorizationsDeleteGrantParamSchema>(
+    oauthAuthorizationsDeleteGrantParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OauthAuthorizationsDeleteGrantParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsDeleteGrant
 
     ctx.status = 501
@@ -256,12 +1230,30 @@ router.delete(
 const appsDeleteAuthorizationParamSchema = joi
   .object()
   .keys({ client_id: joi.string().required() })
+  .required()
+
+const appsDeleteAuthorizationBodySchema = joi
+  .object()
+  .keys({ access_token: joi.string() })
+  .required()
 
 router.delete(
   "appsDeleteAuthorization",
   "/applications/:clientId/grant",
-  paramValidationFactory<any>(appsDeleteAuthorizationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsDeleteAuthorizationParamSchema>(
+    appsDeleteAuthorizationParamSchema
+  ),
+  bodyValidationFactory<AppsDeleteAuthorizationBodySchema>(
+    appsDeleteAuthorizationBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsDeleteAuthorizationParamSchema,
+      void,
+      AppsDeleteAuthorizationBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsDeleteAuthorization
 
     ctx.status = 501
@@ -278,12 +1270,18 @@ const appsRevokeGrantForApplicationParamSchema = joi
     client_id: joi.string().required(),
     access_token: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "appsRevokeGrantForApplication",
   "/applications/:clientId/grants/:accessToken",
-  paramValidationFactory<any>(appsRevokeGrantForApplicationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsRevokeGrantForApplicationParamSchema>(
+    appsRevokeGrantForApplicationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsRevokeGrantForApplicationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsRevokeGrantForApplication
 
     ctx.status = 501
@@ -297,12 +1295,26 @@ router.delete(
 const appsCheckTokenParamSchema = joi
   .object()
   .keys({ client_id: joi.string().required() })
+  .required()
+
+const appsCheckTokenBodySchema = joi
+  .object()
+  .keys({ access_token: joi.string() })
+  .required()
 
 router.post(
   "appsCheckToken",
   "/applications/:clientId/token",
-  paramValidationFactory<any>(appsCheckTokenParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsCheckTokenParamSchema>(appsCheckTokenParamSchema),
+  bodyValidationFactory<AppsCheckTokenBodySchema>(appsCheckTokenBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      AppsCheckTokenParamSchema,
+      void,
+      AppsCheckTokenBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsCheckToken
 
     ctx.status = 501
@@ -316,12 +1328,26 @@ router.post(
 const appsResetTokenParamSchema = joi
   .object()
   .keys({ client_id: joi.string().required() })
+  .required()
+
+const appsResetTokenBodySchema = joi
+  .object()
+  .keys({ access_token: joi.string() })
+  .required()
 
 router.patch(
   "appsResetToken",
   "/applications/:clientId/token",
-  paramValidationFactory<any>(appsResetTokenParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsResetTokenParamSchema>(appsResetTokenParamSchema),
+  bodyValidationFactory<AppsResetTokenBodySchema>(appsResetTokenBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      AppsResetTokenParamSchema,
+      void,
+      AppsResetTokenBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsResetToken
 
     ctx.status = 501
@@ -335,12 +1361,28 @@ router.patch(
 const appsDeleteTokenParamSchema = joi
   .object()
   .keys({ client_id: joi.string().required() })
+  .required()
+
+const appsDeleteTokenBodySchema = joi
+  .object()
+  .keys({ access_token: joi.string() })
+  .required()
 
 router.delete(
   "appsDeleteToken",
   "/applications/:clientId/token",
-  paramValidationFactory<any>(appsDeleteTokenParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsDeleteTokenParamSchema>(
+    appsDeleteTokenParamSchema
+  ),
+  bodyValidationFactory<AppsDeleteTokenBodySchema>(appsDeleteTokenBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      AppsDeleteTokenParamSchema,
+      void,
+      AppsDeleteTokenBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsDeleteToken
 
     ctx.status = 501
@@ -357,12 +1399,18 @@ const appsCheckAuthorizationParamSchema = joi
     client_id: joi.string().required(),
     access_token: joi.string().required(),
   })
+  .required()
 
 router.get(
   "appsCheckAuthorization",
   "/applications/:clientId/tokens/:accessToken",
-  paramValidationFactory<any>(appsCheckAuthorizationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsCheckAuthorizationParamSchema>(
+    appsCheckAuthorizationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsCheckAuthorizationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsCheckAuthorization
 
     ctx.status = 501
@@ -379,12 +1427,18 @@ const appsResetAuthorizationParamSchema = joi
     client_id: joi.string().required(),
     access_token: joi.string().required(),
   })
+  .required()
 
 router.post(
   "appsResetAuthorization",
   "/applications/:clientId/tokens/:accessToken",
-  paramValidationFactory<any>(appsResetAuthorizationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsResetAuthorizationParamSchema>(
+    appsResetAuthorizationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsResetAuthorizationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsResetAuthorization
 
     ctx.status = 501
@@ -401,12 +1455,22 @@ const appsRevokeAuthorizationForApplicationParamSchema = joi
     client_id: joi.string().required(),
     access_token: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "appsRevokeAuthorizationForApplication",
   "/applications/:clientId/tokens/:accessToken",
-  paramValidationFactory<any>(appsRevokeAuthorizationForApplicationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsRevokeAuthorizationForApplicationParamSchema>(
+    appsRevokeAuthorizationForApplicationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsRevokeAuthorizationForApplicationParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsRevokeAuthorizationForApplication
 
     ctx.status = 501
@@ -420,12 +1484,13 @@ router.delete(
 const appsGetBySlugParamSchema = joi
   .object()
   .keys({ app_slug: joi.string().required() })
+  .required()
 
 router.get(
   "appsGetBySlug",
   "/apps/:appSlug",
-  paramValidationFactory<any>(appsGetBySlugParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetBySlugParamSchema>(appsGetBySlugParamSchema),
+  async (ctx: ValidatedCtx<AppsGetBySlugParamSchema, void, void>, next) => {
     //region safe-edit-region-appsGetBySlug
 
     ctx.status = 501
@@ -439,12 +1504,22 @@ router.get(
 const oauthAuthorizationsListAuthorizationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "oauthAuthorizationsListAuthorizations",
   "/authorizations",
-  queryValidationFactory<any>(oauthAuthorizationsListAuthorizationsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<OauthAuthorizationsListAuthorizationsQuerySchema>(
+    oauthAuthorizationsListAuthorizationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      OauthAuthorizationsListAuthorizationsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsListAuthorizations
 
     ctx.status = 501
@@ -455,10 +1530,32 @@ router.get(
   }
 )
 
+const oauthAuthorizationsCreateAuthorizationBodySchema = joi
+  .object()
+  .keys({
+    scopes: joi.array().items(joi.string()),
+    note: joi.string().required(),
+    note_url: joi.string(),
+    client_id: joi.string(),
+    client_secret: joi.string(),
+    fingerprint: joi.string(),
+  })
+  .required()
+
 router.post(
   "oauthAuthorizationsCreateAuthorization",
   "/authorizations",
-  async (ctx, next) => {
+  bodyValidationFactory<OauthAuthorizationsCreateAuthorizationBodySchema>(
+    oauthAuthorizationsCreateAuthorizationBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      void,
+      OauthAuthorizationsCreateAuthorizationBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsCreateAuthorization
 
     ctx.status = 501
@@ -472,14 +1569,36 @@ router.post(
 const oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema = joi
   .object()
   .keys({ client_id: joi.string().required() })
+  .required()
+
+const oauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema = joi
+  .object()
+  .keys({
+    client_secret: joi.string().required(),
+    scopes: joi.array().items(joi.string()),
+    note: joi.string(),
+    note_url: joi.string(),
+    fingerprint: joi.string(),
+  })
+  .required()
 
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForApp",
   "/authorizations/clients/:clientId",
-  paramValidationFactory<any>(
-    oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
+  >(oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema),
+  bodyValidationFactory<
+    OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema
+  >(oauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema,
+      void,
+      OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForApp
 
     ctx.status = 501
@@ -496,14 +1615,35 @@ const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
     client_id: joi.string().required(),
     fingerprint: joi.string().required(),
   })
+  .required()
+
+const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema = joi
+  .object()
+  .keys({
+    client_secret: joi.string().required(),
+    scopes: joi.array().items(joi.string()),
+    note: joi.string(),
+    note_url: joi.string(),
+  })
+  .required()
 
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint",
   "/authorizations/clients/:clientId/:fingerprint",
-  paramValidationFactory<any>(
-    oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
+  >(oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema),
+  bodyValidationFactory<
+    OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema
+  >(oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema,
+      void,
+      OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint
 
     ctx.status = 501
@@ -517,12 +1657,22 @@ router.put(
 const oauthAuthorizationsGetAuthorizationParamSchema = joi
   .object()
   .keys({ authorization_id: joi.number().required() })
+  .required()
 
 router.get(
   "oauthAuthorizationsGetAuthorization",
   "/authorizations/:authorizationId",
-  paramValidationFactory<any>(oauthAuthorizationsGetAuthorizationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OauthAuthorizationsGetAuthorizationParamSchema>(
+    oauthAuthorizationsGetAuthorizationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OauthAuthorizationsGetAuthorizationParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsGetAuthorization
 
     ctx.status = 501
@@ -536,14 +1686,37 @@ router.get(
 const oauthAuthorizationsUpdateAuthorizationParamSchema = joi
   .object()
   .keys({ authorization_id: joi.number().required() })
+  .required()
+
+const oauthAuthorizationsUpdateAuthorizationBodySchema = joi
+  .object()
+  .keys({
+    scopes: joi.array().items(joi.string()),
+    add_scopes: joi.array().items(joi.string()),
+    remove_scopes: joi.array().items(joi.string()),
+    note: joi.string(),
+    note_url: joi.string(),
+    fingerprint: joi.string(),
+  })
+  .required()
 
 router.patch(
   "oauthAuthorizationsUpdateAuthorization",
   "/authorizations/:authorizationId",
-  paramValidationFactory<any>(
+  paramValidationFactory<OauthAuthorizationsUpdateAuthorizationParamSchema>(
     oauthAuthorizationsUpdateAuthorizationParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<OauthAuthorizationsUpdateAuthorizationBodySchema>(
+    oauthAuthorizationsUpdateAuthorizationBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OauthAuthorizationsUpdateAuthorizationParamSchema,
+      void,
+      OauthAuthorizationsUpdateAuthorizationBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsUpdateAuthorization
 
     ctx.status = 501
@@ -557,14 +1730,22 @@ router.patch(
 const oauthAuthorizationsDeleteAuthorizationParamSchema = joi
   .object()
   .keys({ authorization_id: joi.number().required() })
+  .required()
 
 router.delete(
   "oauthAuthorizationsDeleteAuthorization",
   "/authorizations/:authorizationId",
-  paramValidationFactory<any>(
+  paramValidationFactory<OauthAuthorizationsDeleteAuthorizationParamSchema>(
     oauthAuthorizationsDeleteAuthorizationParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      OauthAuthorizationsDeleteAuthorizationParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-oauthAuthorizationsDeleteAuthorization
 
     ctx.status = 501
@@ -578,7 +1759,7 @@ router.delete(
 router.get(
   "codesOfConductGetAllCodesOfConduct",
   "/codes_of_conduct",
-  async (ctx, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
     //region safe-edit-region-codesOfConductGetAllCodesOfConduct
 
     ctx.status = 501
@@ -592,12 +1773,18 @@ router.get(
 const codesOfConductGetConductCodeParamSchema = joi
   .object()
   .keys({ key: joi.string().required() })
+  .required()
 
 router.get(
   "codesOfConductGetConductCode",
   "/codes_of_conduct/:key",
-  paramValidationFactory<any>(codesOfConductGetConductCodeParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<CodesOfConductGetConductCodeParamSchema>(
+    codesOfConductGetConductCodeParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<CodesOfConductGetConductCodeParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-codesOfConductGetConductCode
 
     ctx.status = 501
@@ -611,12 +1798,30 @@ router.get(
 const appsCreateContentAttachmentParamSchema = joi
   .object()
   .keys({ content_reference_id: joi.number().required() })
+  .required()
+
+const appsCreateContentAttachmentBodySchema = joi
+  .object()
+  .keys({ title: joi.string().required(), body: joi.string().required() })
+  .required()
 
 router.post(
   "appsCreateContentAttachment",
   "/content_references/:contentReferenceId/attachments",
-  paramValidationFactory<any>(appsCreateContentAttachmentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsCreateContentAttachmentParamSchema>(
+    appsCreateContentAttachmentParamSchema
+  ),
+  bodyValidationFactory<AppsCreateContentAttachmentBodySchema>(
+    appsCreateContentAttachmentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsCreateContentAttachmentParamSchema,
+      void,
+      AppsCreateContentAttachmentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsCreateContentAttachment
 
     ctx.status = 501
@@ -627,25 +1832,35 @@ router.post(
   }
 )
 
-router.get("emojisGet", "/emojis", async (ctx, next) => {
-  //region safe-edit-region-emojisGet
+router.get(
+  "emojisGet",
+  "/emojis",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-emojisGet
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-emojisGet
-})
+    //endregion safe-edit-region-emojisGet
+  }
+)
 
 const activityListPublicEventsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListPublicEvents",
   "/events",
-  queryValidationFactory<any>(activityListPublicEventsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<ActivityListPublicEventsQuerySchema>(
+    activityListPublicEventsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, ActivityListPublicEventsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-activityListPublicEvents
 
     ctx.status = 501
@@ -656,25 +1871,30 @@ router.get(
   }
 )
 
-router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
-  //region safe-edit-region-activityGetFeeds
+router.get(
+  "activityGetFeeds",
+  "/feeds",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-activityGetFeeds
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-activityGetFeeds
-})
+    //endregion safe-edit-region-activityGetFeeds
+  }
+)
 
 const gistsListQuerySchema = joi
   .object()
   .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsList",
   "/gists",
-  queryValidationFactory<any>(gistsListQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<GistsListQuerySchema>(gistsListQuerySchema),
+  async (ctx: ValidatedCtx<void, GistsListQuerySchema, void>, next) => {
     //region safe-edit-region-gistsList
 
     ctx.status = 501
@@ -685,25 +1905,42 @@ router.get(
   }
 )
 
-router.post("gistsCreate", "/gists", async (ctx, next) => {
-  //region safe-edit-region-gistsCreate
+const gistsCreateBodySchema = joi
+  .object()
+  .keys({
+    files: joi.object().keys({}).required(),
+    description: joi.string(),
+    public: joi.boolean(),
+  })
+  .required()
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+router.post(
+  "gistsCreate",
+  "/gists",
+  bodyValidationFactory<GistsCreateBodySchema>(gistsCreateBodySchema),
+  async (ctx: ValidatedCtx<void, void, GistsCreateBodySchema>, next) => {
+    //region safe-edit-region-gistsCreate
 
-  //endregion safe-edit-region-gistsCreate
-})
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+
+    //endregion safe-edit-region-gistsCreate
+  }
+)
 
 const gistsListPublicQuerySchema = joi
   .object()
   .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListPublic",
   "/gists/public",
-  queryValidationFactory<any>(gistsListPublicQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<GistsListPublicQuerySchema>(
+    gistsListPublicQuerySchema
+  ),
+  async (ctx: ValidatedCtx<void, GistsListPublicQuerySchema, void>, next) => {
     //region safe-edit-region-gistsListPublic
 
     ctx.status = 501
@@ -717,12 +1954,15 @@ router.get(
 const gistsListStarredQuerySchema = joi
   .object()
   .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListStarred",
   "/gists/starred",
-  queryValidationFactory<any>(gistsListStarredQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<GistsListStarredQuerySchema>(
+    gistsListStarredQuerySchema
+  ),
+  async (ctx: ValidatedCtx<void, GistsListStarredQuerySchema, void>, next) => {
     //region safe-edit-region-gistsListStarred
 
     ctx.status = 501
@@ -736,12 +1976,13 @@ router.get(
 const gistsGetParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.get(
   "gistsGet",
   "/gists/:gistId",
-  paramValidationFactory<any>(gistsGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsGetParamSchema>(gistsGetParamSchema),
+  async (ctx: ValidatedCtx<GistsGetParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsGet
 
     ctx.status = 501
@@ -755,12 +1996,22 @@ router.get(
 const gistsUpdateParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
+
+const gistsUpdateBodySchema = joi
+  .object()
+  .keys({ description: joi.string(), files: joi.object().keys({}) })
+  .required()
 
 router.patch(
   "gistsUpdate",
   "/gists/:gistId",
-  paramValidationFactory<any>(gistsUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsUpdateParamSchema>(gistsUpdateParamSchema),
+  bodyValidationFactory<GistsUpdateBodySchema>(gistsUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<GistsUpdateParamSchema, void, GistsUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gistsUpdate
 
     ctx.status = 501
@@ -774,12 +2025,13 @@ router.patch(
 const gistsDeleteParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.delete(
   "gistsDelete",
   "/gists/:gistId",
-  paramValidationFactory<any>(gistsDeleteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsDeleteParamSchema>(gistsDeleteParamSchema),
+  async (ctx: ValidatedCtx<GistsDeleteParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsDelete
 
     ctx.status = 501
@@ -793,17 +2045,30 @@ router.delete(
 const gistsListCommentsParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 const gistsListCommentsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListComments",
   "/gists/:gistId/comments",
-  paramValidationFactory<any>(gistsListCommentsParamSchema),
-  queryValidationFactory<any>(gistsListCommentsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsListCommentsParamSchema>(
+    gistsListCommentsParamSchema
+  ),
+  queryValidationFactory<GistsListCommentsQuerySchema>(
+    gistsListCommentsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GistsListCommentsParamSchema,
+      GistsListCommentsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsListComments
 
     ctx.status = 501
@@ -817,12 +2082,30 @@ router.get(
 const gistsCreateCommentParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
+
+const gistsCreateCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.post(
   "gistsCreateComment",
   "/gists/:gistId/comments",
-  paramValidationFactory<any>(gistsCreateCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsCreateCommentParamSchema>(
+    gistsCreateCommentParamSchema
+  ),
+  bodyValidationFactory<GistsCreateCommentBodySchema>(
+    gistsCreateCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GistsCreateCommentParamSchema,
+      void,
+      GistsCreateCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsCreateComment
 
     ctx.status = 501
@@ -839,12 +2122,15 @@ const gistsGetCommentParamSchema = joi
     gist_id: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "gistsGetComment",
   "/gists/:gistId/comments/:commentId",
-  paramValidationFactory<any>(gistsGetCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsGetCommentParamSchema>(
+    gistsGetCommentParamSchema
+  ),
+  async (ctx: ValidatedCtx<GistsGetCommentParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsGetComment
 
     ctx.status = 501
@@ -861,12 +2147,30 @@ const gistsUpdateCommentParamSchema = joi
     gist_id: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const gistsUpdateCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "gistsUpdateComment",
   "/gists/:gistId/comments/:commentId",
-  paramValidationFactory<any>(gistsUpdateCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsUpdateCommentParamSchema>(
+    gistsUpdateCommentParamSchema
+  ),
+  bodyValidationFactory<GistsUpdateCommentBodySchema>(
+    gistsUpdateCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GistsUpdateCommentParamSchema,
+      void,
+      GistsUpdateCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsUpdateComment
 
     ctx.status = 501
@@ -883,12 +2187,18 @@ const gistsDeleteCommentParamSchema = joi
     gist_id: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "gistsDeleteComment",
   "/gists/:gistId/comments/:commentId",
-  paramValidationFactory<any>(gistsDeleteCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsDeleteCommentParamSchema>(
+    gistsDeleteCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<GistsDeleteCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-gistsDeleteComment
 
     ctx.status = 501
@@ -902,17 +2212,30 @@ router.delete(
 const gistsListCommitsParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 const gistsListCommitsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListCommits",
   "/gists/:gistId/commits",
-  paramValidationFactory<any>(gistsListCommitsParamSchema),
-  queryValidationFactory<any>(gistsListCommitsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsListCommitsParamSchema>(
+    gistsListCommitsParamSchema
+  ),
+  queryValidationFactory<GistsListCommitsQuerySchema>(
+    gistsListCommitsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GistsListCommitsParamSchema,
+      GistsListCommitsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsListCommits
 
     ctx.status = 501
@@ -926,12 +2249,13 @@ router.get(
 const gistsForkParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.post(
   "gistsFork",
   "/gists/:gistId/forks",
-  paramValidationFactory<any>(gistsForkParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsForkParamSchema>(gistsForkParamSchema),
+  async (ctx: ValidatedCtx<GistsForkParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsFork
 
     ctx.status = 501
@@ -945,17 +2269,26 @@ router.post(
 const gistsListForksParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 const gistsListForksQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListForks",
   "/gists/:gistId/forks",
-  paramValidationFactory<any>(gistsListForksParamSchema),
-  queryValidationFactory<any>(gistsListForksQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsListForksParamSchema>(gistsListForksParamSchema),
+  queryValidationFactory<GistsListForksQuerySchema>(gistsListForksQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      GistsListForksParamSchema,
+      GistsListForksQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsListForks
 
     ctx.status = 501
@@ -969,12 +2302,13 @@ router.get(
 const gistsStarParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.put(
   "gistsStar",
   "/gists/:gistId/star",
-  paramValidationFactory<any>(gistsStarParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsStarParamSchema>(gistsStarParamSchema),
+  async (ctx: ValidatedCtx<GistsStarParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsStar
 
     ctx.status = 501
@@ -988,12 +2322,13 @@ router.put(
 const gistsUnstarParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.delete(
   "gistsUnstar",
   "/gists/:gistId/star",
-  paramValidationFactory<any>(gistsUnstarParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsUnstarParamSchema>(gistsUnstarParamSchema),
+  async (ctx: ValidatedCtx<GistsUnstarParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsUnstar
 
     ctx.status = 501
@@ -1007,12 +2342,18 @@ router.delete(
 const gistsCheckIsStarredParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required() })
+  .required()
 
 router.get(
   "gistsCheckIsStarred",
   "/gists/:gistId/star",
-  paramValidationFactory<any>(gistsCheckIsStarredParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsCheckIsStarredParamSchema>(
+    gistsCheckIsStarredParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<GistsCheckIsStarredParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-gistsCheckIsStarred
 
     ctx.status = 501
@@ -1026,12 +2367,15 @@ router.get(
 const gistsGetRevisionParamSchema = joi
   .object()
   .keys({ gist_id: joi.string().required(), sha: joi.string().required() })
+  .required()
 
 router.get(
   "gistsGetRevision",
   "/gists/:gistId/:sha",
-  paramValidationFactory<any>(gistsGetRevisionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsGetRevisionParamSchema>(
+    gistsGetRevisionParamSchema
+  ),
+  async (ctx: ValidatedCtx<GistsGetRevisionParamSchema, void, void>, next) => {
     //region safe-edit-region-gistsGetRevision
 
     ctx.status = 501
@@ -1045,7 +2389,7 @@ router.get(
 router.get(
   "gitignoreGetAllTemplates",
   "/gitignore/templates",
-  async (ctx, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
     //region safe-edit-region-gitignoreGetAllTemplates
 
     ctx.status = 501
@@ -1059,12 +2403,18 @@ router.get(
 const gitignoreGetTemplateParamSchema = joi
   .object()
   .keys({ name: joi.string().required() })
+  .required()
 
 router.get(
   "gitignoreGetTemplate",
   "/gitignore/templates/:name",
-  paramValidationFactory<any>(gitignoreGetTemplateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitignoreGetTemplateParamSchema>(
+    gitignoreGetTemplateParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<GitignoreGetTemplateParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-gitignoreGetTemplate
 
     ctx.status = 501
@@ -1078,12 +2428,22 @@ router.get(
 const appsListReposAccessibleToInstallationQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListReposAccessibleToInstallation",
   "/installation/repositories",
-  queryValidationFactory<any>(appsListReposAccessibleToInstallationQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<AppsListReposAccessibleToInstallationQuerySchema>(
+    appsListReposAccessibleToInstallationQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      AppsListReposAccessibleToInstallationQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListReposAccessibleToInstallation
 
     ctx.status = 501
@@ -1097,7 +2457,7 @@ router.get(
 router.delete(
   "appsRevokeInstallationAccessToken",
   "/installation/token",
-  async (ctx, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
     //region safe-edit-region-appsRevokeInstallationAccessToken
 
     ctx.status = 501
@@ -1120,12 +2480,13 @@ const issuesListQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesList",
   "/issues",
-  queryValidationFactory<any>(issuesListQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<IssuesListQuerySchema>(issuesListQuerySchema),
+  async (ctx: ValidatedCtx<void, IssuesListQuerySchema, void>, next) => {
     //region safe-edit-region-issuesList
 
     ctx.status = 501
@@ -1136,25 +2497,30 @@ router.get(
   }
 )
 
-router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
-  //region safe-edit-region-licensesGetAllCommonlyUsed
+router.get(
+  "licensesGetAllCommonlyUsed",
+  "/licenses",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-licensesGetAllCommonlyUsed
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-licensesGetAllCommonlyUsed
-})
+    //endregion safe-edit-region-licensesGetAllCommonlyUsed
+  }
+)
 
 const licensesGetParamSchema = joi
   .object()
   .keys({ license: joi.string().required() })
+  .required()
 
 router.get(
   "licensesGet",
   "/licenses/:license",
-  paramValidationFactory<any>(licensesGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<LicensesGetParamSchema>(licensesGetParamSchema),
+  async (ctx: ValidatedCtx<LicensesGetParamSchema, void, void>, next) => {
     //region safe-edit-region-licensesGet
 
     ctx.status = 501
@@ -1165,35 +2531,64 @@ router.get(
   }
 )
 
-router.post("markdownRender", "/markdown", async (ctx, next) => {
-  //region safe-edit-region-markdownRender
+const markdownRenderBodySchema = joi
+  .object()
+  .keys({
+    text: joi.string().required(),
+    mode: joi.string(),
+    context: joi.string(),
+  })
+  .required()
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+router.post(
+  "markdownRender",
+  "/markdown",
+  bodyValidationFactory<MarkdownRenderBodySchema>(markdownRenderBodySchema),
+  async (ctx: ValidatedCtx<void, void, MarkdownRenderBodySchema>, next) => {
+    //region safe-edit-region-markdownRender
 
-  //endregion safe-edit-region-markdownRender
-})
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-router.post("markdownRenderRaw", "/markdown/raw", async (ctx, next) => {
-  //region safe-edit-region-markdownRenderRaw
+    //endregion safe-edit-region-markdownRender
+  }
+)
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+const markdownRenderRawBodySchema = joi.string().required()
 
-  //endregion safe-edit-region-markdownRenderRaw
-})
+router.post(
+  "markdownRenderRaw",
+  "/markdown/raw",
+  bodyValidationFactory<MarkdownRenderRawBodySchema>(
+    markdownRenderRawBodySchema
+  ),
+  async (ctx: ValidatedCtx<void, void, MarkdownRenderRawBodySchema>, next) => {
+    //region safe-edit-region-markdownRenderRaw
+
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+
+    //endregion safe-edit-region-markdownRenderRaw
+  }
+)
 
 const appsGetSubscriptionPlanForAccountParamSchema = joi
   .object()
   .keys({ account_id: joi.number().required() })
+  .required()
 
 router.get(
   "appsGetSubscriptionPlanForAccount",
   "/marketplace_listing/accounts/:accountId",
-  paramValidationFactory<any>(appsGetSubscriptionPlanForAccountParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetSubscriptionPlanForAccountParamSchema>(
+    appsGetSubscriptionPlanForAccountParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsGetSubscriptionPlanForAccountParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsGetSubscriptionPlanForAccount
 
     ctx.status = 501
@@ -1207,12 +2602,13 @@ router.get(
 const appsListPlansQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListPlans",
   "/marketplace_listing/plans",
-  queryValidationFactory<any>(appsListPlansQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<AppsListPlansQuerySchema>(appsListPlansQuerySchema),
+  async (ctx: ValidatedCtx<void, AppsListPlansQuerySchema, void>, next) => {
     //region safe-edit-region-appsListPlans
 
     ctx.status = 501
@@ -1226,6 +2622,7 @@ router.get(
 const appsListAccountsForPlanParamSchema = joi
   .object()
   .keys({ plan_id: joi.number().required() })
+  .required()
 
 const appsListAccountsForPlanQuerySchema = joi
   .object()
@@ -1235,13 +2632,25 @@ const appsListAccountsForPlanQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "appsListAccountsForPlan",
   "/marketplace_listing/plans/:planId/accounts",
-  paramValidationFactory<any>(appsListAccountsForPlanParamSchema),
-  queryValidationFactory<any>(appsListAccountsForPlanQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsListAccountsForPlanParamSchema>(
+    appsListAccountsForPlanParamSchema
+  ),
+  queryValidationFactory<AppsListAccountsForPlanQuerySchema>(
+    appsListAccountsForPlanQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsListAccountsForPlanParamSchema,
+      AppsListAccountsForPlanQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListAccountsForPlan
 
     ctx.status = 501
@@ -1255,14 +2664,22 @@ router.get(
 const appsGetSubscriptionPlanForAccountStubbedParamSchema = joi
   .object()
   .keys({ account_id: joi.number().required() })
+  .required()
 
 router.get(
   "appsGetSubscriptionPlanForAccountStubbed",
   "/marketplace_listing/stubbed/accounts/:accountId",
-  paramValidationFactory<any>(
+  paramValidationFactory<AppsGetSubscriptionPlanForAccountStubbedParamSchema>(
     appsGetSubscriptionPlanForAccountStubbedParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      AppsGetSubscriptionPlanForAccountStubbedParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsGetSubscriptionPlanForAccountStubbed
 
     ctx.status = 501
@@ -1276,12 +2693,18 @@ router.get(
 const appsListPlansStubbedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListPlansStubbed",
   "/marketplace_listing/stubbed/plans",
-  queryValidationFactory<any>(appsListPlansStubbedQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<AppsListPlansStubbedQuerySchema>(
+    appsListPlansStubbedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, AppsListPlansStubbedQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-appsListPlansStubbed
 
     ctx.status = 501
@@ -1295,6 +2718,7 @@ router.get(
 const appsListAccountsForPlanStubbedParamSchema = joi
   .object()
   .keys({ plan_id: joi.number().required() })
+  .required()
 
 const appsListAccountsForPlanStubbedQuerySchema = joi
   .object()
@@ -1304,13 +2728,25 @@ const appsListAccountsForPlanStubbedQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "appsListAccountsForPlanStubbed",
   "/marketplace_listing/stubbed/plans/:planId/accounts",
-  paramValidationFactory<any>(appsListAccountsForPlanStubbedParamSchema),
-  queryValidationFactory<any>(appsListAccountsForPlanStubbedQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsListAccountsForPlanStubbedParamSchema>(
+    appsListAccountsForPlanStubbedParamSchema
+  ),
+  queryValidationFactory<AppsListAccountsForPlanStubbedQuerySchema>(
+    appsListAccountsForPlanStubbedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      AppsListAccountsForPlanStubbedParamSchema,
+      AppsListAccountsForPlanStubbedQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListAccountsForPlanStubbed
 
     ctx.status = 501
@@ -1321,34 +2757,47 @@ router.get(
   }
 )
 
-router.get("metaGet", "/meta", async (ctx, next) => {
-  //region safe-edit-region-metaGet
+router.get(
+  "metaGet",
+  "/meta",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-metaGet
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-metaGet
-})
+    //endregion safe-edit-region-metaGet
+  }
+)
 
 const activityListPublicEventsForRepoNetworkParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const activityListPublicEventsForRepoNetworkQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListPublicEventsForRepoNetwork",
   "/networks/:owner/:repo/events",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActivityListPublicEventsForRepoNetworkParamSchema>(
     activityListPublicEventsForRepoNetworkParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ActivityListPublicEventsForRepoNetworkQuerySchema>(
     activityListPublicEventsForRepoNetworkQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActivityListPublicEventsForRepoNetworkParamSchema,
+      ActivityListPublicEventsForRepoNetworkQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListPublicEventsForRepoNetwork
 
     ctx.status = 501
@@ -1369,14 +2818,22 @@ const activityListNotificationsForAuthenticatedUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "activityListNotificationsForAuthenticatedUser",
   "/notifications",
-  queryValidationFactory<any>(
-    activityListNotificationsForAuthenticatedUserQuerySchema
-  ),
-  async (ctx, next) => {
+  queryValidationFactory<
+    ActivityListNotificationsForAuthenticatedUserQuerySchema
+  >(activityListNotificationsForAuthenticatedUserQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      ActivityListNotificationsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListNotificationsForAuthenticatedUser
 
     ctx.status = 501
@@ -1387,10 +2844,21 @@ router.get(
   }
 )
 
+const activityMarkNotificationsAsReadBodySchema = joi
+  .object()
+  .keys({ last_read_at: joi.string() })
+  .required()
+
 router.put(
   "activityMarkNotificationsAsRead",
   "/notifications",
-  async (ctx, next) => {
+  bodyValidationFactory<ActivityMarkNotificationsAsReadBodySchema>(
+    activityMarkNotificationsAsReadBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, ActivityMarkNotificationsAsReadBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-activityMarkNotificationsAsRead
 
     ctx.status = 501
@@ -1404,12 +2872,15 @@ router.put(
 const activityGetThreadParamSchema = joi
   .object()
   .keys({ thread_id: joi.number().required() })
+  .required()
 
 router.get(
   "activityGetThread",
   "/notifications/threads/:threadId",
-  paramValidationFactory<any>(activityGetThreadParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityGetThreadParamSchema>(
+    activityGetThreadParamSchema
+  ),
+  async (ctx: ValidatedCtx<ActivityGetThreadParamSchema, void, void>, next) => {
     //region safe-edit-region-activityGetThread
 
     ctx.status = 501
@@ -1423,12 +2894,18 @@ router.get(
 const activityMarkThreadAsReadParamSchema = joi
   .object()
   .keys({ thread_id: joi.number().required() })
+  .required()
 
 router.patch(
   "activityMarkThreadAsRead",
   "/notifications/threads/:threadId",
-  paramValidationFactory<any>(activityMarkThreadAsReadParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityMarkThreadAsReadParamSchema>(
+    activityMarkThreadAsReadParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActivityMarkThreadAsReadParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-activityMarkThreadAsRead
 
     ctx.status = 501
@@ -1442,14 +2919,22 @@ router.patch(
 const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ thread_id: joi.number().required() })
+  .required()
 
 router.get(
   "activityGetThreadSubscriptionForAuthenticatedUser",
   "/notifications/threads/:threadId/subscription",
-  paramValidationFactory<any>(
-    activityGetThreadSubscriptionForAuthenticatedUserParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema
+  >(activityGetThreadSubscriptionForAuthenticatedUserParamSchema),
+  async (
+    ctx: ValidatedCtx<
+      ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityGetThreadSubscriptionForAuthenticatedUser
 
     ctx.status = 501
@@ -1463,12 +2948,30 @@ router.get(
 const activitySetThreadSubscriptionParamSchema = joi
   .object()
   .keys({ thread_id: joi.number().required() })
+  .required()
+
+const activitySetThreadSubscriptionBodySchema = joi
+  .object()
+  .keys({ ignored: joi.boolean() })
+  .required()
 
 router.put(
   "activitySetThreadSubscription",
   "/notifications/threads/:threadId/subscription",
-  paramValidationFactory<any>(activitySetThreadSubscriptionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivitySetThreadSubscriptionParamSchema>(
+    activitySetThreadSubscriptionParamSchema
+  ),
+  bodyValidationFactory<ActivitySetThreadSubscriptionBodySchema>(
+    activitySetThreadSubscriptionBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivitySetThreadSubscriptionParamSchema,
+      void,
+      ActivitySetThreadSubscriptionBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-activitySetThreadSubscription
 
     ctx.status = 501
@@ -1482,12 +2985,18 @@ router.put(
 const activityDeleteThreadSubscriptionParamSchema = joi
   .object()
   .keys({ thread_id: joi.number().required() })
+  .required()
 
 router.delete(
   "activityDeleteThreadSubscription",
   "/notifications/threads/:threadId/subscription",
-  paramValidationFactory<any>(activityDeleteThreadSubscriptionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityDeleteThreadSubscriptionParamSchema>(
+    activityDeleteThreadSubscriptionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActivityDeleteThreadSubscriptionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-activityDeleteThreadSubscription
 
     ctx.status = 501
@@ -1498,13 +3007,16 @@ router.delete(
   }
 )
 
-const orgsListQuerySchema = joi.object().keys({ since: joi.number() })
+const orgsListQuerySchema = joi
+  .object()
+  .keys({ since: joi.number() })
+  .required()
 
 router.get(
   "orgsList",
   "/organizations",
-  queryValidationFactory<any>(orgsListQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<OrgsListQuerySchema>(orgsListQuerySchema),
+  async (ctx: ValidatedCtx<void, OrgsListQuerySchema, void>, next) => {
     //region safe-edit-region-orgsList
 
     ctx.status = 501
@@ -1515,13 +3027,16 @@ router.get(
   }
 )
 
-const orgsGetParamSchema = joi.object().keys({ org: joi.string().required() })
+const orgsGetParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "orgsGet",
   "/orgs/:org",
-  paramValidationFactory<any>(orgsGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsGetParamSchema>(orgsGetParamSchema),
+  async (ctx: ValidatedCtx<OrgsGetParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsGet
 
     ctx.status = 501
@@ -1535,12 +3050,38 @@ router.get(
 const orgsUpdateParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const orgsUpdateBodySchema = joi
+  .object()
+  .keys({
+    billing_email: joi.string(),
+    company: joi.string(),
+    email: joi.string(),
+    twitter_username: joi.string(),
+    location: joi.string(),
+    name: joi.string(),
+    description: joi.string(),
+    has_organization_projects: joi.boolean(),
+    has_repository_projects: joi.boolean(),
+    default_repository_permission: joi.string(),
+    members_can_create_repositories: joi.boolean(),
+    members_can_create_internal_repositories: joi.boolean(),
+    members_can_create_private_repositories: joi.boolean(),
+    members_can_create_public_repositories: joi.boolean(),
+    members_allowed_repository_creation_type: joi.string(),
+  })
+  .required()
 
 router.patch(
   "orgsUpdate",
   "/orgs/:org",
-  paramValidationFactory<any>(orgsUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsUpdateParamSchema>(orgsUpdateParamSchema),
+  bodyValidationFactory<OrgsUpdateBodySchema>(orgsUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<OrgsUpdateParamSchema, void, OrgsUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-orgsUpdate
 
     ctx.status = 501
@@ -1554,17 +3095,30 @@ router.patch(
 const actionsListSelfHostedRunnersForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const actionsListSelfHostedRunnersForOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListSelfHostedRunnersForOrg",
   "/orgs/:org/actions/runners",
-  paramValidationFactory<any>(actionsListSelfHostedRunnersForOrgParamSchema),
-  queryValidationFactory<any>(actionsListSelfHostedRunnersForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListSelfHostedRunnersForOrgParamSchema>(
+    actionsListSelfHostedRunnersForOrgParamSchema
+  ),
+  queryValidationFactory<ActionsListSelfHostedRunnersForOrgQuerySchema>(
+    actionsListSelfHostedRunnersForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListSelfHostedRunnersForOrgParamSchema,
+      ActionsListSelfHostedRunnersForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListSelfHostedRunnersForOrg
 
     ctx.status = 501
@@ -1578,12 +3132,22 @@ router.get(
 const actionsListRunnerApplicationsForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "actionsListRunnerApplicationsForOrg",
   "/orgs/:org/actions/runners/downloads",
-  paramValidationFactory<any>(actionsListRunnerApplicationsForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListRunnerApplicationsForOrgParamSchema>(
+    actionsListRunnerApplicationsForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListRunnerApplicationsForOrgParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListRunnerApplicationsForOrg
 
     ctx.status = 501
@@ -1597,12 +3161,22 @@ router.get(
 const actionsCreateRegistrationTokenForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.post(
   "actionsCreateRegistrationTokenForOrg",
   "/orgs/:org/actions/runners/registration-token",
-  paramValidationFactory<any>(actionsCreateRegistrationTokenForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateRegistrationTokenForOrgParamSchema>(
+    actionsCreateRegistrationTokenForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsCreateRegistrationTokenForOrgParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateRegistrationTokenForOrg
 
     ctx.status = 501
@@ -1616,12 +3190,18 @@ router.post(
 const actionsCreateRemoveTokenForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.post(
   "actionsCreateRemoveTokenForOrg",
   "/orgs/:org/actions/runners/remove-token",
-  paramValidationFactory<any>(actionsCreateRemoveTokenForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateRemoveTokenForOrgParamSchema>(
+    actionsCreateRemoveTokenForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsCreateRemoveTokenForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateRemoveTokenForOrg
 
     ctx.status = 501
@@ -1635,12 +3215,18 @@ router.post(
 const actionsGetSelfHostedRunnerForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), runner_id: joi.number().required() })
+  .required()
 
 router.get(
   "actionsGetSelfHostedRunnerForOrg",
   "/orgs/:org/actions/runners/:runnerId",
-  paramValidationFactory<any>(actionsGetSelfHostedRunnerForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetSelfHostedRunnerForOrgParamSchema>(
+    actionsGetSelfHostedRunnerForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetSelfHostedRunnerForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetSelfHostedRunnerForOrg
 
     ctx.status = 501
@@ -1654,12 +3240,22 @@ router.get(
 const actionsDeleteSelfHostedRunnerFromOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), runner_id: joi.number().required() })
+  .required()
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromOrg",
   "/orgs/:org/actions/runners/:runnerId",
-  paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteSelfHostedRunnerFromOrgParamSchema>(
+    actionsDeleteSelfHostedRunnerFromOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteSelfHostedRunnerFromOrg
 
     ctx.status = 501
@@ -1673,17 +3269,30 @@ router.delete(
 const actionsListOrgSecretsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const actionsListOrgSecretsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListOrgSecrets",
   "/orgs/:org/actions/secrets",
-  paramValidationFactory<any>(actionsListOrgSecretsParamSchema),
-  queryValidationFactory<any>(actionsListOrgSecretsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListOrgSecretsParamSchema>(
+    actionsListOrgSecretsParamSchema
+  ),
+  queryValidationFactory<ActionsListOrgSecretsQuerySchema>(
+    actionsListOrgSecretsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListOrgSecretsParamSchema,
+      ActionsListOrgSecretsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListOrgSecrets
 
     ctx.status = 501
@@ -1697,12 +3306,18 @@ router.get(
 const actionsGetOrgPublicKeyParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "actionsGetOrgPublicKey",
   "/orgs/:org/actions/secrets/public-key",
-  paramValidationFactory<any>(actionsGetOrgPublicKeyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetOrgPublicKeyParamSchema>(
+    actionsGetOrgPublicKeyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetOrgPublicKeyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetOrgPublicKey
 
     ctx.status = 501
@@ -1716,12 +3331,18 @@ router.get(
 const actionsGetOrgSecretParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), secret_name: joi.string().required() })
+  .required()
 
 router.get(
   "actionsGetOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsGetOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetOrgSecretParamSchema>(
+    actionsGetOrgSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetOrgSecretParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetOrgSecret
 
     ctx.status = 501
@@ -1735,12 +3356,35 @@ router.get(
 const actionsCreateOrUpdateOrgSecretParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), secret_name: joi.string().required() })
+  .required()
+
+const actionsCreateOrUpdateOrgSecretBodySchema = joi
+  .object()
+  .keys({
+    encrypted_value: joi.string(),
+    key_id: joi.string(),
+    visibility: joi.string(),
+    selected_repository_ids: joi.array().items(joi.string()),
+  })
+  .required()
 
 router.put(
   "actionsCreateOrUpdateOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsCreateOrUpdateOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateOrUpdateOrgSecretParamSchema>(
+    actionsCreateOrUpdateOrgSecretParamSchema
+  ),
+  bodyValidationFactory<ActionsCreateOrUpdateOrgSecretBodySchema>(
+    actionsCreateOrUpdateOrgSecretBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsCreateOrUpdateOrgSecretParamSchema,
+      void,
+      ActionsCreateOrUpdateOrgSecretBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateOrUpdateOrgSecret
 
     ctx.status = 501
@@ -1754,12 +3398,18 @@ router.put(
 const actionsDeleteOrgSecretParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), secret_name: joi.string().required() })
+  .required()
 
 router.delete(
   "actionsDeleteOrgSecret",
   "/orgs/:org/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsDeleteOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteOrgSecretParamSchema>(
+    actionsDeleteOrgSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDeleteOrgSecretParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteOrgSecret
 
     ctx.status = 501
@@ -1773,12 +3423,22 @@ router.delete(
 const actionsListSelectedReposForOrgSecretParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), secret_name: joi.string().required() })
+  .required()
 
 router.get(
   "actionsListSelectedReposForOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories",
-  paramValidationFactory<any>(actionsListSelectedReposForOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListSelectedReposForOrgSecretParamSchema>(
+    actionsListSelectedReposForOrgSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListSelectedReposForOrgSecretParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListSelectedReposForOrgSecret
 
     ctx.status = 501
@@ -1792,12 +3452,30 @@ router.get(
 const actionsSetSelectedReposForOrgSecretParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), secret_name: joi.string().required() })
+  .required()
+
+const actionsSetSelectedReposForOrgSecretBodySchema = joi
+  .object()
+  .keys({ selected_repository_ids: joi.array().items(joi.number()) })
+  .required()
 
 router.put(
   "actionsSetSelectedReposForOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories",
-  paramValidationFactory<any>(actionsSetSelectedReposForOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsSetSelectedReposForOrgSecretParamSchema>(
+    actionsSetSelectedReposForOrgSecretParamSchema
+  ),
+  bodyValidationFactory<ActionsSetSelectedReposForOrgSecretBodySchema>(
+    actionsSetSelectedReposForOrgSecretBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsSetSelectedReposForOrgSecretParamSchema,
+      void,
+      ActionsSetSelectedReposForOrgSecretBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsSetSelectedReposForOrgSecret
 
     ctx.status = 501
@@ -1815,12 +3493,18 @@ const actionsAddSelectedRepoToOrgSecretParamSchema = joi
     secret_name: joi.string().required(),
     repository_id: joi.number().required(),
   })
+  .required()
 
 router.put(
   "actionsAddSelectedRepoToOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-  paramValidationFactory<any>(actionsAddSelectedRepoToOrgSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsAddSelectedRepoToOrgSecretParamSchema>(
+    actionsAddSelectedRepoToOrgSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsAddSelectedRepoToOrgSecretParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsAddSelectedRepoToOrgSecret
 
     ctx.status = 501
@@ -1838,14 +3522,22 @@ const actionsRemoveSelectedRepoFromOrgSecretParamSchema = joi
     secret_name: joi.string().required(),
     repository_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "actionsRemoveSelectedRepoFromOrgSecret",
   "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActionsRemoveSelectedRepoFromOrgSecretParamSchema>(
     actionsRemoveSelectedRepoFromOrgSecretParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsRemoveSelectedRepoFromOrgSecret
 
     ctx.status = 501
@@ -1859,12 +3551,18 @@ router.delete(
 const orgsListBlockedUsersParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "orgsListBlockedUsers",
   "/orgs/:org/blocks",
-  paramValidationFactory<any>(orgsListBlockedUsersParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListBlockedUsersParamSchema>(
+    orgsListBlockedUsersParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsListBlockedUsersParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsListBlockedUsers
 
     ctx.status = 501
@@ -1878,12 +3576,18 @@ router.get(
 const orgsCheckBlockedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "orgsCheckBlockedUser",
   "/orgs/:org/blocks/:username",
-  paramValidationFactory<any>(orgsCheckBlockedUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsCheckBlockedUserParamSchema>(
+    orgsCheckBlockedUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsCheckBlockedUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsCheckBlockedUser
 
     ctx.status = 501
@@ -1897,12 +3601,13 @@ router.get(
 const orgsBlockUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.put(
   "orgsBlockUser",
   "/orgs/:org/blocks/:username",
-  paramValidationFactory<any>(orgsBlockUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsBlockUserParamSchema>(orgsBlockUserParamSchema),
+  async (ctx: ValidatedCtx<OrgsBlockUserParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsBlockUser
 
     ctx.status = 501
@@ -1916,12 +3621,15 @@ router.put(
 const orgsUnblockUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "orgsUnblockUser",
   "/orgs/:org/blocks/:username",
-  paramValidationFactory<any>(orgsUnblockUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsUnblockUserParamSchema>(
+    orgsUnblockUserParamSchema
+  ),
+  async (ctx: ValidatedCtx<OrgsUnblockUserParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsUnblockUser
 
     ctx.status = 501
@@ -1935,12 +3643,18 @@ router.delete(
 const orgsListSamlSsoAuthorizationsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "orgsListSamlSsoAuthorizations",
   "/orgs/:org/credential-authorizations",
-  paramValidationFactory<any>(orgsListSamlSsoAuthorizationsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListSamlSsoAuthorizationsParamSchema>(
+    orgsListSamlSsoAuthorizationsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsListSamlSsoAuthorizationsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsListSamlSsoAuthorizations
 
     ctx.status = 501
@@ -1957,12 +3671,18 @@ const orgsRemoveSamlSsoAuthorizationParamSchema = joi
     org: joi.string().required(),
     credential_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "orgsRemoveSamlSsoAuthorization",
   "/orgs/:org/credential-authorizations/:credentialId",
-  paramValidationFactory<any>(orgsRemoveSamlSsoAuthorizationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsRemoveSamlSsoAuthorizationParamSchema>(
+    orgsRemoveSamlSsoAuthorizationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsRemoveSamlSsoAuthorizationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsRemoveSamlSsoAuthorization
 
     ctx.status = 501
@@ -1976,17 +3696,30 @@ router.delete(
 const activityListPublicOrgEventsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const activityListPublicOrgEventsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListPublicOrgEvents",
   "/orgs/:org/events",
-  paramValidationFactory<any>(activityListPublicOrgEventsParamSchema),
-  queryValidationFactory<any>(activityListPublicOrgEventsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListPublicOrgEventsParamSchema>(
+    activityListPublicOrgEventsParamSchema
+  ),
+  queryValidationFactory<ActivityListPublicOrgEventsQuerySchema>(
+    activityListPublicOrgEventsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListPublicOrgEventsParamSchema,
+      ActivityListPublicOrgEventsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListPublicOrgEvents
 
     ctx.status = 501
@@ -2000,17 +3733,30 @@ router.get(
 const orgsListWebhooksParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListWebhooksQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListWebhooks",
   "/orgs/:org/hooks",
-  paramValidationFactory<any>(orgsListWebhooksParamSchema),
-  queryValidationFactory<any>(orgsListWebhooksQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListWebhooksParamSchema>(
+    orgsListWebhooksParamSchema
+  ),
+  queryValidationFactory<OrgsListWebhooksQuerySchema>(
+    orgsListWebhooksQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListWebhooksParamSchema,
+      OrgsListWebhooksQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListWebhooks
 
     ctx.status = 501
@@ -2024,12 +3770,43 @@ router.get(
 const orgsCreateWebhookParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const orgsCreateWebhookBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    config: joi
+      .object()
+      .keys({
+        url: joi.string().required(),
+        content_type: joi.string(),
+        secret: joi.string(),
+        insecure_ssl: joi.string(),
+      })
+      .required(),
+    events: joi.array().items(joi.string()),
+    active: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "orgsCreateWebhook",
   "/orgs/:org/hooks",
-  paramValidationFactory<any>(orgsCreateWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsCreateWebhookParamSchema>(
+    orgsCreateWebhookParamSchema
+  ),
+  bodyValidationFactory<OrgsCreateWebhookBodySchema>(
+    orgsCreateWebhookBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsCreateWebhookParamSchema,
+      void,
+      OrgsCreateWebhookBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsCreateWebhook
 
     ctx.status = 501
@@ -2043,12 +3820,13 @@ router.post(
 const orgsGetWebhookParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), hook_id: joi.number().required() })
+  .required()
 
 router.get(
   "orgsGetWebhook",
   "/orgs/:org/hooks/:hookId",
-  paramValidationFactory<any>(orgsGetWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsGetWebhookParamSchema>(orgsGetWebhookParamSchema),
+  async (ctx: ValidatedCtx<OrgsGetWebhookParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsGetWebhook
 
     ctx.status = 501
@@ -2062,12 +3840,41 @@ router.get(
 const orgsUpdateWebhookParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), hook_id: joi.number().required() })
+  .required()
+
+const orgsUpdateWebhookBodySchema = joi
+  .object()
+  .keys({
+    config: joi
+      .object()
+      .keys({
+        url: joi.string().required(),
+        content_type: joi.string(),
+        secret: joi.string(),
+        insecure_ssl: joi.string(),
+      }),
+    events: joi.array().items(joi.string()),
+    active: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "orgsUpdateWebhook",
   "/orgs/:org/hooks/:hookId",
-  paramValidationFactory<any>(orgsUpdateWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsUpdateWebhookParamSchema>(
+    orgsUpdateWebhookParamSchema
+  ),
+  bodyValidationFactory<OrgsUpdateWebhookBodySchema>(
+    orgsUpdateWebhookBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsUpdateWebhookParamSchema,
+      void,
+      OrgsUpdateWebhookBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsUpdateWebhook
 
     ctx.status = 501
@@ -2081,12 +3888,15 @@ router.patch(
 const orgsDeleteWebhookParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), hook_id: joi.number().required() })
+  .required()
 
 router.delete(
   "orgsDeleteWebhook",
   "/orgs/:org/hooks/:hookId",
-  paramValidationFactory<any>(orgsDeleteWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsDeleteWebhookParamSchema>(
+    orgsDeleteWebhookParamSchema
+  ),
+  async (ctx: ValidatedCtx<OrgsDeleteWebhookParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsDeleteWebhook
 
     ctx.status = 501
@@ -2100,12 +3910,15 @@ router.delete(
 const orgsPingWebhookParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), hook_id: joi.number().required() })
+  .required()
 
 router.post(
   "orgsPingWebhook",
   "/orgs/:org/hooks/:hookId/pings",
-  paramValidationFactory<any>(orgsPingWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsPingWebhookParamSchema>(
+    orgsPingWebhookParamSchema
+  ),
+  async (ctx: ValidatedCtx<OrgsPingWebhookParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsPingWebhook
 
     ctx.status = 501
@@ -2119,12 +3932,18 @@ router.post(
 const appsGetOrgInstallationParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "appsGetOrgInstallation",
   "/orgs/:org/installation",
-  paramValidationFactory<any>(appsGetOrgInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetOrgInstallationParamSchema>(
+    appsGetOrgInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsGetOrgInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsGetOrgInstallation
 
     ctx.status = 501
@@ -2138,17 +3957,30 @@ router.get(
 const orgsListAppInstallationsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListAppInstallationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListAppInstallations",
   "/orgs/:org/installations",
-  paramValidationFactory<any>(orgsListAppInstallationsParamSchema),
-  queryValidationFactory<any>(orgsListAppInstallationsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListAppInstallationsParamSchema>(
+    orgsListAppInstallationsParamSchema
+  ),
+  queryValidationFactory<OrgsListAppInstallationsQuerySchema>(
+    orgsListAppInstallationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListAppInstallationsParamSchema,
+      OrgsListAppInstallationsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListAppInstallations
 
     ctx.status = 501
@@ -2162,12 +3994,18 @@ router.get(
 const interactionsGetRestrictionsForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "interactionsGetRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
-  paramValidationFactory<any>(interactionsGetRestrictionsForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsGetRestrictionsForOrgParamSchema>(
+    interactionsGetRestrictionsForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<InteractionsGetRestrictionsForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-interactionsGetRestrictionsForOrg
 
     ctx.status = 501
@@ -2181,12 +4019,30 @@ router.get(
 const interactionsSetRestrictionsForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const interactionsSetRestrictionsForOrgBodySchema = joi
+  .object()
+  .keys({ limit: joi.string().required() })
+  .required()
 
 router.put(
   "interactionsSetRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
-  paramValidationFactory<any>(interactionsSetRestrictionsForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsSetRestrictionsForOrgParamSchema>(
+    interactionsSetRestrictionsForOrgParamSchema
+  ),
+  bodyValidationFactory<InteractionsSetRestrictionsForOrgBodySchema>(
+    interactionsSetRestrictionsForOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      InteractionsSetRestrictionsForOrgParamSchema,
+      void,
+      InteractionsSetRestrictionsForOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-interactionsSetRestrictionsForOrg
 
     ctx.status = 501
@@ -2200,12 +4056,22 @@ router.put(
 const interactionsRemoveRestrictionsForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.delete(
   "interactionsRemoveRestrictionsForOrg",
   "/orgs/:org/interaction-limits",
-  paramValidationFactory<any>(interactionsRemoveRestrictionsForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsRemoveRestrictionsForOrgParamSchema>(
+    interactionsRemoveRestrictionsForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      InteractionsRemoveRestrictionsForOrgParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-interactionsRemoveRestrictionsForOrg
 
     ctx.status = 501
@@ -2219,17 +4085,30 @@ router.delete(
 const orgsListPendingInvitationsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListPendingInvitationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListPendingInvitations",
   "/orgs/:org/invitations",
-  paramValidationFactory<any>(orgsListPendingInvitationsParamSchema),
-  queryValidationFactory<any>(orgsListPendingInvitationsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListPendingInvitationsParamSchema>(
+    orgsListPendingInvitationsParamSchema
+  ),
+  queryValidationFactory<OrgsListPendingInvitationsQuerySchema>(
+    orgsListPendingInvitationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListPendingInvitationsParamSchema,
+      OrgsListPendingInvitationsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListPendingInvitations
 
     ctx.status = 501
@@ -2243,12 +4122,35 @@ router.get(
 const orgsCreateInvitationParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const orgsCreateInvitationBodySchema = joi
+  .object()
+  .keys({
+    invitee_id: joi.number(),
+    email: joi.string(),
+    role: joi.string(),
+    team_ids: joi.array().items(joi.number()),
+  })
+  .required()
 
 router.post(
   "orgsCreateInvitation",
   "/orgs/:org/invitations",
-  paramValidationFactory<any>(orgsCreateInvitationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsCreateInvitationParamSchema>(
+    orgsCreateInvitationParamSchema
+  ),
+  bodyValidationFactory<OrgsCreateInvitationBodySchema>(
+    orgsCreateInvitationBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsCreateInvitationParamSchema,
+      void,
+      OrgsCreateInvitationBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsCreateInvitation
 
     ctx.status = 501
@@ -2265,17 +4167,30 @@ const orgsListInvitationTeamsParamSchema = joi
     org: joi.string().required(),
     invitation_id: joi.number().required(),
   })
+  .required()
 
 const orgsListInvitationTeamsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListInvitationTeams",
   "/orgs/:org/invitations/:invitationId/teams",
-  paramValidationFactory<any>(orgsListInvitationTeamsParamSchema),
-  queryValidationFactory<any>(orgsListInvitationTeamsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListInvitationTeamsParamSchema>(
+    orgsListInvitationTeamsParamSchema
+  ),
+  queryValidationFactory<OrgsListInvitationTeamsQuerySchema>(
+    orgsListInvitationTeamsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListInvitationTeamsParamSchema,
+      OrgsListInvitationTeamsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListInvitationTeams
 
     ctx.status = 501
@@ -2289,6 +4204,7 @@ router.get(
 const issuesListForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const issuesListForOrgQuerySchema = joi
   .object()
@@ -2302,13 +4218,25 @@ const issuesListForOrgQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesListForOrg",
   "/orgs/:org/issues",
-  paramValidationFactory<any>(issuesListForOrgParamSchema),
-  queryValidationFactory<any>(issuesListForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListForOrgParamSchema>(
+    issuesListForOrgParamSchema
+  ),
+  queryValidationFactory<IssuesListForOrgQuerySchema>(
+    issuesListForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListForOrgParamSchema,
+      IssuesListForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListForOrg
 
     ctx.status = 501
@@ -2322,6 +4250,7 @@ router.get(
 const orgsListMembersParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListMembersQuerySchema = joi
   .object()
@@ -2331,13 +4260,25 @@ const orgsListMembersQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "orgsListMembers",
   "/orgs/:org/members",
-  paramValidationFactory<any>(orgsListMembersParamSchema),
-  queryValidationFactory<any>(orgsListMembersQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListMembersParamSchema>(
+    orgsListMembersParamSchema
+  ),
+  queryValidationFactory<OrgsListMembersQuerySchema>(
+    orgsListMembersQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListMembersParamSchema,
+      OrgsListMembersQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListMembers
 
     ctx.status = 501
@@ -2351,12 +4292,18 @@ router.get(
 const orgsCheckMembershipForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "orgsCheckMembershipForUser",
   "/orgs/:org/members/:username",
-  paramValidationFactory<any>(orgsCheckMembershipForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsCheckMembershipForUserParamSchema>(
+    orgsCheckMembershipForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsCheckMembershipForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsCheckMembershipForUser
 
     ctx.status = 501
@@ -2370,12 +4317,15 @@ router.get(
 const orgsRemoveMemberParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "orgsRemoveMember",
   "/orgs/:org/members/:username",
-  paramValidationFactory<any>(orgsRemoveMemberParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsRemoveMemberParamSchema>(
+    orgsRemoveMemberParamSchema
+  ),
+  async (ctx: ValidatedCtx<OrgsRemoveMemberParamSchema, void, void>, next) => {
     //region safe-edit-region-orgsRemoveMember
 
     ctx.status = 501
@@ -2389,12 +4339,18 @@ router.delete(
 const orgsGetMembershipForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "orgsGetMembershipForUser",
   "/orgs/:org/memberships/:username",
-  paramValidationFactory<any>(orgsGetMembershipForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsGetMembershipForUserParamSchema>(
+    orgsGetMembershipForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsGetMembershipForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsGetMembershipForUser
 
     ctx.status = 501
@@ -2408,12 +4364,30 @@ router.get(
 const orgsSetMembershipForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
+
+const orgsSetMembershipForUserBodySchema = joi
+  .object()
+  .keys({ role: joi.string() })
+  .required()
 
 router.put(
   "orgsSetMembershipForUser",
   "/orgs/:org/memberships/:username",
-  paramValidationFactory<any>(orgsSetMembershipForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsSetMembershipForUserParamSchema>(
+    orgsSetMembershipForUserParamSchema
+  ),
+  bodyValidationFactory<OrgsSetMembershipForUserBodySchema>(
+    orgsSetMembershipForUserBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsSetMembershipForUserParamSchema,
+      void,
+      OrgsSetMembershipForUserBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsSetMembershipForUser
 
     ctx.status = 501
@@ -2427,12 +4401,18 @@ router.put(
 const orgsRemoveMembershipForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "orgsRemoveMembershipForUser",
   "/orgs/:org/memberships/:username",
-  paramValidationFactory<any>(orgsRemoveMembershipForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsRemoveMembershipForUserParamSchema>(
+    orgsRemoveMembershipForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsRemoveMembershipForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsRemoveMembershipForUser
 
     ctx.status = 501
@@ -2446,12 +4426,34 @@ router.delete(
 const migrationsStartForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const migrationsStartForOrgBodySchema = joi
+  .object()
+  .keys({
+    repositories: joi.array().items(joi.string()).required(),
+    lock_repositories: joi.boolean(),
+    exclude_attachments: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "migrationsStartForOrg",
   "/orgs/:org/migrations",
-  paramValidationFactory<any>(migrationsStartForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsStartForOrgParamSchema>(
+    migrationsStartForOrgParamSchema
+  ),
+  bodyValidationFactory<MigrationsStartForOrgBodySchema>(
+    migrationsStartForOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsStartForOrgParamSchema,
+      void,
+      MigrationsStartForOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsStartForOrg
 
     ctx.status = 501
@@ -2465,17 +4467,30 @@ router.post(
 const migrationsListForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const migrationsListForOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "migrationsListForOrg",
   "/orgs/:org/migrations",
-  paramValidationFactory<any>(migrationsListForOrgParamSchema),
-  queryValidationFactory<any>(migrationsListForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsListForOrgParamSchema>(
+    migrationsListForOrgParamSchema
+  ),
+  queryValidationFactory<MigrationsListForOrgQuerySchema>(
+    migrationsListForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsListForOrgParamSchema,
+      MigrationsListForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsListForOrg
 
     ctx.status = 501
@@ -2489,12 +4504,18 @@ router.get(
 const migrationsGetStatusForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), migration_id: joi.number().required() })
+  .required()
 
 router.get(
   "migrationsGetStatusForOrg",
   "/orgs/:org/migrations/:migrationId",
-  paramValidationFactory<any>(migrationsGetStatusForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsGetStatusForOrgParamSchema>(
+    migrationsGetStatusForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsGetStatusForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetStatusForOrg
 
     ctx.status = 501
@@ -2508,12 +4529,18 @@ router.get(
 const migrationsDownloadArchiveForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), migration_id: joi.number().required() })
+  .required()
 
 router.get(
   "migrationsDownloadArchiveForOrg",
   "/orgs/:org/migrations/:migrationId/archive",
-  paramValidationFactory<any>(migrationsDownloadArchiveForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsDownloadArchiveForOrgParamSchema>(
+    migrationsDownloadArchiveForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsDownloadArchiveForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsDownloadArchiveForOrg
 
     ctx.status = 501
@@ -2527,12 +4554,18 @@ router.get(
 const migrationsDeleteArchiveForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), migration_id: joi.number().required() })
+  .required()
 
 router.delete(
   "migrationsDeleteArchiveForOrg",
   "/orgs/:org/migrations/:migrationId/archive",
-  paramValidationFactory<any>(migrationsDeleteArchiveForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsDeleteArchiveForOrgParamSchema>(
+    migrationsDeleteArchiveForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsDeleteArchiveForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsDeleteArchiveForOrg
 
     ctx.status = 501
@@ -2550,12 +4583,18 @@ const migrationsUnlockRepoForOrgParamSchema = joi
     migration_id: joi.number().required(),
     repo_name: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "migrationsUnlockRepoForOrg",
   "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
-  paramValidationFactory<any>(migrationsUnlockRepoForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsUnlockRepoForOrgParamSchema>(
+    migrationsUnlockRepoForOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsUnlockRepoForOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsUnlockRepoForOrg
 
     ctx.status = 501
@@ -2569,17 +4608,30 @@ router.delete(
 const migrationsListReposForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), migration_id: joi.number().required() })
+  .required()
 
 const migrationsListReposForOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "migrationsListReposForOrg",
   "/orgs/:org/migrations/:migrationId/repositories",
-  paramValidationFactory<any>(migrationsListReposForOrgParamSchema),
-  queryValidationFactory<any>(migrationsListReposForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsListReposForOrgParamSchema>(
+    migrationsListReposForOrgParamSchema
+  ),
+  queryValidationFactory<MigrationsListReposForOrgQuerySchema>(
+    migrationsListReposForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsListReposForOrgParamSchema,
+      MigrationsListReposForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsListReposForOrg
 
     ctx.status = 501
@@ -2593,17 +4645,30 @@ router.get(
 const orgsListOutsideCollaboratorsParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListOutsideCollaboratorsQuerySchema = joi
   .object()
   .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListOutsideCollaborators",
   "/orgs/:org/outside_collaborators",
-  paramValidationFactory<any>(orgsListOutsideCollaboratorsParamSchema),
-  queryValidationFactory<any>(orgsListOutsideCollaboratorsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListOutsideCollaboratorsParamSchema>(
+    orgsListOutsideCollaboratorsParamSchema
+  ),
+  queryValidationFactory<OrgsListOutsideCollaboratorsQuerySchema>(
+    orgsListOutsideCollaboratorsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListOutsideCollaboratorsParamSchema,
+      OrgsListOutsideCollaboratorsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListOutsideCollaborators
 
     ctx.status = 501
@@ -2617,12 +4682,18 @@ router.get(
 const orgsRemoveOutsideCollaboratorParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "orgsRemoveOutsideCollaborator",
   "/orgs/:org/outside_collaborators/:username",
-  paramValidationFactory<any>(orgsRemoveOutsideCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsRemoveOutsideCollaboratorParamSchema>(
+    orgsRemoveOutsideCollaboratorParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsRemoveOutsideCollaborator
 
     ctx.status = 501
@@ -2636,14 +4707,22 @@ router.delete(
 const orgsConvertMemberToOutsideCollaboratorParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.put(
   "orgsConvertMemberToOutsideCollaborator",
   "/orgs/:org/outside_collaborators/:username",
-  paramValidationFactory<any>(
+  paramValidationFactory<OrgsConvertMemberToOutsideCollaboratorParamSchema>(
     orgsConvertMemberToOutsideCollaboratorParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      OrgsConvertMemberToOutsideCollaboratorParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsConvertMemberToOutsideCollaborator
 
     ctx.status = 501
@@ -2657,17 +4736,30 @@ router.put(
 const projectsListForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const projectsListForOrgQuerySchema = joi
   .object()
   .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "projectsListForOrg",
   "/orgs/:org/projects",
-  paramValidationFactory<any>(projectsListForOrgParamSchema),
-  queryValidationFactory<any>(projectsListForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListForOrgParamSchema>(
+    projectsListForOrgParamSchema
+  ),
+  queryValidationFactory<ProjectsListForOrgQuerySchema>(
+    projectsListForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListForOrgParamSchema,
+      ProjectsListForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListForOrg
 
     ctx.status = 501
@@ -2681,12 +4773,30 @@ router.get(
 const projectsCreateForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const projectsCreateForOrgBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required(), body: joi.string() })
+  .required()
 
 router.post(
   "projectsCreateForOrg",
   "/orgs/:org/projects",
-  paramValidationFactory<any>(projectsCreateForOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsCreateForOrgParamSchema>(
+    projectsCreateForOrgParamSchema
+  ),
+  bodyValidationFactory<ProjectsCreateForOrgBodySchema>(
+    projectsCreateForOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsCreateForOrgParamSchema,
+      void,
+      ProjectsCreateForOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsCreateForOrg
 
     ctx.status = 501
@@ -2700,17 +4810,30 @@ router.post(
 const orgsListPublicMembersParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const orgsListPublicMembersQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListPublicMembers",
   "/orgs/:org/public_members",
-  paramValidationFactory<any>(orgsListPublicMembersParamSchema),
-  queryValidationFactory<any>(orgsListPublicMembersQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListPublicMembersParamSchema>(
+    orgsListPublicMembersParamSchema
+  ),
+  queryValidationFactory<OrgsListPublicMembersQuerySchema>(
+    orgsListPublicMembersQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListPublicMembersParamSchema,
+      OrgsListPublicMembersQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListPublicMembers
 
     ctx.status = 501
@@ -2724,12 +4847,18 @@ router.get(
 const orgsCheckPublicMembershipForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "orgsCheckPublicMembershipForUser",
   "/orgs/:org/public_members/:username",
-  paramValidationFactory<any>(orgsCheckPublicMembershipForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsCheckPublicMembershipForUserParamSchema>(
+    orgsCheckPublicMembershipForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<OrgsCheckPublicMembershipForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsCheckPublicMembershipForUser
 
     ctx.status = 501
@@ -2743,14 +4872,22 @@ router.get(
 const orgsSetPublicMembershipForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.put(
   "orgsSetPublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
-  paramValidationFactory<any>(
-    orgsSetPublicMembershipForAuthenticatedUserParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    OrgsSetPublicMembershipForAuthenticatedUserParamSchema
+  >(orgsSetPublicMembershipForAuthenticatedUserParamSchema),
+  async (
+    ctx: ValidatedCtx<
+      OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsSetPublicMembershipForAuthenticatedUser
 
     ctx.status = 501
@@ -2764,14 +4901,22 @@ router.put(
 const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "orgsRemovePublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
-  paramValidationFactory<any>(
-    orgsRemovePublicMembershipForAuthenticatedUserParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    OrgsRemovePublicMembershipForAuthenticatedUserParamSchema
+  >(orgsRemovePublicMembershipForAuthenticatedUserParamSchema),
+  async (
+    ctx: ValidatedCtx<
+      OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsRemovePublicMembershipForAuthenticatedUser
 
     ctx.status = 501
@@ -2785,6 +4930,7 @@ router.delete(
 const reposListForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const reposListForOrgQuerySchema = joi
   .object()
@@ -2795,13 +4941,25 @@ const reposListForOrgQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListForOrg",
   "/orgs/:org/repos",
-  paramValidationFactory<any>(reposListForOrgParamSchema),
-  queryValidationFactory<any>(reposListForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListForOrgParamSchema>(
+    reposListForOrgParamSchema
+  ),
+  queryValidationFactory<ReposListForOrgQuerySchema>(
+    reposListForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListForOrgParamSchema,
+      ReposListForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListForOrg
 
     ctx.status = 501
@@ -2815,12 +4973,46 @@ router.get(
 const reposCreateInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const reposCreateInOrgBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    homepage: joi.string(),
+    private: joi.boolean(),
+    visibility: joi.string(),
+    has_issues: joi.boolean(),
+    has_projects: joi.boolean(),
+    has_wiki: joi.boolean(),
+    is_template: joi.boolean(),
+    team_id: joi.number(),
+    auto_init: joi.boolean(),
+    gitignore_template: joi.string(),
+    license_template: joi.string(),
+    allow_squash_merge: joi.boolean(),
+    allow_merge_commit: joi.boolean(),
+    allow_rebase_merge: joi.boolean(),
+    delete_branch_on_merge: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateInOrg",
   "/orgs/:org/repos",
-  paramValidationFactory<any>(reposCreateInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateInOrgParamSchema>(
+    reposCreateInOrgParamSchema
+  ),
+  bodyValidationFactory<ReposCreateInOrgBodySchema>(reposCreateInOrgBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateInOrgParamSchema,
+      void,
+      ReposCreateInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateInOrg
 
     ctx.status = 501
@@ -2834,17 +5026,30 @@ router.post(
 const teamsListIdPGroupsForOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const teamsListIdPGroupsForOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListIdPGroupsForOrg",
   "/orgs/:org/team-sync/groups",
-  paramValidationFactory<any>(teamsListIdPGroupsForOrgParamSchema),
-  queryValidationFactory<any>(teamsListIdPGroupsForOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListIdPGroupsForOrgParamSchema>(
+    teamsListIdPGroupsForOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListIdPGroupsForOrgQuerySchema>(
+    teamsListIdPGroupsForOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListIdPGroupsForOrgParamSchema,
+      TeamsListIdPGroupsForOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListIdPGroupsForOrg
 
     ctx.status = 501
@@ -2855,18 +5060,25 @@ router.get(
   }
 )
 
-const teamsListParamSchema = joi.object().keys({ org: joi.string().required() })
+const teamsListParamSchema = joi
+  .object()
+  .keys({ org: joi.string().required() })
+  .required()
 
 const teamsListQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsList",
   "/orgs/:org/teams",
-  paramValidationFactory<any>(teamsListParamSchema),
-  queryValidationFactory<any>(teamsListQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListParamSchema>(teamsListParamSchema),
+  queryValidationFactory<TeamsListQuerySchema>(teamsListQuerySchema),
+  async (
+    ctx: ValidatedCtx<TeamsListParamSchema, TeamsListQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsList
 
     ctx.status = 501
@@ -2880,12 +5092,30 @@ router.get(
 const teamsCreateParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const teamsCreateBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    maintainers: joi.array().items(joi.string()),
+    repo_names: joi.array().items(joi.string()),
+    privacy: joi.string(),
+    permission: joi.string(),
+    parent_team_id: joi.number(),
+  })
+  .required()
 
 router.post(
   "teamsCreate",
   "/orgs/:org/teams",
-  paramValidationFactory<any>(teamsCreateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCreateParamSchema>(teamsCreateParamSchema),
+  bodyValidationFactory<TeamsCreateBodySchema>(teamsCreateBodySchema),
+  async (
+    ctx: ValidatedCtx<TeamsCreateParamSchema, void, TeamsCreateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-teamsCreate
 
     ctx.status = 501
@@ -2899,12 +5129,13 @@ router.post(
 const teamsGetByNameParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 router.get(
   "teamsGetByName",
   "/orgs/:org/teams/:teamSlug",
-  paramValidationFactory<any>(teamsGetByNameParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetByNameParamSchema>(teamsGetByNameParamSchema),
+  async (ctx: ValidatedCtx<TeamsGetByNameParamSchema, void, void>, next) => {
     //region safe-edit-region-teamsGetByName
 
     ctx.status = 501
@@ -2918,12 +5149,34 @@ router.get(
 const teamsUpdateInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
+
+const teamsUpdateInOrgBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    privacy: joi.string(),
+    permission: joi.string(),
+    parent_team_id: joi.number(),
+  })
+  .required()
 
 router.patch(
   "teamsUpdateInOrg",
   "/orgs/:org/teams/:teamSlug",
-  paramValidationFactory<any>(teamsUpdateInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateInOrgParamSchema>(
+    teamsUpdateInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateInOrgBodySchema>(teamsUpdateInOrgBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateInOrgParamSchema,
+      void,
+      TeamsUpdateInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateInOrg
 
     ctx.status = 501
@@ -2937,12 +5190,15 @@ router.patch(
 const teamsDeleteInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 router.delete(
   "teamsDeleteInOrg",
   "/orgs/:org/teams/:teamSlug",
-  paramValidationFactory<any>(teamsDeleteInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteInOrgParamSchema>(
+    teamsDeleteInOrgParamSchema
+  ),
+  async (ctx: ValidatedCtx<TeamsDeleteInOrgParamSchema, void, void>, next) => {
     //region safe-edit-region-teamsDeleteInOrg
 
     ctx.status = 501
@@ -2956,17 +5212,30 @@ router.delete(
 const teamsListDiscussionsInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListDiscussionsInOrgQuerySchema = joi
   .object()
   .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListDiscussionsInOrg",
   "/orgs/:org/teams/:teamSlug/discussions",
-  paramValidationFactory<any>(teamsListDiscussionsInOrgParamSchema),
-  queryValidationFactory<any>(teamsListDiscussionsInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListDiscussionsInOrgParamSchema>(
+    teamsListDiscussionsInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListDiscussionsInOrgQuerySchema>(
+    teamsListDiscussionsInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListDiscussionsInOrgParamSchema,
+      TeamsListDiscussionsInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListDiscussionsInOrg
 
     ctx.status = 501
@@ -2980,12 +5249,34 @@ router.get(
 const teamsCreateDiscussionInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
+
+const teamsCreateDiscussionInOrgBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    body: joi.string().required(),
+    private: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "teamsCreateDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions",
-  paramValidationFactory<any>(teamsCreateDiscussionInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCreateDiscussionInOrgParamSchema>(
+    teamsCreateDiscussionInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsCreateDiscussionInOrgBodySchema>(
+    teamsCreateDiscussionInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateDiscussionInOrgParamSchema,
+      void,
+      TeamsCreateDiscussionInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateDiscussionInOrg
 
     ctx.status = 501
@@ -3003,12 +5294,18 @@ const teamsGetDiscussionInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsGetDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsGetDiscussionInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetDiscussionInOrgParamSchema>(
+    teamsGetDiscussionInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetDiscussionInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetDiscussionInOrg
 
     ctx.status = 501
@@ -3026,12 +5323,30 @@ const teamsUpdateDiscussionInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const teamsUpdateDiscussionInOrgBodySchema = joi
+  .object()
+  .keys({ title: joi.string(), body: joi.string() })
+  .required()
 
 router.patch(
   "teamsUpdateDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsUpdateDiscussionInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateDiscussionInOrgParamSchema>(
+    teamsUpdateDiscussionInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateDiscussionInOrgBodySchema>(
+    teamsUpdateDiscussionInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateDiscussionInOrgParamSchema,
+      void,
+      TeamsUpdateDiscussionInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateDiscussionInOrg
 
     ctx.status = 501
@@ -3049,12 +5364,18 @@ const teamsDeleteDiscussionInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsDeleteDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsDeleteDiscussionInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteDiscussionInOrgParamSchema>(
+    teamsDeleteDiscussionInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsDeleteDiscussionInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsDeleteDiscussionInOrg
 
     ctx.status = 501
@@ -3072,17 +5393,30 @@ const teamsListDiscussionCommentsInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 const teamsListDiscussionCommentsInOrgQuerySchema = joi
   .object()
   .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListDiscussionCommentsInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-  paramValidationFactory<any>(teamsListDiscussionCommentsInOrgParamSchema),
-  queryValidationFactory<any>(teamsListDiscussionCommentsInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListDiscussionCommentsInOrgParamSchema>(
+    teamsListDiscussionCommentsInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListDiscussionCommentsInOrgQuerySchema>(
+    teamsListDiscussionCommentsInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListDiscussionCommentsInOrgParamSchema,
+      TeamsListDiscussionCommentsInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListDiscussionCommentsInOrg
 
     ctx.status = 501
@@ -3100,12 +5434,30 @@ const teamsCreateDiscussionCommentInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const teamsCreateDiscussionCommentInOrgBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.post(
   "teamsCreateDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-  paramValidationFactory<any>(teamsCreateDiscussionCommentInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCreateDiscussionCommentInOrgParamSchema>(
+    teamsCreateDiscussionCommentInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsCreateDiscussionCommentInOrgBodySchema>(
+    teamsCreateDiscussionCommentInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateDiscussionCommentInOrgParamSchema,
+      void,
+      TeamsCreateDiscussionCommentInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3124,12 +5476,18 @@ const teamsGetDiscussionCommentInOrgParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsGetDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsGetDiscussionCommentInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetDiscussionCommentInOrgParamSchema>(
+    teamsGetDiscussionCommentInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetDiscussionCommentInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3148,12 +5506,30 @@ const teamsUpdateDiscussionCommentInOrgParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
+
+const teamsUpdateDiscussionCommentInOrgBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "teamsUpdateDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsUpdateDiscussionCommentInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateDiscussionCommentInOrgParamSchema>(
+    teamsUpdateDiscussionCommentInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateDiscussionCommentInOrgBodySchema>(
+    teamsUpdateDiscussionCommentInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateDiscussionCommentInOrgParamSchema,
+      void,
+      TeamsUpdateDiscussionCommentInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3172,12 +5548,18 @@ const teamsDeleteDiscussionCommentInOrgParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsDeleteDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsDeleteDiscussionCommentInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteDiscussionCommentInOrgParamSchema>(
+    teamsDeleteDiscussionCommentInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsDeleteDiscussionCommentInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsDeleteDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3196,21 +5578,30 @@ const reactionsListForTeamDiscussionCommentInOrgParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 const reactionsListForTeamDiscussionCommentInOrgQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForTeamDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReactionsListForTeamDiscussionCommentInOrgParamSchema>(
     reactionsListForTeamDiscussionCommentInOrgParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ReactionsListForTeamDiscussionCommentInOrgQuerySchema>(
     reactionsListForTeamDiscussionCommentInOrgQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForTeamDiscussionCommentInOrgParamSchema,
+      ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3229,14 +5620,30 @@ const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<any>(
-    reactionsCreateForTeamDiscussionCommentInOrgParamSchema
+  paramValidationFactory<
+    ReactionsCreateForTeamDiscussionCommentInOrgParamSchema
+  >(reactionsCreateForTeamDiscussionCommentInOrgParamSchema),
+  bodyValidationFactory<ReactionsCreateForTeamDiscussionCommentInOrgBodySchema>(
+    reactionsCreateForTeamDiscussionCommentInOrgBodySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
+      void,
+      ReactionsCreateForTeamDiscussionCommentInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionCommentInOrg
 
     ctx.status = 501
@@ -3256,14 +5663,22 @@ const reactionsDeleteForTeamDiscussionCommentParamSchema = joi
     comment_number: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForTeamDiscussionComment",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReactionsDeleteForTeamDiscussionCommentParamSchema>(
     reactionsDeleteForTeamDiscussionCommentParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReactionsDeleteForTeamDiscussionCommentParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForTeamDiscussionComment
 
     ctx.status = 501
@@ -3281,17 +5696,30 @@ const reactionsListForTeamDiscussionInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 const reactionsListForTeamDiscussionInOrgQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForTeamDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-  paramValidationFactory<any>(reactionsListForTeamDiscussionInOrgParamSchema),
-  queryValidationFactory<any>(reactionsListForTeamDiscussionInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsListForTeamDiscussionInOrgParamSchema>(
+    reactionsListForTeamDiscussionInOrgParamSchema
+  ),
+  queryValidationFactory<ReactionsListForTeamDiscussionInOrgQuerySchema>(
+    reactionsListForTeamDiscussionInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForTeamDiscussionInOrgParamSchema,
+      ReactionsListForTeamDiscussionInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionInOrg
 
     ctx.status = 501
@@ -3309,12 +5737,30 @@ const reactionsCreateForTeamDiscussionInOrgParamSchema = joi
     team_slug: joi.string().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForTeamDiscussionInOrgBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForTeamDiscussionInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-  paramValidationFactory<any>(reactionsCreateForTeamDiscussionInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsCreateForTeamDiscussionInOrgParamSchema>(
+    reactionsCreateForTeamDiscussionInOrgParamSchema
+  ),
+  bodyValidationFactory<ReactionsCreateForTeamDiscussionInOrgBodySchema>(
+    reactionsCreateForTeamDiscussionInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForTeamDiscussionInOrgParamSchema,
+      void,
+      ReactionsCreateForTeamDiscussionInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionInOrg
 
     ctx.status = 501
@@ -3333,12 +5779,18 @@ const reactionsDeleteForTeamDiscussionParamSchema = joi
     discussion_number: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForTeamDiscussion",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteForTeamDiscussionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteForTeamDiscussionParamSchema>(
+    reactionsDeleteForTeamDiscussionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReactionsDeleteForTeamDiscussionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForTeamDiscussion
 
     ctx.status = 501
@@ -3352,17 +5804,30 @@ router.delete(
 const teamsListPendingInvitationsInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListPendingInvitationsInOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListPendingInvitationsInOrg",
   "/orgs/:org/teams/:teamSlug/invitations",
-  paramValidationFactory<any>(teamsListPendingInvitationsInOrgParamSchema),
-  queryValidationFactory<any>(teamsListPendingInvitationsInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListPendingInvitationsInOrgParamSchema>(
+    teamsListPendingInvitationsInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListPendingInvitationsInOrgQuerySchema>(
+    teamsListPendingInvitationsInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListPendingInvitationsInOrgParamSchema,
+      TeamsListPendingInvitationsInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListPendingInvitationsInOrg
 
     ctx.status = 501
@@ -3376,17 +5841,30 @@ router.get(
 const teamsListMembersInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListMembersInOrgQuerySchema = joi
   .object()
   .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListMembersInOrg",
   "/orgs/:org/teams/:teamSlug/members",
-  paramValidationFactory<any>(teamsListMembersInOrgParamSchema),
-  queryValidationFactory<any>(teamsListMembersInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListMembersInOrgParamSchema>(
+    teamsListMembersInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListMembersInOrgQuerySchema>(
+    teamsListMembersInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListMembersInOrgParamSchema,
+      TeamsListMembersInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListMembersInOrg
 
     ctx.status = 501
@@ -3404,12 +5882,18 @@ const teamsGetMembershipForUserInOrgParamSchema = joi
     team_slug: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.get(
   "teamsGetMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
-  paramValidationFactory<any>(teamsGetMembershipForUserInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetMembershipForUserInOrgParamSchema>(
+    teamsGetMembershipForUserInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetMembershipForUserInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetMembershipForUserInOrg
 
     ctx.status = 501
@@ -3427,14 +5911,30 @@ const teamsAddOrUpdateMembershipForUserInOrgParamSchema = joi
     team_slug: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
+
+const teamsAddOrUpdateMembershipForUserInOrgBodySchema = joi
+  .object()
+  .keys({ role: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
-  paramValidationFactory<any>(
+  paramValidationFactory<TeamsAddOrUpdateMembershipForUserInOrgParamSchema>(
     teamsAddOrUpdateMembershipForUserInOrgParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<TeamsAddOrUpdateMembershipForUserInOrgBodySchema>(
+    teamsAddOrUpdateMembershipForUserInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
+      void,
+      TeamsAddOrUpdateMembershipForUserInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateMembershipForUserInOrg
 
     ctx.status = 501
@@ -3452,12 +5952,18 @@ const teamsRemoveMembershipForUserInOrgParamSchema = joi
     team_slug: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "teamsRemoveMembershipForUserInOrg",
   "/orgs/:org/teams/:teamSlug/memberships/:username",
-  paramValidationFactory<any>(teamsRemoveMembershipForUserInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveMembershipForUserInOrgParamSchema>(
+    teamsRemoveMembershipForUserInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveMembershipForUserInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveMembershipForUserInOrg
 
     ctx.status = 501
@@ -3471,17 +5977,30 @@ router.delete(
 const teamsListProjectsInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListProjectsInOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListProjectsInOrg",
   "/orgs/:org/teams/:teamSlug/projects",
-  paramValidationFactory<any>(teamsListProjectsInOrgParamSchema),
-  queryValidationFactory<any>(teamsListProjectsInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListProjectsInOrgParamSchema>(
+    teamsListProjectsInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListProjectsInOrgQuerySchema>(
+    teamsListProjectsInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListProjectsInOrgParamSchema,
+      TeamsListProjectsInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListProjectsInOrg
 
     ctx.status = 501
@@ -3499,12 +6018,22 @@ const teamsCheckPermissionsForProjectInOrgParamSchema = joi
     team_slug: joi.string().required(),
     project_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsCheckPermissionsForProjectInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
-  paramValidationFactory<any>(teamsCheckPermissionsForProjectInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCheckPermissionsForProjectInOrgParamSchema>(
+    teamsCheckPermissionsForProjectInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCheckPermissionsForProjectInOrgParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCheckPermissionsForProjectInOrg
 
     ctx.status = 501
@@ -3522,14 +6051,30 @@ const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = joi
     team_slug: joi.string().required(),
     project_id: joi.number().required(),
   })
+  .required()
+
+const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
-  paramValidationFactory<any>(
+  paramValidationFactory<TeamsAddOrUpdateProjectPermissionsInOrgParamSchema>(
     teamsAddOrUpdateProjectPermissionsInOrgParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<TeamsAddOrUpdateProjectPermissionsInOrgBodySchema>(
+    teamsAddOrUpdateProjectPermissionsInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
+      void,
+      TeamsAddOrUpdateProjectPermissionsInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateProjectPermissionsInOrg
 
     ctx.status = 501
@@ -3547,12 +6092,18 @@ const teamsRemoveProjectInOrgParamSchema = joi
     team_slug: joi.string().required(),
     project_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsRemoveProjectInOrg",
   "/orgs/:org/teams/:teamSlug/projects/:projectId",
-  paramValidationFactory<any>(teamsRemoveProjectInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveProjectInOrgParamSchema>(
+    teamsRemoveProjectInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveProjectInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveProjectInOrg
 
     ctx.status = 501
@@ -3566,17 +6117,30 @@ router.delete(
 const teamsListReposInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListReposInOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListReposInOrg",
   "/orgs/:org/teams/:teamSlug/repos",
-  paramValidationFactory<any>(teamsListReposInOrgParamSchema),
-  queryValidationFactory<any>(teamsListReposInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListReposInOrgParamSchema>(
+    teamsListReposInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListReposInOrgQuerySchema>(
+    teamsListReposInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListReposInOrgParamSchema,
+      TeamsListReposInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListReposInOrg
 
     ctx.status = 501
@@ -3595,12 +6159,18 @@ const teamsCheckPermissionsForRepoInOrgParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
 
 router.get(
   "teamsCheckPermissionsForRepoInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsCheckPermissionsForRepoInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCheckPermissionsForRepoInOrgParamSchema>(
+    teamsCheckPermissionsForRepoInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsCheckPermissionsForRepoInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsCheckPermissionsForRepoInOrg
 
     ctx.status = 501
@@ -3619,12 +6189,30 @@ const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
+
+const teamsAddOrUpdateRepoPermissionsInOrgBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsAddOrUpdateRepoPermissionsInOrgParamSchema>(
+    teamsAddOrUpdateRepoPermissionsInOrgParamSchema
+  ),
+  bodyValidationFactory<TeamsAddOrUpdateRepoPermissionsInOrgBodySchema>(
+    teamsAddOrUpdateRepoPermissionsInOrgBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
+      void,
+      TeamsAddOrUpdateRepoPermissionsInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateRepoPermissionsInOrg
 
     ctx.status = 501
@@ -3643,12 +6231,18 @@ const teamsRemoveRepoInOrgParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "teamsRemoveRepoInOrg",
   "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsRemoveRepoInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveRepoInOrgParamSchema>(
+    teamsRemoveRepoInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveRepoInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveRepoInOrg
 
     ctx.status = 501
@@ -3662,12 +6256,18 @@ router.delete(
 const teamsListIdPGroupsInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 router.get(
   "teamsListIdPGroupsInOrg",
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
-  paramValidationFactory<any>(teamsListIdPGroupsInOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListIdPGroupsInOrgParamSchema>(
+    teamsListIdPGroupsInOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsListIdPGroupsInOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsListIdPGroupsInOrg
 
     ctx.status = 501
@@ -3681,14 +6281,43 @@ router.get(
 const teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
+
+const teamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema = joi
+  .object()
+  .keys({
+    groups: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            group_id: joi.string().required(),
+            group_name: joi.string().required(),
+            group_description: joi.string().required(),
+          })
+      )
+      .required(),
+  })
+  .required()
 
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsInOrg",
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
-  paramValidationFactory<any>(
-    teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
+  paramValidationFactory<
+    TeamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
+  >(teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema),
+  bodyValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema>(
+    teamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema,
+      void,
+      TeamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsInOrg
 
     ctx.status = 501
@@ -3702,17 +6331,30 @@ router.patch(
 const teamsListChildInOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), team_slug: joi.string().required() })
+  .required()
 
 const teamsListChildInOrgQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListChildInOrg",
   "/orgs/:org/teams/:teamSlug/teams",
-  paramValidationFactory<any>(teamsListChildInOrgParamSchema),
-  queryValidationFactory<any>(teamsListChildInOrgQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListChildInOrgParamSchema>(
+    teamsListChildInOrgParamSchema
+  ),
+  queryValidationFactory<TeamsListChildInOrgQuerySchema>(
+    teamsListChildInOrgQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListChildInOrgParamSchema,
+      TeamsListChildInOrgQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListChildInOrg
 
     ctx.status = 501
@@ -3726,12 +6368,15 @@ router.get(
 const projectsGetCardParamSchema = joi
   .object()
   .keys({ card_id: joi.number().required() })
+  .required()
 
 router.get(
   "projectsGetCard",
   "/projects/columns/cards/:cardId",
-  paramValidationFactory<any>(projectsGetCardParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsGetCardParamSchema>(
+    projectsGetCardParamSchema
+  ),
+  async (ctx: ValidatedCtx<ProjectsGetCardParamSchema, void, void>, next) => {
     //region safe-edit-region-projectsGetCard
 
     ctx.status = 501
@@ -3745,12 +6390,30 @@ router.get(
 const projectsUpdateCardParamSchema = joi
   .object()
   .keys({ card_id: joi.number().required() })
+  .required()
+
+const projectsUpdateCardBodySchema = joi
+  .object()
+  .keys({ note: joi.string(), archived: joi.boolean() })
+  .required()
 
 router.patch(
   "projectsUpdateCard",
   "/projects/columns/cards/:cardId",
-  paramValidationFactory<any>(projectsUpdateCardParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsUpdateCardParamSchema>(
+    projectsUpdateCardParamSchema
+  ),
+  bodyValidationFactory<ProjectsUpdateCardBodySchema>(
+    projectsUpdateCardBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsUpdateCardParamSchema,
+      void,
+      ProjectsUpdateCardBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsUpdateCard
 
     ctx.status = 501
@@ -3764,12 +6427,18 @@ router.patch(
 const projectsDeleteCardParamSchema = joi
   .object()
   .keys({ card_id: joi.number().required() })
+  .required()
 
 router.delete(
   "projectsDeleteCard",
   "/projects/columns/cards/:cardId",
-  paramValidationFactory<any>(projectsDeleteCardParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsDeleteCardParamSchema>(
+    projectsDeleteCardParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ProjectsDeleteCardParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-projectsDeleteCard
 
     ctx.status = 501
@@ -3783,12 +6452,28 @@ router.delete(
 const projectsMoveCardParamSchema = joi
   .object()
   .keys({ card_id: joi.number().required() })
+  .required()
+
+const projectsMoveCardBodySchema = joi
+  .object()
+  .keys({ position: joi.string().required(), column_id: joi.number() })
+  .required()
 
 router.post(
   "projectsMoveCard",
   "/projects/columns/cards/:cardId/moves",
-  paramValidationFactory<any>(projectsMoveCardParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsMoveCardParamSchema>(
+    projectsMoveCardParamSchema
+  ),
+  bodyValidationFactory<ProjectsMoveCardBodySchema>(projectsMoveCardBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsMoveCardParamSchema,
+      void,
+      ProjectsMoveCardBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsMoveCard
 
     ctx.status = 501
@@ -3802,12 +6487,15 @@ router.post(
 const projectsGetColumnParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
 
 router.get(
   "projectsGetColumn",
   "/projects/columns/:columnId",
-  paramValidationFactory<any>(projectsGetColumnParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsGetColumnParamSchema>(
+    projectsGetColumnParamSchema
+  ),
+  async (ctx: ValidatedCtx<ProjectsGetColumnParamSchema, void, void>, next) => {
     //region safe-edit-region-projectsGetColumn
 
     ctx.status = 501
@@ -3821,12 +6509,30 @@ router.get(
 const projectsUpdateColumnParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
+
+const projectsUpdateColumnBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required() })
+  .required()
 
 router.patch(
   "projectsUpdateColumn",
   "/projects/columns/:columnId",
-  paramValidationFactory<any>(projectsUpdateColumnParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsUpdateColumnParamSchema>(
+    projectsUpdateColumnParamSchema
+  ),
+  bodyValidationFactory<ProjectsUpdateColumnBodySchema>(
+    projectsUpdateColumnBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsUpdateColumnParamSchema,
+      void,
+      ProjectsUpdateColumnBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsUpdateColumn
 
     ctx.status = 501
@@ -3840,12 +6546,18 @@ router.patch(
 const projectsDeleteColumnParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
 
 router.delete(
   "projectsDeleteColumn",
   "/projects/columns/:columnId",
-  paramValidationFactory<any>(projectsDeleteColumnParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsDeleteColumnParamSchema>(
+    projectsDeleteColumnParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ProjectsDeleteColumnParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-projectsDeleteColumn
 
     ctx.status = 501
@@ -3859,6 +6571,7 @@ router.delete(
 const projectsListCardsParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
 
 const projectsListCardsQuerySchema = joi
   .object()
@@ -3867,13 +6580,25 @@ const projectsListCardsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "projectsListCards",
   "/projects/columns/:columnId/cards",
-  paramValidationFactory<any>(projectsListCardsParamSchema),
-  queryValidationFactory<any>(projectsListCardsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListCardsParamSchema>(
+    projectsListCardsParamSchema
+  ),
+  queryValidationFactory<ProjectsListCardsQuerySchema>(
+    projectsListCardsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListCardsParamSchema,
+      ProjectsListCardsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListCards
 
     ctx.status = 501
@@ -3887,12 +6612,34 @@ router.get(
 const projectsCreateCardParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
+
+const projectsCreateCardBodySchema = joi
+  .object()
+  .keys({
+    note: joi.string(),
+    content_id: joi.number(),
+    content_type: joi.string(),
+  })
+  .required()
 
 router.post(
   "projectsCreateCard",
   "/projects/columns/:columnId/cards",
-  paramValidationFactory<any>(projectsCreateCardParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsCreateCardParamSchema>(
+    projectsCreateCardParamSchema
+  ),
+  bodyValidationFactory<ProjectsCreateCardBodySchema>(
+    projectsCreateCardBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsCreateCardParamSchema,
+      void,
+      ProjectsCreateCardBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsCreateCard
 
     ctx.status = 501
@@ -3906,12 +6653,30 @@ router.post(
 const projectsMoveColumnParamSchema = joi
   .object()
   .keys({ column_id: joi.number().required() })
+  .required()
+
+const projectsMoveColumnBodySchema = joi
+  .object()
+  .keys({ position: joi.string().required() })
+  .required()
 
 router.post(
   "projectsMoveColumn",
   "/projects/columns/:columnId/moves",
-  paramValidationFactory<any>(projectsMoveColumnParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsMoveColumnParamSchema>(
+    projectsMoveColumnParamSchema
+  ),
+  bodyValidationFactory<ProjectsMoveColumnBodySchema>(
+    projectsMoveColumnBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsMoveColumnParamSchema,
+      void,
+      ProjectsMoveColumnBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsMoveColumn
 
     ctx.status = 501
@@ -3925,12 +6690,13 @@ router.post(
 const projectsGetParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
 
 router.get(
   "projectsGet",
   "/projects/:projectId",
-  paramValidationFactory<any>(projectsGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsGetParamSchema>(projectsGetParamSchema),
+  async (ctx: ValidatedCtx<ProjectsGetParamSchema, void, void>, next) => {
     //region safe-edit-region-projectsGet
 
     ctx.status = 501
@@ -3944,12 +6710,32 @@ router.get(
 const projectsUpdateParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
+
+const projectsUpdateBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string(),
+    body: joi.string(),
+    state: joi.string(),
+    organization_permission: joi.string(),
+    private: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "projectsUpdate",
   "/projects/:projectId",
-  paramValidationFactory<any>(projectsUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsUpdateParamSchema>(projectsUpdateParamSchema),
+  bodyValidationFactory<ProjectsUpdateBodySchema>(projectsUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsUpdateParamSchema,
+      void,
+      ProjectsUpdateBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsUpdate
 
     ctx.status = 501
@@ -3963,12 +6749,13 @@ router.patch(
 const projectsDeleteParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
 
 router.delete(
   "projectsDelete",
   "/projects/:projectId",
-  paramValidationFactory<any>(projectsDeleteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsDeleteParamSchema>(projectsDeleteParamSchema),
+  async (ctx: ValidatedCtx<ProjectsDeleteParamSchema, void, void>, next) => {
     //region safe-edit-region-projectsDelete
 
     ctx.status = 501
@@ -3982,6 +6769,7 @@ router.delete(
 const projectsListCollaboratorsParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
 
 const projectsListCollaboratorsQuerySchema = joi
   .object()
@@ -3990,13 +6778,25 @@ const projectsListCollaboratorsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "projectsListCollaborators",
   "/projects/:projectId/collaborators",
-  paramValidationFactory<any>(projectsListCollaboratorsParamSchema),
-  queryValidationFactory<any>(projectsListCollaboratorsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListCollaboratorsParamSchema>(
+    projectsListCollaboratorsParamSchema
+  ),
+  queryValidationFactory<ProjectsListCollaboratorsQuerySchema>(
+    projectsListCollaboratorsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListCollaboratorsParamSchema,
+      ProjectsListCollaboratorsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListCollaborators
 
     ctx.status = 501
@@ -4013,12 +6813,30 @@ const projectsAddCollaboratorParamSchema = joi
     project_id: joi.number().required(),
     username: joi.string().required(),
   })
+  .required()
+
+const projectsAddCollaboratorBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "projectsAddCollaborator",
   "/projects/:projectId/collaborators/:username",
-  paramValidationFactory<any>(projectsAddCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsAddCollaboratorParamSchema>(
+    projectsAddCollaboratorParamSchema
+  ),
+  bodyValidationFactory<ProjectsAddCollaboratorBodySchema>(
+    projectsAddCollaboratorBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsAddCollaboratorParamSchema,
+      void,
+      ProjectsAddCollaboratorBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsAddCollaborator
 
     ctx.status = 501
@@ -4035,12 +6853,18 @@ const projectsRemoveCollaboratorParamSchema = joi
     project_id: joi.number().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "projectsRemoveCollaborator",
   "/projects/:projectId/collaborators/:username",
-  paramValidationFactory<any>(projectsRemoveCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsRemoveCollaboratorParamSchema>(
+    projectsRemoveCollaboratorParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ProjectsRemoveCollaboratorParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-projectsRemoveCollaborator
 
     ctx.status = 501
@@ -4057,12 +6881,18 @@ const projectsGetPermissionForUserParamSchema = joi
     project_id: joi.number().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.get(
   "projectsGetPermissionForUser",
   "/projects/:projectId/collaborators/:username/permission",
-  paramValidationFactory<any>(projectsGetPermissionForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsGetPermissionForUserParamSchema>(
+    projectsGetPermissionForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ProjectsGetPermissionForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-projectsGetPermissionForUser
 
     ctx.status = 501
@@ -4076,17 +6906,30 @@ router.get(
 const projectsListColumnsParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
 
 const projectsListColumnsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "projectsListColumns",
   "/projects/:projectId/columns",
-  paramValidationFactory<any>(projectsListColumnsParamSchema),
-  queryValidationFactory<any>(projectsListColumnsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListColumnsParamSchema>(
+    projectsListColumnsParamSchema
+  ),
+  queryValidationFactory<ProjectsListColumnsQuerySchema>(
+    projectsListColumnsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListColumnsParamSchema,
+      ProjectsListColumnsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListColumns
 
     ctx.status = 501
@@ -4100,12 +6943,30 @@ router.get(
 const projectsCreateColumnParamSchema = joi
   .object()
   .keys({ project_id: joi.number().required() })
+  .required()
+
+const projectsCreateColumnBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required() })
+  .required()
 
 router.post(
   "projectsCreateColumn",
   "/projects/:projectId/columns",
-  paramValidationFactory<any>(projectsCreateColumnParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsCreateColumnParamSchema>(
+    projectsCreateColumnParamSchema
+  ),
+  bodyValidationFactory<ProjectsCreateColumnBodySchema>(
+    projectsCreateColumnBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsCreateColumnParamSchema,
+      void,
+      ProjectsCreateColumnBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsCreateColumn
 
     ctx.status = 501
@@ -4116,25 +6977,35 @@ router.post(
   }
 )
 
-router.get("rateLimitGet", "/rate_limit", async (ctx, next) => {
-  //region safe-edit-region-rateLimitGet
+router.get(
+  "rateLimitGet",
+  "/rate_limit",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-rateLimitGet
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-rateLimitGet
-})
+    //endregion safe-edit-region-rateLimitGet
+  }
+)
 
 const reactionsDeleteLegacyParamSchema = joi
   .object()
   .keys({ reaction_id: joi.number().required() })
+  .required()
 
 router.delete(
   "reactionsDeleteLegacy",
   "/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteLegacyParamSchema>(
+    reactionsDeleteLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReactionsDeleteLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteLegacy
 
     ctx.status = 501
@@ -4148,12 +7019,13 @@ router.delete(
 const reposGetParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGet",
   "/repos/:owner/:repo",
-  paramValidationFactory<any>(reposGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetParamSchema>(reposGetParamSchema),
+  async (ctx: ValidatedCtx<ReposGetParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGet
 
     ctx.status = 501
@@ -4167,12 +7039,38 @@ router.get(
 const reposUpdateParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposUpdateBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string(),
+    description: joi.string(),
+    homepage: joi.string(),
+    private: joi.boolean(),
+    visibility: joi.string(),
+    has_issues: joi.boolean(),
+    has_projects: joi.boolean(),
+    has_wiki: joi.boolean(),
+    is_template: joi.boolean(),
+    default_branch: joi.string(),
+    allow_squash_merge: joi.boolean(),
+    allow_merge_commit: joi.boolean(),
+    allow_rebase_merge: joi.boolean(),
+    delete_branch_on_merge: joi.boolean(),
+    archived: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "reposUpdate",
   "/repos/:owner/:repo",
-  paramValidationFactory<any>(reposUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateParamSchema>(reposUpdateParamSchema),
+  bodyValidationFactory<ReposUpdateBodySchema>(reposUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<ReposUpdateParamSchema, void, ReposUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-reposUpdate
 
     ctx.status = 501
@@ -4186,12 +7084,13 @@ router.patch(
 const reposDeleteParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "reposDelete",
   "/repos/:owner/:repo",
-  paramValidationFactory<any>(reposDeleteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteParamSchema>(reposDeleteParamSchema),
+  async (ctx: ValidatedCtx<ReposDeleteParamSchema, void, void>, next) => {
     //region safe-edit-region-reposDelete
 
     ctx.status = 501
@@ -4205,17 +7104,30 @@ router.delete(
 const actionsListArtifactsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const actionsListArtifactsForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListArtifactsForRepo",
   "/repos/:owner/:repo/actions/artifacts",
-  paramValidationFactory<any>(actionsListArtifactsForRepoParamSchema),
-  queryValidationFactory<any>(actionsListArtifactsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListArtifactsForRepoParamSchema>(
+    actionsListArtifactsForRepoParamSchema
+  ),
+  queryValidationFactory<ActionsListArtifactsForRepoQuerySchema>(
+    actionsListArtifactsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListArtifactsForRepoParamSchema,
+      ActionsListArtifactsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListArtifactsForRepo
 
     ctx.status = 501
@@ -4233,12 +7145,18 @@ const actionsGetArtifactParamSchema = joi
     repo: joi.string().required(),
     artifact_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
-  paramValidationFactory<any>(actionsGetArtifactParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetArtifactParamSchema>(
+    actionsGetArtifactParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetArtifactParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetArtifact
 
     ctx.status = 501
@@ -4256,12 +7174,18 @@ const actionsDeleteArtifactParamSchema = joi
     repo: joi.string().required(),
     artifact_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "actionsDeleteArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId",
-  paramValidationFactory<any>(actionsDeleteArtifactParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteArtifactParamSchema>(
+    actionsDeleteArtifactParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDeleteArtifactParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteArtifact
 
     ctx.status = 501
@@ -4280,12 +7204,18 @@ const actionsDownloadArtifactParamSchema = joi
     artifact_id: joi.number().required(),
     archive_format: joi.string().required(),
   })
+  .required()
 
 router.get(
   "actionsDownloadArtifact",
   "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
-  paramValidationFactory<any>(actionsDownloadArtifactParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDownloadArtifactParamSchema>(
+    actionsDownloadArtifactParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDownloadArtifactParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDownloadArtifact
 
     ctx.status = 501
@@ -4303,12 +7233,18 @@ const actionsGetJobForWorkflowRunParamSchema = joi
     repo: joi.string().required(),
     job_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetJobForWorkflowRun",
   "/repos/:owner/:repo/actions/jobs/:jobId",
-  paramValidationFactory<any>(actionsGetJobForWorkflowRunParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetJobForWorkflowRunParamSchema>(
+    actionsGetJobForWorkflowRunParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetJobForWorkflowRunParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetJobForWorkflowRun
 
     ctx.status = 501
@@ -4326,12 +7262,22 @@ const actionsDownloadJobLogsForWorkflowRunParamSchema = joi
     repo: joi.string().required(),
     job_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsDownloadJobLogsForWorkflowRun",
   "/repos/:owner/:repo/actions/jobs/:jobId/logs",
-  paramValidationFactory<any>(actionsDownloadJobLogsForWorkflowRunParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDownloadJobLogsForWorkflowRunParamSchema>(
+    actionsDownloadJobLogsForWorkflowRunParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsDownloadJobLogsForWorkflowRunParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsDownloadJobLogsForWorkflowRun
 
     ctx.status = 501
@@ -4345,17 +7291,30 @@ router.get(
 const actionsListSelfHostedRunnersForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const actionsListSelfHostedRunnersForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListSelfHostedRunnersForRepo",
   "/repos/:owner/:repo/actions/runners",
-  paramValidationFactory<any>(actionsListSelfHostedRunnersForRepoParamSchema),
-  queryValidationFactory<any>(actionsListSelfHostedRunnersForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListSelfHostedRunnersForRepoParamSchema>(
+    actionsListSelfHostedRunnersForRepoParamSchema
+  ),
+  queryValidationFactory<ActionsListSelfHostedRunnersForRepoQuerySchema>(
+    actionsListSelfHostedRunnersForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListSelfHostedRunnersForRepoParamSchema,
+      ActionsListSelfHostedRunnersForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListSelfHostedRunnersForRepo
 
     ctx.status = 501
@@ -4369,12 +7328,22 @@ router.get(
 const actionsListRunnerApplicationsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "actionsListRunnerApplicationsForRepo",
   "/repos/:owner/:repo/actions/runners/downloads",
-  paramValidationFactory<any>(actionsListRunnerApplicationsForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListRunnerApplicationsForRepoParamSchema>(
+    actionsListRunnerApplicationsForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListRunnerApplicationsForRepoParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListRunnerApplicationsForRepo
 
     ctx.status = 501
@@ -4388,12 +7357,22 @@ router.get(
 const actionsCreateRegistrationTokenForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.post(
   "actionsCreateRegistrationTokenForRepo",
   "/repos/:owner/:repo/actions/runners/registration-token",
-  paramValidationFactory<any>(actionsCreateRegistrationTokenForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateRegistrationTokenForRepoParamSchema>(
+    actionsCreateRegistrationTokenForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsCreateRegistrationTokenForRepoParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateRegistrationTokenForRepo
 
     ctx.status = 501
@@ -4407,12 +7386,18 @@ router.post(
 const actionsCreateRemoveTokenForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.post(
   "actionsCreateRemoveTokenForRepo",
   "/repos/:owner/:repo/actions/runners/remove-token",
-  paramValidationFactory<any>(actionsCreateRemoveTokenForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateRemoveTokenForRepoParamSchema>(
+    actionsCreateRemoveTokenForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsCreateRemoveTokenForRepoParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateRemoveTokenForRepo
 
     ctx.status = 501
@@ -4430,12 +7415,18 @@ const actionsGetSelfHostedRunnerForRepoParamSchema = joi
     repo: joi.string().required(),
     runner_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetSelfHostedRunnerForRepo",
   "/repos/:owner/:repo/actions/runners/:runnerId",
-  paramValidationFactory<any>(actionsGetSelfHostedRunnerForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetSelfHostedRunnerForRepoParamSchema>(
+    actionsGetSelfHostedRunnerForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetSelfHostedRunnerForRepoParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetSelfHostedRunnerForRepo
 
     ctx.status = 501
@@ -4453,12 +7444,22 @@ const actionsDeleteSelfHostedRunnerFromRepoParamSchema = joi
     repo: joi.string().required(),
     runner_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromRepo",
   "/repos/:owner/:repo/actions/runners/:runnerId",
-  paramValidationFactory<any>(actionsDeleteSelfHostedRunnerFromRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteSelfHostedRunnerFromRepoParamSchema>(
+    actionsDeleteSelfHostedRunnerFromRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteSelfHostedRunnerFromRepo
 
     ctx.status = 501
@@ -4472,6 +7473,7 @@ router.delete(
 const actionsListWorkflowRunsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const actionsListWorkflowRunsForRepoQuerySchema = joi
   .object()
@@ -4483,13 +7485,25 @@ const actionsListWorkflowRunsForRepoQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "actionsListWorkflowRunsForRepo",
   "/repos/:owner/:repo/actions/runs",
-  paramValidationFactory<any>(actionsListWorkflowRunsForRepoParamSchema),
-  queryValidationFactory<any>(actionsListWorkflowRunsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListWorkflowRunsForRepoParamSchema>(
+    actionsListWorkflowRunsForRepoParamSchema
+  ),
+  queryValidationFactory<ActionsListWorkflowRunsForRepoQuerySchema>(
+    actionsListWorkflowRunsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListWorkflowRunsForRepoParamSchema,
+      ActionsListWorkflowRunsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListWorkflowRunsForRepo
 
     ctx.status = 501
@@ -4507,12 +7521,18 @@ const actionsGetWorkflowRunParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId",
-  paramValidationFactory<any>(actionsGetWorkflowRunParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetWorkflowRunParamSchema>(
+    actionsGetWorkflowRunParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetWorkflowRunParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetWorkflowRun
 
     ctx.status = 501
@@ -4530,17 +7550,30 @@ const actionsListWorkflowRunArtifactsParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 const actionsListWorkflowRunArtifactsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListWorkflowRunArtifacts",
   "/repos/:owner/:repo/actions/runs/:runId/artifacts",
-  paramValidationFactory<any>(actionsListWorkflowRunArtifactsParamSchema),
-  queryValidationFactory<any>(actionsListWorkflowRunArtifactsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListWorkflowRunArtifactsParamSchema>(
+    actionsListWorkflowRunArtifactsParamSchema
+  ),
+  queryValidationFactory<ActionsListWorkflowRunArtifactsQuerySchema>(
+    actionsListWorkflowRunArtifactsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListWorkflowRunArtifactsParamSchema,
+      ActionsListWorkflowRunArtifactsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListWorkflowRunArtifacts
 
     ctx.status = 501
@@ -4558,12 +7591,18 @@ const actionsCancelWorkflowRunParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.post(
   "actionsCancelWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId/cancel",
-  paramValidationFactory<any>(actionsCancelWorkflowRunParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCancelWorkflowRunParamSchema>(
+    actionsCancelWorkflowRunParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsCancelWorkflowRunParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsCancelWorkflowRun
 
     ctx.status = 501
@@ -4581,17 +7620,30 @@ const actionsListJobsForWorkflowRunParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 const actionsListJobsForWorkflowRunQuerySchema = joi
   .object()
   .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListJobsForWorkflowRun",
   "/repos/:owner/:repo/actions/runs/:runId/jobs",
-  paramValidationFactory<any>(actionsListJobsForWorkflowRunParamSchema),
-  queryValidationFactory<any>(actionsListJobsForWorkflowRunQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListJobsForWorkflowRunParamSchema>(
+    actionsListJobsForWorkflowRunParamSchema
+  ),
+  queryValidationFactory<ActionsListJobsForWorkflowRunQuerySchema>(
+    actionsListJobsForWorkflowRunQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListJobsForWorkflowRunParamSchema,
+      ActionsListJobsForWorkflowRunQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListJobsForWorkflowRun
 
     ctx.status = 501
@@ -4609,12 +7661,18 @@ const actionsDownloadWorkflowRunLogsParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsDownloadWorkflowRunLogs",
   "/repos/:owner/:repo/actions/runs/:runId/logs",
-  paramValidationFactory<any>(actionsDownloadWorkflowRunLogsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDownloadWorkflowRunLogsParamSchema>(
+    actionsDownloadWorkflowRunLogsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDownloadWorkflowRunLogsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDownloadWorkflowRunLogs
 
     ctx.status = 501
@@ -4632,12 +7690,18 @@ const actionsDeleteWorkflowRunLogsParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "actionsDeleteWorkflowRunLogs",
   "/repos/:owner/:repo/actions/runs/:runId/logs",
-  paramValidationFactory<any>(actionsDeleteWorkflowRunLogsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteWorkflowRunLogsParamSchema>(
+    actionsDeleteWorkflowRunLogsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteWorkflowRunLogs
 
     ctx.status = 501
@@ -4655,12 +7719,18 @@ const actionsReRunWorkflowParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.post(
   "actionsReRunWorkflow",
   "/repos/:owner/:repo/actions/runs/:runId/rerun",
-  paramValidationFactory<any>(actionsReRunWorkflowParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsReRunWorkflowParamSchema>(
+    actionsReRunWorkflowParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsReRunWorkflowParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsReRunWorkflow
 
     ctx.status = 501
@@ -4678,12 +7748,18 @@ const actionsGetWorkflowRunUsageParamSchema = joi
     repo: joi.string().required(),
     run_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetWorkflowRunUsage",
   "/repos/:owner/:repo/actions/runs/:runId/timing",
-  paramValidationFactory<any>(actionsGetWorkflowRunUsageParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetWorkflowRunUsageParamSchema>(
+    actionsGetWorkflowRunUsageParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetWorkflowRunUsageParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetWorkflowRunUsage
 
     ctx.status = 501
@@ -4697,17 +7773,30 @@ router.get(
 const actionsListRepoSecretsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const actionsListRepoSecretsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListRepoSecrets",
   "/repos/:owner/:repo/actions/secrets",
-  paramValidationFactory<any>(actionsListRepoSecretsParamSchema),
-  queryValidationFactory<any>(actionsListRepoSecretsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListRepoSecretsParamSchema>(
+    actionsListRepoSecretsParamSchema
+  ),
+  queryValidationFactory<ActionsListRepoSecretsQuerySchema>(
+    actionsListRepoSecretsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListRepoSecretsParamSchema,
+      ActionsListRepoSecretsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListRepoSecrets
 
     ctx.status = 501
@@ -4721,12 +7810,18 @@ router.get(
 const actionsGetRepoPublicKeyParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "actionsGetRepoPublicKey",
   "/repos/:owner/:repo/actions/secrets/public-key",
-  paramValidationFactory<any>(actionsGetRepoPublicKeyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetRepoPublicKeyParamSchema>(
+    actionsGetRepoPublicKeyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetRepoPublicKeyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetRepoPublicKey
 
     ctx.status = 501
@@ -4744,12 +7839,18 @@ const actionsGetRepoSecretParamSchema = joi
     repo: joi.string().required(),
     secret_name: joi.string().required(),
   })
+  .required()
 
 router.get(
   "actionsGetRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsGetRepoSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetRepoSecretParamSchema>(
+    actionsGetRepoSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetRepoSecretParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetRepoSecret
 
     ctx.status = 501
@@ -4767,12 +7868,30 @@ const actionsCreateOrUpdateRepoSecretParamSchema = joi
     repo: joi.string().required(),
     secret_name: joi.string().required(),
   })
+  .required()
+
+const actionsCreateOrUpdateRepoSecretBodySchema = joi
+  .object()
+  .keys({ encrypted_value: joi.string(), key_id: joi.string() })
+  .required()
 
 router.put(
   "actionsCreateOrUpdateRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsCreateOrUpdateRepoSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsCreateOrUpdateRepoSecretParamSchema>(
+    actionsCreateOrUpdateRepoSecretParamSchema
+  ),
+  bodyValidationFactory<ActionsCreateOrUpdateRepoSecretBodySchema>(
+    actionsCreateOrUpdateRepoSecretBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsCreateOrUpdateRepoSecretParamSchema,
+      void,
+      ActionsCreateOrUpdateRepoSecretBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsCreateOrUpdateRepoSecret
 
     ctx.status = 501
@@ -4790,12 +7909,18 @@ const actionsDeleteRepoSecretParamSchema = joi
     repo: joi.string().required(),
     secret_name: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "actionsDeleteRepoSecret",
   "/repos/:owner/:repo/actions/secrets/:secretName",
-  paramValidationFactory<any>(actionsDeleteRepoSecretParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsDeleteRepoSecretParamSchema>(
+    actionsDeleteRepoSecretParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsDeleteRepoSecretParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsDeleteRepoSecret
 
     ctx.status = 501
@@ -4809,17 +7934,30 @@ router.delete(
 const actionsListRepoWorkflowsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const actionsListRepoWorkflowsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "actionsListRepoWorkflows",
   "/repos/:owner/:repo/actions/workflows",
-  paramValidationFactory<any>(actionsListRepoWorkflowsParamSchema),
-  queryValidationFactory<any>(actionsListRepoWorkflowsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListRepoWorkflowsParamSchema>(
+    actionsListRepoWorkflowsParamSchema
+  ),
+  queryValidationFactory<ActionsListRepoWorkflowsQuerySchema>(
+    actionsListRepoWorkflowsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListRepoWorkflowsParamSchema,
+      ActionsListRepoWorkflowsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListRepoWorkflows
 
     ctx.status = 501
@@ -4837,12 +7975,18 @@ const actionsGetWorkflowParamSchema = joi
     repo: joi.string().required(),
     workflow_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetWorkflow",
   "/repos/:owner/:repo/actions/workflows/:workflowId",
-  paramValidationFactory<any>(actionsGetWorkflowParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetWorkflowParamSchema>(
+    actionsGetWorkflowParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetWorkflowParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetWorkflow
 
     ctx.status = 501
@@ -4860,6 +8004,7 @@ const actionsListWorkflowRunsParamSchema = joi
     repo: joi.string().required(),
     workflow_id: joi.number().required(),
   })
+  .required()
 
 const actionsListWorkflowRunsQuerySchema = joi
   .object()
@@ -4871,13 +8016,25 @@ const actionsListWorkflowRunsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "actionsListWorkflowRuns",
   "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
-  paramValidationFactory<any>(actionsListWorkflowRunsParamSchema),
-  queryValidationFactory<any>(actionsListWorkflowRunsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsListWorkflowRunsParamSchema>(
+    actionsListWorkflowRunsParamSchema
+  ),
+  queryValidationFactory<ActionsListWorkflowRunsQuerySchema>(
+    actionsListWorkflowRunsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActionsListWorkflowRunsParamSchema,
+      ActionsListWorkflowRunsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-actionsListWorkflowRuns
 
     ctx.status = 501
@@ -4895,12 +8052,18 @@ const actionsGetWorkflowUsageParamSchema = joi
     repo: joi.string().required(),
     workflow_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "actionsGetWorkflowUsage",
   "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
-  paramValidationFactory<any>(actionsGetWorkflowUsageParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActionsGetWorkflowUsageParamSchema>(
+    actionsGetWorkflowUsageParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActionsGetWorkflowUsageParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-actionsGetWorkflowUsage
 
     ctx.status = 501
@@ -4914,17 +8077,30 @@ router.get(
 const issuesListAssigneesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListAssigneesQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListAssignees",
   "/repos/:owner/:repo/assignees",
-  paramValidationFactory<any>(issuesListAssigneesParamSchema),
-  queryValidationFactory<any>(issuesListAssigneesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListAssigneesParamSchema>(
+    issuesListAssigneesParamSchema
+  ),
+  queryValidationFactory<IssuesListAssigneesQuerySchema>(
+    issuesListAssigneesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListAssigneesParamSchema,
+      IssuesListAssigneesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListAssignees
 
     ctx.status = 501
@@ -4942,12 +8118,18 @@ const issuesCheckUserCanBeAssignedParamSchema = joi
     repo: joi.string().required(),
     assignee: joi.string().required(),
   })
+  .required()
 
 router.get(
   "issuesCheckUserCanBeAssigned",
   "/repos/:owner/:repo/assignees/:assignee",
-  paramValidationFactory<any>(issuesCheckUserCanBeAssignedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesCheckUserCanBeAssignedParamSchema>(
+    issuesCheckUserCanBeAssignedParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<IssuesCheckUserCanBeAssignedParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesCheckUserCanBeAssigned
 
     ctx.status = 501
@@ -4961,12 +8143,18 @@ router.get(
 const reposEnableAutomatedSecurityFixesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.put(
   "reposEnableAutomatedSecurityFixes",
   "/repos/:owner/:repo/automated-security-fixes",
-  paramValidationFactory<any>(reposEnableAutomatedSecurityFixesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposEnableAutomatedSecurityFixesParamSchema>(
+    reposEnableAutomatedSecurityFixesParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposEnableAutomatedSecurityFixesParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposEnableAutomatedSecurityFixes
 
     ctx.status = 501
@@ -4980,12 +8168,22 @@ router.put(
 const reposDisableAutomatedSecurityFixesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "reposDisableAutomatedSecurityFixes",
   "/repos/:owner/:repo/automated-security-fixes",
-  paramValidationFactory<any>(reposDisableAutomatedSecurityFixesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDisableAutomatedSecurityFixesParamSchema>(
+    reposDisableAutomatedSecurityFixesParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposDisableAutomatedSecurityFixesParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposDisableAutomatedSecurityFixes
 
     ctx.status = 501
@@ -4999,6 +8197,7 @@ router.delete(
 const reposListBranchesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListBranchesQuerySchema = joi
   .object()
@@ -5007,13 +8206,25 @@ const reposListBranchesQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListBranches",
   "/repos/:owner/:repo/branches",
-  paramValidationFactory<any>(reposListBranchesParamSchema),
-  queryValidationFactory<any>(reposListBranchesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListBranchesParamSchema>(
+    reposListBranchesParamSchema
+  ),
+  queryValidationFactory<ReposListBranchesQuerySchema>(
+    reposListBranchesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListBranchesParamSchema,
+      ReposListBranchesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListBranches
 
     ctx.status = 501
@@ -5031,12 +8242,13 @@ const reposGetBranchParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetBranch",
   "/repos/:owner/:repo/branches/:branch",
-  paramValidationFactory<any>(reposGetBranchParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetBranchParamSchema>(reposGetBranchParamSchema),
+  async (ctx: ValidatedCtx<ReposGetBranchParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetBranch
 
     ctx.status = 501
@@ -5054,12 +8266,18 @@ const reposGetBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
-  paramValidationFactory<any>(reposGetBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetBranchProtectionParamSchema>(
+    reposGetBranchProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetBranchProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetBranchProtection
 
     ctx.status = 501
@@ -5077,12 +8295,64 @@ const reposUpdateBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposUpdateBranchProtectionBodySchema = joi
+  .object()
+  .keys({
+    required_status_checks: joi
+      .object()
+      .keys({
+        strict: joi.boolean().required(),
+        contexts: joi.array().items(joi.string()).required(),
+      })
+      .required(),
+    enforce_admins: joi.boolean().required(),
+    required_pull_request_reviews: joi
+      .object()
+      .keys({
+        dismissal_restrictions: joi
+          .object()
+          .keys({
+            users: joi.array().items(joi.string()),
+            teams: joi.array().items(joi.string()),
+          }),
+        dismiss_stale_reviews: joi.boolean(),
+        require_code_owner_reviews: joi.boolean(),
+        required_approving_review_count: joi.number(),
+      })
+      .required(),
+    restrictions: joi
+      .object()
+      .keys({
+        users: joi.array().items(joi.string()).required(),
+        teams: joi.array().items(joi.string()).required(),
+        apps: joi.array().items(joi.string()),
+      })
+      .required(),
+    required_linear_history: joi.boolean(),
+    allow_force_pushes: joi.boolean(),
+    allow_deletions: joi.boolean(),
+  })
+  .required()
 
 router.put(
   "reposUpdateBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
-  paramValidationFactory<any>(reposUpdateBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateBranchProtectionParamSchema>(
+    reposUpdateBranchProtectionParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateBranchProtectionBodySchema>(
+    reposUpdateBranchProtectionBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateBranchProtectionParamSchema,
+      void,
+      ReposUpdateBranchProtectionBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateBranchProtection
 
     ctx.status = 501
@@ -5100,12 +8370,18 @@ const reposDeleteBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection",
-  paramValidationFactory<any>(reposDeleteBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteBranchProtectionParamSchema>(
+    reposDeleteBranchProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteBranchProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteBranchProtection
 
     ctx.status = 501
@@ -5123,12 +8399,18 @@ const reposGetAdminBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-  paramValidationFactory<any>(reposGetAdminBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetAdminBranchProtectionParamSchema>(
+    reposGetAdminBranchProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetAdminBranchProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetAdminBranchProtection
 
     ctx.status = 501
@@ -5146,12 +8428,18 @@ const reposSetAdminBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.post(
   "reposSetAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-  paramValidationFactory<any>(reposSetAdminBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposSetAdminBranchProtectionParamSchema>(
+    reposSetAdminBranchProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposSetAdminBranchProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposSetAdminBranchProtection
 
     ctx.status = 501
@@ -5169,12 +8457,18 @@ const reposDeleteAdminBranchProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteAdminBranchProtection",
   "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-  paramValidationFactory<any>(reposDeleteAdminBranchProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteAdminBranchProtectionParamSchema>(
+    reposDeleteAdminBranchProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteAdminBranchProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteAdminBranchProtection
 
     ctx.status = 501
@@ -5192,12 +8486,22 @@ const reposGetPullRequestReviewProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetPullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-  paramValidationFactory<any>(reposGetPullRequestReviewProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetPullRequestReviewProtectionParamSchema>(
+    reposGetPullRequestReviewProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposGetPullRequestReviewProtectionParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetPullRequestReviewProtection
 
     ctx.status = 501
@@ -5215,14 +8519,40 @@ const reposUpdatePullRequestReviewProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposUpdatePullRequestReviewProtectionBodySchema = joi
+  .object()
+  .keys({
+    dismissal_restrictions: joi
+      .object()
+      .keys({
+        users: joi.array().items(joi.string()),
+        teams: joi.array().items(joi.string()),
+      }),
+    dismiss_stale_reviews: joi.boolean(),
+    require_code_owner_reviews: joi.boolean(),
+    required_approving_review_count: joi.number(),
+  })
+  .required()
 
 router.patch(
   "reposUpdatePullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposUpdatePullRequestReviewProtectionParamSchema>(
     reposUpdatePullRequestReviewProtectionParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<ReposUpdatePullRequestReviewProtectionBodySchema>(
+    reposUpdatePullRequestReviewProtectionBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdatePullRequestReviewProtectionParamSchema,
+      void,
+      ReposUpdatePullRequestReviewProtectionBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdatePullRequestReviewProtection
 
     ctx.status = 501
@@ -5240,14 +8570,22 @@ const reposDeletePullRequestReviewProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposDeletePullRequestReviewProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposDeletePullRequestReviewProtectionParamSchema>(
     reposDeletePullRequestReviewProtectionParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReposDeletePullRequestReviewProtectionParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposDeletePullRequestReviewProtection
 
     ctx.status = 501
@@ -5265,12 +8603,18 @@ const reposGetCommitSignatureProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-  paramValidationFactory<any>(reposGetCommitSignatureProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCommitSignatureProtectionParamSchema>(
+    reposGetCommitSignatureProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCommitSignatureProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCommitSignatureProtection
 
     ctx.status = 501
@@ -5288,12 +8632,22 @@ const reposCreateCommitSignatureProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.post(
   "reposCreateCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-  paramValidationFactory<any>(reposCreateCommitSignatureProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateCommitSignatureProtectionParamSchema>(
+    reposCreateCommitSignatureProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateCommitSignatureProtectionParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateCommitSignatureProtection
 
     ctx.status = 501
@@ -5311,12 +8665,22 @@ const reposDeleteCommitSignatureProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteCommitSignatureProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-  paramValidationFactory<any>(reposDeleteCommitSignatureProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteCommitSignatureProtectionParamSchema>(
+    reposDeleteCommitSignatureProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposDeleteCommitSignatureProtectionParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteCommitSignatureProtection
 
     ctx.status = 501
@@ -5334,12 +8698,18 @@ const reposGetStatusChecksProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetStatusChecksProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-  paramValidationFactory<any>(reposGetStatusChecksProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetStatusChecksProtectionParamSchema>(
+    reposGetStatusChecksProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetStatusChecksProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetStatusChecksProtection
 
     ctx.status = 501
@@ -5357,12 +8727,30 @@ const reposUpdateStatusCheckPotectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposUpdateStatusCheckPotectionBodySchema = joi
+  .object()
+  .keys({ strict: joi.boolean(), contexts: joi.array().items(joi.string()) })
+  .required()
 
 router.patch(
   "reposUpdateStatusCheckPotection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-  paramValidationFactory<any>(reposUpdateStatusCheckPotectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateStatusCheckPotectionParamSchema>(
+    reposUpdateStatusCheckPotectionParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateStatusCheckPotectionBodySchema>(
+    reposUpdateStatusCheckPotectionBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateStatusCheckPotectionParamSchema,
+      void,
+      ReposUpdateStatusCheckPotectionBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateStatusCheckPotection
 
     ctx.status = 501
@@ -5380,12 +8768,18 @@ const reposRemoveStatusCheckProtectionParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposRemoveStatusCheckProtection",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-  paramValidationFactory<any>(reposRemoveStatusCheckProtectionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveStatusCheckProtectionParamSchema>(
+    reposRemoveStatusCheckProtectionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposRemoveStatusCheckProtectionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveStatusCheckProtection
 
     ctx.status = 501
@@ -5403,12 +8797,18 @@ const reposGetAllStatusCheckContextsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetAllStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-  paramValidationFactory<any>(reposGetAllStatusCheckContextsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetAllStatusCheckContextsParamSchema>(
+    reposGetAllStatusCheckContextsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetAllStatusCheckContextsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetAllStatusCheckContexts
 
     ctx.status = 501
@@ -5426,12 +8826,30 @@ const reposSetStatusCheckContextsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposSetStatusCheckContextsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.put(
   "reposSetStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-  paramValidationFactory<any>(reposSetStatusCheckContextsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposSetStatusCheckContextsParamSchema>(
+    reposSetStatusCheckContextsParamSchema
+  ),
+  bodyValidationFactory<ReposSetStatusCheckContextsBodySchema>(
+    reposSetStatusCheckContextsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposSetStatusCheckContextsParamSchema,
+      void,
+      ReposSetStatusCheckContextsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposSetStatusCheckContexts
 
     ctx.status = 501
@@ -5449,12 +8867,30 @@ const reposAddStatusCheckContextsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposAddStatusCheckContextsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.post(
   "reposAddStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-  paramValidationFactory<any>(reposAddStatusCheckContextsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAddStatusCheckContextsParamSchema>(
+    reposAddStatusCheckContextsParamSchema
+  ),
+  bodyValidationFactory<ReposAddStatusCheckContextsBodySchema>(
+    reposAddStatusCheckContextsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposAddStatusCheckContextsParamSchema,
+      void,
+      ReposAddStatusCheckContextsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposAddStatusCheckContexts
 
     ctx.status = 501
@@ -5472,12 +8908,30 @@ const reposRemoveStatusCheckContextsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposRemoveStatusCheckContextsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.delete(
   "reposRemoveStatusCheckContexts",
   "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-  paramValidationFactory<any>(reposRemoveStatusCheckContextsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveStatusCheckContextsParamSchema>(
+    reposRemoveStatusCheckContextsParamSchema
+  ),
+  bodyValidationFactory<ReposRemoveStatusCheckContextsBodySchema>(
+    reposRemoveStatusCheckContextsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposRemoveStatusCheckContextsParamSchema,
+      void,
+      ReposRemoveStatusCheckContextsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveStatusCheckContexts
 
     ctx.status = 501
@@ -5495,12 +8949,18 @@ const reposGetAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-  paramValidationFactory<any>(reposGetAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetAccessRestrictionsParamSchema>(
+    reposGetAccessRestrictionsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetAccessRestrictionsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetAccessRestrictions
 
     ctx.status = 501
@@ -5518,12 +8978,18 @@ const reposDeleteAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-  paramValidationFactory<any>(reposDeleteAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteAccessRestrictionsParamSchema>(
+    reposDeleteAccessRestrictionsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteAccessRestrictionsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteAccessRestrictions
 
     ctx.status = 501
@@ -5541,14 +9007,22 @@ const reposGetAppsWithAccessToProtectedBranchParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetAppsWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposGetAppsWithAccessToProtectedBranchParamSchema>(
     reposGetAppsWithAccessToProtectedBranchParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReposGetAppsWithAccessToProtectedBranchParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetAppsWithAccessToProtectedBranch
 
     ctx.status = 501
@@ -5566,12 +9040,30 @@ const reposSetAppAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposSetAppAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.put(
   "reposSetAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-  paramValidationFactory<any>(reposSetAppAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposSetAppAccessRestrictionsParamSchema>(
+    reposSetAppAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposSetAppAccessRestrictionsBodySchema>(
+    reposSetAppAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposSetAppAccessRestrictionsParamSchema,
+      void,
+      ReposSetAppAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposSetAppAccessRestrictions
 
     ctx.status = 501
@@ -5589,12 +9081,30 @@ const reposAddAppAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposAddAppAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.post(
   "reposAddAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-  paramValidationFactory<any>(reposAddAppAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAddAppAccessRestrictionsParamSchema>(
+    reposAddAppAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposAddAppAccessRestrictionsBodySchema>(
+    reposAddAppAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposAddAppAccessRestrictionsParamSchema,
+      void,
+      ReposAddAppAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposAddAppAccessRestrictions
 
     ctx.status = 501
@@ -5612,12 +9122,30 @@ const reposRemoveAppAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposRemoveAppAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.delete(
   "reposRemoveAppAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-  paramValidationFactory<any>(reposRemoveAppAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveAppAccessRestrictionsParamSchema>(
+    reposRemoveAppAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposRemoveAppAccessRestrictionsBodySchema>(
+    reposRemoveAppAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposRemoveAppAccessRestrictionsParamSchema,
+      void,
+      ReposRemoveAppAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveAppAccessRestrictions
 
     ctx.status = 501
@@ -5635,14 +9163,22 @@ const reposGetTeamsWithAccessToProtectedBranchParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetTeamsWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposGetTeamsWithAccessToProtectedBranchParamSchema>(
     reposGetTeamsWithAccessToProtectedBranchParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReposGetTeamsWithAccessToProtectedBranchParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetTeamsWithAccessToProtectedBranch
 
     ctx.status = 501
@@ -5660,12 +9196,30 @@ const reposSetTeamAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposSetTeamAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.put(
   "reposSetTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-  paramValidationFactory<any>(reposSetTeamAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposSetTeamAccessRestrictionsParamSchema>(
+    reposSetTeamAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposSetTeamAccessRestrictionsBodySchema>(
+    reposSetTeamAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposSetTeamAccessRestrictionsParamSchema,
+      void,
+      ReposSetTeamAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposSetTeamAccessRestrictions
 
     ctx.status = 501
@@ -5683,12 +9237,30 @@ const reposAddTeamAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposAddTeamAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.post(
   "reposAddTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-  paramValidationFactory<any>(reposAddTeamAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAddTeamAccessRestrictionsParamSchema>(
+    reposAddTeamAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposAddTeamAccessRestrictionsBodySchema>(
+    reposAddTeamAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposAddTeamAccessRestrictionsParamSchema,
+      void,
+      ReposAddTeamAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposAddTeamAccessRestrictions
 
     ctx.status = 501
@@ -5706,12 +9278,30 @@ const reposRemoveTeamAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposRemoveTeamAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.delete(
   "reposRemoveTeamAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-  paramValidationFactory<any>(reposRemoveTeamAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveTeamAccessRestrictionsParamSchema>(
+    reposRemoveTeamAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposRemoveTeamAccessRestrictionsBodySchema>(
+    reposRemoveTeamAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposRemoveTeamAccessRestrictionsParamSchema,
+      void,
+      ReposRemoveTeamAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveTeamAccessRestrictions
 
     ctx.status = 501
@@ -5729,14 +9319,22 @@ const reposGetUsersWithAccessToProtectedBranchParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetUsersWithAccessToProtectedBranch",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposGetUsersWithAccessToProtectedBranchParamSchema>(
     reposGetUsersWithAccessToProtectedBranchParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReposGetUsersWithAccessToProtectedBranchParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetUsersWithAccessToProtectedBranch
 
     ctx.status = 501
@@ -5754,12 +9352,30 @@ const reposSetUserAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposSetUserAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.put(
   "reposSetUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-  paramValidationFactory<any>(reposSetUserAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposSetUserAccessRestrictionsParamSchema>(
+    reposSetUserAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposSetUserAccessRestrictionsBodySchema>(
+    reposSetUserAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposSetUserAccessRestrictionsParamSchema,
+      void,
+      ReposSetUserAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposSetUserAccessRestrictions
 
     ctx.status = 501
@@ -5777,12 +9393,30 @@ const reposAddUserAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposAddUserAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.post(
   "reposAddUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-  paramValidationFactory<any>(reposAddUserAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAddUserAccessRestrictionsParamSchema>(
+    reposAddUserAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposAddUserAccessRestrictionsBodySchema>(
+    reposAddUserAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposAddUserAccessRestrictionsParamSchema,
+      void,
+      ReposAddUserAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposAddUserAccessRestrictions
 
     ctx.status = 501
@@ -5800,12 +9434,30 @@ const reposRemoveUserAccessRestrictionsParamSchema = joi
     repo: joi.string().required(),
     branch: joi.string().required(),
   })
+  .required()
+
+const reposRemoveUserAccessRestrictionsBodySchema = joi
+  .array()
+  .items(joi.string())
+  .required()
 
 router.delete(
   "reposRemoveUserAccessRestrictions",
   "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-  paramValidationFactory<any>(reposRemoveUserAccessRestrictionsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveUserAccessRestrictionsParamSchema>(
+    reposRemoveUserAccessRestrictionsParamSchema
+  ),
+  bodyValidationFactory<ReposRemoveUserAccessRestrictionsBodySchema>(
+    reposRemoveUserAccessRestrictionsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposRemoveUserAccessRestrictionsParamSchema,
+      void,
+      ReposRemoveUserAccessRestrictionsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveUserAccessRestrictions
 
     ctx.status = 501
@@ -5819,12 +9471,77 @@ router.delete(
 const checksCreateParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const checksCreateBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    head_sha: joi.string().required(),
+    details_url: joi.string(),
+    external_id: joi.string(),
+    status: joi.string(),
+    started_at: joi.string(),
+    conclusion: joi.string(),
+    completed_at: joi.string(),
+    output: joi
+      .object()
+      .keys({
+        title: joi.string().required(),
+        summary: joi.string().required(),
+        text: joi.string(),
+        annotations: joi
+          .array()
+          .items(
+            joi
+              .object()
+              .keys({
+                path: joi.string().required(),
+                start_line: joi.number().required(),
+                end_line: joi.number().required(),
+                start_column: joi.number(),
+                end_column: joi.number(),
+                annotation_level: joi.string().required(),
+                message: joi.string().required(),
+                title: joi.string(),
+                raw_details: joi.string(),
+              })
+          ),
+        images: joi
+          .array()
+          .items(
+            joi
+              .object()
+              .keys({
+                alt: joi.string().required(),
+                image_url: joi.string().required(),
+                caption: joi.string(),
+              })
+          ),
+      }),
+    actions: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            label: joi.string().required(),
+            description: joi.string().required(),
+            identifier: joi.string().required(),
+          })
+      ),
+  })
+  .required()
 
 router.post(
   "checksCreate",
   "/repos/:owner/:repo/check-runs",
-  paramValidationFactory<any>(checksCreateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksCreateParamSchema>(checksCreateParamSchema),
+  bodyValidationFactory<ChecksCreateBodySchema>(checksCreateBodySchema),
+  async (
+    ctx: ValidatedCtx<ChecksCreateParamSchema, void, ChecksCreateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-checksCreate
 
     ctx.status = 501
@@ -5842,12 +9559,76 @@ const checksUpdateParamSchema = joi
     repo: joi.string().required(),
     check_run_id: joi.number().required(),
   })
+  .required()
+
+const checksUpdateBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string(),
+    details_url: joi.string(),
+    external_id: joi.string(),
+    started_at: joi.string(),
+    status: joi.string(),
+    conclusion: joi.string(),
+    completed_at: joi.string(),
+    output: joi
+      .object()
+      .keys({
+        title: joi.string(),
+        summary: joi.string().required(),
+        text: joi.string(),
+        annotations: joi
+          .array()
+          .items(
+            joi
+              .object()
+              .keys({
+                path: joi.string().required(),
+                start_line: joi.number().required(),
+                end_line: joi.number().required(),
+                start_column: joi.number(),
+                end_column: joi.number(),
+                annotation_level: joi.string().required(),
+                message: joi.string().required(),
+                title: joi.string(),
+                raw_details: joi.string(),
+              })
+          ),
+        images: joi
+          .array()
+          .items(
+            joi
+              .object()
+              .keys({
+                alt: joi.string().required(),
+                image_url: joi.string().required(),
+                caption: joi.string(),
+              })
+          ),
+      }),
+    actions: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            label: joi.string().required(),
+            description: joi.string().required(),
+            identifier: joi.string().required(),
+          })
+      ),
+  })
+  .required()
 
 router.patch(
   "checksUpdate",
   "/repos/:owner/:repo/check-runs/:checkRunId",
-  paramValidationFactory<any>(checksUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksUpdateParamSchema>(checksUpdateParamSchema),
+  bodyValidationFactory<ChecksUpdateBodySchema>(checksUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<ChecksUpdateParamSchema, void, ChecksUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-checksUpdate
 
     ctx.status = 501
@@ -5865,12 +9646,13 @@ const checksGetParamSchema = joi
     repo: joi.string().required(),
     check_run_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "checksGet",
   "/repos/:owner/:repo/check-runs/:checkRunId",
-  paramValidationFactory<any>(checksGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksGetParamSchema>(checksGetParamSchema),
+  async (ctx: ValidatedCtx<ChecksGetParamSchema, void, void>, next) => {
     //region safe-edit-region-checksGet
 
     ctx.status = 501
@@ -5888,17 +9670,30 @@ const checksListAnnotationsParamSchema = joi
     repo: joi.string().required(),
     check_run_id: joi.number().required(),
   })
+  .required()
 
 const checksListAnnotationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "checksListAnnotations",
   "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
-  paramValidationFactory<any>(checksListAnnotationsParamSchema),
-  queryValidationFactory<any>(checksListAnnotationsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksListAnnotationsParamSchema>(
+    checksListAnnotationsParamSchema
+  ),
+  queryValidationFactory<ChecksListAnnotationsQuerySchema>(
+    checksListAnnotationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksListAnnotationsParamSchema,
+      ChecksListAnnotationsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksListAnnotations
 
     ctx.status = 501
@@ -5912,12 +9707,30 @@ router.get(
 const checksCreateSuiteParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const checksCreateSuiteBodySchema = joi
+  .object()
+  .keys({ head_sha: joi.string().required() })
+  .required()
 
 router.post(
   "checksCreateSuite",
   "/repos/:owner/:repo/check-suites",
-  paramValidationFactory<any>(checksCreateSuiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksCreateSuiteParamSchema>(
+    checksCreateSuiteParamSchema
+  ),
+  bodyValidationFactory<ChecksCreateSuiteBodySchema>(
+    checksCreateSuiteBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksCreateSuiteParamSchema,
+      void,
+      ChecksCreateSuiteBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksCreateSuite
 
     ctx.status = 501
@@ -5931,12 +9744,41 @@ router.post(
 const checksSetSuitesPreferencesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const checksSetSuitesPreferencesBodySchema = joi
+  .object()
+  .keys({
+    auto_trigger_checks: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            app_id: joi.number().required(),
+            setting: joi.boolean().required(),
+          })
+      ),
+  })
+  .required()
 
 router.patch(
   "checksSetSuitesPreferences",
   "/repos/:owner/:repo/check-suites/preferences",
-  paramValidationFactory<any>(checksSetSuitesPreferencesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksSetSuitesPreferencesParamSchema>(
+    checksSetSuitesPreferencesParamSchema
+  ),
+  bodyValidationFactory<ChecksSetSuitesPreferencesBodySchema>(
+    checksSetSuitesPreferencesBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksSetSuitesPreferencesParamSchema,
+      void,
+      ChecksSetSuitesPreferencesBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksSetSuitesPreferences
 
     ctx.status = 501
@@ -5954,12 +9796,13 @@ const checksGetSuiteParamSchema = joi
     repo: joi.string().required(),
     check_suite_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "checksGetSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId",
-  paramValidationFactory<any>(checksGetSuiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksGetSuiteParamSchema>(checksGetSuiteParamSchema),
+  async (ctx: ValidatedCtx<ChecksGetSuiteParamSchema, void, void>, next) => {
     //region safe-edit-region-checksGetSuite
 
     ctx.status = 501
@@ -5977,6 +9820,7 @@ const checksListForSuiteParamSchema = joi
     repo: joi.string().required(),
     check_suite_id: joi.number().required(),
   })
+  .required()
 
 const checksListForSuiteQuerySchema = joi
   .object()
@@ -5987,13 +9831,25 @@ const checksListForSuiteQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "checksListForSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
-  paramValidationFactory<any>(checksListForSuiteParamSchema),
-  queryValidationFactory<any>(checksListForSuiteQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksListForSuiteParamSchema>(
+    checksListForSuiteParamSchema
+  ),
+  queryValidationFactory<ChecksListForSuiteQuerySchema>(
+    checksListForSuiteQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksListForSuiteParamSchema,
+      ChecksListForSuiteQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksListForSuite
 
     ctx.status = 501
@@ -6011,12 +9867,18 @@ const checksRerequestSuiteParamSchema = joi
     repo: joi.string().required(),
     check_suite_id: joi.number().required(),
   })
+  .required()
 
 router.post(
   "checksRerequestSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
-  paramValidationFactory<any>(checksRerequestSuiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksRerequestSuiteParamSchema>(
+    checksRerequestSuiteParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ChecksRerequestSuiteParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-checksRerequestSuite
 
     ctx.status = 501
@@ -6030,17 +9892,30 @@ router.post(
 const codeScanningListAlertsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const codeScanningListAlertsForRepoQuerySchema = joi
   .object()
   .keys({ state: joi.string(), ref: joi.string() })
+  .required()
 
 router.get(
   "codeScanningListAlertsForRepo",
   "/repos/:owner/:repo/code-scanning/alerts",
-  paramValidationFactory<any>(codeScanningListAlertsForRepoParamSchema),
-  queryValidationFactory<any>(codeScanningListAlertsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<CodeScanningListAlertsForRepoParamSchema>(
+    codeScanningListAlertsForRepoParamSchema
+  ),
+  queryValidationFactory<CodeScanningListAlertsForRepoQuerySchema>(
+    codeScanningListAlertsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      CodeScanningListAlertsForRepoParamSchema,
+      CodeScanningListAlertsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-codeScanningListAlertsForRepo
 
     ctx.status = 501
@@ -6058,12 +9933,18 @@ const codeScanningGetAlertParamSchema = joi
     repo: joi.string().required(),
     alert_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "codeScanningGetAlert",
   "/repos/:owner/:repo/code-scanning/alerts/:alertId",
-  paramValidationFactory<any>(codeScanningGetAlertParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<CodeScanningGetAlertParamSchema>(
+    codeScanningGetAlertParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<CodeScanningGetAlertParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-codeScanningGetAlert
 
     ctx.status = 501
@@ -6077,6 +9958,7 @@ router.get(
 const reposListCollaboratorsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListCollaboratorsQuerySchema = joi
   .object()
@@ -6085,13 +9967,25 @@ const reposListCollaboratorsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListCollaborators",
   "/repos/:owner/:repo/collaborators",
-  paramValidationFactory<any>(reposListCollaboratorsParamSchema),
-  queryValidationFactory<any>(reposListCollaboratorsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListCollaboratorsParamSchema>(
+    reposListCollaboratorsParamSchema
+  ),
+  queryValidationFactory<ReposListCollaboratorsQuerySchema>(
+    reposListCollaboratorsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListCollaboratorsParamSchema,
+      ReposListCollaboratorsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListCollaborators
 
     ctx.status = 501
@@ -6109,12 +10003,18 @@ const reposCheckCollaboratorParamSchema = joi
     repo: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposCheckCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
-  paramValidationFactory<any>(reposCheckCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCheckCollaboratorParamSchema>(
+    reposCheckCollaboratorParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposCheckCollaboratorParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposCheckCollaborator
 
     ctx.status = 501
@@ -6132,12 +10032,30 @@ const reposAddCollaboratorParamSchema = joi
     repo: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
+
+const reposAddCollaboratorBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "reposAddCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
-  paramValidationFactory<any>(reposAddCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAddCollaboratorParamSchema>(
+    reposAddCollaboratorParamSchema
+  ),
+  bodyValidationFactory<ReposAddCollaboratorBodySchema>(
+    reposAddCollaboratorBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposAddCollaboratorParamSchema,
+      void,
+      ReposAddCollaboratorBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposAddCollaborator
 
     ctx.status = 501
@@ -6155,12 +10073,18 @@ const reposRemoveCollaboratorParamSchema = joi
     repo: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "reposRemoveCollaborator",
   "/repos/:owner/:repo/collaborators/:username",
-  paramValidationFactory<any>(reposRemoveCollaboratorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRemoveCollaboratorParamSchema>(
+    reposRemoveCollaboratorParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposRemoveCollaboratorParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposRemoveCollaborator
 
     ctx.status = 501
@@ -6178,12 +10102,22 @@ const reposGetCollaboratorPermissionLevelParamSchema = joi
     repo: joi.string().required(),
     username: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetCollaboratorPermissionLevel",
   "/repos/:owner/:repo/collaborators/:username/permission",
-  paramValidationFactory<any>(reposGetCollaboratorPermissionLevelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCollaboratorPermissionLevelParamSchema>(
+    reposGetCollaboratorPermissionLevelParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposGetCollaboratorPermissionLevelParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetCollaboratorPermissionLevel
 
     ctx.status = 501
@@ -6197,17 +10131,30 @@ router.get(
 const reposListCommitCommentsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListCommitCommentsForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListCommitCommentsForRepo",
   "/repos/:owner/:repo/comments",
-  paramValidationFactory<any>(reposListCommitCommentsForRepoParamSchema),
-  queryValidationFactory<any>(reposListCommitCommentsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListCommitCommentsForRepoParamSchema>(
+    reposListCommitCommentsForRepoParamSchema
+  ),
+  queryValidationFactory<ReposListCommitCommentsForRepoQuerySchema>(
+    reposListCommitCommentsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListCommitCommentsForRepoParamSchema,
+      ReposListCommitCommentsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListCommitCommentsForRepo
 
     ctx.status = 501
@@ -6225,12 +10172,18 @@ const reposGetCommitCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
-  paramValidationFactory<any>(reposGetCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCommitCommentParamSchema>(
+    reposGetCommitCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCommitCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCommitComment
 
     ctx.status = 501
@@ -6248,12 +10201,30 @@ const reposUpdateCommitCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const reposUpdateCommitCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "reposUpdateCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
-  paramValidationFactory<any>(reposUpdateCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateCommitCommentParamSchema>(
+    reposUpdateCommitCommentParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateCommitCommentBodySchema>(
+    reposUpdateCommitCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateCommitCommentParamSchema,
+      void,
+      ReposUpdateCommitCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateCommitComment
 
     ctx.status = 501
@@ -6271,12 +10242,18 @@ const reposDeleteCommitCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteCommitComment",
   "/repos/:owner/:repo/comments/:commentId",
-  paramValidationFactory<any>(reposDeleteCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteCommitCommentParamSchema>(
+    reposDeleteCommitCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteCommitCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteCommitComment
 
     ctx.status = 501
@@ -6294,17 +10271,30 @@ const reactionsListForCommitCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 const reactionsListForCommitCommentQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions",
-  paramValidationFactory<any>(reactionsListForCommitCommentParamSchema),
-  queryValidationFactory<any>(reactionsListForCommitCommentQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsListForCommitCommentParamSchema>(
+    reactionsListForCommitCommentParamSchema
+  ),
+  queryValidationFactory<ReactionsListForCommitCommentQuerySchema>(
+    reactionsListForCommitCommentQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForCommitCommentParamSchema,
+      ReactionsListForCommitCommentQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForCommitComment
 
     ctx.status = 501
@@ -6322,12 +10312,30 @@ const reactionsCreateForCommitCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForCommitCommentBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions",
-  paramValidationFactory<any>(reactionsCreateForCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsCreateForCommitCommentParamSchema>(
+    reactionsCreateForCommitCommentParamSchema
+  ),
+  bodyValidationFactory<ReactionsCreateForCommitCommentBodySchema>(
+    reactionsCreateForCommitCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForCommitCommentParamSchema,
+      void,
+      ReactionsCreateForCommitCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForCommitComment
 
     ctx.status = 501
@@ -6346,12 +10354,18 @@ const reactionsDeleteForCommitCommentParamSchema = joi
     comment_id: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForCommitComment",
   "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteForCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteForCommitCommentParamSchema>(
+    reactionsDeleteForCommitCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReactionsDeleteForCommitCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForCommitComment
 
     ctx.status = 501
@@ -6365,6 +10379,7 @@ router.delete(
 const reposListCommitsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListCommitsQuerySchema = joi
   .object()
@@ -6377,13 +10392,25 @@ const reposListCommitsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListCommits",
   "/repos/:owner/:repo/commits",
-  paramValidationFactory<any>(reposListCommitsParamSchema),
-  queryValidationFactory<any>(reposListCommitsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListCommitsParamSchema>(
+    reposListCommitsParamSchema
+  ),
+  queryValidationFactory<ReposListCommitsQuerySchema>(
+    reposListCommitsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListCommitsParamSchema,
+      ReposListCommitsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListCommits
 
     ctx.status = 501
@@ -6401,12 +10428,18 @@ const reposListBranchesForHeadCommitParamSchema = joi
     repo: joi.string().required(),
     commit_sha: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposListBranchesForHeadCommit",
   "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
-  paramValidationFactory<any>(reposListBranchesForHeadCommitParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListBranchesForHeadCommitParamSchema>(
+    reposListBranchesForHeadCommitParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposListBranchesForHeadCommitParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposListBranchesForHeadCommit
 
     ctx.status = 501
@@ -6424,17 +10457,30 @@ const reposListCommentsForCommitParamSchema = joi
     repo: joi.string().required(),
     commit_sha: joi.string().required(),
   })
+  .required()
 
 const reposListCommentsForCommitQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListCommentsForCommit",
   "/repos/:owner/:repo/commits/:commitSha/comments",
-  paramValidationFactory<any>(reposListCommentsForCommitParamSchema),
-  queryValidationFactory<any>(reposListCommentsForCommitQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListCommentsForCommitParamSchema>(
+    reposListCommentsForCommitParamSchema
+  ),
+  queryValidationFactory<ReposListCommentsForCommitQuerySchema>(
+    reposListCommentsForCommitQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListCommentsForCommitParamSchema,
+      ReposListCommentsForCommitQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListCommentsForCommit
 
     ctx.status = 501
@@ -6452,12 +10498,35 @@ const reposCreateCommitCommentParamSchema = joi
     repo: joi.string().required(),
     commit_sha: joi.string().required(),
   })
+  .required()
+
+const reposCreateCommitCommentBodySchema = joi
+  .object()
+  .keys({
+    body: joi.string().required(),
+    path: joi.string(),
+    position: joi.number(),
+    line: joi.number(),
+  })
+  .required()
 
 router.post(
   "reposCreateCommitComment",
   "/repos/:owner/:repo/commits/:commitSha/comments",
-  paramValidationFactory<any>(reposCreateCommitCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateCommitCommentParamSchema>(
+    reposCreateCommitCommentParamSchema
+  ),
+  bodyValidationFactory<ReposCreateCommitCommentBodySchema>(
+    reposCreateCommitCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateCommitCommentParamSchema,
+      void,
+      ReposCreateCommitCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateCommitComment
 
     ctx.status = 501
@@ -6475,21 +10544,30 @@ const reposListPullRequestsAssociatedWithCommitParamSchema = joi
     repo: joi.string().required(),
     commit_sha: joi.string().required(),
   })
+  .required()
 
 const reposListPullRequestsAssociatedWithCommitQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListPullRequestsAssociatedWithCommit",
   "/repos/:owner/:repo/commits/:commitSha/pulls",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReposListPullRequestsAssociatedWithCommitParamSchema>(
     reposListPullRequestsAssociatedWithCommitParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ReposListPullRequestsAssociatedWithCommitQuerySchema>(
     reposListPullRequestsAssociatedWithCommitQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReposListPullRequestsAssociatedWithCommitParamSchema,
+      ReposListPullRequestsAssociatedWithCommitQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListPullRequestsAssociatedWithCommit
 
     ctx.status = 501
@@ -6507,12 +10585,13 @@ const reposGetCommitParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetCommit",
   "/repos/:owner/:repo/commits/:ref",
-  paramValidationFactory<any>(reposGetCommitParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCommitParamSchema>(reposGetCommitParamSchema),
+  async (ctx: ValidatedCtx<ReposGetCommitParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetCommit
 
     ctx.status = 501
@@ -6530,6 +10609,7 @@ const checksListForRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 const checksListForRefQuerySchema = joi
   .object()
@@ -6540,13 +10620,25 @@ const checksListForRefQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "checksListForRef",
   "/repos/:owner/:repo/commits/:ref/check-runs",
-  paramValidationFactory<any>(checksListForRefParamSchema),
-  queryValidationFactory<any>(checksListForRefQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksListForRefParamSchema>(
+    checksListForRefParamSchema
+  ),
+  queryValidationFactory<ChecksListForRefQuerySchema>(
+    checksListForRefQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksListForRefParamSchema,
+      ChecksListForRefQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksListForRef
 
     ctx.status = 501
@@ -6564,6 +10656,7 @@ const checksListSuitesForRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 const checksListSuitesForRefQuerySchema = joi
   .object()
@@ -6573,13 +10666,25 @@ const checksListSuitesForRefQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "checksListSuitesForRef",
   "/repos/:owner/:repo/commits/:ref/check-suites",
-  paramValidationFactory<any>(checksListSuitesForRefParamSchema),
-  queryValidationFactory<any>(checksListSuitesForRefQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ChecksListSuitesForRefParamSchema>(
+    checksListSuitesForRefParamSchema
+  ),
+  queryValidationFactory<ChecksListSuitesForRefQuerySchema>(
+    checksListSuitesForRefQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ChecksListSuitesForRefParamSchema,
+      ChecksListSuitesForRefQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-checksListSuitesForRef
 
     ctx.status = 501
@@ -6597,12 +10702,18 @@ const reposGetCombinedStatusForRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetCombinedStatusForRef",
   "/repos/:owner/:repo/commits/:ref/status",
-  paramValidationFactory<any>(reposGetCombinedStatusForRefParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCombinedStatusForRefParamSchema>(
+    reposGetCombinedStatusForRefParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCombinedStatusForRefParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCombinedStatusForRef
 
     ctx.status = 501
@@ -6620,17 +10731,30 @@ const reposListCommitStatusesForRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 const reposListCommitStatusesForRefQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListCommitStatusesForRef",
   "/repos/:owner/:repo/commits/:ref/statuses",
-  paramValidationFactory<any>(reposListCommitStatusesForRefParamSchema),
-  queryValidationFactory<any>(reposListCommitStatusesForRefQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListCommitStatusesForRefParamSchema>(
+    reposListCommitStatusesForRefParamSchema
+  ),
+  queryValidationFactory<ReposListCommitStatusesForRefQuerySchema>(
+    reposListCommitStatusesForRefQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListCommitStatusesForRefParamSchema,
+      ReposListCommitStatusesForRefQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListCommitStatusesForRef
 
     ctx.status = 501
@@ -6644,12 +10768,18 @@ router.get(
 const codesOfConductGetForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "codesOfConductGetForRepo",
   "/repos/:owner/:repo/community/code_of_conduct",
-  paramValidationFactory<any>(codesOfConductGetForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<CodesOfConductGetForRepoParamSchema>(
+    codesOfConductGetForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<CodesOfConductGetForRepoParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-codesOfConductGetForRepo
 
     ctx.status = 501
@@ -6663,12 +10793,18 @@ router.get(
 const reposGetCommunityProfileMetricsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetCommunityProfileMetrics",
   "/repos/:owner/:repo/community/profile",
-  paramValidationFactory<any>(reposGetCommunityProfileMetricsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCommunityProfileMetricsParamSchema>(
+    reposGetCommunityProfileMetricsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCommunityProfileMetricsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCommunityProfileMetrics
 
     ctx.status = 501
@@ -6687,12 +10823,18 @@ const reposCompareCommitsParamSchema = joi
     base: joi.string().required(),
     head: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposCompareCommits",
   "/repos/:owner/:repo/compare/:base...:head",
-  paramValidationFactory<any>(reposCompareCommitsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCompareCommitsParamSchema>(
+    reposCompareCommitsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposCompareCommitsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposCompareCommits
 
     ctx.status = 501
@@ -6710,15 +10852,30 @@ const reposGetContentParamSchema = joi
     repo: joi.string().required(),
     path: joi.string().required(),
   })
+  .required()
 
-const reposGetContentQuerySchema = joi.object().keys({ ref: joi.string() })
+const reposGetContentQuerySchema = joi
+  .object()
+  .keys({ ref: joi.string() })
+  .required()
 
 router.get(
   "reposGetContent",
   "/repos/:owner/:repo/contents/:path",
-  paramValidationFactory<any>(reposGetContentParamSchema),
-  queryValidationFactory<any>(reposGetContentQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetContentParamSchema>(
+    reposGetContentParamSchema
+  ),
+  queryValidationFactory<ReposGetContentQuerySchema>(
+    reposGetContentQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposGetContentParamSchema,
+      ReposGetContentQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetContent
 
     ctx.status = 501
@@ -6736,12 +10893,41 @@ const reposCreateOrUpdateFileContentsParamSchema = joi
     repo: joi.string().required(),
     path: joi.string().required(),
   })
+  .required()
+
+const reposCreateOrUpdateFileContentsBodySchema = joi
+  .object()
+  .keys({
+    message: joi.string().required(),
+    content: joi.string().required(),
+    sha: joi.string(),
+    branch: joi.string(),
+    committer: joi
+      .object()
+      .keys({ name: joi.string().required(), email: joi.string().required() }),
+    author: joi
+      .object()
+      .keys({ name: joi.string().required(), email: joi.string().required() }),
+  })
+  .required()
 
 router.put(
   "reposCreateOrUpdateFileContents",
   "/repos/:owner/:repo/contents/:path",
-  paramValidationFactory<any>(reposCreateOrUpdateFileContentsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateOrUpdateFileContentsParamSchema>(
+    reposCreateOrUpdateFileContentsParamSchema
+  ),
+  bodyValidationFactory<ReposCreateOrUpdateFileContentsBodySchema>(
+    reposCreateOrUpdateFileContentsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateOrUpdateFileContentsParamSchema,
+      void,
+      ReposCreateOrUpdateFileContentsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateOrUpdateFileContents
 
     ctx.status = 501
@@ -6759,12 +10945,34 @@ const reposDeleteFileParamSchema = joi
     repo: joi.string().required(),
     path: joi.string().required(),
   })
+  .required()
+
+const reposDeleteFileBodySchema = joi
+  .object()
+  .keys({
+    message: joi.string().required(),
+    sha: joi.string().required(),
+    branch: joi.string(),
+    committer: joi.object().keys({ name: joi.string(), email: joi.string() }),
+    author: joi.object().keys({ name: joi.string(), email: joi.string() }),
+  })
+  .required()
 
 router.delete(
   "reposDeleteFile",
   "/repos/:owner/:repo/contents/:path",
-  paramValidationFactory<any>(reposDeleteFileParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteFileParamSchema>(
+    reposDeleteFileParamSchema
+  ),
+  bodyValidationFactory<ReposDeleteFileBodySchema>(reposDeleteFileBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposDeleteFileParamSchema,
+      void,
+      ReposDeleteFileBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteFile
 
     ctx.status = 501
@@ -6778,17 +10986,30 @@ router.delete(
 const reposListContributorsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListContributorsQuerySchema = joi
   .object()
   .keys({ anon: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListContributors",
   "/repos/:owner/:repo/contributors",
-  paramValidationFactory<any>(reposListContributorsParamSchema),
-  queryValidationFactory<any>(reposListContributorsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListContributorsParamSchema>(
+    reposListContributorsParamSchema
+  ),
+  queryValidationFactory<ReposListContributorsQuerySchema>(
+    reposListContributorsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListContributorsParamSchema,
+      ReposListContributorsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListContributors
 
     ctx.status = 501
@@ -6802,6 +11023,7 @@ router.get(
 const reposListDeploymentsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListDeploymentsQuerySchema = joi
   .object()
@@ -6813,13 +11035,25 @@ const reposListDeploymentsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListDeployments",
   "/repos/:owner/:repo/deployments",
-  paramValidationFactory<any>(reposListDeploymentsParamSchema),
-  queryValidationFactory<any>(reposListDeploymentsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListDeploymentsParamSchema>(
+    reposListDeploymentsParamSchema
+  ),
+  queryValidationFactory<ReposListDeploymentsQuerySchema>(
+    reposListDeploymentsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListDeploymentsParamSchema,
+      ReposListDeploymentsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListDeployments
 
     ctx.status = 501
@@ -6833,12 +11067,40 @@ router.get(
 const reposCreateDeploymentParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateDeploymentBodySchema = joi
+  .object()
+  .keys({
+    ref: joi.string().required(),
+    task: joi.string(),
+    auto_merge: joi.boolean(),
+    required_contexts: joi.array().items(joi.string()),
+    payload: joi.string(),
+    environment: joi.string(),
+    description: joi.string(),
+    transient_environment: joi.boolean(),
+    production_environment: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateDeployment",
   "/repos/:owner/:repo/deployments",
-  paramValidationFactory<any>(reposCreateDeploymentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateDeploymentParamSchema>(
+    reposCreateDeploymentParamSchema
+  ),
+  bodyValidationFactory<ReposCreateDeploymentBodySchema>(
+    reposCreateDeploymentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateDeploymentParamSchema,
+      void,
+      ReposCreateDeploymentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateDeployment
 
     ctx.status = 501
@@ -6856,12 +11118,18 @@ const reposGetDeploymentParamSchema = joi
     repo: joi.string().required(),
     deployment_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetDeployment",
   "/repos/:owner/:repo/deployments/:deploymentId",
-  paramValidationFactory<any>(reposGetDeploymentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetDeploymentParamSchema>(
+    reposGetDeploymentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetDeploymentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetDeployment
 
     ctx.status = 501
@@ -6879,12 +11147,18 @@ const reposDeleteDeploymentParamSchema = joi
     repo: joi.string().required(),
     deployment_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteDeployment",
   "/repos/:owner/:repo/deployments/:deploymentId",
-  paramValidationFactory<any>(reposDeleteDeploymentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteDeploymentParamSchema>(
+    reposDeleteDeploymentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteDeploymentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteDeployment
 
     ctx.status = 501
@@ -6902,17 +11176,30 @@ const reposListDeploymentStatusesParamSchema = joi
     repo: joi.string().required(),
     deployment_id: joi.number().required(),
   })
+  .required()
 
 const reposListDeploymentStatusesQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListDeploymentStatuses",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-  paramValidationFactory<any>(reposListDeploymentStatusesParamSchema),
-  queryValidationFactory<any>(reposListDeploymentStatusesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListDeploymentStatusesParamSchema>(
+    reposListDeploymentStatusesParamSchema
+  ),
+  queryValidationFactory<ReposListDeploymentStatusesQuerySchema>(
+    reposListDeploymentStatusesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListDeploymentStatusesParamSchema,
+      ReposListDeploymentStatusesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListDeploymentStatuses
 
     ctx.status = 501
@@ -6930,12 +11217,38 @@ const reposCreateDeploymentStatusParamSchema = joi
     repo: joi.string().required(),
     deployment_id: joi.number().required(),
   })
+  .required()
+
+const reposCreateDeploymentStatusBodySchema = joi
+  .object()
+  .keys({
+    state: joi.string().required(),
+    target_url: joi.string(),
+    log_url: joi.string(),
+    description: joi.string(),
+    environment: joi.string(),
+    environment_url: joi.string(),
+    auto_inactive: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateDeploymentStatus",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-  paramValidationFactory<any>(reposCreateDeploymentStatusParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateDeploymentStatusParamSchema>(
+    reposCreateDeploymentStatusParamSchema
+  ),
+  bodyValidationFactory<ReposCreateDeploymentStatusBodySchema>(
+    reposCreateDeploymentStatusBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateDeploymentStatusParamSchema,
+      void,
+      ReposCreateDeploymentStatusBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateDeploymentStatus
 
     ctx.status = 501
@@ -6954,12 +11267,18 @@ const reposGetDeploymentStatusParamSchema = joi
     deployment_id: joi.number().required(),
     status_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetDeploymentStatus",
   "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
-  paramValidationFactory<any>(reposGetDeploymentStatusParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetDeploymentStatusParamSchema>(
+    reposGetDeploymentStatusParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetDeploymentStatusParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetDeploymentStatus
 
     ctx.status = 501
@@ -6973,12 +11292,30 @@ router.get(
 const reposCreateDispatchEventParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateDispatchEventBodySchema = joi
+  .object()
+  .keys({ event_type: joi.string(), client_payload: joi.object().keys({}) })
+  .required()
 
 router.post(
   "reposCreateDispatchEvent",
   "/repos/:owner/:repo/dispatches",
-  paramValidationFactory<any>(reposCreateDispatchEventParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateDispatchEventParamSchema>(
+    reposCreateDispatchEventParamSchema
+  ),
+  bodyValidationFactory<ReposCreateDispatchEventBodySchema>(
+    reposCreateDispatchEventBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateDispatchEventParamSchema,
+      void,
+      ReposCreateDispatchEventBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateDispatchEvent
 
     ctx.status = 501
@@ -6992,17 +11329,30 @@ router.post(
 const activityListRepoEventsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const activityListRepoEventsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListRepoEvents",
   "/repos/:owner/:repo/events",
-  paramValidationFactory<any>(activityListRepoEventsParamSchema),
-  queryValidationFactory<any>(activityListRepoEventsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListRepoEventsParamSchema>(
+    activityListRepoEventsParamSchema
+  ),
+  queryValidationFactory<ActivityListRepoEventsQuerySchema>(
+    activityListRepoEventsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListRepoEventsParamSchema,
+      ActivityListRepoEventsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListRepoEvents
 
     ctx.status = 501
@@ -7016,17 +11366,26 @@ router.get(
 const reposListForksParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListForksQuerySchema = joi
   .object()
   .keys({ sort: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListForks",
   "/repos/:owner/:repo/forks",
-  paramValidationFactory<any>(reposListForksParamSchema),
-  queryValidationFactory<any>(reposListForksQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListForksParamSchema>(reposListForksParamSchema),
+  queryValidationFactory<ReposListForksQuerySchema>(reposListForksQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposListForksParamSchema,
+      ReposListForksQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListForks
 
     ctx.status = 501
@@ -7040,12 +11399,28 @@ router.get(
 const reposCreateForkParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateForkBodySchema = joi
+  .object()
+  .keys({ organization: joi.string() })
+  .required()
 
 router.post(
   "reposCreateFork",
   "/repos/:owner/:repo/forks",
-  paramValidationFactory<any>(reposCreateForkParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateForkParamSchema>(
+    reposCreateForkParamSchema
+  ),
+  bodyValidationFactory<ReposCreateForkBodySchema>(reposCreateForkBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateForkParamSchema,
+      void,
+      ReposCreateForkBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateFork
 
     ctx.status = 501
@@ -7059,12 +11434,22 @@ router.post(
 const gitCreateBlobParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const gitCreateBlobBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required(), encoding: joi.string() })
+  .required()
 
 router.post(
   "gitCreateBlob",
   "/repos/:owner/:repo/git/blobs",
-  paramValidationFactory<any>(gitCreateBlobParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitCreateBlobParamSchema>(gitCreateBlobParamSchema),
+  bodyValidationFactory<GitCreateBlobBodySchema>(gitCreateBlobBodySchema),
+  async (
+    ctx: ValidatedCtx<GitCreateBlobParamSchema, void, GitCreateBlobBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gitCreateBlob
 
     ctx.status = 501
@@ -7082,12 +11467,13 @@ const gitGetBlobParamSchema = joi
     repo: joi.string().required(),
     file_sha: joi.string().required(),
   })
+  .required()
 
 router.get(
   "gitGetBlob",
   "/repos/:owner/:repo/git/blobs/:fileSha",
-  paramValidationFactory<any>(gitGetBlobParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitGetBlobParamSchema>(gitGetBlobParamSchema),
+  async (ctx: ValidatedCtx<GitGetBlobParamSchema, void, void>, next) => {
     //region safe-edit-region-gitGetBlob
 
     ctx.status = 501
@@ -7101,12 +11487,39 @@ router.get(
 const gitCreateCommitParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const gitCreateCommitBodySchema = joi
+  .object()
+  .keys({
+    message: joi.string().required(),
+    tree: joi.string().required(),
+    parents: joi.array().items(joi.string()).required(),
+    author: joi
+      .object()
+      .keys({ name: joi.string(), email: joi.string(), date: joi.string() }),
+    committer: joi
+      .object()
+      .keys({ name: joi.string(), email: joi.string(), date: joi.string() }),
+    signature: joi.string(),
+  })
+  .required()
 
 router.post(
   "gitCreateCommit",
   "/repos/:owner/:repo/git/commits",
-  paramValidationFactory<any>(gitCreateCommitParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitCreateCommitParamSchema>(
+    gitCreateCommitParamSchema
+  ),
+  bodyValidationFactory<GitCreateCommitBodySchema>(gitCreateCommitBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      GitCreateCommitParamSchema,
+      void,
+      GitCreateCommitBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-gitCreateCommit
 
     ctx.status = 501
@@ -7124,12 +11537,13 @@ const gitGetCommitParamSchema = joi
     repo: joi.string().required(),
     commit_sha: joi.string().required(),
   })
+  .required()
 
 router.get(
   "gitGetCommit",
   "/repos/:owner/:repo/git/commits/:commitSha",
-  paramValidationFactory<any>(gitGetCommitParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitGetCommitParamSchema>(gitGetCommitParamSchema),
+  async (ctx: ValidatedCtx<GitGetCommitParamSchema, void, void>, next) => {
     //region safe-edit-region-gitGetCommit
 
     ctx.status = 501
@@ -7147,17 +11561,30 @@ const gitListMatchingRefsParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 const gitListMatchingRefsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gitListMatchingRefs",
   "/repos/:owner/:repo/git/matching-refs/:ref",
-  paramValidationFactory<any>(gitListMatchingRefsParamSchema),
-  queryValidationFactory<any>(gitListMatchingRefsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitListMatchingRefsParamSchema>(
+    gitListMatchingRefsParamSchema
+  ),
+  queryValidationFactory<GitListMatchingRefsQuerySchema>(
+    gitListMatchingRefsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GitListMatchingRefsParamSchema,
+      GitListMatchingRefsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-gitListMatchingRefs
 
     ctx.status = 501
@@ -7175,12 +11602,13 @@ const gitGetRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 router.get(
   "gitGetRef",
   "/repos/:owner/:repo/git/ref/:ref",
-  paramValidationFactory<any>(gitGetRefParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitGetRefParamSchema>(gitGetRefParamSchema),
+  async (ctx: ValidatedCtx<GitGetRefParamSchema, void, void>, next) => {
     //region safe-edit-region-gitGetRef
 
     ctx.status = 501
@@ -7194,12 +11622,22 @@ router.get(
 const gitCreateRefParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const gitCreateRefBodySchema = joi
+  .object()
+  .keys({ ref: joi.string().required(), sha: joi.string().required() })
+  .required()
 
 router.post(
   "gitCreateRef",
   "/repos/:owner/:repo/git/refs",
-  paramValidationFactory<any>(gitCreateRefParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitCreateRefParamSchema>(gitCreateRefParamSchema),
+  bodyValidationFactory<GitCreateRefBodySchema>(gitCreateRefBodySchema),
+  async (
+    ctx: ValidatedCtx<GitCreateRefParamSchema, void, GitCreateRefBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gitCreateRef
 
     ctx.status = 501
@@ -7217,12 +11655,22 @@ const gitUpdateRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
+
+const gitUpdateRefBodySchema = joi
+  .object()
+  .keys({ sha: joi.string().required(), force: joi.boolean() })
+  .required()
 
 router.patch(
   "gitUpdateRef",
   "/repos/:owner/:repo/git/refs/:ref",
-  paramValidationFactory<any>(gitUpdateRefParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitUpdateRefParamSchema>(gitUpdateRefParamSchema),
+  bodyValidationFactory<GitUpdateRefBodySchema>(gitUpdateRefBodySchema),
+  async (
+    ctx: ValidatedCtx<GitUpdateRefParamSchema, void, GitUpdateRefBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gitUpdateRef
 
     ctx.status = 501
@@ -7240,12 +11688,13 @@ const gitDeleteRefParamSchema = joi
     repo: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "gitDeleteRef",
   "/repos/:owner/:repo/git/refs/:ref",
-  paramValidationFactory<any>(gitDeleteRefParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitDeleteRefParamSchema>(gitDeleteRefParamSchema),
+  async (ctx: ValidatedCtx<GitDeleteRefParamSchema, void, void>, next) => {
     //region safe-edit-region-gitDeleteRef
 
     ctx.status = 501
@@ -7259,12 +11708,30 @@ router.delete(
 const gitCreateTagParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const gitCreateTagBodySchema = joi
+  .object()
+  .keys({
+    tag: joi.string().required(),
+    message: joi.string().required(),
+    object: joi.string().required(),
+    type: joi.string().required(),
+    tagger: joi
+      .object()
+      .keys({ name: joi.string(), email: joi.string(), date: joi.string() }),
+  })
+  .required()
 
 router.post(
   "gitCreateTag",
   "/repos/:owner/:repo/git/tags",
-  paramValidationFactory<any>(gitCreateTagParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitCreateTagParamSchema>(gitCreateTagParamSchema),
+  bodyValidationFactory<GitCreateTagBodySchema>(gitCreateTagBodySchema),
+  async (
+    ctx: ValidatedCtx<GitCreateTagParamSchema, void, GitCreateTagBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gitCreateTag
 
     ctx.status = 501
@@ -7282,12 +11749,13 @@ const gitGetTagParamSchema = joi
     repo: joi.string().required(),
     tag_sha: joi.string().required(),
   })
+  .required()
 
 router.get(
   "gitGetTag",
   "/repos/:owner/:repo/git/tags/:tagSha",
-  paramValidationFactory<any>(gitGetTagParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitGetTagParamSchema>(gitGetTagParamSchema),
+  async (ctx: ValidatedCtx<GitGetTagParamSchema, void, void>, next) => {
     //region safe-edit-region-gitGetTag
 
     ctx.status = 501
@@ -7301,12 +11769,38 @@ router.get(
 const gitCreateTreeParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const gitCreateTreeBodySchema = joi
+  .object()
+  .keys({
+    tree: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            path: joi.string(),
+            mode: joi.string(),
+            type: joi.string(),
+            sha: joi.string(),
+            content: joi.string(),
+          })
+      )
+      .required(),
+    base_tree: joi.string(),
+  })
+  .required()
 
 router.post(
   "gitCreateTree",
   "/repos/:owner/:repo/git/trees",
-  paramValidationFactory<any>(gitCreateTreeParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitCreateTreeParamSchema>(gitCreateTreeParamSchema),
+  bodyValidationFactory<GitCreateTreeBodySchema>(gitCreateTreeBodySchema),
+  async (
+    ctx: ValidatedCtx<GitCreateTreeParamSchema, void, GitCreateTreeBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-gitCreateTree
 
     ctx.status = 501
@@ -7324,15 +11818,22 @@ const gitGetTreeParamSchema = joi
     repo: joi.string().required(),
     tree_sha: joi.string().required(),
   })
+  .required()
 
-const gitGetTreeQuerySchema = joi.object().keys({ recursive: joi.string() })
+const gitGetTreeQuerySchema = joi
+  .object()
+  .keys({ recursive: joi.string() })
+  .required()
 
 router.get(
   "gitGetTree",
   "/repos/:owner/:repo/git/trees/:treeSha",
-  paramValidationFactory<any>(gitGetTreeParamSchema),
-  queryValidationFactory<any>(gitGetTreeQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GitGetTreeParamSchema>(gitGetTreeParamSchema),
+  queryValidationFactory<GitGetTreeQuerySchema>(gitGetTreeQuerySchema),
+  async (
+    ctx: ValidatedCtx<GitGetTreeParamSchema, GitGetTreeQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-gitGetTree
 
     ctx.status = 501
@@ -7346,17 +11847,30 @@ router.get(
 const reposListWebhooksParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListWebhooksQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListWebhooks",
   "/repos/:owner/:repo/hooks",
-  paramValidationFactory<any>(reposListWebhooksParamSchema),
-  queryValidationFactory<any>(reposListWebhooksQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListWebhooksParamSchema>(
+    reposListWebhooksParamSchema
+  ),
+  queryValidationFactory<ReposListWebhooksQuerySchema>(
+    reposListWebhooksQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListWebhooksParamSchema,
+      ReposListWebhooksQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListWebhooks
 
     ctx.status = 501
@@ -7370,12 +11884,43 @@ router.get(
 const reposCreateWebhookParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateWebhookBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string(),
+    config: joi
+      .object()
+      .keys({
+        url: joi.string().required(),
+        content_type: joi.string(),
+        secret: joi.string(),
+        insecure_ssl: joi.string(),
+      })
+      .required(),
+    events: joi.array().items(joi.string()),
+    active: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateWebhook",
   "/repos/:owner/:repo/hooks",
-  paramValidationFactory<any>(reposCreateWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateWebhookParamSchema>(
+    reposCreateWebhookParamSchema
+  ),
+  bodyValidationFactory<ReposCreateWebhookBodySchema>(
+    reposCreateWebhookBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateWebhookParamSchema,
+      void,
+      ReposCreateWebhookBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateWebhook
 
     ctx.status = 501
@@ -7393,12 +11938,15 @@ const reposGetWebhookParamSchema = joi
     repo: joi.string().required(),
     hook_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
-  paramValidationFactory<any>(reposGetWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetWebhookParamSchema>(
+    reposGetWebhookParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposGetWebhookParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetWebhook
 
     ctx.status = 501
@@ -7416,12 +11964,43 @@ const reposUpdateWebhookParamSchema = joi
     repo: joi.string().required(),
     hook_id: joi.number().required(),
   })
+  .required()
+
+const reposUpdateWebhookBodySchema = joi
+  .object()
+  .keys({
+    config: joi
+      .object()
+      .keys({
+        url: joi.string().required(),
+        content_type: joi.string(),
+        secret: joi.string(),
+        insecure_ssl: joi.string(),
+      }),
+    events: joi.array().items(joi.string()),
+    add_events: joi.array().items(joi.string()),
+    remove_events: joi.array().items(joi.string()),
+    active: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "reposUpdateWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
-  paramValidationFactory<any>(reposUpdateWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateWebhookParamSchema>(
+    reposUpdateWebhookParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateWebhookBodySchema>(
+    reposUpdateWebhookBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateWebhookParamSchema,
+      void,
+      ReposUpdateWebhookBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateWebhook
 
     ctx.status = 501
@@ -7439,12 +12018,18 @@ const reposDeleteWebhookParamSchema = joi
     repo: joi.string().required(),
     hook_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteWebhook",
   "/repos/:owner/:repo/hooks/:hookId",
-  paramValidationFactory<any>(reposDeleteWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteWebhookParamSchema>(
+    reposDeleteWebhookParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteWebhookParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteWebhook
 
     ctx.status = 501
@@ -7462,12 +12047,15 @@ const reposPingWebhookParamSchema = joi
     repo: joi.string().required(),
     hook_id: joi.number().required(),
   })
+  .required()
 
 router.post(
   "reposPingWebhook",
   "/repos/:owner/:repo/hooks/:hookId/pings",
-  paramValidationFactory<any>(reposPingWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposPingWebhookParamSchema>(
+    reposPingWebhookParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposPingWebhookParamSchema, void, void>, next) => {
     //region safe-edit-region-reposPingWebhook
 
     ctx.status = 501
@@ -7485,12 +12073,18 @@ const reposTestPushWebhookParamSchema = joi
     repo: joi.string().required(),
     hook_id: joi.number().required(),
   })
+  .required()
 
 router.post(
   "reposTestPushWebhook",
   "/repos/:owner/:repo/hooks/:hookId/tests",
-  paramValidationFactory<any>(reposTestPushWebhookParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposTestPushWebhookParamSchema>(
+    reposTestPushWebhookParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposTestPushWebhookParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposTestPushWebhook
 
     ctx.status = 501
@@ -7504,12 +12098,36 @@ router.post(
 const migrationsStartImportParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const migrationsStartImportBodySchema = joi
+  .object()
+  .keys({
+    vcs_url: joi.string().required(),
+    vcs: joi.string(),
+    vcs_username: joi.string(),
+    vcs_password: joi.string(),
+    tfvc_project: joi.string(),
+  })
+  .required()
 
 router.put(
   "migrationsStartImport",
   "/repos/:owner/:repo/import",
-  paramValidationFactory<any>(migrationsStartImportParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsStartImportParamSchema>(
+    migrationsStartImportParamSchema
+  ),
+  bodyValidationFactory<MigrationsStartImportBodySchema>(
+    migrationsStartImportBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsStartImportParamSchema,
+      void,
+      MigrationsStartImportBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsStartImport
 
     ctx.status = 501
@@ -7523,12 +12141,18 @@ router.put(
 const migrationsGetImportStatusParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "migrationsGetImportStatus",
   "/repos/:owner/:repo/import",
-  paramValidationFactory<any>(migrationsGetImportStatusParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsGetImportStatusParamSchema>(
+    migrationsGetImportStatusParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsGetImportStatusParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetImportStatus
 
     ctx.status = 501
@@ -7542,12 +12166,30 @@ router.get(
 const migrationsUpdateImportParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const migrationsUpdateImportBodySchema = joi
+  .object()
+  .keys({ vcs_username: joi.string(), vcs_password: joi.string() })
+  .required()
 
 router.patch(
   "migrationsUpdateImport",
   "/repos/:owner/:repo/import",
-  paramValidationFactory<any>(migrationsUpdateImportParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsUpdateImportParamSchema>(
+    migrationsUpdateImportParamSchema
+  ),
+  bodyValidationFactory<MigrationsUpdateImportBodySchema>(
+    migrationsUpdateImportBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsUpdateImportParamSchema,
+      void,
+      MigrationsUpdateImportBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsUpdateImport
 
     ctx.status = 501
@@ -7561,12 +12203,18 @@ router.patch(
 const migrationsCancelImportParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "migrationsCancelImport",
   "/repos/:owner/:repo/import",
-  paramValidationFactory<any>(migrationsCancelImportParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsCancelImportParamSchema>(
+    migrationsCancelImportParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsCancelImportParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsCancelImport
 
     ctx.status = 501
@@ -7580,17 +12228,30 @@ router.delete(
 const migrationsGetCommitAuthorsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const migrationsGetCommitAuthorsQuerySchema = joi
   .object()
   .keys({ since: joi.string() })
+  .required()
 
 router.get(
   "migrationsGetCommitAuthors",
   "/repos/:owner/:repo/import/authors",
-  paramValidationFactory<any>(migrationsGetCommitAuthorsParamSchema),
-  queryValidationFactory<any>(migrationsGetCommitAuthorsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsGetCommitAuthorsParamSchema>(
+    migrationsGetCommitAuthorsParamSchema
+  ),
+  queryValidationFactory<MigrationsGetCommitAuthorsQuerySchema>(
+    migrationsGetCommitAuthorsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsGetCommitAuthorsParamSchema,
+      MigrationsGetCommitAuthorsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetCommitAuthors
 
     ctx.status = 501
@@ -7608,12 +12269,30 @@ const migrationsMapCommitAuthorParamSchema = joi
     repo: joi.string().required(),
     author_id: joi.number().required(),
   })
+  .required()
+
+const migrationsMapCommitAuthorBodySchema = joi
+  .object()
+  .keys({ email: joi.string(), name: joi.string() })
+  .required()
 
 router.patch(
   "migrationsMapCommitAuthor",
   "/repos/:owner/:repo/import/authors/:authorId",
-  paramValidationFactory<any>(migrationsMapCommitAuthorParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsMapCommitAuthorParamSchema>(
+    migrationsMapCommitAuthorParamSchema
+  ),
+  bodyValidationFactory<MigrationsMapCommitAuthorBodySchema>(
+    migrationsMapCommitAuthorBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsMapCommitAuthorParamSchema,
+      void,
+      MigrationsMapCommitAuthorBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsMapCommitAuthor
 
     ctx.status = 501
@@ -7627,12 +12306,18 @@ router.patch(
 const migrationsGetLargeFilesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "migrationsGetLargeFiles",
   "/repos/:owner/:repo/import/large_files",
-  paramValidationFactory<any>(migrationsGetLargeFilesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsGetLargeFilesParamSchema>(
+    migrationsGetLargeFilesParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<MigrationsGetLargeFilesParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetLargeFiles
 
     ctx.status = 501
@@ -7646,12 +12331,30 @@ router.get(
 const migrationsSetLfsPreferenceParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const migrationsSetLfsPreferenceBodySchema = joi
+  .object()
+  .keys({ use_lfs: joi.string().required() })
+  .required()
 
 router.patch(
   "migrationsSetLfsPreference",
   "/repos/:owner/:repo/import/lfs",
-  paramValidationFactory<any>(migrationsSetLfsPreferenceParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsSetLfsPreferenceParamSchema>(
+    migrationsSetLfsPreferenceParamSchema
+  ),
+  bodyValidationFactory<MigrationsSetLfsPreferenceBodySchema>(
+    migrationsSetLfsPreferenceBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsSetLfsPreferenceParamSchema,
+      void,
+      MigrationsSetLfsPreferenceBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsSetLfsPreference
 
     ctx.status = 501
@@ -7665,12 +12368,18 @@ router.patch(
 const appsGetRepoInstallationParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "appsGetRepoInstallation",
   "/repos/:owner/:repo/installation",
-  paramValidationFactory<any>(appsGetRepoInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetRepoInstallationParamSchema>(
+    appsGetRepoInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsGetRepoInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsGetRepoInstallation
 
     ctx.status = 501
@@ -7684,12 +12393,22 @@ router.get(
 const interactionsGetRestrictionsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "interactionsGetRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
-  paramValidationFactory<any>(interactionsGetRestrictionsForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsGetRestrictionsForRepoParamSchema>(
+    interactionsGetRestrictionsForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      InteractionsGetRestrictionsForRepoParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-interactionsGetRestrictionsForRepo
 
     ctx.status = 501
@@ -7703,12 +12422,30 @@ router.get(
 const interactionsSetRestrictionsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const interactionsSetRestrictionsForRepoBodySchema = joi
+  .object()
+  .keys({ limit: joi.string().required() })
+  .required()
 
 router.put(
   "interactionsSetRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
-  paramValidationFactory<any>(interactionsSetRestrictionsForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsSetRestrictionsForRepoParamSchema>(
+    interactionsSetRestrictionsForRepoParamSchema
+  ),
+  bodyValidationFactory<InteractionsSetRestrictionsForRepoBodySchema>(
+    interactionsSetRestrictionsForRepoBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      InteractionsSetRestrictionsForRepoParamSchema,
+      void,
+      InteractionsSetRestrictionsForRepoBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-interactionsSetRestrictionsForRepo
 
     ctx.status = 501
@@ -7722,12 +12459,22 @@ router.put(
 const interactionsRemoveRestrictionsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "interactionsRemoveRestrictionsForRepo",
   "/repos/:owner/:repo/interaction-limits",
-  paramValidationFactory<any>(interactionsRemoveRestrictionsForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<InteractionsRemoveRestrictionsForRepoParamSchema>(
+    interactionsRemoveRestrictionsForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      InteractionsRemoveRestrictionsForRepoParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-interactionsRemoveRestrictionsForRepo
 
     ctx.status = 501
@@ -7741,17 +12488,30 @@ router.delete(
 const reposListInvitationsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListInvitationsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListInvitations",
   "/repos/:owner/:repo/invitations",
-  paramValidationFactory<any>(reposListInvitationsParamSchema),
-  queryValidationFactory<any>(reposListInvitationsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListInvitationsParamSchema>(
+    reposListInvitationsParamSchema
+  ),
+  queryValidationFactory<ReposListInvitationsQuerySchema>(
+    reposListInvitationsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListInvitationsParamSchema,
+      ReposListInvitationsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListInvitations
 
     ctx.status = 501
@@ -7769,12 +12529,18 @@ const reposDeleteInvitationParamSchema = joi
     repo: joi.string().required(),
     invitation_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteInvitation",
   "/repos/:owner/:repo/invitations/:invitationId",
-  paramValidationFactory<any>(reposDeleteInvitationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteInvitationParamSchema>(
+    reposDeleteInvitationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteInvitationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteInvitation
 
     ctx.status = 501
@@ -7792,12 +12558,30 @@ const reposUpdateInvitationParamSchema = joi
     repo: joi.string().required(),
     invitation_id: joi.number().required(),
   })
+  .required()
+
+const reposUpdateInvitationBodySchema = joi
+  .object()
+  .keys({ permissions: joi.string() })
+  .required()
 
 router.patch(
   "reposUpdateInvitation",
   "/repos/:owner/:repo/invitations/:invitationId",
-  paramValidationFactory<any>(reposUpdateInvitationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateInvitationParamSchema>(
+    reposUpdateInvitationParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateInvitationBodySchema>(
+    reposUpdateInvitationBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateInvitationParamSchema,
+      void,
+      ReposUpdateInvitationBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateInvitation
 
     ctx.status = 501
@@ -7811,6 +12595,7 @@ router.patch(
 const issuesListForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListForRepoQuerySchema = joi
   .object()
@@ -7827,13 +12612,25 @@ const issuesListForRepoQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesListForRepo",
   "/repos/:owner/:repo/issues",
-  paramValidationFactory<any>(issuesListForRepoParamSchema),
-  queryValidationFactory<any>(issuesListForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListForRepoParamSchema>(
+    issuesListForRepoParamSchema
+  ),
+  queryValidationFactory<IssuesListForRepoQuerySchema>(
+    issuesListForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListForRepoParamSchema,
+      IssuesListForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListForRepo
 
     ctx.status = 501
@@ -7847,12 +12644,29 @@ router.get(
 const issuesCreateParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const issuesCreateBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    body: joi.string(),
+    assignee: joi.string(),
+    milestone: joi.number(),
+    labels: joi.array().items(joi.string()),
+    assignees: joi.array().items(joi.string()),
+  })
+  .required()
 
 router.post(
   "issuesCreate",
   "/repos/:owner/:repo/issues",
-  paramValidationFactory<any>(issuesCreateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesCreateParamSchema>(issuesCreateParamSchema),
+  bodyValidationFactory<IssuesCreateBodySchema>(issuesCreateBodySchema),
+  async (
+    ctx: ValidatedCtx<IssuesCreateParamSchema, void, IssuesCreateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-issuesCreate
 
     ctx.status = 501
@@ -7866,6 +12680,7 @@ router.post(
 const issuesListCommentsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListCommentsForRepoQuerySchema = joi
   .object()
@@ -7876,13 +12691,25 @@ const issuesListCommentsForRepoQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesListCommentsForRepo",
   "/repos/:owner/:repo/issues/comments",
-  paramValidationFactory<any>(issuesListCommentsForRepoParamSchema),
-  queryValidationFactory<any>(issuesListCommentsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListCommentsForRepoParamSchema>(
+    issuesListCommentsForRepoParamSchema
+  ),
+  queryValidationFactory<IssuesListCommentsForRepoQuerySchema>(
+    issuesListCommentsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListCommentsForRepoParamSchema,
+      IssuesListCommentsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListCommentsForRepo
 
     ctx.status = 501
@@ -7900,12 +12727,15 @@ const issuesGetCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "issuesGetComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
-  paramValidationFactory<any>(issuesGetCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesGetCommentParamSchema>(
+    issuesGetCommentParamSchema
+  ),
+  async (ctx: ValidatedCtx<IssuesGetCommentParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesGetComment
 
     ctx.status = 501
@@ -7923,12 +12753,30 @@ const issuesUpdateCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const issuesUpdateCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "issuesUpdateComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
-  paramValidationFactory<any>(issuesUpdateCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesUpdateCommentParamSchema>(
+    issuesUpdateCommentParamSchema
+  ),
+  bodyValidationFactory<IssuesUpdateCommentBodySchema>(
+    issuesUpdateCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesUpdateCommentParamSchema,
+      void,
+      IssuesUpdateCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesUpdateComment
 
     ctx.status = 501
@@ -7946,12 +12794,18 @@ const issuesDeleteCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "issuesDeleteComment",
   "/repos/:owner/:repo/issues/comments/:commentId",
-  paramValidationFactory<any>(issuesDeleteCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesDeleteCommentParamSchema>(
+    issuesDeleteCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<IssuesDeleteCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesDeleteComment
 
     ctx.status = 501
@@ -7969,17 +12823,30 @@ const reactionsListForIssueCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 const reactionsListForIssueCommentQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-  paramValidationFactory<any>(reactionsListForIssueCommentParamSchema),
-  queryValidationFactory<any>(reactionsListForIssueCommentQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsListForIssueCommentParamSchema>(
+    reactionsListForIssueCommentParamSchema
+  ),
+  queryValidationFactory<ReactionsListForIssueCommentQuerySchema>(
+    reactionsListForIssueCommentQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForIssueCommentParamSchema,
+      ReactionsListForIssueCommentQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForIssueComment
 
     ctx.status = 501
@@ -7997,12 +12864,30 @@ const reactionsCreateForIssueCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForIssueCommentBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-  paramValidationFactory<any>(reactionsCreateForIssueCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsCreateForIssueCommentParamSchema>(
+    reactionsCreateForIssueCommentParamSchema
+  ),
+  bodyValidationFactory<ReactionsCreateForIssueCommentBodySchema>(
+    reactionsCreateForIssueCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForIssueCommentParamSchema,
+      void,
+      ReactionsCreateForIssueCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForIssueComment
 
     ctx.status = 501
@@ -8021,12 +12906,18 @@ const reactionsDeleteForIssueCommentParamSchema = joi
     comment_id: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForIssueComment",
   "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteForIssueCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteForIssueCommentParamSchema>(
+    reactionsDeleteForIssueCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReactionsDeleteForIssueCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForIssueComment
 
     ctx.status = 501
@@ -8040,17 +12931,30 @@ router.delete(
 const issuesListEventsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListEventsForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListEventsForRepo",
   "/repos/:owner/:repo/issues/events",
-  paramValidationFactory<any>(issuesListEventsForRepoParamSchema),
-  queryValidationFactory<any>(issuesListEventsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListEventsForRepoParamSchema>(
+    issuesListEventsForRepoParamSchema
+  ),
+  queryValidationFactory<IssuesListEventsForRepoQuerySchema>(
+    issuesListEventsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListEventsForRepoParamSchema,
+      IssuesListEventsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListEventsForRepo
 
     ctx.status = 501
@@ -8068,12 +12972,13 @@ const issuesGetEventParamSchema = joi
     repo: joi.string().required(),
     event_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "issuesGetEvent",
   "/repos/:owner/:repo/issues/events/:eventId",
-  paramValidationFactory<any>(issuesGetEventParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesGetEventParamSchema>(issuesGetEventParamSchema),
+  async (ctx: ValidatedCtx<IssuesGetEventParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesGetEvent
 
     ctx.status = 501
@@ -8091,12 +12996,13 @@ const issuesGetParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "issuesGet",
   "/repos/:owner/:repo/issues/:issueNumber",
-  paramValidationFactory<any>(issuesGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesGetParamSchema>(issuesGetParamSchema),
+  async (ctx: ValidatedCtx<IssuesGetParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesGet
 
     ctx.status = 501
@@ -8114,12 +13020,30 @@ const issuesUpdateParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesUpdateBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string(),
+    body: joi.string(),
+    assignee: joi.string(),
+    state: joi.string(),
+    milestone: joi.number(),
+    labels: joi.array().items(joi.string()),
+    assignees: joi.array().items(joi.string()),
+  })
+  .required()
 
 router.patch(
   "issuesUpdate",
   "/repos/:owner/:repo/issues/:issueNumber",
-  paramValidationFactory<any>(issuesUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesUpdateParamSchema>(issuesUpdateParamSchema),
+  bodyValidationFactory<IssuesUpdateBodySchema>(issuesUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<IssuesUpdateParamSchema, void, IssuesUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-issuesUpdate
 
     ctx.status = 501
@@ -8137,12 +13061,30 @@ const issuesAddAssigneesParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesAddAssigneesBodySchema = joi
+  .object()
+  .keys({ assignees: joi.array().items(joi.string()) })
+  .required()
 
 router.post(
   "issuesAddAssignees",
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
-  paramValidationFactory<any>(issuesAddAssigneesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesAddAssigneesParamSchema>(
+    issuesAddAssigneesParamSchema
+  ),
+  bodyValidationFactory<IssuesAddAssigneesBodySchema>(
+    issuesAddAssigneesBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesAddAssigneesParamSchema,
+      void,
+      IssuesAddAssigneesBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesAddAssignees
 
     ctx.status = 501
@@ -8160,12 +13102,30 @@ const issuesRemoveAssigneesParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesRemoveAssigneesBodySchema = joi
+  .object()
+  .keys({ assignees: joi.array().items(joi.string()) })
+  .required()
 
 router.delete(
   "issuesRemoveAssignees",
   "/repos/:owner/:repo/issues/:issueNumber/assignees",
-  paramValidationFactory<any>(issuesRemoveAssigneesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesRemoveAssigneesParamSchema>(
+    issuesRemoveAssigneesParamSchema
+  ),
+  bodyValidationFactory<IssuesRemoveAssigneesBodySchema>(
+    issuesRemoveAssigneesBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesRemoveAssigneesParamSchema,
+      void,
+      IssuesRemoveAssigneesBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesRemoveAssignees
 
     ctx.status = 501
@@ -8183,17 +13143,30 @@ const issuesListCommentsParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 const issuesListCommentsQuerySchema = joi
   .object()
   .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListComments",
   "/repos/:owner/:repo/issues/:issueNumber/comments",
-  paramValidationFactory<any>(issuesListCommentsParamSchema),
-  queryValidationFactory<any>(issuesListCommentsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListCommentsParamSchema>(
+    issuesListCommentsParamSchema
+  ),
+  queryValidationFactory<IssuesListCommentsQuerySchema>(
+    issuesListCommentsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListCommentsParamSchema,
+      IssuesListCommentsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListComments
 
     ctx.status = 501
@@ -8211,12 +13184,30 @@ const issuesCreateCommentParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesCreateCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.post(
   "issuesCreateComment",
   "/repos/:owner/:repo/issues/:issueNumber/comments",
-  paramValidationFactory<any>(issuesCreateCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesCreateCommentParamSchema>(
+    issuesCreateCommentParamSchema
+  ),
+  bodyValidationFactory<IssuesCreateCommentBodySchema>(
+    issuesCreateCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesCreateCommentParamSchema,
+      void,
+      IssuesCreateCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesCreateComment
 
     ctx.status = 501
@@ -8234,17 +13225,30 @@ const issuesListEventsParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 const issuesListEventsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListEvents",
   "/repos/:owner/:repo/issues/:issueNumber/events",
-  paramValidationFactory<any>(issuesListEventsParamSchema),
-  queryValidationFactory<any>(issuesListEventsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListEventsParamSchema>(
+    issuesListEventsParamSchema
+  ),
+  queryValidationFactory<IssuesListEventsQuerySchema>(
+    issuesListEventsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListEventsParamSchema,
+      IssuesListEventsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListEvents
 
     ctx.status = 501
@@ -8262,17 +13266,30 @@ const issuesListLabelsOnIssueParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 const issuesListLabelsOnIssueQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListLabelsOnIssue",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
-  paramValidationFactory<any>(issuesListLabelsOnIssueParamSchema),
-  queryValidationFactory<any>(issuesListLabelsOnIssueQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListLabelsOnIssueParamSchema>(
+    issuesListLabelsOnIssueParamSchema
+  ),
+  queryValidationFactory<IssuesListLabelsOnIssueQuerySchema>(
+    issuesListLabelsOnIssueQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListLabelsOnIssueParamSchema,
+      IssuesListLabelsOnIssueQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListLabelsOnIssue
 
     ctx.status = 501
@@ -8290,12 +13307,28 @@ const issuesAddLabelsParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesAddLabelsBodySchema = joi
+  .object()
+  .keys({ labels: joi.array().items(joi.string()).required() })
+  .required()
 
 router.post(
   "issuesAddLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
-  paramValidationFactory<any>(issuesAddLabelsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesAddLabelsParamSchema>(
+    issuesAddLabelsParamSchema
+  ),
+  bodyValidationFactory<IssuesAddLabelsBodySchema>(issuesAddLabelsBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      IssuesAddLabelsParamSchema,
+      void,
+      IssuesAddLabelsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesAddLabels
 
     ctx.status = 501
@@ -8313,12 +13346,28 @@ const issuesSetLabelsParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesSetLabelsBodySchema = joi
+  .object()
+  .keys({ labels: joi.array().items(joi.string()) })
+  .required()
 
 router.put(
   "issuesSetLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
-  paramValidationFactory<any>(issuesSetLabelsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesSetLabelsParamSchema>(
+    issuesSetLabelsParamSchema
+  ),
+  bodyValidationFactory<IssuesSetLabelsBodySchema>(issuesSetLabelsBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      IssuesSetLabelsParamSchema,
+      void,
+      IssuesSetLabelsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesSetLabels
 
     ctx.status = 501
@@ -8336,12 +13385,18 @@ const issuesRemoveAllLabelsParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "issuesRemoveAllLabels",
   "/repos/:owner/:repo/issues/:issueNumber/labels",
-  paramValidationFactory<any>(issuesRemoveAllLabelsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesRemoveAllLabelsParamSchema>(
+    issuesRemoveAllLabelsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<IssuesRemoveAllLabelsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesRemoveAllLabels
 
     ctx.status = 501
@@ -8360,12 +13415,15 @@ const issuesRemoveLabelParamSchema = joi
     issue_number: joi.number().required(),
     name: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "issuesRemoveLabel",
   "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
-  paramValidationFactory<any>(issuesRemoveLabelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesRemoveLabelParamSchema>(
+    issuesRemoveLabelParamSchema
+  ),
+  async (ctx: ValidatedCtx<IssuesRemoveLabelParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesRemoveLabel
 
     ctx.status = 501
@@ -8383,12 +13441,22 @@ const issuesLockParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const issuesLockBodySchema = joi
+  .object()
+  .keys({ lock_reason: joi.string() })
+  .required()
 
 router.put(
   "issuesLock",
   "/repos/:owner/:repo/issues/:issueNumber/lock",
-  paramValidationFactory<any>(issuesLockParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesLockParamSchema>(issuesLockParamSchema),
+  bodyValidationFactory<IssuesLockBodySchema>(issuesLockBodySchema),
+  async (
+    ctx: ValidatedCtx<IssuesLockParamSchema, void, IssuesLockBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-issuesLock
 
     ctx.status = 501
@@ -8406,12 +13474,13 @@ const issuesUnlockParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "issuesUnlock",
   "/repos/:owner/:repo/issues/:issueNumber/lock",
-  paramValidationFactory<any>(issuesUnlockParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesUnlockParamSchema>(issuesUnlockParamSchema),
+  async (ctx: ValidatedCtx<IssuesUnlockParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesUnlock
 
     ctx.status = 501
@@ -8429,17 +13498,30 @@ const reactionsListForIssueParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 const reactionsListForIssueQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions",
-  paramValidationFactory<any>(reactionsListForIssueParamSchema),
-  queryValidationFactory<any>(reactionsListForIssueQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsListForIssueParamSchema>(
+    reactionsListForIssueParamSchema
+  ),
+  queryValidationFactory<ReactionsListForIssueQuerySchema>(
+    reactionsListForIssueQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForIssueParamSchema,
+      ReactionsListForIssueQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForIssue
 
     ctx.status = 501
@@ -8457,12 +13539,30 @@ const reactionsCreateForIssueParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForIssueBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions",
-  paramValidationFactory<any>(reactionsCreateForIssueParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsCreateForIssueParamSchema>(
+    reactionsCreateForIssueParamSchema
+  ),
+  bodyValidationFactory<ReactionsCreateForIssueBodySchema>(
+    reactionsCreateForIssueBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForIssueParamSchema,
+      void,
+      ReactionsCreateForIssueBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForIssue
 
     ctx.status = 501
@@ -8481,12 +13581,18 @@ const reactionsDeleteForIssueParamSchema = joi
     issue_number: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForIssue",
   "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteForIssueParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteForIssueParamSchema>(
+    reactionsDeleteForIssueParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReactionsDeleteForIssueParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForIssue
 
     ctx.status = 501
@@ -8504,17 +13610,30 @@ const issuesListEventsForTimelineParamSchema = joi
     repo: joi.string().required(),
     issue_number: joi.number().required(),
   })
+  .required()
 
 const issuesListEventsForTimelineQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListEventsForTimeline",
   "/repos/:owner/:repo/issues/:issueNumber/timeline",
-  paramValidationFactory<any>(issuesListEventsForTimelineParamSchema),
-  queryValidationFactory<any>(issuesListEventsForTimelineQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListEventsForTimelineParamSchema>(
+    issuesListEventsForTimelineParamSchema
+  ),
+  queryValidationFactory<IssuesListEventsForTimelineQuerySchema>(
+    issuesListEventsForTimelineQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListEventsForTimelineParamSchema,
+      IssuesListEventsForTimelineQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListEventsForTimeline
 
     ctx.status = 501
@@ -8528,17 +13647,30 @@ router.get(
 const reposListDeployKeysParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListDeployKeysQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListDeployKeys",
   "/repos/:owner/:repo/keys",
-  paramValidationFactory<any>(reposListDeployKeysParamSchema),
-  queryValidationFactory<any>(reposListDeployKeysQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListDeployKeysParamSchema>(
+    reposListDeployKeysParamSchema
+  ),
+  queryValidationFactory<ReposListDeployKeysQuerySchema>(
+    reposListDeployKeysQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListDeployKeysParamSchema,
+      ReposListDeployKeysQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListDeployKeys
 
     ctx.status = 501
@@ -8552,12 +13684,34 @@ router.get(
 const reposCreateDeployKeyParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateDeployKeyBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string(),
+    key: joi.string().required(),
+    read_only: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateDeployKey",
   "/repos/:owner/:repo/keys",
-  paramValidationFactory<any>(reposCreateDeployKeyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateDeployKeyParamSchema>(
+    reposCreateDeployKeyParamSchema
+  ),
+  bodyValidationFactory<ReposCreateDeployKeyBodySchema>(
+    reposCreateDeployKeyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateDeployKeyParamSchema,
+      void,
+      ReposCreateDeployKeyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateDeployKey
 
     ctx.status = 501
@@ -8575,12 +13729,15 @@ const reposGetDeployKeyParamSchema = joi
     repo: joi.string().required(),
     key_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetDeployKey",
   "/repos/:owner/:repo/keys/:keyId",
-  paramValidationFactory<any>(reposGetDeployKeyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetDeployKeyParamSchema>(
+    reposGetDeployKeyParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposGetDeployKeyParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetDeployKey
 
     ctx.status = 501
@@ -8598,12 +13755,18 @@ const reposDeleteDeployKeyParamSchema = joi
     repo: joi.string().required(),
     key_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteDeployKey",
   "/repos/:owner/:repo/keys/:keyId",
-  paramValidationFactory<any>(reposDeleteDeployKeyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteDeployKeyParamSchema>(
+    reposDeleteDeployKeyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteDeployKeyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteDeployKey
 
     ctx.status = 501
@@ -8617,17 +13780,30 @@ router.delete(
 const issuesListLabelsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListLabelsForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListLabelsForRepo",
   "/repos/:owner/:repo/labels",
-  paramValidationFactory<any>(issuesListLabelsForRepoParamSchema),
-  queryValidationFactory<any>(issuesListLabelsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListLabelsForRepoParamSchema>(
+    issuesListLabelsForRepoParamSchema
+  ),
+  queryValidationFactory<IssuesListLabelsForRepoQuerySchema>(
+    issuesListLabelsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListLabelsForRepoParamSchema,
+      IssuesListLabelsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListLabelsForRepo
 
     ctx.status = 501
@@ -8641,12 +13817,34 @@ router.get(
 const issuesCreateLabelParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const issuesCreateLabelBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    color: joi.string().required(),
+    description: joi.string(),
+  })
+  .required()
 
 router.post(
   "issuesCreateLabel",
   "/repos/:owner/:repo/labels",
-  paramValidationFactory<any>(issuesCreateLabelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesCreateLabelParamSchema>(
+    issuesCreateLabelParamSchema
+  ),
+  bodyValidationFactory<IssuesCreateLabelBodySchema>(
+    issuesCreateLabelBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesCreateLabelParamSchema,
+      void,
+      IssuesCreateLabelBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesCreateLabel
 
     ctx.status = 501
@@ -8664,12 +13862,13 @@ const issuesGetLabelParamSchema = joi
     repo: joi.string().required(),
     name: joi.string().required(),
   })
+  .required()
 
 router.get(
   "issuesGetLabel",
   "/repos/:owner/:repo/labels/:name",
-  paramValidationFactory<any>(issuesGetLabelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesGetLabelParamSchema>(issuesGetLabelParamSchema),
+  async (ctx: ValidatedCtx<IssuesGetLabelParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesGetLabel
 
     ctx.status = 501
@@ -8687,12 +13886,34 @@ const issuesUpdateLabelParamSchema = joi
     repo: joi.string().required(),
     name: joi.string().required(),
   })
+  .required()
+
+const issuesUpdateLabelBodySchema = joi
+  .object()
+  .keys({
+    new_name: joi.string(),
+    color: joi.string(),
+    description: joi.string(),
+  })
+  .required()
 
 router.patch(
   "issuesUpdateLabel",
   "/repos/:owner/:repo/labels/:name",
-  paramValidationFactory<any>(issuesUpdateLabelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesUpdateLabelParamSchema>(
+    issuesUpdateLabelParamSchema
+  ),
+  bodyValidationFactory<IssuesUpdateLabelBodySchema>(
+    issuesUpdateLabelBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesUpdateLabelParamSchema,
+      void,
+      IssuesUpdateLabelBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesUpdateLabel
 
     ctx.status = 501
@@ -8710,12 +13931,15 @@ const issuesDeleteLabelParamSchema = joi
     repo: joi.string().required(),
     name: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "issuesDeleteLabel",
   "/repos/:owner/:repo/labels/:name",
-  paramValidationFactory<any>(issuesDeleteLabelParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesDeleteLabelParamSchema>(
+    issuesDeleteLabelParamSchema
+  ),
+  async (ctx: ValidatedCtx<IssuesDeleteLabelParamSchema, void, void>, next) => {
     //region safe-edit-region-issuesDeleteLabel
 
     ctx.status = 501
@@ -8729,12 +13953,18 @@ router.delete(
 const reposListLanguagesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposListLanguages",
   "/repos/:owner/:repo/languages",
-  paramValidationFactory<any>(reposListLanguagesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListLanguagesParamSchema>(
+    reposListLanguagesParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposListLanguagesParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposListLanguages
 
     ctx.status = 501
@@ -8748,12 +13978,18 @@ router.get(
 const licensesGetForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "licensesGetForRepo",
   "/repos/:owner/:repo/license",
-  paramValidationFactory<any>(licensesGetForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<LicensesGetForRepoParamSchema>(
+    licensesGetForRepoParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<LicensesGetForRepoParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-licensesGetForRepo
 
     ctx.status = 501
@@ -8767,12 +14003,26 @@ router.get(
 const reposMergeParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposMergeBodySchema = joi
+  .object()
+  .keys({
+    base: joi.string().required(),
+    head: joi.string().required(),
+    commit_message: joi.string(),
+  })
+  .required()
 
 router.post(
   "reposMerge",
   "/repos/:owner/:repo/merges",
-  paramValidationFactory<any>(reposMergeParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposMergeParamSchema>(reposMergeParamSchema),
+  bodyValidationFactory<ReposMergeBodySchema>(reposMergeBodySchema),
+  async (
+    ctx: ValidatedCtx<ReposMergeParamSchema, void, ReposMergeBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-reposMerge
 
     ctx.status = 501
@@ -8786,6 +14036,7 @@ router.post(
 const issuesListMilestonesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const issuesListMilestonesQuerySchema = joi
   .object()
@@ -8796,13 +14047,25 @@ const issuesListMilestonesQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesListMilestones",
   "/repos/:owner/:repo/milestones",
-  paramValidationFactory<any>(issuesListMilestonesParamSchema),
-  queryValidationFactory<any>(issuesListMilestonesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListMilestonesParamSchema>(
+    issuesListMilestonesParamSchema
+  ),
+  queryValidationFactory<IssuesListMilestonesQuerySchema>(
+    issuesListMilestonesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListMilestonesParamSchema,
+      IssuesListMilestonesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListMilestones
 
     ctx.status = 501
@@ -8816,12 +14079,35 @@ router.get(
 const issuesCreateMilestoneParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const issuesCreateMilestoneBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    state: joi.string(),
+    description: joi.string(),
+    due_on: joi.string(),
+  })
+  .required()
 
 router.post(
   "issuesCreateMilestone",
   "/repos/:owner/:repo/milestones",
-  paramValidationFactory<any>(issuesCreateMilestoneParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesCreateMilestoneParamSchema>(
+    issuesCreateMilestoneParamSchema
+  ),
+  bodyValidationFactory<IssuesCreateMilestoneBodySchema>(
+    issuesCreateMilestoneBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesCreateMilestoneParamSchema,
+      void,
+      IssuesCreateMilestoneBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesCreateMilestone
 
     ctx.status = 501
@@ -8839,12 +14125,18 @@ const issuesGetMilestoneParamSchema = joi
     repo: joi.string().required(),
     milestone_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "issuesGetMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
-  paramValidationFactory<any>(issuesGetMilestoneParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesGetMilestoneParamSchema>(
+    issuesGetMilestoneParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<IssuesGetMilestoneParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesGetMilestone
 
     ctx.status = 501
@@ -8862,12 +14154,35 @@ const issuesUpdateMilestoneParamSchema = joi
     repo: joi.string().required(),
     milestone_number: joi.number().required(),
   })
+  .required()
+
+const issuesUpdateMilestoneBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string(),
+    state: joi.string(),
+    description: joi.string(),
+    due_on: joi.string(),
+  })
+  .required()
 
 router.patch(
   "issuesUpdateMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
-  paramValidationFactory<any>(issuesUpdateMilestoneParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesUpdateMilestoneParamSchema>(
+    issuesUpdateMilestoneParamSchema
+  ),
+  bodyValidationFactory<IssuesUpdateMilestoneBodySchema>(
+    issuesUpdateMilestoneBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesUpdateMilestoneParamSchema,
+      void,
+      IssuesUpdateMilestoneBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesUpdateMilestone
 
     ctx.status = 501
@@ -8885,12 +14200,18 @@ const issuesDeleteMilestoneParamSchema = joi
     repo: joi.string().required(),
     milestone_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "issuesDeleteMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber",
-  paramValidationFactory<any>(issuesDeleteMilestoneParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesDeleteMilestoneParamSchema>(
+    issuesDeleteMilestoneParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<IssuesDeleteMilestoneParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesDeleteMilestone
 
     ctx.status = 501
@@ -8908,17 +14229,30 @@ const issuesListLabelsForMilestoneParamSchema = joi
     repo: joi.string().required(),
     milestone_number: joi.number().required(),
   })
+  .required()
 
 const issuesListLabelsForMilestoneQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "issuesListLabelsForMilestone",
   "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
-  paramValidationFactory<any>(issuesListLabelsForMilestoneParamSchema),
-  queryValidationFactory<any>(issuesListLabelsForMilestoneQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<IssuesListLabelsForMilestoneParamSchema>(
+    issuesListLabelsForMilestoneParamSchema
+  ),
+  queryValidationFactory<IssuesListLabelsForMilestoneQuerySchema>(
+    issuesListLabelsForMilestoneQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      IssuesListLabelsForMilestoneParamSchema,
+      IssuesListLabelsForMilestoneQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-issuesListLabelsForMilestone
 
     ctx.status = 501
@@ -8932,6 +14266,7 @@ router.get(
 const activityListRepoNotificationsForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const activityListRepoNotificationsForAuthenticatedUserQuerySchema = joi
   .object()
@@ -8943,17 +14278,25 @@ const activityListRepoNotificationsForAuthenticatedUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "activityListRepoNotificationsForAuthenticatedUser",
   "/repos/:owner/:repo/notifications",
-  paramValidationFactory<any>(
-    activityListRepoNotificationsForAuthenticatedUserParamSchema
-  ),
-  queryValidationFactory<any>(
-    activityListRepoNotificationsForAuthenticatedUserQuerySchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    ActivityListRepoNotificationsForAuthenticatedUserParamSchema
+  >(activityListRepoNotificationsForAuthenticatedUserParamSchema),
+  queryValidationFactory<
+    ActivityListRepoNotificationsForAuthenticatedUserQuerySchema
+  >(activityListRepoNotificationsForAuthenticatedUserQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListRepoNotificationsForAuthenticatedUserParamSchema,
+      ActivityListRepoNotificationsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListRepoNotificationsForAuthenticatedUser
 
     ctx.status = 501
@@ -8967,12 +14310,30 @@ router.get(
 const activityMarkRepoNotificationsAsReadParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const activityMarkRepoNotificationsAsReadBodySchema = joi
+  .object()
+  .keys({ last_read_at: joi.string() })
+  .required()
 
 router.put(
   "activityMarkRepoNotificationsAsRead",
   "/repos/:owner/:repo/notifications",
-  paramValidationFactory<any>(activityMarkRepoNotificationsAsReadParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityMarkRepoNotificationsAsReadParamSchema>(
+    activityMarkRepoNotificationsAsReadParamSchema
+  ),
+  bodyValidationFactory<ActivityMarkRepoNotificationsAsReadBodySchema>(
+    activityMarkRepoNotificationsAsReadBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityMarkRepoNotificationsAsReadParamSchema,
+      void,
+      ActivityMarkRepoNotificationsAsReadBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityMarkRepoNotificationsAsRead
 
     ctx.status = 501
@@ -8986,12 +14347,13 @@ router.put(
 const reposGetPagesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetPages",
   "/repos/:owner/:repo/pages",
-  paramValidationFactory<any>(reposGetPagesParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetPagesParamSchema>(reposGetPagesParamSchema),
+  async (ctx: ValidatedCtx<ReposGetPagesParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetPages
 
     ctx.status = 501
@@ -9005,12 +14367,32 @@ router.get(
 const reposCreatePagesSiteParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreatePagesSiteBodySchema = joi
+  .object()
+  .keys({
+    source: joi.object().keys({ branch: joi.string(), path: joi.string() }),
+  })
+  .required()
 
 router.post(
   "reposCreatePagesSite",
   "/repos/:owner/:repo/pages",
-  paramValidationFactory<any>(reposCreatePagesSiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreatePagesSiteParamSchema>(
+    reposCreatePagesSiteParamSchema
+  ),
+  bodyValidationFactory<ReposCreatePagesSiteBodySchema>(
+    reposCreatePagesSiteBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreatePagesSiteParamSchema,
+      void,
+      ReposCreatePagesSiteBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreatePagesSite
 
     ctx.status = 501
@@ -9024,12 +14406,18 @@ router.post(
 const reposDeletePagesSiteParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "reposDeletePagesSite",
   "/repos/:owner/:repo/pages",
-  paramValidationFactory<any>(reposDeletePagesSiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeletePagesSiteParamSchema>(
+    reposDeletePagesSiteParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeletePagesSiteParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeletePagesSite
 
     ctx.status = 501
@@ -9043,12 +14431,30 @@ router.delete(
 const reposUpdateInformationAboutPagesSiteParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposUpdateInformationAboutPagesSiteBodySchema = joi
+  .object()
+  .keys({ cname: joi.string(), source: joi.string() })
+  .required()
 
 router.put(
   "reposUpdateInformationAboutPagesSite",
   "/repos/:owner/:repo/pages",
-  paramValidationFactory<any>(reposUpdateInformationAboutPagesSiteParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateInformationAboutPagesSiteParamSchema>(
+    reposUpdateInformationAboutPagesSiteParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateInformationAboutPagesSiteBodySchema>(
+    reposUpdateInformationAboutPagesSiteBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateInformationAboutPagesSiteParamSchema,
+      void,
+      ReposUpdateInformationAboutPagesSiteBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateInformationAboutPagesSite
 
     ctx.status = 501
@@ -9062,12 +14468,18 @@ router.put(
 const reposRequestPagesBuildParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.post(
   "reposRequestPagesBuild",
   "/repos/:owner/:repo/pages/builds",
-  paramValidationFactory<any>(reposRequestPagesBuildParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposRequestPagesBuildParamSchema>(
+    reposRequestPagesBuildParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposRequestPagesBuildParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposRequestPagesBuild
 
     ctx.status = 501
@@ -9081,17 +14493,30 @@ router.post(
 const reposListPagesBuildsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListPagesBuildsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListPagesBuilds",
   "/repos/:owner/:repo/pages/builds",
-  paramValidationFactory<any>(reposListPagesBuildsParamSchema),
-  queryValidationFactory<any>(reposListPagesBuildsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListPagesBuildsParamSchema>(
+    reposListPagesBuildsParamSchema
+  ),
+  queryValidationFactory<ReposListPagesBuildsQuerySchema>(
+    reposListPagesBuildsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListPagesBuildsParamSchema,
+      ReposListPagesBuildsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListPagesBuilds
 
     ctx.status = 501
@@ -9105,12 +14530,18 @@ router.get(
 const reposGetLatestPagesBuildParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetLatestPagesBuild",
   "/repos/:owner/:repo/pages/builds/latest",
-  paramValidationFactory<any>(reposGetLatestPagesBuildParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetLatestPagesBuildParamSchema>(
+    reposGetLatestPagesBuildParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetLatestPagesBuildParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetLatestPagesBuild
 
     ctx.status = 501
@@ -9128,12 +14559,18 @@ const reposGetPagesBuildParamSchema = joi
     repo: joi.string().required(),
     build_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetPagesBuild",
   "/repos/:owner/:repo/pages/builds/:buildId",
-  paramValidationFactory<any>(reposGetPagesBuildParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetPagesBuildParamSchema>(
+    reposGetPagesBuildParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetPagesBuildParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetPagesBuild
 
     ctx.status = 501
@@ -9147,17 +14584,30 @@ router.get(
 const projectsListForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const projectsListForRepoQuerySchema = joi
   .object()
   .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "projectsListForRepo",
   "/repos/:owner/:repo/projects",
-  paramValidationFactory<any>(projectsListForRepoParamSchema),
-  queryValidationFactory<any>(projectsListForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListForRepoParamSchema>(
+    projectsListForRepoParamSchema
+  ),
+  queryValidationFactory<ProjectsListForRepoQuerySchema>(
+    projectsListForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListForRepoParamSchema,
+      ProjectsListForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListForRepo
 
     ctx.status = 501
@@ -9171,12 +14621,30 @@ router.get(
 const projectsCreateForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const projectsCreateForRepoBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required(), body: joi.string() })
+  .required()
 
 router.post(
   "projectsCreateForRepo",
   "/repos/:owner/:repo/projects",
-  paramValidationFactory<any>(projectsCreateForRepoParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsCreateForRepoParamSchema>(
+    projectsCreateForRepoParamSchema
+  ),
+  bodyValidationFactory<ProjectsCreateForRepoBodySchema>(
+    projectsCreateForRepoBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsCreateForRepoParamSchema,
+      void,
+      ProjectsCreateForRepoBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsCreateForRepo
 
     ctx.status = 501
@@ -9190,6 +14658,7 @@ router.post(
 const pullsListParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const pullsListQuerySchema = joi
   .object()
@@ -9202,13 +14671,17 @@ const pullsListQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "pullsList",
   "/repos/:owner/:repo/pulls",
-  paramValidationFactory<any>(pullsListParamSchema),
-  queryValidationFactory<any>(pullsListQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListParamSchema>(pullsListParamSchema),
+  queryValidationFactory<PullsListQuerySchema>(pullsListQuerySchema),
+  async (
+    ctx: ValidatedCtx<PullsListParamSchema, PullsListQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-pullsList
 
     ctx.status = 501
@@ -9222,12 +14695,29 @@ router.get(
 const pullsCreateParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const pullsCreateBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    head: joi.string().required(),
+    base: joi.string().required(),
+    body: joi.string(),
+    maintainer_can_modify: joi.boolean(),
+    draft: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "pullsCreate",
   "/repos/:owner/:repo/pulls",
-  paramValidationFactory<any>(pullsCreateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsCreateParamSchema>(pullsCreateParamSchema),
+  bodyValidationFactory<PullsCreateBodySchema>(pullsCreateBodySchema),
+  async (
+    ctx: ValidatedCtx<PullsCreateParamSchema, void, PullsCreateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-pullsCreate
 
     ctx.status = 501
@@ -9241,6 +14731,7 @@ router.post(
 const pullsListReviewCommentsForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const pullsListReviewCommentsForRepoQuerySchema = joi
   .object()
@@ -9251,13 +14742,25 @@ const pullsListReviewCommentsForRepoQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "pullsListReviewCommentsForRepo",
   "/repos/:owner/:repo/pulls/comments",
-  paramValidationFactory<any>(pullsListReviewCommentsForRepoParamSchema),
-  queryValidationFactory<any>(pullsListReviewCommentsForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListReviewCommentsForRepoParamSchema>(
+    pullsListReviewCommentsForRepoParamSchema
+  ),
+  queryValidationFactory<PullsListReviewCommentsForRepoQuerySchema>(
+    pullsListReviewCommentsForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListReviewCommentsForRepoParamSchema,
+      PullsListReviewCommentsForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListReviewCommentsForRepo
 
     ctx.status = 501
@@ -9275,12 +14778,18 @@ const pullsGetReviewCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "pullsGetReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
-  paramValidationFactory<any>(pullsGetReviewCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsGetReviewCommentParamSchema>(
+    pullsGetReviewCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<PullsGetReviewCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-pullsGetReviewComment
 
     ctx.status = 501
@@ -9298,12 +14807,30 @@ const pullsUpdateReviewCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const pullsUpdateReviewCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "pullsUpdateReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
-  paramValidationFactory<any>(pullsUpdateReviewCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsUpdateReviewCommentParamSchema>(
+    pullsUpdateReviewCommentParamSchema
+  ),
+  bodyValidationFactory<PullsUpdateReviewCommentBodySchema>(
+    pullsUpdateReviewCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsUpdateReviewCommentParamSchema,
+      void,
+      PullsUpdateReviewCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsUpdateReviewComment
 
     ctx.status = 501
@@ -9321,12 +14848,18 @@ const pullsDeleteReviewCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "pullsDeleteReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId",
-  paramValidationFactory<any>(pullsDeleteReviewCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsDeleteReviewCommentParamSchema>(
+    pullsDeleteReviewCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<PullsDeleteReviewCommentParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-pullsDeleteReviewComment
 
     ctx.status = 501
@@ -9344,21 +14877,30 @@ const reactionsListForPullRequestReviewCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
 
 const reactionsListForPullRequestReviewCommentQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForPullRequestReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReactionsListForPullRequestReviewCommentParamSchema>(
     reactionsListForPullRequestReviewCommentParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ReactionsListForPullRequestReviewCommentQuerySchema>(
     reactionsListForPullRequestReviewCommentQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForPullRequestReviewCommentParamSchema,
+      ReactionsListForPullRequestReviewCommentQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForPullRequestReviewComment
 
     ctx.status = 501
@@ -9376,14 +14918,30 @@ const reactionsCreateForPullRequestReviewCommentParamSchema = joi
     repo: joi.string().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForPullRequestReviewCommentBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForPullRequestReviewComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReactionsCreateForPullRequestReviewCommentParamSchema>(
     reactionsCreateForPullRequestReviewCommentParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<ReactionsCreateForPullRequestReviewCommentBodySchema>(
+    reactionsCreateForPullRequestReviewCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForPullRequestReviewCommentParamSchema,
+      void,
+      ReactionsCreateForPullRequestReviewCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForPullRequestReviewComment
 
     ctx.status = 501
@@ -9402,12 +14960,22 @@ const reactionsDeleteForPullRequestCommentParamSchema = joi
     comment_id: joi.number().required(),
     reaction_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reactionsDeleteForPullRequestComment",
   "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
-  paramValidationFactory<any>(reactionsDeleteForPullRequestCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsDeleteForPullRequestCommentParamSchema>(
+    reactionsDeleteForPullRequestCommentParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsDeleteForPullRequestCommentParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsDeleteForPullRequestComment
 
     ctx.status = 501
@@ -9425,12 +14993,13 @@ const pullsGetParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "pullsGet",
   "/repos/:owner/:repo/pulls/:pullNumber",
-  paramValidationFactory<any>(pullsGetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsGetParamSchema>(pullsGetParamSchema),
+  async (ctx: ValidatedCtx<PullsGetParamSchema, void, void>, next) => {
     //region safe-edit-region-pullsGet
 
     ctx.status = 501
@@ -9448,12 +15017,28 @@ const pullsUpdateParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsUpdateBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string(),
+    body: joi.string(),
+    state: joi.string(),
+    base: joi.string(),
+    maintainer_can_modify: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "pullsUpdate",
   "/repos/:owner/:repo/pulls/:pullNumber",
-  paramValidationFactory<any>(pullsUpdateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsUpdateParamSchema>(pullsUpdateParamSchema),
+  bodyValidationFactory<PullsUpdateBodySchema>(pullsUpdateBodySchema),
+  async (
+    ctx: ValidatedCtx<PullsUpdateParamSchema, void, PullsUpdateBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-pullsUpdate
 
     ctx.status = 501
@@ -9471,6 +15056,7 @@ const pullsListReviewCommentsParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 const pullsListReviewCommentsQuerySchema = joi
   .object()
@@ -9481,13 +15067,25 @@ const pullsListReviewCommentsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "pullsListReviewComments",
   "/repos/:owner/:repo/pulls/:pullNumber/comments",
-  paramValidationFactory<any>(pullsListReviewCommentsParamSchema),
-  queryValidationFactory<any>(pullsListReviewCommentsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListReviewCommentsParamSchema>(
+    pullsListReviewCommentsParamSchema
+  ),
+  queryValidationFactory<PullsListReviewCommentsQuerySchema>(
+    pullsListReviewCommentsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListReviewCommentsParamSchema,
+      PullsListReviewCommentsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListReviewComments
 
     ctx.status = 501
@@ -9505,12 +15103,39 @@ const pullsCreateReviewCommentParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsCreateReviewCommentBodySchema = joi
+  .object()
+  .keys({
+    body: joi.string().required(),
+    commit_id: joi.string().required(),
+    path: joi.string().required(),
+    position: joi.number(),
+    side: joi.string(),
+    line: joi.number(),
+    start_line: joi.number(),
+    start_side: joi.string(),
+  })
+  .required()
 
 router.post(
   "pullsCreateReviewComment",
   "/repos/:owner/:repo/pulls/:pullNumber/comments",
-  paramValidationFactory<any>(pullsCreateReviewCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsCreateReviewCommentParamSchema>(
+    pullsCreateReviewCommentParamSchema
+  ),
+  bodyValidationFactory<PullsCreateReviewCommentBodySchema>(
+    pullsCreateReviewCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsCreateReviewCommentParamSchema,
+      void,
+      PullsCreateReviewCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsCreateReviewComment
 
     ctx.status = 501
@@ -9529,12 +15154,30 @@ const pullsCreateReplyForReviewCommentParamSchema = joi
     pull_number: joi.number().required(),
     comment_id: joi.number().required(),
   })
+  .required()
+
+const pullsCreateReplyForReviewCommentBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.post(
   "pullsCreateReplyForReviewComment",
   "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
-  paramValidationFactory<any>(pullsCreateReplyForReviewCommentParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsCreateReplyForReviewCommentParamSchema>(
+    pullsCreateReplyForReviewCommentParamSchema
+  ),
+  bodyValidationFactory<PullsCreateReplyForReviewCommentBodySchema>(
+    pullsCreateReplyForReviewCommentBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsCreateReplyForReviewCommentParamSchema,
+      void,
+      PullsCreateReplyForReviewCommentBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsCreateReplyForReviewComment
 
     ctx.status = 501
@@ -9552,17 +15195,30 @@ const pullsListCommitsParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 const pullsListCommitsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "pullsListCommits",
   "/repos/:owner/:repo/pulls/:pullNumber/commits",
-  paramValidationFactory<any>(pullsListCommitsParamSchema),
-  queryValidationFactory<any>(pullsListCommitsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListCommitsParamSchema>(
+    pullsListCommitsParamSchema
+  ),
+  queryValidationFactory<PullsListCommitsQuerySchema>(
+    pullsListCommitsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListCommitsParamSchema,
+      PullsListCommitsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListCommits
 
     ctx.status = 501
@@ -9580,17 +15236,26 @@ const pullsListFilesParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 const pullsListFilesQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "pullsListFiles",
   "/repos/:owner/:repo/pulls/:pullNumber/files",
-  paramValidationFactory<any>(pullsListFilesParamSchema),
-  queryValidationFactory<any>(pullsListFilesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListFilesParamSchema>(pullsListFilesParamSchema),
+  queryValidationFactory<PullsListFilesQuerySchema>(pullsListFilesQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      PullsListFilesParamSchema,
+      PullsListFilesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListFiles
 
     ctx.status = 501
@@ -9608,12 +15273,18 @@ const pullsCheckIfMergedParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "pullsCheckIfMerged",
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
-  paramValidationFactory<any>(pullsCheckIfMergedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsCheckIfMergedParamSchema>(
+    pullsCheckIfMergedParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<PullsCheckIfMergedParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-pullsCheckIfMerged
 
     ctx.status = 501
@@ -9631,12 +15302,27 @@ const pullsMergeParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsMergeBodySchema = joi
+  .object()
+  .keys({
+    commit_title: joi.string(),
+    commit_message: joi.string(),
+    sha: joi.string(),
+    merge_method: joi.string(),
+  })
+  .required()
 
 router.put(
   "pullsMerge",
   "/repos/:owner/:repo/pulls/:pullNumber/merge",
-  paramValidationFactory<any>(pullsMergeParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsMergeParamSchema>(pullsMergeParamSchema),
+  bodyValidationFactory<PullsMergeBodySchema>(pullsMergeBodySchema),
+  async (
+    ctx: ValidatedCtx<PullsMergeParamSchema, void, PullsMergeBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-pullsMerge
 
     ctx.status = 501
@@ -9654,17 +15340,30 @@ const pullsListRequestedReviewersParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 const pullsListRequestedReviewersQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "pullsListRequestedReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-  paramValidationFactory<any>(pullsListRequestedReviewersParamSchema),
-  queryValidationFactory<any>(pullsListRequestedReviewersQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListRequestedReviewersParamSchema>(
+    pullsListRequestedReviewersParamSchema
+  ),
+  queryValidationFactory<PullsListRequestedReviewersQuerySchema>(
+    pullsListRequestedReviewersQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListRequestedReviewersParamSchema,
+      PullsListRequestedReviewersQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListRequestedReviewers
 
     ctx.status = 501
@@ -9682,12 +15381,33 @@ const pullsRequestReviewersParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsRequestReviewersBodySchema = joi
+  .object()
+  .keys({
+    reviewers: joi.array().items(joi.string()),
+    team_reviewers: joi.array().items(joi.string()),
+  })
+  .required()
 
 router.post(
   "pullsRequestReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-  paramValidationFactory<any>(pullsRequestReviewersParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsRequestReviewersParamSchema>(
+    pullsRequestReviewersParamSchema
+  ),
+  bodyValidationFactory<PullsRequestReviewersBodySchema>(
+    pullsRequestReviewersBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsRequestReviewersParamSchema,
+      void,
+      PullsRequestReviewersBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsRequestReviewers
 
     ctx.status = 501
@@ -9705,12 +15425,33 @@ const pullsRemoveRequestedReviewersParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsRemoveRequestedReviewersBodySchema = joi
+  .object()
+  .keys({
+    reviewers: joi.array().items(joi.string()),
+    team_reviewers: joi.array().items(joi.string()),
+  })
+  .required()
 
 router.delete(
   "pullsRemoveRequestedReviewers",
   "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-  paramValidationFactory<any>(pullsRemoveRequestedReviewersParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsRemoveRequestedReviewersParamSchema>(
+    pullsRemoveRequestedReviewersParamSchema
+  ),
+  bodyValidationFactory<PullsRemoveRequestedReviewersBodySchema>(
+    pullsRemoveRequestedReviewersBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsRemoveRequestedReviewersParamSchema,
+      void,
+      PullsRemoveRequestedReviewersBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsRemoveRequestedReviewers
 
     ctx.status = 501
@@ -9728,17 +15469,30 @@ const pullsListReviewsParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
 
 const pullsListReviewsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "pullsListReviews",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-  paramValidationFactory<any>(pullsListReviewsParamSchema),
-  queryValidationFactory<any>(pullsListReviewsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListReviewsParamSchema>(
+    pullsListReviewsParamSchema
+  ),
+  queryValidationFactory<PullsListReviewsQuerySchema>(
+    pullsListReviewsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListReviewsParamSchema,
+      PullsListReviewsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListReviews
 
     ctx.status = 501
@@ -9756,12 +15510,45 @@ const pullsCreateReviewParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsCreateReviewBodySchema = joi
+  .object()
+  .keys({
+    commit_id: joi.string(),
+    body: joi.string(),
+    event: joi.string(),
+    comments: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            path: joi.string().required(),
+            position: joi.number().required(),
+            body: joi.string().required(),
+          })
+      ),
+  })
+  .required()
 
 router.post(
   "pullsCreateReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-  paramValidationFactory<any>(pullsCreateReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsCreateReviewParamSchema>(
+    pullsCreateReviewParamSchema
+  ),
+  bodyValidationFactory<PullsCreateReviewBodySchema>(
+    pullsCreateReviewBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsCreateReviewParamSchema,
+      void,
+      PullsCreateReviewBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsCreateReview
 
     ctx.status = 501
@@ -9780,12 +15567,13 @@ const pullsGetReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "pullsGetReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-  paramValidationFactory<any>(pullsGetReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsGetReviewParamSchema>(pullsGetReviewParamSchema),
+  async (ctx: ValidatedCtx<PullsGetReviewParamSchema, void, void>, next) => {
     //region safe-edit-region-pullsGetReview
 
     ctx.status = 501
@@ -9804,12 +15592,18 @@ const pullsDeletePendingReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "pullsDeletePendingReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-  paramValidationFactory<any>(pullsDeletePendingReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsDeletePendingReviewParamSchema>(
+    pullsDeletePendingReviewParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<PullsDeletePendingReviewParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-pullsDeletePendingReview
 
     ctx.status = 501
@@ -9828,12 +15622,30 @@ const pullsUpdateReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
+
+const pullsUpdateReviewBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.put(
   "pullsUpdateReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-  paramValidationFactory<any>(pullsUpdateReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsUpdateReviewParamSchema>(
+    pullsUpdateReviewParamSchema
+  ),
+  bodyValidationFactory<PullsUpdateReviewBodySchema>(
+    pullsUpdateReviewBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsUpdateReviewParamSchema,
+      void,
+      PullsUpdateReviewBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsUpdateReview
 
     ctx.status = 501
@@ -9852,17 +15664,30 @@ const pullsListCommentsForReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
 
 const pullsListCommentsForReviewQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "pullsListCommentsForReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
-  paramValidationFactory<any>(pullsListCommentsForReviewParamSchema),
-  queryValidationFactory<any>(pullsListCommentsForReviewQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsListCommentsForReviewParamSchema>(
+    pullsListCommentsForReviewParamSchema
+  ),
+  queryValidationFactory<PullsListCommentsForReviewQuerySchema>(
+    pullsListCommentsForReviewQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsListCommentsForReviewParamSchema,
+      PullsListCommentsForReviewQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsListCommentsForReview
 
     ctx.status = 501
@@ -9881,12 +15706,30 @@ const pullsDismissReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
+
+const pullsDismissReviewBodySchema = joi
+  .object()
+  .keys({ message: joi.string().required() })
+  .required()
 
 router.put(
   "pullsDismissReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
-  paramValidationFactory<any>(pullsDismissReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsDismissReviewParamSchema>(
+    pullsDismissReviewParamSchema
+  ),
+  bodyValidationFactory<PullsDismissReviewBodySchema>(
+    pullsDismissReviewBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsDismissReviewParamSchema,
+      void,
+      PullsDismissReviewBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsDismissReview
 
     ctx.status = 501
@@ -9905,12 +15748,30 @@ const pullsSubmitReviewParamSchema = joi
     pull_number: joi.number().required(),
     review_id: joi.number().required(),
   })
+  .required()
+
+const pullsSubmitReviewBodySchema = joi
+  .object()
+  .keys({ body: joi.string(), event: joi.string().required() })
+  .required()
 
 router.post(
   "pullsSubmitReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
-  paramValidationFactory<any>(pullsSubmitReviewParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsSubmitReviewParamSchema>(
+    pullsSubmitReviewParamSchema
+  ),
+  bodyValidationFactory<PullsSubmitReviewBodySchema>(
+    pullsSubmitReviewBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsSubmitReviewParamSchema,
+      void,
+      PullsSubmitReviewBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsSubmitReview
 
     ctx.status = 501
@@ -9928,12 +15789,30 @@ const pullsUpdateBranchParamSchema = joi
     repo: joi.string().required(),
     pull_number: joi.number().required(),
   })
+  .required()
+
+const pullsUpdateBranchBodySchema = joi
+  .object()
+  .keys({ expected_head_sha: joi.string() })
+  .required()
 
 router.put(
   "pullsUpdateBranch",
   "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
-  paramValidationFactory<any>(pullsUpdateBranchParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<PullsUpdateBranchParamSchema>(
+    pullsUpdateBranchParamSchema
+  ),
+  bodyValidationFactory<PullsUpdateBranchBodySchema>(
+    pullsUpdateBranchBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      PullsUpdateBranchParamSchema,
+      void,
+      PullsUpdateBranchBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-pullsUpdateBranch
 
     ctx.status = 501
@@ -9947,15 +15826,26 @@ router.put(
 const reposGetReadmeParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
-const reposGetReadmeQuerySchema = joi.object().keys({ ref: joi.string() })
+const reposGetReadmeQuerySchema = joi
+  .object()
+  .keys({ ref: joi.string() })
+  .required()
 
 router.get(
   "reposGetReadme",
   "/repos/:owner/:repo/readme",
-  paramValidationFactory<any>(reposGetReadmeParamSchema),
-  queryValidationFactory<any>(reposGetReadmeQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetReadmeParamSchema>(reposGetReadmeParamSchema),
+  queryValidationFactory<ReposGetReadmeQuerySchema>(reposGetReadmeQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposGetReadmeParamSchema,
+      ReposGetReadmeQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetReadme
 
     ctx.status = 501
@@ -9969,17 +15859,30 @@ router.get(
 const reposListReleasesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListReleasesQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListReleases",
   "/repos/:owner/:repo/releases",
-  paramValidationFactory<any>(reposListReleasesParamSchema),
-  queryValidationFactory<any>(reposListReleasesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListReleasesParamSchema>(
+    reposListReleasesParamSchema
+  ),
+  queryValidationFactory<ReposListReleasesQuerySchema>(
+    reposListReleasesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListReleasesParamSchema,
+      ReposListReleasesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListReleases
 
     ctx.status = 501
@@ -9993,12 +15896,37 @@ router.get(
 const reposCreateReleaseParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposCreateReleaseBodySchema = joi
+  .object()
+  .keys({
+    tag_name: joi.string().required(),
+    target_commitish: joi.string(),
+    name: joi.string(),
+    body: joi.string(),
+    draft: joi.boolean(),
+    prerelease: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateRelease",
   "/repos/:owner/:repo/releases",
-  paramValidationFactory<any>(reposCreateReleaseParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateReleaseParamSchema>(
+    reposCreateReleaseParamSchema
+  ),
+  bodyValidationFactory<ReposCreateReleaseBodySchema>(
+    reposCreateReleaseBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateReleaseParamSchema,
+      void,
+      ReposCreateReleaseBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateRelease
 
     ctx.status = 501
@@ -10016,12 +15944,18 @@ const reposGetReleaseAssetParamSchema = joi
     repo: joi.string().required(),
     asset_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
-  paramValidationFactory<any>(reposGetReleaseAssetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetReleaseAssetParamSchema>(
+    reposGetReleaseAssetParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetReleaseAssetParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetReleaseAsset
 
     ctx.status = 501
@@ -10039,12 +15973,30 @@ const reposUpdateReleaseAssetParamSchema = joi
     repo: joi.string().required(),
     asset_id: joi.number().required(),
   })
+  .required()
+
+const reposUpdateReleaseAssetBodySchema = joi
+  .object()
+  .keys({ name: joi.string(), label: joi.string() })
+  .required()
 
 router.patch(
   "reposUpdateReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
-  paramValidationFactory<any>(reposUpdateReleaseAssetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateReleaseAssetParamSchema>(
+    reposUpdateReleaseAssetParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateReleaseAssetBodySchema>(
+    reposUpdateReleaseAssetBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateReleaseAssetParamSchema,
+      void,
+      ReposUpdateReleaseAssetBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateReleaseAsset
 
     ctx.status = 501
@@ -10062,12 +16014,18 @@ const reposDeleteReleaseAssetParamSchema = joi
     repo: joi.string().required(),
     asset_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteReleaseAsset",
   "/repos/:owner/:repo/releases/assets/:assetId",
-  paramValidationFactory<any>(reposDeleteReleaseAssetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteReleaseAssetParamSchema>(
+    reposDeleteReleaseAssetParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteReleaseAssetParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteReleaseAsset
 
     ctx.status = 501
@@ -10081,12 +16039,18 @@ router.delete(
 const reposGetLatestReleaseParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetLatestRelease",
   "/repos/:owner/:repo/releases/latest",
-  paramValidationFactory<any>(reposGetLatestReleaseParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetLatestReleaseParamSchema>(
+    reposGetLatestReleaseParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetLatestReleaseParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetLatestRelease
 
     ctx.status = 501
@@ -10104,12 +16068,18 @@ const reposGetReleaseByTagParamSchema = joi
     repo: joi.string().required(),
     tag: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposGetReleaseByTag",
   "/repos/:owner/:repo/releases/tags/:tag",
-  paramValidationFactory<any>(reposGetReleaseByTagParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetReleaseByTagParamSchema>(
+    reposGetReleaseByTagParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetReleaseByTagParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetReleaseByTag
 
     ctx.status = 501
@@ -10127,12 +16097,15 @@ const reposGetReleaseParamSchema = joi
     repo: joi.string().required(),
     release_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "reposGetRelease",
   "/repos/:owner/:repo/releases/:releaseId",
-  paramValidationFactory<any>(reposGetReleaseParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetReleaseParamSchema>(
+    reposGetReleaseParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposGetReleaseParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetRelease
 
     ctx.status = 501
@@ -10150,12 +16123,37 @@ const reposUpdateReleaseParamSchema = joi
     repo: joi.string().required(),
     release_id: joi.number().required(),
   })
+  .required()
+
+const reposUpdateReleaseBodySchema = joi
+  .object()
+  .keys({
+    tag_name: joi.string(),
+    target_commitish: joi.string(),
+    name: joi.string(),
+    body: joi.string(),
+    draft: joi.boolean(),
+    prerelease: joi.boolean(),
+  })
+  .required()
 
 router.patch(
   "reposUpdateRelease",
   "/repos/:owner/:repo/releases/:releaseId",
-  paramValidationFactory<any>(reposUpdateReleaseParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUpdateReleaseParamSchema>(
+    reposUpdateReleaseParamSchema
+  ),
+  bodyValidationFactory<ReposUpdateReleaseBodySchema>(
+    reposUpdateReleaseBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUpdateReleaseParamSchema,
+      void,
+      ReposUpdateReleaseBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUpdateRelease
 
     ctx.status = 501
@@ -10173,12 +16171,18 @@ const reposDeleteReleaseParamSchema = joi
     repo: joi.string().required(),
     release_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "reposDeleteRelease",
   "/repos/:owner/:repo/releases/:releaseId",
-  paramValidationFactory<any>(reposDeleteReleaseParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeleteReleaseParamSchema>(
+    reposDeleteReleaseParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeleteReleaseParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeleteRelease
 
     ctx.status = 501
@@ -10196,17 +16200,30 @@ const reposListReleaseAssetsParamSchema = joi
     repo: joi.string().required(),
     release_id: joi.number().required(),
   })
+  .required()
 
 const reposListReleaseAssetsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListReleaseAssets",
   "/repos/:owner/:repo/releases/:releaseId/assets",
-  paramValidationFactory<any>(reposListReleaseAssetsParamSchema),
-  queryValidationFactory<any>(reposListReleaseAssetsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListReleaseAssetsParamSchema>(
+    reposListReleaseAssetsParamSchema
+  ),
+  queryValidationFactory<ReposListReleaseAssetsQuerySchema>(
+    reposListReleaseAssetsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListReleaseAssetsParamSchema,
+      ReposListReleaseAssetsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListReleaseAssets
 
     ctx.status = 501
@@ -10224,17 +16241,35 @@ const reposUploadReleaseAssetParamSchema = joi
     repo: joi.string().required(),
     release_id: joi.number().required(),
   })
+  .required()
 
 const reposUploadReleaseAssetQuerySchema = joi
   .object()
   .keys({ name: joi.string(), label: joi.string() })
+  .required()
+
+const reposUploadReleaseAssetBodySchema = joi.string().required()
 
 router.post(
   "reposUploadReleaseAsset",
   "/repos/:owner/:repo/releases/:releaseId/assets",
-  paramValidationFactory<any>(reposUploadReleaseAssetParamSchema),
-  queryValidationFactory<any>(reposUploadReleaseAssetQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposUploadReleaseAssetParamSchema>(
+    reposUploadReleaseAssetParamSchema
+  ),
+  queryValidationFactory<ReposUploadReleaseAssetQuerySchema>(
+    reposUploadReleaseAssetQuerySchema
+  ),
+  bodyValidationFactory<ReposUploadReleaseAssetBodySchema>(
+    reposUploadReleaseAssetBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposUploadReleaseAssetParamSchema,
+      ReposUploadReleaseAssetQuerySchema,
+      ReposUploadReleaseAssetBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposUploadReleaseAsset
 
     ctx.status = 501
@@ -10248,17 +16283,30 @@ router.post(
 const activityListStargazersForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const activityListStargazersForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListStargazersForRepo",
   "/repos/:owner/:repo/stargazers",
-  paramValidationFactory<any>(activityListStargazersForRepoParamSchema),
-  queryValidationFactory<any>(activityListStargazersForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListStargazersForRepoParamSchema>(
+    activityListStargazersForRepoParamSchema
+  ),
+  queryValidationFactory<ActivityListStargazersForRepoQuerySchema>(
+    activityListStargazersForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListStargazersForRepoParamSchema,
+      ActivityListStargazersForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListStargazersForRepo
 
     ctx.status = 501
@@ -10272,12 +16320,18 @@ router.get(
 const reposGetCodeFrequencyStatsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetCodeFrequencyStats",
   "/repos/:owner/:repo/stats/code_frequency",
-  paramValidationFactory<any>(reposGetCodeFrequencyStatsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCodeFrequencyStatsParamSchema>(
+    reposGetCodeFrequencyStatsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCodeFrequencyStatsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCodeFrequencyStats
 
     ctx.status = 501
@@ -10291,12 +16345,18 @@ router.get(
 const reposGetCommitActivityStatsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetCommitActivityStats",
   "/repos/:owner/:repo/stats/commit_activity",
-  paramValidationFactory<any>(reposGetCommitActivityStatsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetCommitActivityStatsParamSchema>(
+    reposGetCommitActivityStatsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetCommitActivityStatsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetCommitActivityStats
 
     ctx.status = 501
@@ -10310,12 +16370,18 @@ router.get(
 const reposGetContributorsStatsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetContributorsStats",
   "/repos/:owner/:repo/stats/contributors",
-  paramValidationFactory<any>(reposGetContributorsStatsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetContributorsStatsParamSchema>(
+    reposGetContributorsStatsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetContributorsStatsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetContributorsStats
 
     ctx.status = 501
@@ -10329,12 +16395,18 @@ router.get(
 const reposGetParticipationStatsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetParticipationStats",
   "/repos/:owner/:repo/stats/participation",
-  paramValidationFactory<any>(reposGetParticipationStatsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetParticipationStatsParamSchema>(
+    reposGetParticipationStatsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetParticipationStatsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetParticipationStats
 
     ctx.status = 501
@@ -10348,12 +16420,18 @@ router.get(
 const reposGetPunchCardStatsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetPunchCardStats",
   "/repos/:owner/:repo/stats/punch_card",
-  paramValidationFactory<any>(reposGetPunchCardStatsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetPunchCardStatsParamSchema>(
+    reposGetPunchCardStatsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetPunchCardStatsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetPunchCardStats
 
     ctx.status = 501
@@ -10371,12 +16449,35 @@ const reposCreateCommitStatusParamSchema = joi
     repo: joi.string().required(),
     sha: joi.string().required(),
   })
+  .required()
+
+const reposCreateCommitStatusBodySchema = joi
+  .object()
+  .keys({
+    state: joi.string().required(),
+    target_url: joi.string(),
+    description: joi.string(),
+    context: joi.string(),
+  })
+  .required()
 
 router.post(
   "reposCreateCommitStatus",
   "/repos/:owner/:repo/statuses/:sha",
-  paramValidationFactory<any>(reposCreateCommitStatusParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateCommitStatusParamSchema>(
+    reposCreateCommitStatusParamSchema
+  ),
+  bodyValidationFactory<ReposCreateCommitStatusBodySchema>(
+    reposCreateCommitStatusBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateCommitStatusParamSchema,
+      void,
+      ReposCreateCommitStatusBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateCommitStatus
 
     ctx.status = 501
@@ -10390,17 +16491,30 @@ router.post(
 const activityListWatchersForRepoParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const activityListWatchersForRepoQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListWatchersForRepo",
   "/repos/:owner/:repo/subscribers",
-  paramValidationFactory<any>(activityListWatchersForRepoParamSchema),
-  queryValidationFactory<any>(activityListWatchersForRepoQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListWatchersForRepoParamSchema>(
+    activityListWatchersForRepoParamSchema
+  ),
+  queryValidationFactory<ActivityListWatchersForRepoQuerySchema>(
+    activityListWatchersForRepoQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListWatchersForRepoParamSchema,
+      ActivityListWatchersForRepoQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListWatchersForRepo
 
     ctx.status = 501
@@ -10414,12 +16528,18 @@ router.get(
 const activityGetRepoSubscriptionParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "activityGetRepoSubscription",
   "/repos/:owner/:repo/subscription",
-  paramValidationFactory<any>(activityGetRepoSubscriptionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityGetRepoSubscriptionParamSchema>(
+    activityGetRepoSubscriptionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActivityGetRepoSubscriptionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-activityGetRepoSubscription
 
     ctx.status = 501
@@ -10433,12 +16553,30 @@ router.get(
 const activitySetRepoSubscriptionParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const activitySetRepoSubscriptionBodySchema = joi
+  .object()
+  .keys({ subscribed: joi.boolean(), ignored: joi.boolean() })
+  .required()
 
 router.put(
   "activitySetRepoSubscription",
   "/repos/:owner/:repo/subscription",
-  paramValidationFactory<any>(activitySetRepoSubscriptionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivitySetRepoSubscriptionParamSchema>(
+    activitySetRepoSubscriptionParamSchema
+  ),
+  bodyValidationFactory<ActivitySetRepoSubscriptionBodySchema>(
+    activitySetRepoSubscriptionBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivitySetRepoSubscriptionParamSchema,
+      void,
+      ActivitySetRepoSubscriptionBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-activitySetRepoSubscription
 
     ctx.status = 501
@@ -10452,12 +16590,18 @@ router.put(
 const activityDeleteRepoSubscriptionParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "activityDeleteRepoSubscription",
   "/repos/:owner/:repo/subscription",
-  paramValidationFactory<any>(activityDeleteRepoSubscriptionParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityDeleteRepoSubscriptionParamSchema>(
+    activityDeleteRepoSubscriptionParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ActivityDeleteRepoSubscriptionParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-activityDeleteRepoSubscription
 
     ctx.status = 501
@@ -10471,17 +16615,22 @@ router.delete(
 const reposListTagsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListTagsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListTags",
   "/repos/:owner/:repo/tags",
-  paramValidationFactory<any>(reposListTagsParamSchema),
-  queryValidationFactory<any>(reposListTagsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListTagsParamSchema>(reposListTagsParamSchema),
+  queryValidationFactory<ReposListTagsQuerySchema>(reposListTagsQuerySchema),
+  async (
+    ctx: ValidatedCtx<ReposListTagsParamSchema, ReposListTagsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-reposListTags
 
     ctx.status = 501
@@ -10495,17 +16644,26 @@ router.get(
 const reposListTeamsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 const reposListTeamsQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListTeams",
   "/repos/:owner/:repo/teams",
-  paramValidationFactory<any>(reposListTeamsParamSchema),
-  queryValidationFactory<any>(reposListTeamsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListTeamsParamSchema>(reposListTeamsParamSchema),
+  queryValidationFactory<ReposListTeamsQuerySchema>(reposListTeamsQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposListTeamsParamSchema,
+      ReposListTeamsQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListTeams
 
     ctx.status = 501
@@ -10519,12 +16677,15 @@ router.get(
 const reposGetAllTopicsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetAllTopics",
   "/repos/:owner/:repo/topics",
-  paramValidationFactory<any>(reposGetAllTopicsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetAllTopicsParamSchema>(
+    reposGetAllTopicsParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposGetAllTopicsParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetAllTopics
 
     ctx.status = 501
@@ -10538,12 +16699,30 @@ router.get(
 const reposReplaceAllTopicsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposReplaceAllTopicsBodySchema = joi
+  .object()
+  .keys({ names: joi.array().items(joi.string()).required() })
+  .required()
 
 router.put(
   "reposReplaceAllTopics",
   "/repos/:owner/:repo/topics",
-  paramValidationFactory<any>(reposReplaceAllTopicsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposReplaceAllTopicsParamSchema>(
+    reposReplaceAllTopicsParamSchema
+  ),
+  bodyValidationFactory<ReposReplaceAllTopicsBodySchema>(
+    reposReplaceAllTopicsBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposReplaceAllTopicsParamSchema,
+      void,
+      ReposReplaceAllTopicsBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposReplaceAllTopics
 
     ctx.status = 501
@@ -10557,15 +16736,26 @@ router.put(
 const reposGetClonesParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
-const reposGetClonesQuerySchema = joi.object().keys({ per: joi.string() })
+const reposGetClonesQuerySchema = joi
+  .object()
+  .keys({ per: joi.string() })
+  .required()
 
 router.get(
   "reposGetClones",
   "/repos/:owner/:repo/traffic/clones",
-  paramValidationFactory<any>(reposGetClonesParamSchema),
-  queryValidationFactory<any>(reposGetClonesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetClonesParamSchema>(reposGetClonesParamSchema),
+  queryValidationFactory<ReposGetClonesQuerySchema>(reposGetClonesQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReposGetClonesParamSchema,
+      ReposGetClonesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposGetClones
 
     ctx.status = 501
@@ -10579,12 +16769,15 @@ router.get(
 const reposGetTopPathsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetTopPaths",
   "/repos/:owner/:repo/traffic/popular/paths",
-  paramValidationFactory<any>(reposGetTopPathsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetTopPathsParamSchema>(
+    reposGetTopPathsParamSchema
+  ),
+  async (ctx: ValidatedCtx<ReposGetTopPathsParamSchema, void, void>, next) => {
     //region safe-edit-region-reposGetTopPaths
 
     ctx.status = 501
@@ -10598,12 +16791,18 @@ router.get(
 const reposGetTopReferrersParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposGetTopReferrers",
   "/repos/:owner/:repo/traffic/popular/referrers",
-  paramValidationFactory<any>(reposGetTopReferrersParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetTopReferrersParamSchema>(
+    reposGetTopReferrersParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposGetTopReferrersParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetTopReferrers
 
     ctx.status = 501
@@ -10617,15 +16816,22 @@ router.get(
 const reposGetViewsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
-const reposGetViewsQuerySchema = joi.object().keys({ per: joi.string() })
+const reposGetViewsQuerySchema = joi
+  .object()
+  .keys({ per: joi.string() })
+  .required()
 
 router.get(
   "reposGetViews",
   "/repos/:owner/:repo/traffic/views",
-  paramValidationFactory<any>(reposGetViewsParamSchema),
-  queryValidationFactory<any>(reposGetViewsQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposGetViewsParamSchema>(reposGetViewsParamSchema),
+  queryValidationFactory<ReposGetViewsQuerySchema>(reposGetViewsQuerySchema),
+  async (
+    ctx: ValidatedCtx<ReposGetViewsParamSchema, ReposGetViewsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-reposGetViews
 
     ctx.status = 501
@@ -10639,12 +16845,22 @@ router.get(
 const reposTransferParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
+
+const reposTransferBodySchema = joi
+  .object()
+  .keys({ new_owner: joi.string(), team_ids: joi.array().items(joi.number()) })
+  .required()
 
 router.post(
   "reposTransfer",
   "/repos/:owner/:repo/transfer",
-  paramValidationFactory<any>(reposTransferParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposTransferParamSchema>(reposTransferParamSchema),
+  bodyValidationFactory<ReposTransferBodySchema>(reposTransferBodySchema),
+  async (
+    ctx: ValidatedCtx<ReposTransferParamSchema, void, ReposTransferBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-reposTransfer
 
     ctx.status = 501
@@ -10658,12 +16874,18 @@ router.post(
 const reposCheckVulnerabilityAlertsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "reposCheckVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
-  paramValidationFactory<any>(reposCheckVulnerabilityAlertsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCheckVulnerabilityAlertsParamSchema>(
+    reposCheckVulnerabilityAlertsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposCheckVulnerabilityAlertsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposCheckVulnerabilityAlerts
 
     ctx.status = 501
@@ -10677,12 +16899,18 @@ router.get(
 const reposEnableVulnerabilityAlertsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.put(
   "reposEnableVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
-  paramValidationFactory<any>(reposEnableVulnerabilityAlertsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposEnableVulnerabilityAlertsParamSchema>(
+    reposEnableVulnerabilityAlertsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposEnableVulnerabilityAlertsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposEnableVulnerabilityAlerts
 
     ctx.status = 501
@@ -10696,12 +16924,18 @@ router.put(
 const reposDisableVulnerabilityAlertsParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "reposDisableVulnerabilityAlerts",
   "/repos/:owner/:repo/vulnerability-alerts",
-  paramValidationFactory<any>(reposDisableVulnerabilityAlertsParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDisableVulnerabilityAlertsParamSchema>(
+    reposDisableVulnerabilityAlertsParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDisableVulnerabilityAlertsParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDisableVulnerabilityAlerts
 
     ctx.status = 501
@@ -10720,12 +16954,18 @@ const reposDownloadArchiveParamSchema = joi
     archive_format: joi.string().required(),
     ref: joi.string().required(),
   })
+  .required()
 
 router.get(
   "reposDownloadArchive",
   "/repos/:owner/:repo/:archiveFormat/:ref",
-  paramValidationFactory<any>(reposDownloadArchiveParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDownloadArchiveParamSchema>(
+    reposDownloadArchiveParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDownloadArchiveParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDownloadArchive
 
     ctx.status = 501
@@ -10742,12 +16982,35 @@ const reposCreateUsingTemplateParamSchema = joi
     template_owner: joi.string().required(),
     template_repo: joi.string().required(),
   })
+  .required()
+
+const reposCreateUsingTemplateBodySchema = joi
+  .object()
+  .keys({
+    owner: joi.string(),
+    name: joi.string().required(),
+    description: joi.string(),
+    private: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "reposCreateUsingTemplate",
   "/repos/:templateOwner/:templateRepo/generate",
-  paramValidationFactory<any>(reposCreateUsingTemplateParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposCreateUsingTemplateParamSchema>(
+    reposCreateUsingTemplateParamSchema
+  ),
+  bodyValidationFactory<ReposCreateUsingTemplateBodySchema>(
+    reposCreateUsingTemplateBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposCreateUsingTemplateParamSchema,
+      void,
+      ReposCreateUsingTemplateBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposCreateUsingTemplate
 
     ctx.status = 501
@@ -10758,13 +17021,18 @@ router.post(
   }
 )
 
-const reposListPublicQuerySchema = joi.object().keys({ since: joi.number() })
+const reposListPublicQuerySchema = joi
+  .object()
+  .keys({ since: joi.number() })
+  .required()
 
 router.get(
   "reposListPublic",
   "/repositories",
-  queryValidationFactory<any>(reposListPublicQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<ReposListPublicQuerySchema>(
+    reposListPublicQuerySchema
+  ),
+  async (ctx: ValidatedCtx<void, ReposListPublicQuerySchema, void>, next) => {
     //region safe-edit-region-reposListPublic
 
     ctx.status = 501
@@ -10778,17 +17046,30 @@ router.get(
 const scimListProvisionedIdentitiesParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 const scimListProvisionedIdentitiesQuerySchema = joi
   .object()
   .keys({ startIndex: joi.number(), count: joi.number(), filter: joi.string() })
+  .required()
 
 router.get(
   "scimListProvisionedIdentities",
   "/scim/v2/organizations/:org/Users",
-  paramValidationFactory<any>(scimListProvisionedIdentitiesParamSchema),
-  queryValidationFactory<any>(scimListProvisionedIdentitiesQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimListProvisionedIdentitiesParamSchema>(
+    scimListProvisionedIdentitiesParamSchema
+  ),
+  queryValidationFactory<ScimListProvisionedIdentitiesQuerySchema>(
+    scimListProvisionedIdentitiesQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ScimListProvisionedIdentitiesParamSchema,
+      ScimListProvisionedIdentitiesQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-scimListProvisionedIdentities
 
     ctx.status = 501
@@ -10802,12 +17083,18 @@ router.get(
 const scimProvisionAndInviteUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.post(
   "scimProvisionAndInviteUser",
   "/scim/v2/organizations/:org/Users",
-  paramValidationFactory<any>(scimProvisionAndInviteUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimProvisionAndInviteUserParamSchema>(
+    scimProvisionAndInviteUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ScimProvisionAndInviteUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-scimProvisionAndInviteUser
 
     ctx.status = 501
@@ -10821,12 +17108,22 @@ router.post(
 const scimGetProvisioningInformationForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
+  .required()
 
 router.get(
   "scimGetProvisioningInformationForUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
-  paramValidationFactory<any>(scimGetProvisioningInformationForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimGetProvisioningInformationForUserParamSchema>(
+    scimGetProvisioningInformationForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ScimGetProvisioningInformationForUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-scimGetProvisioningInformationForUser
 
     ctx.status = 501
@@ -10840,12 +17137,22 @@ router.get(
 const scimSetInformationForProvisionedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
+  .required()
 
 router.put(
   "scimSetInformationForProvisionedUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
-  paramValidationFactory<any>(scimSetInformationForProvisionedUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimSetInformationForProvisionedUserParamSchema>(
+    scimSetInformationForProvisionedUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ScimSetInformationForProvisionedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-scimSetInformationForProvisionedUser
 
     ctx.status = 501
@@ -10859,12 +17166,18 @@ router.put(
 const scimUpdateAttributeForUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
+  .required()
 
 router.patch(
   "scimUpdateAttributeForUser",
   "/scim/v2/organizations/:org/Users/:scimUserId",
-  paramValidationFactory<any>(scimUpdateAttributeForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimUpdateAttributeForUserParamSchema>(
+    scimUpdateAttributeForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ScimUpdateAttributeForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-scimUpdateAttributeForUser
 
     ctx.status = 501
@@ -10878,12 +17191,18 @@ router.patch(
 const scimDeleteUserFromOrgParamSchema = joi
   .object()
   .keys({ org: joi.string().required(), scim_user_id: joi.number().required() })
+  .required()
 
 router.delete(
   "scimDeleteUserFromOrg",
   "/scim/v2/organizations/:org/Users/:scimUserId",
-  paramValidationFactory<any>(scimDeleteUserFromOrgParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ScimDeleteUserFromOrgParamSchema>(
+    scimDeleteUserFromOrgParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ScimDeleteUserFromOrgParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-scimDeleteUserFromOrg
 
     ctx.status = 501
@@ -10903,12 +17222,13 @@ const searchCodeQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "searchCode",
   "/search/code",
-  queryValidationFactory<any>(searchCodeQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchCodeQuerySchema>(searchCodeQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchCodeQuerySchema, void>, next) => {
     //region safe-edit-region-searchCode
 
     ctx.status = 501
@@ -10928,12 +17248,13 @@ const searchCommitsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "searchCommits",
   "/search/commits",
-  queryValidationFactory<any>(searchCommitsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchCommitsQuerySchema>(searchCommitsQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchCommitsQuerySchema, void>, next) => {
     //region safe-edit-region-searchCommits
 
     ctx.status = 501
@@ -10953,12 +17274,18 @@ const searchIssuesAndPullRequestsQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "searchIssuesAndPullRequests",
   "/search/issues",
-  queryValidationFactory<any>(searchIssuesAndPullRequestsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchIssuesAndPullRequestsQuerySchema>(
+    searchIssuesAndPullRequestsQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, SearchIssuesAndPullRequestsQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-searchIssuesAndPullRequests
 
     ctx.status = 501
@@ -10977,12 +17304,13 @@ const searchLabelsQuerySchema = joi
     sort: joi.string(),
     order: joi.string(),
   })
+  .required()
 
 router.get(
   "searchLabels",
   "/search/labels",
-  queryValidationFactory<any>(searchLabelsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchLabelsQuerySchema>(searchLabelsQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchLabelsQuerySchema, void>, next) => {
     //region safe-edit-region-searchLabels
 
     ctx.status = 501
@@ -11002,12 +17330,13 @@ const searchReposQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "searchRepos",
   "/search/repositories",
-  queryValidationFactory<any>(searchReposQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchReposQuerySchema>(searchReposQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchReposQuerySchema, void>, next) => {
     //region safe-edit-region-searchRepos
 
     ctx.status = 501
@@ -11021,12 +17350,13 @@ router.get(
 const searchTopicsQuerySchema = joi
   .object()
   .keys({ q: joi.string().required() })
+  .required()
 
 router.get(
   "searchTopics",
   "/search/topics",
-  queryValidationFactory<any>(searchTopicsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchTopicsQuerySchema>(searchTopicsQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchTopicsQuerySchema, void>, next) => {
     //region safe-edit-region-searchTopics
 
     ctx.status = 501
@@ -11046,12 +17376,13 @@ const searchUsersQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "searchUsers",
   "/search/users",
-  queryValidationFactory<any>(searchUsersQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<SearchUsersQuerySchema>(searchUsersQuerySchema),
+  async (ctx: ValidatedCtx<void, SearchUsersQuerySchema, void>, next) => {
     //region safe-edit-region-searchUsers
 
     ctx.status = 501
@@ -11065,12 +17396,13 @@ router.get(
 const teamsGetLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 router.get(
   "teamsGetLegacy",
   "/teams/:teamId",
-  paramValidationFactory<any>(teamsGetLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetLegacyParamSchema>(teamsGetLegacyParamSchema),
+  async (ctx: ValidatedCtx<TeamsGetLegacyParamSchema, void, void>, next) => {
     //region safe-edit-region-teamsGetLegacy
 
     ctx.status = 501
@@ -11084,12 +17416,36 @@ router.get(
 const teamsUpdateLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
+
+const teamsUpdateLegacyBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    privacy: joi.string(),
+    permission: joi.string(),
+    parent_team_id: joi.number(),
+  })
+  .required()
 
 router.patch(
   "teamsUpdateLegacy",
   "/teams/:teamId",
-  paramValidationFactory<any>(teamsUpdateLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateLegacyParamSchema>(
+    teamsUpdateLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateLegacyBodySchema>(
+    teamsUpdateLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateLegacyParamSchema,
+      void,
+      TeamsUpdateLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateLegacy
 
     ctx.status = 501
@@ -11103,12 +17459,15 @@ router.patch(
 const teamsDeleteLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 router.delete(
   "teamsDeleteLegacy",
   "/teams/:teamId",
-  paramValidationFactory<any>(teamsDeleteLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteLegacyParamSchema>(
+    teamsDeleteLegacyParamSchema
+  ),
+  async (ctx: ValidatedCtx<TeamsDeleteLegacyParamSchema, void, void>, next) => {
     //region safe-edit-region-teamsDeleteLegacy
 
     ctx.status = 501
@@ -11122,17 +17481,30 @@ router.delete(
 const teamsListDiscussionsLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListDiscussionsLegacyQuerySchema = joi
   .object()
   .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListDiscussionsLegacy",
   "/teams/:teamId/discussions",
-  paramValidationFactory<any>(teamsListDiscussionsLegacyParamSchema),
-  queryValidationFactory<any>(teamsListDiscussionsLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListDiscussionsLegacyParamSchema>(
+    teamsListDiscussionsLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListDiscussionsLegacyQuerySchema>(
+    teamsListDiscussionsLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListDiscussionsLegacyParamSchema,
+      TeamsListDiscussionsLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListDiscussionsLegacy
 
     ctx.status = 501
@@ -11146,12 +17518,34 @@ router.get(
 const teamsCreateDiscussionLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
+
+const teamsCreateDiscussionLegacyBodySchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    body: joi.string().required(),
+    private: joi.boolean(),
+  })
+  .required()
 
 router.post(
   "teamsCreateDiscussionLegacy",
   "/teams/:teamId/discussions",
-  paramValidationFactory<any>(teamsCreateDiscussionLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCreateDiscussionLegacyParamSchema>(
+    teamsCreateDiscussionLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsCreateDiscussionLegacyBodySchema>(
+    teamsCreateDiscussionLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateDiscussionLegacyParamSchema,
+      void,
+      TeamsCreateDiscussionLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateDiscussionLegacy
 
     ctx.status = 501
@@ -11168,12 +17562,18 @@ const teamsGetDiscussionLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsGetDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsGetDiscussionLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetDiscussionLegacyParamSchema>(
+    teamsGetDiscussionLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetDiscussionLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetDiscussionLegacy
 
     ctx.status = 501
@@ -11190,12 +17590,30 @@ const teamsUpdateDiscussionLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const teamsUpdateDiscussionLegacyBodySchema = joi
+  .object()
+  .keys({ title: joi.string(), body: joi.string() })
+  .required()
 
 router.patch(
   "teamsUpdateDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsUpdateDiscussionLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateDiscussionLegacyParamSchema>(
+    teamsUpdateDiscussionLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateDiscussionLegacyBodySchema>(
+    teamsUpdateDiscussionLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateDiscussionLegacyParamSchema,
+      void,
+      TeamsUpdateDiscussionLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateDiscussionLegacy
 
     ctx.status = 501
@@ -11212,12 +17630,18 @@ const teamsDeleteDiscussionLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsDeleteDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber",
-  paramValidationFactory<any>(teamsDeleteDiscussionLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteDiscussionLegacyParamSchema>(
+    teamsDeleteDiscussionLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsDeleteDiscussionLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsDeleteDiscussionLegacy
 
     ctx.status = 501
@@ -11234,17 +17658,30 @@ const teamsListDiscussionCommentsLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 const teamsListDiscussionCommentsLegacyQuerySchema = joi
   .object()
   .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListDiscussionCommentsLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments",
-  paramValidationFactory<any>(teamsListDiscussionCommentsLegacyParamSchema),
-  queryValidationFactory<any>(teamsListDiscussionCommentsLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListDiscussionCommentsLegacyParamSchema>(
+    teamsListDiscussionCommentsLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListDiscussionCommentsLegacyQuerySchema>(
+    teamsListDiscussionCommentsLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListDiscussionCommentsLegacyParamSchema,
+      TeamsListDiscussionCommentsLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListDiscussionCommentsLegacy
 
     ctx.status = 501
@@ -11261,12 +17698,30 @@ const teamsCreateDiscussionCommentLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const teamsCreateDiscussionCommentLegacyBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.post(
   "teamsCreateDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments",
-  paramValidationFactory<any>(teamsCreateDiscussionCommentLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCreateDiscussionCommentLegacyParamSchema>(
+    teamsCreateDiscussionCommentLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsCreateDiscussionCommentLegacyBodySchema>(
+    teamsCreateDiscussionCommentLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateDiscussionCommentLegacyParamSchema,
+      void,
+      TeamsCreateDiscussionCommentLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11284,12 +17739,18 @@ const teamsGetDiscussionCommentLegacyParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsGetDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsGetDiscussionCommentLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetDiscussionCommentLegacyParamSchema>(
+    teamsGetDiscussionCommentLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetDiscussionCommentLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11307,12 +17768,30 @@ const teamsUpdateDiscussionCommentLegacyParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
+
+const teamsUpdateDiscussionCommentLegacyBodySchema = joi
+  .object()
+  .keys({ body: joi.string().required() })
+  .required()
 
 router.patch(
   "teamsUpdateDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsUpdateDiscussionCommentLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsUpdateDiscussionCommentLegacyParamSchema>(
+    teamsUpdateDiscussionCommentLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsUpdateDiscussionCommentLegacyBodySchema>(
+    teamsUpdateDiscussionCommentLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsUpdateDiscussionCommentLegacyParamSchema,
+      void,
+      TeamsUpdateDiscussionCommentLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsUpdateDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11330,12 +17809,22 @@ const teamsDeleteDiscussionCommentLegacyParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsDeleteDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-  paramValidationFactory<any>(teamsDeleteDiscussionCommentLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsDeleteDiscussionCommentLegacyParamSchema>(
+    teamsDeleteDiscussionCommentLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsDeleteDiscussionCommentLegacyParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsDeleteDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11353,21 +17842,30 @@ const reactionsListForTeamDiscussionCommentLegacyParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
 
 const reactionsListForTeamDiscussionCommentLegacyQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<any>(
-    reactionsListForTeamDiscussionCommentLegacyParamSchema
-  ),
-  queryValidationFactory<any>(
-    reactionsListForTeamDiscussionCommentLegacyQuerySchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    ReactionsListForTeamDiscussionCommentLegacyParamSchema
+  >(reactionsListForTeamDiscussionCommentLegacyParamSchema),
+  queryValidationFactory<
+    ReactionsListForTeamDiscussionCommentLegacyQuerySchema
+  >(reactionsListForTeamDiscussionCommentLegacyQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForTeamDiscussionCommentLegacyParamSchema,
+      ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11385,14 +17883,30 @@ const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = joi
     discussion_number: joi.number().required(),
     comment_number: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<any>(
-    reactionsCreateForTeamDiscussionCommentLegacyParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    ReactionsCreateForTeamDiscussionCommentLegacyParamSchema
+  >(reactionsCreateForTeamDiscussionCommentLegacyParamSchema),
+  bodyValidationFactory<
+    ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
+  >(reactionsCreateForTeamDiscussionCommentLegacyBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
+      void,
+      ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionCommentLegacy
 
     ctx.status = 501
@@ -11409,17 +17923,30 @@ const reactionsListForTeamDiscussionLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
 
 const reactionsListForTeamDiscussionLegacyQuerySchema = joi
   .object()
   .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reactionsListForTeamDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber/reactions",
-  paramValidationFactory<any>(reactionsListForTeamDiscussionLegacyParamSchema),
-  queryValidationFactory<any>(reactionsListForTeamDiscussionLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReactionsListForTeamDiscussionLegacyParamSchema>(
+    reactionsListForTeamDiscussionLegacyParamSchema
+  ),
+  queryValidationFactory<ReactionsListForTeamDiscussionLegacyQuerySchema>(
+    reactionsListForTeamDiscussionLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsListForTeamDiscussionLegacyParamSchema,
+      ReactionsListForTeamDiscussionLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionLegacy
 
     ctx.status = 501
@@ -11436,14 +17963,30 @@ const reactionsCreateForTeamDiscussionLegacyParamSchema = joi
     team_id: joi.number().required(),
     discussion_number: joi.number().required(),
   })
+  .required()
+
+const reactionsCreateForTeamDiscussionLegacyBodySchema = joi
+  .object()
+  .keys({ content: joi.string().required() })
+  .required()
 
 router.post(
   "reactionsCreateForTeamDiscussionLegacy",
   "/teams/:teamId/discussions/:discussionNumber/reactions",
-  paramValidationFactory<any>(
+  paramValidationFactory<ReactionsCreateForTeamDiscussionLegacyParamSchema>(
     reactionsCreateForTeamDiscussionLegacyParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<ReactionsCreateForTeamDiscussionLegacyBodySchema>(
+    reactionsCreateForTeamDiscussionLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReactionsCreateForTeamDiscussionLegacyParamSchema,
+      void,
+      ReactionsCreateForTeamDiscussionLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionLegacy
 
     ctx.status = 501
@@ -11457,17 +18000,30 @@ router.post(
 const teamsListPendingInvitationsLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListPendingInvitationsLegacyQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListPendingInvitationsLegacy",
   "/teams/:teamId/invitations",
-  paramValidationFactory<any>(teamsListPendingInvitationsLegacyParamSchema),
-  queryValidationFactory<any>(teamsListPendingInvitationsLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListPendingInvitationsLegacyParamSchema>(
+    teamsListPendingInvitationsLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListPendingInvitationsLegacyQuerySchema>(
+    teamsListPendingInvitationsLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListPendingInvitationsLegacyParamSchema,
+      TeamsListPendingInvitationsLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListPendingInvitationsLegacy
 
     ctx.status = 501
@@ -11481,17 +18037,30 @@ router.get(
 const teamsListMembersLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListMembersLegacyQuerySchema = joi
   .object()
   .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListMembersLegacy",
   "/teams/:teamId/members",
-  paramValidationFactory<any>(teamsListMembersLegacyParamSchema),
-  queryValidationFactory<any>(teamsListMembersLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListMembersLegacyParamSchema>(
+    teamsListMembersLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListMembersLegacyQuerySchema>(
+    teamsListMembersLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListMembersLegacyParamSchema,
+      TeamsListMembersLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListMembersLegacy
 
     ctx.status = 501
@@ -11505,12 +18074,18 @@ router.get(
 const teamsGetMemberLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "teamsGetMemberLegacy",
   "/teams/:teamId/members/:username",
-  paramValidationFactory<any>(teamsGetMemberLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetMemberLegacyParamSchema>(
+    teamsGetMemberLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetMemberLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetMemberLegacy
 
     ctx.status = 501
@@ -11524,12 +18099,18 @@ router.get(
 const teamsAddMemberLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
 
 router.put(
   "teamsAddMemberLegacy",
   "/teams/:teamId/members/:username",
-  paramValidationFactory<any>(teamsAddMemberLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsAddMemberLegacyParamSchema>(
+    teamsAddMemberLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsAddMemberLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsAddMemberLegacy
 
     ctx.status = 501
@@ -11543,12 +18124,18 @@ router.put(
 const teamsRemoveMemberLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "teamsRemoveMemberLegacy",
   "/teams/:teamId/members/:username",
-  paramValidationFactory<any>(teamsRemoveMemberLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveMemberLegacyParamSchema>(
+    teamsRemoveMemberLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveMemberLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveMemberLegacy
 
     ctx.status = 501
@@ -11562,12 +18149,18 @@ router.delete(
 const teamsGetMembershipForUserLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
 
 router.get(
   "teamsGetMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
-  paramValidationFactory<any>(teamsGetMembershipForUserLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsGetMembershipForUserLegacyParamSchema>(
+    teamsGetMembershipForUserLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsGetMembershipForUserLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsGetMembershipForUserLegacy
 
     ctx.status = 501
@@ -11581,14 +18174,30 @@ router.get(
 const teamsAddOrUpdateMembershipForUserLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
+
+const teamsAddOrUpdateMembershipForUserLegacyBodySchema = joi
+  .object()
+  .keys({ role: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
-  paramValidationFactory<any>(
+  paramValidationFactory<TeamsAddOrUpdateMembershipForUserLegacyParamSchema>(
     teamsAddOrUpdateMembershipForUserLegacyParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<TeamsAddOrUpdateMembershipForUserLegacyBodySchema>(
+    teamsAddOrUpdateMembershipForUserLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
+      void,
+      TeamsAddOrUpdateMembershipForUserLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateMembershipForUserLegacy
 
     ctx.status = 501
@@ -11602,12 +18211,22 @@ router.put(
 const teamsRemoveMembershipForUserLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required(), username: joi.string().required() })
+  .required()
 
 router.delete(
   "teamsRemoveMembershipForUserLegacy",
   "/teams/:teamId/memberships/:username",
-  paramValidationFactory<any>(teamsRemoveMembershipForUserLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveMembershipForUserLegacyParamSchema>(
+    teamsRemoveMembershipForUserLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsRemoveMembershipForUserLegacyParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveMembershipForUserLegacy
 
     ctx.status = 501
@@ -11621,17 +18240,30 @@ router.delete(
 const teamsListProjectsLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListProjectsLegacyQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListProjectsLegacy",
   "/teams/:teamId/projects",
-  paramValidationFactory<any>(teamsListProjectsLegacyParamSchema),
-  queryValidationFactory<any>(teamsListProjectsLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListProjectsLegacyParamSchema>(
+    teamsListProjectsLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListProjectsLegacyQuerySchema>(
+    teamsListProjectsLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListProjectsLegacyParamSchema,
+      TeamsListProjectsLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListProjectsLegacy
 
     ctx.status = 501
@@ -11648,12 +18280,22 @@ const teamsCheckPermissionsForProjectLegacyParamSchema = joi
     team_id: joi.number().required(),
     project_id: joi.number().required(),
   })
+  .required()
 
 router.get(
   "teamsCheckPermissionsForProjectLegacy",
   "/teams/:teamId/projects/:projectId",
-  paramValidationFactory<any>(teamsCheckPermissionsForProjectLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCheckPermissionsForProjectLegacyParamSchema>(
+    teamsCheckPermissionsForProjectLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCheckPermissionsForProjectLegacyParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCheckPermissionsForProjectLegacy
 
     ctx.status = 501
@@ -11670,14 +18312,30 @@ const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = joi
     team_id: joi.number().required(),
     project_id: joi.number().required(),
   })
+  .required()
+
+const teamsAddOrUpdateProjectPermissionsLegacyBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsLegacy",
   "/teams/:teamId/projects/:projectId",
-  paramValidationFactory<any>(
+  paramValidationFactory<TeamsAddOrUpdateProjectPermissionsLegacyParamSchema>(
     teamsAddOrUpdateProjectPermissionsLegacyParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<TeamsAddOrUpdateProjectPermissionsLegacyBodySchema>(
+    teamsAddOrUpdateProjectPermissionsLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
+      void,
+      TeamsAddOrUpdateProjectPermissionsLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateProjectPermissionsLegacy
 
     ctx.status = 501
@@ -11694,12 +18352,18 @@ const teamsRemoveProjectLegacyParamSchema = joi
     team_id: joi.number().required(),
     project_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "teamsRemoveProjectLegacy",
   "/teams/:teamId/projects/:projectId",
-  paramValidationFactory<any>(teamsRemoveProjectLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveProjectLegacyParamSchema>(
+    teamsRemoveProjectLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveProjectLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveProjectLegacy
 
     ctx.status = 501
@@ -11713,17 +18377,30 @@ router.delete(
 const teamsListReposLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListReposLegacyQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListReposLegacy",
   "/teams/:teamId/repos",
-  paramValidationFactory<any>(teamsListReposLegacyParamSchema),
-  queryValidationFactory<any>(teamsListReposLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListReposLegacyParamSchema>(
+    teamsListReposLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListReposLegacyQuerySchema>(
+    teamsListReposLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListReposLegacyParamSchema,
+      TeamsListReposLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListReposLegacy
 
     ctx.status = 501
@@ -11741,12 +18418,22 @@ const teamsCheckPermissionsForRepoLegacyParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
 
 router.get(
   "teamsCheckPermissionsForRepoLegacy",
   "/teams/:teamId/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsCheckPermissionsForRepoLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsCheckPermissionsForRepoLegacyParamSchema>(
+    teamsCheckPermissionsForRepoLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsCheckPermissionsForRepoLegacyParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCheckPermissionsForRepoLegacy
 
     ctx.status = 501
@@ -11764,12 +18451,30 @@ const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
+
+const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = joi
+  .object()
+  .keys({ permission: joi.string() })
+  .required()
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsLegacy",
   "/teams/:teamId/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsAddOrUpdateRepoPermissionsLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsAddOrUpdateRepoPermissionsLegacyParamSchema>(
+    teamsAddOrUpdateRepoPermissionsLegacyParamSchema
+  ),
+  bodyValidationFactory<TeamsAddOrUpdateRepoPermissionsLegacyBodySchema>(
+    teamsAddOrUpdateRepoPermissionsLegacyBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
+      void,
+      TeamsAddOrUpdateRepoPermissionsLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsAddOrUpdateRepoPermissionsLegacy
 
     ctx.status = 501
@@ -11787,12 +18492,18 @@ const teamsRemoveRepoLegacyParamSchema = joi
     owner: joi.string().required(),
     repo: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "teamsRemoveRepoLegacy",
   "/teams/:teamId/repos/:owner/:repo",
-  paramValidationFactory<any>(teamsRemoveRepoLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsRemoveRepoLegacyParamSchema>(
+    teamsRemoveRepoLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsRemoveRepoLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsRemoveRepoLegacy
 
     ctx.status = 501
@@ -11806,12 +18517,18 @@ router.delete(
 const teamsListIdPGroupsForLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 router.get(
   "teamsListIdPGroupsForLegacy",
   "/teams/:teamId/team-sync/group-mappings",
-  paramValidationFactory<any>(teamsListIdPGroupsForLegacyParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListIdPGroupsForLegacyParamSchema>(
+    teamsListIdPGroupsForLegacyParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<TeamsListIdPGroupsForLegacyParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsListIdPGroupsForLegacy
 
     ctx.status = 501
@@ -11825,14 +18542,43 @@ router.get(
 const teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
+
+const teamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema = joi
+  .object()
+  .keys({
+    groups: joi
+      .array()
+      .items(
+        joi
+          .object()
+          .keys({
+            group_id: joi.string().required(),
+            group_name: joi.string().required(),
+            group_description: joi.string().required(),
+          })
+      )
+      .required(),
+  })
+  .required()
 
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsLegacy",
   "/teams/:teamId/team-sync/group-mappings",
-  paramValidationFactory<any>(
-    teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
+  paramValidationFactory<
+    TeamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
+  >(teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema),
+  bodyValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema>(
+    teamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      TeamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema,
+      void,
+      TeamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsLegacy
 
     ctx.status = 501
@@ -11846,17 +18592,30 @@ router.patch(
 const teamsListChildLegacyParamSchema = joi
   .object()
   .keys({ team_id: joi.number().required() })
+  .required()
 
 const teamsListChildLegacyQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListChildLegacy",
   "/teams/:teamId/teams",
-  paramValidationFactory<any>(teamsListChildLegacyParamSchema),
-  queryValidationFactory<any>(teamsListChildLegacyQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<TeamsListChildLegacyParamSchema>(
+    teamsListChildLegacyParamSchema
+  ),
+  queryValidationFactory<TeamsListChildLegacyQuerySchema>(
+    teamsListChildLegacyQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      TeamsListChildLegacyParamSchema,
+      TeamsListChildLegacyQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-teamsListChildLegacy
 
     ctx.status = 501
@@ -11867,30 +18626,58 @@ router.get(
   }
 )
 
-router.get("usersGetAuthenticated", "/user", async (ctx, next) => {
-  //region safe-edit-region-usersGetAuthenticated
+router.get(
+  "usersGetAuthenticated",
+  "/user",
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
+    //region safe-edit-region-usersGetAuthenticated
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
 
-  //endregion safe-edit-region-usersGetAuthenticated
-})
+    //endregion safe-edit-region-usersGetAuthenticated
+  }
+)
 
-router.patch("usersUpdateAuthenticated", "/user", async (ctx, next) => {
-  //region safe-edit-region-usersUpdateAuthenticated
+const usersUpdateAuthenticatedBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string(),
+    email: joi.string(),
+    blog: joi.string(),
+    company: joi.string(),
+    location: joi.string(),
+    hireable: joi.boolean(),
+    bio: joi.string(),
+    twitter_username: joi.string(),
+  })
+  .required()
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+router.patch(
+  "usersUpdateAuthenticated",
+  "/user",
+  bodyValidationFactory<UsersUpdateAuthenticatedBodySchema>(
+    usersUpdateAuthenticatedBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, UsersUpdateAuthenticatedBodySchema>,
+    next
+  ) => {
+    //region safe-edit-region-usersUpdateAuthenticated
 
-  //endregion safe-edit-region-usersUpdateAuthenticated
-})
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+
+    //endregion safe-edit-region-usersUpdateAuthenticated
+  }
+)
 
 router.get(
   "usersListBlockedByAuthenticated",
   "/user/blocks",
-  async (ctx, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next) => {
     //region safe-edit-region-usersListBlockedByAuthenticated
 
     ctx.status = 501
@@ -11904,12 +18691,15 @@ router.get(
 const usersCheckBlockedParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.get(
   "usersCheckBlocked",
   "/user/blocks/:username",
-  paramValidationFactory<any>(usersCheckBlockedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersCheckBlockedParamSchema>(
+    usersCheckBlockedParamSchema
+  ),
+  async (ctx: ValidatedCtx<UsersCheckBlockedParamSchema, void, void>, next) => {
     //region safe-edit-region-usersCheckBlocked
 
     ctx.status = 501
@@ -11923,12 +18713,13 @@ router.get(
 const usersBlockParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.put(
   "usersBlock",
   "/user/blocks/:username",
-  paramValidationFactory<any>(usersBlockParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersBlockParamSchema>(usersBlockParamSchema),
+  async (ctx: ValidatedCtx<UsersBlockParamSchema, void, void>, next) => {
     //region safe-edit-region-usersBlock
 
     ctx.status = 501
@@ -11942,12 +18733,13 @@ router.put(
 const usersUnblockParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.delete(
   "usersUnblock",
   "/user/blocks/:username",
-  paramValidationFactory<any>(usersUnblockParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersUnblockParamSchema>(usersUnblockParamSchema),
+  async (ctx: ValidatedCtx<UsersUnblockParamSchema, void, void>, next) => {
     //region safe-edit-region-usersUnblock
 
     ctx.status = 501
@@ -11958,10 +18750,25 @@ router.delete(
   }
 )
 
+const usersSetPrimaryEmailVisibilityForAuthenticatedBodySchema = joi
+  .object()
+  .keys({ email: joi.string().required(), visibility: joi.string().required() })
+  .required()
+
 router.patch(
   "usersSetPrimaryEmailVisibilityForAuthenticated",
   "/user/email/visibility",
-  async (ctx, next) => {
+  bodyValidationFactory<
+    UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema
+  >(usersSetPrimaryEmailVisibilityForAuthenticatedBodySchema),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      void,
+      UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersSetPrimaryEmailVisibilityForAuthenticated
 
     ctx.status = 501
@@ -11975,12 +18782,18 @@ router.patch(
 const usersListEmailsForAuthenticatedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListEmailsForAuthenticated",
   "/user/emails",
-  queryValidationFactory<any>(usersListEmailsForAuthenticatedQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<UsersListEmailsForAuthenticatedQuerySchema>(
+    usersListEmailsForAuthenticatedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, UsersListEmailsForAuthenticatedQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-usersListEmailsForAuthenticated
 
     ctx.status = 501
@@ -11991,10 +18804,21 @@ router.get(
   }
 )
 
+const usersAddEmailForAuthenticatedBodySchema = joi
+  .object()
+  .keys({ emails: joi.array().items(joi.string()).required() })
+  .required()
+
 router.post(
   "usersAddEmailForAuthenticated",
   "/user/emails",
-  async (ctx, next) => {
+  bodyValidationFactory<UsersAddEmailForAuthenticatedBodySchema>(
+    usersAddEmailForAuthenticatedBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, UsersAddEmailForAuthenticatedBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-usersAddEmailForAuthenticated
 
     ctx.status = 501
@@ -12005,10 +18829,21 @@ router.post(
   }
 )
 
+const usersDeleteEmailForAuthenticatedBodySchema = joi
+  .object()
+  .keys({ emails: joi.array().items(joi.string()).required() })
+  .required()
+
 router.delete(
   "usersDeleteEmailForAuthenticated",
   "/user/emails",
-  async (ctx, next) => {
+  bodyValidationFactory<UsersDeleteEmailForAuthenticatedBodySchema>(
+    usersDeleteEmailForAuthenticatedBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, UsersDeleteEmailForAuthenticatedBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-usersDeleteEmailForAuthenticated
 
     ctx.status = 501
@@ -12022,14 +18857,22 @@ router.delete(
 const usersListFollowersForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListFollowersForAuthenticatedUser",
   "/user/followers",
-  queryValidationFactory<any>(
+  queryValidationFactory<UsersListFollowersForAuthenticatedUserQuerySchema>(
     usersListFollowersForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      UsersListFollowersForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListFollowersForAuthenticatedUser
 
     ctx.status = 501
@@ -12043,12 +18886,18 @@ router.get(
 const usersListFollowedByAuthenticatedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListFollowedByAuthenticated",
   "/user/following",
-  queryValidationFactory<any>(usersListFollowedByAuthenticatedQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<UsersListFollowedByAuthenticatedQuerySchema>(
+    usersListFollowedByAuthenticatedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, UsersListFollowedByAuthenticatedQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-usersListFollowedByAuthenticated
 
     ctx.status = 501
@@ -12062,14 +18911,22 @@ router.get(
 const usersCheckPersonIsFollowedByAuthenticatedParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.get(
   "usersCheckPersonIsFollowedByAuthenticated",
   "/user/following/:username",
-  paramValidationFactory<any>(
+  paramValidationFactory<UsersCheckPersonIsFollowedByAuthenticatedParamSchema>(
     usersCheckPersonIsFollowedByAuthenticatedParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersCheckPersonIsFollowedByAuthenticated
 
     ctx.status = 501
@@ -12083,12 +18940,13 @@ router.get(
 const usersFollowParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.put(
   "usersFollow",
   "/user/following/:username",
-  paramValidationFactory<any>(usersFollowParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersFollowParamSchema>(usersFollowParamSchema),
+  async (ctx: ValidatedCtx<UsersFollowParamSchema, void, void>, next) => {
     //region safe-edit-region-usersFollow
 
     ctx.status = 501
@@ -12102,12 +18960,13 @@ router.put(
 const usersUnfollowParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.delete(
   "usersUnfollow",
   "/user/following/:username",
-  paramValidationFactory<any>(usersUnfollowParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersUnfollowParamSchema>(usersUnfollowParamSchema),
+  async (ctx: ValidatedCtx<UsersUnfollowParamSchema, void, void>, next) => {
     //region safe-edit-region-usersUnfollow
 
     ctx.status = 501
@@ -12121,12 +18980,18 @@ router.delete(
 const usersListGpgKeysForAuthenticatedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListGpgKeysForAuthenticated",
   "/user/gpg_keys",
-  queryValidationFactory<any>(usersListGpgKeysForAuthenticatedQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<UsersListGpgKeysForAuthenticatedQuerySchema>(
+    usersListGpgKeysForAuthenticatedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, UsersListGpgKeysForAuthenticatedQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-usersListGpgKeysForAuthenticated
 
     ctx.status = 501
@@ -12137,10 +19002,21 @@ router.get(
   }
 )
 
+const usersCreateGpgKeyForAuthenticatedBodySchema = joi
+  .object()
+  .keys({ armored_public_key: joi.string() })
+  .required()
+
 router.post(
   "usersCreateGpgKeyForAuthenticated",
   "/user/gpg_keys",
-  async (ctx, next) => {
+  bodyValidationFactory<UsersCreateGpgKeyForAuthenticatedBodySchema>(
+    usersCreateGpgKeyForAuthenticatedBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, UsersCreateGpgKeyForAuthenticatedBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-usersCreateGpgKeyForAuthenticated
 
     ctx.status = 501
@@ -12154,12 +19030,18 @@ router.post(
 const usersGetGpgKeyForAuthenticatedParamSchema = joi
   .object()
   .keys({ gpg_key_id: joi.number().required() })
+  .required()
 
 router.get(
   "usersGetGpgKeyForAuthenticated",
   "/user/gpg_keys/:gpgKeyId",
-  paramValidationFactory<any>(usersGetGpgKeyForAuthenticatedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersGetGpgKeyForAuthenticatedParamSchema>(
+    usersGetGpgKeyForAuthenticatedParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<UsersGetGpgKeyForAuthenticatedParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-usersGetGpgKeyForAuthenticated
 
     ctx.status = 501
@@ -12173,12 +19055,18 @@ router.get(
 const usersDeleteGpgKeyForAuthenticatedParamSchema = joi
   .object()
   .keys({ gpg_key_id: joi.number().required() })
+  .required()
 
 router.delete(
   "usersDeleteGpgKeyForAuthenticated",
   "/user/gpg_keys/:gpgKeyId",
-  paramValidationFactory<any>(usersDeleteGpgKeyForAuthenticatedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersDeleteGpgKeyForAuthenticatedParamSchema>(
+    usersDeleteGpgKeyForAuthenticatedParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<UsersDeleteGpgKeyForAuthenticatedParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-usersDeleteGpgKeyForAuthenticated
 
     ctx.status = 501
@@ -12192,14 +19080,22 @@ router.delete(
 const appsListInstallationsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListInstallationsForAuthenticatedUser",
   "/user/installations",
-  queryValidationFactory<any>(
+  queryValidationFactory<AppsListInstallationsForAuthenticatedUserQuerySchema>(
     appsListInstallationsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      AppsListInstallationsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListInstallationsForAuthenticatedUser
 
     ctx.status = 501
@@ -12213,21 +19109,30 @@ router.get(
 const appsListInstallationReposForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ installation_id: joi.number().required() })
+  .required()
 
 const appsListInstallationReposForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListInstallationReposForAuthenticatedUser",
   "/user/installations/:installationId/repositories",
-  paramValidationFactory<any>(
-    appsListInstallationReposForAuthenticatedUserParamSchema
-  ),
-  queryValidationFactory<any>(
-    appsListInstallationReposForAuthenticatedUserQuerySchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    AppsListInstallationReposForAuthenticatedUserParamSchema
+  >(appsListInstallationReposForAuthenticatedUserParamSchema),
+  queryValidationFactory<
+    AppsListInstallationReposForAuthenticatedUserQuerySchema
+  >(appsListInstallationReposForAuthenticatedUserQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      AppsListInstallationReposForAuthenticatedUserParamSchema,
+      AppsListInstallationReposForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListInstallationReposForAuthenticatedUser
 
     ctx.status = 501
@@ -12244,12 +19149,18 @@ const appsAddRepoToInstallationParamSchema = joi
     installation_id: joi.number().required(),
     repository_id: joi.number().required(),
   })
+  .required()
 
 router.put(
   "appsAddRepoToInstallation",
   "/user/installations/:installationId/repositories/:repositoryId",
-  paramValidationFactory<any>(appsAddRepoToInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsAddRepoToInstallationParamSchema>(
+    appsAddRepoToInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsAddRepoToInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsAddRepoToInstallation
 
     ctx.status = 501
@@ -12266,12 +19177,18 @@ const appsRemoveRepoFromInstallationParamSchema = joi
     installation_id: joi.number().required(),
     repository_id: joi.number().required(),
   })
+  .required()
 
 router.delete(
   "appsRemoveRepoFromInstallation",
   "/user/installations/:installationId/repositories/:repositoryId",
-  paramValidationFactory<any>(appsRemoveRepoFromInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsRemoveRepoFromInstallationParamSchema>(
+    appsRemoveRepoFromInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsRemoveRepoFromInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsRemoveRepoFromInstallation
 
     ctx.status = 501
@@ -12294,12 +19211,18 @@ const issuesListForAuthenticatedUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "issuesListForAuthenticatedUser",
   "/user/issues",
-  queryValidationFactory<any>(issuesListForAuthenticatedUserQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<IssuesListForAuthenticatedUserQuerySchema>(
+    issuesListForAuthenticatedUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, IssuesListForAuthenticatedUserQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-issuesListForAuthenticatedUser
 
     ctx.status = 501
@@ -12313,14 +19236,22 @@ router.get(
 const usersListPublicSshKeysForAuthenticatedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListPublicSshKeysForAuthenticated",
   "/user/keys",
-  queryValidationFactory<any>(
+  queryValidationFactory<UsersListPublicSshKeysForAuthenticatedQuerySchema>(
     usersListPublicSshKeysForAuthenticatedQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      UsersListPublicSshKeysForAuthenticatedQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListPublicSshKeysForAuthenticated
 
     ctx.status = 501
@@ -12331,10 +19262,25 @@ router.get(
   }
 )
 
+const usersCreatePublicSshKeyForAuthenticatedBodySchema = joi
+  .object()
+  .keys({ title: joi.string(), key: joi.string() })
+  .required()
+
 router.post(
   "usersCreatePublicSshKeyForAuthenticated",
   "/user/keys",
-  async (ctx, next) => {
+  bodyValidationFactory<UsersCreatePublicSshKeyForAuthenticatedBodySchema>(
+    usersCreatePublicSshKeyForAuthenticatedBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      void,
+      UsersCreatePublicSshKeyForAuthenticatedBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersCreatePublicSshKeyForAuthenticated
 
     ctx.status = 501
@@ -12348,12 +19294,22 @@ router.post(
 const usersGetPublicSshKeyForAuthenticatedParamSchema = joi
   .object()
   .keys({ key_id: joi.number().required() })
+  .required()
 
 router.get(
   "usersGetPublicSshKeyForAuthenticated",
   "/user/keys/:keyId",
-  paramValidationFactory<any>(usersGetPublicSshKeyForAuthenticatedParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersGetPublicSshKeyForAuthenticatedParamSchema>(
+    usersGetPublicSshKeyForAuthenticatedParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersGetPublicSshKeyForAuthenticatedParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersGetPublicSshKeyForAuthenticated
 
     ctx.status = 501
@@ -12367,14 +19323,22 @@ router.get(
 const usersDeletePublicSshKeyForAuthenticatedParamSchema = joi
   .object()
   .keys({ key_id: joi.number().required() })
+  .required()
 
 router.delete(
   "usersDeletePublicSshKeyForAuthenticated",
   "/user/keys/:keyId",
-  paramValidationFactory<any>(
+  paramValidationFactory<UsersDeletePublicSshKeyForAuthenticatedParamSchema>(
     usersDeletePublicSshKeyForAuthenticatedParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      UsersDeletePublicSshKeyForAuthenticatedParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersDeletePublicSshKeyForAuthenticated
 
     ctx.status = 501
@@ -12388,14 +19352,22 @@ router.delete(
 const appsListSubscriptionsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUser",
   "/user/marketplace_purchases",
-  queryValidationFactory<any>(
+  queryValidationFactory<AppsListSubscriptionsForAuthenticatedUserQuerySchema>(
     appsListSubscriptionsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      AppsListSubscriptionsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListSubscriptionsForAuthenticatedUser
 
     ctx.status = 501
@@ -12409,14 +19381,22 @@ router.get(
 const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUserStubbed",
   "/user/marketplace_purchases/stubbed",
-  queryValidationFactory<any>(
-    appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
-  ),
-  async (ctx, next) => {
+  queryValidationFactory<
+    AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
+  >(appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-appsListSubscriptionsForAuthenticatedUserStubbed
 
     ctx.status = 501
@@ -12430,14 +19410,22 @@ router.get(
 const orgsListMembershipsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListMembershipsForAuthenticatedUser",
   "/user/memberships/orgs",
-  queryValidationFactory<any>(
+  queryValidationFactory<OrgsListMembershipsForAuthenticatedUserQuerySchema>(
     orgsListMembershipsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      OrgsListMembershipsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListMembershipsForAuthenticatedUser
 
     ctx.status = 501
@@ -12451,12 +19439,22 @@ router.get(
 const orgsGetMembershipForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
 
 router.get(
   "orgsGetMembershipForAuthenticatedUser",
   "/user/memberships/orgs/:org",
-  paramValidationFactory<any>(orgsGetMembershipForAuthenticatedUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsGetMembershipForAuthenticatedUserParamSchema>(
+    orgsGetMembershipForAuthenticatedUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsGetMembershipForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsGetMembershipForAuthenticatedUser
 
     ctx.status = 501
@@ -12470,14 +19468,30 @@ router.get(
 const orgsUpdateMembershipForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ org: joi.string().required() })
+  .required()
+
+const orgsUpdateMembershipForAuthenticatedUserBodySchema = joi
+  .object()
+  .keys({ state: joi.string().required() })
+  .required()
 
 router.patch(
   "orgsUpdateMembershipForAuthenticatedUser",
   "/user/memberships/orgs/:org",
-  paramValidationFactory<any>(
+  paramValidationFactory<OrgsUpdateMembershipForAuthenticatedUserParamSchema>(
     orgsUpdateMembershipForAuthenticatedUserParamSchema
   ),
-  async (ctx, next) => {
+  bodyValidationFactory<OrgsUpdateMembershipForAuthenticatedUserBodySchema>(
+    orgsUpdateMembershipForAuthenticatedUserBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsUpdateMembershipForAuthenticatedUserParamSchema,
+      void,
+      OrgsUpdateMembershipForAuthenticatedUserBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsUpdateMembershipForAuthenticatedUser
 
     ctx.status = 501
@@ -12488,10 +19502,29 @@ router.patch(
   }
 )
 
+const migrationsStartForAuthenticatedUserBodySchema = joi
+  .object()
+  .keys({
+    repositories: joi.array().items(joi.string()).required(),
+    lock_repositories: joi.boolean(),
+    exclude_attachments: joi.boolean(),
+  })
+  .required()
+
 router.post(
   "migrationsStartForAuthenticatedUser",
   "/user/migrations",
-  async (ctx, next) => {
+  bodyValidationFactory<MigrationsStartForAuthenticatedUserBodySchema>(
+    migrationsStartForAuthenticatedUserBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      void,
+      MigrationsStartForAuthenticatedUserBodySchema
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsStartForAuthenticatedUser
 
     ctx.status = 501
@@ -12505,12 +19538,22 @@ router.post(
 const migrationsListForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "migrationsListForAuthenticatedUser",
   "/user/migrations",
-  queryValidationFactory<any>(migrationsListForAuthenticatedUserQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<MigrationsListForAuthenticatedUserQuerySchema>(
+    migrationsListForAuthenticatedUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      MigrationsListForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsListForAuthenticatedUser
 
     ctx.status = 501
@@ -12524,14 +19567,22 @@ router.get(
 const migrationsGetStatusForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ migration_id: joi.number().required() })
+  .required()
 
 router.get(
   "migrationsGetStatusForAuthenticatedUser",
   "/user/migrations/:migrationId",
-  paramValidationFactory<any>(
+  paramValidationFactory<MigrationsGetStatusForAuthenticatedUserParamSchema>(
     migrationsGetStatusForAuthenticatedUserParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      MigrationsGetStatusForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetStatusForAuthenticatedUser
 
     ctx.status = 501
@@ -12545,14 +19596,22 @@ router.get(
 const migrationsGetArchiveForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ migration_id: joi.number().required() })
+  .required()
 
 router.get(
   "migrationsGetArchiveForAuthenticatedUser",
   "/user/migrations/:migrationId/archive",
-  paramValidationFactory<any>(
+  paramValidationFactory<MigrationsGetArchiveForAuthenticatedUserParamSchema>(
     migrationsGetArchiveForAuthenticatedUserParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      MigrationsGetArchiveForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsGetArchiveForAuthenticatedUser
 
     ctx.status = 501
@@ -12566,14 +19625,22 @@ router.get(
 const migrationsDeleteArchiveForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ migration_id: joi.number().required() })
+  .required()
 
 router.delete(
   "migrationsDeleteArchiveForAuthenticatedUser",
   "/user/migrations/:migrationId/archive",
-  paramValidationFactory<any>(
-    migrationsDeleteArchiveForAuthenticatedUserParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    MigrationsDeleteArchiveForAuthenticatedUserParamSchema
+  >(migrationsDeleteArchiveForAuthenticatedUserParamSchema),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsDeleteArchiveForAuthenticatedUser
 
     ctx.status = 501
@@ -12590,14 +19657,22 @@ const migrationsUnlockRepoForAuthenticatedUserParamSchema = joi
     migration_id: joi.number().required(),
     repo_name: joi.string().required(),
   })
+  .required()
 
 router.delete(
   "migrationsUnlockRepoForAuthenticatedUser",
   "/user/migrations/:migrationId/repos/:repoName/lock",
-  paramValidationFactory<any>(
+  paramValidationFactory<MigrationsUnlockRepoForAuthenticatedUserParamSchema>(
     migrationsUnlockRepoForAuthenticatedUserParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      MigrationsUnlockRepoForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsUnlockRepoForAuthenticatedUser
 
     ctx.status = 501
@@ -12611,12 +19686,18 @@ router.delete(
 const orgsListForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListForAuthenticatedUser",
   "/user/orgs",
-  queryValidationFactory<any>(orgsListForAuthenticatedUserQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<OrgsListForAuthenticatedUserQuerySchema>(
+    orgsListForAuthenticatedUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, OrgsListForAuthenticatedUserQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-orgsListForAuthenticatedUser
 
     ctx.status = 501
@@ -12627,10 +19708,21 @@ router.get(
   }
 )
 
+const projectsCreateForAuthenticatedUserBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required(), body: joi.string() })
+  .required()
+
 router.post(
   "projectsCreateForAuthenticatedUser",
   "/user/projects",
-  async (ctx, next) => {
+  bodyValidationFactory<ProjectsCreateForAuthenticatedUserBodySchema>(
+    projectsCreateForAuthenticatedUserBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, ProjectsCreateForAuthenticatedUserBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-projectsCreateForAuthenticatedUser
 
     ctx.status = 501
@@ -12644,12 +19736,22 @@ router.post(
 const usersListPublicEmailsForAuthenticatedQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListPublicEmailsForAuthenticated",
   "/user/public_emails",
-  queryValidationFactory<any>(usersListPublicEmailsForAuthenticatedQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<UsersListPublicEmailsForAuthenticatedQuerySchema>(
+    usersListPublicEmailsForAuthenticatedQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      UsersListPublicEmailsForAuthenticatedQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListPublicEmailsForAuthenticated
 
     ctx.status = 501
@@ -12671,12 +19773,18 @@ const reposListForAuthenticatedUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListForAuthenticatedUser",
   "/user/repos",
-  queryValidationFactory<any>(reposListForAuthenticatedUserQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<ReposListForAuthenticatedUserQuerySchema>(
+    reposListForAuthenticatedUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, ReposListForAuthenticatedUserQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-reposListForAuthenticatedUser
 
     ctx.status = 501
@@ -12687,10 +19795,39 @@ router.get(
   }
 )
 
+const reposCreateForAuthenticatedUserBodySchema = joi
+  .object()
+  .keys({
+    name: joi.string().required(),
+    description: joi.string(),
+    homepage: joi.string(),
+    private: joi.boolean(),
+    visibility: joi.string(),
+    has_issues: joi.boolean(),
+    has_projects: joi.boolean(),
+    has_wiki: joi.boolean(),
+    is_template: joi.boolean(),
+    team_id: joi.number(),
+    auto_init: joi.boolean(),
+    gitignore_template: joi.string(),
+    license_template: joi.string(),
+    allow_squash_merge: joi.boolean(),
+    allow_merge_commit: joi.boolean(),
+    allow_rebase_merge: joi.boolean(),
+    delete_branch_on_merge: joi.boolean(),
+  })
+  .required()
+
 router.post(
   "reposCreateForAuthenticatedUser",
   "/user/repos",
-  async (ctx, next) => {
+  bodyValidationFactory<ReposCreateForAuthenticatedUserBodySchema>(
+    reposCreateForAuthenticatedUserBodySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, void, ReposCreateForAuthenticatedUserBodySchema>,
+    next
+  ) => {
     //region safe-edit-region-reposCreateForAuthenticatedUser
 
     ctx.status = 501
@@ -12704,14 +19841,22 @@ router.post(
 const reposListInvitationsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "reposListInvitationsForAuthenticatedUser",
   "/user/repository_invitations",
-  queryValidationFactory<any>(
+  queryValidationFactory<ReposListInvitationsForAuthenticatedUserQuerySchema>(
     reposListInvitationsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      void,
+      ReposListInvitationsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListInvitationsForAuthenticatedUser
 
     ctx.status = 501
@@ -12725,12 +19870,18 @@ router.get(
 const reposAcceptInvitationParamSchema = joi
   .object()
   .keys({ invitation_id: joi.number().required() })
+  .required()
 
 router.patch(
   "reposAcceptInvitation",
   "/user/repository_invitations/:invitationId",
-  paramValidationFactory<any>(reposAcceptInvitationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposAcceptInvitationParamSchema>(
+    reposAcceptInvitationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposAcceptInvitationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposAcceptInvitation
 
     ctx.status = 501
@@ -12744,12 +19895,18 @@ router.patch(
 const reposDeclineInvitationParamSchema = joi
   .object()
   .keys({ invitation_id: joi.number().required() })
+  .required()
 
 router.delete(
   "reposDeclineInvitation",
   "/user/repository_invitations/:invitationId",
-  paramValidationFactory<any>(reposDeclineInvitationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposDeclineInvitationParamSchema>(
+    reposDeclineInvitationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<ReposDeclineInvitationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-reposDeclineInvitation
 
     ctx.status = 501
@@ -12768,14 +19925,22 @@ const activityListReposStarredByAuthenticatedUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "activityListReposStarredByAuthenticatedUser",
   "/user/starred",
-  queryValidationFactory<any>(
-    activityListReposStarredByAuthenticatedUserQuerySchema
-  ),
-  async (ctx, next) => {
+  queryValidationFactory<
+    ActivityListReposStarredByAuthenticatedUserQuerySchema
+  >(activityListReposStarredByAuthenticatedUserQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      ActivityListReposStarredByAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListReposStarredByAuthenticatedUser
 
     ctx.status = 501
@@ -12789,14 +19954,22 @@ router.get(
 const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.get(
   "activityCheckRepoIsStarredByAuthenticatedUser",
   "/user/starred/:owner/:repo",
-  paramValidationFactory<any>(
-    activityCheckRepoIsStarredByAuthenticatedUserParamSchema
-  ),
-  async (ctx, next) => {
+  paramValidationFactory<
+    ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema
+  >(activityCheckRepoIsStarredByAuthenticatedUserParamSchema),
+  async (
+    ctx: ValidatedCtx<
+      ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityCheckRepoIsStarredByAuthenticatedUser
 
     ctx.status = 501
@@ -12810,12 +19983,22 @@ router.get(
 const activityStarRepoForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.put(
   "activityStarRepoForAuthenticatedUser",
   "/user/starred/:owner/:repo",
-  paramValidationFactory<any>(activityStarRepoForAuthenticatedUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityStarRepoForAuthenticatedUserParamSchema>(
+    activityStarRepoForAuthenticatedUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityStarRepoForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityStarRepoForAuthenticatedUser
 
     ctx.status = 501
@@ -12829,14 +20012,22 @@ router.put(
 const activityUnstarRepoForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ owner: joi.string().required(), repo: joi.string().required() })
+  .required()
 
 router.delete(
   "activityUnstarRepoForAuthenticatedUser",
   "/user/starred/:owner/:repo",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActivityUnstarRepoForAuthenticatedUserParamSchema>(
     activityUnstarRepoForAuthenticatedUserParamSchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActivityUnstarRepoForAuthenticatedUserParamSchema,
+      void,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityUnstarRepoForAuthenticatedUser
 
     ctx.status = 501
@@ -12850,14 +20041,22 @@ router.delete(
 const activityListWatchedReposForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListWatchedReposForAuthenticatedUser",
   "/user/subscriptions",
-  queryValidationFactory<any>(
-    activityListWatchedReposForAuthenticatedUserQuerySchema
-  ),
-  async (ctx, next) => {
+  queryValidationFactory<
+    ActivityListWatchedReposForAuthenticatedUserQuerySchema
+  >(activityListWatchedReposForAuthenticatedUserQuerySchema),
+  async (
+    ctx: ValidatedCtx<
+      void,
+      ActivityListWatchedReposForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListWatchedReposForAuthenticatedUser
 
     ctx.status = 501
@@ -12871,12 +20070,18 @@ router.get(
 const teamsListForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "teamsListForAuthenticatedUser",
   "/user/teams",
-  queryValidationFactory<any>(teamsListForAuthenticatedUserQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<TeamsListForAuthenticatedUserQuerySchema>(
+    teamsListForAuthenticatedUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<void, TeamsListForAuthenticatedUserQuerySchema, void>,
+    next
+  ) => {
     //region safe-edit-region-teamsListForAuthenticatedUser
 
     ctx.status = 501
@@ -12890,17 +20095,30 @@ router.get(
 const migrationsListReposForUserParamSchema = joi
   .object()
   .keys({ migration_id: joi.number().required() })
+  .required()
 
 const migrationsListReposForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "migrationsListReposForUser",
   "/user/:migrationId/repositories",
-  paramValidationFactory<any>(migrationsListReposForUserParamSchema),
-  queryValidationFactory<any>(migrationsListReposForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<MigrationsListReposForUserParamSchema>(
+    migrationsListReposForUserParamSchema
+  ),
+  queryValidationFactory<MigrationsListReposForUserQuerySchema>(
+    migrationsListReposForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      MigrationsListReposForUserParamSchema,
+      MigrationsListReposForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-migrationsListReposForUser
 
     ctx.status = 501
@@ -12911,13 +20129,16 @@ router.get(
   }
 )
 
-const usersListQuerySchema = joi.object().keys({ since: joi.string() })
+const usersListQuerySchema = joi
+  .object()
+  .keys({ since: joi.string() })
+  .required()
 
 router.get(
   "usersList",
   "/users",
-  queryValidationFactory<any>(usersListQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<UsersListQuerySchema>(usersListQuerySchema),
+  async (ctx: ValidatedCtx<void, UsersListQuerySchema, void>, next) => {
     //region safe-edit-region-usersList
 
     ctx.status = 501
@@ -12931,12 +20152,18 @@ router.get(
 const usersGetByUsernameParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.get(
   "usersGetByUsername",
   "/users/:username",
-  paramValidationFactory<any>(usersGetByUsernameParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersGetByUsernameParamSchema>(
+    usersGetByUsernameParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<UsersGetByUsernameParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-usersGetByUsername
 
     ctx.status = 501
@@ -12950,21 +20177,30 @@ router.get(
 const activityListEventsForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListEventsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListEventsForAuthenticatedUser",
   "/users/:username/events",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActivityListEventsForAuthenticatedUserParamSchema>(
     activityListEventsForAuthenticatedUserParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ActivityListEventsForAuthenticatedUserQuerySchema>(
     activityListEventsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActivityListEventsForAuthenticatedUserParamSchema,
+      ActivityListEventsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListEventsForAuthenticatedUser
 
     ctx.status = 501
@@ -12978,21 +20214,30 @@ router.get(
 const activityListOrgEventsForAuthenticatedUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required(), org: joi.string().required() })
+  .required()
 
 const activityListOrgEventsForAuthenticatedUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListOrgEventsForAuthenticatedUser",
   "/users/:username/events/orgs/:org",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActivityListOrgEventsForAuthenticatedUserParamSchema>(
     activityListOrgEventsForAuthenticatedUserParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ActivityListOrgEventsForAuthenticatedUserQuerySchema>(
     activityListOrgEventsForAuthenticatedUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActivityListOrgEventsForAuthenticatedUserParamSchema,
+      ActivityListOrgEventsForAuthenticatedUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListOrgEventsForAuthenticatedUser
 
     ctx.status = 501
@@ -13006,17 +20251,30 @@ router.get(
 const activityListPublicEventsForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListPublicEventsForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListPublicEventsForUser",
   "/users/:username/events/public",
-  paramValidationFactory<any>(activityListPublicEventsForUserParamSchema),
-  queryValidationFactory<any>(activityListPublicEventsForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListPublicEventsForUserParamSchema>(
+    activityListPublicEventsForUserParamSchema
+  ),
+  queryValidationFactory<ActivityListPublicEventsForUserQuerySchema>(
+    activityListPublicEventsForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListPublicEventsForUserParamSchema,
+      ActivityListPublicEventsForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListPublicEventsForUser
 
     ctx.status = 501
@@ -13030,17 +20288,30 @@ router.get(
 const usersListFollowersForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const usersListFollowersForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListFollowersForUser",
   "/users/:username/followers",
-  paramValidationFactory<any>(usersListFollowersForUserParamSchema),
-  queryValidationFactory<any>(usersListFollowersForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersListFollowersForUserParamSchema>(
+    usersListFollowersForUserParamSchema
+  ),
+  queryValidationFactory<UsersListFollowersForUserQuerySchema>(
+    usersListFollowersForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersListFollowersForUserParamSchema,
+      UsersListFollowersForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListFollowersForUser
 
     ctx.status = 501
@@ -13054,17 +20325,30 @@ router.get(
 const usersListFollowingForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const usersListFollowingForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListFollowingForUser",
   "/users/:username/following",
-  paramValidationFactory<any>(usersListFollowingForUserParamSchema),
-  queryValidationFactory<any>(usersListFollowingForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersListFollowingForUserParamSchema>(
+    usersListFollowingForUserParamSchema
+  ),
+  queryValidationFactory<UsersListFollowingForUserQuerySchema>(
+    usersListFollowingForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersListFollowingForUserParamSchema,
+      UsersListFollowingForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListFollowingForUser
 
     ctx.status = 501
@@ -13081,12 +20365,18 @@ const usersCheckFollowingForUserParamSchema = joi
     username: joi.string().required(),
     target_user: joi.string().required(),
   })
+  .required()
 
 router.get(
   "usersCheckFollowingForUser",
   "/users/:username/following/:targetUser",
-  paramValidationFactory<any>(usersCheckFollowingForUserParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersCheckFollowingForUserParamSchema>(
+    usersCheckFollowingForUserParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<UsersCheckFollowingForUserParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-usersCheckFollowingForUser
 
     ctx.status = 501
@@ -13100,17 +20390,30 @@ router.get(
 const gistsListForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const gistsListForUserQuerySchema = joi
   .object()
   .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "gistsListForUser",
   "/users/:username/gists",
-  paramValidationFactory<any>(gistsListForUserParamSchema),
-  queryValidationFactory<any>(gistsListForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<GistsListForUserParamSchema>(
+    gistsListForUserParamSchema
+  ),
+  queryValidationFactory<GistsListForUserQuerySchema>(
+    gistsListForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      GistsListForUserParamSchema,
+      GistsListForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-gistsListForUser
 
     ctx.status = 501
@@ -13124,17 +20427,30 @@ router.get(
 const usersListGpgKeysForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const usersListGpgKeysForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListGpgKeysForUser",
   "/users/:username/gpg_keys",
-  paramValidationFactory<any>(usersListGpgKeysForUserParamSchema),
-  queryValidationFactory<any>(usersListGpgKeysForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersListGpgKeysForUserParamSchema>(
+    usersListGpgKeysForUserParamSchema
+  ),
+  queryValidationFactory<UsersListGpgKeysForUserQuerySchema>(
+    usersListGpgKeysForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersListGpgKeysForUserParamSchema,
+      UsersListGpgKeysForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListGpgKeysForUser
 
     ctx.status = 501
@@ -13148,17 +20464,30 @@ router.get(
 const usersGetContextForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const usersGetContextForUserQuerySchema = joi
   .object()
   .keys({ subject_type: joi.string(), subject_id: joi.string() })
+  .required()
 
 router.get(
   "usersGetContextForUser",
   "/users/:username/hovercard",
-  paramValidationFactory<any>(usersGetContextForUserParamSchema),
-  queryValidationFactory<any>(usersGetContextForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersGetContextForUserParamSchema>(
+    usersGetContextForUserParamSchema
+  ),
+  queryValidationFactory<UsersGetContextForUserQuerySchema>(
+    usersGetContextForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersGetContextForUserParamSchema,
+      UsersGetContextForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersGetContextForUser
 
     ctx.status = 501
@@ -13172,12 +20501,18 @@ router.get(
 const appsGetUserInstallationParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 router.get(
   "appsGetUserInstallation",
   "/users/:username/installation",
-  paramValidationFactory<any>(appsGetUserInstallationParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<AppsGetUserInstallationParamSchema>(
+    appsGetUserInstallationParamSchema
+  ),
+  async (
+    ctx: ValidatedCtx<AppsGetUserInstallationParamSchema, void, void>,
+    next
+  ) => {
     //region safe-edit-region-appsGetUserInstallation
 
     ctx.status = 501
@@ -13191,17 +20526,30 @@ router.get(
 const usersListPublicKeysForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const usersListPublicKeysForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "usersListPublicKeysForUser",
   "/users/:username/keys",
-  paramValidationFactory<any>(usersListPublicKeysForUserParamSchema),
-  queryValidationFactory<any>(usersListPublicKeysForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<UsersListPublicKeysForUserParamSchema>(
+    usersListPublicKeysForUserParamSchema
+  ),
+  queryValidationFactory<UsersListPublicKeysForUserQuerySchema>(
+    usersListPublicKeysForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      UsersListPublicKeysForUserParamSchema,
+      UsersListPublicKeysForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-usersListPublicKeysForUser
 
     ctx.status = 501
@@ -13215,17 +20563,30 @@ router.get(
 const orgsListForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const orgsListForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "orgsListForUser",
   "/users/:username/orgs",
-  paramValidationFactory<any>(orgsListForUserParamSchema),
-  queryValidationFactory<any>(orgsListForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<OrgsListForUserParamSchema>(
+    orgsListForUserParamSchema
+  ),
+  queryValidationFactory<OrgsListForUserQuerySchema>(
+    orgsListForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      OrgsListForUserParamSchema,
+      OrgsListForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-orgsListForUser
 
     ctx.status = 501
@@ -13239,17 +20600,30 @@ router.get(
 const projectsListForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const projectsListForUserQuerySchema = joi
   .object()
   .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "projectsListForUser",
   "/users/:username/projects",
-  paramValidationFactory<any>(projectsListForUserParamSchema),
-  queryValidationFactory<any>(projectsListForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ProjectsListForUserParamSchema>(
+    projectsListForUserParamSchema
+  ),
+  queryValidationFactory<ProjectsListForUserQuerySchema>(
+    projectsListForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ProjectsListForUserParamSchema,
+      ProjectsListForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-projectsListForUser
 
     ctx.status = 501
@@ -13263,17 +20637,30 @@ router.get(
 const activityListReceivedEventsForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListReceivedEventsForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListReceivedEventsForUser",
   "/users/:username/received_events",
-  paramValidationFactory<any>(activityListReceivedEventsForUserParamSchema),
-  queryValidationFactory<any>(activityListReceivedEventsForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListReceivedEventsForUserParamSchema>(
+    activityListReceivedEventsForUserParamSchema
+  ),
+  queryValidationFactory<ActivityListReceivedEventsForUserQuerySchema>(
+    activityListReceivedEventsForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListReceivedEventsForUserParamSchema,
+      ActivityListReceivedEventsForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListReceivedEventsForUser
 
     ctx.status = 501
@@ -13287,21 +20674,30 @@ router.get(
 const activityListReceivedPublicEventsForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListReceivedPublicEventsForUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListReceivedPublicEventsForUser",
   "/users/:username/received_events/public",
-  paramValidationFactory<any>(
+  paramValidationFactory<ActivityListReceivedPublicEventsForUserParamSchema>(
     activityListReceivedPublicEventsForUserParamSchema
   ),
-  queryValidationFactory<any>(
+  queryValidationFactory<ActivityListReceivedPublicEventsForUserQuerySchema>(
     activityListReceivedPublicEventsForUserQuerySchema
   ),
-  async (ctx, next) => {
+  async (
+    ctx: ValidatedCtx<
+      ActivityListReceivedPublicEventsForUserParamSchema,
+      ActivityListReceivedPublicEventsForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListReceivedPublicEventsForUser
 
     ctx.status = 501
@@ -13315,6 +20711,7 @@ router.get(
 const reposListForUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const reposListForUserQuerySchema = joi
   .object()
@@ -13325,13 +20722,25 @@ const reposListForUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "reposListForUser",
   "/users/:username/repos",
-  paramValidationFactory<any>(reposListForUserParamSchema),
-  queryValidationFactory<any>(reposListForUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ReposListForUserParamSchema>(
+    reposListForUserParamSchema
+  ),
+  queryValidationFactory<ReposListForUserQuerySchema>(
+    reposListForUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ReposListForUserParamSchema,
+      ReposListForUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-reposListForUser
 
     ctx.status = 501
@@ -13345,6 +20754,7 @@ router.get(
 const activityListReposStarredByUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListReposStarredByUserQuerySchema = joi
   .object()
@@ -13354,13 +20764,25 @@ const activityListReposStarredByUserQuerySchema = joi
     per_page: joi.number(),
     page: joi.number(),
   })
+  .required()
 
 router.get(
   "activityListReposStarredByUser",
   "/users/:username/starred",
-  paramValidationFactory<any>(activityListReposStarredByUserParamSchema),
-  queryValidationFactory<any>(activityListReposStarredByUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListReposStarredByUserParamSchema>(
+    activityListReposStarredByUserParamSchema
+  ),
+  queryValidationFactory<ActivityListReposStarredByUserQuerySchema>(
+    activityListReposStarredByUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListReposStarredByUserParamSchema,
+      ActivityListReposStarredByUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListReposStarredByUser
 
     ctx.status = 501
@@ -13374,17 +20796,30 @@ router.get(
 const activityListReposWatchedByUserParamSchema = joi
   .object()
   .keys({ username: joi.string().required() })
+  .required()
 
 const activityListReposWatchedByUserQuerySchema = joi
   .object()
   .keys({ per_page: joi.number(), page: joi.number() })
+  .required()
 
 router.get(
   "activityListReposWatchedByUser",
   "/users/:username/subscriptions",
-  paramValidationFactory<any>(activityListReposWatchedByUserParamSchema),
-  queryValidationFactory<any>(activityListReposWatchedByUserQuerySchema),
-  async (ctx, next) => {
+  paramValidationFactory<ActivityListReposWatchedByUserParamSchema>(
+    activityListReposWatchedByUserParamSchema
+  ),
+  queryValidationFactory<ActivityListReposWatchedByUserQuerySchema>(
+    activityListReposWatchedByUserQuerySchema
+  ),
+  async (
+    ctx: ValidatedCtx<
+      ActivityListReposWatchedByUserParamSchema,
+      ActivityListReposWatchedByUserQuerySchema,
+      void
+    >,
+    next
+  ) => {
     //region safe-edit-region-activityListReposWatchedByUser
 
     ctx.status = 501

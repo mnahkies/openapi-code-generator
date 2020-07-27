@@ -2,6 +2,12 @@
 /* tslint:disable */
 /* eslint:disable */
 
+import {
+  AddPetBodySchema,
+  DeletePetParamSchema,
+  FindPetByIdParamSchema,
+  FindPetsQuerySchema,
+} from "./models"
 import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
@@ -13,34 +19,54 @@ import koaBody from "koa-body"
 
 function paramValidationFactory<Type>(
   schema: joi.Schema
-): Middleware<{}, { params: Type }> {
-  return function (ctx: Context, next: Next) {
+): Middleware<{ params: Type }> {
+  return async function (ctx: Context, next: Next) {
     const result = schema.validate(ctx.params, { stripUnknown: true })
 
     if (result.error) {
       throw new Error("validation error")
     }
 
-    ctx.params = result.value
+    ctx.state.params = result.value
 
-    next()
+    return next()
   }
 }
 
 function queryValidationFactory<Type>(
   schema: joi.Schema
-): Middleware<{}, { query: Type }> {
-  return function (ctx: Context, next: Next) {
+): Middleware<{ query: Type }> {
+  return async function (ctx: Context, next: Next) {
     const result = schema.validate(ctx.query, { stripUnknown: true })
 
     if (result.error) {
       throw new Error("validation error")
     }
 
-    ctx.query = result.value
+    ctx.state.query = result.value
 
-    next()
+    return next()
   }
+}
+
+function bodyValidationFactory<Type>(
+  schema: joi.Schema
+): Middleware<{ body: Type }> {
+  return async function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.query, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.state.body = result.value
+
+    return next()
+  }
+}
+
+interface ValidatedCtx<Params, Query, Body> extends Context {
+  state: { params: Params; query: Query; body: Body }
 }
 
 const PORT = 3000
@@ -55,13 +81,14 @@ const router = new KoaRouter()
 
 const findPetsQuerySchema = joi
   .object()
-  .keys({ tags: joi.array(), limit: joi.number() })
+  .keys({ tags: joi.array().items(joi.string()), limit: joi.number() })
+  .required()
 
 router.get(
   "findPets",
   "/pets",
-  queryValidationFactory<any>(findPetsQuerySchema),
-  async (ctx, next) => {
+  queryValidationFactory<FindPetsQuerySchema>(findPetsQuerySchema),
+  async (ctx: ValidatedCtx<void, FindPetsQuerySchema, void>, next) => {
     //region safe-edit-region-findPets
 
     ctx.status = 501
@@ -72,42 +99,60 @@ router.get(
   }
 )
 
-router.post("addPet", "/pets", async (ctx, next) => {
-  //region safe-edit-region-addPet
+const addPetBodySchema = joi
+  .object()
+  .keys({ name: joi.string().required(), tag: joi.string() })
+  .required()
 
-  ctx.status = 501
-  ctx.body = { error: "not implemented" }
-  return next()
+router.post(
+  "addPet",
+  "/pets",
+  bodyValidationFactory<AddPetBodySchema>(addPetBodySchema),
+  async (ctx: ValidatedCtx<void, void, AddPetBodySchema>, next) => {
+    //region safe-edit-region-addPet
 
-  //endregion safe-edit-region-addPet
-})
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+
+    //endregion safe-edit-region-addPet
+  }
+)
 
 const findPetByIdParamSchema = joi
   .object()
   .keys({ id: joi.number().required(), species: joi.string().required() })
+  .required()
 
 router.get(
   "findPetById",
   "/pets/:id/:species",
-  paramValidationFactory<any>(findPetByIdParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<FindPetByIdParamSchema>(findPetByIdParamSchema),
+  async (ctx: ValidatedCtx<FindPetByIdParamSchema, void, void>, next) => {
     //region safe-edit-region-findPetById
 
     ctx.status = 200
-    ctx.body = { name: "Jake", species: "dog", breed: "border-collie" }
+    ctx.body = {
+      name: "Jake",
+      species: ctx.state.params.species,
+      breed: "border-collie",
+    }
     return next()
 
     //endregion safe-edit-region-findPetById
   }
 )
 
-const deletePetParamSchema = joi.object().keys({ id: joi.number().required() })
+const deletePetParamSchema = joi
+  .object()
+  .keys({ id: joi.number().required(), species: joi.string().required() })
+  .required()
 
 router.delete(
   "deletePet",
   "/pets/:id/:species",
-  paramValidationFactory<any>(deletePetParamSchema),
-  async (ctx, next) => {
+  paramValidationFactory<DeletePetParamSchema>(deletePetParamSchema),
+  async (ctx: ValidatedCtx<DeletePetParamSchema, void, void>, next) => {
     //region safe-edit-region-deletePet
 
     ctx.status = 501

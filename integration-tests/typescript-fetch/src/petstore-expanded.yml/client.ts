@@ -73,6 +73,7 @@ export class ApiClient {
 
   async deletePet(p: {
     id: number
+    species: string
   }): Promise<Res<204, void> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 

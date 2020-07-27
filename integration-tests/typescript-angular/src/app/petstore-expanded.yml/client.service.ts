@@ -100,7 +100,7 @@ export class ApiClient {
     )
   }
 
-  deletePet(p: { id: number }): Observable<void | Error> {
+  deletePet(p: { id: number; species: string }): Observable<void | Error> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
