@@ -3,7 +3,7 @@ import util from 'util'
 
 import { isRemote, loadFile } from './file-loader'
 
-import { generationLib } from "./generation-lib"
+import { generationLib, VirtualDefinition } from "./generation-lib"
 import { OpenapiValidator } from "./openapi-validator"
 import {
   OpenapiDocument,
@@ -19,17 +19,28 @@ import { isRef } from "./openapi-utils"
 
 export class OpenapiLoader {
 
-  private library = new Map<string, any>()
+  private readonly virtualLibrary = new Map<string, VirtualDefinition>()
+  private readonly library = new Map<string, any>()
 
   private constructor(
     private readonly entryPointKey: string,
     private readonly validator: OpenapiValidator,
   ) {
+    this.virtualLibrary.set(generationLib.key, generationLib)
     this.library.set(generationLib.key, generationLib.definition)
   }
 
+  addVirtualType(context: string, name: string, schema: Schema) {
+    const def = this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
+    this.virtualLibrary.set(context, def)
+    this.library.set(context, def.definition)
+    def.addSchema(name, schema)
+
+    return `${ context }#/components/schemas/${ name }`
+  }
+
   get entryPoint(): OpenapiDocument {
-    return this.library.get(this.entryPointKey)
+    return this.library.get(this.entryPointKey)!
   }
 
   paths(maybeRef: Reference | Path): Path {

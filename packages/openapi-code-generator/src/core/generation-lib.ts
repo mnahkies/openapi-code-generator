@@ -1,12 +1,14 @@
-import { OpenapiDocument } from "./openapi-types"
+import { OpenapiDocument, Schema } from "./openapi-types"
 
-export class GenerationLib {
-  readonly key = "generation.yaml"
+export class VirtualDefinition {
+  constructor(readonly key: string) {
+  }
+
   readonly definition: OpenapiDocument = {
     openapi: "3.0.3",
     servers: [],
     info: {
-      title: "Code Generation Utilities",
+      title: `Code Generation Utilities (${ this.key })`,
       description: "Definitions internal to code generation",
       version: "0.0.1",
       contact: { email: "" },
@@ -15,14 +17,25 @@ export class GenerationLib {
     paths: {},
     components: {
       parameters: {},
-      schemas: {
-        UnknownObject: {
-          type: "object",
-        },
-      },
+      schemas: {},
     },
-
   }
+
+  addSchema(name: string, definition: Schema) {
+    if (this.definition.components?.schemas) {
+      this.definition.components.schemas[name] = definition
+    }
+  }
+}
+
+export class GenerationLib extends VirtualDefinition {
+  constructor() {
+    super("generation.yaml")
+    this.addSchema('UnknownObject', {
+      type: "object",
+    })
+  }
+
   readonly UnknownObject$Ref = `${ this.key }#/components/schemas/UnknownObject`
 }
 

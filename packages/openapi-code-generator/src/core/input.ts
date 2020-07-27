@@ -25,7 +25,7 @@ import { logger } from "./logger"
 
 export class Input {
   constructor(
-    private readonly loader: OpenapiLoader,
+    readonly loader: OpenapiLoader,
   ) {
   }
 

@@ -17,10 +17,10 @@
   "author": "Michael Nahkies",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@types/prettier": "^2.0.1",
     "@types/convict": "^5.2.1",
     "@types/js-yaml": "^3.12.4",
     "@types/lodash": "^4.14.155",
+    "@types/prettier": "^2.0.1",
     "nodemon": "*",
     "nyc": "*",
     "ts-node": "*",
