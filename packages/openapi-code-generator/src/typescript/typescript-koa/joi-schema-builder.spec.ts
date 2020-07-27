@@ -1,9 +1,12 @@
 import { expect } from 'chai'
 import { JoiBuilder } from "./joi-schema-builder"
-import { Input } from "../../core/input"
 
 describe('joi-schema-builder', function () {
-  const builder = new JoiBuilder('joi', new Input(null as any))
+  const builder = new JoiBuilder('joi', {
+    schema(it: unknown) {
+      return it
+    },
+  } as any)
 
   describe('for a string', function () {
 
