@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  title: Todo Lists Example API
+  version: '0.0.1'
+paths:
+  /list/{listId}:
+    parameters:
+      - $ref: '#/components/parameters/listId'
+    get:
+      operationId: getTodoListById
+      responses:
+        200:
+          description: 'success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        4XX:
+          $ref: '#/components/responses/ClientError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    put:
+      operationId: updateTodoListById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateTodoList'
+      responses:
+        200:
+          description: 'updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        4XX:
+          $ref: '#/components/responses/ClientError'
+        default:
+          $ref: '#/components/responses/ServerError'
+    delete:
+      operationId: deleteTodoListById
+      responses:
+        204:
+          description: 'deleted'
+        4XX:
+          $ref: '#/components/responses/ClientError'
+        default:
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    CreateUpdateTodoList:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    TodoList:
+      required:
+        - id
+        - name
+        - totalItemCount
+        - incompleteItemCount
+        - created
+        - updated
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        totalItemCount:
+          type: number
+        incompleteItemCount:
+          type: number
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+
+  parameters:
+    listId:
+      name: listId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    ClientError:
+      description: 'there is an error with your request'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                description: primary description of request error
+                type: string
+              code:
+                description: specific error code, to be relied on for client side error handling
+                type: number
+    ServerError:
+      description: 'a server error occurred'

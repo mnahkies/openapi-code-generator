@@ -95,7 +95,9 @@ export class ClientOperationBuilder {
 
     return this.responsesToArray()
       .map(it => {
-        const statusType = it.status === 'default' ? 'number' : it.status
+        // Note: status can be a number, or "default", "5XX", etc
+        //       and we can't represent 5XX easily as a specific type
+        const statusType = /^\d+$/.test(it.status) ? it.status : 'number'
         const responseType = it.definition ? models.schemaObjectToType(it.definition) : "void"
         return {statusType, responseType}
       })
