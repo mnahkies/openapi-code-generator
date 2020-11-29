@@ -1,0 +1,25 @@
+openapi: "3.0.0"
+info:
+  title: Common Error Schemas / Responses
+  version: '0.0.1'
+paths:
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          description: primary description of request error
+          type: string
+        code:
+          description: specific error code, to be relied on for client side error handling
+          type: number
+  responses:
+    ClientError:
+      description: 'there is an error with your request'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: 'a server error occurred'

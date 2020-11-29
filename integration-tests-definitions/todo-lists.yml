@@ -16,9 +16,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoList'
         4XX:
-          $ref: '#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
     put:
       operationId: updateTodoListById
       requestBody:
@@ -35,18 +35,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoList'
         4XX:
-          $ref: '#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
     delete:
       operationId: deleteTodoListById
       responses:
         204:
           description: 'deleted'
         4XX:
-          $ref: '#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
         default:
-          $ref: '#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
 components:
   schemas:
     CreateUpdateTodoList:
@@ -88,19 +88,3 @@ components:
       schema:
         type: string
         format: uuid
-  responses:
-    ClientError:
-      description: 'there is an error with your request'
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                description: primary description of request error
-                type: string
-              code:
-                description: specific error code, to be relied on for client side error handling
-                type: number
-    ServerError:
-      description: 'a server error occurred'
