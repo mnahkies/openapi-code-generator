@@ -10,6 +10,8 @@ import { OpenapiValidator } from "./core/openapi-validator"
 import { config } from "./config"
 
 async function main() {
+  logger.info(`running on input file '${ config.input }'`)
+
   logger.time("load files")
 
   const validator = await OpenapiValidator.create()

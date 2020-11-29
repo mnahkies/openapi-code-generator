@@ -9,7 +9,7 @@
     "analyse": "eslint ./packages/**/src --cache --fix --ext .js,.jsx,.ts,.tsx",
     "build": "lerna run build --scope 'openapi-code-generator'",
     "test": "lerna run test --scope 'openapi-code-generator'",
-    "generate": "lerna run generate --stream",
+    "generate": "lerna run generate --stream --concurrency 1",
     "validate": "lerna run validate --stream",
     "ci-build": "lerna run ci-build --stream",
     "ci-test": "lerna run ci-test --stream",

@@ -1,6 +1,6 @@
 import Ajv, { ValidateFunction } from 'ajv'
 import { promptContinue } from "./cli-utils"
-import openapi3Specification= require('./openapi-3-specification.json')
+import openapi3Specification = require('./openapi-3-specification.json')
 import { logger } from "./logger"
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -29,7 +29,7 @@ export class OpenapiValidator {
 
       logger.warn("")
 
-      await promptContinue(`Found errors validating '${ filename }', continue?`)
+      await promptContinue(`Found errors validating '${ filename }', continue?`, "yes")
     }
   }
 
