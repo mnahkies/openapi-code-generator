@@ -166,7 +166,7 @@ function queryValidationFactory<Type>(schema: joi.Schema): Middleware<{ query: T
 
 function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
+    const result = schema.validate(ctx.request.body, { stripUnknown: true })
 
     if (result.error) {
       throw new Error("validation error")
