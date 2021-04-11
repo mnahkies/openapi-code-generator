@@ -1,18 +1,17 @@
-import Ajv, { ValidateFunction } from 'ajv'
+import Ajv2020, { ValidateFunction } from "ajv/dist/2020"
+import addFormats from "ajv-formats"
 import { promptContinue } from "./cli-utils"
 import openapi3Specification = require('./openapi-3-specification.json')
 import { logger } from "./logger"
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jsonSchemaDraft04 = require('ajv/lib/refs/json-schema-draft-04.json')
 
 export class OpenapiValidator {
 
   private readonly validationFunction: ValidateFunction
 
   private constructor() {
-    const ajv = new Ajv({ schemaId: 'auto' })
-    ajv.addMetaSchema(jsonSchemaDraft04)
+    const ajv = new Ajv2020({strict: false})
+    addFormats(ajv)
+    ajv.addFormat('media-range', true)
     this.validationFunction = ajv.compile(openapi3Specification)
   }
 
@@ -24,7 +23,7 @@ export class OpenapiValidator {
       logger.warn(`Note errors may cascade, and should be investigated top to bottom. Errors:\n`)
 
       this.validationFunction.errors?.forEach(err => {
-        logger.warn(`-> ${ err.message } at path '${ err.dataPath }'`, err.params)
+        logger.warn(`-> ${ err.message } at path '${ err.instancePath }'`, err.params)
       })
 
       logger.warn("")

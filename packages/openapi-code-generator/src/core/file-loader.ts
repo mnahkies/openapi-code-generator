@@ -28,7 +28,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
 
   if (file.endsWith('.yaml') || file.endsWith('.yml')) {
     try {
-      result = yaml.safeLoad(raw)
+      result = yaml.load(raw)
     } catch (err) {
       logger.error("error parsing yaml", err.stack)
       throw new Error(`failed to parse yaml from file '${ file }'`)

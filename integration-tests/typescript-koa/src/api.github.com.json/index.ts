@@ -1585,12 +1585,12 @@ const oauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema = joi
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForApp",
   "/authorizations/clients/:clientId",
-  paramValidationFactory<
-    OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
-  >(oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema),
-  bodyValidationFactory<
-    OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema
-  >(oauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema),
+  paramValidationFactory<OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema
+  ),
+  bodyValidationFactory<OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema
+  ),
   async (
     ctx: ValidatedCtx<
       OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema,
@@ -1630,12 +1630,12 @@ const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema 
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint",
   "/authorizations/clients/:clientId/:fingerprint",
-  paramValidationFactory<
-    OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
-  >(oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema),
-  bodyValidationFactory<
-    OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema
-  >(oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema),
+  paramValidationFactory<OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema
+  ),
+  bodyValidationFactory<OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema>(
+    oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema
+  ),
   async (
     ctx: ValidatedCtx<
       OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema,
@@ -2823,9 +2823,9 @@ const activityListNotificationsForAuthenticatedUserQuerySchema = joi
 router.get(
   "activityListNotificationsForAuthenticatedUser",
   "/notifications",
-  queryValidationFactory<
-    ActivityListNotificationsForAuthenticatedUserQuerySchema
-  >(activityListNotificationsForAuthenticatedUserQuerySchema),
+  queryValidationFactory<ActivityListNotificationsForAuthenticatedUserQuerySchema>(
+    activityListNotificationsForAuthenticatedUserQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       void,
@@ -2924,9 +2924,9 @@ const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = joi
 router.get(
   "activityGetThreadSubscriptionForAuthenticatedUser",
   "/notifications/threads/:threadId/subscription",
-  paramValidationFactory<
-    ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema
-  >(activityGetThreadSubscriptionForAuthenticatedUserParamSchema),
+  paramValidationFactory<ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema>(
+    activityGetThreadSubscriptionForAuthenticatedUserParamSchema
+  ),
   async (
     ctx: ValidatedCtx<
       ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema,
@@ -4877,9 +4877,9 @@ const orgsSetPublicMembershipForAuthenticatedUserParamSchema = joi
 router.put(
   "orgsSetPublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
-  paramValidationFactory<
-    OrgsSetPublicMembershipForAuthenticatedUserParamSchema
-  >(orgsSetPublicMembershipForAuthenticatedUserParamSchema),
+  paramValidationFactory<OrgsSetPublicMembershipForAuthenticatedUserParamSchema>(
+    orgsSetPublicMembershipForAuthenticatedUserParamSchema
+  ),
   async (
     ctx: ValidatedCtx<
       OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
@@ -4906,9 +4906,9 @@ const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = joi
 router.delete(
   "orgsRemovePublicMembershipForAuthenticatedUser",
   "/orgs/:org/public_members/:username",
-  paramValidationFactory<
-    OrgsRemovePublicMembershipForAuthenticatedUserParamSchema
-  >(orgsRemovePublicMembershipForAuthenticatedUserParamSchema),
+  paramValidationFactory<OrgsRemovePublicMembershipForAuthenticatedUserParamSchema>(
+    orgsRemovePublicMembershipForAuthenticatedUserParamSchema
+  ),
   async (
     ctx: ValidatedCtx<
       OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
@@ -5630,9 +5630,9 @@ const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = joi
 router.post(
   "reactionsCreateForTeamDiscussionCommentInOrg",
   "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<
-    ReactionsCreateForTeamDiscussionCommentInOrgParamSchema
-  >(reactionsCreateForTeamDiscussionCommentInOrgParamSchema),
+  paramValidationFactory<ReactionsCreateForTeamDiscussionCommentInOrgParamSchema>(
+    reactionsCreateForTeamDiscussionCommentInOrgParamSchema
+  ),
   bodyValidationFactory<ReactionsCreateForTeamDiscussionCommentInOrgBodySchema>(
     reactionsCreateForTeamDiscussionCommentInOrgBodySchema
   ),
@@ -6304,9 +6304,9 @@ const teamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema = joi
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsInOrg",
   "/orgs/:org/teams/:teamSlug/team-sync/group-mappings",
-  paramValidationFactory<
-    TeamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
-  >(teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema),
+  paramValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema>(
+    teamsCreateOrUpdateIdPGroupConnectionsInOrgParamSchema
+  ),
   bodyValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema>(
     teamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema
   ),
@@ -14283,12 +14283,12 @@ const activityListRepoNotificationsForAuthenticatedUserQuerySchema = joi
 router.get(
   "activityListRepoNotificationsForAuthenticatedUser",
   "/repos/:owner/:repo/notifications",
-  paramValidationFactory<
-    ActivityListRepoNotificationsForAuthenticatedUserParamSchema
-  >(activityListRepoNotificationsForAuthenticatedUserParamSchema),
-  queryValidationFactory<
-    ActivityListRepoNotificationsForAuthenticatedUserQuerySchema
-  >(activityListRepoNotificationsForAuthenticatedUserQuerySchema),
+  paramValidationFactory<ActivityListRepoNotificationsForAuthenticatedUserParamSchema>(
+    activityListRepoNotificationsForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<ActivityListRepoNotificationsForAuthenticatedUserQuerySchema>(
+    activityListRepoNotificationsForAuthenticatedUserQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       ActivityListRepoNotificationsForAuthenticatedUserParamSchema,
@@ -17852,12 +17852,12 @@ const reactionsListForTeamDiscussionCommentLegacyQuerySchema = joi
 router.get(
   "reactionsListForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<
-    ReactionsListForTeamDiscussionCommentLegacyParamSchema
-  >(reactionsListForTeamDiscussionCommentLegacyParamSchema),
-  queryValidationFactory<
-    ReactionsListForTeamDiscussionCommentLegacyQuerySchema
-  >(reactionsListForTeamDiscussionCommentLegacyQuerySchema),
+  paramValidationFactory<ReactionsListForTeamDiscussionCommentLegacyParamSchema>(
+    reactionsListForTeamDiscussionCommentLegacyParamSchema
+  ),
+  queryValidationFactory<ReactionsListForTeamDiscussionCommentLegacyQuerySchema>(
+    reactionsListForTeamDiscussionCommentLegacyQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       ReactionsListForTeamDiscussionCommentLegacyParamSchema,
@@ -17893,12 +17893,12 @@ const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = joi
 router.post(
   "reactionsCreateForTeamDiscussionCommentLegacy",
   "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-  paramValidationFactory<
-    ReactionsCreateForTeamDiscussionCommentLegacyParamSchema
-  >(reactionsCreateForTeamDiscussionCommentLegacyParamSchema),
-  bodyValidationFactory<
-    ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
-  >(reactionsCreateForTeamDiscussionCommentLegacyBodySchema),
+  paramValidationFactory<ReactionsCreateForTeamDiscussionCommentLegacyParamSchema>(
+    reactionsCreateForTeamDiscussionCommentLegacyParamSchema
+  ),
+  bodyValidationFactory<ReactionsCreateForTeamDiscussionCommentLegacyBodySchema>(
+    reactionsCreateForTeamDiscussionCommentLegacyBodySchema
+  ),
   async (
     ctx: ValidatedCtx<
       ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
@@ -18565,9 +18565,9 @@ const teamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema = joi
 router.patch(
   "teamsCreateOrUpdateIdPGroupConnectionsLegacy",
   "/teams/:teamId/team-sync/group-mappings",
-  paramValidationFactory<
-    TeamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
-  >(teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema),
+  paramValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema>(
+    teamsCreateOrUpdateIdPGroupConnectionsLegacyParamSchema
+  ),
   bodyValidationFactory<TeamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema>(
     teamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema
   ),
@@ -18758,9 +18758,9 @@ const usersSetPrimaryEmailVisibilityForAuthenticatedBodySchema = joi
 router.patch(
   "usersSetPrimaryEmailVisibilityForAuthenticated",
   "/user/email/visibility",
-  bodyValidationFactory<
-    UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema
-  >(usersSetPrimaryEmailVisibilityForAuthenticatedBodySchema),
+  bodyValidationFactory<UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema>(
+    usersSetPrimaryEmailVisibilityForAuthenticatedBodySchema
+  ),
   async (
     ctx: ValidatedCtx<
       void,
@@ -19119,12 +19119,12 @@ const appsListInstallationReposForAuthenticatedUserQuerySchema = joi
 router.get(
   "appsListInstallationReposForAuthenticatedUser",
   "/user/installations/:installationId/repositories",
-  paramValidationFactory<
-    AppsListInstallationReposForAuthenticatedUserParamSchema
-  >(appsListInstallationReposForAuthenticatedUserParamSchema),
-  queryValidationFactory<
-    AppsListInstallationReposForAuthenticatedUserQuerySchema
-  >(appsListInstallationReposForAuthenticatedUserQuerySchema),
+  paramValidationFactory<AppsListInstallationReposForAuthenticatedUserParamSchema>(
+    appsListInstallationReposForAuthenticatedUserParamSchema
+  ),
+  queryValidationFactory<AppsListInstallationReposForAuthenticatedUserQuerySchema>(
+    appsListInstallationReposForAuthenticatedUserQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       AppsListInstallationReposForAuthenticatedUserParamSchema,
@@ -19386,9 +19386,9 @@ const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = joi
 router.get(
   "appsListSubscriptionsForAuthenticatedUserStubbed",
   "/user/marketplace_purchases/stubbed",
-  queryValidationFactory<
-    AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
-  >(appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema),
+  queryValidationFactory<AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema>(
+    appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       void,
@@ -19630,9 +19630,9 @@ const migrationsDeleteArchiveForAuthenticatedUserParamSchema = joi
 router.delete(
   "migrationsDeleteArchiveForAuthenticatedUser",
   "/user/migrations/:migrationId/archive",
-  paramValidationFactory<
-    MigrationsDeleteArchiveForAuthenticatedUserParamSchema
-  >(migrationsDeleteArchiveForAuthenticatedUserParamSchema),
+  paramValidationFactory<MigrationsDeleteArchiveForAuthenticatedUserParamSchema>(
+    migrationsDeleteArchiveForAuthenticatedUserParamSchema
+  ),
   async (
     ctx: ValidatedCtx<
       MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
@@ -19930,9 +19930,9 @@ const activityListReposStarredByAuthenticatedUserQuerySchema = joi
 router.get(
   "activityListReposStarredByAuthenticatedUser",
   "/user/starred",
-  queryValidationFactory<
-    ActivityListReposStarredByAuthenticatedUserQuerySchema
-  >(activityListReposStarredByAuthenticatedUserQuerySchema),
+  queryValidationFactory<ActivityListReposStarredByAuthenticatedUserQuerySchema>(
+    activityListReposStarredByAuthenticatedUserQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       void,
@@ -19959,9 +19959,9 @@ const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = joi
 router.get(
   "activityCheckRepoIsStarredByAuthenticatedUser",
   "/user/starred/:owner/:repo",
-  paramValidationFactory<
-    ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema
-  >(activityCheckRepoIsStarredByAuthenticatedUserParamSchema),
+  paramValidationFactory<ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema>(
+    activityCheckRepoIsStarredByAuthenticatedUserParamSchema
+  ),
   async (
     ctx: ValidatedCtx<
       ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
@@ -20046,9 +20046,9 @@ const activityListWatchedReposForAuthenticatedUserQuerySchema = joi
 router.get(
   "activityListWatchedReposForAuthenticatedUser",
   "/user/subscriptions",
-  queryValidationFactory<
-    ActivityListWatchedReposForAuthenticatedUserQuerySchema
-  >(activityListWatchedReposForAuthenticatedUserQuerySchema),
+  queryValidationFactory<ActivityListWatchedReposForAuthenticatedUserQuerySchema>(
+    activityListWatchedReposForAuthenticatedUserQuerySchema
+  ),
   async (
     ctx: ValidatedCtx<
       void,
