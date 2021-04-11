@@ -1,5 +1,9 @@
 # openapi-code-generator
-**Status:** Early, experimental.
+**Status:** Early, experimental. Not yet published to NPM.
+
+However, as shown by the integration tests, a fair job of generating a typed client
+is achieved for even fairly large/complex definitions like the GitHub api. The koa
+generation is less refined.
 
 ## Goal
 To make it fun, easy and productive to generate both client and server "glue" 
