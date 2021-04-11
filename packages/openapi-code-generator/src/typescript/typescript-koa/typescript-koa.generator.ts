@@ -235,14 +235,19 @@ function loadExistingImplementations(data: string): Record<string, string> {
   let buffer = []
 
   for (const line of data.split('\n')) {
-    if (regionBoundary.test(line)) {
+
+    const match = regionBoundary.exec(line)
+
+    if (match) {
 
       if (safeRegionName) {
         result[safeRegionName] = buffer.join('\n')
         buffer = []
         safeRegionName = ''
       } else {
-        safeRegionName = regionBoundary.exec(line)![1]
+        // this is safe because we tested that the regex matched prior to
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        safeRegionName = match[1]
       }
     } else if (safeRegionName) {
       buffer.push(line)

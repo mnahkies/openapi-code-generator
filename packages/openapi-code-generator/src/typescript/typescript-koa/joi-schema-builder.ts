@@ -18,7 +18,7 @@ export class JoiBuilder {
   ) {
   }
 
-  fromParameters(parameters: IRParameter[]) {
+  fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {
       type: "object",
       required: [],

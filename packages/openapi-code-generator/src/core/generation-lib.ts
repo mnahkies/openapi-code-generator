@@ -21,7 +21,7 @@ export class VirtualDefinition {
     },
   }
 
-  addSchema(name: string, definition: Schema) {
+  addSchema(name: string, definition: Schema): void {
     if (this.definition.components?.schemas) {
       this.definition.components.schemas[name] = definition
     }

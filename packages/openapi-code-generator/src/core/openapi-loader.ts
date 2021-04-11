@@ -30,7 +30,7 @@ export class OpenapiLoader {
     this.library.set(generationLib.key, generationLib.definition)
   }
 
-  addVirtualType(context: string, name: string, schema: Schema) {
+  addVirtualType(context: string, name: string, schema: Schema): string {
     const def = this.virtualLibrary.get(context) ?? new VirtualDefinition(context)
     this.virtualLibrary.set(context, def)
     this.library.set(context, def.definition)
@@ -40,6 +40,9 @@ export class OpenapiLoader {
   }
 
   get entryPoint(): OpenapiDocument {
+    // This is guaranteed by the combination of a private constructor,
+    // and the factory function loading the entry point at this key.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return this.library.get(this.entryPointKey)!
   }
 
