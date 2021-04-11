@@ -17,6 +17,23 @@ repositories, allowing it to be eyeballed, and audited overtime.
 
 The initial focus on typescript, but nothing in the core of the library is assuming this.
 
+## Build
+Refer to [package.json](package.json) `scripts` for pointers on building / testing.
+
+## CLI Usage
+Usage like so:
+```shell
+node ../../packages/openapi-code-generator/dist/index.js \
+    --input="./my-openapi-file.yaml" \
+    --output="./src/$filename" \
+    --template=typescript-koa
+```
+
+Where template is one of:
+- typescript-angular
+- typescript-fetch
+- typescript-koa
+
 ## Architecture
 The project is still evolving dramatically, but this should give a good overview 
 of the current approach
