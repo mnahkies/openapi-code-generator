@@ -1,7 +1,7 @@
 {
   "name": "openapi-code-generator-root",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "",
   "scripts": {
     "refresh": "./scripts/refresh-data.sh",
@@ -17,7 +17,7 @@
     "ci-pipeline": " lerna run ci-pipeline && yarn generate && yarn validate"
   },
   "author": "Michael Nahkies",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.16",

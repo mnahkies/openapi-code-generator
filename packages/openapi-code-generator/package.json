@@ -15,7 +15,7 @@
     "ci-pipeline": " npm run ci-build && npm run ci-test && npm run ci-analyse"
   },
   "author": "Michael Nahkies",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@types/convict": "^6.0.1",
     "@types/js-yaml": "^4.0.0",

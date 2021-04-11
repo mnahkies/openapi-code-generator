@@ -1,7 +1,7 @@
 {
   "name": "typescript-angular",
   "version": "0.0.0",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "generate": "./generate.sh",
     "validate": "ng build --prod --aot"
