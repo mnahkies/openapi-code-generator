@@ -88,7 +88,7 @@ router.get(
   "findPets",
   "/pets",
   queryValidationFactory<FindPetsQuerySchema>(findPetsQuerySchema),
-  async (ctx: ValidatedCtx<void, FindPetsQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, FindPetsQuerySchema, void>, next: Next) => {
     //region safe-edit-region-findPets
 
     ctx.status = 501
@@ -108,7 +108,7 @@ router.post(
   "addPet",
   "/pets",
   bodyValidationFactory<AddPetBodySchema>(addPetBodySchema),
-  async (ctx: ValidatedCtx<void, void, AddPetBodySchema>, next) => {
+  async (ctx: ValidatedCtx<void, void, AddPetBodySchema>, next: Next) => {
     //region safe-edit-region-addPet
 
     ctx.status = 501
@@ -128,7 +128,7 @@ router.get(
   "findPetById",
   "/pets/:id/:species",
   paramValidationFactory<FindPetByIdParamSchema>(findPetByIdParamSchema),
-  async (ctx: ValidatedCtx<FindPetByIdParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<FindPetByIdParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-findPetById
 
     ctx.status = 200
@@ -152,7 +152,7 @@ router.delete(
   "deletePet",
   "/pets/:id/:species",
   paramValidationFactory<DeletePetParamSchema>(deletePetParamSchema),
-  async (ctx: ValidatedCtx<DeletePetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<DeletePetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-deletePet
 
     ctx.status = 501

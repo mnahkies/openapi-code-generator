@@ -86,7 +86,7 @@ export class ServerBuilder {
       paramSchema && `paramValidationFactory<${ pathParamsType }>(${ operation.operationId }ParamSchema),`,
       querySchema && `queryValidationFactory<${ queryParamsType }>(${ operation.operationId }QuerySchema),`,
       bodyParamSchema && `bodyValidationFactory<${ bodyParamsType }>(${ operation.operationId }BodySchema),`,
-      `async (ctx: ValidatedCtx<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>, next) => {
+      `async (ctx: ValidatedCtx<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>, next: Next) => {
         //region safe-edit-region-${ operation.operationId }
         ${ this.existingRegions[operation.operationId] ?? `
         ctx.status = 501
