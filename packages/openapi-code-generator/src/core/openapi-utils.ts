@@ -14,5 +14,7 @@ export function getNameFromRef({ $ref }: Reference): string {
     throw new Error(`no name found in $ref: '${ $ref }'`)
   }
 
-  return name
+  // TODO: this is a hack to workaround reserved words being used as names
+  //       can likely improve to selectively apply when a reserved word is used.
+  return 't_' + name.replace(/-/g, '_')
 }

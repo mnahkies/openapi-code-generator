@@ -2,18 +2,18 @@
 /* tslint:disable */
 /* eslint:disable */
 
-export type DeleteTodoListByIdParamSchema = {
+export type t_DeleteTodoListByIdParamSchema = {
   listId?: string
 }
 
-export type GetTodoListByIdParamSchema = {
+export type t_GetTodoListByIdParamSchema = {
   listId?: string
 }
 
-export type UpdateTodoListByIdBodySchema = {
+export type t_UpdateTodoListByIdBodySchema = {
   name: string
 }
 
-export type UpdateTodoListByIdParamSchema = {
+export type t_UpdateTodoListByIdParamSchema = {
   listId?: string
 }

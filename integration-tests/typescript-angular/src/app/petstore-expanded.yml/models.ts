@@ -2,16 +2,16 @@
 /* tslint:disable */
 /* eslint:disable */
 
-export type Error = {
+export type t_Error = {
   code: number
   message: string
 }
 
-export type NewPet = {
+export type t_NewPet = {
   name: string
   tag?: string
 }
 
-export type Pet = NewPet & {
+export type t_Pet = t_NewPet & {
   id: number
 }

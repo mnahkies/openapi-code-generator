@@ -2,22 +2,20 @@
 /* tslint:disable */
 /* eslint:disable */
 
-export type AddPetBodySchema = {
+export type t_AddPetBodySchema = {
   name: string
   tag?: string
 }
 
-export type DeletePetParamSchema = {
+export type t_DeletePetParamSchema = {
   id?: number
-  species?: string
 }
 
-export type FindPetByIdParamSchema = {
+export type t_FindPetByIdParamSchema = {
   id?: number
-  species?: string
 }
 
-export type FindPetsQuerySchema = {
+export type t_FindPetsQuerySchema = {
   limit?: number
   tags?: string[]
 }

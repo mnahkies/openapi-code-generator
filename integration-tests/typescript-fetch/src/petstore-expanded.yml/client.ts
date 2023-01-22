@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint:disable */
 
-import { Error, NewPet, Pet } from "./models"
+import { t_Error, t_NewPet, t_Pet } from "./models"
 import qs from "querystring"
 
 export interface ApiClientConfig {
@@ -44,7 +44,7 @@ export class ApiClient {
   async findPets(p: {
     tags?: string[]
     limit?: number
-  }): Promise<Res<200, Pet[]> | Res<number, Error>> {
+  }): Promise<Res<200, t_Pet[]> | Res<number, t_Error>> {
     const headers: Record<string, string | undefined> = {}
 
     const res = await fetch(
@@ -61,8 +61,8 @@ export class ApiClient {
   }
 
   async addPet(p: {
-    requestBody: NewPet
-  }): Promise<Res<200, Pet> | Res<number, Error>> {
+    requestBody: t_NewPet
+  }): Promise<Res<200, t_Pet> | Res<number, t_Error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
     }
@@ -79,17 +79,13 @@ export class ApiClient {
 
   async findPetById(p: {
     id: number
-    species: string
-  }): Promise<Res<200, Pet> | Res<number, Error>> {
+  }): Promise<Res<200, t_Pet> | Res<number, t_Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    const res = await fetch(
-      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
-      {
-        method: "GET",
-        headers: this._headers(headers),
-      }
-    )
+    const res = await fetch(this.config.basePath + `/pets/${p["id"]}`, {
+      method: "GET",
+      headers: this._headers(headers),
+    })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -97,17 +93,13 @@ export class ApiClient {
 
   async deletePet(p: {
     id: number
-    species: string
-  }): Promise<Res<204, void> | Res<number, Error>> {
+  }): Promise<Res<204, void> | Res<number, t_Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    const res = await fetch(
-      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
-      {
-        method: "DELETE",
-        headers: this._headers(headers),
-      }
-    )
+    const res = await fetch(this.config.basePath + `/pets/${p["id"]}`, {
+      method: "DELETE",
+      headers: this._headers(headers),
+    })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }

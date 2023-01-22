@@ -77,24 +77,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /pets/{id}/{species}:
-    parameters:
-      - name: id
-        in: path
-        description: ID of pet to fetch
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: species
-        in: path
-        description: species of pet to fetch
-        required: true
-        schema:
-          type: string
+  /pets/{id}:
     get:
       description: Returns a user based on a single ID, if the user does not have access to the pet
       operationId: find pet by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to fetch
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
           description: pet response
@@ -111,6 +105,14 @@ paths:
     delete:
       description: deletes a single pet based on the ID supplied
       operationId: deletePet
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '204':
           description: pet deleted
@@ -127,7 +129,7 @@ components:
         - $ref: '#/components/schemas/NewPet'
         - type: object
           required:
-            - id
+          - id
           properties:
             id:
               type: integer
@@ -136,12 +138,12 @@ components:
     NewPet:
       type: object
       required:
-        - name
+        - name  
       properties:
         name:
           type: string
         tag:
-          type: string
+          type: string    
 
     Error:
       type: object

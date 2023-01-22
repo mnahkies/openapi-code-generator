@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint:disable */
 
-import { CreateUpdateTodoList, Error, TodoList } from "./models"
+import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
@@ -37,7 +37,10 @@ export class ApiClient {
   }
 
   private queryParams(
-    queryParams: Record<string, boolean | number | string | undefined | null>
+    queryParams: Record<
+      string,
+      boolean | number | string | string[] | undefined | null
+    >
   ): HttpParams {
     const result = new HttpParams()
     Object.entries(queryParams).forEach(([name, value]) => {
@@ -48,7 +51,9 @@ export class ApiClient {
     return result
   }
 
-  getTodoListById(p: { listId: string }): Observable<TodoList | Error | void> {
+  getTodoListById(p: {
+    listId: string
+  }): Observable<t_TodoList | t_Error | void> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
@@ -68,8 +73,8 @@ export class ApiClient {
 
   updateTodoListById(p: {
     listId: string
-    requestBody: CreateUpdateTodoList
-  }): Observable<TodoList | Error | void> {
+    requestBody: t_CreateUpdateTodoList
+  }): Observable<t_TodoList | t_Error | void> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
     }
@@ -89,7 +94,7 @@ export class ApiClient {
     )
   }
 
-  deleteTodoListById(p: { listId: string }): Observable<void | Error | void> {
+  deleteTodoListById(p: { listId: string }): Observable<void | t_Error | void> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
