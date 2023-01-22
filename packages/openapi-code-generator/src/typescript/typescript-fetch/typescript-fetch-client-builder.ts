@@ -8,10 +8,6 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
     protected buildImports(imports: ImportBuilder): void {
         imports
-            .from('node-fetch')
-            .all('fetch')
-
-        imports
             .from('querystring')
             .all('qs')
     }

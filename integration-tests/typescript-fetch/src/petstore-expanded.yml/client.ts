@@ -3,7 +3,6 @@
 /* eslint:disable */
 
 import { Error, NewPet, Pet } from "./models"
-import fetch from "node-fetch"
 import qs from "querystring"
 
 export interface ApiClientConfig {

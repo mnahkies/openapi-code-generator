@@ -2,7 +2,6 @@
 /* tslint:disable */
 /* eslint:disable */
 
-import fetch from "node-fetch"
 import qs from "querystring"
 
 export interface ApiClientConfig {

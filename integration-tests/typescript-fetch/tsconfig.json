@@ -3,6 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": []
+    // TODO: currently @types/node doesn't include global fetch types
+    "lib": ["es2022", "dom"],
+    "types": ["@types/node"]
   }
 }
