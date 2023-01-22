@@ -19,7 +19,10 @@ export class ApiClient {
   constructor(private readonly config: ApiClientConfig) {}
 
   private _query(
-    params: Record<string, string | number | boolean | undefined | null>
+    params: Record<
+      string,
+      string | number | boolean | string[] | undefined | null
+    >
   ): string {
     const filtered = Object.fromEntries(
       Object.entries(params).filter(([k, v]) => v !== undefined)
