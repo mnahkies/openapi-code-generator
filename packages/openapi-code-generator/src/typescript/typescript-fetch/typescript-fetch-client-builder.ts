@@ -29,7 +29,9 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
             })
             .join(' | ')
 
-        const url = '`' + routeToTemplateString(route) + (queryString ? "?${qs.stringify({" + queryString + "})}" : "") + '`'
+
+
+        const url = '`' + routeToTemplateString(route) + (queryString ? "?${this._query({" + queryString + "})}" : "") + '`'
         const body = `
 
 const headers: Record<string,string|undefined> = {${
@@ -45,7 +47,7 @@ const headers: Record<string,string|undefined> = {${
 const res = await fetch(this.config.basePath + ${ url },
     {
     method: "${ method }",
-    headers: this.headers(headers),
+    headers: this._headers(headers),
     ${ requestBodyParameter ? `body: JSON.stringify(p.requestBody),` : '' }
     })
 
@@ -77,7 +79,16 @@ export interface Res<StatusCode, Body> {
 export class ${ clientName } {
   constructor(private readonly config: ${ clientName }Config) {}
 
-  private headers(headers: Record<string, string|undefined>): Record<string, string> {
+  private _query(params: Record<string, string|number|undefined|null>): string {
+    const filtered = Object.fromEntries(
+        Object.entries(params)
+            .filter(([k,v])=> v !== undefined)
+    )
+
+    return qs.stringify(filtered)
+  }
+
+  private _headers(headers: Record<string, string|undefined>): Record<string, string> {
     return Object.fromEntries(
         Object.entries({...this.config.defaultHeaders, ...headers})
             .filter((it): it is [string,string] => it[1] !== undefined)

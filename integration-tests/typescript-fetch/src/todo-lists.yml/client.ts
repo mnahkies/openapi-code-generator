@@ -18,7 +18,16 @@ export interface Res<StatusCode, Body> {
 export class ApiClient {
   constructor(private readonly config: ApiClientConfig) {}
 
-  private headers(
+  private _query(
+    params: Record<string, string | number | undefined | null>
+  ): string {
+    const filtered = Object.fromEntries(
+      Object.entries(params).filter(([k, v]) => v !== undefined)
+    )
+    return qs.stringify(filtered)
+  }
+
+  private _headers(
     headers: Record<string, string | undefined>
   ): Record<string, string> {
     return Object.fromEntries(
@@ -35,7 +44,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -52,7 +61,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "PUT",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -67,7 +76,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
