@@ -2,16 +2,16 @@
 /* tslint:disable */
 /* eslint:disable */
 
-export type Error = {
+export type t_Error = {
   code?: number
   message?: string
 }
 
-export type CreateUpdateTodoList = {
+export type t_CreateUpdateTodoList = {
   name: string
 }
 
-export type TodoList = {
+export type t_TodoList = {
   created: string
   id: string
   incompleteItemCount: number

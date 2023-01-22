@@ -3,10 +3,10 @@
 /* eslint:disable */
 
 import {
-  AddPetBodySchema,
-  DeletePetParamSchema,
-  FindPetByIdParamSchema,
-  FindPetsQuerySchema,
+  t_AddPetBodySchema,
+  t_DeletePetParamSchema,
+  t_FindPetByIdParamSchema,
+  t_FindPetsQuerySchema,
 } from "./models"
 import joi from "@hapi/joi"
 import cors from "@koa/cors"
@@ -87,8 +87,8 @@ const findPetsQuerySchema = joi
 router.get(
   "findPets",
   "/pets",
-  queryValidationFactory<FindPetsQuerySchema>(findPetsQuerySchema),
-  async (ctx: ValidatedCtx<void, FindPetsQuerySchema, void>, next: Next) => {
+  queryValidationFactory<t_FindPetsQuerySchema>(findPetsQuerySchema),
+  async (ctx: ValidatedCtx<void, t_FindPetsQuerySchema, void>, next: Next) => {
     //region safe-edit-region-findPets
 
     ctx.status = 501
@@ -107,8 +107,8 @@ const addPetBodySchema = joi
 router.post(
   "addPet",
   "/pets",
-  bodyValidationFactory<AddPetBodySchema>(addPetBodySchema),
-  async (ctx: ValidatedCtx<void, void, AddPetBodySchema>, next: Next) => {
+  bodyValidationFactory<t_AddPetBodySchema>(addPetBodySchema),
+  async (ctx: ValidatedCtx<void, void, t_AddPetBodySchema>, next: Next) => {
     //region safe-edit-region-addPet
 
     ctx.status = 501
@@ -121,20 +121,22 @@ router.post(
 
 const findPetByIdParamSchema = joi
   .object()
-  .keys({ id: joi.number().required(), species: joi.string().required() })
+  .keys({ id: joi.number().required() })
   .required()
 
 router.get(
   "findPetById",
-  "/pets/:id/:species",
-  paramValidationFactory<FindPetByIdParamSchema>(findPetByIdParamSchema),
-  async (ctx: ValidatedCtx<FindPetByIdParamSchema, void, void>, next: Next) => {
+  "/pets/:id",
+  paramValidationFactory<t_FindPetByIdParamSchema>(findPetByIdParamSchema),
+  async (
+    ctx: ValidatedCtx<t_FindPetByIdParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-findPetById
 
     ctx.status = 200
     ctx.body = {
       name: "Jake",
-      species: ctx.state.params.species,
       breed: "border-collie",
     }
     return next()
@@ -145,14 +147,14 @@ router.get(
 
 const deletePetParamSchema = joi
   .object()
-  .keys({ id: joi.number().required(), species: joi.string().required() })
+  .keys({ id: joi.number().required() })
   .required()
 
 router.delete(
   "deletePet",
-  "/pets/:id/:species",
-  paramValidationFactory<DeletePetParamSchema>(deletePetParamSchema),
-  async (ctx: ValidatedCtx<DeletePetParamSchema, void, void>, next: Next) => {
+  "/pets/:id",
+  paramValidationFactory<t_DeletePetParamSchema>(deletePetParamSchema),
+  async (ctx: ValidatedCtx<t_DeletePetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-deletePet
 
     ctx.status = 501

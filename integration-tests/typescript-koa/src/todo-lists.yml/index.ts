@@ -3,10 +3,10 @@
 /* eslint:disable */
 
 import {
-  DeleteTodoListByIdParamSchema,
-  GetTodoListByIdParamSchema,
-  UpdateTodoListByIdBodySchema,
-  UpdateTodoListByIdParamSchema,
+  t_DeleteTodoListByIdParamSchema,
+  t_GetTodoListByIdParamSchema,
+  t_UpdateTodoListByIdBodySchema,
+  t_UpdateTodoListByIdParamSchema,
 } from "./models"
 import joi from "@hapi/joi"
 import cors from "@koa/cors"
@@ -87,11 +87,11 @@ const getTodoListByIdParamSchema = joi
 router.get(
   "getTodoListById",
   "/list/:listId",
-  paramValidationFactory<GetTodoListByIdParamSchema>(
+  paramValidationFactory<t_GetTodoListByIdParamSchema>(
     getTodoListByIdParamSchema
   ),
   async (
-    ctx: ValidatedCtx<GetTodoListByIdParamSchema, void, void>,
+    ctx: ValidatedCtx<t_GetTodoListByIdParamSchema, void, void>,
     next: Next
   ) => {
     //region safe-edit-region-getTodoListById
@@ -117,17 +117,17 @@ const updateTodoListByIdBodySchema = joi
 router.put(
   "updateTodoListById",
   "/list/:listId",
-  paramValidationFactory<UpdateTodoListByIdParamSchema>(
+  paramValidationFactory<t_UpdateTodoListByIdParamSchema>(
     updateTodoListByIdParamSchema
   ),
-  bodyValidationFactory<UpdateTodoListByIdBodySchema>(
+  bodyValidationFactory<t_UpdateTodoListByIdBodySchema>(
     updateTodoListByIdBodySchema
   ),
   async (
     ctx: ValidatedCtx<
-      UpdateTodoListByIdParamSchema,
+      t_UpdateTodoListByIdParamSchema,
       void,
-      UpdateTodoListByIdBodySchema
+      t_UpdateTodoListByIdBodySchema
     >,
     next: Next
   ) => {
@@ -149,11 +149,11 @@ const deleteTodoListByIdParamSchema = joi
 router.delete(
   "deleteTodoListById",
   "/list/:listId",
-  paramValidationFactory<DeleteTodoListByIdParamSchema>(
+  paramValidationFactory<t_DeleteTodoListByIdParamSchema>(
     deleteTodoListByIdParamSchema
   ),
   async (
-    ctx: ValidatedCtx<DeleteTodoListByIdParamSchema, void, void>,
+    ctx: ValidatedCtx<t_DeleteTodoListByIdParamSchema, void, void>,
     next: Next
   ) => {
     //region safe-edit-region-deleteTodoListById

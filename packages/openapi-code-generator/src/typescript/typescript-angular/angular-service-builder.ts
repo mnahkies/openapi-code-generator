@@ -102,7 +102,7 @@ export class ${ clientName } {
     )
   }
 
-  private queryParams(queryParams: Record<string, boolean | number | string | undefined | null>): HttpParams {
+  private queryParams(queryParams: Record<string, boolean | number | string | string[] | undefined | null>): HttpParams {
     const result = new HttpParams();
     Object.entries(queryParams).forEach(([name, value]) => {
         if(value !== undefined && value !== null){

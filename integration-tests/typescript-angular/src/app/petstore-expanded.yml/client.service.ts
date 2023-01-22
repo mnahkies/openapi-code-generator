@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint:disable */
 
-import { Error, NewPet, Pet } from "./models"
+import { t_Error, t_NewPet, t_Pet } from "./models"
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
@@ -37,7 +37,10 @@ export class ApiClient {
   }
 
   private queryParams(
-    queryParams: Record<string, boolean | number | string | undefined | null>
+    queryParams: Record<
+      string,
+      boolean | number | string | string[] | undefined | null
+    >
   ): HttpParams {
     const result = new HttpParams()
     Object.entries(queryParams).forEach(([name, value]) => {
@@ -48,7 +51,10 @@ export class ApiClient {
     return result
   }
 
-  findPets(p: { tags?: string[]; limit?: number }): Observable<Pet[] | Error> {
+  findPets(p: {
+    tags?: string[]
+    limit?: number
+  }): Observable<t_Pet[] | t_Error> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = { tags: p["tags"], limit: p["limit"] }
@@ -62,7 +68,7 @@ export class ApiClient {
     })
   }
 
-  addPet(p: { requestBody: NewPet }): Observable<Pet | Error> {
+  addPet(p: { requestBody: t_NewPet }): Observable<t_Pet | t_Error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
     }
@@ -82,14 +88,14 @@ export class ApiClient {
     )
   }
 
-  findPetById(p: { id: number; species: string }): Observable<Pet | Error> {
+  findPetById(p: { id: number }): Observable<t_Pet | t_Error> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
 
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
+      this.config.basePath + `/pets/${p["id"]}`,
       {
         params: this.queryParams(queryParameters),
         headers: this.headers(headers),
@@ -100,14 +106,14 @@ export class ApiClient {
     )
   }
 
-  deletePet(p: { id: number; species: string }): Observable<void | Error> {
+  deletePet(p: { id: number }): Observable<void | t_Error> {
     const headers: Record<string, string | undefined> = {}
 
     const queryParameters = {}
 
     return this.httpClient.request<any>(
       "DELETE",
-      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
+      this.config.basePath + `/pets/${p["id"]}`,
       {
         params: this.queryParams(queryParameters),
         headers: this.headers(headers),

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint:disable */
 
-import { CreateUpdateTodoList, Error, TodoList } from "./models"
+import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
 import qs from "querystring"
 
 export interface ApiClientConfig {
@@ -43,7 +43,7 @@ export class ApiClient {
 
   async getTodoListById(p: {
     listId: string
-  }): Promise<Res<200, TodoList> | Res<number, Error> | Res<number, void>> {
+  }): Promise<Res<200, t_TodoList> | Res<number, t_Error> | Res<number, void>> {
     const headers: Record<string, string | undefined> = {}
 
     const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
@@ -57,8 +57,8 @@ export class ApiClient {
 
   async updateTodoListById(p: {
     listId: string
-    requestBody: CreateUpdateTodoList
-  }): Promise<Res<200, TodoList> | Res<number, Error> | Res<number, void>> {
+    requestBody: t_CreateUpdateTodoList
+  }): Promise<Res<200, t_TodoList> | Res<number, t_Error> | Res<number, void>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
     }
@@ -75,7 +75,7 @@ export class ApiClient {
 
   async deleteTodoListById(p: {
     listId: string
-  }): Promise<Res<204, void> | Res<number, Error> | Res<number, void>> {
+  }): Promise<Res<204, void> | Res<number, t_Error> | Res<number, void>> {
     const headers: Record<string, string | undefined> = {}
 
     const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
