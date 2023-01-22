@@ -46,13 +46,17 @@ const headers: Record<string,string|undefined> = {${
                 .join('\n')
         }}
 
-return fetch(this.config.basePath + ${ url },
+const res = await fetch(this.config.basePath + ${ url },
     {
     method: "${ method }",
     headers: this.headers(headers),
     ${ requestBodyParameter ? `body: JSON.stringify(p.requestBody),` : '' }
     })
-      .then((res) => res.json());`
+
+// TODO: this is a poor assumption
+return {status: res.status as any, body: (await res.json() as any)};
+
+`
 
         return asyncMethod({
             name: operationId,

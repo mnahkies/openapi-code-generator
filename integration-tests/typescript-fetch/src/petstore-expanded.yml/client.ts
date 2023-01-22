@@ -35,14 +35,17 @@ export class ApiClient {
   }): Promise<Res<200, Pet[]> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/pets?${qs.stringify({ tags: p["tags"], limit: p["limit"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async addPet(p: {
@@ -52,11 +55,14 @@ export class ApiClient {
       "Content-Type": "application/json",
     }
 
-    return fetch(this.config.basePath + `/pets`, {
+    const res = await fetch(this.config.basePath + `/pets`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async findPetById(p: {
@@ -65,10 +71,16 @@ export class ApiClient {
   }): Promise<Res<200, Pet> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/pets/${p["id"]}/${p["species"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async deletePet(p: {
@@ -77,9 +89,15 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<number, Error>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/pets/${p["id"]}/${p["species"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/pets/${p["id"]}/${p["species"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 }

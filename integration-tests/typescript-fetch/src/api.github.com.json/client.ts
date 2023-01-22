@@ -68,10 +68,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/app`, {
+    const res = await fetch(this.config.basePath + `/app`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsCreateFromManifest(p: { accept?: string; code: string }): Promise<
@@ -115,13 +118,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/app-manifests/${p["code"]}/conversions`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListInstallations(p: {
@@ -166,7 +172,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/app/installations?${qs.stringify({
           per_page: p["perPage"],
@@ -176,7 +182,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetInstallation(p: {
@@ -220,13 +229,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsDeleteInstallation(p: {
@@ -235,13 +247,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsCreateInstallationAccessToken(p: {
@@ -378,7 +393,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/app/installations/${p["installationId"]}/access_tokens`,
       {
@@ -386,7 +401,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsSuspendInstallation(p: {
@@ -395,14 +413,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsUnsuspendInstallation(p: {
@@ -411,14 +432,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsListGrants(p: {
@@ -444,7 +468,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/applications/grants?${qs.stringify({
           per_page: p["perPage"],
@@ -454,7 +478,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsGetGrant(p: {
@@ -479,13 +506,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/grants/${p["grantId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsDeleteGrant(p: {
@@ -494,13 +524,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/grants/${p["grantId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsDeleteAuthorization(p: {
@@ -515,14 +548,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/${p["clientId"]}/grant`,
       {
         method: "DELETE",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsRevokeGrantForApplication(p: {
@@ -532,14 +568,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/applications/${p["clientId"]}/grants/${p["accessToken"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsCheckToken(p: {
@@ -596,14 +635,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsResetToken(p: {
@@ -660,14 +702,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsDeleteToken(p: {
@@ -682,14 +727,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "DELETE",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsCheckAuthorization(p: {
@@ -741,14 +789,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsResetAuthorization(p: {
@@ -800,14 +851,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsRevokeAuthorizationForApplication(p: {
@@ -817,14 +871,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetBySlug(p: { accept: string; appSlug: string }): Promise<
@@ -866,10 +923,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/apps/${p["appSlug"]}`, {
+    const res = await fetch(this.config.basePath + `/apps/${p["appSlug"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsListAuthorizations(p: {
@@ -901,7 +961,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/authorizations?${qs.stringify({
           per_page: p["perPage"],
@@ -911,7 +971,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsCreateAuthorization(p: {
@@ -952,11 +1015,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/authorizations`, {
+    const res = await fetch(this.config.basePath + `/authorizations`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsGetOrCreateAuthorizationForApp(p: {
@@ -1018,14 +1084,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/authorizations/clients/${p["clientId"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint(p: {
@@ -1087,7 +1156,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/authorizations/clients/${p["clientId"]}/${p["fingerprint"]}`,
       {
@@ -1095,7 +1164,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsGetAuthorization(p: {
@@ -1126,13 +1198,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsUpdateAuthorization(p: {
@@ -1174,14 +1249,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async oauthAuthorizationsDeleteAuthorization(p: {
@@ -1190,13 +1268,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async codesOfConductGetAllCodesOfConduct(p: { accept: string }): Promise<
@@ -1211,10 +1292,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/codes_of_conduct`, {
+    const res = await fetch(this.config.basePath + `/codes_of_conduct`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async codesOfConductGetConductCode(p: {
@@ -1233,10 +1317,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/codes_of_conduct/${p["key"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/codes_of_conduct/${p["key"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsCreateContentAttachment(p: {
@@ -1261,7 +1351,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/content_references/${p["contentReferenceId"]}/attachments`,
       {
@@ -1269,16 +1359,22 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async emojisGet(p: { accept?: string }): Promise<Res<200, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/emojis`, {
+    const res = await fetch(this.config.basePath + `/emojis`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListPublicEvents(p: {
@@ -1288,14 +1384,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/events?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityGetFeeds(p: { accept?: string }): Promise<
@@ -1349,10 +1448,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/feeds`, {
+    const res = await fetch(this.config.basePath + `/feeds`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsList(p: {
@@ -1408,7 +1510,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists?${qs.stringify({
           since: p["since"],
@@ -1419,7 +1521,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsCreate(p: {
@@ -1538,11 +1643,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/gists`, {
+    const res = await fetch(this.config.basePath + `/gists`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListPublic(p: {
@@ -1598,7 +1706,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists/public?${qs.stringify({
           since: p["since"],
@@ -1609,7 +1717,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListStarred(p: {
@@ -1665,7 +1776,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists/starred?${qs.stringify({
           since: p["since"],
@@ -1676,7 +1787,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsGet(p: { accept?: string; gistId: string }): Promise<
@@ -1783,10 +1897,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
+    const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsUpdate(p: {
@@ -1905,11 +2022,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
+    const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "PATCH",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsDelete(p: {
@@ -1918,10 +2038,13 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
+    const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "DELETE",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListComments(p: {
@@ -1964,7 +2087,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists/${p["gistId"]}/comments?${qs.stringify({
           per_page: p["perPage"],
@@ -1974,7 +2097,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsCreateComment(p: {
@@ -2021,11 +2147,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/comments`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/comments`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsGetComment(p: {
@@ -2067,13 +2199,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsUpdateComment(p: {
@@ -2121,14 +2256,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsDeleteComment(p: {
@@ -2138,13 +2276,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListCommits(p: {
@@ -2189,7 +2330,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists/${p["gistId"]}/commits?${qs.stringify({
           per_page: p["perPage"],
@@ -2199,7 +2340,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsFork(p: { accept?: string; gistId: string }): Promise<
@@ -2250,10 +2394,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/forks`, {
-      method: "POST",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/forks`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListForks(p: {
@@ -2294,7 +2444,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/gists/${p["gistId"]}/forks?${qs.stringify({
           per_page: p["perPage"],
@@ -2304,7 +2454,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsStar(p: {
@@ -2313,10 +2466,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/star`, {
-      method: "PUT",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/star`,
+      {
+        method: "PUT",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsUnstar(p: {
@@ -2325,10 +2484,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/star`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/star`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsCheckIsStarred(p: {
@@ -2337,10 +2502,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/star`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/star`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsGetRevision(p: {
@@ -2451,10 +2622,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gists/${p["gistId"]}/${p["sha"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gists/${p["gistId"]}/${p["sha"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitignoreGetAllTemplates(p: {
@@ -2462,10 +2639,13 @@ export class ApiClient {
   }): Promise<Res<200, string[]>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gitignore/templates`, {
+    const res = await fetch(this.config.basePath + `/gitignore/templates`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitignoreGetTemplate(p: { accept?: string; name: string }): Promise<
@@ -2479,10 +2659,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/gitignore/templates/${p["name"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/gitignore/templates/${p["name"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListReposAccessibleToInstallation(p: {
@@ -2600,7 +2786,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/installation/repositories?${qs.stringify({
           per_page: p["perPage"],
@@ -2610,7 +2796,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsRevokeInstallationAccessToken(p: {
@@ -2618,10 +2807,13 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/installation/token`, {
+    const res = await fetch(this.config.basePath + `/installation/token`, {
       method: "DELETE",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesList(p: {
@@ -2879,7 +3071,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/issues?${qs.stringify({
           filter: p["filter"],
@@ -2895,7 +3087,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async licensesGetAllCommonlyUsed(p: { accept?: string }): Promise<
@@ -2912,10 +3107,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/licenses`, {
+    const res = await fetch(this.config.basePath + `/licenses`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async licensesGet(p: { accept?: string; license: string }): Promise<
@@ -2940,10 +3138,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/licenses/${p["license"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/licenses/${p["license"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async markdownRender(p: {
@@ -2959,11 +3163,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/markdown`, {
+    const res = await fetch(this.config.basePath + `/markdown`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async markdownRenderRaw(p: {
@@ -2977,11 +3184,14 @@ export class ApiClient {
       "content-type": p["contentType"],
     }
 
-    return fetch(this.config.basePath + `/markdown/raw`, {
+    const res = await fetch(this.config.basePath + `/markdown/raw`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetSubscriptionPlanForAccount(p: {
@@ -3046,13 +3256,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/marketplace_listing/accounts/${p["accountId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListPlans(p: {
@@ -3081,7 +3294,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/marketplace_listing/plans?${qs.stringify({
           per_page: p["perPage"],
@@ -3091,7 +3304,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListAccountsForPlan(p: {
@@ -3159,7 +3375,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/marketplace_listing/plans/${p["planId"]}/accounts?${qs.stringify({
           sort: p["sort"],
@@ -3171,7 +3387,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetSubscriptionPlanForAccountStubbed(p: {
@@ -3236,14 +3455,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/marketplace_listing/stubbed/accounts/${p["accountId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListPlansStubbed(p: {
@@ -3272,7 +3494,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/marketplace_listing/stubbed/plans?${qs.stringify({
           per_page: p["perPage"],
@@ -3282,7 +3504,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListAccountsForPlanStubbed(p: {
@@ -3350,7 +3575,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/marketplace_listing/stubbed/plans/${
           p["planId"]
@@ -3364,7 +3589,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async metaGet(p: { accept?: string }): Promise<
@@ -3389,10 +3617,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/meta`, {
+    const res = await fetch(this.config.basePath + `/meta`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListPublicEventsForRepoNetwork(p: {
@@ -3404,7 +3635,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/networks/${p["owner"]}/${p["repo"]}/events?${qs.stringify({
           per_page: p["perPage"],
@@ -3414,7 +3645,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListNotificationsForAuthenticatedUser(p: {
@@ -3514,7 +3748,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/notifications?${qs.stringify({
           all: p["all"],
@@ -3528,7 +3762,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityMarkNotificationsAsRead(p: {
@@ -3542,11 +3779,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/notifications`, {
+    const res = await fetch(this.config.basePath + `/notifications`, {
       method: "PUT",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityGetThread(p: { accept?: string; threadId: number }): Promise<
@@ -3638,13 +3878,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityMarkThreadAsRead(p: {
@@ -3653,13 +3896,16 @@ export class ApiClient {
   }): Promise<Res<205, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(p: {
@@ -3680,14 +3926,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activitySetThreadSubscription(p: {
@@ -3714,7 +3963,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
@@ -3722,7 +3971,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityDeleteThreadSubscription(p: {
@@ -3731,14 +3983,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsList(p: { accept?: string; since?: number }): Promise<
@@ -3762,14 +4017,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/organizations?${qs.stringify({ since: p["since"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsGet(p: { accept?: string; org: string }): Promise<
@@ -3827,10 +4085,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsUpdate(p: {
@@ -3911,11 +4172,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}`, {
       method: "PATCH",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListSelfHostedRunnersForOrg(p: {
@@ -3939,7 +4203,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners?${qs.stringify({
           per_page: p["perPage"],
@@ -3949,7 +4213,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListRunnerApplicationsForOrg(p: {
@@ -3968,13 +4235,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/downloads`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateRegistrationTokenForOrg(p: {
@@ -3991,14 +4261,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/registration-token`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateRemoveTokenForOrg(p: {
@@ -4015,13 +4288,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetSelfHostedRunnerForOrg(p: {
@@ -4041,14 +4317,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteSelfHostedRunnerFromOrg(p: {
@@ -4058,14 +4337,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListOrgSecrets(p: {
@@ -4090,7 +4372,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets?${qs.stringify({
           per_page: p["perPage"],
@@ -4100,7 +4382,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetOrgPublicKey(p: { accept?: string; org: string }): Promise<
@@ -4114,13 +4399,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetOrgSecret(p: {
@@ -4141,14 +4429,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateOrUpdateOrgSecret(p: {
@@ -4167,7 +4458,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
@@ -4175,7 +4466,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteOrgSecret(p: {
@@ -4185,14 +4479,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListSelectedReposForOrgSecret(p: {
@@ -4277,14 +4574,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsSetSelectedReposForOrgSecret(p: {
@@ -4300,7 +4600,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
@@ -4308,7 +4608,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsAddSelectedRepoToOrgSecret(p: {
@@ -4319,14 +4622,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<409, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsRemoveSelectedRepoFromOrgSecret(p: {
@@ -4337,14 +4643,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<409, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListBlockedUsers(p: { accept?: string; org: string }): Promise<
@@ -4374,10 +4683,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/blocks`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/blocks`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsCheckBlockedUser(p: {
@@ -4387,13 +4699,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsBlockUser(p: {
@@ -4403,13 +4718,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsUnblockUser(p: {
@@ -4419,13 +4737,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListSamlSsoAuthorizations(p: {
@@ -4446,13 +4767,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/credential-authorizations`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsRemoveSamlSsoAuthorization(p: {
@@ -4462,14 +4786,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/credential-authorizations/${p["credentialId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListPublicOrgEvents(p: {
@@ -4480,7 +4807,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/events?${qs.stringify({
           per_page: p["perPage"],
@@ -4490,7 +4817,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListWebhooks(p: {
@@ -4519,7 +4849,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/hooks?${qs.stringify({
           per_page: p["perPage"],
@@ -4529,7 +4859,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsCreateWebhook(p: {
@@ -4570,11 +4903,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/hooks`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/hooks`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsGetWebhook(p: {
@@ -4602,13 +4938,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsUpdateWebhook(p: {
@@ -4649,14 +4988,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsDeleteWebhook(p: {
@@ -4666,13 +5008,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsPingWebhook(p: {
@@ -4682,13 +5027,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetOrgInstallation(p: { accept: string; org: string }): Promise<
@@ -4737,10 +5085,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/installation`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/orgs/${p["org"]}/installation`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListAppInstallations(p: {
@@ -4798,7 +5152,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/installations?${qs.stringify({
           per_page: p["perPage"],
@@ -4808,7 +5162,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsGetRestrictionsForOrg(p: {
@@ -4826,13 +5183,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsSetRestrictionsForOrg(p: {
@@ -4856,14 +5216,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsRemoveRestrictionsForOrg(p: {
@@ -4872,13 +5235,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListPendingInvitations(p: {
@@ -4922,7 +5288,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/invitations?${qs.stringify({
           per_page: p["perPage"],
@@ -4932,7 +5298,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsCreateInvitation(p: {
@@ -4983,11 +5352,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/invitations`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/orgs/${p["org"]}/invitations`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListInvitationTeams(p: {
@@ -5017,7 +5392,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/invitations/${
           p["invitationId"]
@@ -5026,7 +5401,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListForOrg(p: {
@@ -5285,7 +5663,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/issues?${qs.stringify({
           filter: p["filter"],
@@ -5301,7 +5679,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListMembers(p: {
@@ -5339,7 +5720,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/members?${qs.stringify({
           filter: p["filter"],
@@ -5351,7 +5732,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsCheckMembershipForUser(p: {
@@ -5361,13 +5745,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<302, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsRemoveMember(p: {
@@ -5377,13 +5764,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsGetMembershipForUser(p: {
@@ -5437,13 +5827,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsSetMembershipForUser(p: {
@@ -5503,14 +5896,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsRemoveMembershipForUser(p: {
@@ -5520,13 +5916,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsStartForOrg(p: {
@@ -5677,11 +6076,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/migrations`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/orgs/${p["org"]}/migrations`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsListForOrg(p: {
@@ -5826,7 +6231,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/migrations?${qs.stringify({
           per_page: p["perPage"],
@@ -5836,7 +6241,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetStatusForOrg(p: {
@@ -5980,13 +6388,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsDownloadArchiveForOrg(p: {
@@ -5996,14 +6407,17 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsDeleteArchiveForOrg(p: {
@@ -6013,14 +6427,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsUnlockRepoForOrg(p: {
@@ -6031,14 +6448,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsListReposForOrg(p: {
@@ -6164,7 +6584,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${
           p["migrationId"]
@@ -6176,7 +6596,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListOutsideCollaborators(p: {
@@ -6212,7 +6635,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators?${qs.stringify({
           filter: p["filter"],
@@ -6223,7 +6646,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsRemoveOutsideCollaborator(p: {
@@ -6242,14 +6668,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsConvertMemberToOutsideCollaborator(p: {
@@ -6268,14 +6697,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListForOrg(p: {
@@ -6325,7 +6757,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/projects?${qs.stringify({
           state: p["state"],
@@ -6336,7 +6768,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsCreateForOrg(p: {
@@ -6390,11 +6825,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/projects`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/orgs/${p["org"]}/projects`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListPublicMembers(p: {
@@ -6429,7 +6870,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/public_members?${qs.stringify({
           per_page: p["perPage"],
@@ -6439,7 +6880,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsCheckPublicMembershipForUser(p: {
@@ -6449,14 +6893,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsSetPublicMembershipForAuthenticatedUser(p: {
@@ -6466,14 +6913,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsRemovePublicMembershipForAuthenticatedUser(p: {
@@ -6483,14 +6933,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListForOrg(p: {
@@ -6625,7 +7078,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/repos?${qs.stringify({
           type: p["type"],
@@ -6638,7 +7091,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateInOrg(p: {
@@ -6779,11 +7235,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/repos`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/repos`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListIdPGroupsForOrg(p: {
@@ -6805,7 +7264,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/team-sync/groups?${qs.stringify({
           per_page: p["perPage"],
@@ -6815,7 +7274,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsList(p: {
@@ -6844,7 +7306,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams?${qs.stringify({
           per_page: p["perPage"],
@@ -6854,7 +7316,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreate(p: {
@@ -6927,11 +7392,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/orgs/${p["org"]}/teams`, {
+    const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/teams`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetByName(p: {
@@ -6993,13 +7461,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateInOrg(p: {
@@ -7071,14 +7542,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteInOrg(p: {
@@ -7088,13 +7562,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListDiscussionsInOrg(p: {
@@ -7159,7 +7636,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions?${qs.stringify({
           direction: p["direction"],
@@ -7170,7 +7647,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateDiscussionInOrg(p: {
@@ -7240,7 +7720,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`,
       {
@@ -7248,7 +7728,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetDiscussionInOrg(p: {
@@ -7311,14 +7794,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateDiscussionInOrg(p: {
@@ -7388,7 +7874,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
@@ -7396,7 +7882,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteDiscussionInOrg(p: {
@@ -7407,14 +7896,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListDiscussionCommentsInOrg(p: {
@@ -7475,7 +7967,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
@@ -7488,7 +7980,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateDiscussionCommentInOrg(p: {
@@ -7552,7 +8047,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`,
       {
@@ -7560,7 +8055,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetDiscussionCommentInOrg(p: {
@@ -7619,14 +8117,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateDiscussionCommentInOrg(p: {
@@ -7691,7 +8192,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
@@ -7699,7 +8200,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteDiscussionCommentInOrg(p: {
@@ -7711,14 +8215,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForTeamDiscussionCommentInOrg(p: {
@@ -7771,7 +8278,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
@@ -7784,7 +8291,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForTeamDiscussionCommentInOrg(p: {
@@ -7840,7 +8350,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
@@ -7848,7 +8358,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForTeamDiscussionComment(p: {
@@ -7861,14 +8374,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForTeamDiscussionInOrg(p: {
@@ -7920,7 +8436,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
@@ -7933,7 +8449,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForTeamDiscussionInOrg(p: {
@@ -7988,7 +8507,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
@@ -7996,7 +8515,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForTeamDiscussion(p: {
@@ -8008,14 +8530,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListPendingInvitationsInOrg(p: {
@@ -8060,7 +8585,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations?${qs.stringify({
           per_page: p["perPage"],
@@ -8070,7 +8595,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListMembersInOrg(p: {
@@ -8107,7 +8635,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members?${qs.stringify({
           role: p["role"],
@@ -8118,7 +8646,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetMembershipForUserInOrg(p: {
@@ -8139,14 +8670,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateMembershipForUserInOrg(p: {
@@ -8184,7 +8718,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
@@ -8192,7 +8726,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveMembershipForUserInOrg(p: {
@@ -8203,14 +8740,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<403, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListProjectsInOrg(p: {
@@ -8267,7 +8807,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects?${qs.stringify({
           per_page: p["perPage"],
@@ -8277,7 +8817,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCheckPermissionsForProjectInOrg(p: {
@@ -8334,14 +8877,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateProjectPermissionsInOrg(p: {
@@ -8367,7 +8913,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
@@ -8375,7 +8921,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveProjectInOrg(p: {
@@ -8386,14 +8935,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListReposInOrg(p: {
@@ -8519,7 +9071,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos?${qs.stringify({
           per_page: p["perPage"],
@@ -8529,7 +9081,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCheckPermissionsForRepoInOrg(p: {
@@ -8788,14 +9343,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateRepoPermissionsInOrg(p: {
@@ -8813,7 +9371,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
@@ -8821,7 +9379,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveRepoInOrg(p: {
@@ -8833,14 +9394,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListIdPGroupsInOrg(p: {
@@ -8861,14 +9425,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/team-sync/group-mappings`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateOrUpdateIdPGroupConnectionsInOrg(p: {
@@ -8899,7 +9466,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/team-sync/group-mappings`,
       {
@@ -8907,7 +9474,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListChildInOrg(p: {
@@ -8948,7 +9518,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams?${qs.stringify({
           per_page: p["perPage"],
@@ -8958,7 +9528,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsGetCard(p: { accept: string; cardId: number }): Promise<
@@ -9000,13 +9573,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsUpdateCard(p: {
@@ -9058,14 +9634,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsDeleteCard(p: {
@@ -9074,13 +9653,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsMoveCard(p: {
@@ -9096,14 +9678,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}/moves`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsGetColumn(p: { accept: string; columnId: number }): Promise<
@@ -9123,10 +9708,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/projects/columns/${p["columnId"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/columns/${p["columnId"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsUpdateColumn(p: {
@@ -9155,11 +9746,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/projects/columns/${p["columnId"]}`, {
-      method: "PATCH",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/columns/${p["columnId"]}`,
+      {
+        method: "PATCH",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsDeleteColumn(p: {
@@ -9168,10 +9765,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/projects/columns/${p["columnId"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/columns/${p["columnId"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListCards(p: {
@@ -9219,7 +9822,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/columns/${p["columnId"]}/cards?${qs.stringify({
           archived_state: p["archivedState"],
@@ -9230,7 +9833,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsCreateCard(p: {
@@ -9283,14 +9889,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/${p["columnId"]}/cards`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsMoveColumn(p: {
@@ -9305,14 +9914,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/projects/columns/${p["columnId"]}/moves`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsGet(p: { accept: string; projectId: number }): Promise<
@@ -9356,10 +9968,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/projects/${p["projectId"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/${p["projectId"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsUpdate(p: {
@@ -9417,11 +10035,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/projects/${p["projectId"]}`, {
-      method: "PATCH",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/${p["projectId"]}`,
+      {
+        method: "PATCH",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsDelete(p: {
@@ -9430,10 +10054,16 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/projects/${p["projectId"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/${p["projectId"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListCollaborators(p: {
@@ -9469,7 +10099,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators?${qs.stringify({
           affiliation: p["affiliation"],
@@ -9480,7 +10110,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsAddCollaborator(p: {
@@ -9496,7 +10129,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
@@ -9504,7 +10137,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsRemoveCollaborator(p: {
@@ -9514,14 +10150,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsGetPermissionForUser(p: {
@@ -9558,14 +10197,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListColumns(p: {
@@ -9590,7 +10232,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/projects/${p["projectId"]}/columns?${qs.stringify({
           per_page: p["perPage"],
@@ -9600,7 +10242,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsCreateColumn(p: {
@@ -9629,11 +10274,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/projects/${p["projectId"]}/columns`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/projects/${p["projectId"]}/columns`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async rateLimitGet(p: { accept?: string }): Promise<
@@ -9672,10 +10323,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/rate_limit`, {
+    const res = await fetch(this.config.basePath + `/rate_limit`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteLegacy(p: {
@@ -9684,10 +10338,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/reactions/${p["reactionId"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/reactions/${p["reactionId"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGet(p: { accept?: string; owner: string; repo: string }): Promise<
@@ -10044,10 +10704,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdate(p: {
@@ -10421,11 +11087,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`, {
-      method: "PATCH",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
+      {
+        method: "PATCH",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDelete(p: {
@@ -10444,10 +11116,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListArtifactsForRepo(p: {
@@ -10477,7 +11155,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts?${qs.stringify({
           per_page: p["perPage"],
@@ -10487,7 +11165,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetArtifact(p: {
@@ -10513,14 +11194,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteArtifact(p: {
@@ -10531,14 +11215,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDownloadArtifact(p: {
@@ -10550,14 +11237,17 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetJobForWorkflowRun(p: {
@@ -10595,14 +11285,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDownloadJobLogsForWorkflowRun(p: {
@@ -10613,14 +11306,17 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListSelfHostedRunnersForRepo(p: {
@@ -10645,7 +11341,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners?${qs.stringify({
           per_page: p["perPage"],
@@ -10655,7 +11351,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListRunnerApplicationsForRepo(p: {
@@ -10675,14 +11374,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateRegistrationTokenForRepo(p: {
@@ -10700,14 +11402,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateRemoveTokenForRepo(p: {
@@ -10725,14 +11430,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetSelfHostedRunnerForRepo(p: {
@@ -10753,14 +11461,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteSelfHostedRunnerFromRepo(p: {
@@ -10771,14 +11482,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListWorkflowRunsForRepo(p: {
@@ -10975,7 +11689,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs?${qs.stringify({
           actor: p["actor"],
@@ -10989,7 +11703,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetWorkflowRun(p: {
@@ -11178,14 +11895,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListWorkflowRunArtifacts(p: {
@@ -11216,7 +11936,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${
           p["runId"]
@@ -11228,7 +11948,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCancelWorkflowRun(p: {
@@ -11239,14 +11962,17 @@ export class ApiClient {
   }): Promise<Res<202, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListJobsForWorkflowRun(p: {
@@ -11290,7 +12016,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${
           p["runId"]
@@ -11303,7 +12029,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDownloadWorkflowRunLogs(p: {
@@ -11314,14 +12043,17 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteWorkflowRunLogs(p: {
@@ -11332,14 +12064,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsReRunWorkflow(p: {
@@ -11350,14 +12085,17 @@ export class ApiClient {
   }): Promise<Res<201, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetWorkflowRunUsage(p: {
@@ -11389,14 +12127,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListRepoSecrets(p: {
@@ -11420,7 +12161,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets?${qs.stringify({
           per_page: p["perPage"],
@@ -11430,7 +12171,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetRepoPublicKey(p: {
@@ -11448,14 +12192,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetRepoSecret(p: {
@@ -11475,14 +12222,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsCreateOrUpdateRepoSecret(p: {
@@ -11500,7 +12250,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
@@ -11508,7 +12258,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsDeleteRepoSecret(p: {
@@ -11519,14 +12272,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListRepoWorkflows(p: {
@@ -11557,7 +12313,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows?${qs.stringify({
           per_page: p["perPage"],
@@ -11567,7 +12323,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetWorkflow(p: {
@@ -11594,14 +12353,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsListWorkflowRuns(p: {
@@ -11799,7 +12561,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${
           p["workflowId"]
@@ -11815,7 +12577,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async actionsGetWorkflowUsage(p: {
@@ -11843,14 +12608,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListAssignees(p: {
@@ -11886,7 +12654,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees?${qs.stringify({
           per_page: p["perPage"],
@@ -11896,7 +12664,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesCheckUserCanBeAssigned(p: {
@@ -11907,14 +12678,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposEnableAutomatedSecurityFixes(p: {
@@ -11924,14 +12698,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDisableAutomatedSecurityFixes(p: {
@@ -11941,14 +12718,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListBranches(p: {
@@ -11981,7 +12761,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches?${qs.stringify({
           protected: p["protected"],
@@ -11992,7 +12772,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetBranch(p: {
@@ -12070,14 +12853,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetBranchProtection(p: {
@@ -12231,14 +13017,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateBranchProtection(p: {
@@ -12419,7 +13208,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
@@ -12427,7 +13216,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteBranchProtection(p: {
@@ -12438,14 +13230,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetAdminBranchProtection(p: {
@@ -12464,14 +13259,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposSetAdminBranchProtection(p: {
@@ -12490,14 +13288,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteAdminBranchProtection(p: {
@@ -12508,14 +13309,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetPullRequestReviewProtection(p: {
@@ -12575,14 +13379,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdatePullRequestReviewProtection(p: {
@@ -12654,7 +13461,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
@@ -12662,7 +13469,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeletePullRequestReviewProtection(p: {
@@ -12673,14 +13483,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCommitSignatureProtection(p: {
@@ -12699,14 +13512,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateCommitSignatureProtection(p: {
@@ -12725,14 +13541,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteCommitSignatureProtection(p: {
@@ -12743,14 +13562,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetStatusChecksProtection(p: {
@@ -12771,14 +13593,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateStatusCheckPotection(p: {
@@ -12806,7 +13631,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
@@ -12814,7 +13639,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveStatusCheckProtection(p: {
@@ -12825,14 +13653,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetAllStatusCheckContexts(p: {
@@ -12843,14 +13674,17 @@ export class ApiClient {
   }): Promise<Res<200, string[]>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposSetStatusCheckContexts(p: {
@@ -12865,7 +13699,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
@@ -12873,7 +13707,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAddStatusCheckContexts(p: {
@@ -12888,7 +13725,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
@@ -12896,7 +13733,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveStatusCheckContexts(p: {
@@ -12911,7 +13751,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
@@ -12919,7 +13759,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetAccessRestrictions(p: {
@@ -13006,14 +13849,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteAccessRestrictions(p: {
@@ -13024,14 +13870,17 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetAppsWithAccessToProtectedBranch(p: {
@@ -13078,14 +13927,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposSetAppAccessRestrictions(p: {
@@ -13136,7 +13988,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
@@ -13144,7 +13996,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAddAppAccessRestrictions(p: {
@@ -13195,7 +14050,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
@@ -13203,7 +14058,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveAppAccessRestrictions(p: {
@@ -13254,7 +14112,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
@@ -13262,7 +14120,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetTeamsWithAccessToProtectedBranch(p: {
@@ -13291,14 +14152,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposSetTeamAccessRestrictions(p: {
@@ -13331,7 +14195,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
@@ -13339,7 +14203,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAddTeamAccessRestrictions(p: {
@@ -13372,7 +14239,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
@@ -13380,7 +14247,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveTeamAccessRestrictions(p: {
@@ -13413,7 +14283,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
@@ -13421,7 +14291,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetUsersWithAccessToProtectedBranch(p: {
@@ -13456,14 +14329,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposSetUserAccessRestrictions(p: {
@@ -13502,7 +14378,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
@@ -13510,7 +14386,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAddUserAccessRestrictions(p: {
@@ -13549,7 +14428,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
@@ -13557,7 +14436,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveUserAccessRestrictions(p: {
@@ -13596,7 +14478,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
@@ -13604,7 +14486,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksCreate(p: {
@@ -13741,14 +14626,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksUpdate(p: {
@@ -13887,7 +14775,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
@@ -13895,7 +14783,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksGet(p: {
@@ -13989,14 +14880,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksListAnnotations(p: {
@@ -14024,7 +14918,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${
           p["checkRunId"]
@@ -14036,7 +14930,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksCreateSuite(p: {
@@ -14208,14 +15105,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksSetSuitesPreferences(p: {
@@ -14352,7 +15252,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`,
       {
@@ -14360,7 +15260,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksGetSuite(p: {
@@ -14527,14 +15430,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksListForSuite(p: {
@@ -14636,7 +15542,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${
           p["checkSuiteId"]
@@ -14651,7 +15557,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksRerequestSuite(p: {
@@ -14662,14 +15571,17 @@ export class ApiClient {
   }): Promise<Res<201, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async codeScanningListAlertsForRepo(p: {
@@ -14698,7 +15610,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts?${qs.stringify({
           state: p["state"],
@@ -14708,7 +15620,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async codeScanningGetAlert(p: {
@@ -14735,14 +15650,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListCollaborators(p: {
@@ -14784,7 +15702,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators?${qs.stringify({
           affiliation: p["affiliation"],
@@ -14795,7 +15713,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCheckCollaborator(p: {
@@ -14806,14 +15727,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAddCollaborator(p: {
@@ -14950,7 +15874,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
@@ -14958,7 +15882,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRemoveCollaborator(p: {
@@ -14969,14 +15896,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCollaboratorPermissionLevel(p: {
@@ -15014,14 +15944,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListCommitCommentsForRepo(p: {
@@ -15070,7 +16003,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments?${qs.stringify({
           per_page: p["perPage"],
@@ -15080,7 +16013,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCommitComment(p: {
@@ -15128,14 +16064,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateCommitComment(p: {
@@ -15189,7 +16128,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
@@ -15197,7 +16136,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteCommitComment(p: {
@@ -15208,14 +16150,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForCommitComment(p: {
@@ -15267,7 +16212,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${
           p["commentId"]
@@ -15280,7 +16225,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForCommitComment(p: {
@@ -15335,7 +16283,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`,
       {
@@ -15343,7 +16291,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForCommitComment(p: {
@@ -15355,14 +16306,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListCommits(p: {
@@ -15459,7 +16413,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits?${qs.stringify({
           sha: p["sha"],
@@ -15474,7 +16428,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListBranchesForHeadCommit(p: {
@@ -15497,14 +16454,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListCommentsForCommit(p: {
@@ -15554,7 +16514,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["commitSha"]
@@ -15566,7 +16526,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateCommitComment(p: {
@@ -15623,7 +16586,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`,
       {
@@ -15631,7 +16594,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListPullRequestsAssociatedWithCommit(p: {
@@ -16103,7 +17069,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["commitSha"]
@@ -16112,7 +17078,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCommit(p: {
@@ -16218,14 +17187,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksListForRef(p: {
@@ -16327,7 +17299,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
@@ -16342,7 +17314,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async checksListSuitesForRef(p: {
@@ -16516,7 +17491,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
@@ -16530,7 +17505,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCombinedStatusForRef(p: {
@@ -16632,14 +17610,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListCommitStatusesForRef(p: {
@@ -16688,7 +17669,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
@@ -16700,7 +17681,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async codesOfConductGetForRepo(p: {
@@ -16720,14 +17704,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/community/code_of_conduct`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCommunityProfileMetrics(p: {
@@ -16778,14 +17765,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/community/profile`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCompareCommits(p: {
@@ -17052,14 +18042,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/compare/${p["base"]}...${p["head"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetContent(p: {
@@ -17093,7 +18086,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}?${qs.stringify(
           { ref: p["ref"] }
@@ -17102,7 +18095,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateOrUpdateFileContents(p: {
@@ -17237,7 +18233,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
@@ -17245,7 +18241,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteFile(p: {
@@ -17311,7 +18310,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
@@ -17319,7 +18318,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListContributors(p: {
@@ -17358,7 +18360,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contributors?${qs.stringify({
           anon: p["anon"],
@@ -17369,7 +18371,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListDeployments(p: {
@@ -17429,7 +18434,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments?${qs.stringify({
           sha: p["sha"],
@@ -17443,7 +18448,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateDeployment(p: {
@@ -17523,14 +18531,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetDeployment(p: {
@@ -17585,14 +18596,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteDeployment(p: {
@@ -17603,14 +18617,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListDeploymentStatuses(p: {
@@ -17662,7 +18679,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${
           p["deploymentId"]
@@ -17674,7 +18691,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateDeploymentStatus(p: {
@@ -17743,7 +18763,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`,
       {
@@ -17751,7 +18771,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetDeploymentStatus(p: {
@@ -17802,14 +18825,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateDispatchEvent(p: {
@@ -17828,14 +18854,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListRepoEvents(p: {
@@ -17847,7 +18876,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/events?${qs.stringify({
           per_page: p["perPage"],
@@ -17857,7 +18886,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListForks(p: {
@@ -17984,7 +19016,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/forks?${qs.stringify({
           sort: p["sort"],
@@ -17995,7 +19027,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateFork(p: {
@@ -18121,14 +19156,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitCreateBlob(p: {
@@ -18153,14 +19191,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitGetBlob(p: {
@@ -18182,14 +19223,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitCreateCommit(p: {
@@ -18252,14 +19296,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitGetCommit(p: {
@@ -18304,14 +19351,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitListMatchingRefs(p: {
@@ -18338,7 +19388,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${
           p["ref"]
@@ -18347,7 +19397,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitGetRef(p: {
@@ -18372,14 +19425,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitCreateRef(p: {
@@ -18410,14 +19466,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitUpdateRef(p: {
@@ -18449,7 +19508,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
@@ -18457,7 +19516,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitDeleteRef(p: {
@@ -18468,14 +19530,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitCreateTag(p: {
@@ -18526,14 +19591,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitGetTag(p: {
@@ -18571,14 +19639,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitCreateTree(p: {
@@ -18617,14 +19688,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gitGetTree(p: {
@@ -18653,7 +19727,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/trees/${
           p["treeSha"]
@@ -18662,7 +19736,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListWebhooks(p: {
@@ -18700,7 +19777,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks?${qs.stringify({
           per_page: p["perPage"],
@@ -18710,7 +19787,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateWebhook(p: {
@@ -18760,14 +19840,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetWebhook(p: {
@@ -18804,14 +19887,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateWebhook(p: {
@@ -18863,7 +19949,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
@@ -18871,7 +19957,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteWebhook(p: {
@@ -18882,14 +19971,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposPingWebhook(p: {
@@ -18900,14 +19992,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposTestPushWebhook(p: {
@@ -18918,14 +20013,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsStartImport(p: {
@@ -18966,14 +20064,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetImportStatus(p: {
@@ -19002,13 +20103,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsUpdateImport(p: {
@@ -19039,14 +20143,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsCancelImport(p: {
@@ -19056,13 +20163,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetCommitAuthors(p: {
@@ -19086,7 +20196,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/authors?${qs.stringify({
           since: p["since"],
@@ -19095,7 +20205,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsMapCommitAuthor(p: {
@@ -19126,7 +20239,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`,
       {
@@ -19134,7 +20247,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetLargeFiles(p: {
@@ -19154,14 +20270,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/large_files`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsSetLfsPreference(p: {
@@ -19196,14 +20315,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetRepoInstallation(p: {
@@ -19256,13 +20378,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsGetRestrictionsForRepo(p: {
@@ -19281,14 +20406,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsSetRestrictionsForRepo(p: {
@@ -19313,7 +20441,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
@@ -19321,7 +20449,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async interactionsRemoveRestrictionsForRepo(p: {
@@ -19331,14 +20462,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListInvitations(p: {
@@ -19469,7 +20603,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations?${qs.stringify({
           per_page: p["perPage"],
@@ -19479,7 +20613,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteInvitation(p: {
@@ -19490,14 +20627,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateInvitation(p: {
@@ -19633,7 +20773,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
@@ -19641,7 +20781,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListForRepo(p: {
@@ -19798,7 +20941,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues?${qs.stringify({
           milestone: p["milestone"],
@@ -19817,7 +20960,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesCreate(p: {
@@ -19994,14 +21140,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListCommentsForRepo(p: {
@@ -20049,7 +21198,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments?${qs.stringify({
           sort: p["sort"],
@@ -20062,7 +21211,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesGetComment(p: {
@@ -20106,14 +21258,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesUpdateComment(p: {
@@ -20163,7 +21318,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
@@ -20171,7 +21326,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesDeleteComment(p: {
@@ -20182,14 +21340,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForIssueComment(p: {
@@ -20241,7 +21402,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${
           p["commentId"]
@@ -20254,7 +21415,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForIssueComment(p: {
@@ -20309,7 +21473,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`,
       {
@@ -20317,7 +21481,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForIssueComment(p: {
@@ -20329,14 +21496,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListEventsForRepo(p: {
@@ -20513,7 +21683,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/events?${qs.stringify({
           per_page: p["perPage"],
@@ -20523,7 +21693,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesGetEvent(p: {
@@ -20699,14 +21872,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesGet(p: {
@@ -20873,14 +22049,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesUpdate(p: {
@@ -21059,7 +22238,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
@@ -21067,7 +22246,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesAddAssignees(p: {
@@ -21220,7 +22402,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
@@ -21228,7 +22410,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesRemoveAssignees(p: {
@@ -21381,7 +22566,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
@@ -21389,7 +22574,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListComments(p: {
@@ -21436,7 +22624,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
@@ -21449,7 +22637,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesCreateComment(p: {
@@ -21499,7 +22690,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`,
       {
@@ -21507,7 +22698,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListEvents(p: {
@@ -21553,7 +22747,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
@@ -21562,7 +22756,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListLabelsOnIssue(p: {
@@ -21588,7 +22785,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
@@ -21597,7 +22794,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesAddLabels(p: {
@@ -21627,7 +22827,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
@@ -21635,7 +22835,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesSetLabels(p: {
@@ -21665,7 +22868,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
@@ -21673,7 +22876,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesRemoveAllLabels(p: {
@@ -21684,14 +22890,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesRemoveLabel(p: {
@@ -21716,14 +22925,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesLock(p: {
@@ -21740,7 +22952,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
@@ -21748,7 +22960,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesUnlock(p: {
@@ -21759,14 +22974,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForIssue(p: {
@@ -21818,7 +23036,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
@@ -21831,7 +23049,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForIssue(p: {
@@ -21886,7 +23107,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`,
       {
@@ -21894,7 +23115,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForIssue(p: {
@@ -21906,14 +23130,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListEventsForTimeline(p: {
@@ -21959,7 +23186,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
@@ -21971,7 +23198,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListDeployKeys(p: {
@@ -21996,7 +23226,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys?${qs.stringify({
           per_page: p["perPage"],
@@ -22006,7 +23236,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateDeployKey(p: {
@@ -22037,14 +23270,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetDeployKey(p: {
@@ -22068,14 +23304,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteDeployKey(p: {
@@ -22086,14 +23325,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListLabelsForRepo(p: {
@@ -22118,7 +23360,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels?${qs.stringify({
           per_page: p["perPage"],
@@ -22128,7 +23370,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesCreateLabel(p: {
@@ -22159,14 +23404,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesGetLabel(p: {
@@ -22190,14 +23438,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesUpdateLabel(p: {
@@ -22229,7 +23480,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
@@ -22237,7 +23488,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesDeleteLabel(p: {
@@ -22248,14 +23502,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListLanguages(p: {
@@ -22273,13 +23530,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async licensesGetForRepo(p: {
@@ -22318,13 +23578,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposMerge(p: {
@@ -22434,14 +23697,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListMilestones(p: {
@@ -22497,7 +23763,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones?${qs.stringify({
           state: p["state"],
@@ -22510,7 +23776,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesCreateMilestone(p: {
@@ -22570,14 +23839,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesGetMilestone(p: {
@@ -22629,14 +23901,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesUpdateMilestone(p: {
@@ -22697,7 +23972,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
@@ -22705,7 +23980,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesDeleteMilestone(p: {
@@ -22716,14 +23994,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListLabelsForMilestone(p: {
@@ -22749,7 +24030,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${
           p["milestoneNumber"]
@@ -22758,7 +24039,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListRepoNotificationsForAuthenticatedUser(p: {
@@ -22860,7 +24144,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/notifications?${qs.stringify({
           all: p["all"],
@@ -22874,7 +24158,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityMarkRepoNotificationsAsRead(p: {
@@ -22890,14 +24177,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetPages(p: {
@@ -22922,13 +24212,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreatePagesSite(p: {
@@ -22962,14 +24255,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeletePagesSite(p: {
@@ -22979,13 +24275,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateInformationAboutPagesSite(p: {
@@ -23002,14 +24301,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposRequestPagesBuild(p: {
@@ -23027,13 +24329,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListPagesBuilds(p: {
@@ -23080,7 +24385,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds?${qs.stringify({
           per_page: p["perPage"],
@@ -23090,7 +24395,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetLatestPagesBuild(p: {
@@ -23135,14 +24443,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetPagesBuild(p: {
@@ -23188,14 +24499,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListForRepo(p: {
@@ -23246,7 +24560,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/projects?${qs.stringify({
           state: p["state"],
@@ -23257,7 +24571,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsCreateForRepo(p: {
@@ -23312,14 +24629,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsList(p: {
@@ -23795,7 +25115,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls?${qs.stringify({
           state: p["state"],
@@ -23810,7 +25130,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsCreate(p: {
@@ -24321,14 +25644,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListReviewCommentsForRepo(p: {
@@ -24403,7 +25729,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments?${qs.stringify({
           sort: p["sort"],
@@ -24416,7 +25742,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsGetReviewComment(p: {
@@ -24487,14 +25816,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsUpdateReviewComment(p: {
@@ -24571,7 +25903,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
@@ -24579,7 +25911,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsDeleteReviewComment(p: {
@@ -24590,14 +25925,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForPullRequestReviewComment(p: {
@@ -24649,7 +25987,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${
           p["commentId"]
@@ -24662,7 +26000,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForPullRequestReviewComment(p: {
@@ -24717,7 +26058,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`,
       {
@@ -24725,7 +26066,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsDeleteForPullRequestComment(p: {
@@ -24737,14 +26081,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsGet(p: {
@@ -25245,14 +26592,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsUpdate(p: {
@@ -25763,7 +27113,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
@@ -25771,7 +27121,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListReviewComments(p: {
@@ -25847,7 +27200,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
@@ -25862,7 +27215,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsCreateReviewComment(p: {
@@ -25946,7 +27302,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`,
       {
@@ -25954,7 +27310,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsCreateReplyForReviewComment(p: {
@@ -26032,7 +27391,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`,
       {
@@ -26040,7 +27399,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListCommits(p: {
@@ -26133,7 +27495,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
@@ -26142,7 +27504,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListFiles(p: {
@@ -26171,7 +27536,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
@@ -26180,7 +27545,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsCheckIfMerged(p: {
@@ -26191,14 +27559,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsMerge(p: {
@@ -26241,7 +27612,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
@@ -26249,7 +27620,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListRequestedReviewers(p: {
@@ -26302,7 +27676,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
@@ -26314,7 +27688,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsRequestReviewers(p: {
@@ -26792,7 +28169,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
@@ -26800,7 +28177,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsRemoveRequestedReviewers(p: {
@@ -26818,7 +28198,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
@@ -26826,7 +28206,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListReviews(p: {
@@ -26881,7 +28264,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
@@ -26890,7 +28273,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsCreateReview(p: {
@@ -26956,7 +28342,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`,
       {
@@ -26964,7 +28350,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsGetReview(p: {
@@ -27018,14 +28407,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsDeletePendingReview(p: {
@@ -27078,14 +28470,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsUpdateReview(p: {
@@ -27145,7 +28540,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
@@ -27153,7 +28548,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsListCommentsForReview(p: {
@@ -27221,7 +28619,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${
           p["reviewId"]
@@ -27233,7 +28631,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsDismissReview(p: {
@@ -27293,7 +28694,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`,
       {
@@ -27301,7 +28702,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsSubmitReview(p: {
@@ -27362,7 +28766,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`,
       {
@@ -27370,7 +28774,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async pullsUpdateBranch(p: {
@@ -27395,7 +28802,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`,
       {
@@ -27403,7 +28810,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetReadme(p: {
@@ -27436,7 +28846,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/readme?${qs.stringify({
           ref: p["ref"],
@@ -27445,7 +28855,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListReleases(p: {
@@ -27533,7 +28946,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases?${qs.stringify({
           per_page: p["perPage"],
@@ -27543,7 +28956,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateRelease(p: {
@@ -27609,14 +29025,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetReleaseAsset(p: {
@@ -27665,14 +29084,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateReleaseAsset(p: {
@@ -27728,7 +29150,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
@@ -27736,7 +29158,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteReleaseAsset(p: {
@@ -27747,14 +29172,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetLatestRelease(p: {
@@ -27840,14 +29268,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/latest`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetReleaseByTag(p: {
@@ -27934,14 +29365,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetRelease(p: {
@@ -28028,14 +29462,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUpdateRelease(p: {
@@ -28133,7 +29570,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
@@ -28141,7 +29578,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeleteRelease(p: {
@@ -28152,14 +29592,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListReleaseAssets(p: {
@@ -28210,7 +29653,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${
           p["releaseId"]
@@ -28219,7 +29662,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposUploadReleaseAsset(p: {
@@ -28278,7 +29724,7 @@ export class ApiClient {
       "content-type": p["contentType"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${
           p["releaseId"]
@@ -28288,7 +29734,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListStargazersForRepo(p: {
@@ -28327,7 +29776,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stargazers?${qs.stringify({
           per_page: p["perPage"],
@@ -28337,7 +29786,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCodeFrequencyStats(p: {
@@ -28347,14 +29799,17 @@ export class ApiClient {
   }): Promise<Res<200, number[][]>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetCommitActivityStats(p: {
@@ -28373,14 +29828,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetContributorsStats(p: {
@@ -28423,14 +29881,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetParticipationStats(p: {
@@ -28448,14 +29909,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/participation`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetPunchCardStats(p: {
@@ -28465,14 +29929,17 @@ export class ApiClient {
   }): Promise<Res<200, number[][]>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateCommitStatus(p: {
@@ -28528,7 +29995,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`,
       {
@@ -28536,7 +30003,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListWatchersForRepo(p: {
@@ -28572,7 +30042,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/subscribers?${qs.stringify({
           per_page: p["perPage"],
@@ -28582,7 +30052,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityGetRepoSubscription(p: {
@@ -28605,13 +30078,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activitySetRepoSubscription(p: {
@@ -28640,14 +30116,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityDeleteRepoSubscription(p: {
@@ -28657,13 +30136,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListTags(p: {
@@ -28688,7 +30170,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags?${qs.stringify({
           per_page: p["perPage"],
@@ -28698,7 +30180,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListTeams(p: {
@@ -28728,7 +30213,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/teams?${qs.stringify({
           per_page: p["perPage"],
@@ -28738,7 +30223,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetAllTopics(p: {
@@ -28755,13 +30243,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposReplaceAllTopics(p: {
@@ -28784,14 +30275,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetClones(p: {
@@ -28815,7 +30309,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/clones?${qs.stringify({
           per: p["per"],
@@ -28824,7 +30318,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetTopPaths(p: {
@@ -28844,14 +30341,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetTopReferrers(p: {
@@ -28870,14 +30370,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposGetViews(p: {
@@ -28901,7 +30404,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/views?${qs.stringify({
           per: p["per"],
@@ -28910,7 +30413,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposTransfer(p: {
@@ -29037,14 +30543,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`,
       {
         method: "POST",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCheckVulnerabilityAlerts(p: {
@@ -29054,14 +30563,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposEnableVulnerabilityAlerts(p: {
@@ -29071,14 +30583,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDisableVulnerabilityAlerts(p: {
@@ -29088,14 +30603,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDownloadArchive(p: {
@@ -29107,14 +30625,17 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/${p["archiveFormat"]}/${p["ref"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateUsingTemplate(p: {
@@ -29348,7 +30869,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`,
       {
@@ -29356,7 +30877,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListPublic(p: { accept?: string; since?: number }): Promise<
@@ -29434,14 +30958,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/repositories?${qs.stringify({ since: p["since"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimListProvisionedIdentities(p: {
@@ -29485,7 +31012,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/scim/v2/organizations/${p["org"]}/Users?${qs.stringify({
           startIndex: p["startIndex"],
@@ -29496,7 +31023,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimProvisionAndInviteUser(p: {
@@ -29531,13 +31061,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/scim/v2/organizations/${p["org"]}/Users`,
       {
         method: "POST",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimGetProvisioningInformationForUser(p: {
@@ -29573,14 +31106,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimSetInformationForProvisionedUser(p: {
@@ -29616,14 +31152,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimUpdateAttributeForUser(p: {
@@ -29659,14 +31198,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async scimDeleteUserFromOrg(p: {
@@ -29676,14 +31218,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchCode(p: {
@@ -29778,7 +31323,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/code?${qs.stringify({
           q: p["q"],
@@ -29791,7 +31336,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchCommits(p: {
@@ -29950,7 +31498,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/commits?${qs.stringify({
           q: p["q"],
@@ -29963,7 +31511,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchIssuesAndPullRequests(p: {
@@ -30047,7 +31598,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/issues?${qs.stringify({
           q: p["q"],
@@ -30060,7 +31611,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchLabels(p: {
@@ -30090,7 +31644,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/labels?${qs.stringify({
           repository_id: p["repositoryId"],
@@ -30102,7 +31656,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchRepos(p: {
@@ -30157,7 +31714,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/repositories?${qs.stringify({
           q: p["q"],
@@ -30170,7 +31727,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchTopics(p: { accept?: string; q: string }): Promise<
@@ -30197,13 +31757,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/search/topics?${qs.stringify({ q: p["q"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async searchUsers(p: {
@@ -30240,7 +31803,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/search/users?${qs.stringify({
           q: p["q"],
@@ -30253,7 +31816,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetLegacy(p: { accept?: string; teamId: number }): Promise<
@@ -30311,10 +31877,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
+    const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateLegacy(p: {
@@ -30385,11 +31954,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
+    const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "PATCH",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteLegacy(p: {
@@ -30398,10 +31970,13 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
+    const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "DELETE",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListDiscussionsLegacy(p: {
@@ -30465,7 +32040,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions?${qs.stringify({
           direction: p["direction"],
@@ -30476,7 +32051,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateDiscussionLegacy(p: {
@@ -30545,11 +32123,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/teams/${p["teamId"]}/discussions`, {
-      method: "POST",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/teams/${p["teamId"]}/discussions`,
+      {
+        method: "POST",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetDiscussionLegacy(p: {
@@ -30611,14 +32195,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateDiscussionLegacy(p: {
@@ -30687,7 +32274,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
@@ -30695,7 +32282,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteDiscussionLegacy(p: {
@@ -30705,14 +32295,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListDiscussionCommentsLegacy(p: {
@@ -30772,7 +32365,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${
           p["discussionNumber"]
@@ -30785,7 +32378,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateDiscussionCommentLegacy(p: {
@@ -30848,7 +32444,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`,
       {
@@ -30856,7 +32452,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetDiscussionCommentLegacy(p: {
@@ -30914,14 +32513,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsUpdateDiscussionCommentLegacy(p: {
@@ -30985,7 +32587,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
@@ -30993,7 +32595,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsDeleteDiscussionCommentLegacy(p: {
@@ -31004,14 +32609,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForTeamDiscussionCommentLegacy(p: {
@@ -31063,7 +32671,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${
           p["commentNumber"]
@@ -31076,7 +32684,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForTeamDiscussionCommentLegacy(p: {
@@ -31131,7 +32742,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
@@ -31139,7 +32750,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsListForTeamDiscussionLegacy(p: {
@@ -31190,7 +32804,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${
           p["discussionNumber"]
@@ -31203,7 +32817,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reactionsCreateForTeamDiscussionLegacy(p: {
@@ -31257,7 +32874,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
@@ -31265,7 +32882,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListPendingInvitationsLegacy(p: {
@@ -31309,7 +32929,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/invitations?${qs.stringify({
           per_page: p["perPage"],
@@ -31319,7 +32939,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListMembersLegacy(p: {
@@ -31355,7 +32978,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/members?${qs.stringify({
           role: p["role"],
@@ -31366,7 +32989,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetMemberLegacy(p: {
@@ -31376,13 +33002,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddMemberLegacy(p: {
@@ -31406,13 +33035,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveMemberLegacy(p: {
@@ -31422,13 +33054,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsGetMembershipForUserLegacy(p: {
@@ -31447,14 +33082,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateMembershipForUserLegacy(p: {
@@ -31491,7 +33129,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
@@ -31499,7 +33137,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveMembershipForUserLegacy(p: {
@@ -31509,14 +33150,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<403, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListProjectsLegacy(p: {
@@ -31572,7 +33216,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/projects?${qs.stringify({
           per_page: p["perPage"],
@@ -31582,7 +33226,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCheckPermissionsForProjectLegacy(p: {
@@ -31638,13 +33285,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateProjectPermissionsLegacy(p: {
@@ -31669,14 +33319,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveProjectLegacy(p: {
@@ -31686,13 +33339,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListReposLegacy(p: {
@@ -31817,7 +33473,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/repos?${qs.stringify({
           per_page: p["perPage"],
@@ -31827,7 +33483,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCheckPermissionsForRepoLegacy(p: {
@@ -32085,14 +33744,17 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsAddOrUpdateRepoPermissionsLegacy(p: {
@@ -32109,7 +33771,7 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
@@ -32117,7 +33779,10 @@ export class ApiClient {
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsRemoveRepoLegacy(p: {
@@ -32128,14 +33793,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListIdPGroupsForLegacy(p: {
@@ -32155,13 +33823,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/team-sync/group-mappings`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsCreateOrUpdateIdPGroupConnectionsLegacy(p: {
@@ -32191,14 +33862,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/teams/${p["teamId"]}/team-sync/group-mappings`,
       {
         method: "PATCH",
         headers: this.headers(headers),
         body: JSON.stringify(p.requestBody),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListChildLegacy(p: {
@@ -32238,7 +33912,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/teams/${p["teamId"]}/teams?${qs.stringify({
           per_page: p["perPage"],
@@ -32248,7 +33922,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersGetAuthenticated(p: { accept?: string }): Promise<
@@ -32304,10 +33981,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user`, {
+    const res = await fetch(this.config.basePath + `/user`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersUpdateAuthenticated(p: {
@@ -32378,11 +34058,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user`, {
+    const res = await fetch(this.config.basePath + `/user`, {
       method: "PATCH",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListBlockedByAuthenticated(p: { accept?: string }): Promise<
@@ -32412,10 +34095,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/blocks`, {
+    const res = await fetch(this.config.basePath + `/user/blocks`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersCheckBlocked(p: {
@@ -32424,10 +34110,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/blocks/${p["username"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/blocks/${p["username"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersBlock(p: {
@@ -32436,10 +34128,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/blocks/${p["username"]}`, {
-      method: "PUT",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/blocks/${p["username"]}`,
+      {
+        method: "PUT",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersUnblock(p: {
@@ -32448,10 +34146,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/blocks/${p["username"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/blocks/${p["username"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersSetPrimaryEmailVisibilityForAuthenticated(p: {
@@ -32476,11 +34180,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/email/visibility`, {
+    const res = await fetch(this.config.basePath + `/user/email/visibility`, {
       method: "PATCH",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListEmailsForAuthenticated(p: {
@@ -32500,7 +34207,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/emails?${qs.stringify({
           per_page: p["perPage"],
@@ -32510,7 +34217,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersAddEmailForAuthenticated(p: {
@@ -32534,11 +34244,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/emails`, {
+    const res = await fetch(this.config.basePath + `/user/emails`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersDeleteEmailForAuthenticated(p: {
@@ -32552,11 +34265,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/emails`, {
+    const res = await fetch(this.config.basePath + `/user/emails`, {
       method: "DELETE",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListFollowersForAuthenticatedUser(p: {
@@ -32590,7 +34306,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/followers?${qs.stringify({
           per_page: p["perPage"],
@@ -32600,7 +34316,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListFollowedByAuthenticated(p: {
@@ -32634,7 +34353,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/following?${qs.stringify({
           per_page: p["perPage"],
@@ -32644,7 +34363,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersCheckPersonIsFollowedByAuthenticated(p: {
@@ -32653,10 +34375,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/following/${p["username"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/following/${p["username"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersFollow(p: {
@@ -32665,10 +34393,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/following/${p["username"]}`, {
-      method: "PUT",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/following/${p["username"]}`,
+      {
+        method: "PUT",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersUnfollow(p: {
@@ -32677,10 +34411,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/following/${p["username"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/following/${p["username"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListGpgKeysForAuthenticated(p: {
@@ -32728,7 +34468,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/gpg_keys?${qs.stringify({
           per_page: p["perPage"],
@@ -32738,7 +34478,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersCreateGpgKeyForAuthenticated(p: {
@@ -32790,11 +34533,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/gpg_keys`, {
+    const res = await fetch(this.config.basePath + `/user/gpg_keys`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersGetGpgKeyForAuthenticated(p: {
@@ -32841,10 +34587,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersDeleteGpgKeyForAuthenticated(p: {
@@ -32853,10 +34605,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`, {
-      method: "DELETE",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
+      {
+        method: "DELETE",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListInstallationsForAuthenticatedUser(p: {
@@ -32914,7 +34672,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/installations?${qs.stringify({
           per_page: p["perPage"],
@@ -32924,7 +34682,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListInstallationReposForAuthenticatedUser(p: {
@@ -33048,7 +34809,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories?${qs.stringify(
           { per_page: p["perPage"], page: p["page"] }
@@ -33057,7 +34818,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsAddRepoToInstallation(p: {
@@ -33067,14 +34831,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsRemoveRepoFromInstallation(p: {
@@ -33084,14 +34851,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async issuesListForAuthenticatedUser(p: {
@@ -33349,7 +35119,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/issues?${qs.stringify({
           filter: p["filter"],
@@ -33365,7 +35135,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListPublicSshKeysForAuthenticated(p: {
@@ -33383,7 +35156,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/keys?${qs.stringify({
           per_page: p["perPage"],
@@ -33393,7 +35166,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersCreatePublicSshKeyForAuthenticated(p: {
@@ -33416,11 +35192,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/keys`, {
+    const res = await fetch(this.config.basePath + `/user/keys`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersGetPublicSshKeyForAuthenticated(p: {
@@ -33437,10 +35216,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
+    const res = await fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersDeletePublicSshKeyForAuthenticated(p: {
@@ -33449,10 +35231,13 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
+    const res = await fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
       method: "DELETE",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListSubscriptionsForAuthenticatedUser(p: {
@@ -33497,7 +35282,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/marketplace_purchases?${qs.stringify({
           per_page: p["perPage"],
@@ -33507,7 +35292,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(p: {
@@ -33552,7 +35340,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/marketplace_purchases/stubbed?${qs.stringify({
           per_page: p["perPage"],
@@ -33562,7 +35350,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListMembershipsForAuthenticatedUser(p: {
@@ -33617,7 +35408,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/memberships/orgs?${qs.stringify({
           state: p["state"],
@@ -33628,7 +35419,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsGetMembershipForAuthenticatedUser(p: {
@@ -33681,10 +35475,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/user/memberships/orgs/${p["org"]}`, {
-      method: "GET",
-      headers: this.headers(headers),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
+      {
+        method: "GET",
+        headers: this.headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsUpdateMembershipForAuthenticatedUser(p: {
@@ -33743,11 +35543,17 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/memberships/orgs/${p["org"]}`, {
-      method: "PATCH",
-      headers: this.headers(headers),
-      body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    const res = await fetch(
+      this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
+      {
+        method: "PATCH",
+        headers: this.headers(headers),
+        body: JSON.stringify(p.requestBody),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsStartForAuthenticatedUser(p: {
@@ -33903,11 +35709,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/migrations`, {
+    const res = await fetch(this.config.basePath + `/user/migrations`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsListForAuthenticatedUser(p: {
@@ -34057,7 +35866,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/migrations?${qs.stringify({
           per_page: p["perPage"],
@@ -34067,7 +35876,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetStatusForAuthenticatedUser(p: {
@@ -34216,13 +36028,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/migrations/${p["migrationId"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsGetArchiveForAuthenticatedUser(p: {
@@ -34231,13 +36046,16 @@ export class ApiClient {
   }): Promise<Res<302, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsDeleteArchiveForAuthenticatedUser(p: {
@@ -34246,13 +36064,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsUnlockRepoForAuthenticatedUser(p: {
@@ -34262,14 +36083,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListForAuthenticatedUser(p: {
@@ -34297,7 +36121,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/orgs?${qs.stringify({
           per_page: p["perPage"],
@@ -34307,7 +36131,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsCreateForAuthenticatedUser(p: {
@@ -34360,11 +36187,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/projects`, {
+    const res = await fetch(this.config.basePath + `/user/projects`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListPublicEmailsForAuthenticated(p: {
@@ -34384,7 +36214,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/public_emails?${qs.stringify({
           per_page: p["perPage"],
@@ -34394,7 +36224,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListForAuthenticatedUser(p: {
@@ -34409,7 +36242,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/repos?${qs.stringify({
           visibility: p["visibility"],
@@ -34424,7 +36257,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposCreateForAuthenticatedUser(p: {
@@ -34564,11 +36400,14 @@ export class ApiClient {
       accept: p["accept"],
     }
 
-    return fetch(this.config.basePath + `/user/repos`, {
+    const res = await fetch(this.config.basePath + `/user/repos`, {
       method: "POST",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListInvitationsForAuthenticatedUser(p: {
@@ -34697,7 +36536,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/repository_invitations?${qs.stringify({
           per_page: p["perPage"],
@@ -34707,7 +36546,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposAcceptInvitation(p: {
@@ -34716,14 +36558,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
         method: "PATCH",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposDeclineInvitation(p: {
@@ -34732,14 +36577,17 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListReposStarredByAuthenticatedUser(p: {
@@ -34864,7 +36712,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/starred?${qs.stringify({
           sort: p["sort"],
@@ -34876,7 +36724,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityCheckRepoIsStarredByAuthenticatedUser(p: {
@@ -34886,13 +36737,16 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityStarRepoForAuthenticatedUser(p: {
@@ -34902,13 +36756,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "PUT",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityUnstarRepoForAuthenticatedUser(p: {
@@ -34918,13 +36775,16 @@ export class ApiClient {
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListWatchedReposForAuthenticatedUser(p: {
@@ -35048,7 +36908,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/subscriptions?${qs.stringify({
           per_page: p["perPage"],
@@ -35058,7 +36918,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async teamsListForAuthenticatedUser(p: {
@@ -35120,7 +36983,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/teams?${qs.stringify({
           per_page: p["perPage"],
@@ -35130,7 +36993,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async migrationsListReposForUser(p: {
@@ -35255,7 +37121,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/user/${p["migrationId"]}/repositories?${qs.stringify({
           per_page: p["perPage"],
@@ -35265,7 +37131,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersList(p: { accept?: string; since?: string }): Promise<
@@ -35295,13 +37164,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/users?${qs.stringify({ since: p["since"] })}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersGetByUsername(p: { accept?: string; username: string }): Promise<
@@ -35345,10 +37217,13 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(this.config.basePath + `/users/${p["username"]}`, {
+    const res = await fetch(this.config.basePath + `/users/${p["username"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListEventsForAuthenticatedUser(p: {
@@ -35359,7 +37234,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/events?${qs.stringify({
           per_page: p["perPage"],
@@ -35369,7 +37244,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListOrgEventsForAuthenticatedUser(p: {
@@ -35381,7 +37259,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/events/orgs/${p["org"]}?${qs.stringify({
           per_page: p["perPage"],
@@ -35391,7 +37269,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListPublicEventsForUser(p: {
@@ -35402,7 +37283,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/events/public?${qs.stringify({
           per_page: p["perPage"],
@@ -35412,7 +37293,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListFollowersForUser(p: {
@@ -35447,7 +37331,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/followers?${qs.stringify({
           per_page: p["perPage"],
@@ -35457,7 +37341,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListFollowingForUser(p: {
@@ -35492,7 +37379,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/following?${qs.stringify({
           per_page: p["perPage"],
@@ -35502,7 +37389,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersCheckFollowingForUser(p: {
@@ -35512,14 +37402,17 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<404, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/following/${p["targetUser"]}`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async gistsListForUser(p: {
@@ -35576,7 +37469,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/gists?${qs.stringify({
           since: p["since"],
@@ -35587,7 +37480,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListGpgKeysForUser(p: {
@@ -35636,7 +37532,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/gpg_keys?${qs.stringify({
           per_page: p["perPage"],
@@ -35646,7 +37542,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersGetContextForUser(p: {
@@ -35667,7 +37566,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/hovercard?${qs.stringify({
           subject_type: p["subjectType"],
@@ -35677,7 +37576,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetUserInstallation(p: {
@@ -35729,13 +37631,16 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath + `/users/${p["username"]}/installation`,
       {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async usersListPublicKeysForUser(p: {
@@ -35754,7 +37659,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/keys?${qs.stringify({
           per_page: p["perPage"],
@@ -35764,7 +37669,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async orgsListForUser(p: {
@@ -35793,7 +37701,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/orgs?${qs.stringify({
           per_page: p["perPage"],
@@ -35803,7 +37711,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async projectsListForUser(p: {
@@ -35853,7 +37764,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/projects?${qs.stringify({
           state: p["state"],
@@ -35864,7 +37775,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListReceivedEventsForUser(p: {
@@ -35875,7 +37789,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/received_events?${qs.stringify({
           per_page: p["perPage"],
@@ -35885,7 +37799,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListReceivedPublicEventsForUser(p: {
@@ -35896,7 +37813,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/received_events/public?${qs.stringify({
           per_page: p["perPage"],
@@ -35906,7 +37823,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async reposListForUser(p: {
@@ -35920,7 +37840,7 @@ export class ApiClient {
   }): Promise<Res<418, void>> {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/repos?${qs.stringify({
           type: p["type"],
@@ -35933,7 +37853,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListReposStarredByUser(p: {
@@ -36059,7 +37982,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/starred?${qs.stringify({
           sort: p["sort"],
@@ -36071,7 +37994,10 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityListReposWatchedByUser(p: {
@@ -36196,7 +38122,7 @@ export class ApiClient {
   > {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
-    return fetch(
+    const res = await fetch(
       this.config.basePath +
         `/users/${p["username"]}/subscriptions?${qs.stringify({
           per_page: p["perPage"],
@@ -36206,6 +38132,9 @@ export class ApiClient {
         method: "GET",
         headers: this.headers(headers),
       }
-    ).then((res) => res.json())
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 }
