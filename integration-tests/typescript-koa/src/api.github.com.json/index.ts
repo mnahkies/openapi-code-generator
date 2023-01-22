@@ -951,7 +951,7 @@ const router = new KoaRouter()
 router.get(
   "appsGetAuthenticated",
   "/app",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-appsGetAuthenticated
 
     ctx.status = 501
@@ -975,7 +975,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<AppsCreateFromManifestParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsCreateFromManifest
 
@@ -1000,7 +1000,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, AppsListInstallationsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListInstallations
 
@@ -1025,7 +1025,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsGetInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetInstallation
 
@@ -1050,7 +1050,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<AppsDeleteInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsDeleteInstallation
 
@@ -1090,7 +1090,7 @@ router.post(
       void,
       AppsCreateInstallationAccessTokenBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsCreateInstallationAccessToken
 
@@ -1115,7 +1115,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<AppsSuspendInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsSuspendInstallation
 
@@ -1140,7 +1140,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<AppsUnsuspendInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsUnsuspendInstallation
 
@@ -1165,7 +1165,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, OauthAuthorizationsListGrantsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsListGrants
 
@@ -1190,7 +1190,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OauthAuthorizationsGetGrantParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsGetGrant
 
@@ -1215,7 +1215,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<OauthAuthorizationsDeleteGrantParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsDeleteGrant
 
@@ -1252,7 +1252,7 @@ router.delete(
       void,
       AppsDeleteAuthorizationBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsDeleteAuthorization
 
@@ -1280,7 +1280,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<AppsRevokeGrantForApplicationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsRevokeGrantForApplication
 
@@ -1313,7 +1313,7 @@ router.post(
       void,
       AppsCheckTokenBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsCheckToken
 
@@ -1346,7 +1346,7 @@ router.patch(
       void,
       AppsResetTokenBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsResetToken
 
@@ -1381,7 +1381,7 @@ router.delete(
       void,
       AppsDeleteTokenBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsDeleteToken
 
@@ -1409,7 +1409,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsCheckAuthorizationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsCheckAuthorization
 
@@ -1437,7 +1437,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<AppsResetAuthorizationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsResetAuthorization
 
@@ -1469,7 +1469,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsRevokeAuthorizationForApplication
 
@@ -1490,7 +1490,10 @@ router.get(
   "appsGetBySlug",
   "/apps/:appSlug",
   paramValidationFactory<AppsGetBySlugParamSchema>(appsGetBySlugParamSchema),
-  async (ctx: ValidatedCtx<AppsGetBySlugParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<AppsGetBySlugParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-appsGetBySlug
 
     ctx.status = 501
@@ -1518,7 +1521,7 @@ router.get(
       OauthAuthorizationsListAuthorizationsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsListAuthorizations
 
@@ -1554,7 +1557,7 @@ router.post(
       void,
       OauthAuthorizationsCreateAuthorizationBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsCreateAuthorization
 
@@ -1597,7 +1600,7 @@ router.put(
       void,
       OauthAuthorizationsGetOrCreateAuthorizationForAppBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForApp
 
@@ -1644,7 +1647,7 @@ router.put(
       void,
       OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint
 
@@ -1673,7 +1676,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsGetAuthorization
 
@@ -1717,7 +1720,7 @@ router.patch(
       void,
       OauthAuthorizationsUpdateAuthorizationBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsUpdateAuthorization
 
@@ -1746,7 +1749,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-oauthAuthorizationsDeleteAuthorization
 
@@ -1761,7 +1764,7 @@ router.delete(
 router.get(
   "codesOfConductGetAllCodesOfConduct",
   "/codes_of_conduct",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-codesOfConductGetAllCodesOfConduct
 
     ctx.status = 501
@@ -1785,7 +1788,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<CodesOfConductGetConductCodeParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-codesOfConductGetConductCode
 
@@ -1822,7 +1825,7 @@ router.post(
       void,
       AppsCreateContentAttachmentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsCreateContentAttachment
 
@@ -1837,7 +1840,7 @@ router.post(
 router.get(
   "emojisGet",
   "/emojis",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-emojisGet
 
     ctx.status = 501
@@ -1861,7 +1864,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, ActivityListPublicEventsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListPublicEvents
 
@@ -1876,7 +1879,7 @@ router.get(
 router.get(
   "activityGetFeeds",
   "/feeds",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-activityGetFeeds
 
     ctx.status = 501
@@ -1896,7 +1899,7 @@ router.get(
   "gistsList",
   "/gists",
   queryValidationFactory<GistsListQuerySchema>(gistsListQuerySchema),
-  async (ctx: ValidatedCtx<void, GistsListQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, GistsListQuerySchema, void>, next: Next) => {
     //region safe-edit-region-gistsList
 
     ctx.status = 501
@@ -1920,7 +1923,7 @@ router.post(
   "gistsCreate",
   "/gists",
   bodyValidationFactory<GistsCreateBodySchema>(gistsCreateBodySchema),
-  async (ctx: ValidatedCtx<void, void, GistsCreateBodySchema>, next) => {
+  async (ctx: ValidatedCtx<void, void, GistsCreateBodySchema>, next: Next) => {
     //region safe-edit-region-gistsCreate
 
     ctx.status = 501
@@ -1942,7 +1945,10 @@ router.get(
   queryValidationFactory<GistsListPublicQuerySchema>(
     gistsListPublicQuerySchema
   ),
-  async (ctx: ValidatedCtx<void, GistsListPublicQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, GistsListPublicQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gistsListPublic
 
     ctx.status = 501
@@ -1964,7 +1970,10 @@ router.get(
   queryValidationFactory<GistsListStarredQuerySchema>(
     gistsListStarredQuerySchema
   ),
-  async (ctx: ValidatedCtx<void, GistsListStarredQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, GistsListStarredQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gistsListStarred
 
     ctx.status = 501
@@ -1984,7 +1993,7 @@ router.get(
   "gistsGet",
   "/gists/:gistId",
   paramValidationFactory<GistsGetParamSchema>(gistsGetParamSchema),
-  async (ctx: ValidatedCtx<GistsGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GistsGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gistsGet
 
     ctx.status = 501
@@ -2012,7 +2021,7 @@ router.patch(
   bodyValidationFactory<GistsUpdateBodySchema>(gistsUpdateBodySchema),
   async (
     ctx: ValidatedCtx<GistsUpdateParamSchema, void, GistsUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsUpdate
 
@@ -2033,7 +2042,7 @@ router.delete(
   "gistsDelete",
   "/gists/:gistId",
   paramValidationFactory<GistsDeleteParamSchema>(gistsDeleteParamSchema),
-  async (ctx: ValidatedCtx<GistsDeleteParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GistsDeleteParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gistsDelete
 
     ctx.status = 501
@@ -2069,7 +2078,7 @@ router.get(
       GistsListCommentsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsListComments
 
@@ -2106,7 +2115,7 @@ router.post(
       void,
       GistsCreateCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsCreateComment
 
@@ -2132,7 +2141,10 @@ router.get(
   paramValidationFactory<GistsGetCommentParamSchema>(
     gistsGetCommentParamSchema
   ),
-  async (ctx: ValidatedCtx<GistsGetCommentParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<GistsGetCommentParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gistsGetComment
 
     ctx.status = 501
@@ -2171,7 +2183,7 @@ router.patch(
       void,
       GistsUpdateCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsUpdateComment
 
@@ -2199,7 +2211,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<GistsDeleteCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsDeleteComment
 
@@ -2236,7 +2248,7 @@ router.get(
       GistsListCommitsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsListCommits
 
@@ -2257,7 +2269,7 @@ router.post(
   "gistsFork",
   "/gists/:gistId/forks",
   paramValidationFactory<GistsForkParamSchema>(gistsForkParamSchema),
-  async (ctx: ValidatedCtx<GistsForkParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GistsForkParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gistsFork
 
     ctx.status = 501
@@ -2289,7 +2301,7 @@ router.get(
       GistsListForksQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsListForks
 
@@ -2310,7 +2322,7 @@ router.put(
   "gistsStar",
   "/gists/:gistId/star",
   paramValidationFactory<GistsStarParamSchema>(gistsStarParamSchema),
-  async (ctx: ValidatedCtx<GistsStarParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GistsStarParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gistsStar
 
     ctx.status = 501
@@ -2330,7 +2342,7 @@ router.delete(
   "gistsUnstar",
   "/gists/:gistId/star",
   paramValidationFactory<GistsUnstarParamSchema>(gistsUnstarParamSchema),
-  async (ctx: ValidatedCtx<GistsUnstarParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GistsUnstarParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gistsUnstar
 
     ctx.status = 501
@@ -2354,7 +2366,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<GistsCheckIsStarredParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsCheckIsStarred
 
@@ -2377,7 +2389,10 @@ router.get(
   paramValidationFactory<GistsGetRevisionParamSchema>(
     gistsGetRevisionParamSchema
   ),
-  async (ctx: ValidatedCtx<GistsGetRevisionParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<GistsGetRevisionParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gistsGetRevision
 
     ctx.status = 501
@@ -2391,7 +2406,7 @@ router.get(
 router.get(
   "gitignoreGetAllTemplates",
   "/gitignore/templates",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-gitignoreGetAllTemplates
 
     ctx.status = 501
@@ -2415,7 +2430,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<GitignoreGetTemplateParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitignoreGetTemplate
 
@@ -2444,7 +2459,7 @@ router.get(
       AppsListReposAccessibleToInstallationQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListReposAccessibleToInstallation
 
@@ -2459,7 +2474,7 @@ router.get(
 router.delete(
   "appsRevokeInstallationAccessToken",
   "/installation/token",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-appsRevokeInstallationAccessToken
 
     ctx.status = 501
@@ -2488,7 +2503,7 @@ router.get(
   "issuesList",
   "/issues",
   queryValidationFactory<IssuesListQuerySchema>(issuesListQuerySchema),
-  async (ctx: ValidatedCtx<void, IssuesListQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, IssuesListQuerySchema, void>, next: Next) => {
     //region safe-edit-region-issuesList
 
     ctx.status = 501
@@ -2502,7 +2517,7 @@ router.get(
 router.get(
   "licensesGetAllCommonlyUsed",
   "/licenses",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-licensesGetAllCommonlyUsed
 
     ctx.status = 501
@@ -2522,7 +2537,7 @@ router.get(
   "licensesGet",
   "/licenses/:license",
   paramValidationFactory<LicensesGetParamSchema>(licensesGetParamSchema),
-  async (ctx: ValidatedCtx<LicensesGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<LicensesGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-licensesGet
 
     ctx.status = 501
@@ -2546,7 +2561,10 @@ router.post(
   "markdownRender",
   "/markdown",
   bodyValidationFactory<MarkdownRenderBodySchema>(markdownRenderBodySchema),
-  async (ctx: ValidatedCtx<void, void, MarkdownRenderBodySchema>, next) => {
+  async (
+    ctx: ValidatedCtx<void, void, MarkdownRenderBodySchema>,
+    next: Next
+  ) => {
     //region safe-edit-region-markdownRender
 
     ctx.status = 501
@@ -2565,7 +2583,10 @@ router.post(
   bodyValidationFactory<MarkdownRenderRawBodySchema>(
     markdownRenderRawBodySchema
   ),
-  async (ctx: ValidatedCtx<void, void, MarkdownRenderRawBodySchema>, next) => {
+  async (
+    ctx: ValidatedCtx<void, void, MarkdownRenderRawBodySchema>,
+    next: Next
+  ) => {
     //region safe-edit-region-markdownRenderRaw
 
     ctx.status = 501
@@ -2589,7 +2610,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsGetSubscriptionPlanForAccountParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetSubscriptionPlanForAccount
 
@@ -2610,7 +2631,10 @@ router.get(
   "appsListPlans",
   "/marketplace_listing/plans",
   queryValidationFactory<AppsListPlansQuerySchema>(appsListPlansQuerySchema),
-  async (ctx: ValidatedCtx<void, AppsListPlansQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, AppsListPlansQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-appsListPlans
 
     ctx.status = 501
@@ -2651,7 +2675,7 @@ router.get(
       AppsListAccountsForPlanQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListAccountsForPlan
 
@@ -2680,7 +2704,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetSubscriptionPlanForAccountStubbed
 
@@ -2705,7 +2729,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, AppsListPlansStubbedQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListPlansStubbed
 
@@ -2747,7 +2771,7 @@ router.get(
       AppsListAccountsForPlanStubbedQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListAccountsForPlanStubbed
 
@@ -2762,7 +2786,7 @@ router.get(
 router.get(
   "metaGet",
   "/meta",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-metaGet
 
     ctx.status = 501
@@ -2798,7 +2822,7 @@ router.get(
       ActivityListPublicEventsForRepoNetworkQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListPublicEventsForRepoNetwork
 
@@ -2834,7 +2858,7 @@ router.get(
       ActivityListNotificationsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListNotificationsForAuthenticatedUser
 
@@ -2859,7 +2883,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<void, void, ActivityMarkNotificationsAsReadBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityMarkNotificationsAsRead
 
@@ -2882,7 +2906,10 @@ router.get(
   paramValidationFactory<ActivityGetThreadParamSchema>(
     activityGetThreadParamSchema
   ),
-  async (ctx: ValidatedCtx<ActivityGetThreadParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ActivityGetThreadParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-activityGetThread
 
     ctx.status = 501
@@ -2906,7 +2933,7 @@ router.patch(
   ),
   async (
     ctx: ValidatedCtx<ActivityMarkThreadAsReadParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityMarkThreadAsRead
 
@@ -2935,7 +2962,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityGetThreadSubscriptionForAuthenticatedUser
 
@@ -2972,7 +2999,7 @@ router.put(
       void,
       ActivitySetThreadSubscriptionBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activitySetThreadSubscription
 
@@ -2997,7 +3024,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActivityDeleteThreadSubscriptionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityDeleteThreadSubscription
 
@@ -3018,7 +3045,7 @@ router.get(
   "orgsList",
   "/organizations",
   queryValidationFactory<OrgsListQuerySchema>(orgsListQuerySchema),
-  async (ctx: ValidatedCtx<void, OrgsListQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, OrgsListQuerySchema, void>, next: Next) => {
     //region safe-edit-region-orgsList
 
     ctx.status = 501
@@ -3038,7 +3065,7 @@ router.get(
   "orgsGet",
   "/orgs/:org",
   paramValidationFactory<OrgsGetParamSchema>(orgsGetParamSchema),
-  async (ctx: ValidatedCtx<OrgsGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<OrgsGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-orgsGet
 
     ctx.status = 501
@@ -3082,7 +3109,7 @@ router.patch(
   bodyValidationFactory<OrgsUpdateBodySchema>(orgsUpdateBodySchema),
   async (
     ctx: ValidatedCtx<OrgsUpdateParamSchema, void, OrgsUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsUpdate
 
@@ -3119,7 +3146,7 @@ router.get(
       ActionsListSelfHostedRunnersForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListSelfHostedRunnersForOrg
 
@@ -3148,7 +3175,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListRunnerApplicationsForOrg
 
@@ -3177,7 +3204,7 @@ router.post(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateRegistrationTokenForOrg
 
@@ -3202,7 +3229,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ActionsCreateRemoveTokenForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateRemoveTokenForOrg
 
@@ -3227,7 +3254,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetSelfHostedRunnerForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetSelfHostedRunnerForOrg
 
@@ -3256,7 +3283,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteSelfHostedRunnerFromOrg
 
@@ -3293,7 +3320,7 @@ router.get(
       ActionsListOrgSecretsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListOrgSecrets
 
@@ -3318,7 +3345,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetOrgPublicKeyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetOrgPublicKey
 
@@ -3343,7 +3370,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetOrgSecretParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetOrgSecret
 
@@ -3385,7 +3412,7 @@ router.put(
       void,
       ActionsCreateOrUpdateOrgSecretBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateOrUpdateOrgSecret
 
@@ -3410,7 +3437,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActionsDeleteOrgSecretParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteOrgSecret
 
@@ -3439,7 +3466,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListSelectedReposForOrgSecret
 
@@ -3476,7 +3503,7 @@ router.put(
       void,
       ActionsSetSelectedReposForOrgSecretBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsSetSelectedReposForOrgSecret
 
@@ -3505,7 +3532,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<ActionsAddSelectedRepoToOrgSecretParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsAddSelectedRepoToOrgSecret
 
@@ -3538,7 +3565,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsRemoveSelectedRepoFromOrgSecret
 
@@ -3563,7 +3590,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsListBlockedUsersParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListBlockedUsers
 
@@ -3588,7 +3615,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsCheckBlockedUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsCheckBlockedUser
 
@@ -3609,7 +3636,10 @@ router.put(
   "orgsBlockUser",
   "/orgs/:org/blocks/:username",
   paramValidationFactory<OrgsBlockUserParamSchema>(orgsBlockUserParamSchema),
-  async (ctx: ValidatedCtx<OrgsBlockUserParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsBlockUserParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsBlockUser
 
     ctx.status = 501
@@ -3631,7 +3661,10 @@ router.delete(
   paramValidationFactory<OrgsUnblockUserParamSchema>(
     orgsUnblockUserParamSchema
   ),
-  async (ctx: ValidatedCtx<OrgsUnblockUserParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsUnblockUserParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsUnblockUser
 
     ctx.status = 501
@@ -3655,7 +3688,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsListSamlSsoAuthorizationsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListSamlSsoAuthorizations
 
@@ -3683,7 +3716,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<OrgsRemoveSamlSsoAuthorizationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsRemoveSamlSsoAuthorization
 
@@ -3720,7 +3753,7 @@ router.get(
       ActivityListPublicOrgEventsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListPublicOrgEvents
 
@@ -3757,7 +3790,7 @@ router.get(
       OrgsListWebhooksQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListWebhooks
 
@@ -3807,7 +3840,7 @@ router.post(
       void,
       OrgsCreateWebhookBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsCreateWebhook
 
@@ -3828,7 +3861,10 @@ router.get(
   "orgsGetWebhook",
   "/orgs/:org/hooks/:hookId",
   paramValidationFactory<OrgsGetWebhookParamSchema>(orgsGetWebhookParamSchema),
-  async (ctx: ValidatedCtx<OrgsGetWebhookParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsGetWebhookParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsGetWebhook
 
     ctx.status = 501
@@ -3875,7 +3911,7 @@ router.patch(
       void,
       OrgsUpdateWebhookBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsUpdateWebhook
 
@@ -3898,7 +3934,10 @@ router.delete(
   paramValidationFactory<OrgsDeleteWebhookParamSchema>(
     orgsDeleteWebhookParamSchema
   ),
-  async (ctx: ValidatedCtx<OrgsDeleteWebhookParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsDeleteWebhookParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsDeleteWebhook
 
     ctx.status = 501
@@ -3920,7 +3959,10 @@ router.post(
   paramValidationFactory<OrgsPingWebhookParamSchema>(
     orgsPingWebhookParamSchema
   ),
-  async (ctx: ValidatedCtx<OrgsPingWebhookParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsPingWebhookParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsPingWebhook
 
     ctx.status = 501
@@ -3944,7 +3986,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsGetOrgInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetOrgInstallation
 
@@ -3981,7 +4023,7 @@ router.get(
       OrgsListAppInstallationsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListAppInstallations
 
@@ -4006,7 +4048,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<InteractionsGetRestrictionsForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsGetRestrictionsForOrg
 
@@ -4043,7 +4085,7 @@ router.put(
       void,
       InteractionsSetRestrictionsForOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsSetRestrictionsForOrg
 
@@ -4072,7 +4114,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsRemoveRestrictionsForOrg
 
@@ -4109,7 +4151,7 @@ router.get(
       OrgsListPendingInvitationsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListPendingInvitations
 
@@ -4151,7 +4193,7 @@ router.post(
       void,
       OrgsCreateInvitationBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsCreateInvitation
 
@@ -4191,7 +4233,7 @@ router.get(
       OrgsListInvitationTeamsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListInvitationTeams
 
@@ -4237,7 +4279,7 @@ router.get(
       IssuesListForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListForOrg
 
@@ -4279,7 +4321,7 @@ router.get(
       OrgsListMembersQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListMembers
 
@@ -4304,7 +4346,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsCheckMembershipForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsCheckMembershipForUser
 
@@ -4327,7 +4369,10 @@ router.delete(
   paramValidationFactory<OrgsRemoveMemberParamSchema>(
     orgsRemoveMemberParamSchema
   ),
-  async (ctx: ValidatedCtx<OrgsRemoveMemberParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<OrgsRemoveMemberParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-orgsRemoveMember
 
     ctx.status = 501
@@ -4351,7 +4396,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsGetMembershipForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsGetMembershipForUser
 
@@ -4388,7 +4433,7 @@ router.put(
       void,
       OrgsSetMembershipForUserBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsSetMembershipForUser
 
@@ -4413,7 +4458,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<OrgsRemoveMembershipForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsRemoveMembershipForUser
 
@@ -4454,7 +4499,7 @@ router.post(
       void,
       MigrationsStartForOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsStartForOrg
 
@@ -4491,7 +4536,7 @@ router.get(
       MigrationsListForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsListForOrg
 
@@ -4516,7 +4561,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<MigrationsGetStatusForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetStatusForOrg
 
@@ -4541,7 +4586,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<MigrationsDownloadArchiveForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsDownloadArchiveForOrg
 
@@ -4566,7 +4611,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<MigrationsDeleteArchiveForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsDeleteArchiveForOrg
 
@@ -4595,7 +4640,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<MigrationsUnlockRepoForOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsUnlockRepoForOrg
 
@@ -4632,7 +4677,7 @@ router.get(
       MigrationsListReposForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsListReposForOrg
 
@@ -4669,7 +4714,7 @@ router.get(
       OrgsListOutsideCollaboratorsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListOutsideCollaborators
 
@@ -4694,7 +4739,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsRemoveOutsideCollaborator
 
@@ -4723,7 +4768,7 @@ router.put(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsConvertMemberToOutsideCollaborator
 
@@ -4760,7 +4805,7 @@ router.get(
       ProjectsListForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListForOrg
 
@@ -4797,7 +4842,7 @@ router.post(
       void,
       ProjectsCreateForOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsCreateForOrg
 
@@ -4834,7 +4879,7 @@ router.get(
       OrgsListPublicMembersQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListPublicMembers
 
@@ -4859,7 +4904,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<OrgsCheckPublicMembershipForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsCheckPublicMembershipForUser
 
@@ -4888,7 +4933,7 @@ router.put(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsSetPublicMembershipForAuthenticatedUser
 
@@ -4917,7 +4962,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsRemovePublicMembershipForAuthenticatedUser
 
@@ -4960,7 +5005,7 @@ router.get(
       ReposListForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListForOrg
 
@@ -5013,7 +5058,7 @@ router.post(
       void,
       ReposCreateInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateInOrg
 
@@ -5050,7 +5095,7 @@ router.get(
       TeamsListIdPGroupsForOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListIdPGroupsForOrg
 
@@ -5079,7 +5124,7 @@ router.get(
   queryValidationFactory<TeamsListQuerySchema>(teamsListQuerySchema),
   async (
     ctx: ValidatedCtx<TeamsListParamSchema, TeamsListQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsList
 
@@ -5116,7 +5161,7 @@ router.post(
   bodyValidationFactory<TeamsCreateBodySchema>(teamsCreateBodySchema),
   async (
     ctx: ValidatedCtx<TeamsCreateParamSchema, void, TeamsCreateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreate
 
@@ -5137,7 +5182,10 @@ router.get(
   "teamsGetByName",
   "/orgs/:org/teams/:teamSlug",
   paramValidationFactory<TeamsGetByNameParamSchema>(teamsGetByNameParamSchema),
-  async (ctx: ValidatedCtx<TeamsGetByNameParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<TeamsGetByNameParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-teamsGetByName
 
     ctx.status = 501
@@ -5177,7 +5225,7 @@ router.patch(
       void,
       TeamsUpdateInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateInOrg
 
@@ -5200,7 +5248,10 @@ router.delete(
   paramValidationFactory<TeamsDeleteInOrgParamSchema>(
     teamsDeleteInOrgParamSchema
   ),
-  async (ctx: ValidatedCtx<TeamsDeleteInOrgParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<TeamsDeleteInOrgParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-teamsDeleteInOrg
 
     ctx.status = 501
@@ -5236,7 +5287,7 @@ router.get(
       TeamsListDiscussionsInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListDiscussionsInOrg
 
@@ -5277,7 +5328,7 @@ router.post(
       void,
       TeamsCreateDiscussionInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateDiscussionInOrg
 
@@ -5306,7 +5357,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetDiscussionInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetDiscussionInOrg
 
@@ -5347,7 +5398,7 @@ router.patch(
       void,
       TeamsUpdateDiscussionInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateDiscussionInOrg
 
@@ -5376,7 +5427,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsDeleteDiscussionInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsDeleteDiscussionInOrg
 
@@ -5417,7 +5468,7 @@ router.get(
       TeamsListDiscussionCommentsInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListDiscussionCommentsInOrg
 
@@ -5458,7 +5509,7 @@ router.post(
       void,
       TeamsCreateDiscussionCommentInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateDiscussionCommentInOrg
 
@@ -5488,7 +5539,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetDiscussionCommentInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetDiscussionCommentInOrg
 
@@ -5530,7 +5581,7 @@ router.patch(
       void,
       TeamsUpdateDiscussionCommentInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateDiscussionCommentInOrg
 
@@ -5560,7 +5611,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsDeleteDiscussionCommentInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsDeleteDiscussionCommentInOrg
 
@@ -5602,7 +5653,7 @@ router.get(
       ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionCommentInOrg
 
@@ -5644,7 +5695,7 @@ router.post(
       void,
       ReactionsCreateForTeamDiscussionCommentInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionCommentInOrg
 
@@ -5679,7 +5730,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForTeamDiscussionComment
 
@@ -5720,7 +5771,7 @@ router.get(
       ReactionsListForTeamDiscussionInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionInOrg
 
@@ -5761,7 +5812,7 @@ router.post(
       void,
       ReactionsCreateForTeamDiscussionInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionInOrg
 
@@ -5791,7 +5842,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReactionsDeleteForTeamDiscussionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForTeamDiscussion
 
@@ -5828,7 +5879,7 @@ router.get(
       TeamsListPendingInvitationsInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListPendingInvitationsInOrg
 
@@ -5865,7 +5916,7 @@ router.get(
       TeamsListMembersInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListMembersInOrg
 
@@ -5894,7 +5945,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetMembershipForUserInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetMembershipForUserInOrg
 
@@ -5935,7 +5986,7 @@ router.put(
       void,
       TeamsAddOrUpdateMembershipForUserInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateMembershipForUserInOrg
 
@@ -5964,7 +6015,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveMembershipForUserInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveMembershipForUserInOrg
 
@@ -6001,7 +6052,7 @@ router.get(
       TeamsListProjectsInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListProjectsInOrg
 
@@ -6034,7 +6085,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCheckPermissionsForProjectInOrg
 
@@ -6075,7 +6126,7 @@ router.put(
       void,
       TeamsAddOrUpdateProjectPermissionsInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateProjectPermissionsInOrg
 
@@ -6104,7 +6155,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveProjectInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveProjectInOrg
 
@@ -6141,7 +6192,7 @@ router.get(
       TeamsListReposInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListReposInOrg
 
@@ -6171,7 +6222,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsCheckPermissionsForRepoInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCheckPermissionsForRepoInOrg
 
@@ -6213,7 +6264,7 @@ router.put(
       void,
       TeamsAddOrUpdateRepoPermissionsInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateRepoPermissionsInOrg
 
@@ -6243,7 +6294,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveRepoInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveRepoInOrg
 
@@ -6268,7 +6319,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsListIdPGroupsInOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListIdPGroupsInOrg
 
@@ -6318,7 +6369,7 @@ router.patch(
       void,
       TeamsCreateOrUpdateIdPGroupConnectionsInOrgBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsInOrg
 
@@ -6355,7 +6406,7 @@ router.get(
       TeamsListChildInOrgQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListChildInOrg
 
@@ -6378,7 +6429,10 @@ router.get(
   paramValidationFactory<ProjectsGetCardParamSchema>(
     projectsGetCardParamSchema
   ),
-  async (ctx: ValidatedCtx<ProjectsGetCardParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ProjectsGetCardParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-projectsGetCard
 
     ctx.status = 501
@@ -6414,7 +6468,7 @@ router.patch(
       void,
       ProjectsUpdateCardBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsUpdateCard
 
@@ -6439,7 +6493,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ProjectsDeleteCardParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsDeleteCard
 
@@ -6474,7 +6528,7 @@ router.post(
       void,
       ProjectsMoveCardBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsMoveCard
 
@@ -6497,7 +6551,10 @@ router.get(
   paramValidationFactory<ProjectsGetColumnParamSchema>(
     projectsGetColumnParamSchema
   ),
-  async (ctx: ValidatedCtx<ProjectsGetColumnParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ProjectsGetColumnParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-projectsGetColumn
 
     ctx.status = 501
@@ -6533,7 +6590,7 @@ router.patch(
       void,
       ProjectsUpdateColumnBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsUpdateColumn
 
@@ -6558,7 +6615,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ProjectsDeleteColumnParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsDeleteColumn
 
@@ -6599,7 +6656,7 @@ router.get(
       ProjectsListCardsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListCards
 
@@ -6640,7 +6697,7 @@ router.post(
       void,
       ProjectsCreateCardBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsCreateCard
 
@@ -6677,7 +6734,7 @@ router.post(
       void,
       ProjectsMoveColumnBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsMoveColumn
 
@@ -6698,7 +6755,7 @@ router.get(
   "projectsGet",
   "/projects/:projectId",
   paramValidationFactory<ProjectsGetParamSchema>(projectsGetParamSchema),
-  async (ctx: ValidatedCtx<ProjectsGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<ProjectsGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-projectsGet
 
     ctx.status = 501
@@ -6736,7 +6793,7 @@ router.patch(
       void,
       ProjectsUpdateBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsUpdate
 
@@ -6757,7 +6814,10 @@ router.delete(
   "projectsDelete",
   "/projects/:projectId",
   paramValidationFactory<ProjectsDeleteParamSchema>(projectsDeleteParamSchema),
-  async (ctx: ValidatedCtx<ProjectsDeleteParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ProjectsDeleteParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-projectsDelete
 
     ctx.status = 501
@@ -6797,7 +6857,7 @@ router.get(
       ProjectsListCollaboratorsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListCollaborators
 
@@ -6837,7 +6897,7 @@ router.put(
       void,
       ProjectsAddCollaboratorBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsAddCollaborator
 
@@ -6865,7 +6925,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ProjectsRemoveCollaboratorParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsRemoveCollaborator
 
@@ -6893,7 +6953,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ProjectsGetPermissionForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsGetPermissionForUser
 
@@ -6930,7 +6990,7 @@ router.get(
       ProjectsListColumnsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListColumns
 
@@ -6967,7 +7027,7 @@ router.post(
       void,
       ProjectsCreateColumnBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsCreateColumn
 
@@ -6982,7 +7042,7 @@ router.post(
 router.get(
   "rateLimitGet",
   "/rate_limit",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-rateLimitGet
 
     ctx.status = 501
@@ -7006,7 +7066,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReactionsDeleteLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteLegacy
 
@@ -7027,7 +7087,7 @@ router.get(
   "reposGet",
   "/repos/:owner/:repo",
   paramValidationFactory<ReposGetParamSchema>(reposGetParamSchema),
-  async (ctx: ValidatedCtx<ReposGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<ReposGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-reposGet
 
     ctx.status = 501
@@ -7071,7 +7131,7 @@ router.patch(
   bodyValidationFactory<ReposUpdateBodySchema>(reposUpdateBodySchema),
   async (
     ctx: ValidatedCtx<ReposUpdateParamSchema, void, ReposUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdate
 
@@ -7092,7 +7152,7 @@ router.delete(
   "reposDelete",
   "/repos/:owner/:repo",
   paramValidationFactory<ReposDeleteParamSchema>(reposDeleteParamSchema),
-  async (ctx: ValidatedCtx<ReposDeleteParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<ReposDeleteParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-reposDelete
 
     ctx.status = 501
@@ -7128,7 +7188,7 @@ router.get(
       ActionsListArtifactsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListArtifactsForRepo
 
@@ -7157,7 +7217,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetArtifactParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetArtifact
 
@@ -7186,7 +7246,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActionsDeleteArtifactParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteArtifact
 
@@ -7216,7 +7276,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsDownloadArtifactParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDownloadArtifact
 
@@ -7245,7 +7305,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetJobForWorkflowRunParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetJobForWorkflowRun
 
@@ -7278,7 +7338,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDownloadJobLogsForWorkflowRun
 
@@ -7315,7 +7375,7 @@ router.get(
       ActionsListSelfHostedRunnersForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListSelfHostedRunnersForRepo
 
@@ -7344,7 +7404,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListRunnerApplicationsForRepo
 
@@ -7373,7 +7433,7 @@ router.post(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateRegistrationTokenForRepo
 
@@ -7398,7 +7458,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ActionsCreateRemoveTokenForRepoParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateRemoveTokenForRepo
 
@@ -7427,7 +7487,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetSelfHostedRunnerForRepoParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetSelfHostedRunnerForRepo
 
@@ -7460,7 +7520,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteSelfHostedRunnerFromRepo
 
@@ -7504,7 +7564,7 @@ router.get(
       ActionsListWorkflowRunsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListWorkflowRunsForRepo
 
@@ -7533,7 +7593,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetWorkflowRunParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetWorkflowRun
 
@@ -7574,7 +7634,7 @@ router.get(
       ActionsListWorkflowRunArtifactsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListWorkflowRunArtifacts
 
@@ -7603,7 +7663,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ActionsCancelWorkflowRunParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCancelWorkflowRun
 
@@ -7644,7 +7704,7 @@ router.get(
       ActionsListJobsForWorkflowRunQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListJobsForWorkflowRun
 
@@ -7673,7 +7733,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsDownloadWorkflowRunLogsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDownloadWorkflowRunLogs
 
@@ -7702,7 +7762,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteWorkflowRunLogs
 
@@ -7731,7 +7791,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ActionsReRunWorkflowParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsReRunWorkflow
 
@@ -7760,7 +7820,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetWorkflowRunUsageParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetWorkflowRunUsage
 
@@ -7797,7 +7857,7 @@ router.get(
       ActionsListRepoSecretsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListRepoSecrets
 
@@ -7822,7 +7882,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetRepoPublicKeyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetRepoPublicKey
 
@@ -7851,7 +7911,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetRepoSecretParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetRepoSecret
 
@@ -7892,7 +7952,7 @@ router.put(
       void,
       ActionsCreateOrUpdateRepoSecretBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsCreateOrUpdateRepoSecret
 
@@ -7921,7 +7981,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActionsDeleteRepoSecretParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsDeleteRepoSecret
 
@@ -7958,7 +8018,7 @@ router.get(
       ActionsListRepoWorkflowsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListRepoWorkflows
 
@@ -7987,7 +8047,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetWorkflowParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetWorkflow
 
@@ -8035,7 +8095,7 @@ router.get(
       ActionsListWorkflowRunsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsListWorkflowRuns
 
@@ -8064,7 +8124,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActionsGetWorkflowUsageParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-actionsGetWorkflowUsage
 
@@ -8101,7 +8161,7 @@ router.get(
       IssuesListAssigneesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListAssignees
 
@@ -8130,7 +8190,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<IssuesCheckUserCanBeAssignedParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesCheckUserCanBeAssigned
 
@@ -8155,7 +8215,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<ReposEnableAutomatedSecurityFixesParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposEnableAutomatedSecurityFixes
 
@@ -8184,7 +8244,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDisableAutomatedSecurityFixes
 
@@ -8225,7 +8285,7 @@ router.get(
       ReposListBranchesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListBranches
 
@@ -8250,7 +8310,10 @@ router.get(
   "reposGetBranch",
   "/repos/:owner/:repo/branches/:branch",
   paramValidationFactory<ReposGetBranchParamSchema>(reposGetBranchParamSchema),
-  async (ctx: ValidatedCtx<ReposGetBranchParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetBranchParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetBranch
 
     ctx.status = 501
@@ -8278,7 +8341,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetBranchProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetBranchProtection
 
@@ -8353,7 +8416,7 @@ router.put(
       void,
       ReposUpdateBranchProtectionBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateBranchProtection
 
@@ -8382,7 +8445,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteBranchProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteBranchProtection
 
@@ -8411,7 +8474,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetAdminBranchProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetAdminBranchProtection
 
@@ -8440,7 +8503,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ReposSetAdminBranchProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposSetAdminBranchProtection
 
@@ -8469,7 +8532,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteAdminBranchProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteAdminBranchProtection
 
@@ -8502,7 +8565,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetPullRequestReviewProtection
 
@@ -8553,7 +8616,7 @@ router.patch(
       void,
       ReposUpdatePullRequestReviewProtectionBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdatePullRequestReviewProtection
 
@@ -8586,7 +8649,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeletePullRequestReviewProtection
 
@@ -8615,7 +8678,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCommitSignatureProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCommitSignatureProtection
 
@@ -8648,7 +8711,7 @@ router.post(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateCommitSignatureProtection
 
@@ -8681,7 +8744,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteCommitSignatureProtection
 
@@ -8710,7 +8773,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetStatusChecksProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetStatusChecksProtection
 
@@ -8751,7 +8814,7 @@ router.patch(
       void,
       ReposUpdateStatusCheckPotectionBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateStatusCheckPotection
 
@@ -8780,7 +8843,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposRemoveStatusCheckProtectionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveStatusCheckProtection
 
@@ -8809,7 +8872,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetAllStatusCheckContextsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetAllStatusCheckContexts
 
@@ -8850,7 +8913,7 @@ router.put(
       void,
       ReposSetStatusCheckContextsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposSetStatusCheckContexts
 
@@ -8891,7 +8954,7 @@ router.post(
       void,
       ReposAddStatusCheckContextsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAddStatusCheckContexts
 
@@ -8932,7 +8995,7 @@ router.delete(
       void,
       ReposRemoveStatusCheckContextsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveStatusCheckContexts
 
@@ -8961,7 +9024,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetAccessRestrictionsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetAccessRestrictions
 
@@ -8990,7 +9053,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteAccessRestrictionsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteAccessRestrictions
 
@@ -9023,7 +9086,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetAppsWithAccessToProtectedBranch
 
@@ -9064,7 +9127,7 @@ router.put(
       void,
       ReposSetAppAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposSetAppAccessRestrictions
 
@@ -9105,7 +9168,7 @@ router.post(
       void,
       ReposAddAppAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAddAppAccessRestrictions
 
@@ -9146,7 +9209,7 @@ router.delete(
       void,
       ReposRemoveAppAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveAppAccessRestrictions
 
@@ -9179,7 +9242,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetTeamsWithAccessToProtectedBranch
 
@@ -9220,7 +9283,7 @@ router.put(
       void,
       ReposSetTeamAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposSetTeamAccessRestrictions
 
@@ -9261,7 +9324,7 @@ router.post(
       void,
       ReposAddTeamAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAddTeamAccessRestrictions
 
@@ -9302,7 +9365,7 @@ router.delete(
       void,
       ReposRemoveTeamAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveTeamAccessRestrictions
 
@@ -9335,7 +9398,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetUsersWithAccessToProtectedBranch
 
@@ -9376,7 +9439,7 @@ router.put(
       void,
       ReposSetUserAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposSetUserAccessRestrictions
 
@@ -9417,7 +9480,7 @@ router.post(
       void,
       ReposAddUserAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAddUserAccessRestrictions
 
@@ -9458,7 +9521,7 @@ router.delete(
       void,
       ReposRemoveUserAccessRestrictionsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveUserAccessRestrictions
 
@@ -9542,7 +9605,7 @@ router.post(
   bodyValidationFactory<ChecksCreateBodySchema>(checksCreateBodySchema),
   async (
     ctx: ValidatedCtx<ChecksCreateParamSchema, void, ChecksCreateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksCreate
 
@@ -9629,7 +9692,7 @@ router.patch(
   bodyValidationFactory<ChecksUpdateBodySchema>(checksUpdateBodySchema),
   async (
     ctx: ValidatedCtx<ChecksUpdateParamSchema, void, ChecksUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksUpdate
 
@@ -9654,7 +9717,7 @@ router.get(
   "checksGet",
   "/repos/:owner/:repo/check-runs/:checkRunId",
   paramValidationFactory<ChecksGetParamSchema>(checksGetParamSchema),
-  async (ctx: ValidatedCtx<ChecksGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<ChecksGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-checksGet
 
     ctx.status = 501
@@ -9694,7 +9757,7 @@ router.get(
       ChecksListAnnotationsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksListAnnotations
 
@@ -9731,7 +9794,7 @@ router.post(
       void,
       ChecksCreateSuiteBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksCreateSuite
 
@@ -9779,7 +9842,7 @@ router.patch(
       void,
       ChecksSetSuitesPreferencesBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksSetSuitesPreferences
 
@@ -9804,7 +9867,10 @@ router.get(
   "checksGetSuite",
   "/repos/:owner/:repo/check-suites/:checkSuiteId",
   paramValidationFactory<ChecksGetSuiteParamSchema>(checksGetSuiteParamSchema),
-  async (ctx: ValidatedCtx<ChecksGetSuiteParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ChecksGetSuiteParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-checksGetSuite
 
     ctx.status = 501
@@ -9850,7 +9916,7 @@ router.get(
       ChecksListForSuiteQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksListForSuite
 
@@ -9879,7 +9945,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ChecksRerequestSuiteParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksRerequestSuite
 
@@ -9916,7 +9982,7 @@ router.get(
       CodeScanningListAlertsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-codeScanningListAlertsForRepo
 
@@ -9945,7 +10011,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<CodeScanningGetAlertParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-codeScanningGetAlert
 
@@ -9986,7 +10052,7 @@ router.get(
       ReposListCollaboratorsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListCollaborators
 
@@ -10015,7 +10081,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposCheckCollaboratorParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCheckCollaborator
 
@@ -10056,7 +10122,7 @@ router.put(
       void,
       ReposAddCollaboratorBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAddCollaborator
 
@@ -10085,7 +10151,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposRemoveCollaboratorParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRemoveCollaborator
 
@@ -10118,7 +10184,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCollaboratorPermissionLevel
 
@@ -10155,7 +10221,7 @@ router.get(
       ReposListCommitCommentsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListCommitCommentsForRepo
 
@@ -10184,7 +10250,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCommitCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCommitComment
 
@@ -10225,7 +10291,7 @@ router.patch(
       void,
       ReposUpdateCommitCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateCommitComment
 
@@ -10254,7 +10320,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteCommitCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteCommitComment
 
@@ -10295,7 +10361,7 @@ router.get(
       ReactionsListForCommitCommentQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForCommitComment
 
@@ -10336,7 +10402,7 @@ router.post(
       void,
       ReactionsCreateForCommitCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForCommitComment
 
@@ -10366,7 +10432,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReactionsDeleteForCommitCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForCommitComment
 
@@ -10411,7 +10477,7 @@ router.get(
       ReposListCommitsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListCommits
 
@@ -10440,7 +10506,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposListBranchesForHeadCommitParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListBranchesForHeadCommit
 
@@ -10481,7 +10547,7 @@ router.get(
       ReposListCommentsForCommitQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListCommentsForCommit
 
@@ -10527,7 +10593,7 @@ router.post(
       void,
       ReposCreateCommitCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateCommitComment
 
@@ -10568,7 +10634,7 @@ router.get(
       ReposListPullRequestsAssociatedWithCommitQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListPullRequestsAssociatedWithCommit
 
@@ -10593,7 +10659,10 @@ router.get(
   "reposGetCommit",
   "/repos/:owner/:repo/commits/:ref",
   paramValidationFactory<ReposGetCommitParamSchema>(reposGetCommitParamSchema),
-  async (ctx: ValidatedCtx<ReposGetCommitParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetCommitParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetCommit
 
     ctx.status = 501
@@ -10639,7 +10708,7 @@ router.get(
       ChecksListForRefQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksListForRef
 
@@ -10685,7 +10754,7 @@ router.get(
       ChecksListSuitesForRefQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-checksListSuitesForRef
 
@@ -10714,7 +10783,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCombinedStatusForRefParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCombinedStatusForRef
 
@@ -10755,7 +10824,7 @@ router.get(
       ReposListCommitStatusesForRefQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListCommitStatusesForRef
 
@@ -10780,7 +10849,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<CodesOfConductGetForRepoParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-codesOfConductGetForRepo
 
@@ -10805,7 +10874,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCommunityProfileMetricsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCommunityProfileMetrics
 
@@ -10835,7 +10904,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposCompareCommitsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCompareCommits
 
@@ -10876,7 +10945,7 @@ router.get(
       ReposGetContentQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetContent
 
@@ -10928,7 +10997,7 @@ router.put(
       void,
       ReposCreateOrUpdateFileContentsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateOrUpdateFileContents
 
@@ -10973,7 +11042,7 @@ router.delete(
       void,
       ReposDeleteFileBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteFile
 
@@ -11010,7 +11079,7 @@ router.get(
       ReposListContributorsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListContributors
 
@@ -11054,7 +11123,7 @@ router.get(
       ReposListDeploymentsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListDeployments
 
@@ -11101,7 +11170,7 @@ router.post(
       void,
       ReposCreateDeploymentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateDeployment
 
@@ -11130,7 +11199,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetDeploymentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetDeployment
 
@@ -11159,7 +11228,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteDeploymentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteDeployment
 
@@ -11200,7 +11269,7 @@ router.get(
       ReposListDeploymentStatusesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListDeploymentStatuses
 
@@ -11249,7 +11318,7 @@ router.post(
       void,
       ReposCreateDeploymentStatusBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateDeploymentStatus
 
@@ -11279,7 +11348,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetDeploymentStatusParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetDeploymentStatus
 
@@ -11316,7 +11385,7 @@ router.post(
       void,
       ReposCreateDispatchEventBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateDispatchEvent
 
@@ -11353,7 +11422,7 @@ router.get(
       ActivityListRepoEventsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListRepoEvents
 
@@ -11386,7 +11455,7 @@ router.get(
       ReposListForksQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListForks
 
@@ -11421,7 +11490,7 @@ router.post(
       void,
       ReposCreateForkBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateFork
 
@@ -11450,7 +11519,7 @@ router.post(
   bodyValidationFactory<GitCreateBlobBodySchema>(gitCreateBlobBodySchema),
   async (
     ctx: ValidatedCtx<GitCreateBlobParamSchema, void, GitCreateBlobBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitCreateBlob
 
@@ -11475,7 +11544,7 @@ router.get(
   "gitGetBlob",
   "/repos/:owner/:repo/git/blobs/:fileSha",
   paramValidationFactory<GitGetBlobParamSchema>(gitGetBlobParamSchema),
-  async (ctx: ValidatedCtx<GitGetBlobParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GitGetBlobParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gitGetBlob
 
     ctx.status = 501
@@ -11520,7 +11589,7 @@ router.post(
       void,
       GitCreateCommitBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitCreateCommit
 
@@ -11545,7 +11614,10 @@ router.get(
   "gitGetCommit",
   "/repos/:owner/:repo/git/commits/:commitSha",
   paramValidationFactory<GitGetCommitParamSchema>(gitGetCommitParamSchema),
-  async (ctx: ValidatedCtx<GitGetCommitParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<GitGetCommitParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gitGetCommit
 
     ctx.status = 501
@@ -11585,7 +11657,7 @@ router.get(
       GitListMatchingRefsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitListMatchingRefs
 
@@ -11610,7 +11682,7 @@ router.get(
   "gitGetRef",
   "/repos/:owner/:repo/git/ref/:ref",
   paramValidationFactory<GitGetRefParamSchema>(gitGetRefParamSchema),
-  async (ctx: ValidatedCtx<GitGetRefParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GitGetRefParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gitGetRef
 
     ctx.status = 501
@@ -11638,7 +11710,7 @@ router.post(
   bodyValidationFactory<GitCreateRefBodySchema>(gitCreateRefBodySchema),
   async (
     ctx: ValidatedCtx<GitCreateRefParamSchema, void, GitCreateRefBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitCreateRef
 
@@ -11671,7 +11743,7 @@ router.patch(
   bodyValidationFactory<GitUpdateRefBodySchema>(gitUpdateRefBodySchema),
   async (
     ctx: ValidatedCtx<GitUpdateRefParamSchema, void, GitUpdateRefBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitUpdateRef
 
@@ -11696,7 +11768,10 @@ router.delete(
   "gitDeleteRef",
   "/repos/:owner/:repo/git/refs/:ref",
   paramValidationFactory<GitDeleteRefParamSchema>(gitDeleteRefParamSchema),
-  async (ctx: ValidatedCtx<GitDeleteRefParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<GitDeleteRefParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-gitDeleteRef
 
     ctx.status = 501
@@ -11732,7 +11807,7 @@ router.post(
   bodyValidationFactory<GitCreateTagBodySchema>(gitCreateTagBodySchema),
   async (
     ctx: ValidatedCtx<GitCreateTagParamSchema, void, GitCreateTagBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitCreateTag
 
@@ -11757,7 +11832,7 @@ router.get(
   "gitGetTag",
   "/repos/:owner/:repo/git/tags/:tagSha",
   paramValidationFactory<GitGetTagParamSchema>(gitGetTagParamSchema),
-  async (ctx: ValidatedCtx<GitGetTagParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<GitGetTagParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-gitGetTag
 
     ctx.status = 501
@@ -11801,7 +11876,7 @@ router.post(
   bodyValidationFactory<GitCreateTreeBodySchema>(gitCreateTreeBodySchema),
   async (
     ctx: ValidatedCtx<GitCreateTreeParamSchema, void, GitCreateTreeBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitCreateTree
 
@@ -11834,7 +11909,7 @@ router.get(
   queryValidationFactory<GitGetTreeQuerySchema>(gitGetTreeQuerySchema),
   async (
     ctx: ValidatedCtx<GitGetTreeParamSchema, GitGetTreeQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gitGetTree
 
@@ -11871,7 +11946,7 @@ router.get(
       ReposListWebhooksQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListWebhooks
 
@@ -11921,7 +11996,7 @@ router.post(
       void,
       ReposCreateWebhookBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateWebhook
 
@@ -11948,7 +12023,10 @@ router.get(
   paramValidationFactory<ReposGetWebhookParamSchema>(
     reposGetWebhookParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposGetWebhookParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetWebhookParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetWebhook
 
     ctx.status = 501
@@ -12001,7 +12079,7 @@ router.patch(
       void,
       ReposUpdateWebhookBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateWebhook
 
@@ -12030,7 +12108,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteWebhookParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteWebhook
 
@@ -12057,7 +12135,10 @@ router.post(
   paramValidationFactory<ReposPingWebhookParamSchema>(
     reposPingWebhookParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposPingWebhookParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposPingWebhookParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposPingWebhook
 
     ctx.status = 501
@@ -12085,7 +12166,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ReposTestPushWebhookParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposTestPushWebhook
 
@@ -12128,7 +12209,7 @@ router.put(
       void,
       MigrationsStartImportBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsStartImport
 
@@ -12153,7 +12234,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<MigrationsGetImportStatusParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetImportStatus
 
@@ -12190,7 +12271,7 @@ router.patch(
       void,
       MigrationsUpdateImportBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsUpdateImport
 
@@ -12215,7 +12296,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<MigrationsCancelImportParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsCancelImport
 
@@ -12252,7 +12333,7 @@ router.get(
       MigrationsGetCommitAuthorsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetCommitAuthors
 
@@ -12293,7 +12374,7 @@ router.patch(
       void,
       MigrationsMapCommitAuthorBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsMapCommitAuthor
 
@@ -12318,7 +12399,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<MigrationsGetLargeFilesParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetLargeFiles
 
@@ -12355,7 +12436,7 @@ router.patch(
       void,
       MigrationsSetLfsPreferenceBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsSetLfsPreference
 
@@ -12380,7 +12461,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsGetRepoInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetRepoInstallation
 
@@ -12409,7 +12490,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsGetRestrictionsForRepo
 
@@ -12446,7 +12527,7 @@ router.put(
       void,
       InteractionsSetRestrictionsForRepoBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsSetRestrictionsForRepo
 
@@ -12475,7 +12556,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-interactionsRemoveRestrictionsForRepo
 
@@ -12512,7 +12593,7 @@ router.get(
       ReposListInvitationsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListInvitations
 
@@ -12541,7 +12622,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteInvitationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteInvitation
 
@@ -12582,7 +12663,7 @@ router.patch(
       void,
       ReposUpdateInvitationBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateInvitation
 
@@ -12631,7 +12712,7 @@ router.get(
       IssuesListForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListForRepo
 
@@ -12667,7 +12748,7 @@ router.post(
   bodyValidationFactory<IssuesCreateBodySchema>(issuesCreateBodySchema),
   async (
     ctx: ValidatedCtx<IssuesCreateParamSchema, void, IssuesCreateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesCreate
 
@@ -12710,7 +12791,7 @@ router.get(
       IssuesListCommentsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListCommentsForRepo
 
@@ -12737,7 +12818,10 @@ router.get(
   paramValidationFactory<IssuesGetCommentParamSchema>(
     issuesGetCommentParamSchema
   ),
-  async (ctx: ValidatedCtx<IssuesGetCommentParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesGetCommentParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesGetComment
 
     ctx.status = 501
@@ -12777,7 +12861,7 @@ router.patch(
       void,
       IssuesUpdateCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesUpdateComment
 
@@ -12806,7 +12890,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<IssuesDeleteCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesDeleteComment
 
@@ -12847,7 +12931,7 @@ router.get(
       ReactionsListForIssueCommentQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForIssueComment
 
@@ -12888,7 +12972,7 @@ router.post(
       void,
       ReactionsCreateForIssueCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForIssueComment
 
@@ -12918,7 +13002,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReactionsDeleteForIssueCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForIssueComment
 
@@ -12955,7 +13039,7 @@ router.get(
       IssuesListEventsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListEventsForRepo
 
@@ -12980,7 +13064,10 @@ router.get(
   "issuesGetEvent",
   "/repos/:owner/:repo/issues/events/:eventId",
   paramValidationFactory<IssuesGetEventParamSchema>(issuesGetEventParamSchema),
-  async (ctx: ValidatedCtx<IssuesGetEventParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesGetEventParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesGetEvent
 
     ctx.status = 501
@@ -13004,7 +13091,7 @@ router.get(
   "issuesGet",
   "/repos/:owner/:repo/issues/:issueNumber",
   paramValidationFactory<IssuesGetParamSchema>(issuesGetParamSchema),
-  async (ctx: ValidatedCtx<IssuesGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<IssuesGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-issuesGet
 
     ctx.status = 501
@@ -13044,7 +13131,7 @@ router.patch(
   bodyValidationFactory<IssuesUpdateBodySchema>(issuesUpdateBodySchema),
   async (
     ctx: ValidatedCtx<IssuesUpdateParamSchema, void, IssuesUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesUpdate
 
@@ -13085,7 +13172,7 @@ router.post(
       void,
       IssuesAddAssigneesBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesAddAssignees
 
@@ -13126,7 +13213,7 @@ router.delete(
       void,
       IssuesRemoveAssigneesBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesRemoveAssignees
 
@@ -13167,7 +13254,7 @@ router.get(
       IssuesListCommentsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListComments
 
@@ -13208,7 +13295,7 @@ router.post(
       void,
       IssuesCreateCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesCreateComment
 
@@ -13249,7 +13336,7 @@ router.get(
       IssuesListEventsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListEvents
 
@@ -13290,7 +13377,7 @@ router.get(
       IssuesListLabelsOnIssueQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListLabelsOnIssue
 
@@ -13329,7 +13416,7 @@ router.post(
       void,
       IssuesAddLabelsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesAddLabels
 
@@ -13368,7 +13455,7 @@ router.put(
       void,
       IssuesSetLabelsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesSetLabels
 
@@ -13397,7 +13484,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<IssuesRemoveAllLabelsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesRemoveAllLabels
 
@@ -13425,7 +13512,10 @@ router.delete(
   paramValidationFactory<IssuesRemoveLabelParamSchema>(
     issuesRemoveLabelParamSchema
   ),
-  async (ctx: ValidatedCtx<IssuesRemoveLabelParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesRemoveLabelParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesRemoveLabel
 
     ctx.status = 501
@@ -13457,7 +13547,7 @@ router.put(
   bodyValidationFactory<IssuesLockBodySchema>(issuesLockBodySchema),
   async (
     ctx: ValidatedCtx<IssuesLockParamSchema, void, IssuesLockBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesLock
 
@@ -13482,7 +13572,10 @@ router.delete(
   "issuesUnlock",
   "/repos/:owner/:repo/issues/:issueNumber/lock",
   paramValidationFactory<IssuesUnlockParamSchema>(issuesUnlockParamSchema),
-  async (ctx: ValidatedCtx<IssuesUnlockParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesUnlockParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesUnlock
 
     ctx.status = 501
@@ -13522,7 +13615,7 @@ router.get(
       ReactionsListForIssueQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForIssue
 
@@ -13563,7 +13656,7 @@ router.post(
       void,
       ReactionsCreateForIssueBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForIssue
 
@@ -13593,7 +13686,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReactionsDeleteForIssueParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForIssue
 
@@ -13634,7 +13727,7 @@ router.get(
       IssuesListEventsForTimelineQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListEventsForTimeline
 
@@ -13671,7 +13764,7 @@ router.get(
       ReposListDeployKeysQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListDeployKeys
 
@@ -13712,7 +13805,7 @@ router.post(
       void,
       ReposCreateDeployKeyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateDeployKey
 
@@ -13739,7 +13832,10 @@ router.get(
   paramValidationFactory<ReposGetDeployKeyParamSchema>(
     reposGetDeployKeyParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposGetDeployKeyParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetDeployKeyParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetDeployKey
 
     ctx.status = 501
@@ -13767,7 +13863,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteDeployKeyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteDeployKey
 
@@ -13804,7 +13900,7 @@ router.get(
       IssuesListLabelsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListLabelsForRepo
 
@@ -13845,7 +13941,7 @@ router.post(
       void,
       IssuesCreateLabelBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesCreateLabel
 
@@ -13870,7 +13966,10 @@ router.get(
   "issuesGetLabel",
   "/repos/:owner/:repo/labels/:name",
   paramValidationFactory<IssuesGetLabelParamSchema>(issuesGetLabelParamSchema),
-  async (ctx: ValidatedCtx<IssuesGetLabelParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesGetLabelParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesGetLabel
 
     ctx.status = 501
@@ -13914,7 +14013,7 @@ router.patch(
       void,
       IssuesUpdateLabelBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesUpdateLabel
 
@@ -13941,7 +14040,10 @@ router.delete(
   paramValidationFactory<IssuesDeleteLabelParamSchema>(
     issuesDeleteLabelParamSchema
   ),
-  async (ctx: ValidatedCtx<IssuesDeleteLabelParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<IssuesDeleteLabelParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-issuesDeleteLabel
 
     ctx.status = 501
@@ -13965,7 +14067,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposListLanguagesParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListLanguages
 
@@ -13990,7 +14092,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<LicensesGetForRepoParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-licensesGetForRepo
 
@@ -14023,7 +14125,7 @@ router.post(
   bodyValidationFactory<ReposMergeBodySchema>(reposMergeBodySchema),
   async (
     ctx: ValidatedCtx<ReposMergeParamSchema, void, ReposMergeBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposMerge
 
@@ -14066,7 +14168,7 @@ router.get(
       IssuesListMilestonesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListMilestones
 
@@ -14108,7 +14210,7 @@ router.post(
       void,
       IssuesCreateMilestoneBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesCreateMilestone
 
@@ -14137,7 +14239,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<IssuesGetMilestoneParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesGetMilestone
 
@@ -14183,7 +14285,7 @@ router.patch(
       void,
       IssuesUpdateMilestoneBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesUpdateMilestone
 
@@ -14212,7 +14314,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<IssuesDeleteMilestoneParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesDeleteMilestone
 
@@ -14253,7 +14355,7 @@ router.get(
       IssuesListLabelsForMilestoneQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListLabelsForMilestone
 
@@ -14297,7 +14399,7 @@ router.get(
       ActivityListRepoNotificationsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListRepoNotificationsForAuthenticatedUser
 
@@ -14334,7 +14436,7 @@ router.put(
       void,
       ActivityMarkRepoNotificationsAsReadBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityMarkRepoNotificationsAsRead
 
@@ -14355,7 +14457,10 @@ router.get(
   "reposGetPages",
   "/repos/:owner/:repo/pages",
   paramValidationFactory<ReposGetPagesParamSchema>(reposGetPagesParamSchema),
-  async (ctx: ValidatedCtx<ReposGetPagesParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetPagesParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetPages
 
     ctx.status = 501
@@ -14393,7 +14498,7 @@ router.post(
       void,
       ReposCreatePagesSiteBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreatePagesSite
 
@@ -14418,7 +14523,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeletePagesSiteParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeletePagesSite
 
@@ -14455,7 +14560,7 @@ router.put(
       void,
       ReposUpdateInformationAboutPagesSiteBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateInformationAboutPagesSite
 
@@ -14480,7 +14585,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ReposRequestPagesBuildParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposRequestPagesBuild
 
@@ -14517,7 +14622,7 @@ router.get(
       ReposListPagesBuildsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListPagesBuilds
 
@@ -14542,7 +14647,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetLatestPagesBuildParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetLatestPagesBuild
 
@@ -14571,7 +14676,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetPagesBuildParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetPagesBuild
 
@@ -14608,7 +14713,7 @@ router.get(
       ProjectsListForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListForRepo
 
@@ -14645,7 +14750,7 @@ router.post(
       void,
       ProjectsCreateForRepoBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsCreateForRepo
 
@@ -14682,7 +14787,7 @@ router.get(
   queryValidationFactory<PullsListQuerySchema>(pullsListQuerySchema),
   async (
     ctx: ValidatedCtx<PullsListParamSchema, PullsListQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsList
 
@@ -14718,7 +14823,7 @@ router.post(
   bodyValidationFactory<PullsCreateBodySchema>(pullsCreateBodySchema),
   async (
     ctx: ValidatedCtx<PullsCreateParamSchema, void, PullsCreateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsCreate
 
@@ -14761,7 +14866,7 @@ router.get(
       PullsListReviewCommentsForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListReviewCommentsForRepo
 
@@ -14790,7 +14895,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<PullsGetReviewCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsGetReviewComment
 
@@ -14831,7 +14936,7 @@ router.patch(
       void,
       PullsUpdateReviewCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsUpdateReviewComment
 
@@ -14860,7 +14965,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<PullsDeleteReviewCommentParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsDeleteReviewComment
 
@@ -14901,7 +15006,7 @@ router.get(
       ReactionsListForPullRequestReviewCommentQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForPullRequestReviewComment
 
@@ -14942,7 +15047,7 @@ router.post(
       void,
       ReactionsCreateForPullRequestReviewCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForPullRequestReviewComment
 
@@ -14976,7 +15081,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsDeleteForPullRequestComment
 
@@ -15001,7 +15106,7 @@ router.get(
   "pullsGet",
   "/repos/:owner/:repo/pulls/:pullNumber",
   paramValidationFactory<PullsGetParamSchema>(pullsGetParamSchema),
-  async (ctx: ValidatedCtx<PullsGetParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<PullsGetParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-pullsGet
 
     ctx.status = 501
@@ -15039,7 +15144,7 @@ router.patch(
   bodyValidationFactory<PullsUpdateBodySchema>(pullsUpdateBodySchema),
   async (
     ctx: ValidatedCtx<PullsUpdateParamSchema, void, PullsUpdateBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsUpdate
 
@@ -15086,7 +15191,7 @@ router.get(
       PullsListReviewCommentsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListReviewComments
 
@@ -15136,7 +15241,7 @@ router.post(
       void,
       PullsCreateReviewCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsCreateReviewComment
 
@@ -15178,7 +15283,7 @@ router.post(
       void,
       PullsCreateReplyForReviewCommentBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsCreateReplyForReviewComment
 
@@ -15219,7 +15324,7 @@ router.get(
       PullsListCommitsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListCommits
 
@@ -15256,7 +15361,7 @@ router.get(
       PullsListFilesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListFiles
 
@@ -15285,7 +15390,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<PullsCheckIfMergedParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsCheckIfMerged
 
@@ -15323,7 +15428,7 @@ router.put(
   bodyValidationFactory<PullsMergeBodySchema>(pullsMergeBodySchema),
   async (
     ctx: ValidatedCtx<PullsMergeParamSchema, void, PullsMergeBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsMerge
 
@@ -15364,7 +15469,7 @@ router.get(
       PullsListRequestedReviewersQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListRequestedReviewers
 
@@ -15408,7 +15513,7 @@ router.post(
       void,
       PullsRequestReviewersBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsRequestReviewers
 
@@ -15452,7 +15557,7 @@ router.delete(
       void,
       PullsRemoveRequestedReviewersBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsRemoveRequestedReviewers
 
@@ -15493,7 +15598,7 @@ router.get(
       PullsListReviewsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListReviews
 
@@ -15549,7 +15654,7 @@ router.post(
       void,
       PullsCreateReviewBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsCreateReview
 
@@ -15575,7 +15680,10 @@ router.get(
   "pullsGetReview",
   "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
   paramValidationFactory<PullsGetReviewParamSchema>(pullsGetReviewParamSchema),
-  async (ctx: ValidatedCtx<PullsGetReviewParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<PullsGetReviewParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-pullsGetReview
 
     ctx.status = 501
@@ -15604,7 +15712,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<PullsDeletePendingReviewParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsDeletePendingReview
 
@@ -15646,7 +15754,7 @@ router.put(
       void,
       PullsUpdateReviewBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsUpdateReview
 
@@ -15688,7 +15796,7 @@ router.get(
       PullsListCommentsForReviewQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsListCommentsForReview
 
@@ -15730,7 +15838,7 @@ router.put(
       void,
       PullsDismissReviewBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsDismissReview
 
@@ -15772,7 +15880,7 @@ router.post(
       void,
       PullsSubmitReviewBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsSubmitReview
 
@@ -15813,7 +15921,7 @@ router.put(
       void,
       PullsUpdateBranchBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-pullsUpdateBranch
 
@@ -15846,7 +15954,7 @@ router.get(
       ReposGetReadmeQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetReadme
 
@@ -15883,7 +15991,7 @@ router.get(
       ReposListReleasesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListReleases
 
@@ -15927,7 +16035,7 @@ router.post(
       void,
       ReposCreateReleaseBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateRelease
 
@@ -15956,7 +16064,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetReleaseAssetParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetReleaseAsset
 
@@ -15997,7 +16105,7 @@ router.patch(
       void,
       ReposUpdateReleaseAssetBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateReleaseAsset
 
@@ -16026,7 +16134,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteReleaseAssetParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteReleaseAsset
 
@@ -16051,7 +16159,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetLatestReleaseParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetLatestRelease
 
@@ -16080,7 +16188,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetReleaseByTagParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetReleaseByTag
 
@@ -16107,7 +16215,10 @@ router.get(
   paramValidationFactory<ReposGetReleaseParamSchema>(
     reposGetReleaseParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposGetReleaseParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetReleaseParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetRelease
 
     ctx.status = 501
@@ -16154,7 +16265,7 @@ router.patch(
       void,
       ReposUpdateReleaseBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUpdateRelease
 
@@ -16183,7 +16294,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeleteReleaseParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeleteRelease
 
@@ -16224,7 +16335,7 @@ router.get(
       ReposListReleaseAssetsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListReleaseAssets
 
@@ -16270,7 +16381,7 @@ router.post(
       ReposUploadReleaseAssetQuerySchema,
       ReposUploadReleaseAssetBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposUploadReleaseAsset
 
@@ -16307,7 +16418,7 @@ router.get(
       ActivityListStargazersForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListStargazersForRepo
 
@@ -16332,7 +16443,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCodeFrequencyStatsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCodeFrequencyStats
 
@@ -16357,7 +16468,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetCommitActivityStatsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetCommitActivityStats
 
@@ -16382,7 +16493,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetContributorsStatsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetContributorsStats
 
@@ -16407,7 +16518,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetParticipationStatsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetParticipationStats
 
@@ -16432,7 +16543,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetPunchCardStatsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetPunchCardStats
 
@@ -16478,7 +16589,7 @@ router.post(
       void,
       ReposCreateCommitStatusBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateCommitStatus
 
@@ -16515,7 +16626,7 @@ router.get(
       ActivityListWatchersForRepoQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListWatchersForRepo
 
@@ -16540,7 +16651,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ActivityGetRepoSubscriptionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityGetRepoSubscription
 
@@ -16577,7 +16688,7 @@ router.put(
       void,
       ActivitySetRepoSubscriptionBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activitySetRepoSubscription
 
@@ -16602,7 +16713,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ActivityDeleteRepoSubscriptionParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityDeleteRepoSubscription
 
@@ -16631,7 +16742,7 @@ router.get(
   queryValidationFactory<ReposListTagsQuerySchema>(reposListTagsQuerySchema),
   async (
     ctx: ValidatedCtx<ReposListTagsParamSchema, ReposListTagsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListTags
 
@@ -16664,7 +16775,7 @@ router.get(
       ReposListTeamsQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListTeams
 
@@ -16687,7 +16798,10 @@ router.get(
   paramValidationFactory<ReposGetAllTopicsParamSchema>(
     reposGetAllTopicsParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposGetAllTopicsParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetAllTopicsParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetAllTopics
 
     ctx.status = 501
@@ -16723,7 +16837,7 @@ router.put(
       void,
       ReposReplaceAllTopicsBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposReplaceAllTopics
 
@@ -16756,7 +16870,7 @@ router.get(
       ReposGetClonesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetClones
 
@@ -16779,7 +16893,10 @@ router.get(
   paramValidationFactory<ReposGetTopPathsParamSchema>(
     reposGetTopPathsParamSchema
   ),
-  async (ctx: ValidatedCtx<ReposGetTopPathsParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<ReposGetTopPathsParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposGetTopPaths
 
     ctx.status = 501
@@ -16803,7 +16920,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposGetTopReferrersParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetTopReferrers
 
@@ -16832,7 +16949,7 @@ router.get(
   queryValidationFactory<ReposGetViewsQuerySchema>(reposGetViewsQuerySchema),
   async (
     ctx: ValidatedCtx<ReposGetViewsParamSchema, ReposGetViewsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposGetViews
 
@@ -16861,7 +16978,7 @@ router.post(
   bodyValidationFactory<ReposTransferBodySchema>(reposTransferBodySchema),
   async (
     ctx: ValidatedCtx<ReposTransferParamSchema, void, ReposTransferBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposTransfer
 
@@ -16886,7 +17003,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposCheckVulnerabilityAlertsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCheckVulnerabilityAlerts
 
@@ -16911,7 +17028,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<ReposEnableVulnerabilityAlertsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposEnableVulnerabilityAlerts
 
@@ -16936,7 +17053,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDisableVulnerabilityAlertsParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDisableVulnerabilityAlerts
 
@@ -16966,7 +17083,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<ReposDownloadArchiveParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDownloadArchive
 
@@ -17011,7 +17128,7 @@ router.post(
       void,
       ReposCreateUsingTemplateBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateUsingTemplate
 
@@ -17034,7 +17151,10 @@ router.get(
   queryValidationFactory<ReposListPublicQuerySchema>(
     reposListPublicQuerySchema
   ),
-  async (ctx: ValidatedCtx<void, ReposListPublicQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, ReposListPublicQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-reposListPublic
 
     ctx.status = 501
@@ -17070,7 +17190,7 @@ router.get(
       ScimListProvisionedIdentitiesQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimListProvisionedIdentities
 
@@ -17095,7 +17215,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<ScimProvisionAndInviteUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimProvisionAndInviteUser
 
@@ -17124,7 +17244,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimGetProvisioningInformationForUser
 
@@ -17153,7 +17273,7 @@ router.put(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimSetInformationForProvisionedUser
 
@@ -17178,7 +17298,7 @@ router.patch(
   ),
   async (
     ctx: ValidatedCtx<ScimUpdateAttributeForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimUpdateAttributeForUser
 
@@ -17203,7 +17323,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ScimDeleteUserFromOrgParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-scimDeleteUserFromOrg
 
@@ -17230,7 +17350,7 @@ router.get(
   "searchCode",
   "/search/code",
   queryValidationFactory<SearchCodeQuerySchema>(searchCodeQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchCodeQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, SearchCodeQuerySchema, void>, next: Next) => {
     //region safe-edit-region-searchCode
 
     ctx.status = 501
@@ -17256,7 +17376,10 @@ router.get(
   "searchCommits",
   "/search/commits",
   queryValidationFactory<SearchCommitsQuerySchema>(searchCommitsQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchCommitsQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, SearchCommitsQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-searchCommits
 
     ctx.status = 501
@@ -17286,7 +17409,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, SearchIssuesAndPullRequestsQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-searchIssuesAndPullRequests
 
@@ -17312,7 +17435,10 @@ router.get(
   "searchLabels",
   "/search/labels",
   queryValidationFactory<SearchLabelsQuerySchema>(searchLabelsQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchLabelsQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, SearchLabelsQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-searchLabels
 
     ctx.status = 501
@@ -17338,7 +17464,7 @@ router.get(
   "searchRepos",
   "/search/repositories",
   queryValidationFactory<SearchReposQuerySchema>(searchReposQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchReposQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, SearchReposQuerySchema, void>, next: Next) => {
     //region safe-edit-region-searchRepos
 
     ctx.status = 501
@@ -17358,7 +17484,10 @@ router.get(
   "searchTopics",
   "/search/topics",
   queryValidationFactory<SearchTopicsQuerySchema>(searchTopicsQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchTopicsQuerySchema, void>, next) => {
+  async (
+    ctx: ValidatedCtx<void, SearchTopicsQuerySchema, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-searchTopics
 
     ctx.status = 501
@@ -17384,7 +17513,7 @@ router.get(
   "searchUsers",
   "/search/users",
   queryValidationFactory<SearchUsersQuerySchema>(searchUsersQuerySchema),
-  async (ctx: ValidatedCtx<void, SearchUsersQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, SearchUsersQuerySchema, void>, next: Next) => {
     //region safe-edit-region-searchUsers
 
     ctx.status = 501
@@ -17404,7 +17533,10 @@ router.get(
   "teamsGetLegacy",
   "/teams/:teamId",
   paramValidationFactory<TeamsGetLegacyParamSchema>(teamsGetLegacyParamSchema),
-  async (ctx: ValidatedCtx<TeamsGetLegacyParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<TeamsGetLegacyParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-teamsGetLegacy
 
     ctx.status = 501
@@ -17446,7 +17578,7 @@ router.patch(
       void,
       TeamsUpdateLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateLegacy
 
@@ -17469,7 +17601,10 @@ router.delete(
   paramValidationFactory<TeamsDeleteLegacyParamSchema>(
     teamsDeleteLegacyParamSchema
   ),
-  async (ctx: ValidatedCtx<TeamsDeleteLegacyParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<TeamsDeleteLegacyParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-teamsDeleteLegacy
 
     ctx.status = 501
@@ -17505,7 +17640,7 @@ router.get(
       TeamsListDiscussionsLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListDiscussionsLegacy
 
@@ -17546,7 +17681,7 @@ router.post(
       void,
       TeamsCreateDiscussionLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateDiscussionLegacy
 
@@ -17574,7 +17709,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetDiscussionLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetDiscussionLegacy
 
@@ -17614,7 +17749,7 @@ router.patch(
       void,
       TeamsUpdateDiscussionLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateDiscussionLegacy
 
@@ -17642,7 +17777,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsDeleteDiscussionLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsDeleteDiscussionLegacy
 
@@ -17682,7 +17817,7 @@ router.get(
       TeamsListDiscussionCommentsLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListDiscussionCommentsLegacy
 
@@ -17722,7 +17857,7 @@ router.post(
       void,
       TeamsCreateDiscussionCommentLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateDiscussionCommentLegacy
 
@@ -17751,7 +17886,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetDiscussionCommentLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetDiscussionCommentLegacy
 
@@ -17792,7 +17927,7 @@ router.patch(
       void,
       TeamsUpdateDiscussionCommentLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsUpdateDiscussionCommentLegacy
 
@@ -17825,7 +17960,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsDeleteDiscussionCommentLegacy
 
@@ -17866,7 +18001,7 @@ router.get(
       ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionCommentLegacy
 
@@ -17907,7 +18042,7 @@ router.post(
       void,
       ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionCommentLegacy
 
@@ -17947,7 +18082,7 @@ router.get(
       ReactionsListForTeamDiscussionLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsListForTeamDiscussionLegacy
 
@@ -17987,7 +18122,7 @@ router.post(
       void,
       ReactionsCreateForTeamDiscussionLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reactionsCreateForTeamDiscussionLegacy
 
@@ -18024,7 +18159,7 @@ router.get(
       TeamsListPendingInvitationsLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListPendingInvitationsLegacy
 
@@ -18061,7 +18196,7 @@ router.get(
       TeamsListMembersLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListMembersLegacy
 
@@ -18086,7 +18221,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetMemberLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetMemberLegacy
 
@@ -18111,7 +18246,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<TeamsAddMemberLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddMemberLegacy
 
@@ -18136,7 +18271,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveMemberLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveMemberLegacy
 
@@ -18161,7 +18296,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsGetMembershipForUserLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsGetMembershipForUserLegacy
 
@@ -18198,7 +18333,7 @@ router.put(
       void,
       TeamsAddOrUpdateMembershipForUserLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateMembershipForUserLegacy
 
@@ -18227,7 +18362,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveMembershipForUserLegacy
 
@@ -18264,7 +18399,7 @@ router.get(
       TeamsListProjectsLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListProjectsLegacy
 
@@ -18296,7 +18431,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCheckPermissionsForProjectLegacy
 
@@ -18336,7 +18471,7 @@ router.put(
       void,
       TeamsAddOrUpdateProjectPermissionsLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateProjectPermissionsLegacy
 
@@ -18364,7 +18499,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveProjectLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveProjectLegacy
 
@@ -18401,7 +18536,7 @@ router.get(
       TeamsListReposLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListReposLegacy
 
@@ -18434,7 +18569,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCheckPermissionsForRepoLegacy
 
@@ -18475,7 +18610,7 @@ router.put(
       void,
       TeamsAddOrUpdateRepoPermissionsLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsAddOrUpdateRepoPermissionsLegacy
 
@@ -18504,7 +18639,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<TeamsRemoveRepoLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsRemoveRepoLegacy
 
@@ -18529,7 +18664,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<TeamsListIdPGroupsForLegacyParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListIdPGroupsForLegacy
 
@@ -18579,7 +18714,7 @@ router.patch(
       void,
       TeamsCreateOrUpdateIdPGroupConnectionsLegacyBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsCreateOrUpdateIdPGroupConnectionsLegacy
 
@@ -18616,7 +18751,7 @@ router.get(
       TeamsListChildLegacyQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListChildLegacy
 
@@ -18631,7 +18766,7 @@ router.get(
 router.get(
   "usersGetAuthenticated",
   "/user",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-usersGetAuthenticated
 
     ctx.status = 501
@@ -18664,7 +18799,7 @@ router.patch(
   ),
   async (
     ctx: ValidatedCtx<void, void, UsersUpdateAuthenticatedBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersUpdateAuthenticated
 
@@ -18679,7 +18814,7 @@ router.patch(
 router.get(
   "usersListBlockedByAuthenticated",
   "/user/blocks",
-  async (ctx: ValidatedCtx<void, void, void>, next) => {
+  async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
     //region safe-edit-region-usersListBlockedByAuthenticated
 
     ctx.status = 501
@@ -18701,7 +18836,10 @@ router.get(
   paramValidationFactory<UsersCheckBlockedParamSchema>(
     usersCheckBlockedParamSchema
   ),
-  async (ctx: ValidatedCtx<UsersCheckBlockedParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<UsersCheckBlockedParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-usersCheckBlocked
 
     ctx.status = 501
@@ -18721,7 +18859,7 @@ router.put(
   "usersBlock",
   "/user/blocks/:username",
   paramValidationFactory<UsersBlockParamSchema>(usersBlockParamSchema),
-  async (ctx: ValidatedCtx<UsersBlockParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<UsersBlockParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-usersBlock
 
     ctx.status = 501
@@ -18741,7 +18879,10 @@ router.delete(
   "usersUnblock",
   "/user/blocks/:username",
   paramValidationFactory<UsersUnblockParamSchema>(usersUnblockParamSchema),
-  async (ctx: ValidatedCtx<UsersUnblockParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<UsersUnblockParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-usersUnblock
 
     ctx.status = 501
@@ -18769,7 +18910,7 @@ router.patch(
       void,
       UsersSetPrimaryEmailVisibilityForAuthenticatedBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersSetPrimaryEmailVisibilityForAuthenticated
 
@@ -18794,7 +18935,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, UsersListEmailsForAuthenticatedQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListEmailsForAuthenticated
 
@@ -18819,7 +18960,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<void, void, UsersAddEmailForAuthenticatedBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersAddEmailForAuthenticated
 
@@ -18844,7 +18985,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<void, void, UsersDeleteEmailForAuthenticatedBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersDeleteEmailForAuthenticated
 
@@ -18873,7 +19014,7 @@ router.get(
       UsersListFollowersForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListFollowersForAuthenticatedUser
 
@@ -18898,7 +19039,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, UsersListFollowedByAuthenticatedQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListFollowedByAuthenticated
 
@@ -18927,7 +19068,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersCheckPersonIsFollowedByAuthenticated
 
@@ -18948,7 +19089,7 @@ router.put(
   "usersFollow",
   "/user/following/:username",
   paramValidationFactory<UsersFollowParamSchema>(usersFollowParamSchema),
-  async (ctx: ValidatedCtx<UsersFollowParamSchema, void, void>, next) => {
+  async (ctx: ValidatedCtx<UsersFollowParamSchema, void, void>, next: Next) => {
     //region safe-edit-region-usersFollow
 
     ctx.status = 501
@@ -18968,7 +19109,10 @@ router.delete(
   "usersUnfollow",
   "/user/following/:username",
   paramValidationFactory<UsersUnfollowParamSchema>(usersUnfollowParamSchema),
-  async (ctx: ValidatedCtx<UsersUnfollowParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<UsersUnfollowParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-usersUnfollow
 
     ctx.status = 501
@@ -18992,7 +19136,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, UsersListGpgKeysForAuthenticatedQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListGpgKeysForAuthenticated
 
@@ -19017,7 +19161,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<void, void, UsersCreateGpgKeyForAuthenticatedBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersCreateGpgKeyForAuthenticated
 
@@ -19042,7 +19186,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<UsersGetGpgKeyForAuthenticatedParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersGetGpgKeyForAuthenticated
 
@@ -19067,7 +19211,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<UsersDeleteGpgKeyForAuthenticatedParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersDeleteGpgKeyForAuthenticated
 
@@ -19096,7 +19240,7 @@ router.get(
       AppsListInstallationsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListInstallationsForAuthenticatedUser
 
@@ -19133,7 +19277,7 @@ router.get(
       AppsListInstallationReposForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListInstallationReposForAuthenticatedUser
 
@@ -19161,7 +19305,7 @@ router.put(
   ),
   async (
     ctx: ValidatedCtx<AppsAddRepoToInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsAddRepoToInstallation
 
@@ -19189,7 +19333,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<AppsRemoveRepoFromInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsRemoveRepoFromInstallation
 
@@ -19223,7 +19367,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, IssuesListForAuthenticatedUserQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-issuesListForAuthenticatedUser
 
@@ -19252,7 +19396,7 @@ router.get(
       UsersListPublicSshKeysForAuthenticatedQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListPublicSshKeysForAuthenticated
 
@@ -19281,7 +19425,7 @@ router.post(
       void,
       UsersCreatePublicSshKeyForAuthenticatedBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersCreatePublicSshKeyForAuthenticated
 
@@ -19310,7 +19454,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersGetPublicSshKeyForAuthenticated
 
@@ -19339,7 +19483,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersDeletePublicSshKeyForAuthenticated
 
@@ -19368,7 +19512,7 @@ router.get(
       AppsListSubscriptionsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListSubscriptionsForAuthenticatedUser
 
@@ -19397,7 +19541,7 @@ router.get(
       AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsListSubscriptionsForAuthenticatedUserStubbed
 
@@ -19426,7 +19570,7 @@ router.get(
       OrgsListMembershipsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListMembershipsForAuthenticatedUser
 
@@ -19455,7 +19599,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsGetMembershipForAuthenticatedUser
 
@@ -19492,7 +19636,7 @@ router.patch(
       void,
       OrgsUpdateMembershipForAuthenticatedUserBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsUpdateMembershipForAuthenticatedUser
 
@@ -19525,7 +19669,7 @@ router.post(
       void,
       MigrationsStartForAuthenticatedUserBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsStartForAuthenticatedUser
 
@@ -19554,7 +19698,7 @@ router.get(
       MigrationsListForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsListForAuthenticatedUser
 
@@ -19583,7 +19727,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetStatusForAuthenticatedUser
 
@@ -19612,7 +19756,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsGetArchiveForAuthenticatedUser
 
@@ -19641,7 +19785,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsDeleteArchiveForAuthenticatedUser
 
@@ -19673,7 +19817,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsUnlockRepoForAuthenticatedUser
 
@@ -19698,7 +19842,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, OrgsListForAuthenticatedUserQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListForAuthenticatedUser
 
@@ -19723,7 +19867,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<void, void, ProjectsCreateForAuthenticatedUserBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsCreateForAuthenticatedUser
 
@@ -19752,7 +19896,7 @@ router.get(
       UsersListPublicEmailsForAuthenticatedQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListPublicEmailsForAuthenticated
 
@@ -19785,7 +19929,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, ReposListForAuthenticatedUserQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListForAuthenticatedUser
 
@@ -19828,7 +19972,7 @@ router.post(
   ),
   async (
     ctx: ValidatedCtx<void, void, ReposCreateForAuthenticatedUserBodySchema>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposCreateForAuthenticatedUser
 
@@ -19857,7 +20001,7 @@ router.get(
       ReposListInvitationsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListInvitationsForAuthenticatedUser
 
@@ -19882,7 +20026,7 @@ router.patch(
   ),
   async (
     ctx: ValidatedCtx<ReposAcceptInvitationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposAcceptInvitation
 
@@ -19907,7 +20051,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<ReposDeclineInvitationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposDeclineInvitation
 
@@ -19941,7 +20085,7 @@ router.get(
       ActivityListReposStarredByAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListReposStarredByAuthenticatedUser
 
@@ -19970,7 +20114,7 @@ router.get(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityCheckRepoIsStarredByAuthenticatedUser
 
@@ -19999,7 +20143,7 @@ router.put(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityStarRepoForAuthenticatedUser
 
@@ -20028,7 +20172,7 @@ router.delete(
       void,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityUnstarRepoForAuthenticatedUser
 
@@ -20057,7 +20201,7 @@ router.get(
       ActivityListWatchedReposForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListWatchedReposForAuthenticatedUser
 
@@ -20082,7 +20226,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<void, TeamsListForAuthenticatedUserQuerySchema, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-teamsListForAuthenticatedUser
 
@@ -20119,7 +20263,7 @@ router.get(
       MigrationsListReposForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-migrationsListReposForUser
 
@@ -20140,7 +20284,7 @@ router.get(
   "usersList",
   "/users",
   queryValidationFactory<UsersListQuerySchema>(usersListQuerySchema),
-  async (ctx: ValidatedCtx<void, UsersListQuerySchema, void>, next) => {
+  async (ctx: ValidatedCtx<void, UsersListQuerySchema, void>, next: Next) => {
     //region safe-edit-region-usersList
 
     ctx.status = 501
@@ -20164,7 +20308,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<UsersGetByUsernameParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersGetByUsername
 
@@ -20201,7 +20345,7 @@ router.get(
       ActivityListEventsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListEventsForAuthenticatedUser
 
@@ -20238,7 +20382,7 @@ router.get(
       ActivityListOrgEventsForAuthenticatedUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListOrgEventsForAuthenticatedUser
 
@@ -20275,7 +20419,7 @@ router.get(
       ActivityListPublicEventsForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListPublicEventsForUser
 
@@ -20312,7 +20456,7 @@ router.get(
       UsersListFollowersForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListFollowersForUser
 
@@ -20349,7 +20493,7 @@ router.get(
       UsersListFollowingForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListFollowingForUser
 
@@ -20377,7 +20521,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<UsersCheckFollowingForUserParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersCheckFollowingForUser
 
@@ -20414,7 +20558,7 @@ router.get(
       GistsListForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-gistsListForUser
 
@@ -20451,7 +20595,7 @@ router.get(
       UsersListGpgKeysForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListGpgKeysForUser
 
@@ -20488,7 +20632,7 @@ router.get(
       UsersGetContextForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersGetContextForUser
 
@@ -20513,7 +20657,7 @@ router.get(
   ),
   async (
     ctx: ValidatedCtx<AppsGetUserInstallationParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-appsGetUserInstallation
 
@@ -20550,7 +20694,7 @@ router.get(
       UsersListPublicKeysForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-usersListPublicKeysForUser
 
@@ -20587,7 +20731,7 @@ router.get(
       OrgsListForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-orgsListForUser
 
@@ -20624,7 +20768,7 @@ router.get(
       ProjectsListForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-projectsListForUser
 
@@ -20661,7 +20805,7 @@ router.get(
       ActivityListReceivedEventsForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListReceivedEventsForUser
 
@@ -20698,7 +20842,7 @@ router.get(
       ActivityListReceivedPublicEventsForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListReceivedPublicEventsForUser
 
@@ -20741,7 +20885,7 @@ router.get(
       ReposListForUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-reposListForUser
 
@@ -20783,7 +20927,7 @@ router.get(
       ActivityListReposStarredByUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListReposStarredByUser
 
@@ -20820,7 +20964,7 @@ router.get(
       ActivityListReposWatchedByUserQuerySchema,
       void
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-activityListReposWatchedByUser
 

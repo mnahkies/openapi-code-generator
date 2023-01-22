@@ -90,7 +90,10 @@ router.get(
   paramValidationFactory<GetTodoListByIdParamSchema>(
     getTodoListByIdParamSchema
   ),
-  async (ctx: ValidatedCtx<GetTodoListByIdParamSchema, void, void>, next) => {
+  async (
+    ctx: ValidatedCtx<GetTodoListByIdParamSchema, void, void>,
+    next: Next
+  ) => {
     //region safe-edit-region-getTodoListById
 
     ctx.status = 501
@@ -126,7 +129,7 @@ router.put(
       void,
       UpdateTodoListByIdBodySchema
     >,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-updateTodoListById
 
@@ -151,7 +154,7 @@ router.delete(
   ),
   async (
     ctx: ValidatedCtx<DeleteTodoListByIdParamSchema, void, void>,
-    next
+    next: Next
   ) => {
     //region safe-edit-region-deleteTodoListById
 
