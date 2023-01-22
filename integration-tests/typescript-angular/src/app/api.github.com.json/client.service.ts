@@ -47,9 +47,7 @@ export class ApiClient {
     return result
   }
 
-  appsGetAuthenticated(p: {
-    accept: string
-  }): Observable<{
+  appsGetAuthenticated(p: { accept: string }): Observable<{
     created_at?: string
     description?: string
     events?: string[]
@@ -95,10 +93,7 @@ export class ApiClient {
     })
   }
 
-  appsCreateFromManifest(p: {
-    accept?: string
-    code: string
-  }): Observable<{
+  appsCreateFromManifest(p: { accept?: string; code: string }): Observable<{
     client_id?: string
     client_secret?: string
     created_at?: string
@@ -900,10 +895,7 @@ export class ApiClient {
     )
   }
 
-  appsGetBySlug(p: {
-    accept: string
-    appSlug: string
-  }): Observable<{
+  appsGetBySlug(p: { accept: string; appSlug: string }): Observable<{
     created_at?: string
     description?: string
     events?: string[]
@@ -1286,9 +1278,7 @@ export class ApiClient {
     )
   }
 
-  codesOfConductGetAllCodesOfConduct(p: {
-    accept: string
-  }): Observable<
+  codesOfConductGetAllCodesOfConduct(p: { accept: string }): Observable<
     {
       key?: string
       name?: string
@@ -1312,10 +1302,7 @@ export class ApiClient {
     )
   }
 
-  codesOfConductGetConductCode(p: {
-    accept: string
-    key: string
-  }): Observable<{
+  codesOfConductGetConductCode(p: { accept: string; key: string }): Observable<{
     body?: string
     key?: string
     name?: string
@@ -1411,9 +1398,7 @@ export class ApiClient {
     )
   }
 
-  activityGetFeeds(p: {
-    accept?: string
-  }): Observable<{
+  activityGetFeeds(p: { accept?: string }): Observable<{
     _links?: {
       current_user?: {
         href?: string
@@ -1807,10 +1792,7 @@ export class ApiClient {
     )
   }
 
-  gistsGet(p: {
-    accept?: string
-    gistId: string
-  }): Observable<{
+  gistsGet(p: { accept?: string; gistId: string }): Observable<{
     comments?: number
     comments_url?: string
     commits_url?: string
@@ -2354,10 +2336,7 @@ export class ApiClient {
     )
   }
 
-  gistsFork(p: {
-    accept?: string
-    gistId: string
-  }): Observable<{
+  gistsFork(p: { accept?: string; gistId: string }): Observable<{
     comments?: number
     comments_url?: string
     commits_url?: string
@@ -2658,10 +2637,7 @@ export class ApiClient {
     )
   }
 
-  gitignoreGetTemplate(p: {
-    accept?: string
-    name: string
-  }): Observable<{
+  gitignoreGetTemplate(p: { accept?: string; name: string }): Observable<{
     name?: string
     source?: string
   }> {
@@ -3101,9 +3077,7 @@ export class ApiClient {
     )
   }
 
-  licensesGetAllCommonlyUsed(p: {
-    accept?: string
-  }): Observable<
+  licensesGetAllCommonlyUsed(p: { accept?: string }): Observable<
     {
       key?: string
       name?: string
@@ -3129,10 +3103,7 @@ export class ApiClient {
     )
   }
 
-  licensesGet(p: {
-    accept?: string
-    license: string
-  }): Observable<{
+  licensesGet(p: { accept?: string; license: string }): Observable<{
     body?: string
     conditions?: string[]
     description?: string
@@ -3603,9 +3574,7 @@ export class ApiClient {
     )
   }
 
-  metaGet(p: {
-    accept?: string
-  }): Observable<{
+  metaGet(p: { accept?: string }): Observable<{
     api?: string[]
     git?: string[]
     hooks?: string[]
@@ -3799,10 +3768,7 @@ export class ApiClient {
     )
   }
 
-  activityGetThread(p: {
-    accept?: string
-    threadId: number
-  }): Observable<{
+  activityGetThread(p: { accept?: string; threadId: number }): Observable<{
     id?: string
     last_read_at?: string
     reason?: string
@@ -4008,10 +3974,7 @@ export class ApiClient {
     )
   }
 
-  orgsList(p: {
-    accept?: string
-    since?: number
-  }): Observable<
+  orgsList(p: { accept?: string; since?: number }): Observable<
     {
       avatar_url?: string
       description?: string
@@ -4044,10 +4007,7 @@ export class ApiClient {
     )
   }
 
-  orgsGet(p: {
-    accept?: string
-    org: string
-  }): Observable<{
+  orgsGet(p: { accept?: string; org: string }): Observable<{
     avatar_url?: string
     billing_email?: string
     blog?: string
@@ -4391,10 +4351,7 @@ export class ApiClient {
     )
   }
 
-  actionsGetOrgPublicKey(p: {
-    accept?: string
-    org: string
-  }): Observable<{
+  actionsGetOrgPublicKey(p: { accept?: string; org: string }): Observable<{
     key?: string
     key_id?: string
   }> {
@@ -4669,10 +4626,7 @@ export class ApiClient {
     )
   }
 
-  orgsListBlockedUsers(p: {
-    accept?: string
-    org: string
-  }): Observable<
+  orgsListBlockedUsers(p: { accept?: string; org: string }): Observable<
     {
       avatar_url?: string
       events_url?: string
@@ -5066,10 +5020,7 @@ export class ApiClient {
     )
   }
 
-  appsGetOrgInstallation(p: {
-    accept: string
-    org: string
-  }): Observable<{
+  appsGetOrgInstallation(p: { accept: string; org: string }): Observable<{
     access_tokens_url?: string
     account?: {
       avatar_url?: string
@@ -9480,10 +9431,7 @@ export class ApiClient {
     )
   }
 
-  projectsGetCard(p: {
-    accept: string
-    cardId: number
-  }): Observable<{
+  projectsGetCard(p: { accept: string; cardId: number }): Observable<{
     archived?: boolean
     column_url?: string
     content_url?: string
@@ -9637,10 +9585,7 @@ export class ApiClient {
     )
   }
 
-  projectsGetColumn(p: {
-    accept: string
-    columnId: number
-  }): Observable<{
+  projectsGetColumn(p: { accept: string; columnId: number }): Observable<{
     cards_url?: string
     created_at?: string
     id?: number
@@ -9872,10 +9817,7 @@ export class ApiClient {
     )
   }
 
-  projectsGet(p: {
-    accept: string
-    projectId: number
-  }): Observable<{
+  projectsGet(p: { accept: string; projectId: number }): Observable<{
     body?: string
     columns_url?: string
     created_at?: string
@@ -10224,9 +10166,7 @@ export class ApiClient {
     )
   }
 
-  rateLimitGet(p: {
-    accept?: string
-  }): Observable<{
+  rateLimitGet(p: { accept?: string }): Observable<{
     rate?: {
       limit?: number
       remaining?: number
@@ -10293,11 +10233,7 @@ export class ApiClient {
     )
   }
 
-  reposGet(p: {
-    accept?: string
-    owner: string
-    repo: string
-  }): Observable<{
+  reposGet(p: { accept?: string; owner: string; repo: string }): Observable<{
     allow_merge_commit?: boolean
     allow_rebase_merge?: boolean
     allow_squash_merge?: boolean
@@ -30429,10 +30365,7 @@ export class ApiClient {
     )
   }
 
-  reposListPublic(p: {
-    accept?: string
-    since?: number
-  }): Observable<
+  reposListPublic(p: { accept?: string; since?: number }): Observable<
     {
       archive_url?: string
       assignees_url?: string
@@ -30574,10 +30507,7 @@ export class ApiClient {
     )
   }
 
-  scimProvisionAndInviteUser(p: {
-    accept?: string
-    org: string
-  }): Observable<{
+  scimProvisionAndInviteUser(p: { accept?: string; org: string }): Observable<{
     active?: boolean
     emails?: {
       primary?: boolean
@@ -31258,10 +31188,7 @@ export class ApiClient {
     )
   }
 
-  searchTopics(p: {
-    accept?: string
-    q: string
-  }): Observable<{
+  searchTopics(p: { accept?: string; q: string }): Observable<{
     incomplete_results?: boolean
     items?: {
       created_at: string
@@ -31345,10 +31272,7 @@ export class ApiClient {
     )
   }
 
-  teamsGetLegacy(p: {
-    accept?: string
-    teamId: number
-  }): Observable<{
+  teamsGetLegacy(p: { accept?: string; teamId: number }): Observable<{
     created_at?: string
     description?: string
     html_url?: string
@@ -33409,9 +33333,7 @@ export class ApiClient {
     )
   }
 
-  usersGetAuthenticated(p: {
-    accept?: string
-  }): Observable<{
+  usersGetAuthenticated(p: { accept?: string }): Observable<{
     avatar_url?: string
     bio?: string
     blog?: string
@@ -33548,9 +33470,7 @@ export class ApiClient {
     )
   }
 
-  usersListBlockedByAuthenticated(p: {
-    accept?: string
-  }): Observable<
+  usersListBlockedByAuthenticated(p: { accept?: string }): Observable<
     {
       avatar_url?: string
       events_url?: string
@@ -36601,10 +36521,7 @@ export class ApiClient {
     )
   }
 
-  usersList(p: {
-    accept?: string
-    since?: string
-  }): Observable<
+  usersList(p: { accept?: string; since?: string }): Observable<
     {
       avatar_url?: string
       events_url?: string
@@ -36643,10 +36560,7 @@ export class ApiClient {
     )
   }
 
-  usersGetByUsername(p: {
-    accept?: string
-    username: string
-  }): Observable<{
+  usersGetByUsername(p: { accept?: string; username: string }): Observable<{
     avatar_url?: string
     bio?: string
     blog?: string
@@ -37037,10 +36951,7 @@ export class ApiClient {
     )
   }
 
-  appsGetUserInstallation(p: {
-    accept: string
-    username: string
-  }): Observable<{
+  appsGetUserInstallation(p: { accept: string; username: string }): Observable<{
     access_tokens_url?: string
     account?: {
       avatar_url?: string

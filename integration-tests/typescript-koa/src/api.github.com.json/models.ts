@@ -1857,17 +1857,19 @@ export type OauthAuthorizationsGetOrCreateAuthorizationForAppParamSchema = {
   client_id?: string
 }
 
-export type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema = {
-  client_secret: string
-  note?: string
-  note_url?: string
-  scopes?: string[]
-}
+export type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema =
+  {
+    client_secret: string
+    note?: string
+    note_url?: string
+    scopes?: string[]
+  }
 
-export type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema = {
-  client_id?: string
-  fingerprint?: string
-}
+export type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema =
+  {
+    client_id?: string
+    fingerprint?: string
+  }
 
 export type OauthAuthorizationsListAuthorizationsQuerySchema = {
   page?: number
