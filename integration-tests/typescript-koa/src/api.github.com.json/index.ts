@@ -1609,23 +1609,25 @@ router.put(
   }
 )
 
-const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema = joi
-  .object()
-  .keys({
-    client_id: joi.string().required(),
-    fingerprint: joi.string().required(),
-  })
-  .required()
+const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintParamSchema =
+  joi
+    .object()
+    .keys({
+      client_id: joi.string().required(),
+      fingerprint: joi.string().required(),
+    })
+    .required()
 
-const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema = joi
-  .object()
-  .keys({
-    client_secret: joi.string().required(),
-    scopes: joi.array().items(joi.string()),
-    note: joi.string(),
-    note_url: joi.string(),
-  })
-  .required()
+const oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintBodySchema =
+  joi
+    .object()
+    .keys({
+      client_secret: joi.string().required(),
+      scopes: joi.array().items(joi.string()),
+      note: joi.string(),
+      note_url: joi.string(),
+    })
+    .required()
 
 router.put(
   "oauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint",

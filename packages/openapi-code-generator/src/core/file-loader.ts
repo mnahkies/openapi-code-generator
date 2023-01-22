@@ -20,7 +20,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
   if (file.endsWith('.json')) {
     try {
       result = JSON.parse(raw)
-    } catch (err) {
+    } catch (err: any) {
       logger.error("error parsing json", err.stack)
       throw new Error(`failed to parse json from file '${ file }'`)
     }
@@ -29,7 +29,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
   if (file.endsWith('.yaml') || file.endsWith('.yml')) {
     try {
       result = yaml.load(raw)
-    } catch (err) {
+    } catch (err: any) {
       logger.error("error parsing yaml", err.stack)
       throw new Error(`failed to parse yaml from file '${ file }'`)
     }

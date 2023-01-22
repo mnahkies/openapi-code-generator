@@ -28,9 +28,7 @@ export class ApiClient {
     )
   }
 
-  async appsGetAuthenticated(p: {
-    accept: string
-  }): Promise<
+  async appsGetAuthenticated(p: { accept: string }): Promise<
     Res<
       200,
       {
@@ -76,10 +74,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async appsCreateFromManifest(p: {
-    accept?: string
-    code: string
-  }): Promise<
+  async appsCreateFromManifest(p: { accept?: string; code: string }): Promise<
     Res<
       200,
       {
@@ -832,10 +827,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async appsGetBySlug(p: {
-    accept: string
-    appSlug: string
-  }): Promise<
+  async appsGetBySlug(p: { accept: string; appSlug: string }): Promise<
     Res<
       200,
       {
@@ -1207,9 +1199,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async codesOfConductGetAllCodesOfConduct(p: {
-    accept: string
-  }): Promise<
+  async codesOfConductGetAllCodesOfConduct(p: { accept: string }): Promise<
     Res<
       200,
       {
@@ -1308,9 +1298,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async activityGetFeeds(p: {
-    accept?: string
-  }): Promise<
+  async activityGetFeeds(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -1691,10 +1679,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async gistsGet(p: {
-    accept?: string
-    gistId: string
-  }): Promise<
+  async gistsGet(p: { accept?: string; gistId: string }): Promise<
     Res<
       200,
       {
@@ -2217,10 +2202,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async gistsFork(p: {
-    accept?: string
-    gistId: string
-  }): Promise<
+  async gistsFork(p: { accept?: string; gistId: string }): Promise<
     Res<
       201,
       {
@@ -2486,10 +2468,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async gitignoreGetTemplate(p: {
-    accept?: string
-    name: string
-  }): Promise<
+  async gitignoreGetTemplate(p: { accept?: string; name: string }): Promise<
     Res<
       200,
       {
@@ -2919,9 +2898,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async licensesGetAllCommonlyUsed(p: {
-    accept?: string
-  }): Promise<
+  async licensesGetAllCommonlyUsed(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -2941,10 +2918,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async licensesGet(p: {
-    accept?: string
-    license: string
-  }): Promise<
+  async licensesGet(p: { accept?: string; license: string }): Promise<
     Res<
       200,
       {
@@ -3393,9 +3367,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async metaGet(p: {
-    accept?: string
-  }): Promise<
+  async metaGet(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -3577,10 +3549,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async activityGetThread(p: {
-    accept?: string
-    threadId: number
-  }): Promise<
+  async activityGetThread(p: { accept?: string; threadId: number }): Promise<
     Res<
       200,
       {
@@ -3772,10 +3741,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async orgsList(p: {
-    accept?: string
-    since?: number
-  }): Promise<
+  async orgsList(p: { accept?: string; since?: number }): Promise<
     Res<
       200,
       {
@@ -3806,10 +3772,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async orgsGet(p: {
-    accept?: string
-    org: string
-  }): Promise<
+  async orgsGet(p: { accept?: string; org: string }): Promise<
     Res<
       200,
       {
@@ -4140,10 +4103,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async actionsGetOrgPublicKey(p: {
-    accept?: string
-    org: string
-  }): Promise<
+  async actionsGetOrgPublicKey(p: { accept?: string; org: string }): Promise<
     Res<
       200,
       {
@@ -4387,10 +4347,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async orgsListBlockedUsers(p: {
-    accept?: string
-    org: string
-  }): Promise<
+  async orgsListBlockedUsers(p: { accept?: string; org: string }): Promise<
     Res<
       200,
       {
@@ -4734,10 +4691,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async appsGetOrgInstallation(p: {
-    accept: string
-    org: string
-  }): Promise<
+  async appsGetOrgInstallation(p: { accept: string; org: string }): Promise<
     Res<
       200,
       {
@@ -9007,10 +8961,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async projectsGetCard(p: {
-    accept: string
-    cardId: number
-  }): Promise<
+  async projectsGetCard(p: { accept: string; cardId: number }): Promise<
     Res<
       200,
       {
@@ -9155,10 +9106,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async projectsGetColumn(p: {
-    accept: string
-    columnId: number
-  }): Promise<
+  async projectsGetColumn(p: { accept: string; columnId: number }): Promise<
     Res<
       200,
       {
@@ -9367,10 +9315,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async projectsGet(p: {
-    accept: string
-    projectId: number
-  }): Promise<
+  async projectsGet(p: { accept: string; projectId: number }): Promise<
     Res<
       200,
       {
@@ -9691,9 +9636,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async rateLimitGet(p: {
-    accept?: string
-  }): Promise<
+  async rateLimitGet(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -9747,11 +9690,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async reposGet(p: {
-    accept?: string
-    owner: string
-    repo: string
-  }): Promise<
+  async reposGet(p: { accept?: string; owner: string; repo: string }): Promise<
     Res<
       200,
       {
@@ -17156,9 +17095,9 @@ export class ApiClient {
 
     return fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/contents/${
-          p["path"]
-        }?${qs.stringify({ ref: p["ref"] })}`,
+        `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}?${qs.stringify(
+          { ref: p["ref"] }
+        )}`,
       {
         method: "GET",
         headers: this.headers(headers),
@@ -29420,10 +29359,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async reposListPublic(p: {
-    accept?: string
-    since?: number
-  }): Promise<
+  async reposListPublic(p: { accept?: string; since?: number }): Promise<
     Res<
       200,
       {
@@ -30237,10 +30173,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async searchTopics(p: {
-    accept?: string
-    q: string
-  }): Promise<
+  async searchTopics(p: { accept?: string; q: string }): Promise<
     Res<
       200,
       {
@@ -30323,10 +30256,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async teamsGetLegacy(p: {
-    accept?: string
-    teamId: number
-  }): Promise<
+  async teamsGetLegacy(p: { accept?: string; teamId: number }): Promise<
     Res<
       200,
       {
@@ -32321,9 +32251,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async usersGetAuthenticated(p: {
-    accept?: string
-  }): Promise<
+  async usersGetAuthenticated(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -32457,9 +32385,7 @@ export class ApiClient {
     }).then((res) => res.json())
   }
 
-  async usersListBlockedByAuthenticated(p: {
-    accept?: string
-  }): Promise<
+  async usersListBlockedByAuthenticated(p: { accept?: string }): Promise<
     Res<
       200,
       {
@@ -33124,12 +33050,9 @@ export class ApiClient {
 
     return fetch(
       this.config.basePath +
-        `/user/installations/${
-          p["installationId"]
-        }/repositories?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        `/user/installations/${p["installationId"]}/repositories?${qs.stringify(
+          { per_page: p["perPage"], page: p["page"] }
+        )}`,
       {
         method: "GET",
         headers: this.headers(headers),
@@ -35345,10 +35268,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async usersList(p: {
-    accept?: string
-    since?: string
-  }): Promise<
+  async usersList(p: { accept?: string; since?: string }): Promise<
     Res<
       200,
       {
@@ -35384,10 +35304,7 @@ export class ApiClient {
     ).then((res) => res.json())
   }
 
-  async usersGetByUsername(p: {
-    accept?: string
-    username: string
-  }): Promise<
+  async usersGetByUsername(p: { accept?: string; username: string }): Promise<
     Res<
       200,
       {
