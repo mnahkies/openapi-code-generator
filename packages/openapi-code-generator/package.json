@@ -8,11 +8,11 @@
     "prebuild": "npm run clean",
     "build": "tsc -p ./tsconfig.json",
     "test": "mocha --require source-map-support/register ./dist/**/*.spec.js",
-    "analyse": "eslint ./src --cache --fix --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint ./src --cache --fix --ext .js,.jsx,.ts,.tsx",
     "ci-build": "npm run build",
     "ci-test": "nyc mocha --reporter mocha-teamcity-reporter -r ts-node/register './src/**/*.spec.ts'",
-    "ci-analyse": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "ci-pipeline": " npm run ci-build && npm run ci-test && npm run ci-analyse"
+    "ci-lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "ci-pipeline": " npm run ci-build && npm run ci-test && npm run ci-lint"
   },
   "author": "Michael Nahkies",
   "license": "MIT",
