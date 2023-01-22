@@ -3,7 +3,6 @@
 /* eslint:disable */
 
 import { CreateUpdateTodoList, Error, TodoList } from "./models"
-import fetch from "node-fetch"
 import qs from "querystring"
 
 export interface ApiClientConfig {
