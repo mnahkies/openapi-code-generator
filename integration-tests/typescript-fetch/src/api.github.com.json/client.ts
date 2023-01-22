@@ -17,7 +17,20 @@ export interface Res<StatusCode, Body> {
 export class ApiClient {
   constructor(private readonly config: ApiClientConfig) {}
 
-  private headers(
+  private _query(
+    params: Record<
+      string,
+      string | number | boolean | string[] | undefined | null
+    >
+  ): string {
+    const filtered = Object.fromEntries(
+      Object.entries(params).filter(([k, v]) => v !== undefined)
+    )
+
+    return qs.stringify(filtered)
+  }
+
+  private _headers(
     headers: Record<string, string | undefined>
   ): Record<string, string> {
     return Object.fromEntries(
@@ -69,7 +82,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/app`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -121,7 +134,7 @@ export class ApiClient {
       this.config.basePath + `/app-manifests/${p["code"]}/conversions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -173,13 +186,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/app/installations?${qs.stringify({
+        `/app/installations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -232,7 +245,7 @@ export class ApiClient {
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -250,7 +263,7 @@ export class ApiClient {
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -397,7 +410,7 @@ export class ApiClient {
         `/app/installations/${p["installationId"]}/access_tokens`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -417,7 +430,7 @@ export class ApiClient {
         `/app/installations/${p["installationId"]}/suspended`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -436,7 +449,7 @@ export class ApiClient {
         `/app/installations/${p["installationId"]}/suspended`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -469,13 +482,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/applications/grants?${qs.stringify({
+        `/applications/grants?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -509,7 +522,7 @@ export class ApiClient {
       this.config.basePath + `/applications/grants/${p["grantId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -527,7 +540,7 @@ export class ApiClient {
       this.config.basePath + `/applications/grants/${p["grantId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -551,7 +564,7 @@ export class ApiClient {
       this.config.basePath + `/applications/${p["clientId"]}/grant`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -572,7 +585,7 @@ export class ApiClient {
         `/applications/${p["clientId"]}/grants/${p["accessToken"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -638,7 +651,7 @@ export class ApiClient {
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -705,7 +718,7 @@ export class ApiClient {
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -730,7 +743,7 @@ export class ApiClient {
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -793,7 +806,7 @@ export class ApiClient {
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -855,7 +868,7 @@ export class ApiClient {
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -875,7 +888,7 @@ export class ApiClient {
         `/applications/${p["clientId"]}/tokens/${p["accessToken"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -924,7 +937,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/apps/${p["appSlug"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -962,13 +975,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/authorizations?${qs.stringify({
+        `/authorizations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1016,7 +1029,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/authorizations`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -1087,7 +1100,7 @@ export class ApiClient {
       this.config.basePath + `/authorizations/clients/${p["clientId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -1160,7 +1173,7 @@ export class ApiClient {
         `/authorizations/clients/${p["clientId"]}/${p["fingerprint"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -1201,7 +1214,7 @@ export class ApiClient {
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1252,7 +1265,7 @@ export class ApiClient {
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -1271,7 +1284,7 @@ export class ApiClient {
       this.config.basePath + `/authorizations/${p["authorizationId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1293,7 +1306,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/codes_of_conduct`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -1320,7 +1333,7 @@ export class ApiClient {
       this.config.basePath + `/codes_of_conduct/${p["key"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1355,7 +1368,7 @@ export class ApiClient {
         `/content_references/${p["contentReferenceId"]}/attachments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -1369,7 +1382,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/emojis`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -1385,10 +1398,10 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/events?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        `/events?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1449,7 +1462,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/feeds`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -1511,14 +1524,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists?${qs.stringify({
+        `/gists?${this._query({
           since: p["since"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1644,7 +1657,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/gists`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -1707,14 +1720,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists/public?${qs.stringify({
+        `/gists/public?${this._query({
           since: p["since"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1777,14 +1790,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists/starred?${qs.stringify({
+        `/gists/starred?${this._query({
           since: p["since"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -1898,7 +1911,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -2023,7 +2036,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "PATCH",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -2039,7 +2052,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/gists/${p["gistId"]}`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -2088,13 +2101,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists/${p["gistId"]}/comments?${qs.stringify({
+        `/gists/${p["gistId"]}/comments?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2150,7 +2163,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -2202,7 +2215,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2259,7 +2272,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -2279,7 +2292,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2331,13 +2344,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists/${p["gistId"]}/commits?${qs.stringify({
+        `/gists/${p["gistId"]}/commits?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2397,7 +2410,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/forks`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2445,13 +2458,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/gists/${p["gistId"]}/forks?${qs.stringify({
+        `/gists/${p["gistId"]}/forks?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2469,7 +2482,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2487,7 +2500,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2505,7 +2518,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2625,7 +2638,7 @@ export class ApiClient {
       this.config.basePath + `/gists/${p["gistId"]}/${p["sha"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2640,7 +2653,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/gitignore/templates`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -2662,7 +2675,7 @@ export class ApiClient {
       this.config.basePath + `/gitignore/templates/${p["name"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2787,13 +2800,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/installation/repositories?${qs.stringify({
+        `/installation/repositories?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -2808,7 +2821,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/installation/token`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -3072,7 +3085,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/issues?${qs.stringify({
+        `/issues?${this._query({
           filter: p["filter"],
           state: p["state"],
           labels: p["labels"],
@@ -3084,7 +3097,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3108,7 +3121,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/licenses`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -3141,7 +3154,7 @@ export class ApiClient {
       this.config.basePath + `/licenses/${p["license"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3164,7 +3177,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/markdown`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -3185,7 +3198,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/markdown/raw`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -3259,7 +3272,7 @@ export class ApiClient {
       this.config.basePath + `/marketplace_listing/accounts/${p["accountId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3295,13 +3308,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/marketplace_listing/plans?${qs.stringify({
+        `/marketplace_listing/plans?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3376,7 +3389,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/marketplace_listing/plans/${p["planId"]}/accounts?${qs.stringify({
+        `/marketplace_listing/plans/${p["planId"]}/accounts?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           per_page: p["perPage"],
@@ -3384,7 +3397,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3459,7 +3472,7 @@ export class ApiClient {
         `/marketplace_listing/stubbed/accounts/${p["accountId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3495,13 +3508,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/marketplace_listing/stubbed/plans?${qs.stringify({
+        `/marketplace_listing/stubbed/plans?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3578,7 +3591,7 @@ export class ApiClient {
       this.config.basePath +
         `/marketplace_listing/stubbed/plans/${
           p["planId"]
-        }/accounts?${qs.stringify({
+        }/accounts?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           per_page: p["perPage"],
@@ -3586,7 +3599,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3618,7 +3631,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/meta`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -3636,13 +3649,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/networks/${p["owner"]}/${p["repo"]}/events?${qs.stringify({
+        `/networks/${p["owner"]}/${p["repo"]}/events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3749,7 +3762,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/notifications?${qs.stringify({
+        `/notifications?${this._query({
           all: p["all"],
           participating: p["participating"],
           since: p["since"],
@@ -3759,7 +3772,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3780,7 +3793,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/notifications`, {
       method: "PUT",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -3881,7 +3894,7 @@ export class ApiClient {
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3899,7 +3912,7 @@ export class ApiClient {
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3930,7 +3943,7 @@ export class ApiClient {
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -3967,7 +3980,7 @@ export class ApiClient {
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -3987,7 +4000,7 @@ export class ApiClient {
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4018,10 +4031,10 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/organizations?${qs.stringify({ since: p["since"] })}`,
+        `/organizations?${this._query({ since: p["since"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4086,7 +4099,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -4173,7 +4186,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}`, {
       method: "PATCH",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -4204,13 +4217,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/actions/runners?${qs.stringify({
+        `/orgs/${p["org"]}/actions/runners?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4238,7 +4251,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/downloads`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4265,7 +4278,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/runners/registration-token`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4291,7 +4304,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4321,7 +4334,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4341,7 +4354,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4373,13 +4386,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/actions/secrets?${qs.stringify({
+        `/orgs/${p["org"]}/actions/secrets?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4402,7 +4415,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4433,7 +4446,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4462,7 +4475,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -4483,7 +4496,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4578,7 +4591,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4604,7 +4617,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -4626,7 +4639,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4647,7 +4660,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4684,7 +4697,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/blocks`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -4702,7 +4715,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4721,7 +4734,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4740,7 +4753,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4770,7 +4783,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/credential-authorizations`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4790,7 +4803,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/credential-authorizations/${p["credentialId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4808,13 +4821,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/events?${qs.stringify({
+        `/orgs/${p["org"]}/events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4850,13 +4863,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/hooks?${qs.stringify({
+        `/orgs/${p["org"]}/hooks?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4904,7 +4917,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/hooks`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -4941,7 +4954,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -4991,7 +5004,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -5011,7 +5024,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5030,7 +5043,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5088,7 +5101,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/installation`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5153,13 +5166,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/installations?${qs.stringify({
+        `/orgs/${p["org"]}/installations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5186,7 +5199,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5219,7 +5232,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -5238,7 +5251,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5289,13 +5302,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/invitations?${qs.stringify({
+        `/orgs/${p["org"]}/invitations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5355,7 +5368,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/invitations`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -5393,12 +5406,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/invitations/${
-          p["invitationId"]
-        }/teams?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams?${this._query(
+          { per_page: p["perPage"], page: p["page"] }
+        )}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5664,7 +5677,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/issues?${qs.stringify({
+        `/orgs/${p["org"]}/issues?${this._query({
           filter: p["filter"],
           state: p["state"],
           labels: p["labels"],
@@ -5676,7 +5689,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5721,7 +5734,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/members?${qs.stringify({
+        `/orgs/${p["org"]}/members?${this._query({
           filter: p["filter"],
           role: p["role"],
           per_page: p["perPage"],
@@ -5729,7 +5742,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5748,7 +5761,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5767,7 +5780,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5830,7 +5843,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -5899,7 +5912,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -5919,7 +5932,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6079,7 +6092,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/migrations`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -6232,13 +6245,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/migrations?${qs.stringify({
+        `/orgs/${p["org"]}/migrations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6391,7 +6404,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6411,7 +6424,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6431,7 +6444,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6452,7 +6465,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6587,13 +6600,13 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${
           p["migrationId"]
-        }/repositories?${qs.stringify({
+        }/repositories?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6636,14 +6649,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/outside_collaborators?${qs.stringify({
+        `/orgs/${p["org"]}/outside_collaborators?${this._query({
           filter: p["filter"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6672,7 +6685,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6701,7 +6714,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6758,14 +6771,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/projects?${qs.stringify({
+        `/orgs/${p["org"]}/projects?${this._query({
           state: p["state"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6828,7 +6841,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/projects`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -6871,13 +6884,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/public_members?${qs.stringify({
+        `/orgs/${p["org"]}/public_members?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6897,7 +6910,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6917,7 +6930,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -6937,7 +6950,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7079,7 +7092,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/repos?${qs.stringify({
+        `/orgs/${p["org"]}/repos?${this._query({
           type: p["type"],
           sort: p["sort"],
           direction: p["direction"],
@@ -7088,7 +7101,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7236,7 +7249,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/repos`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -7265,13 +7278,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/team-sync/groups?${qs.stringify({
+        `/orgs/${p["org"]}/team-sync/groups?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7307,13 +7320,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams?${qs.stringify({
+        `/orgs/${p["org"]}/teams?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7393,7 +7406,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/orgs/${p["org"]}/teams`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -7464,7 +7477,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7545,7 +7558,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -7565,7 +7578,7 @@ export class ApiClient {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7637,14 +7650,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions?${this._query({
           direction: p["direction"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7724,7 +7737,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -7798,7 +7811,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7878,7 +7891,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -7900,7 +7913,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -7970,14 +7983,14 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
-        }/comments?${qs.stringify({
+        }/comments?${this._query({
           direction: p["direction"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8051,7 +8064,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8121,7 +8134,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8196,7 +8209,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8219,7 +8232,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8281,14 +8294,14 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
-        }/comments/${p["commentNumber"]}/reactions?${qs.stringify({
+        }/comments/${p["commentNumber"]}/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8354,7 +8367,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8378,7 +8391,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8439,14 +8452,14 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${
           p["discussionNumber"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8511,7 +8524,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8534,7 +8547,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8586,13 +8599,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8636,14 +8649,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members?${this._query({
           role: p["role"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8674,7 +8687,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8722,7 +8735,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8744,7 +8757,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8808,13 +8821,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8881,7 +8894,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -8917,7 +8930,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -8939,7 +8952,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9072,13 +9085,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9347,7 +9360,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9375,7 +9388,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9398,7 +9411,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9429,7 +9442,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/team-sync/group-mappings`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9470,7 +9483,7 @@ export class ApiClient {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/team-sync/group-mappings`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9519,13 +9532,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams?${qs.stringify({
+        `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9576,7 +9589,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9637,7 +9650,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9656,7 +9669,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9681,7 +9694,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}/moves`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9711,7 +9724,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9749,7 +9762,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9768,7 +9781,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9823,14 +9836,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/projects/columns/${p["columnId"]}/cards?${qs.stringify({
+        `/projects/columns/${p["columnId"]}/cards?${this._query({
           archived_state: p["archivedState"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -9892,7 +9905,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/${p["columnId"]}/cards`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9917,7 +9930,7 @@ export class ApiClient {
       this.config.basePath + `/projects/columns/${p["columnId"]}/moves`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -9971,7 +9984,7 @@ export class ApiClient {
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10038,7 +10051,7 @@ export class ApiClient {
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -10057,7 +10070,7 @@ export class ApiClient {
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10100,14 +10113,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/projects/${p["projectId"]}/collaborators?${qs.stringify({
+        `/projects/${p["projectId"]}/collaborators?${this._query({
           affiliation: p["affiliation"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10133,7 +10146,7 @@ export class ApiClient {
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -10154,7 +10167,7 @@ export class ApiClient {
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10201,7 +10214,7 @@ export class ApiClient {
         `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10233,13 +10246,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/projects/${p["projectId"]}/columns?${qs.stringify({
+        `/projects/${p["projectId"]}/columns?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10277,7 +10290,7 @@ export class ApiClient {
       this.config.basePath + `/projects/${p["projectId"]}/columns`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -10324,7 +10337,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/rate_limit`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -10341,7 +10354,7 @@ export class ApiClient {
       this.config.basePath + `/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -10707,7 +10720,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11090,7 +11103,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -11119,7 +11132,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11156,13 +11169,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11198,7 +11211,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11219,7 +11232,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11241,7 +11254,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11289,7 +11302,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11310,7 +11323,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11342,13 +11355,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/runners?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/actions/runners?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11378,7 +11391,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11406,7 +11419,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11434,7 +11447,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11465,7 +11478,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11486,7 +11499,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11690,7 +11703,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/runs?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/actions/runs?${this._query({
           actor: p["actor"],
           branch: p["branch"],
           event: p["event"],
@@ -11700,7 +11713,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11899,7 +11912,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11939,13 +11952,13 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${
           p["runId"]
-        }/artifacts?${qs.stringify({
+        }/artifacts?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -11966,7 +11979,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12019,14 +12032,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${
           p["runId"]
-        }/jobs?${qs.stringify({
+        }/jobs?${this._query({
           filter: p["filter"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12047,7 +12060,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12068,7 +12081,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12089,7 +12102,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12131,7 +12144,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12162,13 +12175,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/secrets?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/actions/secrets?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12196,7 +12209,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12226,7 +12239,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12254,7 +12267,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -12276,7 +12289,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12314,13 +12327,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/workflows?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/actions/workflows?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12357,7 +12370,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12564,7 +12577,7 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${
           p["workflowId"]
-        }/runs?${qs.stringify({
+        }/runs?${this._query({
           actor: p["actor"],
           branch: p["branch"],
           event: p["event"],
@@ -12574,7 +12587,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12612,7 +12625,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12655,13 +12668,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/assignees?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/assignees?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12682,7 +12695,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12702,7 +12715,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12722,7 +12735,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12762,14 +12775,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/branches?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/branches?${this._query({
           protected: p["protected"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -12857,7 +12870,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13021,7 +13034,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13212,7 +13225,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13234,7 +13247,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13263,7 +13276,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13292,7 +13305,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13313,7 +13326,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13383,7 +13396,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13465,7 +13478,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13487,7 +13500,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13516,7 +13529,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13545,7 +13558,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13566,7 +13579,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13597,7 +13610,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13635,7 +13648,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13657,7 +13670,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13678,7 +13691,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13703,7 +13716,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13729,7 +13742,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13755,7 +13768,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -13853,7 +13866,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13874,7 +13887,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13931,7 +13944,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -13992,7 +14005,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14054,7 +14067,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14116,7 +14129,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14156,7 +14169,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -14199,7 +14212,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14243,7 +14256,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14287,7 +14300,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14333,7 +14346,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -14382,7 +14395,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14432,7 +14445,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14482,7 +14495,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14629,7 +14642,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14779,7 +14792,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -14884,7 +14897,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -14921,13 +14934,13 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${
           p["checkRunId"]
-        }/annotations?${qs.stringify({
+        }/annotations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15108,7 +15121,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -15256,7 +15269,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -15434,7 +15447,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15545,7 +15558,7 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${
           p["checkSuiteId"]
-        }/check-runs?${qs.stringify({
+        }/check-runs?${this._query({
           check_name: p["checkName"],
           status: p["status"],
           filter: p["filter"],
@@ -15554,7 +15567,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15575,7 +15588,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15611,13 +15624,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts?${this._query({
           state: p["state"],
           ref: p["ref"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15654,7 +15667,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15703,14 +15716,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/collaborators?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/collaborators?${this._query({
           affiliation: p["affiliation"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15731,7 +15744,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15878,7 +15891,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -15900,7 +15913,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -15948,7 +15961,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16004,13 +16017,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/comments?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/comments?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16068,7 +16081,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16132,7 +16145,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -16154,7 +16167,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16215,14 +16228,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${
           p["commentId"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16287,7 +16300,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -16310,7 +16323,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16414,7 +16427,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/commits?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/commits?${this._query({
           sha: p["sha"],
           path: p["path"],
           author: p["author"],
@@ -16425,7 +16438,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16458,7 +16471,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16517,13 +16530,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["commitSha"]
-        }/comments?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        }/comments?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -16590,7 +16600,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -17072,10 +17082,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["commitSha"]
-        }/pulls?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/pulls?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17191,7 +17201,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17302,7 +17312,7 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
-        }/check-runs?${qs.stringify({
+        }/check-runs?${this._query({
           check_name: p["checkName"],
           status: p["status"],
           filter: p["filter"],
@@ -17311,7 +17321,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17494,7 +17504,7 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
-        }/check-suites?${qs.stringify({
+        }/check-suites?${this._query({
           app_id: p["appId"],
           check_name: p["checkName"],
           per_page: p["perPage"],
@@ -17502,7 +17512,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17614,7 +17624,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17672,13 +17682,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${
           p["ref"]
-        }/statuses?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        }/statuses?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17708,7 +17715,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/community/code_of_conduct`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -17769,7 +17776,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/community/profile`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18046,7 +18053,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/compare/${p["base"]}...${p["head"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18087,12 +18094,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}?${qs.stringify(
-          { ref: p["ref"] }
-        )}`,
+        `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}?${this._query({
+          ref: p["ref"],
+        })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18237,7 +18244,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -18314,7 +18321,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -18361,14 +18368,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/contributors?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/contributors?${this._query({
           anon: p["anon"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18435,7 +18442,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/deployments?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/deployments?${this._query({
           sha: p["sha"],
           ref: p["ref"],
           task: p["task"],
@@ -18445,7 +18452,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18534,7 +18541,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -18600,7 +18607,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18621,7 +18628,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18682,13 +18689,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${
           p["deploymentId"]
-        }/statuses?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        }/statuses?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18767,7 +18771,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -18829,7 +18833,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -18857,7 +18861,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -18877,13 +18881,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/events?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19017,14 +19021,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/forks?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/forks?${this._query({
           sort: p["sort"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19159,7 +19163,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19194,7 +19198,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19227,7 +19231,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19299,7 +19303,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19355,7 +19359,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19391,10 +19395,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${
           p["ref"]
-        }?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19429,7 +19433,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19469,7 +19473,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19512,7 +19516,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19534,7 +19538,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19594,7 +19598,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19643,7 +19647,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19691,7 +19695,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19730,10 +19734,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/trees/${
           p["treeSha"]
-        }?${qs.stringify({ recursive: p["recursive"] })}`,
+        }?${this._query({ recursive: p["recursive"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19778,13 +19782,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/hooks?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/hooks?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19843,7 +19847,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19891,7 +19895,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19953,7 +19957,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -19975,7 +19979,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -19996,7 +20000,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20017,7 +20021,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20067,7 +20071,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20106,7 +20110,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20146,7 +20150,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20166,7 +20170,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20197,12 +20201,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/import/authors?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/import/authors?${this._query({
           since: p["since"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20243,7 +20247,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20274,7 +20278,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/import/large_files`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20318,7 +20322,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20381,7 +20385,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20410,7 +20414,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20445,7 +20449,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20466,7 +20470,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20604,13 +20608,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/invitations?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/invitations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20631,7 +20635,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -20777,7 +20781,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -20942,7 +20946,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/issues?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/issues?${this._query({
           milestone: p["milestone"],
           state: p["state"],
           assignee: p["assignee"],
@@ -20957,7 +20961,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21143,7 +21147,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -21199,7 +21203,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/issues/comments?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/issues/comments?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           since: p["since"],
@@ -21208,7 +21212,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21262,7 +21266,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21322,7 +21326,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -21344,7 +21348,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21405,14 +21409,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${
           p["commentId"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21477,7 +21481,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -21500,7 +21504,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21684,13 +21688,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/issues/events?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/issues/events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -21876,7 +21880,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22053,7 +22057,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22242,7 +22246,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22406,7 +22410,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22570,7 +22574,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22627,14 +22631,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
-        }/comments?${qs.stringify({
+        }/comments?${this._query({
           since: p["since"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22694,7 +22698,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22750,10 +22754,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
-        }/events?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/events?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22788,10 +22792,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
-        }/labels?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/labels?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22831,7 +22835,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22872,7 +22876,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22894,7 +22898,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22929,7 +22933,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -22956,7 +22960,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -22978,7 +22982,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23039,14 +23043,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23111,7 +23115,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23134,7 +23138,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23189,13 +23193,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${
           p["issueNumber"]
-        }/timeline?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        }/timeline?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23227,13 +23228,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/keys?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/keys?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23273,7 +23274,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23308,7 +23309,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23329,7 +23330,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23361,13 +23362,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/labels?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/labels?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23407,7 +23408,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23442,7 +23443,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23484,7 +23485,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23506,7 +23507,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23533,7 +23534,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23581,7 +23582,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23700,7 +23701,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23764,7 +23765,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/milestones?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/milestones?${this._query({
           state: p["state"],
           sort: p["sort"],
           direction: p["direction"],
@@ -23773,7 +23774,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23842,7 +23843,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23905,7 +23906,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -23976,7 +23977,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -23998,7 +23999,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24033,10 +24034,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${
           p["milestoneNumber"]
-        }/labels?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/labels?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24145,7 +24146,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/notifications?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/notifications?${this._query({
           all: p["all"],
           participating: p["participating"],
           since: p["since"],
@@ -24155,7 +24156,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24180,7 +24181,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -24215,7 +24216,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24258,7 +24259,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -24278,7 +24279,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24304,7 +24305,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -24332,7 +24333,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24386,13 +24387,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/pages/builds?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/pages/builds?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24447,7 +24448,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24503,7 +24504,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24561,14 +24562,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/projects?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/projects?${this._query({
           state: p["state"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -24632,7 +24633,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -25116,7 +25117,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/pulls?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/pulls?${this._query({
           state: p["state"],
           head: p["head"],
           base: p["base"],
@@ -25127,7 +25128,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -25647,7 +25648,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -25730,7 +25731,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/pulls/comments?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/pulls/comments?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           since: p["since"],
@@ -25739,7 +25740,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -25820,7 +25821,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -25907,7 +25908,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -25929,7 +25930,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -25990,14 +25991,14 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${
           p["commentId"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -26062,7 +26063,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -26085,7 +26086,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -26596,7 +26597,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -27117,7 +27118,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -27203,7 +27204,7 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
-        }/comments?${qs.stringify({
+        }/comments?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           since: p["since"],
@@ -27212,7 +27213,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -27306,7 +27307,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -27395,7 +27396,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -27498,10 +27499,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
-        }/commits?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/commits?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -27539,10 +27540,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
-        }/files?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/files?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -27563,7 +27564,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -27616,7 +27617,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -27679,13 +27680,13 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
-        }/requested_reviewers?${qs.stringify({
+        }/requested_reviewers?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28173,7 +28174,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28202,7 +28203,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28267,10 +28268,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${
           p["pullNumber"]
-        }/reviews?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/reviews?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28346,7 +28347,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28411,7 +28412,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28474,7 +28475,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28544,7 +28545,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28622,13 +28623,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${
           p["reviewId"]
-        }/comments?${qs.stringify({
-          per_page: p["perPage"],
-          page: p["page"],
-        })}`,
+        }/comments?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28698,7 +28696,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28770,7 +28768,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28806,7 +28804,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -28847,12 +28845,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/readme?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/readme?${this._query({
           ref: p["ref"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -28947,13 +28945,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/releases?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/releases?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29028,7 +29026,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -29088,7 +29086,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29154,7 +29152,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -29176,7 +29174,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29272,7 +29270,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/latest`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29369,7 +29367,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29466,7 +29464,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29574,7 +29572,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -29596,7 +29594,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29656,10 +29654,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${
           p["releaseId"]
-        }/assets?${qs.stringify({ per_page: p["perPage"], page: p["page"] })}`,
+        }/assets?${this._query({ per_page: p["perPage"], page: p["page"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29727,10 +29725,10 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${
           p["releaseId"]
-        }/assets?${qs.stringify({ name: p["name"], label: p["label"] })}`,
+        }/assets?${this._query({ name: p["name"], label: p["label"] })}`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -29777,13 +29775,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/stargazers?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/stargazers?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29803,7 +29801,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29832,7 +29830,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29885,7 +29883,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29913,7 +29911,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/stats/participation`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29933,7 +29931,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -29999,7 +29997,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -30043,13 +30041,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/subscribers?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/subscribers?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30081,7 +30079,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30119,7 +30117,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -30139,7 +30137,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30171,13 +30169,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/tags?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/tags?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30214,13 +30212,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/teams?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/teams?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30246,7 +30244,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30278,7 +30276,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -30310,12 +30308,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/traffic/clones?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/traffic/clones?${this._query({
           per: p["per"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30345,7 +30343,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30374,7 +30372,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30405,12 +30403,12 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/traffic/views?${qs.stringify({
+        `/repos/${p["owner"]}/${p["repo"]}/traffic/views?${this._query({
           per: p["per"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30546,7 +30544,7 @@ export class ApiClient {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -30567,7 +30565,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30587,7 +30585,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30607,7 +30605,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30629,7 +30627,7 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/${p["archiveFormat"]}/${p["ref"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -30873,7 +30871,7 @@ export class ApiClient {
         `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -30959,10 +30957,10 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/repositories?${qs.stringify({ since: p["since"] })}`,
+        `/repositories?${this._query({ since: p["since"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31013,14 +31011,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/scim/v2/organizations/${p["org"]}/Users?${qs.stringify({
+        `/scim/v2/organizations/${p["org"]}/Users?${this._query({
           startIndex: p["startIndex"],
           count: p["count"],
           filter: p["filter"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31064,7 +31062,7 @@ export class ApiClient {
       this.config.basePath + `/scim/v2/organizations/${p["org"]}/Users`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31110,7 +31108,7 @@ export class ApiClient {
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31156,7 +31154,7 @@ export class ApiClient {
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31202,7 +31200,7 @@ export class ApiClient {
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31222,7 +31220,7 @@ export class ApiClient {
         `/scim/v2/organizations/${p["org"]}/Users/${p["scimUserId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31324,7 +31322,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/code?${qs.stringify({
+        `/search/code?${this._query({
           q: p["q"],
           sort: p["sort"],
           order: p["order"],
@@ -31333,7 +31331,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31499,7 +31497,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/commits?${qs.stringify({
+        `/search/commits?${this._query({
           q: p["q"],
           sort: p["sort"],
           order: p["order"],
@@ -31508,7 +31506,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31599,7 +31597,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/issues?${qs.stringify({
+        `/search/issues?${this._query({
           q: p["q"],
           sort: p["sort"],
           order: p["order"],
@@ -31608,7 +31606,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31645,7 +31643,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/labels?${qs.stringify({
+        `/search/labels?${this._query({
           repository_id: p["repositoryId"],
           q: p["q"],
           sort: p["sort"],
@@ -31653,7 +31651,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31715,7 +31713,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/repositories?${qs.stringify({
+        `/search/repositories?${this._query({
           q: p["q"],
           sort: p["sort"],
           order: p["order"],
@@ -31724,7 +31722,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31757,10 +31755,10 @@ export class ApiClient {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
     const res = await fetch(
-      this.config.basePath + `/search/topics?${qs.stringify({ q: p["q"] })}`,
+      this.config.basePath + `/search/topics?${this._query({ q: p["q"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31804,7 +31802,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/search/users?${qs.stringify({
+        `/search/users?${this._query({
           q: p["q"],
           sort: p["sort"],
           order: p["order"],
@@ -31813,7 +31811,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -31878,7 +31876,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -31955,7 +31953,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "PATCH",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -31971,7 +31969,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/teams/${p["teamId"]}`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -32041,14 +32039,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/discussions?${qs.stringify({
+        `/teams/${p["teamId"]}/discussions?${this._query({
           direction: p["direction"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32126,7 +32124,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/discussions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32199,7 +32197,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32278,7 +32276,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32299,7 +32297,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32368,14 +32366,14 @@ export class ApiClient {
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${
           p["discussionNumber"]
-        }/comments?${qs.stringify({
+        }/comments?${this._query({
           direction: p["direction"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32448,7 +32446,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32517,7 +32515,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32591,7 +32589,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32613,7 +32611,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32674,14 +32672,14 @@ export class ApiClient {
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${
           p["commentNumber"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32746,7 +32744,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32807,14 +32805,14 @@ export class ApiClient {
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${
           p["discussionNumber"]
-        }/reactions?${qs.stringify({
+        }/reactions?${this._query({
           content: p["content"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32878,7 +32876,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
         method: "POST",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -32930,13 +32928,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/invitations?${qs.stringify({
+        `/teams/${p["teamId"]}/invitations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -32979,14 +32977,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/members?${qs.stringify({
+        `/teams/${p["teamId"]}/members?${this._query({
           role: p["role"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33005,7 +33003,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33038,7 +33036,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33057,7 +33055,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33086,7 +33084,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33133,7 +33131,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -33154,7 +33152,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33217,13 +33215,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/projects?${qs.stringify({
+        `/teams/${p["teamId"]}/projects?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33288,7 +33286,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33322,7 +33320,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -33342,7 +33340,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33474,13 +33472,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/repos?${qs.stringify({
+        `/teams/${p["teamId"]}/repos?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33748,7 +33746,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33775,7 +33773,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -33797,7 +33795,7 @@ export class ApiClient {
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33826,7 +33824,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/team-sync/group-mappings`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33865,7 +33863,7 @@ export class ApiClient {
       this.config.basePath + `/teams/${p["teamId"]}/team-sync/group-mappings`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -33913,13 +33911,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/teams/${p["teamId"]}/teams?${qs.stringify({
+        `/teams/${p["teamId"]}/teams?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -33982,7 +33980,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -34059,7 +34057,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user`, {
       method: "PATCH",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -34096,7 +34094,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/blocks`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -34113,7 +34111,7 @@ export class ApiClient {
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34131,7 +34129,7 @@ export class ApiClient {
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34149,7 +34147,7 @@ export class ApiClient {
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34181,7 +34179,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/email/visibility`, {
       method: "PATCH",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -34208,13 +34206,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/emails?${qs.stringify({
+        `/user/emails?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34245,7 +34243,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/emails`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -34266,7 +34264,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/emails`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -34307,13 +34305,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/followers?${qs.stringify({
+        `/user/followers?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34354,13 +34352,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/following?${qs.stringify({
+        `/user/following?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34378,7 +34376,7 @@ export class ApiClient {
       this.config.basePath + `/user/following/${p["username"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34396,7 +34394,7 @@ export class ApiClient {
       this.config.basePath + `/user/following/${p["username"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34414,7 +34412,7 @@ export class ApiClient {
       this.config.basePath + `/user/following/${p["username"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34469,13 +34467,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/gpg_keys?${qs.stringify({
+        `/user/gpg_keys?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34534,7 +34532,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/gpg_keys`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -34590,7 +34588,7 @@ export class ApiClient {
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34608,7 +34606,7 @@ export class ApiClient {
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34673,13 +34671,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/installations?${qs.stringify({
+        `/user/installations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34810,12 +34808,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/installations/${p["installationId"]}/repositories?${qs.stringify(
-          { per_page: p["perPage"], page: p["page"] }
-        )}`,
+        `/user/installations/${p["installationId"]}/repositories?${this._query({
+          per_page: p["perPage"],
+          page: p["page"],
+        })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34835,7 +34834,7 @@ export class ApiClient {
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -34855,7 +34854,7 @@ export class ApiClient {
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35120,7 +35119,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/issues?${qs.stringify({
+        `/user/issues?${this._query({
           filter: p["filter"],
           state: p["state"],
           labels: p["labels"],
@@ -35132,7 +35131,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35157,13 +35156,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/keys?${qs.stringify({
+        `/user/keys?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35193,7 +35192,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/keys`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -35217,7 +35216,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -35232,7 +35231,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/keys/${p["keyId"]}`, {
       method: "DELETE",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -35283,13 +35282,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/marketplace_purchases?${qs.stringify({
+        `/user/marketplace_purchases?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35341,13 +35340,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/marketplace_purchases/stubbed?${qs.stringify({
+        `/user/marketplace_purchases/stubbed?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35409,14 +35408,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/memberships/orgs?${qs.stringify({
+        `/user/memberships/orgs?${this._query({
           state: p["state"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35478,7 +35477,7 @@ export class ApiClient {
       this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -35546,7 +35545,7 @@ export class ApiClient {
       this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
         body: JSON.stringify(p.requestBody),
       }
     )
@@ -35710,7 +35709,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/migrations`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -35867,13 +35866,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/migrations?${qs.stringify({
+        `/user/migrations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36031,7 +36030,7 @@ export class ApiClient {
       this.config.basePath + `/user/migrations/${p["migrationId"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36049,7 +36048,7 @@ export class ApiClient {
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36067,7 +36066,7 @@ export class ApiClient {
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36087,7 +36086,7 @@ export class ApiClient {
         `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36122,13 +36121,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/orgs?${qs.stringify({
+        `/user/orgs?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36188,7 +36187,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/projects`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -36215,13 +36214,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/public_emails?${qs.stringify({
+        `/user/public_emails?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36243,7 +36242,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/repos?${qs.stringify({
+        `/user/repos?${this._query({
           visibility: p["visibility"],
           affiliation: p["affiliation"],
           type: p["type"],
@@ -36254,7 +36253,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36401,7 +36400,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/user/repos`, {
       method: "POST",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
       body: JSON.stringify(p.requestBody),
     })
 
@@ -36537,13 +36536,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/repository_invitations?${qs.stringify({
+        `/user/repository_invitations?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36562,7 +36561,7 @@ export class ApiClient {
         `/user/repository_invitations/${p["invitationId"]}`,
       {
         method: "PATCH",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36581,7 +36580,7 @@ export class ApiClient {
         `/user/repository_invitations/${p["invitationId"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36713,7 +36712,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/starred?${qs.stringify({
+        `/user/starred?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           per_page: p["perPage"],
@@ -36721,7 +36720,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36740,7 +36739,7 @@ export class ApiClient {
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36759,7 +36758,7 @@ export class ApiClient {
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "PUT",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36778,7 +36777,7 @@ export class ApiClient {
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
         method: "DELETE",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36909,13 +36908,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/subscriptions?${qs.stringify({
+        `/user/subscriptions?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -36984,13 +36983,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/teams?${qs.stringify({
+        `/user/teams?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37122,13 +37121,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/user/${p["migrationId"]}/repositories?${qs.stringify({
+        `/user/${p["migrationId"]}/repositories?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37164,10 +37163,10 @@ export class ApiClient {
     const headers: Record<string, string | undefined> = { accept: p["accept"] }
 
     const res = await fetch(
-      this.config.basePath + `/users?${qs.stringify({ since: p["since"] })}`,
+      this.config.basePath + `/users?${this._query({ since: p["since"] })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37218,7 +37217,7 @@ export class ApiClient {
 
     const res = await fetch(this.config.basePath + `/users/${p["username"]}`, {
       method: "GET",
-      headers: this.headers(headers),
+      headers: this._headers(headers),
     })
 
     // TODO: this is a poor assumption
@@ -37235,13 +37234,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/events?${qs.stringify({
+        `/users/${p["username"]}/events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37260,13 +37259,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/events/orgs/${p["org"]}?${qs.stringify({
+        `/users/${p["username"]}/events/orgs/${p["org"]}?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37284,13 +37283,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/events/public?${qs.stringify({
+        `/users/${p["username"]}/events/public?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37332,13 +37331,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/followers?${qs.stringify({
+        `/users/${p["username"]}/followers?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37380,13 +37379,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/following?${qs.stringify({
+        `/users/${p["username"]}/following?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37406,7 +37405,7 @@ export class ApiClient {
         `/users/${p["username"]}/following/${p["targetUser"]}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37470,14 +37469,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/gists?${qs.stringify({
+        `/users/${p["username"]}/gists?${this._query({
           since: p["since"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37533,13 +37532,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/gpg_keys?${qs.stringify({
+        `/users/${p["username"]}/gpg_keys?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37567,13 +37566,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/hovercard?${qs.stringify({
+        `/users/${p["username"]}/hovercard?${this._query({
           subject_type: p["subjectType"],
           subject_id: p["subjectId"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37634,7 +37633,7 @@ export class ApiClient {
       this.config.basePath + `/users/${p["username"]}/installation`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37660,13 +37659,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/keys?${qs.stringify({
+        `/users/${p["username"]}/keys?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37702,13 +37701,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/orgs?${qs.stringify({
+        `/users/${p["username"]}/orgs?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37765,14 +37764,14 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/projects?${qs.stringify({
+        `/users/${p["username"]}/projects?${this._query({
           state: p["state"],
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37790,13 +37789,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/received_events?${qs.stringify({
+        `/users/${p["username"]}/received_events?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37814,13 +37813,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/received_events/public?${qs.stringify({
+        `/users/${p["username"]}/received_events/public?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37841,7 +37840,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/repos?${qs.stringify({
+        `/users/${p["username"]}/repos?${this._query({
           type: p["type"],
           sort: p["sort"],
           direction: p["direction"],
@@ -37850,7 +37849,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -37983,7 +37982,7 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/starred?${qs.stringify({
+        `/users/${p["username"]}/starred?${this._query({
           sort: p["sort"],
           direction: p["direction"],
           per_page: p["perPage"],
@@ -37991,7 +37990,7 @@ export class ApiClient {
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
@@ -38123,13 +38122,13 @@ export class ApiClient {
 
     const res = await fetch(
       this.config.basePath +
-        `/users/${p["username"]}/subscriptions?${qs.stringify({
+        `/users/${p["username"]}/subscriptions?${this._query({
           per_page: p["perPage"],
           page: p["page"],
         })}`,
       {
         method: "GET",
-        headers: this.headers(headers),
+        headers: this._headers(headers),
       }
     )
 
