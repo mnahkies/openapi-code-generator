@@ -3,6 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "types": ["@types/mocha"]
+  },
+  "include": ["src/**/*"]
 }
