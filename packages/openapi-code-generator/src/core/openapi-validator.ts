@@ -1,5 +1,4 @@
-import {ValidateFunction} from 'ajv'
-import Ajv from "ajv-draft-04"
+import Ajv2020, { ValidateFunction } from "ajv/dist/2020"
 import addFormats from "ajv-formats"
 import { promptContinue } from "./cli-utils"
 import openapi3Specification = require('./openapi-3-specification.json')
@@ -10,7 +9,7 @@ export class OpenapiValidator {
   private readonly validationFunction: ValidateFunction
 
   private constructor() {
-    const ajv = new Ajv({strict: false})
+    const ajv = new Ajv2020({strict: false})
     addFormats(ajv)
     ajv.addFormat('media-range', true)
     this.validationFunction = ajv.compile(openapi3Specification)
