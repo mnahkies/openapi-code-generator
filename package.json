@@ -41,5 +41,9 @@
   "workspaces": [
     "packages/*",
     "integration-tests/*"
-  ]
+  ],
+  "packageManager": "yarn@1.22.19",
+  "engines": {
+    "node": "^16"
+  }
 }
