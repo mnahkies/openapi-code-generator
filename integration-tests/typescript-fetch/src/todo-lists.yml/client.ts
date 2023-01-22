@@ -34,10 +34,13 @@ export class ApiClient {
   }): Promise<Res<200, TodoList> | Res<number, Error> | Res<number, void>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/list/${p["listId"]}`, {
+    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "GET",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async updateTodoListById(p: {
@@ -48,11 +51,14 @@ export class ApiClient {
       "Content-Type": "application/json",
     }
 
-    return fetch(this.config.basePath + `/list/${p["listId"]}`, {
+    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "PUT",
       headers: this.headers(headers),
       body: JSON.stringify(p.requestBody),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async deleteTodoListById(p: {
@@ -60,9 +66,12 @@ export class ApiClient {
   }): Promise<Res<204, void> | Res<number, Error> | Res<number, void>> {
     const headers: Record<string, string | undefined> = {}
 
-    return fetch(this.config.basePath + `/list/${p["listId"]}`, {
+    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
       method: "DELETE",
       headers: this.headers(headers),
-    }).then((res) => res.json())
+    })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
   }
 }
