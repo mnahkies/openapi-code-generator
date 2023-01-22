@@ -79,7 +79,7 @@ export interface Res<StatusCode, Body> {
 export class ${ clientName } {
   constructor(private readonly config: ${ clientName }Config) {}
 
-  private _query(params: Record<string, string|number|undefined|null>): string {
+  private _query(params: Record<string, string|number|boolean|undefined|null>): string {
     const filtered = Object.fromEntries(
         Object.entries(params)
             .filter(([k,v])=> v !== undefined)
