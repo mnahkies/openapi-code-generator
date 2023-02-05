@@ -1272,7 +1272,6 @@ function paramValidationFactory<Type>(
 ): Middleware<{ params: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.params)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
@@ -1289,7 +1288,6 @@ function queryValidationFactory<Type>(
 ): Middleware<{ query: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.query)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
@@ -1306,7 +1304,6 @@ function bodyValidationFactory<Type>(
 ): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.request.body)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
