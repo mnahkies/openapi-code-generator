@@ -2,7 +2,6 @@ import { Input } from "../../../core/input"
 import {
   IRModelObject,
   IRModelString,
-  IRModelStringFormat,
   IRParameter,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
@@ -21,7 +20,6 @@ export class ZodBuilder implements SchemaBuilder {
 function paramValidationFactory<Type>(schema: ZodSchema): Middleware<{ params: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.params)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
@@ -36,7 +34,6 @@ function paramValidationFactory<Type>(schema: ZodSchema): Middleware<{ params: T
 function queryValidationFactory<Type>(schema: ZodSchema): Middleware<{ query: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.query)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
@@ -51,7 +48,6 @@ function queryValidationFactory<Type>(schema: ZodSchema): Middleware<{ query: Ty
 function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
     const result = schema.safeParse(ctx.request.body)
-    console.info(result)
 
     if (!result.success) {
       throw new Error("validation error")
@@ -88,7 +84,6 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
 
   fromModel(maybeModel: MaybeIRModel, required: boolean): string {
     const model = this.input.schema(maybeModel)
-    console.log(model)
 
     switch (model.type) {
       case "string":
