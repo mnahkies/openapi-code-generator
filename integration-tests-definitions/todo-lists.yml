@@ -3,6 +3,31 @@ info:
   title: Todo Lists Example API
   version: '0.0.1'
 paths:
+  /list:
+    parameters:
+      - name: created
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+            - incomplete
+            - complete
+    get:
+      operationId: getTodoLists
+      responses:
+        200:
+          description: 'success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoList'
   /list/{listId}:
     parameters:
       - $ref: '#/components/parameters/listId'

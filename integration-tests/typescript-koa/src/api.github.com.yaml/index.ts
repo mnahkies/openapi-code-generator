@@ -1500,7 +1500,7 @@ router.post(
 const appsListInstallationsQuerySchema = z.object({
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   outdated: z.coerce.string().optional(),
 })
 
@@ -1582,39 +1582,39 @@ const appsCreateInstallationAccessTokenBodySchema = z
     repository_ids: z.array(z.coerce.number().optional()).optional(),
     permissions: z
       .object({
-        actions: z.coerce.string().optional(),
-        administration: z.coerce.string().optional(),
-        checks: z.coerce.string().optional(),
-        contents: z.coerce.string().optional(),
-        deployments: z.coerce.string().optional(),
-        environments: z.coerce.string().optional(),
-        issues: z.coerce.string().optional(),
-        metadata: z.coerce.string().optional(),
-        packages: z.coerce.string().optional(),
-        pages: z.coerce.string().optional(),
-        pull_requests: z.coerce.string().optional(),
-        repository_announcement_banners: z.coerce.string().optional(),
-        repository_hooks: z.coerce.string().optional(),
-        repository_projects: z.coerce.string().optional(),
-        secret_scanning_alerts: z.coerce.string().optional(),
-        secrets: z.coerce.string().optional(),
-        security_events: z.coerce.string().optional(),
-        single_file: z.coerce.string().optional(),
-        statuses: z.coerce.string().optional(),
-        vulnerability_alerts: z.coerce.string().optional(),
-        workflows: z.coerce.string().optional(),
-        members: z.coerce.string().optional(),
-        organization_administration: z.coerce.string().optional(),
-        organization_custom_roles: z.coerce.string().optional(),
-        organization_announcement_banners: z.coerce.string().optional(),
-        organization_hooks: z.coerce.string().optional(),
-        organization_plan: z.coerce.string().optional(),
-        organization_projects: z.coerce.string().optional(),
-        organization_packages: z.coerce.string().optional(),
-        organization_secrets: z.coerce.string().optional(),
-        organization_self_hosted_runners: z.coerce.string().optional(),
-        organization_user_blocking: z.coerce.string().optional(),
-        team_discussions: z.coerce.string().optional(),
+        actions: z.enum(["read", "write"]).optional(),
+        administration: z.enum(["read", "write"]).optional(),
+        checks: z.enum(["read", "write"]).optional(),
+        contents: z.enum(["read", "write"]).optional(),
+        deployments: z.enum(["read", "write"]).optional(),
+        environments: z.enum(["read", "write"]).optional(),
+        issues: z.enum(["read", "write"]).optional(),
+        metadata: z.enum(["read", "write"]).optional(),
+        packages: z.enum(["read", "write"]).optional(),
+        pages: z.enum(["read", "write"]).optional(),
+        pull_requests: z.enum(["read", "write"]).optional(),
+        repository_announcement_banners: z.enum(["read", "write"]).optional(),
+        repository_hooks: z.enum(["read", "write"]).optional(),
+        repository_projects: z.enum(["read", "write", "admin"]).optional(),
+        secret_scanning_alerts: z.enum(["read", "write"]).optional(),
+        secrets: z.enum(["read", "write"]).optional(),
+        security_events: z.enum(["read", "write"]).optional(),
+        single_file: z.enum(["read", "write"]).optional(),
+        statuses: z.enum(["read", "write"]).optional(),
+        vulnerability_alerts: z.enum(["read", "write"]).optional(),
+        workflows: z.enum(["write"]).optional(),
+        members: z.enum(["read", "write"]).optional(),
+        organization_administration: z.enum(["read", "write"]).optional(),
+        organization_custom_roles: z.enum(["read", "write"]).optional(),
+        organization_announcement_banners: z.enum(["read", "write"]).optional(),
+        organization_hooks: z.enum(["read", "write"]).optional(),
+        organization_plan: z.enum(["read"]).optional(),
+        organization_projects: z.enum(["read", "write", "admin"]).optional(),
+        organization_packages: z.enum(["read", "write"]).optional(),
+        organization_secrets: z.enum(["read", "write"]).optional(),
+        organization_self_hosted_runners: z.enum(["read", "write"]).optional(),
+        organization_user_blocking: z.enum(["read", "write"]).optional(),
+        team_discussions: z.enum(["read", "write"]).optional(),
       })
       .optional(),
   })
@@ -1827,39 +1827,39 @@ const appsScopeTokenBodySchema = z.object({
   repository_ids: z.array(z.coerce.number().optional()).optional(),
   permissions: z
     .object({
-      actions: z.coerce.string().optional(),
-      administration: z.coerce.string().optional(),
-      checks: z.coerce.string().optional(),
-      contents: z.coerce.string().optional(),
-      deployments: z.coerce.string().optional(),
-      environments: z.coerce.string().optional(),
-      issues: z.coerce.string().optional(),
-      metadata: z.coerce.string().optional(),
-      packages: z.coerce.string().optional(),
-      pages: z.coerce.string().optional(),
-      pull_requests: z.coerce.string().optional(),
-      repository_announcement_banners: z.coerce.string().optional(),
-      repository_hooks: z.coerce.string().optional(),
-      repository_projects: z.coerce.string().optional(),
-      secret_scanning_alerts: z.coerce.string().optional(),
-      secrets: z.coerce.string().optional(),
-      security_events: z.coerce.string().optional(),
-      single_file: z.coerce.string().optional(),
-      statuses: z.coerce.string().optional(),
-      vulnerability_alerts: z.coerce.string().optional(),
-      workflows: z.coerce.string().optional(),
-      members: z.coerce.string().optional(),
-      organization_administration: z.coerce.string().optional(),
-      organization_custom_roles: z.coerce.string().optional(),
-      organization_announcement_banners: z.coerce.string().optional(),
-      organization_hooks: z.coerce.string().optional(),
-      organization_plan: z.coerce.string().optional(),
-      organization_projects: z.coerce.string().optional(),
-      organization_packages: z.coerce.string().optional(),
-      organization_secrets: z.coerce.string().optional(),
-      organization_self_hosted_runners: z.coerce.string().optional(),
-      organization_user_blocking: z.coerce.string().optional(),
-      team_discussions: z.coerce.string().optional(),
+      actions: z.enum(["read", "write"]).optional(),
+      administration: z.enum(["read", "write"]).optional(),
+      checks: z.enum(["read", "write"]).optional(),
+      contents: z.enum(["read", "write"]).optional(),
+      deployments: z.enum(["read", "write"]).optional(),
+      environments: z.enum(["read", "write"]).optional(),
+      issues: z.enum(["read", "write"]).optional(),
+      metadata: z.enum(["read", "write"]).optional(),
+      packages: z.enum(["read", "write"]).optional(),
+      pages: z.enum(["read", "write"]).optional(),
+      pull_requests: z.enum(["read", "write"]).optional(),
+      repository_announcement_banners: z.enum(["read", "write"]).optional(),
+      repository_hooks: z.enum(["read", "write"]).optional(),
+      repository_projects: z.enum(["read", "write", "admin"]).optional(),
+      secret_scanning_alerts: z.enum(["read", "write"]).optional(),
+      secrets: z.enum(["read", "write"]).optional(),
+      security_events: z.enum(["read", "write"]).optional(),
+      single_file: z.enum(["read", "write"]).optional(),
+      statuses: z.enum(["read", "write"]).optional(),
+      vulnerability_alerts: z.enum(["read", "write"]).optional(),
+      workflows: z.enum(["write"]).optional(),
+      members: z.enum(["read", "write"]).optional(),
+      organization_administration: z.enum(["read", "write"]).optional(),
+      organization_custom_roles: z.enum(["read", "write"]).optional(),
+      organization_announcement_banners: z.enum(["read", "write"]).optional(),
+      organization_hooks: z.enum(["read", "write"]).optional(),
+      organization_plan: z.enum(["read"]).optional(),
+      organization_projects: z.enum(["read", "write", "admin"]).optional(),
+      organization_packages: z.enum(["read", "write"]).optional(),
+      organization_secrets: z.enum(["read", "write"]).optional(),
+      organization_self_hosted_runners: z.enum(["read", "write"]).optional(),
+      organization_user_blocking: z.enum(["read", "write"]).optional(),
+      team_discussions: z.enum(["read", "write"]).optional(),
     })
     .optional(),
 })
@@ -2031,7 +2031,7 @@ const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema =
 const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema =
   z.object({
     name: z.coerce.string(),
-    visibility: z.coerce.string().optional(),
+    visibility: z.enum(["selected", "all"]).optional(),
     selected_organization_ids: z.array(z.coerce.number().optional()).optional(),
     runners: z.array(z.coerce.number().optional()).optional(),
     allows_public_repositories: z.coerce.boolean().optional(),
@@ -2325,9 +2325,9 @@ const dependabotListAlertsForEnterpriseQuerySchema = z.object({
   severity: z.coerce.string().optional(),
   ecosystem: z.coerce.string().optional(),
   package: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  scope: z.enum(["development", "runtime"]).optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   before: z.coerce.string().optional(),
   after: z.coerce.string().optional(),
   first: z.coerce.number().optional(),
@@ -2367,11 +2367,11 @@ const secretScanningListAlertsForEnterpriseParamSchema = z.object({
 })
 
 const secretScanningListAlertsForEnterpriseQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "resolved"]).optional(),
   secret_type: z.coerce.string().optional(),
   resolution: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   before: z.coerce.string().optional(),
   after: z.coerce.string().optional(),
@@ -2407,8 +2407,12 @@ router.get(
 const secretScanningPostSecurityProductEnablementForEnterpriseParamSchema =
   z.object({
     enterprise: z.coerce.string(),
-    security_product: z.coerce.string(),
-    enablement: z.coerce.string(),
+    security_product: z.enum([
+      "advanced_security",
+      "secret_scanning",
+      "secret_scanning_push_protection",
+    ]),
+    enablement: z.enum(["enable_all", "disable_all"]),
   })
 
 router.post(
@@ -2475,7 +2479,7 @@ router.get(
 )
 
 const gistsListQuerySchema = z.object({
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -2520,7 +2524,7 @@ router.post(
 )
 
 const gistsListPublicQuerySchema = z.object({
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -2546,7 +2550,7 @@ router.get(
 )
 
 const gistsListStarredQuerySchema = z.object({
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -3032,12 +3036,14 @@ router.delete(
 )
 
 const issuesListQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
+  filter: z
+    .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
+    .optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   labels: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "comments"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   collab: z.coerce.boolean().optional(),
   orgs: z.coerce.boolean().optional(),
   owned: z.coerce.boolean().optional(),
@@ -3112,7 +3118,7 @@ router.get(
 
 const markdownRenderBodySchema = z.object({
   text: z.coerce.string(),
-  mode: z.coerce.string().optional(),
+  mode: z.enum(["markdown", "gfm"]).optional(),
   context: z.coerce.string().optional(),
 })
 
@@ -3212,8 +3218,8 @@ const appsListAccountsForPlanParamSchema = z.object({
 })
 
 const appsListAccountsForPlanQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -3303,8 +3309,8 @@ const appsListAccountsForPlanStubbedParamSchema = z.object({
 })
 
 const appsListAccountsForPlanStubbedQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -3390,8 +3396,8 @@ router.get(
 const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
   all: z.coerce.boolean().optional(),
   participating: z.coerce.boolean().optional(),
-  since: z.coerce.string().optional(),
-  before: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
+  before: z.coerce.string().datetime({ offset: true }).optional(),
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
 })
@@ -3422,7 +3428,7 @@ router.get(
 
 const activityMarkNotificationsAsReadBodySchema = z
   .object({
-    last_read_at: z.coerce.string().optional(),
+    last_read_at: z.coerce.string().datetime({ offset: true }).optional(),
     read: z.coerce.boolean().optional(),
   })
   .optional()
@@ -3656,12 +3662,16 @@ const orgsUpdateBodySchema = z
     description: z.coerce.string().optional(),
     has_organization_projects: z.coerce.boolean().optional(),
     has_repository_projects: z.coerce.boolean().optional(),
-    default_repository_permission: z.coerce.string().optional(),
+    default_repository_permission: z
+      .enum(["read", "write", "admin", "none"])
+      .optional(),
     members_can_create_repositories: z.coerce.boolean().optional(),
     members_can_create_internal_repositories: z.coerce.boolean().optional(),
     members_can_create_private_repositories: z.coerce.boolean().optional(),
     members_can_create_public_repositories: z.coerce.boolean().optional(),
-    members_allowed_repository_creation_type: z.coerce.string().optional(),
+    members_allowed_repository_creation_type: z
+      .enum(["all", "private", "none"])
+      .optional(),
     members_can_create_pages: z.coerce.boolean().optional(),
     members_can_create_public_pages: z.coerce.boolean().optional(),
     members_can_create_private_pages: z.coerce.boolean().optional(),
@@ -3870,8 +3880,8 @@ const actionsSetGithubActionsPermissionsOrganizationParamSchema = z.object({
 })
 
 const actionsSetGithubActionsPermissionsOrganizationBodySchema = z.object({
-  enabled_repositories: z.coerce.string(),
-  allowed_actions: z.coerce.string().optional(),
+  enabled_repositories: z.enum(["all", "none", "selected"]),
+  allowed_actions: z.enum(["all", "local_only", "selected"]).optional(),
 })
 
 router.put(
@@ -4124,7 +4134,7 @@ const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
 const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
   z
     .object({
-      default_workflow_permissions: z.coerce.string().optional(),
+      default_workflow_permissions: z.enum(["read", "write"]).optional(),
       can_approve_pull_request_reviews: z.coerce.boolean().optional(),
     })
     .optional()
@@ -4199,7 +4209,7 @@ const actionsCreateRequiredWorkflowParamSchema = z.object({
 const actionsCreateRequiredWorkflowBodySchema = z.object({
   workflow_file_path: z.coerce.string(),
   repository_id: z.coerce.string(),
-  scope: z.coerce.string().optional(),
+  scope: z.enum(["selected", "all"]).optional(),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -4263,7 +4273,7 @@ const actionsUpdateRequiredWorkflowParamSchema = z.object({
 const actionsUpdateRequiredWorkflowBodySchema = z.object({
   workflow_file_path: z.coerce.string().optional(),
   repository_id: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
+  scope: z.enum(["selected", "all"]).optional(),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -4487,7 +4497,7 @@ const actionsCreateSelfHostedRunnerGroupForOrgParamSchema = z.object({
 
 const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
   name: z.coerce.string(),
-  visibility: z.coerce.string().optional(),
+  visibility: z.enum(["selected", "all", "private"]).optional(),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
   runners: z.array(z.coerce.number().optional()).optional(),
   allows_public_repositories: z.coerce.boolean().optional(),
@@ -4558,7 +4568,7 @@ const actionsUpdateSelfHostedRunnerGroupForOrgParamSchema = z.object({
 
 const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = z.object({
   name: z.coerce.string(),
-  visibility: z.coerce.string().optional(),
+  visibility: z.enum(["selected", "all", "private"]).optional(),
   allows_public_repositories: z.coerce.boolean().optional(),
   restricted_to_workflows: z.coerce.boolean().optional(),
   selected_workflows: z.array(z.coerce.string().optional()).optional(),
@@ -5279,7 +5289,7 @@ const actionsCreateOrUpdateOrgSecretParamSchema = z.object({
 const actionsCreateOrUpdateOrgSecretBodySchema = z.object({
   encrypted_value: z.coerce.string().optional(),
   key_id: z.coerce.string().optional(),
-  visibility: z.coerce.string(),
+  visibility: z.enum(["all", "private", "selected"]),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -5507,7 +5517,7 @@ const actionsCreateOrgVariableParamSchema = z.object({ org: z.coerce.string() })
 const actionsCreateOrgVariableBodySchema = z.object({
   name: z.coerce.string(),
   value: z.coerce.string(),
-  visibility: z.coerce.string(),
+  visibility: z.enum(["all", "private", "selected"]),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -5571,7 +5581,7 @@ const actionsUpdateOrgVariableParamSchema = z.object({
 const actionsUpdateOrgVariableBodySchema = z.object({
   name: z.coerce.string().optional(),
   value: z.coerce.string().optional(),
-  visibility: z.coerce.string().optional(),
+  visibility: z.enum(["all", "private", "selected"]).optional(),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -5878,10 +5888,12 @@ const codeScanningListAlertsForOrgQuerySchema = z.object({
   after: z.coerce.string().optional(),
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
-  direction: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  severity: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  state: z.enum(["open", "closed", "dismissed", "fixed"]).optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  severity: z
+    .enum(["critical", "high", "medium", "low", "warning", "note", "error"])
+    .optional(),
 })
 
 router.get(
@@ -5952,7 +5964,12 @@ const codespacesSetCodespacesBillingParamSchema = z.object({
 })
 
 const codespacesSetCodespacesBillingBodySchema = z.object({
-  visibility: z.coerce.string(),
+  visibility: z.enum([
+    "disabled",
+    "selected_members",
+    "all_members",
+    "all_members_and_outside_collaborators",
+  ]),
   selected_usernames: z.array(z.coerce.string().optional()).optional(),
 })
 
@@ -6074,7 +6091,7 @@ const codespacesCreateOrUpdateOrgSecretParamSchema = z.object({
 const codespacesCreateOrUpdateOrgSecretBodySchema = z.object({
   encrypted_value: z.coerce.string().optional(),
   key_id: z.coerce.string().optional(),
-  visibility: z.coerce.string(),
+  visibility: z.enum(["all", "private", "selected"]),
   selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
 })
 
@@ -6272,9 +6289,9 @@ const dependabotListAlertsForOrgQuerySchema = z.object({
   severity: z.coerce.string().optional(),
   ecosystem: z.coerce.string().optional(),
   package: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  scope: z.enum(["development", "runtime"]).optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   before: z.coerce.string().optional(),
   after: z.coerce.string().optional(),
   first: z.coerce.number().optional(),
@@ -6400,7 +6417,7 @@ const dependabotCreateOrUpdateOrgSecretParamSchema = z.object({
 const dependabotCreateOrUpdateOrgSecretBodySchema = z.object({
   encrypted_value: z.coerce.string().optional(),
   key_id: z.coerce.string().optional(),
-  visibility: z.coerce.string(),
+  visibility: z.enum(["all", "private", "selected"]),
   selected_repository_ids: z.array(z.coerce.string().optional()).optional(),
 })
 
@@ -7106,8 +7123,10 @@ const interactionsSetRestrictionsForOrgParamSchema = z.object({
 })
 
 const interactionsSetRestrictionsForOrgBodySchema = z.object({
-  limit: z.coerce.string(),
-  expiry: z.coerce.string().optional(),
+  limit: z.enum(["existing_users", "contributors_only", "collaborators_only"]),
+  expiry: z
+    .enum(["one_day", "three_days", "one_week", "one_month", "six_months"])
+    .optional(),
 })
 
 router.put(
@@ -7207,7 +7226,7 @@ const orgsCreateInvitationBodySchema = z
   .object({
     invitee_id: z.coerce.number().optional(),
     email: z.coerce.string().optional(),
-    role: z.coerce.string().optional(),
+    role: z.enum(["admin", "direct_member", "billing_manager"]).optional(),
     team_ids: z.array(z.coerce.number().optional()).optional(),
   })
   .optional()
@@ -7304,12 +7323,14 @@ router.get(
 const issuesListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
 const issuesListForOrgQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
+  filter: z
+    .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
+    .optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   labels: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "comments"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -7344,8 +7365,8 @@ router.get(
 const orgsListMembersParamSchema = z.object({ org: z.coerce.string() })
 
 const orgsListMembersQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
-  role: z.coerce.string().optional(),
+  filter: z.enum(["2fa_disabled", "all"]).optional(),
+  role: z.enum(["all", "admin", "member"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -7551,7 +7572,7 @@ const orgsSetMembershipForUserParamSchema = z.object({
 })
 
 const orgsSetMembershipForUserBodySchema = z
-  .object({ role: z.coerce.string().optional() })
+  .object({ role: z.enum(["admin", "member"]).optional() })
   .optional()
 
 router.put(
@@ -7611,7 +7632,7 @@ const migrationsListForOrgParamSchema = z.object({ org: z.coerce.string() })
 const migrationsListForOrgQuerySchema = z.object({
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  exclude: z.array(z.coerce.string().optional()).optional(),
+  exclude: z.array(z.enum(["repositories"]).optional()).optional(),
 })
 
 router.get(
@@ -7652,7 +7673,7 @@ const migrationsStartForOrgBodySchema = z.object({
   exclude_releases: z.coerce.boolean().optional(),
   exclude_owner_projects: z.coerce.boolean().optional(),
   org_metadata_only: z.coerce.boolean().optional(),
-  exclude: z.array(z.coerce.string().optional()).optional(),
+  exclude: z.array(z.enum(["repositories"]).optional()).optional(),
 })
 
 router.post(
@@ -7688,7 +7709,7 @@ const migrationsGetStatusForOrgParamSchema = z.object({
 })
 
 const migrationsGetStatusForOrgQuerySchema = z.object({
-  exclude: z.array(z.coerce.string().optional()).optional(),
+  exclude: z.array(z.enum(["repositories"]).optional()).optional(),
 })
 
 router.get(
@@ -7836,7 +7857,7 @@ const orgsListOutsideCollaboratorsParamSchema = z.object({
 })
 
 const orgsListOutsideCollaboratorsQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
+  filter: z.enum(["2fa_disabled", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -7934,8 +7955,15 @@ const packagesListPackagesForOrganizationParamSchema = z.object({
 })
 
 const packagesListPackagesForOrganizationQuerySchema = z.object({
-  package_type: z.coerce.string(),
-  visibility: z.coerce.string().optional(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
+  visibility: z.enum(["public", "private", "internal"]).optional(),
 })
 
 router.get(
@@ -7966,7 +7994,14 @@ router.get(
 )
 
 const packagesGetPackageForOrganizationParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
 })
@@ -7996,7 +8031,14 @@ router.get(
 )
 
 const packagesDeletePackageForOrgParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
 })
@@ -8022,7 +8064,14 @@ router.delete(
 )
 
 const packagesRestorePackageForOrgParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
 })
@@ -8059,7 +8108,14 @@ router.post(
 )
 
 const packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
 })
@@ -8067,7 +8123,7 @@ const packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = z.object({
 const packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = z.object({
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
-  state: z.coerce.string().optional(),
+  state: z.enum(["active", "deleted"]).optional(),
 })
 
 router.get(
@@ -8098,7 +8154,14 @@ router.get(
 )
 
 const packagesGetPackageVersionForOrganizationParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
   package_version_id: z.coerce.number(),
@@ -8129,7 +8192,14 @@ router.get(
 )
 
 const packagesDeletePackageVersionForOrgParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
   package_version_id: z.coerce.number(),
@@ -8160,7 +8230,14 @@ router.delete(
 )
 
 const packagesRestorePackageVersionForOrgParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   org: z.coerce.string(),
   package_version_id: z.coerce.number(),
@@ -8193,7 +8270,7 @@ router.post(
 const projectsListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
 const projectsListForOrgQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -8383,9 +8460,11 @@ router.delete(
 const reposListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
 const reposListForOrgQuerySchema = z.object({
-  type: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  type: z
+    .enum(["all", "public", "private", "forks", "sources", "member"])
+    .optional(),
+  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -8424,7 +8503,7 @@ const reposCreateInOrgBodySchema = z.object({
   description: z.coerce.string().optional(),
   homepage: z.coerce.string().optional(),
   private: z.coerce.boolean().optional(),
-  visibility: z.coerce.string().optional(),
+  visibility: z.enum(["public", "private"]).optional(),
   has_issues: z.coerce.boolean().optional(),
   has_projects: z.coerce.boolean().optional(),
   has_wiki: z.coerce.boolean().optional(),
@@ -8440,10 +8519,14 @@ const reposCreateInOrgBodySchema = z.object({
   allow_auto_merge: z.coerce.boolean().optional(),
   delete_branch_on_merge: z.coerce.boolean().optional(),
   use_squash_pr_title_as_default: z.coerce.boolean().optional(),
-  squash_merge_commit_title: z.coerce.string().optional(),
-  squash_merge_commit_message: z.coerce.string().optional(),
-  merge_commit_title: z.coerce.string().optional(),
-  merge_commit_message: z.coerce.string().optional(),
+  squash_merge_commit_title: z
+    .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
+    .optional(),
+  squash_merge_commit_message: z
+    .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
+    .optional(),
+  merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
+  merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
 })
 
 router.post(
@@ -8478,11 +8561,11 @@ const secretScanningListAlertsForOrgParamSchema = z.object({
 })
 
 const secretScanningListAlertsForOrgQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "resolved"]).optional(),
   secret_type: z.coerce.string().optional(),
   resolution: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
   before: z.coerce.string().optional(),
@@ -8707,8 +8790,8 @@ const teamsCreateBodySchema = z.object({
   description: z.coerce.string().optional(),
   maintainers: z.array(z.coerce.string().optional()).optional(),
   repo_names: z.array(z.coerce.string().optional()).optional(),
-  privacy: z.coerce.string().optional(),
-  permission: z.coerce.string().optional(),
+  privacy: z.enum(["secret", "closed"]).optional(),
+  permission: z.enum(["pull", "push"]).optional(),
   parent_team_id: z.coerce.number().optional(),
 })
 
@@ -8765,8 +8848,8 @@ const teamsUpdateInOrgBodySchema = z
   .object({
     name: z.coerce.string().optional(),
     description: z.coerce.string().optional(),
-    privacy: z.coerce.string().optional(),
-    permission: z.coerce.string().optional(),
+    privacy: z.enum(["secret", "closed"]).optional(),
+    permission: z.enum(["pull", "push", "admin"]).optional(),
     parent_team_id: z.coerce.number().optional(),
   })
   .optional()
@@ -8829,7 +8912,7 @@ const teamsListDiscussionsInOrgParamSchema = z.object({
 })
 
 const teamsListDiscussionsInOrgQuerySchema = z.object({
-  direction: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
   pinned: z.coerce.string().optional(),
@@ -8999,7 +9082,7 @@ const teamsListDiscussionCommentsInOrgParamSchema = z.object({
 })
 
 const teamsListDiscussionCommentsInOrgQuerySchema = z.object({
-  direction: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -9172,7 +9255,18 @@ const reactionsListForTeamDiscussionCommentInOrgParamSchema = z.object({
 })
 
 const reactionsListForTeamDiscussionCommentInOrgQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -9212,7 +9306,16 @@ const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = z.object({
 })
 
 const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -9281,7 +9384,18 @@ const reactionsListForTeamDiscussionInOrgParamSchema = z.object({
 })
 
 const reactionsListForTeamDiscussionInOrgQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -9320,7 +9434,16 @@ const reactionsCreateForTeamDiscussionInOrgParamSchema = z.object({
 })
 
 const reactionsCreateForTeamDiscussionInOrgBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -9424,7 +9547,7 @@ const teamsListMembersInOrgParamSchema = z.object({
 })
 
 const teamsListMembersInOrgQuerySchema = z.object({
-  role: z.coerce.string().optional(),
+  role: z.enum(["member", "maintainer", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -9489,7 +9612,7 @@ const teamsAddOrUpdateMembershipForUserInOrgParamSchema = z.object({
 })
 
 const teamsAddOrUpdateMembershipForUserInOrgBodySchema = z
-  .object({ role: z.coerce.string().optional() })
+  .object({ role: z.enum(["member", "maintainer"]).optional() })
   .optional()
 
 router.put(
@@ -9623,7 +9746,7 @@ const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = z.object({
 })
 
 const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = z
-  .object({ permission: z.coerce.string().optional() })
+  .object({ permission: z.enum(["read", "write", "admin"]).optional() })
   .optional()
 
 router.put(
@@ -9851,8 +9974,15 @@ router.get(
 
 const orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = z.object({
   org: z.coerce.string(),
-  security_product: z.coerce.string(),
-  enablement: z.coerce.string(),
+  security_product: z.enum([
+    "dependency_graph",
+    "dependabot_alerts",
+    "dependabot_security_updates",
+    "advanced_security",
+    "secret_scanning",
+    "secret_scanning_push_protection",
+  ]),
+  enablement: z.enum(["enable_all", "disable_all"]),
 })
 
 router.post(
@@ -10075,7 +10205,7 @@ router.delete(
 const projectsListCardsParamSchema = z.object({ column_id: z.coerce.number() })
 
 const projectsListCardsQuerySchema = z.object({
-  archived_state: z.coerce.string().optional(),
+  archived_state: z.enum(["all", "archived", "not_archived"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -10196,7 +10326,9 @@ const projectsUpdateBodySchema = z
     name: z.coerce.string().optional(),
     body: z.coerce.string().optional(),
     state: z.coerce.string().optional(),
-    organization_permission: z.coerce.string().optional(),
+    organization_permission: z
+      .enum(["read", "write", "admin", "none"])
+      .optional(),
     private: z.coerce.boolean().optional(),
   })
   .optional()
@@ -10253,7 +10385,7 @@ const projectsListCollaboratorsParamSchema = z.object({
 })
 
 const projectsListCollaboratorsQuerySchema = z.object({
-  affiliation: z.coerce.string().optional(),
+  affiliation: z.enum(["outside", "direct", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -10291,7 +10423,7 @@ const projectsAddCollaboratorParamSchema = z.object({
 })
 
 const projectsAddCollaboratorBodySchema = z
-  .object({ permission: z.coerce.string().optional() })
+  .object({ permission: z.enum(["read", "write", "admin"]).optional() })
   .optional()
 
 router.put(
@@ -10578,7 +10710,7 @@ const reposUpdateBodySchema = z
     description: z.coerce.string().optional(),
     homepage: z.coerce.string().optional(),
     private: z.coerce.boolean().optional(),
-    visibility: z.coerce.string().optional(),
+    visibility: z.enum(["public", "private"]).optional(),
     security_and_analysis: z
       .object({
         advanced_security: z
@@ -10604,10 +10736,14 @@ const reposUpdateBodySchema = z
     delete_branch_on_merge: z.coerce.boolean().optional(),
     allow_update_branch: z.coerce.boolean().optional(),
     use_squash_pr_title_as_default: z.coerce.boolean().optional(),
-    squash_merge_commit_title: z.coerce.string().optional(),
-    squash_merge_commit_message: z.coerce.string().optional(),
-    merge_commit_title: z.coerce.string().optional(),
-    merge_commit_message: z.coerce.string().optional(),
+    squash_merge_commit_title: z
+      .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
+      .optional(),
+    squash_merge_commit_message: z
+      .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
+      .optional(),
+    merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
+    merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
     archived: z.coerce.boolean().optional(),
     allow_forking: z.coerce.boolean().optional(),
     web_commit_signoff_required: z.coerce.boolean().optional(),
@@ -10808,8 +10944,8 @@ const actionsGetActionsCacheListQuerySchema = z.object({
   page: z.coerce.number().optional(),
   ref: z.coerce.string().optional(),
   key: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created_at", "last_accessed_at", "size_in_bytes"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
 })
 
 router.get(
@@ -11097,7 +11233,7 @@ const actionsSetGithubActionsPermissionsRepositoryParamSchema = z.object({
 
 const actionsSetGithubActionsPermissionsRepositoryBodySchema = z.object({
   enabled: z.coerce.boolean(),
-  allowed_actions: z.coerce.string().optional(),
+  allowed_actions: z.enum(["all", "local_only", "selected"]).optional(),
 })
 
 router.put(
@@ -11162,7 +11298,7 @@ const actionsSetWorkflowAccessToRepositoryParamSchema = z.object({
 })
 
 const actionsSetWorkflowAccessToRepositoryBodySchema = z.object({
-  access_level: z.coerce.string(),
+  access_level: z.enum(["none", "user", "organization", "enterprise"]),
 })
 
 router.put(
@@ -11293,7 +11429,7 @@ const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
 
 const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
   z.object({
-    default_workflow_permissions: z.coerce.string().optional(),
+    default_workflow_permissions: z.enum(["read", "write"]).optional(),
     can_approve_pull_request_reviews: z.coerce.boolean().optional(),
   })
 
@@ -11334,10 +11470,26 @@ const actionsListRequiredWorkflowRunsQuerySchema = z.object({
   actor: z.coerce.string().optional(),
   branch: z.coerce.string().optional(),
   event: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
+  status: z
+    .enum([
+      "completed",
+      "action_required",
+      "cancelled",
+      "failure",
+      "neutral",
+      "skipped",
+      "stale",
+      "success",
+      "timed_out",
+      "in_progress",
+      "queued",
+      "requested",
+      "waiting",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  created: z.coerce.string().optional(),
+  created: z.coerce.string().datetime({ offset: true }).optional(),
   exclude_pull_requests: z.coerce.boolean().optional(),
   check_suite_id: z.coerce.number().optional(),
   head_sha: z.coerce.string().optional(),
@@ -11727,10 +11879,26 @@ const actionsListWorkflowRunsForRepoQuerySchema = z.object({
   actor: z.coerce.string().optional(),
   branch: z.coerce.string().optional(),
   event: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
+  status: z
+    .enum([
+      "completed",
+      "action_required",
+      "cancelled",
+      "failure",
+      "neutral",
+      "skipped",
+      "stale",
+      "success",
+      "timed_out",
+      "in_progress",
+      "queued",
+      "requested",
+      "waiting",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  created: z.coerce.string().optional(),
+  created: z.coerce.string().datetime({ offset: true }).optional(),
   exclude_pull_requests: z.coerce.boolean().optional(),
   check_suite_id: z.coerce.number().optional(),
   head_sha: z.coerce.string().optional(),
@@ -12057,7 +12225,7 @@ const actionsListJobsForWorkflowRunParamSchema = z.object({
 })
 
 const actionsListJobsForWorkflowRunQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
+  filter: z.enum(["latest", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -12179,7 +12347,7 @@ const actionsReviewPendingDeploymentsForRunParamSchema = z.object({
 
 const actionsReviewPendingDeploymentsForRunBodySchema = z.object({
   environment_ids: z.array(z.coerce.number().optional()),
-  state: z.coerce.string(),
+  state: z.enum(["approved", "rejected"]),
   comment: z.coerce.string(),
 })
 
@@ -12789,10 +12957,26 @@ const actionsListWorkflowRunsQuerySchema = z.object({
   actor: z.coerce.string().optional(),
   branch: z.coerce.string().optional(),
   event: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
+  status: z
+    .enum([
+      "completed",
+      "action_required",
+      "cancelled",
+      "failure",
+      "neutral",
+      "skipped",
+      "stale",
+      "success",
+      "timed_out",
+      "in_progress",
+      "queued",
+      "requested",
+      "waiting",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  created: z.coerce.string().optional(),
+  created: z.coerce.string().datetime({ offset: true }).optional(),
   exclude_pull_requests: z.coerce.boolean().optional(),
   check_suite_id: z.coerce.number().optional(),
   head_sha: z.coerce.string().optional(),
@@ -14324,10 +14508,21 @@ const checksCreateBodySchema = z.object({
   head_sha: z.coerce.string(),
   details_url: z.coerce.string().optional(),
   external_id: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
-  started_at: z.coerce.string().optional(),
-  conclusion: z.coerce.string().optional(),
-  completed_at: z.coerce.string().optional(),
+  status: z.enum(["queued", "in_progress", "completed"]).optional(),
+  started_at: z.coerce.string().datetime({ offset: true }).optional(),
+  conclusion: z
+    .enum([
+      "action_required",
+      "cancelled",
+      "failure",
+      "neutral",
+      "success",
+      "skipped",
+      "stale",
+      "timed_out",
+    ])
+    .optional(),
+  completed_at: z.coerce.string().datetime({ offset: true }).optional(),
   output: z
     .object({
       title: z.coerce.string(),
@@ -14342,7 +14537,7 @@ const checksCreateBodySchema = z.object({
               end_line: z.coerce.number(),
               start_column: z.coerce.number().optional(),
               end_column: z.coerce.number().optional(),
-              annotation_level: z.coerce.string(),
+              annotation_level: z.enum(["notice", "warning", "failure"]),
               message: z.coerce.string(),
               title: z.coerce.string().optional(),
               raw_details: z.coerce.string().optional(),
@@ -14430,10 +14625,21 @@ const checksUpdateBodySchema = z.object({
   name: z.coerce.string().optional(),
   details_url: z.coerce.string().optional(),
   external_id: z.coerce.string().optional(),
-  started_at: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
-  conclusion: z.coerce.string().optional(),
-  completed_at: z.coerce.string().optional(),
+  started_at: z.coerce.string().datetime({ offset: true }).optional(),
+  status: z.enum(["queued", "in_progress", "completed"]).optional(),
+  conclusion: z
+    .enum([
+      "action_required",
+      "cancelled",
+      "failure",
+      "neutral",
+      "success",
+      "skipped",
+      "stale",
+      "timed_out",
+    ])
+    .optional(),
+  completed_at: z.coerce.string().datetime({ offset: true }).optional(),
   output: z
     .object({
       title: z.coerce.string().optional(),
@@ -14448,7 +14654,7 @@ const checksUpdateBodySchema = z.object({
               end_line: z.coerce.number(),
               start_column: z.coerce.number().optional(),
               end_column: z.coerce.number().optional(),
-              annotation_level: z.coerce.string(),
+              annotation_level: z.enum(["notice", "warning", "failure"]),
               message: z.coerce.string(),
               title: z.coerce.string().optional(),
               raw_details: z.coerce.string().optional(),
@@ -14679,8 +14885,8 @@ const checksListForSuiteParamSchema = z.object({
 
 const checksListForSuiteQuerySchema = z.object({
   check_name: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
-  filter: z.coerce.string().optional(),
+  status: z.enum(["queued", "in_progress", "completed"]).optional(),
+  filter: z.enum(["latest", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -14749,10 +14955,12 @@ const codeScanningListAlertsForRepoQuerySchema = z.object({
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
   ref: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
-  severity: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  state: z.enum(["open", "closed", "dismissed", "fixed"]).optional(),
+  severity: z
+    .enum(["critical", "high", "medium", "low", "warning", "note", "error"])
+    .optional(),
 })
 
 router.get(
@@ -14815,8 +15023,10 @@ const codeScanningUpdateAlertParamSchema = z.object({
 })
 
 const codeScanningUpdateAlertBodySchema = z.object({
-  state: z.coerce.string(),
-  dismissed_reason: z.coerce.string().optional(),
+  state: z.enum(["open", "dismissed"]),
+  dismissed_reason: z
+    .enum(["null", "false positive", "won't fix", "used in tests"])
+    .optional(),
   dismissed_comment: z.coerce.string().optional(),
 })
 
@@ -14898,8 +15108,8 @@ const codeScanningListRecentAnalysesQuerySchema = z.object({
   per_page: z.coerce.number().optional(),
   ref: z.coerce.string().optional(),
   sarif_id: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  sort: z.enum(["created"]).optional(),
 })
 
 router.get(
@@ -15053,7 +15263,7 @@ const codeScanningUploadSarifBodySchema = z.object({
   ref: z.coerce.string(),
   sarif: z.coerce.string(),
   checkout_uri: z.coerce.string().optional(),
-  started_at: z.coerce.string().optional(),
+  started_at: z.coerce.string().datetime({ offset: true }).optional(),
   tool_name: z.coerce.string().optional(),
   validate: z.coerce.boolean().optional(),
 })
@@ -15497,8 +15707,10 @@ const reposListCollaboratorsParamSchema = z.object({
 })
 
 const reposListCollaboratorsQuerySchema = z.object({
-  affiliation: z.coerce.string().optional(),
-  permission: z.coerce.string().optional(),
+  affiliation: z.enum(["outside", "direct", "all"]).optional(),
+  permission: z
+    .enum(["pull", "triage", "push", "maintain", "admin"])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -15780,7 +15992,18 @@ const reactionsListForCommitCommentParamSchema = z.object({
 })
 
 const reactionsListForCommitCommentQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -15819,7 +16042,16 @@ const reactionsCreateForCommitCommentParamSchema = z.object({
 })
 
 const reactionsCreateForCommitCommentBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -15885,8 +16117,8 @@ const reposListCommitsQuerySchema = z.object({
   sha: z.coerce.string().optional(),
   path: z.coerce.string().optional(),
   author: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
-  until: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
+  until: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -16106,8 +16338,8 @@ const checksListForRefParamSchema = z.object({
 
 const checksListForRefQuerySchema = z.object({
   check_name: z.coerce.string().optional(),
-  status: z.coerce.string().optional(),
-  filter: z.coerce.string().optional(),
+  status: z.enum(["queued", "in_progress", "completed"]).optional(),
+  filter: z.enum(["latest", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
   app_id: z.coerce.number().optional(),
@@ -16508,9 +16740,9 @@ const dependabotListAlertsForRepoQuerySchema = z.object({
   ecosystem: z.coerce.string().optional(),
   package: z.coerce.string().optional(),
   manifest: z.coerce.string().optional(),
-  scope: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  scope: z.enum(["development", "runtime"]).optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
   before: z.coerce.string().optional(),
@@ -16579,8 +16811,16 @@ const dependabotUpdateAlertParamSchema = z.object({
 })
 
 const dependabotUpdateAlertBodySchema = z.object({
-  state: z.coerce.string(),
-  dismissed_reason: z.coerce.string().optional(),
+  state: z.enum(["dismissed", "open"]),
+  dismissed_reason: z
+    .enum([
+      "fix_started",
+      "inaccurate",
+      "no_bandwidth",
+      "not_used",
+      "tolerable_risk",
+    ])
+    .optional(),
   dismissed_comment: z.coerce.string().optional(),
 })
 
@@ -16821,7 +17061,7 @@ const dependencyGraphCreateRepositorySnapshotBodySchema = z.object({
   }),
   metadata: z.object({}).optional(),
   manifests: z.object({}).optional(),
-  scanned: z.coerce.string(),
+  scanned: z.coerce.string().datetime({ offset: true }),
 })
 
 router.post(
@@ -17033,11 +17273,19 @@ const reposCreateDeploymentStatusParamSchema = z.object({
 })
 
 const reposCreateDeploymentStatusBodySchema = z.object({
-  state: z.coerce.string(),
+  state: z.enum([
+    "error",
+    "failure",
+    "inactive",
+    "in_progress",
+    "queued",
+    "pending",
+    "success",
+  ]),
   target_url: z.coerce.string().optional(),
   log_url: z.coerce.string().optional(),
   description: z.coerce.string().optional(),
-  environment: z.coerce.string().optional(),
+  environment: z.enum(["production", "staging", "qa"]).optional(),
   environment_url: z.coerce.string().optional(),
   auto_inactive: z.coerce.boolean().optional(),
 })
@@ -17209,7 +17457,7 @@ const reposCreateOrUpdateEnvironmentBodySchema = z
       .array(
         z
           .object({
-            type: z.coerce.string().optional(),
+            type: z.enum(["User", "Team"]).optional(),
             id: z.coerce.number().optional(),
           })
           .optional()
@@ -17491,7 +17739,7 @@ const reposListForksParamSchema = z.object({
 })
 
 const reposListForksQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
+  sort: z.enum(["newest", "oldest", "stargazers", "watchers"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -17631,14 +17879,14 @@ const gitCreateCommitBodySchema = z.object({
     .object({
       name: z.coerce.string(),
       email: z.coerce.string(),
-      date: z.coerce.string().optional(),
+      date: z.coerce.string().datetime({ offset: true }).optional(),
     })
     .optional(),
   committer: z
     .object({
       name: z.coerce.string().optional(),
       email: z.coerce.string().optional(),
-      date: z.coerce.string().optional(),
+      date: z.coerce.string().datetime({ offset: true }).optional(),
     })
     .optional(),
   signature: z.coerce.string().optional(),
@@ -17841,12 +18089,12 @@ const gitCreateTagBodySchema = z.object({
   tag: z.coerce.string(),
   message: z.coerce.string(),
   object: z.coerce.string(),
-  type: z.coerce.string(),
+  type: z.enum(["commit", "tree", "blob"]),
   tagger: z
     .object({
       name: z.coerce.string(),
       email: z.coerce.string(),
-      date: z.coerce.string().optional(),
+      date: z.coerce.string().datetime({ offset: true }).optional(),
     })
     .optional(),
 })
@@ -17905,8 +18153,10 @@ const gitCreateTreeBodySchema = z.object({
     z
       .object({
         path: z.coerce.string().optional(),
-        mode: z.coerce.string().optional(),
-        type: z.coerce.string().optional(),
+        mode: z
+          .enum(["100644", "100755", "040000", "160000", "120000"])
+          .optional(),
+        type: z.enum(["blob", "tree", "commit"]).optional(),
         sha: z.coerce.string().optional(),
         content: z.coerce.string().optional(),
       })
@@ -18401,7 +18651,7 @@ const migrationsStartImportParamSchema = z.object({
 
 const migrationsStartImportBodySchema = z.object({
   vcs_url: z.coerce.string(),
-  vcs: z.coerce.string().optional(),
+  vcs: z.enum(["subversion", "git", "mercurial", "tfvc"]).optional(),
   vcs_username: z.coerce.string().optional(),
   vcs_password: z.coerce.string().optional(),
   tfvc_project: z.coerce.string().optional(),
@@ -18443,7 +18693,7 @@ const migrationsUpdateImportBodySchema = z
   .object({
     vcs_username: z.coerce.string().optional(),
     vcs_password: z.coerce.string().optional(),
-    vcs: z.coerce.string().optional(),
+    vcs: z.enum(["subversion", "tfvc", "git", "mercurial"]).optional(),
     tfvc_project: z.coerce.string().optional(),
   })
   .optional()
@@ -18607,7 +18857,7 @@ const migrationsSetLfsPreferenceParamSchema = z.object({
 })
 
 const migrationsSetLfsPreferenceBodySchema = z.object({
-  use_lfs: z.coerce.string(),
+  use_lfs: z.enum(["opt_in", "opt_out"]),
 })
 
 router.patch(
@@ -18697,8 +18947,10 @@ const interactionsSetRestrictionsForRepoParamSchema = z.object({
 })
 
 const interactionsSetRestrictionsForRepoBodySchema = z.object({
-  limit: z.coerce.string(),
-  expiry: z.coerce.string().optional(),
+  limit: z.enum(["existing_users", "contributors_only", "collaborators_only"]),
+  expiry: z
+    .enum(["one_day", "three_days", "one_week", "one_month", "six_months"])
+    .optional(),
 })
 
 router.put(
@@ -18801,7 +19053,11 @@ const reposUpdateInvitationParamSchema = z.object({
 })
 
 const reposUpdateInvitationBodySchema = z
-  .object({ permissions: z.coerce.string().optional() })
+  .object({
+    permissions: z
+      .enum(["read", "write", "maintain", "triage", "admin"])
+      .optional(),
+  })
   .optional()
 
 router.patch(
@@ -18864,14 +19120,14 @@ const issuesListForRepoParamSchema = z.object({
 
 const issuesListForRepoQuerySchema = z.object({
   milestone: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   assignee: z.coerce.string().optional(),
   creator: z.coerce.string().optional(),
   mentioned: z.coerce.string().optional(),
   labels: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "comments"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -18946,9 +19202,9 @@ const issuesListCommentsForRepoParamSchema = z.object({
 })
 
 const issuesListCommentsForRepoQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -19074,7 +19330,18 @@ const reactionsListForIssueCommentParamSchema = z.object({
 })
 
 const reactionsListForIssueCommentQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -19113,7 +19380,16 @@ const reactionsCreateForIssueCommentParamSchema = z.object({
 })
 
 const reactionsCreateForIssueCommentBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -19265,8 +19541,8 @@ const issuesUpdateBodySchema = z
     title: z.object({}).optional(),
     body: z.coerce.string().optional(),
     assignee: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
-    state_reason: z.coerce.string().optional(),
+    state: z.enum(["open", "closed"]).optional(),
+    state_reason: z.enum(["completed", "not_planned", "reopened"]).optional(),
     milestone: z.object({}).optional(),
     labels: z.array(z.object({}).optional()).optional(),
     assignees: z.array(z.coerce.string().optional()).optional(),
@@ -19408,7 +19684,7 @@ const issuesListCommentsParamSchema = z.object({
 })
 
 const issuesListCommentsQuerySchema = z.object({
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -19677,7 +19953,11 @@ const issuesLockParamSchema = z.object({
 })
 
 const issuesLockBodySchema = z
-  .object({ lock_reason: z.coerce.string().optional() })
+  .object({
+    lock_reason: z
+      .enum(["off-topic", "too heated", "resolved", "spam"])
+      .optional(),
+  })
   .optional()
 
 router.put(
@@ -19730,7 +20010,18 @@ const reactionsListForIssueParamSchema = z.object({
 })
 
 const reactionsListForIssueQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -19769,7 +20060,16 @@ const reactionsCreateForIssueParamSchema = z.object({
 })
 
 const reactionsCreateForIssueBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -20329,9 +20629,9 @@ const issuesListMilestonesParamSchema = z.object({
 })
 
 const issuesListMilestonesQuerySchema = z.object({
-  state: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
+  sort: z.enum(["due_on", "completeness"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -20370,9 +20670,9 @@ const issuesCreateMilestoneParamSchema = z.object({
 
 const issuesCreateMilestoneBodySchema = z.object({
   title: z.coerce.string(),
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed"]).optional(),
   description: z.coerce.string().optional(),
-  due_on: z.coerce.string().optional(),
+  due_on: z.coerce.string().datetime({ offset: true }).optional(),
 })
 
 router.post(
@@ -20437,9 +20737,9 @@ const issuesUpdateMilestoneParamSchema = z.object({
 const issuesUpdateMilestoneBodySchema = z
   .object({
     title: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    state: z.enum(["open", "closed"]).optional(),
     description: z.coerce.string().optional(),
-    due_on: z.coerce.string().optional(),
+    due_on: z.coerce.string().datetime({ offset: true }).optional(),
   })
   .optional()
 
@@ -20542,8 +20842,8 @@ const activityListRepoNotificationsForAuthenticatedUserParamSchema = z.object({
 const activityListRepoNotificationsForAuthenticatedUserQuerySchema = z.object({
   all: z.coerce.boolean().optional(),
   participating: z.coerce.boolean().optional(),
-  since: z.coerce.string().optional(),
-  before: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
+  before: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -20581,7 +20881,9 @@ const activityMarkRepoNotificationsAsReadParamSchema = z.object({
 })
 
 const activityMarkRepoNotificationsAsReadBodySchema = z
-  .object({ last_read_at: z.coerce.string().optional() })
+  .object({
+    last_read_at: z.coerce.string().datetime({ offset: true }).optional(),
+  })
   .optional()
 
 router.put(
@@ -20640,9 +20942,12 @@ const reposCreatePagesSiteParamSchema = z.object({
 })
 
 const reposCreatePagesSiteBodySchema = z.object({
-  build_type: z.coerce.string().optional(),
+  build_type: z.enum(["legacy", "workflow"]).optional(),
   source: z
-    .object({ branch: z.coerce.string(), path: z.coerce.string().optional() })
+    .object({
+      branch: z.coerce.string(),
+      path: z.enum(["/", "/docs"]).optional(),
+    })
     .optional(),
 })
 
@@ -20681,7 +20986,7 @@ const reposUpdateInformationAboutPagesSiteParamSchema = z.object({
 const reposUpdateInformationAboutPagesSiteBodySchema = z.object({
   cname: z.coerce.string().optional(),
   https_enforced: z.coerce.boolean().optional(),
-  build_type: z.coerce.string().optional(),
+  build_type: z.enum(["legacy", "workflow"]).optional(),
   source: z.object({}).optional(),
 })
 
@@ -20920,7 +21225,7 @@ const projectsListForRepoParamSchema = z.object({
 })
 
 const projectsListForRepoQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -20995,11 +21300,11 @@ const pullsListParamSchema = z.object({
 })
 
 const pullsListQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   head: z.coerce.string().optional(),
   base: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "popularity", "long-running"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -21063,9 +21368,9 @@ const pullsListReviewCommentsForRepoParamSchema = z.object({
 })
 
 const pullsListReviewCommentsForRepoQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "created_at"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -21191,7 +21496,18 @@ const reactionsListForPullRequestReviewCommentParamSchema = z.object({
 })
 
 const reactionsListForPullRequestReviewCommentQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -21230,7 +21546,16 @@ const reactionsCreateForPullRequestReviewCommentParamSchema = z.object({
 })
 
 const reactionsCreateForPullRequestReviewCommentBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -21322,7 +21647,7 @@ const pullsUpdateBodySchema = z
   .object({
     title: z.coerce.string().optional(),
     body: z.coerce.string().optional(),
-    state: z.coerce.string().optional(),
+    state: z.enum(["open", "closed"]).optional(),
     base: z.coerce.string().optional(),
     maintainer_can_modify: z.coerce.boolean().optional(),
   })
@@ -21399,9 +21724,9 @@ const pullsListReviewCommentsParamSchema = z.object({
 })
 
 const pullsListReviewCommentsQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -21444,10 +21769,10 @@ const pullsCreateReviewCommentBodySchema = z.object({
   commit_id: z.coerce.string(),
   path: z.coerce.string(),
   position: z.coerce.number().optional(),
-  side: z.coerce.string().optional(),
+  side: z.enum(["LEFT", "RIGHT"]).optional(),
   line: z.coerce.number(),
   start_line: z.coerce.number().optional(),
-  start_side: z.coerce.string().optional(),
+  start_side: z.enum(["LEFT", "RIGHT", "side"]).optional(),
   in_reply_to: z.coerce.number().optional(),
 })
 
@@ -21629,7 +21954,7 @@ const pullsMergeBodySchema = z
     commit_title: z.coerce.string().optional(),
     commit_message: z.coerce.string().optional(),
     sha: z.coerce.string().optional(),
-    merge_method: z.coerce.string().optional(),
+    merge_method: z.enum(["merge", "squash", "rebase"]).optional(),
   })
   .optional()
 
@@ -21804,7 +22129,7 @@ const pullsCreateReviewBodySchema = z
   .object({
     commit_id: z.coerce.string().optional(),
     body: z.coerce.string().optional(),
-    event: z.coerce.string().optional(),
+    event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]).optional(),
     comments: z
       .array(
         z
@@ -21988,7 +22313,7 @@ const pullsDismissReviewParamSchema = z.object({
 
 const pullsDismissReviewBodySchema = z.object({
   message: z.coerce.string(),
-  event: z.coerce.string().optional(),
+  event: z.enum(["DISMISS"]).optional(),
 })
 
 router.put(
@@ -22027,7 +22352,7 @@ const pullsSubmitReviewParamSchema = z.object({
 
 const pullsSubmitReviewBodySchema = z.object({
   body: z.coerce.string().optional(),
-  event: z.coerce.string(),
+  event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]),
 })
 
 router.post(
@@ -22218,7 +22543,7 @@ const reposCreateReleaseBodySchema = z.object({
   prerelease: z.coerce.boolean().optional(),
   discussion_category_name: z.coerce.string().optional(),
   generate_release_notes: z.coerce.boolean().optional(),
-  make_latest: z.coerce.string().optional(),
+  make_latest: z.enum(["true", "false", "legacy"]).optional(),
 })
 
 router.post(
@@ -22471,7 +22796,7 @@ const reposUpdateReleaseBodySchema = z
     body: z.coerce.string().optional(),
     draft: z.coerce.boolean().optional(),
     prerelease: z.coerce.boolean().optional(),
-    make_latest: z.coerce.string().optional(),
+    make_latest: z.enum(["true", "false", "legacy"]).optional(),
     discussion_category_name: z.coerce.string().optional(),
   })
   .optional()
@@ -22617,7 +22942,9 @@ const reactionsListForReleaseParamSchema = z.object({
 })
 
 const reactionsListForReleaseQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum(["+1", "laugh", "heart", "hooray", "rocket", "eyes"])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -22656,7 +22983,7 @@ const reactionsCreateForReleaseParamSchema = z.object({
 })
 
 const reactionsCreateForReleaseBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum(["+1", "laugh", "heart", "hooray", "rocket", "eyes"]),
 })
 
 router.post(
@@ -22719,11 +23046,11 @@ const secretScanningListAlertsForRepoParamSchema = z.object({
 })
 
 const secretScanningListAlertsForRepoQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "resolved"]).optional(),
   secret_type: z.coerce.string().optional(),
   resolution: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   page: z.coerce.number().optional(),
   per_page: z.coerce.number().optional(),
   before: z.coerce.string().optional(),
@@ -22790,8 +23117,10 @@ const secretScanningUpdateAlertParamSchema = z.object({
 })
 
 const secretScanningUpdateAlertBodySchema = z.object({
-  state: z.coerce.string(),
-  resolution: z.coerce.string().optional(),
+  state: z.enum(["open", "resolved"]),
+  resolution: z
+    .enum(["null", "false_positive", "wont_fix", "revoked", "used_in_tests"])
+    .optional(),
   resolution_comment: z.coerce.string().optional(),
 })
 
@@ -23029,7 +23358,7 @@ const reposCreateCommitStatusParamSchema = z.object({
 })
 
 const reposCreateCommitStatusBodySchema = z.object({
-  state: z.coerce.string(),
+  state: z.enum(["error", "failure", "pending", "success"]),
   target_url: z.coerce.string().optional(),
   description: z.coerce.string().optional(),
   context: z.coerce.string().optional(),
@@ -23450,7 +23779,7 @@ const reposGetClonesParamSchema = z.object({
 })
 
 const reposGetClonesQuerySchema = z.object({
-  per: z.coerce.string().optional(),
+  per: z.enum(["", "day", "week"]).optional(),
 })
 
 router.get(
@@ -23535,7 +23864,9 @@ const reposGetViewsParamSchema = z.object({
   repo: z.coerce.string(),
 })
 
-const reposGetViewsQuerySchema = z.object({ per: z.coerce.string().optional() })
+const reposGetViewsQuerySchema = z.object({
+  per: z.enum(["", "day", "week"]).optional(),
+})
 
 router.get(
   "reposGetViews",
@@ -24081,8 +24412,8 @@ router.delete(
 
 const searchCodeQuerySchema = z.object({
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z.enum(["indexed"]).optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24107,8 +24438,8 @@ router.get(
 
 const searchCommitsQuerySchema = z.object({
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z.enum(["author-date", "committer-date"]).optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24133,8 +24464,22 @@ router.get(
 
 const searchIssuesAndPullRequestsQuerySchema = z.object({
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z
+    .enum([
+      "comments",
+      "reactions",
+      "reactions-+1",
+      "reactions--1",
+      "reactions-smile",
+      "reactions-thinking_face",
+      "reactions-heart",
+      "reactions-tada",
+      "interactions",
+      "created",
+      "updated",
+    ])
+    .optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24162,8 +24507,8 @@ router.get(
 const searchLabelsQuerySchema = z.object({
   repository_id: z.coerce.number(),
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24188,8 +24533,8 @@ router.get(
 
 const searchReposQuerySchema = z.object({
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z.enum(["stars", "forks", "help-wanted-issues", "updated"]).optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24238,8 +24583,8 @@ router.get(
 
 const searchUsersQuerySchema = z.object({
   q: z.coerce.string(),
-  sort: z.coerce.string().optional(),
-  order: z.coerce.string().optional(),
+  sort: z.enum(["followers", "repositories", "joined"]).optional(),
+  order: z.enum(["desc", "asc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24289,8 +24634,8 @@ const teamsUpdateLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 const teamsUpdateLegacyBodySchema = z.object({
   name: z.coerce.string(),
   description: z.coerce.string().optional(),
-  privacy: z.coerce.string().optional(),
-  permission: z.coerce.string().optional(),
+  privacy: z.enum(["secret", "closed"]).optional(),
+  permission: z.enum(["pull", "push", "admin"]).optional(),
   parent_team_id: z.coerce.number().optional(),
 })
 
@@ -24348,7 +24693,7 @@ const teamsListDiscussionsLegacyParamSchema = z.object({
 })
 
 const teamsListDiscussionsLegacyQuerySchema = z.object({
-  direction: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24512,7 +24857,7 @@ const teamsListDiscussionCommentsLegacyParamSchema = z.object({
 })
 
 const teamsListDiscussionCommentsLegacyQuerySchema = z.object({
-  direction: z.coerce.string().optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24680,7 +25025,18 @@ const reactionsListForTeamDiscussionCommentLegacyParamSchema = z.object({
 })
 
 const reactionsListForTeamDiscussionCommentLegacyQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24719,7 +25075,16 @@ const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = z.object({
 })
 
 const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -24755,7 +25120,18 @@ const reactionsListForTeamDiscussionLegacyParamSchema = z.object({
 })
 
 const reactionsListForTeamDiscussionLegacyQuerySchema = z.object({
-  content: z.coerce.string().optional(),
+  content: z
+    .enum([
+      "+1",
+      "-1",
+      "laugh",
+      "confused",
+      "heart",
+      "hooray",
+      "rocket",
+      "eyes",
+    ])
+    .optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -24793,7 +25169,16 @@ const reactionsCreateForTeamDiscussionLegacyParamSchema = z.object({
 })
 
 const reactionsCreateForTeamDiscussionLegacyBodySchema = z.object({
-  content: z.coerce.string(),
+  content: z.enum([
+    "+1",
+    "-1",
+    "laugh",
+    "confused",
+    "heart",
+    "hooray",
+    "rocket",
+    "eyes",
+  ]),
 })
 
 router.post(
@@ -24864,7 +25249,7 @@ const teamsListMembersLegacyParamSchema = z.object({
 })
 
 const teamsListMembersLegacyQuerySchema = z.object({
-  role: z.coerce.string().optional(),
+  role: z.enum(["member", "maintainer", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -25002,7 +25387,7 @@ const teamsAddOrUpdateMembershipForUserLegacyParamSchema = z.object({
 })
 
 const teamsAddOrUpdateMembershipForUserLegacyBodySchema = z
-  .object({ role: z.coerce.string().optional() })
+  .object({ role: z.enum(["member", "maintainer"]).optional() })
   .optional()
 
 router.put(
@@ -25132,7 +25517,7 @@ const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = z.object({
 })
 
 const teamsAddOrUpdateProjectPermissionsLegacyBodySchema = z
-  .object({ permission: z.coerce.string().optional() })
+  .object({ permission: z.enum(["read", "write", "admin"]).optional() })
   .optional()
 
 router.put(
@@ -25258,7 +25643,7 @@ const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = z.object({
 })
 
 const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = z
-  .object({ permission: z.coerce.string().optional() })
+  .object({ permission: z.enum(["pull", "push", "admin"]).optional() })
   .optional()
 
 router.put(
@@ -26065,7 +26450,7 @@ router.post(
 )
 
 const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = z.object({
-  visibility: z.coerce.string(),
+  visibility: z.enum(["public", "private"]),
 })
 
 router.patch(
@@ -26551,8 +26936,10 @@ router.get(
 )
 
 const interactionsSetRestrictionsForAuthenticatedUserBodySchema = z.object({
-  limit: z.coerce.string(),
-  expiry: z.coerce.string().optional(),
+  limit: z.enum(["existing_users", "contributors_only", "collaborators_only"]),
+  expiry: z
+    .enum(["one_day", "three_days", "one_week", "one_month", "six_months"])
+    .optional(),
 })
 
 router.put(
@@ -26594,12 +26981,14 @@ router.delete(
 )
 
 const issuesListForAuthenticatedUserQuerySchema = z.object({
-  filter: z.coerce.string().optional(),
-  state: z.coerce.string().optional(),
+  filter: z
+    .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
+    .optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   labels: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
-  since: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated", "comments"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -26797,7 +27186,7 @@ router.get(
 )
 
 const orgsListMembershipsForAuthenticatedUserQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["active", "pending"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -26859,7 +27248,7 @@ const orgsUpdateMembershipForAuthenticatedUserParamSchema = z.object({
 })
 
 const orgsUpdateMembershipForAuthenticatedUserBodySchema = z.object({
-  state: z.coerce.string(),
+  state: z.enum(["active"]),
 })
 
 router.patch(
@@ -26926,7 +27315,7 @@ const migrationsStartForAuthenticatedUserBodySchema = z.object({
   exclude_releases: z.coerce.boolean().optional(),
   exclude_owner_projects: z.coerce.boolean().optional(),
   org_metadata_only: z.coerce.boolean().optional(),
-  exclude: z.array(z.coerce.string().optional()).optional(),
+  exclude: z.array(z.enum(["repositories"]).optional()).optional(),
   repositories: z.array(z.coerce.string().optional()),
 })
 
@@ -27136,8 +27525,15 @@ router.get(
 )
 
 const packagesListPackagesForAuthenticatedUserQuerySchema = z.object({
-  package_type: z.coerce.string(),
-  visibility: z.coerce.string().optional(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
+  visibility: z.enum(["public", "private", "internal"]).optional(),
 })
 
 router.get(
@@ -27165,7 +27561,14 @@ router.get(
 )
 
 const packagesGetPackageForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
 })
 
@@ -27194,7 +27597,14 @@ router.get(
 )
 
 const packagesDeletePackageForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
 })
 
@@ -27223,7 +27633,14 @@ router.delete(
 )
 
 const packagesRestorePackageForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
 })
 
@@ -27259,13 +27676,23 @@ router.post(
 )
 
 const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema =
-  z.object({ package_type: z.coerce.string(), package_name: z.coerce.string() })
+  z.object({
+    package_type: z.enum([
+      "npm",
+      "maven",
+      "rubygems",
+      "docker",
+      "nuget",
+      "container",
+    ]),
+    package_name: z.coerce.string(),
+  })
 
 const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema =
   z.object({
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
-    state: z.coerce.string().optional(),
+    state: z.enum(["active", "deleted"]).optional(),
   })
 
 router.get(
@@ -27296,7 +27723,14 @@ router.get(
 )
 
 const packagesGetPackageVersionForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   package_version_id: z.coerce.number(),
 })
@@ -27326,7 +27760,14 @@ router.get(
 )
 
 const packagesDeletePackageVersionForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   package_version_id: z.coerce.number(),
 })
@@ -27356,7 +27797,14 @@ router.delete(
 )
 
 const packagesRestorePackageVersionForAuthenticatedUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   package_version_id: z.coerce.number(),
 })
@@ -27444,15 +27892,15 @@ router.get(
 )
 
 const reposListForAuthenticatedUserQuerySchema = z.object({
-  visibility: z.coerce.string().optional(),
+  visibility: z.enum(["all", "public", "private"]).optional(),
   affiliation: z.coerce.string().optional(),
-  type: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  type: z.enum(["all", "owner", "public", "private", "member"]).optional(),
+  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  since: z.coerce.string().optional(),
-  before: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
+  before: z.coerce.string().datetime({ offset: true }).optional(),
 })
 
 router.get(
@@ -27493,10 +27941,14 @@ const reposCreateForAuthenticatedUserBodySchema = z.object({
   allow_rebase_merge: z.coerce.boolean().optional(),
   allow_auto_merge: z.coerce.boolean().optional(),
   delete_branch_on_merge: z.coerce.boolean().optional(),
-  squash_merge_commit_title: z.coerce.string().optional(),
-  squash_merge_commit_message: z.coerce.string().optional(),
-  merge_commit_title: z.coerce.string().optional(),
-  merge_commit_message: z.coerce.string().optional(),
+  squash_merge_commit_title: z
+    .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
+    .optional(),
+  squash_merge_commit_message: z
+    .enum(["PR_BODY", "COMMIT_MESSAGES", "BLANK"])
+    .optional(),
+  merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
+  merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
   has_downloads: z.coerce.boolean().optional(),
   is_template: z.coerce.boolean().optional(),
 })
@@ -27721,8 +28173,8 @@ router.delete(
 )
 
 const activityListReposStarredByAuthenticatedUserQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -28143,7 +28595,7 @@ router.get(
 const gistsListForUserParamSchema = z.object({ username: z.coerce.string() })
 
 const gistsListForUserQuerySchema = z.object({
-  since: z.coerce.string().optional(),
+  since: z.coerce.string().datetime({ offset: true }).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -28216,7 +28668,9 @@ const usersGetContextForUserParamSchema = z.object({
 })
 
 const usersGetContextForUserQuerySchema = z.object({
-  subject_type: z.coerce.string().optional(),
+  subject_type: z
+    .enum(["organization", "repository", "issue", "pull_request"])
+    .optional(),
   subject_id: z.coerce.string().optional(),
 })
 
@@ -28346,8 +28800,15 @@ const packagesListPackagesForUserParamSchema = z.object({
 })
 
 const packagesListPackagesForUserQuerySchema = z.object({
-  package_type: z.coerce.string(),
-  visibility: z.coerce.string().optional(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
+  visibility: z.enum(["public", "private", "internal"]).optional(),
 })
 
 router.get(
@@ -28378,7 +28839,14 @@ router.get(
 )
 
 const packagesGetPackageForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
 })
@@ -28404,7 +28872,14 @@ router.get(
 )
 
 const packagesDeletePackageForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
 })
@@ -28430,7 +28905,14 @@ router.delete(
 )
 
 const packagesRestorePackageForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
 })
@@ -28467,7 +28949,14 @@ router.post(
 )
 
 const packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
 })
@@ -28497,7 +28986,14 @@ router.get(
 )
 
 const packagesGetPackageVersionForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   package_version_id: z.coerce.number(),
   username: z.coerce.string(),
@@ -28528,7 +29024,14 @@ router.get(
 )
 
 const packagesDeletePackageVersionForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
   package_version_id: z.coerce.number(),
@@ -28559,7 +29062,14 @@ router.delete(
 )
 
 const packagesRestorePackageVersionForUserParamSchema = z.object({
-  package_type: z.coerce.string(),
+  package_type: z.enum([
+    "npm",
+    "maven",
+    "rubygems",
+    "docker",
+    "nuget",
+    "container",
+  ]),
   package_name: z.coerce.string(),
   username: z.coerce.string(),
   package_version_id: z.coerce.number(),
@@ -28592,7 +29102,7 @@ router.post(
 const projectsListForUserParamSchema = z.object({ username: z.coerce.string() })
 
 const projectsListForUserQuerySchema = z.object({
-  state: z.coerce.string().optional(),
+  state: z.enum(["open", "closed", "all"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -28699,9 +29209,9 @@ router.get(
 const reposListForUserParamSchema = z.object({ username: z.coerce.string() })
 
 const reposListForUserQuerySchema = z.object({
-  type: z.coerce.string().optional(),
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  type: z.enum(["all", "owner", "member"]).optional(),
+  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })
@@ -28858,8 +29368,8 @@ const activityListReposStarredByUserParamSchema = z.object({
 })
 
 const activityListReposStarredByUserQuerySchema = z.object({
-  sort: z.coerce.string().optional(),
-  direction: z.coerce.string().optional(),
+  sort: z.enum(["created", "updated"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional(),
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
 })

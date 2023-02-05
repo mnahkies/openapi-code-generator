@@ -1,5 +1,11 @@
 import { Input } from "../../../core/input"
-import { IRModelObject, IRParameter, MaybeIRModel } from "../../../core/openapi-types-normalized"
+import {
+  IRModelObject,
+  IRModelString,
+  IRModelStringFormat,
+  IRParameter,
+  MaybeIRModel,
+} from "../../../core/openapi-types-normalized"
 import { isDefined } from "../../../core/utils"
 import { SchemaBuilder } from "./schema-builder"
 
@@ -82,10 +88,11 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
 
   fromModel(maybeModel: MaybeIRModel, required: boolean): string {
     const model = this.input.schema(maybeModel)
+    console.log(model)
 
     switch (model.type) {
       case "string":
-        return this.string(required)
+        return this.string(model, required)
       case "number":
         return this.number(required)
       case "boolean":
@@ -130,10 +137,28 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
     ].filter(isDefined).join('.')
   }
 
-  private string(required: boolean) {
+  private string(model: IRModelString, required: boolean) {
+    if (model.enum) {
+      return this.enum(model, required)
+    }
+
     return [
       this.zod,
       "coerce.string()",
+      model.format === 'date-time' ? 'datetime({offset:true})' : undefined,
+      model.format === 'email' ? 'email()' : undefined,
+      required ? undefined : 'optional()',
+    ].filter(isDefined).join('.')
+  }
+
+  private enum(model: IRModelString, required: boolean) {
+    if (!model.enum) {
+      throw new Error("model is not an enum")
+    }
+
+    return [
+      this.zod,
+      `enum([${ model.enum.map(it => `"${ it }"`).join(',') }])`,
       required ? undefined : 'optional()',
     ].filter(isDefined).join('.')
   }

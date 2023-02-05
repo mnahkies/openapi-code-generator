@@ -217,7 +217,7 @@ export interface Schema {
   items?: Schema | Reference
   properties?: { [propertyName: string]: Schema | Reference }
   additionalProperties?: boolean | Schema | Reference
-  format?: "int32" | "int64" | "float" | "double" | "byte" | "binary" | "date" | "date-time" | "password"
+  format?: "int32" | "int64" | "float" | "double" | "byte" | "binary" | "date" | "date-time" | "password" | "email"
   default?: unknown
   nullable?: boolean /* false */
   discriminator?: Discriminator

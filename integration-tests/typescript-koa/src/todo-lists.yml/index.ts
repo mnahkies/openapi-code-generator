@@ -5,6 +5,7 @@
 import {
   t_DeleteTodoListByIdParamSchema,
   t_GetTodoListByIdParamSchema,
+  t_GetTodoListsQuerySchema,
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
@@ -81,6 +82,29 @@ server.use(cors())
 server.use(koaBody())
 
 const router = new KoaRouter()
+
+const getTodoListsQuerySchema = z.object({
+  created: z.coerce.string().datetime({ offset: true }).optional(),
+  status: z.enum(["incomplete", "complete"]).optional(),
+})
+
+router.get(
+  "getTodoLists",
+  "/list",
+  queryValidationFactory<t_GetTodoListsQuerySchema>(getTodoListsQuerySchema),
+  async (
+    ctx: ValidatedCtx<void, t_GetTodoListsQuerySchema, void>,
+    next: Next
+  ) => {
+    //region safe-edit-region-getTodoLists
+
+    ctx.status = 501
+    ctx.body = { error: "not implemented" }
+    return next()
+
+    //endregion safe-edit-region-getTodoLists
+  }
+)
 
 const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 

@@ -41,6 +41,25 @@ export class ApiClient {
     )
   }
 
+  async getTodoLists(p: {
+    created?: string
+    status?: "incomplete" | "complete"
+  }): Promise<Res<200, t_TodoList[]>> {
+    const headers: Record<string, string | undefined> = {}
+
+    const res = await fetch(
+      this.config.basePath +
+        `/list?${this._query({ created: p["created"], status: p["status"] })}`,
+      {
+        method: "GET",
+        headers: this._headers(headers),
+      }
+    )
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async getTodoListById(p: {
     listId: string
   }): Promise<Res<200, t_TodoList> | Res<number, t_Error> | Res<number, void>> {
