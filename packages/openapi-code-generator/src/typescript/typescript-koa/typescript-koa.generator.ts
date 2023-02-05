@@ -4,7 +4,7 @@ import { IRModelObject, IROperation, IRParameter } from "../../core/openapi-type
 import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
-import { isDefined } from "../../core/utils"
+import { isDefined, titleCase } from "../../core/utils"
 import { logger } from "../../core/logger"
 import { JoiBuilder } from "./schema-builders/joi-schema-builder"
 import { SchemaBuilder } from "./schema-builders/schema-builder"
@@ -22,7 +22,8 @@ export class ServerBuilder {
   private readonly models: ModelBuilder
   private readonly schemaBuilder: SchemaBuilder
 
-  private readonly operations: string[] = []
+  private readonly statements: string[] = []
+  private readonly operationTypeMap: Record<string, string> = {}
 
   constructor(
     public readonly filename: string,
@@ -78,7 +79,7 @@ export class ServerBuilder {
     if (paramSchema) {
       let name = `${ operation.operationId }ParamSchema`
       pathParamsType = models.schemaObjectToType({ $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams)) })
-      this.operations.push(`const ${ name } = ${ paramSchema.toString() }`)
+      this.statements.push(`const ${ name } = ${ paramSchema.toString() }`)
     }
 
     if (querySchema) {
@@ -86,7 +87,7 @@ export class ServerBuilder {
       queryParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(queryParams)),
       })
-      this.operations.push(`const ${ name } = ${ querySchema.toString() }`)
+      this.statements.push(`const ${ name } = ${ querySchema.toString() }`)
     }
 
     if (bodyParamSchema && requestBodyParameter) {
@@ -94,22 +95,28 @@ export class ServerBuilder {
       bodyParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)),
       })
-      this.operations.push(`const ${ name } = ${ bodyParamSchema }`)
+      this.statements.push(`const ${ name } = ${ bodyParamSchema }`)
     }
 
-    this.operations.push([
+
+    this.operationTypeMap[operation.operationId] = `
+        export type ${titleCase(operation.operationId)} = (
+            params: Params<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>,
+            ctx: Context
+        ) => Promise<{status: number, body: any}>
+`
+
+    this.statements.push([
       `router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }',`,
       paramSchema && `paramValidationFactory<${ pathParamsType }>(${ operation.operationId }ParamSchema),`,
       querySchema && `queryValidationFactory<${ queryParamsType }>(${ operation.operationId }QuerySchema),`,
       bodyParamSchema && `bodyValidationFactory<${ bodyParamsType }>(${ operation.operationId }BodySchema),`,
       `async (ctx: ValidatedCtx<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>, next: Next) => {
-        //region safe-edit-region-${ operation.operationId }
-        ${ this.existingRegions[operation.operationId] ?? `
-        ctx.status = 501
-        ctx.body = {error: "not implemented"}
+
+        const {status, body} = await implementation.${operation.operationId}(ctx.state, ctx)
+        ctx.status = status
+        ctx.body = body
         return next();
-        ` }
-        //endregion safe-edit-region-${ operation.operationId }
       })`,
     ].filter(isDefined).join('\n'))
   }
@@ -143,7 +150,7 @@ export class ServerBuilder {
 
   toString(): string {
     const clientName = this.name
-    const routes = this.operations
+    const routes = this.statements
     const imports = this.imports
 
     return `
@@ -154,28 +161,38 @@ ${ imports.toString() }
 
 ${this.schemaBuilder.staticHelpers()}
 
+type Params<Params, Query, Body> = {params: Params, query: Query, body: Body}
+
 interface ValidatedCtx<Params, Query, Body> extends Context {
   state: { params: Params, query: Query, body: Body }
 }
 
-const PORT=3000
+${Object.values(this.operationTypeMap).join('\n\n')}
 
-// ${ clientName }
-const server = new Koa()
+export type Implementation = {
+    ${Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(',')}
+}
 
-server.use(cors())
-server.use(koaBody())
+export function bootstrap(implementation: Implementation, configuration: {port: number}){
+  // ${ clientName }
+  const server = new Koa()
 
-const router = new KoaRouter
+  server.use(cors())
+  server.use(koaBody())
 
-${ routes.join('\n\n') }
+  const router = new KoaRouter
+
+  ${ routes.join('\n\n') }
 
   server.use(router.allowedMethods())
   server.use(router.routes())
 
-server.listen(PORT, () => {
-  console.info("server listening", {port: PORT})
-});
+  server.listen(configuration.port, () => {
+    console.info("server listening", {port: configuration.port})
+  });
+
+  return server
+}
 `
   }
 }
@@ -191,7 +208,7 @@ function route(route: string): string {
 
 export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {
   const models = ModelBuilder.fromInput('./models.ts', input)
-  const server = new ServerBuilder('index.ts', 'ApiClient', input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: 'index.ts' })))
+  const server = new ServerBuilder('generated.ts', 'ApiClient', input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: 'index.ts' })))
 
   input.allOperations()
     .map(it => server.add(it))
