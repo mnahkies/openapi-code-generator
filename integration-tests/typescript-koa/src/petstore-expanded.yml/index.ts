@@ -8,58 +8,61 @@ import {
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
 } from "./models"
-import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
+import { ZodSchema, z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
 
 function paramValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ params: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.params, { stripUnknown: true })
+    const result = schema.safeParse(ctx.params)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.params = result.value
+    ctx.state.params = result.data
 
     return next()
   }
 }
 
 function queryValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ query: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
+    const result = schema.safeParse(ctx.query)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.query = result.value
+    ctx.state.query = result.data
 
     return next()
   }
 }
 
 function bodyValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.request.body, { stripUnknown: true })
+    const result = schema.safeParse(ctx.request.body)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.body = result.value
+    ctx.state.body = result.data
 
     return next()
   }
@@ -79,10 +82,10 @@ server.use(koaBody())
 
 const router = new KoaRouter()
 
-const findPetsQuerySchema = joi
-  .object()
-  .keys({ tags: joi.array().items(joi.string()), limit: joi.number() })
-  .required()
+const findPetsQuerySchema = z.object({
+  tags: z.array(z.coerce.string().optional()).optional(),
+  limit: z.coerce.number().optional(),
+})
 
 router.get(
   "findPets",
@@ -99,10 +102,10 @@ router.get(
   }
 )
 
-const addPetBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), tag: joi.string() })
-  .required()
+const addPetBodySchema = z.object({
+  name: z.coerce.string(),
+  tag: z.coerce.string().optional(),
+})
 
 router.post(
   "addPet",
@@ -119,10 +122,7 @@ router.post(
   }
 )
 
-const findPetByIdParamSchema = joi
-  .object()
-  .keys({ id: joi.number().required() })
-  .required()
+const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
 
 router.get(
   "findPetById",
@@ -134,21 +134,36 @@ router.get(
   ) => {
     //region safe-edit-region-findPetById
 
-    ctx.status = 200
-    ctx.body = {
-      name: "Jake",
-      breed: "border-collie",
+    switch (ctx.state.params.id) {
+      case 1: {
+        ctx.body = {
+          name: "Jake",
+          breed: "border-collie",
+        }
+        ctx.status = 200
+        break
+      }
+
+      case 2: {
+        ctx.body = {
+          name: "Lacy",
+          breed: "border-collie",
+        }
+        ctx.status = 200
+        break
+      }
+
+      default:
+        ctx.status = 404
     }
+
     return next()
 
     //endregion safe-edit-region-findPetById
   }
 )
 
-const deletePetParamSchema = joi
-  .object()
-  .keys({ id: joi.number().required() })
-  .required()
+const deletePetParamSchema = z.object({ id: z.coerce.number() })
 
 router.delete(
   "deletePet",

@@ -8,58 +8,61 @@ import {
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
-import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
+import { ZodSchema, z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
 
 function paramValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ params: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.params, { stripUnknown: true })
+    const result = schema.safeParse(ctx.params)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.params = result.value
+    ctx.state.params = result.data
 
     return next()
   }
 }
 
 function queryValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ query: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
+    const result = schema.safeParse(ctx.query)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.query = result.value
+    ctx.state.query = result.data
 
     return next()
   }
 }
 
 function bodyValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.request.body, { stripUnknown: true })
+    const result = schema.safeParse(ctx.request.body)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.body = result.value
+    ctx.state.body = result.data
 
     return next()
   }
@@ -79,10 +82,7 @@ server.use(koaBody())
 
 const router = new KoaRouter()
 
-const getTodoListByIdParamSchema = joi
-  .object()
-  .keys({ listId: joi.string().required() })
-  .required()
+const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
 router.get(
   "getTodoListById",
@@ -104,15 +104,9 @@ router.get(
   }
 )
 
-const updateTodoListByIdParamSchema = joi
-  .object()
-  .keys({ listId: joi.string().required() })
-  .required()
+const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
-const updateTodoListByIdBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const updateTodoListByIdBodySchema = z.object({ name: z.coerce.string() })
 
 router.put(
   "updateTodoListById",
@@ -141,10 +135,7 @@ router.put(
   }
 )
 
-const deleteTodoListByIdParamSchema = joi
-  .object()
-  .keys({ listId: joi.string().required() })
-  .required()
+const deleteTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
 router.delete(
   "deleteTodoListById",

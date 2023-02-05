@@ -1,6 +1,7 @@
-import { Input } from "../../core/input"
-import { IRModelObject, IRParameter, MaybeIRModel } from "../../core/openapi-types-normalized"
-import { isDefined } from "../../core/utils"
+import { Input } from "../../../core/input"
+import { IRModelObject, IRParameter, MaybeIRModel } from "../../../core/openapi-types-normalized"
+import { isDefined } from "../../../core/utils"
+import { SchemaBuilder } from "./schema-builder"
 
 enum JoiFn {
   Object = 'object()',
@@ -11,11 +12,57 @@ enum JoiFn {
   Required = 'required()'
 }
 
-export class JoiBuilder {
+export class JoiBuilder implements SchemaBuilder {
   constructor(
     private readonly joi = 'joi',
     private readonly input: Input,
   ) {
+  }
+
+  staticHelpers(): string {
+    return `
+function paramValidationFactory<Type>(schema: joi.Schema): Middleware<{ params: Type }> {
+  return async function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.params, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.state.params = result.value
+
+    return next()
+  }
+}
+
+function queryValidationFactory<Type>(schema: joi.Schema): Middleware<{ query: Type }> {
+  return async function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.query, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.state.query = result.value
+
+    return next()
+  }
+}
+
+function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Type }> {
+  return async function (ctx: Context, next: Next) {
+    const result = schema.validate(ctx.request.body, { stripUnknown: true })
+
+    if (result.error) {
+      throw new Error("validation error")
+    }
+
+    ctx.state.body = result.value
+
+    return next()
+  }
+}
+`
   }
 
   fromParameters(parameters: IRParameter[]): string {

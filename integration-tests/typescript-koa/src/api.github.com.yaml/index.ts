@@ -1258,58 +1258,61 @@ import {
   t_UsersUnfollowParamSchema,
   t_UsersUpdateAuthenticatedBodySchema,
 } from "./models"
-import joi from "@hapi/joi"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
+import { ZodSchema, z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
 
 function paramValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ params: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.params, { stripUnknown: true })
+    const result = schema.safeParse(ctx.params)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.params = result.value
+    ctx.state.params = result.data
 
     return next()
   }
 }
 
 function queryValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ query: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
+    const result = schema.safeParse(ctx.query)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.query = result.value
+    ctx.state.query = result.data
 
     return next()
   }
 }
 
 function bodyValidationFactory<Type>(
-  schema: joi.Schema
+  schema: ZodSchema
 ): Middleware<{ body: Type }> {
   return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.request.body, { stripUnknown: true })
+    const result = schema.safeParse(ctx.request.body)
+    console.info(result)
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error("validation error")
     }
 
-    ctx.state.body = result.value
+    ctx.state.body = result.data
 
     return next()
   }
@@ -1357,10 +1360,7 @@ router.get(
   }
 )
 
-const appsCreateFromManifestParamSchema = joi
-  .object()
-  .keys({ code: joi.string().required() })
-  .required()
+const appsCreateFromManifestParamSchema = z.object({ code: z.coerce.string() })
 
 router.post(
   "appsCreateFromManifest",
@@ -1396,15 +1396,12 @@ router.get(
   }
 )
 
-const appsUpdateWebhookConfigForAppBodySchema = joi
-  .object()
-  .keys({
-    url: joi.string(),
-    content_type: joi.string(),
-    secret: joi.string(),
-    insecure_ssl: joi.object().keys({}),
-  })
-  .required()
+const appsUpdateWebhookConfigForAppBodySchema = z.object({
+  url: z.coerce.string().optional(),
+  content_type: z.coerce.string().optional(),
+  secret: z.coerce.string().optional(),
+  insecure_ssl: z.object({}).optional(),
+})
 
 router.patch(
   "appsUpdateWebhookConfigForApp",
@@ -1426,14 +1423,11 @@ router.patch(
   }
 )
 
-const appsListWebhookDeliveriesQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    cursor: joi.string(),
-    redelivery: joi.boolean(),
-  })
-  .required()
+const appsListWebhookDeliveriesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  cursor: z.coerce.string().optional(),
+  redelivery: z.coerce.boolean().optional(),
+})
 
 router.get(
   "appsListWebhookDeliveries",
@@ -1455,10 +1449,9 @@ router.get(
   }
 )
 
-const appsGetWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({ delivery_id: joi.number().required() })
-  .required()
+const appsGetWebhookDeliveryParamSchema = z.object({
+  delivery_id: z.coerce.number(),
+})
 
 router.get(
   "appsGetWebhookDelivery",
@@ -1480,10 +1473,9 @@ router.get(
   }
 )
 
-const appsRedeliverWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({ delivery_id: joi.number().required() })
-  .required()
+const appsRedeliverWebhookDeliveryParamSchema = z.object({
+  delivery_id: z.coerce.number(),
+})
 
 router.post(
   "appsRedeliverWebhookDelivery",
@@ -1505,15 +1497,12 @@ router.post(
   }
 )
 
-const appsListInstallationsQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    since: joi.string(),
-    outdated: joi.string(),
-  })
-  .required()
+const appsListInstallationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  since: z.coerce.string().optional(),
+  outdated: z.coerce.string().optional(),
+})
 
 router.get(
   "appsListInstallations",
@@ -1535,10 +1524,9 @@ router.get(
   }
 )
 
-const appsGetInstallationParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsGetInstallationParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
 router.get(
   "appsGetInstallation",
@@ -1560,10 +1548,9 @@ router.get(
   }
 )
 
-const appsDeleteInstallationParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsDeleteInstallationParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
 router.delete(
   "appsDeleteInstallation",
@@ -1585,54 +1572,53 @@ router.delete(
   }
 )
 
-const appsCreateInstallationAccessTokenParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsCreateInstallationAccessTokenParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
-const appsCreateInstallationAccessTokenBodySchema = joi
-  .object()
-  .keys({
-    repositories: joi.array().items(joi.string()),
-    repository_ids: joi.array().items(joi.number()),
-    permissions: joi
-      .object()
-      .keys({
-        actions: joi.string(),
-        administration: joi.string(),
-        checks: joi.string(),
-        contents: joi.string(),
-        deployments: joi.string(),
-        environments: joi.string(),
-        issues: joi.string(),
-        metadata: joi.string(),
-        packages: joi.string(),
-        pages: joi.string(),
-        pull_requests: joi.string(),
-        repository_announcement_banners: joi.string(),
-        repository_hooks: joi.string(),
-        repository_projects: joi.string(),
-        secret_scanning_alerts: joi.string(),
-        secrets: joi.string(),
-        security_events: joi.string(),
-        single_file: joi.string(),
-        statuses: joi.string(),
-        vulnerability_alerts: joi.string(),
-        workflows: joi.string(),
-        members: joi.string(),
-        organization_administration: joi.string(),
-        organization_custom_roles: joi.string(),
-        organization_announcement_banners: joi.string(),
-        organization_hooks: joi.string(),
-        organization_plan: joi.string(),
-        organization_projects: joi.string(),
-        organization_packages: joi.string(),
-        organization_secrets: joi.string(),
-        organization_self_hosted_runners: joi.string(),
-        organization_user_blocking: joi.string(),
-        team_discussions: joi.string(),
-      }),
+const appsCreateInstallationAccessTokenBodySchema = z
+  .object({
+    repositories: z.array(z.coerce.string().optional()).optional(),
+    repository_ids: z.array(z.coerce.number().optional()).optional(),
+    permissions: z
+      .object({
+        actions: z.coerce.string().optional(),
+        administration: z.coerce.string().optional(),
+        checks: z.coerce.string().optional(),
+        contents: z.coerce.string().optional(),
+        deployments: z.coerce.string().optional(),
+        environments: z.coerce.string().optional(),
+        issues: z.coerce.string().optional(),
+        metadata: z.coerce.string().optional(),
+        packages: z.coerce.string().optional(),
+        pages: z.coerce.string().optional(),
+        pull_requests: z.coerce.string().optional(),
+        repository_announcement_banners: z.coerce.string().optional(),
+        repository_hooks: z.coerce.string().optional(),
+        repository_projects: z.coerce.string().optional(),
+        secret_scanning_alerts: z.coerce.string().optional(),
+        secrets: z.coerce.string().optional(),
+        security_events: z.coerce.string().optional(),
+        single_file: z.coerce.string().optional(),
+        statuses: z.coerce.string().optional(),
+        vulnerability_alerts: z.coerce.string().optional(),
+        workflows: z.coerce.string().optional(),
+        members: z.coerce.string().optional(),
+        organization_administration: z.coerce.string().optional(),
+        organization_custom_roles: z.coerce.string().optional(),
+        organization_announcement_banners: z.coerce.string().optional(),
+        organization_hooks: z.coerce.string().optional(),
+        organization_plan: z.coerce.string().optional(),
+        organization_projects: z.coerce.string().optional(),
+        organization_packages: z.coerce.string().optional(),
+        organization_secrets: z.coerce.string().optional(),
+        organization_self_hosted_runners: z.coerce.string().optional(),
+        organization_user_blocking: z.coerce.string().optional(),
+        team_discussions: z.coerce.string().optional(),
+      })
+      .optional(),
   })
+  .optional()
 
 router.post(
   "appsCreateInstallationAccessToken",
@@ -1661,10 +1647,9 @@ router.post(
   }
 )
 
-const appsSuspendInstallationParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsSuspendInstallationParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
 router.put(
   "appsSuspendInstallation",
@@ -1686,10 +1671,9 @@ router.put(
   }
 )
 
-const appsUnsuspendInstallationParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsUnsuspendInstallationParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
 router.delete(
   "appsUnsuspendInstallation",
@@ -1711,15 +1695,13 @@ router.delete(
   }
 )
 
-const appsDeleteAuthorizationParamSchema = joi
-  .object()
-  .keys({ client_id: joi.string().required() })
-  .required()
+const appsDeleteAuthorizationParamSchema = z.object({
+  client_id: z.coerce.string(),
+})
 
-const appsDeleteAuthorizationBodySchema = joi
-  .object()
-  .keys({ access_token: joi.string().required() })
-  .required()
+const appsDeleteAuthorizationBodySchema = z.object({
+  access_token: z.coerce.string(),
+})
 
 router.delete(
   "appsDeleteAuthorization",
@@ -1748,15 +1730,9 @@ router.delete(
   }
 )
 
-const appsCheckTokenParamSchema = joi
-  .object()
-  .keys({ client_id: joi.string().required() })
-  .required()
+const appsCheckTokenParamSchema = z.object({ client_id: z.coerce.string() })
 
-const appsCheckTokenBodySchema = joi
-  .object()
-  .keys({ access_token: joi.string().required() })
-  .required()
+const appsCheckTokenBodySchema = z.object({ access_token: z.coerce.string() })
 
 router.post(
   "appsCheckToken",
@@ -1783,15 +1759,9 @@ router.post(
   }
 )
 
-const appsResetTokenParamSchema = joi
-  .object()
-  .keys({ client_id: joi.string().required() })
-  .required()
+const appsResetTokenParamSchema = z.object({ client_id: z.coerce.string() })
 
-const appsResetTokenBodySchema = joi
-  .object()
-  .keys({ access_token: joi.string().required() })
-  .required()
+const appsResetTokenBodySchema = z.object({ access_token: z.coerce.string() })
 
 router.patch(
   "appsResetToken",
@@ -1818,15 +1788,9 @@ router.patch(
   }
 )
 
-const appsDeleteTokenParamSchema = joi
-  .object()
-  .keys({ client_id: joi.string().required() })
-  .required()
+const appsDeleteTokenParamSchema = z.object({ client_id: z.coerce.string() })
 
-const appsDeleteTokenBodySchema = joi
-  .object()
-  .keys({ access_token: joi.string().required() })
-  .required()
+const appsDeleteTokenBodySchema = z.object({ access_token: z.coerce.string() })
 
 router.delete(
   "appsDeleteToken",
@@ -1853,58 +1817,52 @@ router.delete(
   }
 )
 
-const appsScopeTokenParamSchema = joi
-  .object()
-  .keys({ client_id: joi.string().required() })
-  .required()
+const appsScopeTokenParamSchema = z.object({ client_id: z.coerce.string() })
 
-const appsScopeTokenBodySchema = joi
-  .object()
-  .keys({
-    access_token: joi.string().required(),
-    target: joi.string(),
-    target_id: joi.number(),
-    repositories: joi.array().items(joi.string()),
-    repository_ids: joi.array().items(joi.number()),
-    permissions: joi
-      .object()
-      .keys({
-        actions: joi.string(),
-        administration: joi.string(),
-        checks: joi.string(),
-        contents: joi.string(),
-        deployments: joi.string(),
-        environments: joi.string(),
-        issues: joi.string(),
-        metadata: joi.string(),
-        packages: joi.string(),
-        pages: joi.string(),
-        pull_requests: joi.string(),
-        repository_announcement_banners: joi.string(),
-        repository_hooks: joi.string(),
-        repository_projects: joi.string(),
-        secret_scanning_alerts: joi.string(),
-        secrets: joi.string(),
-        security_events: joi.string(),
-        single_file: joi.string(),
-        statuses: joi.string(),
-        vulnerability_alerts: joi.string(),
-        workflows: joi.string(),
-        members: joi.string(),
-        organization_administration: joi.string(),
-        organization_custom_roles: joi.string(),
-        organization_announcement_banners: joi.string(),
-        organization_hooks: joi.string(),
-        organization_plan: joi.string(),
-        organization_projects: joi.string(),
-        organization_packages: joi.string(),
-        organization_secrets: joi.string(),
-        organization_self_hosted_runners: joi.string(),
-        organization_user_blocking: joi.string(),
-        team_discussions: joi.string(),
-      }),
-  })
-  .required()
+const appsScopeTokenBodySchema = z.object({
+  access_token: z.coerce.string(),
+  target: z.coerce.string().optional(),
+  target_id: z.coerce.number().optional(),
+  repositories: z.array(z.coerce.string().optional()).optional(),
+  repository_ids: z.array(z.coerce.number().optional()).optional(),
+  permissions: z
+    .object({
+      actions: z.coerce.string().optional(),
+      administration: z.coerce.string().optional(),
+      checks: z.coerce.string().optional(),
+      contents: z.coerce.string().optional(),
+      deployments: z.coerce.string().optional(),
+      environments: z.coerce.string().optional(),
+      issues: z.coerce.string().optional(),
+      metadata: z.coerce.string().optional(),
+      packages: z.coerce.string().optional(),
+      pages: z.coerce.string().optional(),
+      pull_requests: z.coerce.string().optional(),
+      repository_announcement_banners: z.coerce.string().optional(),
+      repository_hooks: z.coerce.string().optional(),
+      repository_projects: z.coerce.string().optional(),
+      secret_scanning_alerts: z.coerce.string().optional(),
+      secrets: z.coerce.string().optional(),
+      security_events: z.coerce.string().optional(),
+      single_file: z.coerce.string().optional(),
+      statuses: z.coerce.string().optional(),
+      vulnerability_alerts: z.coerce.string().optional(),
+      workflows: z.coerce.string().optional(),
+      members: z.coerce.string().optional(),
+      organization_administration: z.coerce.string().optional(),
+      organization_custom_roles: z.coerce.string().optional(),
+      organization_announcement_banners: z.coerce.string().optional(),
+      organization_hooks: z.coerce.string().optional(),
+      organization_plan: z.coerce.string().optional(),
+      organization_projects: z.coerce.string().optional(),
+      organization_packages: z.coerce.string().optional(),
+      organization_secrets: z.coerce.string().optional(),
+      organization_self_hosted_runners: z.coerce.string().optional(),
+      organization_user_blocking: z.coerce.string().optional(),
+      team_discussions: z.coerce.string().optional(),
+    })
+    .optional(),
+})
 
 router.post(
   "appsScopeToken",
@@ -1931,10 +1889,7 @@ router.post(
   }
 )
 
-const appsGetBySlugParamSchema = joi
-  .object()
-  .keys({ app_slug: joi.string().required() })
-  .required()
+const appsGetBySlugParamSchema = z.object({ app_slug: z.coerce.string() })
 
 router.get(
   "appsGetBySlug",
@@ -1968,10 +1923,9 @@ router.get(
   }
 )
 
-const codesOfConductGetConductCodeParamSchema = joi
-  .object()
-  .keys({ key: joi.string().required() })
-  .required()
+const codesOfConductGetConductCodeParamSchema = z.object({
+  key: z.coerce.string(),
+})
 
 router.get(
   "codesOfConductGetConductCode",
@@ -2008,13 +1962,7 @@ router.get(
 )
 
 const enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema =
-  joi
-    .object()
-    .keys({
-      enterprise: joi.string().required(),
-      org_id: joi.number().required(),
-    })
-    .required()
+  z.object({ enterprise: z.coerce.string(), org_id: z.coerce.number() })
 
 router.put(
   "enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise",
@@ -2040,19 +1988,15 @@ router.put(
   }
 )
 
-const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema =
+  z.object({ enterprise: z.coerce.string() })
 
-const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    visible_to_organization: joi.string(),
+const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema =
+  z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+    visible_to_organization: z.coerce.string().optional(),
   })
-  .required()
 
 router.get(
   "enterpriseAdminListSelfHostedRunnerGroupsForEnterprise",
@@ -2081,23 +2025,19 @@ router.get(
   }
 )
 
-const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema =
+  z.object({ enterprise: z.coerce.string() })
 
-const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    visibility: joi.string(),
-    selected_organization_ids: joi.array().items(joi.number()),
-    runners: joi.array().items(joi.number()),
-    allows_public_repositories: joi.boolean(),
-    restricted_to_workflows: joi.boolean(),
-    selected_workflows: joi.array().items(joi.string()),
+const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema =
+  z.object({
+    name: z.coerce.string(),
+    visibility: z.coerce.string().optional(),
+    selected_organization_ids: z.array(z.coerce.number().optional()).optional(),
+    runners: z.array(z.coerce.number().optional()).optional(),
+    allows_public_repositories: z.coerce.boolean().optional(),
+    restricted_to_workflows: z.coerce.boolean().optional(),
+    selected_workflows: z.array(z.coerce.string().optional()).optional(),
   })
-  .required()
 
 router.post(
   "enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise",
@@ -2126,13 +2066,11 @@ router.post(
   }
 )
 
-const enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema = joi
-  .object()
-  .keys({
-    enterprise: joi.string().required(),
-    runner_group_id: joi.number().required(),
+const enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema =
+  z.object({
+    enterprise: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
   })
-  .required()
 
 router.get(
   "enterpriseAdminGetSelfHostedRunnerGroupForEnterprise",
@@ -2159,14 +2097,11 @@ router.get(
 )
 
 const enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema =
-  joi
-    .object()
-    .keys({
-      enterprise: joi.string().required(),
-      runner_group_id: joi.number().required(),
-      org_id: joi.number().required(),
-    })
-    .required()
+  z.object({
+    enterprise: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
+    org_id: z.coerce.number(),
+  })
 
 router.put(
   "enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise",
@@ -2193,14 +2128,11 @@ router.put(
 )
 
 const enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema =
-  joi
-    .object()
-    .keys({
-      enterprise: joi.string().required(),
-      runner_group_id: joi.number().required(),
-      runner_id: joi.number().required(),
-    })
-    .required()
+  z.object({
+    enterprise: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
+    runner_id: z.coerce.number(),
+  })
 
 router.delete(
   "enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise",
@@ -2226,13 +2158,9 @@ router.delete(
   }
 )
 
-const enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema = joi
-  .object()
-  .keys({
-    enterprise: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema = z.object(
+  { enterprise: z.coerce.string(), runner_id: z.coerce.number() }
+)
 
 router.delete(
   "enterpriseAdminDeleteSelfHostedRunnerFromEnterprise",
@@ -2258,13 +2186,8 @@ router.delete(
   }
 )
 
-const enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema = joi
-  .object()
-  .keys({
-    enterprise: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema =
+  z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
 
 router.get(
   "enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise",
@@ -2291,19 +2214,10 @@ router.get(
 )
 
 const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema =
-  joi
-    .object()
-    .keys({
-      enterprise: joi.string().required(),
-      runner_id: joi.number().required(),
-    })
-    .required()
+  z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
 
 const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema =
-  joi
-    .object()
-    .keys({ labels: joi.array().items(joi.string()).required() })
-    .required()
+  z.object({ labels: z.array(z.coerce.string().optional()) })
 
 router.post(
   "enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise",
@@ -2332,10 +2246,8 @@ router.post(
   }
 )
 
-const secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema =
+  z.object({ enterprise: z.coerce.string() })
 
 router.get(
   "secretScanningGetSecurityAnalysisSettingsForEnterprise",
@@ -2361,19 +2273,21 @@ router.get(
   }
 )
 
-const secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema =
+  z.object({ enterprise: z.coerce.string() })
 
-const secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema = joi
-  .object()
-  .keys({
-    advanced_security_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_push_protection_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_push_protection_custom_link: joi.string(),
+const secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema = z
+  .object({
+    advanced_security_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    secret_scanning_enabled_for_new_repositories: z.coerce.boolean().optional(),
+    secret_scanning_push_protection_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    secret_scanning_push_protection_custom_link: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "secretScanningPatchSecurityAnalysisSettingsForEnterprise",
@@ -2402,28 +2316,24 @@ router.patch(
   }
 )
 
-const dependabotListAlertsForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const dependabotListAlertsForEnterpriseParamSchema = z.object({
+  enterprise: z.coerce.string(),
+})
 
-const dependabotListAlertsForEnterpriseQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    severity: joi.string(),
-    ecosystem: joi.string(),
-    package: joi.string(),
-    scope: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    before: joi.string(),
-    after: joi.string(),
-    first: joi.number(),
-    last: joi.number(),
-    per_page: joi.number(),
-  })
-  .required()
+const dependabotListAlertsForEnterpriseQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  severity: z.coerce.string().optional(),
+  ecosystem: z.coerce.string().optional(),
+  package: z.coerce.string().optional(),
+  scope: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+  first: z.coerce.number().optional(),
+  last: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListAlertsForEnterprise",
@@ -2452,24 +2362,20 @@ router.get(
   }
 )
 
-const secretScanningListAlertsForEnterpriseParamSchema = joi
-  .object()
-  .keys({ enterprise: joi.string().required() })
-  .required()
+const secretScanningListAlertsForEnterpriseParamSchema = z.object({
+  enterprise: z.coerce.string(),
+})
 
-const secretScanningListAlertsForEnterpriseQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    secret_type: joi.string(),
-    resolution: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    before: joi.string(),
-    after: joi.string(),
-  })
-  .required()
+const secretScanningListAlertsForEnterpriseQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  secret_type: z.coerce.string().optional(),
+  resolution: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+})
 
 router.get(
   "secretScanningListAlertsForEnterprise",
@@ -2498,14 +2404,12 @@ router.get(
   }
 )
 
-const secretScanningPostSecurityProductEnablementForEnterpriseParamSchema = joi
-  .object()
-  .keys({
-    enterprise: joi.string().required(),
-    security_product: joi.string().required(),
-    enablement: joi.string().required(),
+const secretScanningPostSecurityProductEnablementForEnterpriseParamSchema =
+  z.object({
+    enterprise: z.coerce.string(),
+    security_product: z.coerce.string(),
+    enablement: z.coerce.string(),
   })
-  .required()
 
 router.post(
   "secretScanningPostSecurityProductEnablementForEnterprise",
@@ -2531,10 +2435,10 @@ router.post(
   }
 )
 
-const activityListPublicEventsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListPublicEventsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListPublicEvents",
@@ -2570,10 +2474,11 @@ router.get(
   }
 )
 
-const gistsListQuerySchema = joi
-  .object()
-  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListQuerySchema = z.object({
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsList",
@@ -2590,14 +2495,11 @@ router.get(
   }
 )
 
-const gistsCreateBodySchema = joi
-  .object()
-  .keys({
-    description: joi.string(),
-    files: joi.object().keys({}).required(),
-    public: joi.object().keys({}),
-  })
-  .required()
+const gistsCreateBodySchema = z.object({
+  description: z.coerce.string().optional(),
+  files: z.object({}),
+  public: z.object({}).optional(),
+})
 
 router.post(
   "gistsCreate",
@@ -2617,10 +2519,11 @@ router.post(
   }
 )
 
-const gistsListPublicQuerySchema = joi
-  .object()
-  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListPublicQuerySchema = z.object({
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListPublic",
@@ -2642,10 +2545,11 @@ router.get(
   }
 )
 
-const gistsListStarredQuerySchema = joi
-  .object()
-  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListStarredQuerySchema = z.object({
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListStarred",
@@ -2667,10 +2571,7 @@ router.get(
   }
 )
 
-const gistsGetParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsGetParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.get(
   "gistsGet",
@@ -2687,15 +2588,12 @@ router.get(
   }
 )
 
-const gistsUpdateParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsUpdateParamSchema = z.object({ gist_id: z.coerce.string() })
 
-const gistsUpdateBodySchema = joi
-  .object()
-  .keys({ description: joi.string(), files: joi.object().keys({}) })
-  .required()
+const gistsUpdateBodySchema = z.object({
+  description: z.coerce.string().optional(),
+  files: z.object({}).optional(),
+})
 
 router.patch(
   "gistsUpdate",
@@ -2716,10 +2614,7 @@ router.patch(
   }
 )
 
-const gistsDeleteParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsDeleteParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.delete(
   "gistsDelete",
@@ -2739,15 +2634,12 @@ router.delete(
   }
 )
 
-const gistsListCommentsParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsListCommentsParamSchema = z.object({ gist_id: z.coerce.string() })
 
-const gistsListCommentsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListCommentsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListComments",
@@ -2776,15 +2668,9 @@ router.get(
   }
 )
 
-const gistsCreateCommentParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsCreateCommentParamSchema = z.object({ gist_id: z.coerce.string() })
 
-const gistsCreateCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const gistsCreateCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.post(
   "gistsCreateComment",
@@ -2813,13 +2699,10 @@ router.post(
   }
 )
 
-const gistsGetCommentParamSchema = joi
-  .object()
-  .keys({
-    gist_id: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const gistsGetCommentParamSchema = z.object({
+  gist_id: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.get(
   "gistsGetComment",
@@ -2841,18 +2724,12 @@ router.get(
   }
 )
 
-const gistsUpdateCommentParamSchema = joi
-  .object()
-  .keys({
-    gist_id: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const gistsUpdateCommentParamSchema = z.object({
+  gist_id: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const gistsUpdateCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const gistsUpdateCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.patch(
   "gistsUpdateComment",
@@ -2881,13 +2758,10 @@ router.patch(
   }
 )
 
-const gistsDeleteCommentParamSchema = joi
-  .object()
-  .keys({
-    gist_id: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const gistsDeleteCommentParamSchema = z.object({
+  gist_id: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.delete(
   "gistsDeleteComment",
@@ -2909,15 +2783,12 @@ router.delete(
   }
 )
 
-const gistsListCommitsParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsListCommitsParamSchema = z.object({ gist_id: z.coerce.string() })
 
-const gistsListCommitsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListCommitsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListCommits",
@@ -2946,15 +2817,12 @@ router.get(
   }
 )
 
-const gistsListForksParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsListForksParamSchema = z.object({ gist_id: z.coerce.string() })
 
-const gistsListForksQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListForksQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListForks",
@@ -2983,10 +2851,7 @@ router.get(
   }
 )
 
-const gistsForkParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsForkParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.post(
   "gistsFork",
@@ -3003,10 +2868,7 @@ router.post(
   }
 )
 
-const gistsCheckIsStarredParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsCheckIsStarredParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.get(
   "gistsCheckIsStarred",
@@ -3028,10 +2890,7 @@ router.get(
   }
 )
 
-const gistsStarParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsStarParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.put(
   "gistsStar",
@@ -3048,10 +2907,7 @@ router.put(
   }
 )
 
-const gistsUnstarParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required() })
-  .required()
+const gistsUnstarParamSchema = z.object({ gist_id: z.coerce.string() })
 
 router.delete(
   "gistsUnstar",
@@ -3071,10 +2927,10 @@ router.delete(
   }
 )
 
-const gistsGetRevisionParamSchema = joi
-  .object()
-  .keys({ gist_id: joi.string().required(), sha: joi.string().required() })
-  .required()
+const gistsGetRevisionParamSchema = z.object({
+  gist_id: z.coerce.string(),
+  sha: z.coerce.string(),
+})
 
 router.get(
   "gistsGetRevision",
@@ -3110,10 +2966,7 @@ router.get(
   }
 )
 
-const gitignoreGetTemplateParamSchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const gitignoreGetTemplateParamSchema = z.object({ name: z.coerce.string() })
 
 router.get(
   "gitignoreGetTemplate",
@@ -3135,10 +2988,10 @@ router.get(
   }
 )
 
-const appsListReposAccessibleToInstallationQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListReposAccessibleToInstallationQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListReposAccessibleToInstallation",
@@ -3178,23 +3031,20 @@ router.delete(
   }
 )
 
-const issuesListQuerySchema = joi
-  .object()
-  .keys({
-    filter: joi.string(),
-    state: joi.string(),
-    labels: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    collab: joi.boolean(),
-    orgs: joi.boolean(),
-    owned: joi.boolean(),
-    pulls: joi.boolean(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  labels: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  collab: z.coerce.boolean().optional(),
+  orgs: z.coerce.boolean().optional(),
+  owned: z.coerce.boolean().optional(),
+  pulls: z.coerce.boolean().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesList",
@@ -3214,10 +3064,11 @@ router.get(
   }
 )
 
-const licensesGetAllCommonlyUsedQuerySchema = joi
-  .object()
-  .keys({ featured: joi.boolean(), per_page: joi.number(), page: joi.number() })
-  .required()
+const licensesGetAllCommonlyUsedQuerySchema = z.object({
+  featured: z.coerce.boolean().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "licensesGetAllCommonlyUsed",
@@ -3239,10 +3090,7 @@ router.get(
   }
 )
 
-const licensesGetParamSchema = joi
-  .object()
-  .keys({ license: joi.string().required() })
-  .required()
+const licensesGetParamSchema = z.object({ license: z.coerce.string() })
 
 router.get(
   "licensesGet",
@@ -3262,14 +3110,11 @@ router.get(
   }
 )
 
-const markdownRenderBodySchema = joi
-  .object()
-  .keys({
-    text: joi.string().required(),
-    mode: joi.string(),
-    context: joi.string(),
-  })
-  .required()
+const markdownRenderBodySchema = z.object({
+  text: z.coerce.string(),
+  mode: z.coerce.string().optional(),
+  context: z.coerce.string().optional(),
+})
 
 router.post(
   "markdownRender",
@@ -3289,7 +3134,7 @@ router.post(
   }
 )
 
-const markdownRenderRawBodySchema = joi.string()
+const markdownRenderRawBodySchema = z.coerce.string().optional()
 
 router.post(
   "markdownRenderRaw",
@@ -3311,10 +3156,9 @@ router.post(
   }
 )
 
-const appsGetSubscriptionPlanForAccountParamSchema = joi
-  .object()
-  .keys({ account_id: joi.number().required() })
-  .required()
+const appsGetSubscriptionPlanForAccountParamSchema = z.object({
+  account_id: z.coerce.number(),
+})
 
 router.get(
   "appsGetSubscriptionPlanForAccount",
@@ -3340,10 +3184,10 @@ router.get(
   }
 )
 
-const appsListPlansQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListPlansQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListPlans",
@@ -3363,20 +3207,16 @@ router.get(
   }
 )
 
-const appsListAccountsForPlanParamSchema = joi
-  .object()
-  .keys({ plan_id: joi.number().required() })
-  .required()
+const appsListAccountsForPlanParamSchema = z.object({
+  plan_id: z.coerce.number(),
+})
 
-const appsListAccountsForPlanQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const appsListAccountsForPlanQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListAccountsForPlan",
@@ -3405,10 +3245,9 @@ router.get(
   }
 )
 
-const appsGetSubscriptionPlanForAccountStubbedParamSchema = joi
-  .object()
-  .keys({ account_id: joi.number().required() })
-  .required()
+const appsGetSubscriptionPlanForAccountStubbedParamSchema = z.object({
+  account_id: z.coerce.number(),
+})
 
 router.get(
   "appsGetSubscriptionPlanForAccountStubbed",
@@ -3434,10 +3273,10 @@ router.get(
   }
 )
 
-const appsListPlansStubbedQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListPlansStubbedQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListPlansStubbed",
@@ -3459,20 +3298,16 @@ router.get(
   }
 )
 
-const appsListAccountsForPlanStubbedParamSchema = joi
-  .object()
-  .keys({ plan_id: joi.number().required() })
-  .required()
+const appsListAccountsForPlanStubbedParamSchema = z.object({
+  plan_id: z.coerce.number(),
+})
 
-const appsListAccountsForPlanStubbedQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const appsListAccountsForPlanStubbedQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListAccountsForPlanStubbed",
@@ -3515,15 +3350,15 @@ router.get(
   }
 )
 
-const activityListPublicEventsForRepoNetworkParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityListPublicEventsForRepoNetworkParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityListPublicEventsForRepoNetworkQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListPublicEventsForRepoNetworkQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListPublicEventsForRepoNetwork",
@@ -3552,17 +3387,14 @@ router.get(
   }
 )
 
-const activityListNotificationsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    all: joi.boolean(),
-    participating: joi.boolean(),
-    since: joi.string(),
-    before: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-  })
-  .required()
+const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
+  all: z.coerce.boolean().optional(),
+  participating: z.coerce.boolean().optional(),
+  since: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListNotificationsForAuthenticatedUser",
@@ -3588,9 +3420,12 @@ router.get(
   }
 )
 
-const activityMarkNotificationsAsReadBodySchema = joi
-  .object()
-  .keys({ last_read_at: joi.string(), read: joi.boolean() })
+const activityMarkNotificationsAsReadBodySchema = z
+  .object({
+    last_read_at: z.coerce.string().optional(),
+    read: z.coerce.boolean().optional(),
+  })
+  .optional()
 
 router.put(
   "activityMarkNotificationsAsRead",
@@ -3612,10 +3447,7 @@ router.put(
   }
 )
 
-const activityGetThreadParamSchema = joi
-  .object()
-  .keys({ thread_id: joi.number().required() })
-  .required()
+const activityGetThreadParamSchema = z.object({ thread_id: z.coerce.number() })
 
 router.get(
   "activityGetThread",
@@ -3637,10 +3469,9 @@ router.get(
   }
 )
 
-const activityMarkThreadAsReadParamSchema = joi
-  .object()
-  .keys({ thread_id: joi.number().required() })
-  .required()
+const activityMarkThreadAsReadParamSchema = z.object({
+  thread_id: z.coerce.number(),
+})
 
 router.patch(
   "activityMarkThreadAsRead",
@@ -3662,10 +3493,9 @@ router.patch(
   }
 )
 
-const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ thread_id: joi.number().required() })
-  .required()
+const activityGetThreadSubscriptionForAuthenticatedUserParamSchema = z.object({
+  thread_id: z.coerce.number(),
+})
 
 router.get(
   "activityGetThreadSubscriptionForAuthenticatedUser",
@@ -3691,14 +3521,13 @@ router.get(
   }
 )
 
-const activitySetThreadSubscriptionParamSchema = joi
-  .object()
-  .keys({ thread_id: joi.number().required() })
-  .required()
+const activitySetThreadSubscriptionParamSchema = z.object({
+  thread_id: z.coerce.number(),
+})
 
-const activitySetThreadSubscriptionBodySchema = joi
-  .object()
-  .keys({ ignored: joi.boolean() })
+const activitySetThreadSubscriptionBodySchema = z
+  .object({ ignored: z.coerce.boolean().optional() })
+  .optional()
 
 router.put(
   "activitySetThreadSubscription",
@@ -3727,10 +3556,9 @@ router.put(
   }
 )
 
-const activityDeleteThreadSubscriptionParamSchema = joi
-  .object()
-  .keys({ thread_id: joi.number().required() })
-  .required()
+const activityDeleteThreadSubscriptionParamSchema = z.object({
+  thread_id: z.coerce.number(),
+})
 
 router.delete(
   "activityDeleteThreadSubscription",
@@ -3756,10 +3584,7 @@ router.delete(
   }
 )
 
-const metaGetOctocatQuerySchema = joi
-  .object()
-  .keys({ s: joi.string() })
-  .required()
+const metaGetOctocatQuerySchema = z.object({ s: z.coerce.string().optional() })
 
 router.get(
   "metaGetOctocat",
@@ -3781,10 +3606,10 @@ router.get(
   }
 )
 
-const orgsListQuerySchema = joi
-  .object()
-  .keys({ since: joi.number(), per_page: joi.number() })
-  .required()
+const orgsListQuerySchema = z.object({
+  since: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsList",
@@ -3801,10 +3626,7 @@ router.get(
   }
 )
 
-const orgsGetParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsGetParamSchema = z.object({ org: z.coerce.string() })
 
 router.get(
   "orgsGet",
@@ -3821,44 +3643,53 @@ router.get(
   }
 )
 
-const orgsUpdateParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsUpdateParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsUpdateBodySchema = joi
-  .object()
-  .keys({
-    billing_email: joi.string(),
-    company: joi.string(),
-    email: joi.string(),
-    twitter_username: joi.string(),
-    location: joi.string(),
-    name: joi.string(),
-    description: joi.string(),
-    has_organization_projects: joi.boolean(),
-    has_repository_projects: joi.boolean(),
-    default_repository_permission: joi.string(),
-    members_can_create_repositories: joi.boolean(),
-    members_can_create_internal_repositories: joi.boolean(),
-    members_can_create_private_repositories: joi.boolean(),
-    members_can_create_public_repositories: joi.boolean(),
-    members_allowed_repository_creation_type: joi.string(),
-    members_can_create_pages: joi.boolean(),
-    members_can_create_public_pages: joi.boolean(),
-    members_can_create_private_pages: joi.boolean(),
-    members_can_fork_private_repositories: joi.boolean(),
-    web_commit_signoff_required: joi.boolean(),
-    blog: joi.string(),
-    advanced_security_enabled_for_new_repositories: joi.boolean(),
-    dependabot_alerts_enabled_for_new_repositories: joi.boolean(),
-    dependabot_security_updates_enabled_for_new_repositories: joi.boolean(),
-    dependency_graph_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_push_protection_enabled_for_new_repositories: joi.boolean(),
-    secret_scanning_push_protection_custom_link_enabled: joi.boolean(),
-    secret_scanning_push_protection_custom_link: joi.string(),
+const orgsUpdateBodySchema = z
+  .object({
+    billing_email: z.coerce.string().optional(),
+    company: z.coerce.string().optional(),
+    email: z.coerce.string().optional(),
+    twitter_username: z.coerce.string().optional(),
+    location: z.coerce.string().optional(),
+    name: z.coerce.string().optional(),
+    description: z.coerce.string().optional(),
+    has_organization_projects: z.coerce.boolean().optional(),
+    has_repository_projects: z.coerce.boolean().optional(),
+    default_repository_permission: z.coerce.string().optional(),
+    members_can_create_repositories: z.coerce.boolean().optional(),
+    members_can_create_internal_repositories: z.coerce.boolean().optional(),
+    members_can_create_private_repositories: z.coerce.boolean().optional(),
+    members_can_create_public_repositories: z.coerce.boolean().optional(),
+    members_allowed_repository_creation_type: z.coerce.string().optional(),
+    members_can_create_pages: z.coerce.boolean().optional(),
+    members_can_create_public_pages: z.coerce.boolean().optional(),
+    members_can_create_private_pages: z.coerce.boolean().optional(),
+    members_can_fork_private_repositories: z.coerce.boolean().optional(),
+    web_commit_signoff_required: z.coerce.boolean().optional(),
+    blog: z.coerce.string().optional(),
+    advanced_security_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    dependabot_alerts_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    dependabot_security_updates_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    dependency_graph_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    secret_scanning_enabled_for_new_repositories: z.coerce.boolean().optional(),
+    secret_scanning_push_protection_enabled_for_new_repositories: z.coerce
+      .boolean()
+      .optional(),
+    secret_scanning_push_protection_custom_link_enabled: z.coerce
+      .boolean()
+      .optional(),
+    secret_scanning_push_protection_custom_link: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "orgsUpdate",
@@ -3879,10 +3710,9 @@ router.patch(
   }
 )
 
-const actionsGetActionsCacheUsageForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsGetActionsCacheUsageForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "actionsGetActionsCacheUsageForOrg",
@@ -3908,15 +3738,14 @@ router.get(
   }
 )
 
-const actionsGetActionsCacheUsageByRepoForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsGetActionsCacheUsageByRepoForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsGetActionsCacheUsageByRepoForOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsGetActionsCacheUsageByRepoForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsGetActionsCacheUsageByRepoForOrg",
@@ -3945,10 +3774,9 @@ router.get(
   }
 )
 
-const oidcGetOidcCustomSubTemplateForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const oidcGetOidcCustomSubTemplateForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "oidcGetOidcCustomSubTemplateForOrg",
@@ -3974,15 +3802,13 @@ router.get(
   }
 )
 
-const oidcUpdateOidcCustomSubTemplateForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const oidcUpdateOidcCustomSubTemplateForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = joi
-  .object()
-  .keys({ include_claim_keys: joi.array().items(joi.string()).required() })
-  .required()
+const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = z.object({
+  include_claim_keys: z.array(z.coerce.string().optional()),
+})
 
 router.put(
   "oidcUpdateOidcCustomSubTemplateForOrg",
@@ -4011,10 +3837,9 @@ router.put(
   }
 )
 
-const actionsGetGithubActionsPermissionsOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsGetGithubActionsPermissionsOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "actionsGetGithubActionsPermissionsOrganization",
@@ -4040,18 +3865,14 @@ router.get(
   }
 )
 
-const actionsSetGithubActionsPermissionsOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsSetGithubActionsPermissionsOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsSetGithubActionsPermissionsOrganizationBodySchema = joi
-  .object()
-  .keys({
-    enabled_repositories: joi.string().required(),
-    allowed_actions: joi.string(),
-  })
-  .required()
+const actionsSetGithubActionsPermissionsOrganizationBodySchema = z.object({
+  enabled_repositories: z.coerce.string(),
+  allowed_actions: z.coerce.string().optional(),
+})
 
 router.put(
   "actionsSetGithubActionsPermissionsOrganization",
@@ -4081,10 +3902,13 @@ router.put(
 )
 
 const actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
-  joi.object().keys({ org: joi.string().required() }).required()
+  z.object({ org: z.coerce.string() })
 
 const actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema =
-  joi.object().keys({ per_page: joi.number(), page: joi.number() }).required()
+  z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
 
 router.get(
   "actionsListSelectedRepositoriesEnabledGithubActionsOrganization",
@@ -4114,15 +3938,10 @@ router.get(
 )
 
 const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
-  joi.object().keys({ org: joi.string().required() }).required()
+  z.object({ org: z.coerce.string() })
 
 const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
-  joi
-    .object()
-    .keys({
-      selected_repository_ids: joi.array().items(joi.number()).required(),
-    })
-    .required()
+  z.object({ selected_repository_ids: z.array(z.coerce.number().optional()) })
 
 router.put(
   "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization",
@@ -4151,13 +3970,8 @@ router.put(
   }
 )
 
-const actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema =
+  z.object({ org: z.coerce.string(), repository_id: z.coerce.number() })
 
 router.put(
   "actionsEnableSelectedRepositoryGithubActionsOrganization",
@@ -4183,13 +3997,8 @@ router.put(
   }
 )
 
-const actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema =
+  z.object({ org: z.coerce.string(), repository_id: z.coerce.number() })
 
 router.delete(
   "actionsDisableSelectedRepositoryGithubActionsOrganization",
@@ -4215,10 +4024,9 @@ router.delete(
   }
 )
 
-const actionsGetAllowedActionsOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsGetAllowedActionsOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "actionsGetAllowedActionsOrganization",
@@ -4244,18 +4052,17 @@ router.get(
   }
 )
 
-const actionsSetAllowedActionsOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsSetAllowedActionsOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsSetAllowedActionsOrganizationBodySchema = joi
-  .object()
-  .keys({
-    github_owned_allowed: joi.boolean(),
-    verified_allowed: joi.boolean(),
-    patterns_allowed: joi.array().items(joi.string()),
+const actionsSetAllowedActionsOrganizationBodySchema = z
+  .object({
+    github_owned_allowed: z.coerce.boolean().optional(),
+    verified_allowed: z.coerce.boolean().optional(),
+    patterns_allowed: z.array(z.coerce.string().optional()).optional(),
   })
+  .optional()
 
 router.put(
   "actionsSetAllowedActionsOrganization",
@@ -4285,7 +4092,7 @@ router.put(
 )
 
 const actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
-  joi.object().keys({ org: joi.string().required() }).required()
+  z.object({ org: z.coerce.string() })
 
 router.get(
   "actionsGetGithubActionsDefaultWorkflowPermissionsOrganization",
@@ -4312,15 +4119,15 @@ router.get(
 )
 
 const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
-  joi.object().keys({ org: joi.string().required() }).required()
+  z.object({ org: z.coerce.string() })
 
 const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
-  joi
-    .object()
-    .keys({
-      default_workflow_permissions: joi.string(),
-      can_approve_pull_request_reviews: joi.boolean(),
+  z
+    .object({
+      default_workflow_permissions: z.coerce.string().optional(),
+      can_approve_pull_request_reviews: z.coerce.boolean().optional(),
     })
+    .optional()
 
 router.put(
   "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization",
@@ -4349,15 +4156,14 @@ router.put(
   }
 )
 
-const actionsListRequiredWorkflowsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListRequiredWorkflowsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsListRequiredWorkflowsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListRequiredWorkflowsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRequiredWorkflows",
@@ -4386,20 +4192,16 @@ router.get(
   }
 )
 
-const actionsCreateRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsCreateRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsCreateRequiredWorkflowBodySchema = joi
-  .object()
-  .keys({
-    workflow_file_path: joi.string().required(),
-    repository_id: joi.string().required(),
-    scope: joi.string(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const actionsCreateRequiredWorkflowBodySchema = z.object({
+  workflow_file_path: z.coerce.string(),
+  repository_id: z.coerce.string(),
+  scope: z.coerce.string().optional(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.post(
   "actionsCreateRequiredWorkflow",
@@ -4428,13 +4230,10 @@ router.post(
   }
 )
 
-const actionsGetRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-  })
-  .required()
+const actionsGetRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetRequiredWorkflow",
@@ -4456,23 +4255,17 @@ router.get(
   }
 )
 
-const actionsUpdateRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-  })
-  .required()
+const actionsUpdateRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+})
 
-const actionsUpdateRequiredWorkflowBodySchema = joi
-  .object()
-  .keys({
-    workflow_file_path: joi.string(),
-    repository_id: joi.string(),
-    scope: joi.string(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const actionsUpdateRequiredWorkflowBodySchema = z.object({
+  workflow_file_path: z.coerce.string().optional(),
+  repository_id: z.coerce.string().optional(),
+  scope: z.coerce.string().optional(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.patch(
   "actionsUpdateRequiredWorkflow",
@@ -4501,13 +4294,10 @@ router.patch(
   }
 )
 
-const actionsDeleteRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteRequiredWorkflow",
@@ -4529,13 +4319,10 @@ router.delete(
   }
 )
 
-const actionsListSelectedRepositoriesRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-  })
-  .required()
+const actionsListSelectedRepositoriesRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+})
 
 router.get(
   "actionsListSelectedRepositoriesRequiredWorkflow",
@@ -4561,18 +4348,14 @@ router.get(
   }
 )
 
-const actionsSetSelectedReposToRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-  })
-  .required()
+const actionsSetSelectedReposToRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+})
 
-const actionsSetSelectedReposToRequiredWorkflowBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const actionsSetSelectedReposToRequiredWorkflowBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "actionsSetSelectedReposToRequiredWorkflow",
@@ -4601,14 +4384,11 @@ router.put(
   }
 )
 
-const actionsAddSelectedRepoToRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsAddSelectedRepoToRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "actionsAddSelectedRepoToRequiredWorkflow",
@@ -4634,14 +4414,11 @@ router.put(
   }
 )
 
-const actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    required_workflow_id: joi.number().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  required_workflow_id: z.coerce.number(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsRemoveSelectedRepoFromRequiredWorkflow",
@@ -4667,19 +4444,15 @@ router.delete(
   }
 )
 
-const actionsListSelfHostedRunnerGroupsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListSelfHostedRunnerGroupsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsListSelfHostedRunnerGroupsForOrgQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    visible_to_repository: joi.string(),
-  })
-  .required()
+const actionsListSelfHostedRunnerGroupsForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  visible_to_repository: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsListSelfHostedRunnerGroupsForOrg",
@@ -4708,23 +4481,19 @@ router.get(
   }
 )
 
-const actionsCreateSelfHostedRunnerGroupForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsCreateSelfHostedRunnerGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    visibility: joi.string(),
-    selected_repository_ids: joi.array().items(joi.number()),
-    runners: joi.array().items(joi.number()),
-    allows_public_repositories: joi.boolean(),
-    restricted_to_workflows: joi.boolean(),
-    selected_workflows: joi.array().items(joi.string()),
-  })
-  .required()
+const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+  name: z.coerce.string(),
+  visibility: z.coerce.string().optional(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+  runners: z.array(z.coerce.number().optional()).optional(),
+  allows_public_repositories: z.coerce.boolean().optional(),
+  restricted_to_workflows: z.coerce.boolean().optional(),
+  selected_workflows: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.post(
   "actionsCreateSelfHostedRunnerGroupForOrg",
@@ -4753,13 +4522,10 @@ router.post(
   }
 )
 
-const actionsGetSelfHostedRunnerGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsGetSelfHostedRunnerGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetSelfHostedRunnerGroupForOrg",
@@ -4785,24 +4551,18 @@ router.get(
   }
 )
 
-const actionsUpdateSelfHostedRunnerGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsUpdateSelfHostedRunnerGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
-const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    visibility: joi.string(),
-    allows_public_repositories: joi.boolean(),
-    restricted_to_workflows: joi.boolean(),
-    selected_workflows: joi.array().items(joi.string()),
-  })
-  .required()
+const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+  name: z.coerce.string(),
+  visibility: z.coerce.string().optional(),
+  allows_public_repositories: z.coerce.boolean().optional(),
+  restricted_to_workflows: z.coerce.boolean().optional(),
+  selected_workflows: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.patch(
   "actionsUpdateSelfHostedRunnerGroupForOrg",
@@ -4831,13 +4591,10 @@ router.patch(
   }
 )
 
-const actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteSelfHostedRunnerGroupFromOrg",
@@ -4863,18 +4620,15 @@ router.delete(
   }
 )
 
-const actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
-const actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRepoAccessToSelfHostedRunnerGroupInOrg",
@@ -4903,18 +4657,14 @@ router.get(
   }
 )
 
-const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
-const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg",
@@ -4943,14 +4693,13 @@ router.put(
   }
 )
 
-const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object(
+  {
+    org: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
+    repository_id: z.coerce.number(),
+  }
+)
 
 router.delete(
   "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg",
@@ -4976,18 +4725,15 @@ router.delete(
   }
 )
 
-const actionsListSelfHostedRunnersInGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsListSelfHostedRunnersInGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
-const actionsListSelfHostedRunnersInGroupForOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListSelfHostedRunnersInGroupForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListSelfHostedRunnersInGroupForOrg",
@@ -5016,18 +4762,14 @@ router.get(
   }
 )
 
-const actionsSetSelfHostedRunnersInGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-  })
-  .required()
+const actionsSetSelfHostedRunnersInGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+})
 
-const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = joi
-  .object()
-  .keys({ runners: joi.array().items(joi.number()).required() })
-  .required()
+const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = z.object({
+  runners: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "actionsSetSelfHostedRunnersInGroupForOrg",
@@ -5056,14 +4798,11 @@ router.put(
   }
 )
 
-const actionsAddSelfHostedRunnerToGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsAddSelfHostedRunnerToGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+  runner_id: z.coerce.number(),
+})
 
 router.put(
   "actionsAddSelfHostedRunnerToGroupForOrg",
@@ -5089,14 +4828,11 @@ router.put(
   }
 )
 
-const actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_group_id: joi.number().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_group_id: z.coerce.number(),
+  runner_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsRemoveSelfHostedRunnerFromGroupForOrg",
@@ -5122,15 +4858,14 @@ router.delete(
   }
 )
 
-const actionsListSelfHostedRunnersForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListSelfHostedRunnersForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const actionsListSelfHostedRunnersForOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListSelfHostedRunnersForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListSelfHostedRunnersForOrg",
@@ -5159,10 +4894,9 @@ router.get(
   }
 )
 
-const actionsListRunnerApplicationsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListRunnerApplicationsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "actionsListRunnerApplicationsForOrg",
@@ -5188,10 +4922,9 @@ router.get(
   }
 )
 
-const actionsCreateRegistrationTokenForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsCreateRegistrationTokenForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateRegistrationTokenForOrg",
@@ -5217,10 +4950,9 @@ router.post(
   }
 )
 
-const actionsCreateRemoveTokenForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsCreateRemoveTokenForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateRemoveTokenForOrg",
@@ -5242,10 +4974,10 @@ router.post(
   }
 )
 
-const actionsGetSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsGetSelfHostedRunnerForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetSelfHostedRunnerForOrg",
@@ -5271,10 +5003,10 @@ router.get(
   }
 )
 
-const actionsDeleteSelfHostedRunnerFromOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsDeleteSelfHostedRunnerFromOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromOrg",
@@ -5300,10 +5032,10 @@ router.delete(
   }
 )
 
-const actionsListLabelsForSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsListLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.get(
   "actionsListLabelsForSelfHostedRunnerForOrg",
@@ -5329,15 +5061,14 @@ router.get(
   }
 )
 
-const actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
-const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = joi
-  .object()
-  .keys({ labels: joi.array().items(joi.string()).required() })
-  .required()
+const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = z.object({
+  labels: z.array(z.coerce.string().optional()),
+})
 
 router.post(
   "actionsAddCustomLabelsToSelfHostedRunnerForOrg",
@@ -5366,15 +5097,14 @@ router.post(
   }
 )
 
-const actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
-const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = joi
-  .object()
-  .keys({ labels: joi.array().items(joi.string()).required() })
-  .required()
+const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = z.object({
+  labels: z.array(z.coerce.string().optional()),
+})
 
 router.put(
   "actionsSetCustomLabelsForSelfHostedRunnerForOrg",
@@ -5403,10 +5133,8 @@ router.put(
   }
 )
 
-const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), runner_id: joi.number().required() })
-  .required()
+const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema =
+  z.object({ org: z.coerce.string(), runner_id: z.coerce.number() })
 
 router.delete(
   "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg",
@@ -5432,14 +5160,11 @@ router.delete(
   }
 )
 
-const actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    runner_id: joi.number().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  runner_id: z.coerce.number(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg",
@@ -5465,15 +5190,12 @@ router.delete(
   }
 )
 
-const actionsListOrgSecretsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListOrgSecretsParamSchema = z.object({ org: z.coerce.string() })
 
-const actionsListOrgSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListOrgSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListOrgSecrets",
@@ -5502,10 +5224,7 @@ router.get(
   }
 )
 
-const actionsGetOrgPublicKeyParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsGetOrgPublicKeyParamSchema = z.object({ org: z.coerce.string() })
 
 router.get(
   "actionsGetOrgPublicKey",
@@ -5527,10 +5246,10 @@ router.get(
   }
 )
 
-const actionsGetOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const actionsGetOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetOrgSecret",
@@ -5552,20 +5271,17 @@ router.get(
   }
 )
 
-const actionsCreateOrUpdateOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const actionsCreateOrUpdateOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const actionsCreateOrUpdateOrgSecretBodySchema = joi
-  .object()
-  .keys({
-    encrypted_value: joi.string(),
-    key_id: joi.string(),
-    visibility: joi.string().required(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const actionsCreateOrUpdateOrgSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+  visibility: z.coerce.string(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.put(
   "actionsCreateOrUpdateOrgSecret",
@@ -5594,10 +5310,10 @@ router.put(
   }
 )
 
-const actionsDeleteOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const actionsDeleteOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteOrgSecret",
@@ -5619,15 +5335,15 @@ router.delete(
   }
 )
 
-const actionsListSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const actionsListSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const actionsListSelectedReposForOrgSecretQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const actionsListSelectedReposForOrgSecretQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListSelectedReposForOrgSecret",
@@ -5656,15 +5372,14 @@ router.get(
   }
 )
 
-const actionsSetSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const actionsSetSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const actionsSetSelectedReposForOrgSecretBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const actionsSetSelectedReposForOrgSecretBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "actionsSetSelectedReposForOrgSecret",
@@ -5693,14 +5408,11 @@ router.put(
   }
 )
 
-const actionsAddSelectedRepoToOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsAddSelectedRepoToOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "actionsAddSelectedRepoToOrgSecret",
@@ -5726,14 +5438,11 @@ router.put(
   }
 )
 
-const actionsRemoveSelectedRepoFromOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsRemoveSelectedRepoFromOrgSecret",
@@ -5759,15 +5468,12 @@ router.delete(
   }
 )
 
-const actionsListOrgVariablesParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsListOrgVariablesParamSchema = z.object({ org: z.coerce.string() })
 
-const actionsListOrgVariablesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListOrgVariablesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListOrgVariables",
@@ -5796,20 +5502,14 @@ router.get(
   }
 )
 
-const actionsCreateOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const actionsCreateOrgVariableParamSchema = z.object({ org: z.coerce.string() })
 
-const actionsCreateOrgVariableBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    value: joi.string().required(),
-    visibility: joi.string().required(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const actionsCreateOrgVariableBodySchema = z.object({
+  name: z.coerce.string(),
+  value: z.coerce.string(),
+  visibility: z.coerce.string(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.post(
   "actionsCreateOrgVariable",
@@ -5838,10 +5538,10 @@ router.post(
   }
 )
 
-const actionsGetOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), name: joi.string().required() })
-  .required()
+const actionsGetOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetOrgVariable",
@@ -5863,20 +5563,17 @@ router.get(
   }
 )
 
-const actionsUpdateOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), name: joi.string().required() })
-  .required()
+const actionsUpdateOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const actionsUpdateOrgVariableBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    value: joi.string(),
-    visibility: joi.string(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const actionsUpdateOrgVariableBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  value: z.coerce.string().optional(),
+  visibility: z.coerce.string().optional(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.patch(
   "actionsUpdateOrgVariable",
@@ -5905,10 +5602,10 @@ router.patch(
   }
 )
 
-const actionsDeleteOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), name: joi.string().required() })
-  .required()
+const actionsDeleteOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteOrgVariable",
@@ -5930,15 +5627,15 @@ router.delete(
   }
 )
 
-const actionsListSelectedReposForOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), name: joi.string().required() })
-  .required()
+const actionsListSelectedReposForOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const actionsListSelectedReposForOrgVariableQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const actionsListSelectedReposForOrgVariableQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListSelectedReposForOrgVariable",
@@ -5967,15 +5664,14 @@ router.get(
   }
 )
 
-const actionsSetSelectedReposForOrgVariableParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), name: joi.string().required() })
-  .required()
+const actionsSetSelectedReposForOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const actionsSetSelectedReposForOrgVariableBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const actionsSetSelectedReposForOrgVariableBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "actionsSetSelectedReposForOrgVariable",
@@ -6004,14 +5700,11 @@ router.put(
   }
 )
 
-const actionsAddSelectedRepoToOrgVariableParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsAddSelectedRepoToOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "actionsAddSelectedRepoToOrgVariable",
@@ -6037,14 +5730,11 @@ router.put(
   }
 )
 
-const actionsRemoveSelectedRepoFromOrgVariableParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const actionsRemoveSelectedRepoFromOrgVariableParamSchema = z.object({
+  org: z.coerce.string(),
+  name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsRemoveSelectedRepoFromOrgVariable",
@@ -6070,15 +5760,12 @@ router.delete(
   }
 )
 
-const orgsListBlockedUsersParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListBlockedUsersParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsListBlockedUsersQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListBlockedUsersQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListBlockedUsers",
@@ -6107,10 +5794,10 @@ router.get(
   }
 )
 
-const orgsCheckBlockedUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsCheckBlockedUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "orgsCheckBlockedUser",
@@ -6132,10 +5819,10 @@ router.get(
   }
 )
 
-const orgsBlockUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsBlockUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.put(
   "orgsBlockUser",
@@ -6155,10 +5842,10 @@ router.put(
   }
 )
 
-const orgsUnblockUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsUnblockUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "orgsUnblockUser",
@@ -6180,26 +5867,22 @@ router.delete(
   }
 )
 
-const codeScanningListAlertsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const codeScanningListAlertsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const codeScanningListAlertsForOrgQuerySchema = joi
-  .object()
-  .keys({
-    tool_name: joi.string(),
-    tool_guid: joi.string(),
-    before: joi.string(),
-    after: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    direction: joi.string(),
-    state: joi.string(),
-    sort: joi.string(),
-    severity: joi.string(),
-  })
-  .required()
+const codeScanningListAlertsForOrgQuerySchema = z.object({
+  tool_name: z.coerce.string().optional(),
+  tool_guid: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  direction: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  severity: z.coerce.string().optional(),
+})
 
 router.get(
   "codeScanningListAlertsForOrg",
@@ -6228,15 +5911,14 @@ router.get(
   }
 )
 
-const codespacesListInOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const codespacesListInOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const codespacesListInOrganizationQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesListInOrganizationQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListInOrganization",
@@ -6265,18 +5947,14 @@ router.get(
   }
 )
 
-const codespacesSetCodespacesBillingParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const codespacesSetCodespacesBillingParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const codespacesSetCodespacesBillingBodySchema = joi
-  .object()
-  .keys({
-    visibility: joi.string().required(),
-    selected_usernames: joi.array().items(joi.string()),
-  })
-  .required()
+const codespacesSetCodespacesBillingBodySchema = z.object({
+  visibility: z.coerce.string(),
+  selected_usernames: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.put(
   "codespacesSetCodespacesBilling",
@@ -6305,15 +5983,12 @@ router.put(
   }
 )
 
-const codespacesListOrgSecretsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const codespacesListOrgSecretsParamSchema = z.object({ org: z.coerce.string() })
 
-const codespacesListOrgSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesListOrgSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListOrgSecrets",
@@ -6342,10 +6017,9 @@ router.get(
   }
 )
 
-const codespacesGetOrgPublicKeyParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const codespacesGetOrgPublicKeyParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetOrgPublicKey",
@@ -6367,10 +6041,10 @@ router.get(
   }
 )
 
-const codespacesGetOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const codespacesGetOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetOrgSecret",
@@ -6392,20 +6066,17 @@ router.get(
   }
 )
 
-const codespacesCreateOrUpdateOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const codespacesCreateOrUpdateOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const codespacesCreateOrUpdateOrgSecretBodySchema = joi
-  .object()
-  .keys({
-    encrypted_value: joi.string(),
-    key_id: joi.string(),
-    visibility: joi.string().required(),
-    selected_repository_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const codespacesCreateOrUpdateOrgSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+  visibility: z.coerce.string(),
+  selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.put(
   "codespacesCreateOrUpdateOrgSecret",
@@ -6434,10 +6105,10 @@ router.put(
   }
 )
 
-const codespacesDeleteOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const codespacesDeleteOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "codespacesDeleteOrgSecret",
@@ -6459,15 +6130,15 @@ router.delete(
   }
 )
 
-const codespacesListSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const codespacesListSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const codespacesListSelectedReposForOrgSecretQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const codespacesListSelectedReposForOrgSecretQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListSelectedReposForOrgSecret",
@@ -6496,15 +6167,14 @@ router.get(
   }
 )
 
-const codespacesSetSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const codespacesSetSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const codespacesSetSelectedReposForOrgSecretBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const codespacesSetSelectedReposForOrgSecretBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "codespacesSetSelectedReposForOrgSecret",
@@ -6533,14 +6203,11 @@ router.put(
   }
 )
 
-const codespacesAddSelectedRepoToOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const codespacesAddSelectedRepoToOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "codespacesAddSelectedRepoToOrgSecret",
@@ -6566,14 +6233,11 @@ router.put(
   }
 )
 
-const codespacesRemoveSelectedRepoFromOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const codespacesRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "codespacesRemoveSelectedRepoFromOrgSecret",
@@ -6599,28 +6263,24 @@ router.delete(
   }
 )
 
-const dependabotListAlertsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const dependabotListAlertsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const dependabotListAlertsForOrgQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    severity: joi.string(),
-    ecosystem: joi.string(),
-    package: joi.string(),
-    scope: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    before: joi.string(),
-    after: joi.string(),
-    first: joi.number(),
-    last: joi.number(),
-    per_page: joi.number(),
-  })
-  .required()
+const dependabotListAlertsForOrgQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  severity: z.coerce.string().optional(),
+  ecosystem: z.coerce.string().optional(),
+  package: z.coerce.string().optional(),
+  scope: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+  first: z.coerce.number().optional(),
+  last: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListAlertsForOrg",
@@ -6649,15 +6309,12 @@ router.get(
   }
 )
 
-const dependabotListOrgSecretsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const dependabotListOrgSecretsParamSchema = z.object({ org: z.coerce.string() })
 
-const dependabotListOrgSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const dependabotListOrgSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListOrgSecrets",
@@ -6686,10 +6343,9 @@ router.get(
   }
 )
 
-const dependabotGetOrgPublicKeyParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const dependabotGetOrgPublicKeyParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "dependabotGetOrgPublicKey",
@@ -6711,10 +6367,10 @@ router.get(
   }
 )
 
-const dependabotGetOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const dependabotGetOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "dependabotGetOrgSecret",
@@ -6736,20 +6392,17 @@ router.get(
   }
 )
 
-const dependabotCreateOrUpdateOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const dependabotCreateOrUpdateOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const dependabotCreateOrUpdateOrgSecretBodySchema = joi
-  .object()
-  .keys({
-    encrypted_value: joi.string(),
-    key_id: joi.string(),
-    visibility: joi.string().required(),
-    selected_repository_ids: joi.array().items(joi.string()),
-  })
-  .required()
+const dependabotCreateOrUpdateOrgSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+  visibility: z.coerce.string(),
+  selected_repository_ids: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.put(
   "dependabotCreateOrUpdateOrgSecret",
@@ -6778,10 +6431,10 @@ router.put(
   }
 )
 
-const dependabotDeleteOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const dependabotDeleteOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "dependabotDeleteOrgSecret",
@@ -6803,15 +6456,15 @@ router.delete(
   }
 )
 
-const dependabotListSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const dependabotListSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const dependabotListSelectedReposForOrgSecretQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const dependabotListSelectedReposForOrgSecretQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListSelectedReposForOrgSecret",
@@ -6840,15 +6493,14 @@ router.get(
   }
 )
 
-const dependabotSetSelectedReposForOrgSecretParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), secret_name: joi.string().required() })
-  .required()
+const dependabotSetSelectedReposForOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const dependabotSetSelectedReposForOrgSecretBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const dependabotSetSelectedReposForOrgSecretBodySchema = z.object({
+  selected_repository_ids: z.array(z.coerce.number().optional()),
+})
 
 router.put(
   "dependabotSetSelectedReposForOrgSecret",
@@ -6877,14 +6529,11 @@ router.put(
   }
 )
 
-const dependabotAddSelectedRepoToOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const dependabotAddSelectedRepoToOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "dependabotAddSelectedRepoToOrgSecret",
@@ -6910,14 +6559,11 @@ router.put(
   }
 )
 
-const dependabotRemoveSelectedRepoFromOrgSecretParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const dependabotRemoveSelectedRepoFromOrgSecretParamSchema = z.object({
+  org: z.coerce.string(),
+  secret_name: z.coerce.string(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "dependabotRemoveSelectedRepoFromOrgSecret",
@@ -6943,15 +6589,14 @@ router.delete(
   }
 )
 
-const activityListPublicOrgEventsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const activityListPublicOrgEventsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const activityListPublicOrgEventsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListPublicOrgEventsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListPublicOrgEvents",
@@ -6980,15 +6625,14 @@ router.get(
   }
 )
 
-const orgsListFailedInvitationsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListFailedInvitationsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const orgsListFailedInvitationsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListFailedInvitationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListFailedInvitations",
@@ -7017,15 +6661,12 @@ router.get(
   }
 )
 
-const orgsListWebhooksParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListWebhooksParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsListWebhooksQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListWebhooksQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListWebhooks",
@@ -7054,30 +6695,21 @@ router.get(
   }
 )
 
-const orgsCreateWebhookParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsCreateWebhookParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsCreateWebhookBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    config: joi
-      .object()
-      .keys({
-        url: joi.string().required(),
-        content_type: joi.string(),
-        secret: joi.string(),
-        insecure_ssl: joi.object().keys({}),
-        username: joi.string(),
-        password: joi.string(),
-      })
-      .required(),
-    events: joi.array().items(joi.string()),
-    active: joi.boolean(),
-  })
-  .required()
+const orgsCreateWebhookBodySchema = z.object({
+  name: z.coerce.string(),
+  config: z.object({
+    url: z.coerce.string(),
+    content_type: z.coerce.string().optional(),
+    secret: z.coerce.string().optional(),
+    insecure_ssl: z.object({}).optional(),
+    username: z.coerce.string().optional(),
+    password: z.coerce.string().optional(),
+  }),
+  events: z.array(z.coerce.string().optional()).optional(),
+  active: z.coerce.boolean().optional(),
+})
 
 router.post(
   "orgsCreateWebhook",
@@ -7106,10 +6738,10 @@ router.post(
   }
 )
 
-const orgsGetWebhookParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsGetWebhookParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.get(
   "orgsGetWebhook",
@@ -7131,26 +6763,26 @@ router.get(
   }
 )
 
-const orgsUpdateWebhookParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsUpdateWebhookParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const orgsUpdateWebhookBodySchema = joi
-  .object()
-  .keys({
-    config: joi
-      .object()
-      .keys({
-        url: joi.string().required(),
-        content_type: joi.string(),
-        secret: joi.string(),
-        insecure_ssl: joi.object().keys({}),
-      }),
-    events: joi.array().items(joi.string()),
-    active: joi.boolean(),
-    name: joi.string(),
+const orgsUpdateWebhookBodySchema = z
+  .object({
+    config: z
+      .object({
+        url: z.coerce.string(),
+        content_type: z.coerce.string().optional(),
+        secret: z.coerce.string().optional(),
+        insecure_ssl: z.object({}).optional(),
+      })
+      .optional(),
+    events: z.array(z.coerce.string().optional()).optional(),
+    active: z.coerce.boolean().optional(),
+    name: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "orgsUpdateWebhook",
@@ -7179,10 +6811,10 @@ router.patch(
   }
 )
 
-const orgsDeleteWebhookParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsDeleteWebhookParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.delete(
   "orgsDeleteWebhook",
@@ -7204,10 +6836,10 @@ router.delete(
   }
 )
 
-const orgsGetWebhookConfigForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsGetWebhookConfigForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.get(
   "orgsGetWebhookConfigForOrg",
@@ -7229,19 +6861,19 @@ router.get(
   }
 )
 
-const orgsUpdateWebhookConfigForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsUpdateWebhookConfigForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const orgsUpdateWebhookConfigForOrgBodySchema = joi
-  .object()
-  .keys({
-    url: joi.string(),
-    content_type: joi.string(),
-    secret: joi.string(),
-    insecure_ssl: joi.object().keys({}),
+const orgsUpdateWebhookConfigForOrgBodySchema = z
+  .object({
+    url: z.coerce.string().optional(),
+    content_type: z.coerce.string().optional(),
+    secret: z.coerce.string().optional(),
+    insecure_ssl: z.object({}).optional(),
   })
+  .optional()
 
 router.patch(
   "orgsUpdateWebhookConfigForOrg",
@@ -7270,19 +6902,16 @@ router.patch(
   }
 )
 
-const orgsListWebhookDeliveriesParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsListWebhookDeliveriesParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const orgsListWebhookDeliveriesQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    cursor: joi.string(),
-    redelivery: joi.boolean(),
-  })
-  .required()
+const orgsListWebhookDeliveriesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  cursor: z.coerce.string().optional(),
+  redelivery: z.coerce.boolean().optional(),
+})
 
 router.get(
   "orgsListWebhookDeliveries",
@@ -7311,14 +6940,11 @@ router.get(
   }
 )
 
-const orgsGetWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    hook_id: joi.number().required(),
-    delivery_id: joi.number().required(),
-  })
-  .required()
+const orgsGetWebhookDeliveryParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+  delivery_id: z.coerce.number(),
+})
 
 router.get(
   "orgsGetWebhookDelivery",
@@ -7340,14 +6966,11 @@ router.get(
   }
 )
 
-const orgsRedeliverWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    hook_id: joi.number().required(),
-    delivery_id: joi.number().required(),
-  })
-  .required()
+const orgsRedeliverWebhookDeliveryParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+  delivery_id: z.coerce.number(),
+})
 
 router.post(
   "orgsRedeliverWebhookDelivery",
@@ -7369,10 +6992,10 @@ router.post(
   }
 )
 
-const orgsPingWebhookParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), hook_id: joi.number().required() })
-  .required()
+const orgsPingWebhookParamSchema = z.object({
+  org: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.post(
   "orgsPingWebhook",
@@ -7394,10 +7017,7 @@ router.post(
   }
 )
 
-const appsGetOrgInstallationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const appsGetOrgInstallationParamSchema = z.object({ org: z.coerce.string() })
 
 router.get(
   "appsGetOrgInstallation",
@@ -7419,15 +7039,12 @@ router.get(
   }
 )
 
-const orgsListAppInstallationsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListAppInstallationsParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsListAppInstallationsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListAppInstallationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListAppInstallations",
@@ -7456,10 +7073,9 @@ router.get(
   }
 )
 
-const interactionsGetRestrictionsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const interactionsGetRestrictionsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "interactionsGetRestrictionsForOrg",
@@ -7485,15 +7101,14 @@ router.get(
   }
 )
 
-const interactionsSetRestrictionsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const interactionsSetRestrictionsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const interactionsSetRestrictionsForOrgBodySchema = joi
-  .object()
-  .keys({ limit: joi.string().required(), expiry: joi.string() })
-  .required()
+const interactionsSetRestrictionsForOrgBodySchema = z.object({
+  limit: z.coerce.string(),
+  expiry: z.coerce.string().optional(),
+})
 
 router.put(
   "interactionsSetRestrictionsForOrg",
@@ -7522,10 +7137,9 @@ router.put(
   }
 )
 
-const interactionsRemoveRestrictionsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const interactionsRemoveRestrictionsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.delete(
   "interactionsRemoveRestrictionsForOrg",
@@ -7551,15 +7165,14 @@ router.delete(
   }
 )
 
-const orgsListPendingInvitationsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListPendingInvitationsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const orgsListPendingInvitationsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListPendingInvitationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListPendingInvitations",
@@ -7588,19 +7201,16 @@ router.get(
   }
 )
 
-const orgsCreateInvitationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsCreateInvitationParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsCreateInvitationBodySchema = joi
-  .object()
-  .keys({
-    invitee_id: joi.number(),
-    email: joi.string(),
-    role: joi.string(),
-    team_ids: joi.array().items(joi.number()),
+const orgsCreateInvitationBodySchema = z
+  .object({
+    invitee_id: z.coerce.number().optional(),
+    email: z.coerce.string().optional(),
+    role: z.coerce.string().optional(),
+    team_ids: z.array(z.coerce.number().optional()).optional(),
   })
+  .optional()
 
 router.post(
   "orgsCreateInvitation",
@@ -7629,13 +7239,10 @@ router.post(
   }
 )
 
-const orgsCancelInvitationParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    invitation_id: joi.number().required(),
-  })
-  .required()
+const orgsCancelInvitationParamSchema = z.object({
+  org: z.coerce.string(),
+  invitation_id: z.coerce.number(),
+})
 
 router.delete(
   "orgsCancelInvitation",
@@ -7657,18 +7264,15 @@ router.delete(
   }
 )
 
-const orgsListInvitationTeamsParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    invitation_id: joi.number().required(),
-  })
-  .required()
+const orgsListInvitationTeamsParamSchema = z.object({
+  org: z.coerce.string(),
+  invitation_id: z.coerce.number(),
+})
 
-const orgsListInvitationTeamsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListInvitationTeamsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListInvitationTeams",
@@ -7697,24 +7301,18 @@ router.get(
   }
 )
 
-const issuesListForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const issuesListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const issuesListForOrgQuerySchema = joi
-  .object()
-  .keys({
-    filter: joi.string(),
-    state: joi.string(),
-    labels: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListForOrgQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  labels: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListForOrg",
@@ -7743,20 +7341,14 @@ router.get(
   }
 )
 
-const orgsListMembersParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListMembersParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsListMembersQuerySchema = joi
-  .object()
-  .keys({
-    filter: joi.string(),
-    role: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const orgsListMembersQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  role: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListMembers",
@@ -7785,10 +7377,10 @@ router.get(
   }
 )
 
-const orgsCheckMembershipForUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsCheckMembershipForUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "orgsCheckMembershipForUser",
@@ -7810,10 +7402,10 @@ router.get(
   }
 )
 
-const orgsRemoveMemberParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsRemoveMemberParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "orgsRemoveMember",
@@ -7835,15 +7427,15 @@ router.delete(
   }
 )
 
-const codespacesGetCodespacesForUserInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const codespacesGetCodespacesForUserInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const codespacesGetCodespacesForUserInOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesGetCodespacesForUserInOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesGetCodespacesForUserInOrg",
@@ -7872,14 +7464,11 @@ router.get(
   }
 )
 
-const codespacesDeleteFromOrganizationParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    username: joi.string().required(),
-    codespace_name: joi.string().required(),
-  })
-  .required()
+const codespacesDeleteFromOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+  codespace_name: z.coerce.string(),
+})
 
 router.delete(
   "codespacesDeleteFromOrganization",
@@ -7905,14 +7494,11 @@ router.delete(
   }
 )
 
-const codespacesStopInOrganizationParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    username: joi.string().required(),
-    codespace_name: joi.string().required(),
-  })
-  .required()
+const codespacesStopInOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+  codespace_name: z.coerce.string(),
+})
 
 router.post(
   "codespacesStopInOrganization",
@@ -7934,10 +7520,10 @@ router.post(
   }
 )
 
-const orgsGetMembershipForUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsGetMembershipForUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "orgsGetMembershipForUser",
@@ -7959,14 +7545,14 @@ router.get(
   }
 )
 
-const orgsSetMembershipForUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsSetMembershipForUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const orgsSetMembershipForUserBodySchema = joi
-  .object()
-  .keys({ role: joi.string() })
+const orgsSetMembershipForUserBodySchema = z
+  .object({ role: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "orgsSetMembershipForUser",
@@ -7995,10 +7581,10 @@ router.put(
   }
 )
 
-const orgsRemoveMembershipForUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsRemoveMembershipForUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "orgsRemoveMembershipForUser",
@@ -8020,19 +7606,13 @@ router.delete(
   }
 )
 
-const migrationsListForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const migrationsListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const migrationsListForOrgQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    exclude: joi.array().items(joi.string()),
-  })
-  .required()
+const migrationsListForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  exclude: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.get(
   "migrationsListForOrg",
@@ -8061,25 +7641,19 @@ router.get(
   }
 )
 
-const migrationsStartForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const migrationsStartForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const migrationsStartForOrgBodySchema = joi
-  .object()
-  .keys({
-    repositories: joi.array().items(joi.string()).required(),
-    lock_repositories: joi.boolean(),
-    exclude_metadata: joi.boolean(),
-    exclude_git_data: joi.boolean(),
-    exclude_attachments: joi.boolean(),
-    exclude_releases: joi.boolean(),
-    exclude_owner_projects: joi.boolean(),
-    org_metadata_only: joi.boolean(),
-    exclude: joi.array().items(joi.string()),
-  })
-  .required()
+const migrationsStartForOrgBodySchema = z.object({
+  repositories: z.array(z.coerce.string().optional()),
+  lock_repositories: z.coerce.boolean().optional(),
+  exclude_metadata: z.coerce.boolean().optional(),
+  exclude_git_data: z.coerce.boolean().optional(),
+  exclude_attachments: z.coerce.boolean().optional(),
+  exclude_releases: z.coerce.boolean().optional(),
+  exclude_owner_projects: z.coerce.boolean().optional(),
+  org_metadata_only: z.coerce.boolean().optional(),
+  exclude: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.post(
   "migrationsStartForOrg",
@@ -8108,15 +7682,14 @@ router.post(
   }
 )
 
-const migrationsGetStatusForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
-  .required()
+const migrationsGetStatusForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  migration_id: z.coerce.number(),
+})
 
-const migrationsGetStatusForOrgQuerySchema = joi
-  .object()
-  .keys({ exclude: joi.array().items(joi.string()) })
-  .required()
+const migrationsGetStatusForOrgQuerySchema = z.object({
+  exclude: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.get(
   "migrationsGetStatusForOrg",
@@ -8145,10 +7718,10 @@ router.get(
   }
 )
 
-const migrationsDownloadArchiveForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
-  .required()
+const migrationsDownloadArchiveForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  migration_id: z.coerce.number(),
+})
 
 router.get(
   "migrationsDownloadArchiveForOrg",
@@ -8170,10 +7743,10 @@ router.get(
   }
 )
 
-const migrationsDeleteArchiveForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
-  .required()
+const migrationsDeleteArchiveForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  migration_id: z.coerce.number(),
+})
 
 router.delete(
   "migrationsDeleteArchiveForOrg",
@@ -8195,14 +7768,11 @@ router.delete(
   }
 )
 
-const migrationsUnlockRepoForOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    migration_id: joi.number().required(),
-    repo_name: joi.string().required(),
-  })
-  .required()
+const migrationsUnlockRepoForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  migration_id: z.coerce.number(),
+  repo_name: z.coerce.string(),
+})
 
 router.delete(
   "migrationsUnlockRepoForOrg",
@@ -8224,15 +7794,15 @@ router.delete(
   }
 )
 
-const migrationsListReposForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), migration_id: joi.number().required() })
-  .required()
+const migrationsListReposForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  migration_id: z.coerce.number(),
+})
 
-const migrationsListReposForOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const migrationsListReposForOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "migrationsListReposForOrg",
@@ -8261,15 +7831,15 @@ router.get(
   }
 )
 
-const orgsListOutsideCollaboratorsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListOutsideCollaboratorsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const orgsListOutsideCollaboratorsQuerySchema = joi
-  .object()
-  .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListOutsideCollaboratorsQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListOutsideCollaborators",
@@ -8298,14 +7868,14 @@ router.get(
   }
 )
 
-const orgsConvertMemberToOutsideCollaboratorParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsConvertMemberToOutsideCollaboratorParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const orgsConvertMemberToOutsideCollaboratorBodySchema = joi
-  .object()
-  .keys({ async: joi.boolean() })
+const orgsConvertMemberToOutsideCollaboratorBodySchema = z
+  .object({ async: z.coerce.boolean().optional() })
+  .optional()
 
 router.put(
   "orgsConvertMemberToOutsideCollaborator",
@@ -8334,10 +7904,10 @@ router.put(
   }
 )
 
-const orgsRemoveOutsideCollaboratorParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsRemoveOutsideCollaboratorParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "orgsRemoveOutsideCollaborator",
@@ -8359,15 +7929,14 @@ router.delete(
   }
 )
 
-const packagesListPackagesForOrganizationParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const packagesListPackagesForOrganizationParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const packagesListPackagesForOrganizationQuerySchema = joi
-  .object()
-  .keys({ package_type: joi.string().required(), visibility: joi.string() })
-  .required()
+const packagesListPackagesForOrganizationQuerySchema = z.object({
+  package_type: z.coerce.string(),
+  visibility: z.coerce.string().optional(),
+})
 
 router.get(
   "packagesListPackagesForOrganization",
@@ -8396,14 +7965,11 @@ router.get(
   }
 )
 
-const packagesGetPackageForOrganizationParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-  })
-  .required()
+const packagesGetPackageForOrganizationParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+})
 
 router.get(
   "packagesGetPackageForOrganization",
@@ -8429,14 +7995,11 @@ router.get(
   }
 )
 
-const packagesDeletePackageForOrgParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-  })
-  .required()
+const packagesDeletePackageForOrgParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+})
 
 router.delete(
   "packagesDeletePackageForOrg",
@@ -8458,19 +8021,15 @@ router.delete(
   }
 )
 
-const packagesRestorePackageForOrgParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-  })
-  .required()
+const packagesRestorePackageForOrgParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+})
 
-const packagesRestorePackageForOrgQuerySchema = joi
-  .object()
-  .keys({ token: joi.string() })
-  .required()
+const packagesRestorePackageForOrgQuerySchema = z.object({
+  token: z.coerce.string().optional(),
+})
 
 router.post(
   "packagesRestorePackageForOrg",
@@ -8499,19 +8058,17 @@ router.post(
   }
 )
 
-const packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-  })
-  .required()
+const packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+})
 
-const packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number(), state: joi.string() })
-  .required()
+const packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  state: z.coerce.string().optional(),
+})
 
 router.get(
   "packagesGetAllPackageVersionsForPackageOwnedByOrg",
@@ -8540,15 +8097,12 @@ router.get(
   }
 )
 
-const packagesGetPackageVersionForOrganizationParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesGetPackageVersionForOrganizationParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.get(
   "packagesGetPackageVersionForOrganization",
@@ -8574,15 +8128,12 @@ router.get(
   }
 )
 
-const packagesDeletePackageVersionForOrgParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesDeletePackageVersionForOrgParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.delete(
   "packagesDeletePackageVersionForOrg",
@@ -8608,15 +8159,12 @@ router.delete(
   }
 )
 
-const packagesRestorePackageVersionForOrgParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    org: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesRestorePackageVersionForOrgParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  org: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.post(
   "packagesRestorePackageVersionForOrg",
@@ -8642,15 +8190,13 @@ router.post(
   }
 )
 
-const projectsListForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const projectsListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const projectsListForOrgQuerySchema = joi
-  .object()
-  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const projectsListForOrgQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListForOrg",
@@ -8679,15 +8225,12 @@ router.get(
   }
 )
 
-const projectsCreateForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const projectsCreateForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const projectsCreateForOrgBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), body: joi.string() })
-  .required()
+const projectsCreateForOrgBodySchema = z.object({
+  name: z.coerce.string(),
+  body: z.coerce.string().optional(),
+})
 
 router.post(
   "projectsCreateForOrg",
@@ -8716,15 +8259,12 @@ router.post(
   }
 )
 
-const orgsListPublicMembersParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListPublicMembersParamSchema = z.object({ org: z.coerce.string() })
 
-const orgsListPublicMembersQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListPublicMembersQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListPublicMembers",
@@ -8753,10 +8293,10 @@ router.get(
   }
 )
 
-const orgsCheckPublicMembershipForUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsCheckPublicMembershipForUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "orgsCheckPublicMembershipForUser",
@@ -8782,10 +8322,10 @@ router.get(
   }
 )
 
-const orgsSetPublicMembershipForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsSetPublicMembershipForAuthenticatedUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.put(
   "orgsSetPublicMembershipForAuthenticatedUser",
@@ -8811,10 +8351,10 @@ router.put(
   }
 )
 
-const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), username: joi.string().required() })
-  .required()
+const orgsRemovePublicMembershipForAuthenticatedUserParamSchema = z.object({
+  org: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "orgsRemovePublicMembershipForAuthenticatedUser",
@@ -8840,21 +8380,15 @@ router.delete(
   }
 )
 
-const reposListForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const reposListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const reposListForOrgQuerySchema = joi
-  .object()
-  .keys({
-    type: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListForOrgQuerySchema = z.object({
+  type: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListForOrg",
@@ -8883,40 +8417,34 @@ router.get(
   }
 )
 
-const reposCreateInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const reposCreateInOrgParamSchema = z.object({ org: z.coerce.string() })
 
-const reposCreateInOrgBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    description: joi.string(),
-    homepage: joi.string(),
-    private: joi.boolean(),
-    visibility: joi.string(),
-    has_issues: joi.boolean(),
-    has_projects: joi.boolean(),
-    has_wiki: joi.boolean(),
-    has_downloads: joi.boolean(),
-    is_template: joi.boolean(),
-    team_id: joi.number(),
-    auto_init: joi.boolean(),
-    gitignore_template: joi.string(),
-    license_template: joi.string(),
-    allow_squash_merge: joi.boolean(),
-    allow_merge_commit: joi.boolean(),
-    allow_rebase_merge: joi.boolean(),
-    allow_auto_merge: joi.boolean(),
-    delete_branch_on_merge: joi.boolean(),
-    use_squash_pr_title_as_default: joi.boolean(),
-    squash_merge_commit_title: joi.string(),
-    squash_merge_commit_message: joi.string(),
-    merge_commit_title: joi.string(),
-    merge_commit_message: joi.string(),
-  })
-  .required()
+const reposCreateInOrgBodySchema = z.object({
+  name: z.coerce.string(),
+  description: z.coerce.string().optional(),
+  homepage: z.coerce.string().optional(),
+  private: z.coerce.boolean().optional(),
+  visibility: z.coerce.string().optional(),
+  has_issues: z.coerce.boolean().optional(),
+  has_projects: z.coerce.boolean().optional(),
+  has_wiki: z.coerce.boolean().optional(),
+  has_downloads: z.coerce.boolean().optional(),
+  is_template: z.coerce.boolean().optional(),
+  team_id: z.coerce.number().optional(),
+  auto_init: z.coerce.boolean().optional(),
+  gitignore_template: z.coerce.string().optional(),
+  license_template: z.coerce.string().optional(),
+  allow_squash_merge: z.coerce.boolean().optional(),
+  allow_merge_commit: z.coerce.boolean().optional(),
+  allow_rebase_merge: z.coerce.boolean().optional(),
+  allow_auto_merge: z.coerce.boolean().optional(),
+  delete_branch_on_merge: z.coerce.boolean().optional(),
+  use_squash_pr_title_as_default: z.coerce.boolean().optional(),
+  squash_merge_commit_title: z.coerce.string().optional(),
+  squash_merge_commit_message: z.coerce.string().optional(),
+  merge_commit_title: z.coerce.string().optional(),
+  merge_commit_message: z.coerce.string().optional(),
+})
 
 router.post(
   "reposCreateInOrg",
@@ -8945,25 +8473,21 @@ router.post(
   }
 )
 
-const secretScanningListAlertsForOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const secretScanningListAlertsForOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const secretScanningListAlertsForOrgQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    secret_type: joi.string(),
-    resolution: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    before: joi.string(),
-    after: joi.string(),
-  })
-  .required()
+const secretScanningListAlertsForOrgQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  secret_type: z.coerce.string().optional(),
+  resolution: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+})
 
 router.get(
   "secretScanningListAlertsForOrg",
@@ -8992,10 +8516,9 @@ router.get(
   }
 )
 
-const orgsListSecurityManagerTeamsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsListSecurityManagerTeamsParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "orgsListSecurityManagerTeams",
@@ -9017,10 +8540,10 @@ router.get(
   }
 )
 
-const orgsAddSecurityManagerTeamParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const orgsAddSecurityManagerTeamParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
 router.put(
   "orgsAddSecurityManagerTeam",
@@ -9042,10 +8565,10 @@ router.put(
   }
 )
 
-const orgsRemoveSecurityManagerTeamParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const orgsRemoveSecurityManagerTeamParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
 router.delete(
   "orgsRemoveSecurityManagerTeam",
@@ -9067,10 +8590,9 @@ router.delete(
   }
 )
 
-const billingGetGithubActionsBillingOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const billingGetGithubActionsBillingOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "billingGetGithubActionsBillingOrg",
@@ -9096,10 +8618,9 @@ router.get(
   }
 )
 
-const billingGetGithubPackagesBillingOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const billingGetGithubPackagesBillingOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "billingGetGithubPackagesBillingOrg",
@@ -9125,10 +8646,9 @@ router.get(
   }
 )
 
-const billingGetSharedStorageBillingOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const billingGetSharedStorageBillingOrgParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "billingGetSharedStorageBillingOrg",
@@ -9154,15 +8674,12 @@ router.get(
   }
 )
 
-const teamsListParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const teamsListParamSchema = z.object({ org: z.coerce.string() })
 
-const teamsListQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsList",
@@ -9183,23 +8700,17 @@ router.get(
   }
 )
 
-const teamsCreateParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const teamsCreateParamSchema = z.object({ org: z.coerce.string() })
 
-const teamsCreateBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    description: joi.string(),
-    maintainers: joi.array().items(joi.string()),
-    repo_names: joi.array().items(joi.string()),
-    privacy: joi.string(),
-    permission: joi.string(),
-    parent_team_id: joi.number(),
-  })
-  .required()
+const teamsCreateBodySchema = z.object({
+  name: z.coerce.string(),
+  description: z.coerce.string().optional(),
+  maintainers: z.array(z.coerce.string().optional()).optional(),
+  repo_names: z.array(z.coerce.string().optional()).optional(),
+  privacy: z.coerce.string().optional(),
+  permission: z.coerce.string().optional(),
+  parent_team_id: z.coerce.number().optional(),
+})
 
 router.post(
   "teamsCreate",
@@ -9220,10 +8731,10 @@ router.post(
   }
 )
 
-const teamsGetByNameParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsGetByNameParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
 router.get(
   "teamsGetByName",
@@ -9245,20 +8756,20 @@ router.get(
   }
 )
 
-const teamsUpdateInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsUpdateInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsUpdateInOrgBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    description: joi.string(),
-    privacy: joi.string(),
-    permission: joi.string(),
-    parent_team_id: joi.number(),
+const teamsUpdateInOrgBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    description: z.coerce.string().optional(),
+    privacy: z.coerce.string().optional(),
+    permission: z.coerce.string().optional(),
+    parent_team_id: z.coerce.number().optional(),
   })
+  .optional()
 
 router.patch(
   "teamsUpdateInOrg",
@@ -9287,10 +8798,10 @@ router.patch(
   }
 )
 
-const teamsDeleteInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsDeleteInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
 router.delete(
   "teamsDeleteInOrg",
@@ -9312,20 +8823,17 @@ router.delete(
   }
 )
 
-const teamsListDiscussionsInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListDiscussionsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListDiscussionsInOrgQuerySchema = joi
-  .object()
-  .keys({
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    pinned: joi.string(),
-  })
-  .required()
+const teamsListDiscussionsInOrgQuerySchema = z.object({
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  pinned: z.coerce.string().optional(),
+})
 
 router.get(
   "teamsListDiscussionsInOrg",
@@ -9354,19 +8862,16 @@ router.get(
   }
 )
 
-const teamsCreateDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsCreateDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsCreateDiscussionInOrgBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string().required(),
-    body: joi.string().required(),
-    private: joi.boolean(),
-  })
-  .required()
+const teamsCreateDiscussionInOrgBodySchema = z.object({
+  title: z.coerce.string(),
+  body: z.coerce.string(),
+  private: z.coerce.boolean().optional(),
+})
 
 router.post(
   "teamsCreateDiscussionInOrg",
@@ -9395,14 +8900,11 @@ router.post(
   }
 )
 
-const teamsGetDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsGetDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
 router.get(
   "teamsGetDiscussionInOrg",
@@ -9424,18 +8926,18 @@ router.get(
   }
 )
 
-const teamsUpdateDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsUpdateDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsUpdateDiscussionInOrgBodySchema = joi
-  .object()
-  .keys({ title: joi.string(), body: joi.string() })
+const teamsUpdateDiscussionInOrgBodySchema = z
+  .object({
+    title: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+  })
+  .optional()
 
 router.patch(
   "teamsUpdateDiscussionInOrg",
@@ -9464,14 +8966,11 @@ router.patch(
   }
 )
 
-const teamsDeleteDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsDeleteDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
 router.delete(
   "teamsDeleteDiscussionInOrg",
@@ -9493,19 +8992,17 @@ router.delete(
   }
 )
 
-const teamsListDiscussionCommentsInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsListDiscussionCommentsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsListDiscussionCommentsInOrgQuerySchema = joi
-  .object()
-  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListDiscussionCommentsInOrgQuerySchema = z.object({
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListDiscussionCommentsInOrg",
@@ -9534,19 +9031,15 @@ router.get(
   }
 )
 
-const teamsCreateDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsCreateDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsCreateDiscussionCommentInOrgBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const teamsCreateDiscussionCommentInOrgBodySchema = z.object({
+  body: z.coerce.string(),
+})
 
 router.post(
   "teamsCreateDiscussionCommentInOrg",
@@ -9575,15 +9068,12 @@ router.post(
   }
 )
 
-const teamsGetDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsGetDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
 router.get(
   "teamsGetDiscussionCommentInOrg",
@@ -9605,20 +9095,16 @@ router.get(
   }
 )
 
-const teamsUpdateDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsUpdateDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const teamsUpdateDiscussionCommentInOrgBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const teamsUpdateDiscussionCommentInOrgBodySchema = z.object({
+  body: z.coerce.string(),
+})
 
 router.patch(
   "teamsUpdateDiscussionCommentInOrg",
@@ -9647,15 +9133,12 @@ router.patch(
   }
 )
 
-const teamsDeleteDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsDeleteDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
 router.delete(
   "teamsDeleteDiscussionCommentInOrg",
@@ -9681,20 +9164,18 @@ router.delete(
   }
 )
 
-const reactionsListForTeamDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const reactionsListForTeamDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const reactionsListForTeamDiscussionCommentInOrgQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForTeamDiscussionCommentInOrgQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForTeamDiscussionCommentInOrg",
@@ -9723,20 +9204,16 @@ router.get(
   }
 )
 
-const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForTeamDiscussionCommentInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForTeamDiscussionCommentInOrgBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentInOrg",
@@ -9765,16 +9242,13 @@ router.post(
   }
 )
 
-const reactionsDeleteForTeamDiscussionCommentParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForTeamDiscussionCommentParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForTeamDiscussionComment",
@@ -9800,19 +9274,17 @@ router.delete(
   }
 )
 
-const reactionsListForTeamDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const reactionsListForTeamDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
-const reactionsListForTeamDiscussionInOrgQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForTeamDiscussionInOrgQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForTeamDiscussionInOrg",
@@ -9841,19 +9313,15 @@ router.get(
   }
 )
 
-const reactionsCreateForTeamDiscussionInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForTeamDiscussionInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+})
 
-const reactionsCreateForTeamDiscussionInOrgBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForTeamDiscussionInOrgBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForTeamDiscussionInOrg",
@@ -9882,15 +9350,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForTeamDiscussionParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    discussion_number: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForTeamDiscussionParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  discussion_number: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForTeamDiscussion",
@@ -9916,15 +9381,15 @@ router.delete(
   }
 )
 
-const teamsListPendingInvitationsInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListPendingInvitationsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListPendingInvitationsInOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListPendingInvitationsInOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListPendingInvitationsInOrg",
@@ -9953,15 +9418,16 @@ router.get(
   }
 )
 
-const teamsListMembersInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListMembersInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListMembersInOrgQuerySchema = joi
-  .object()
-  .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListMembersInOrgQuerySchema = z.object({
+  role: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListMembersInOrg",
@@ -9990,14 +9456,11 @@ router.get(
   }
 )
 
-const teamsGetMembershipForUserInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const teamsGetMembershipForUserInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "teamsGetMembershipForUserInOrg",
@@ -10019,18 +9482,15 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateMembershipForUserInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const teamsAddOrUpdateMembershipForUserInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const teamsAddOrUpdateMembershipForUserInOrgBodySchema = joi
-  .object()
-  .keys({ role: joi.string() })
+const teamsAddOrUpdateMembershipForUserInOrgBodySchema = z
+  .object({ role: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateMembershipForUserInOrg",
@@ -10059,14 +9519,11 @@ router.put(
   }
 )
 
-const teamsRemoveMembershipForUserInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const teamsRemoveMembershipForUserInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "teamsRemoveMembershipForUserInOrg",
@@ -10092,15 +9549,15 @@ router.delete(
   }
 )
 
-const teamsListProjectsInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListProjectsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListProjectsInOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListProjectsInOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListProjectsInOrg",
@@ -10129,14 +9586,11 @@ router.get(
   }
 )
 
-const teamsCheckPermissionsForProjectInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsCheckPermissionsForProjectInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  project_id: z.coerce.number(),
+})
 
 router.get(
   "teamsCheckPermissionsForProjectInOrg",
@@ -10162,18 +9616,15 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsAddOrUpdateProjectPermissionsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  project_id: z.coerce.number(),
+})
 
-const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const teamsAddOrUpdateProjectPermissionsInOrgBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsInOrg",
@@ -10202,14 +9653,11 @@ router.put(
   }
 )
 
-const teamsRemoveProjectInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsRemoveProjectInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  project_id: z.coerce.number(),
+})
 
 router.delete(
   "teamsRemoveProjectInOrg",
@@ -10231,15 +9679,15 @@ router.delete(
   }
 )
 
-const teamsListReposInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListReposInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListReposInOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListReposInOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListReposInOrg",
@@ -10268,15 +9716,12 @@ router.get(
   }
 )
 
-const teamsCheckPermissionsForRepoInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsCheckPermissionsForRepoInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "teamsCheckPermissionsForRepoInOrg",
@@ -10302,19 +9747,16 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsAddOrUpdateRepoPermissionsInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const teamsAddOrUpdateRepoPermissionsInOrgBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const teamsAddOrUpdateRepoPermissionsInOrgBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsInOrg",
@@ -10343,15 +9785,12 @@ router.put(
   }
 )
 
-const teamsRemoveRepoInOrgParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    team_slug: joi.string().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsRemoveRepoInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "teamsRemoveRepoInOrg",
@@ -10373,15 +9812,15 @@ router.delete(
   }
 )
 
-const teamsListChildInOrgParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), team_slug: joi.string().required() })
-  .required()
+const teamsListChildInOrgParamSchema = z.object({
+  org: z.coerce.string(),
+  team_slug: z.coerce.string(),
+})
 
-const teamsListChildInOrgQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListChildInOrgQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListChildInOrg",
@@ -10410,14 +9849,11 @@ router.get(
   }
 )
 
-const orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    security_product: joi.string().required(),
-    enablement: joi.string().required(),
-  })
-  .required()
+const orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = z.object({
+  org: z.coerce.string(),
+  security_product: z.coerce.string(),
+  enablement: z.coerce.string(),
+})
 
 router.post(
   "orgsEnableOrDisableSecurityProductOnAllOrgRepos",
@@ -10443,10 +9879,7 @@ router.post(
   }
 )
 
-const projectsGetCardParamSchema = joi
-  .object()
-  .keys({ card_id: joi.number().required() })
-  .required()
+const projectsGetCardParamSchema = z.object({ card_id: z.coerce.number() })
 
 router.get(
   "projectsGetCard",
@@ -10468,14 +9901,14 @@ router.get(
   }
 )
 
-const projectsUpdateCardParamSchema = joi
-  .object()
-  .keys({ card_id: joi.number().required() })
-  .required()
+const projectsUpdateCardParamSchema = z.object({ card_id: z.coerce.number() })
 
-const projectsUpdateCardBodySchema = joi
-  .object()
-  .keys({ note: joi.string(), archived: joi.boolean() })
+const projectsUpdateCardBodySchema = z
+  .object({
+    note: z.coerce.string().optional(),
+    archived: z.coerce.boolean().optional(),
+  })
+  .optional()
 
 router.patch(
   "projectsUpdateCard",
@@ -10504,10 +9937,7 @@ router.patch(
   }
 )
 
-const projectsDeleteCardParamSchema = joi
-  .object()
-  .keys({ card_id: joi.number().required() })
-  .required()
+const projectsDeleteCardParamSchema = z.object({ card_id: z.coerce.number() })
 
 router.delete(
   "projectsDeleteCard",
@@ -10529,15 +9959,12 @@ router.delete(
   }
 )
 
-const projectsMoveCardParamSchema = joi
-  .object()
-  .keys({ card_id: joi.number().required() })
-  .required()
+const projectsMoveCardParamSchema = z.object({ card_id: z.coerce.number() })
 
-const projectsMoveCardBodySchema = joi
-  .object()
-  .keys({ position: joi.string().required(), column_id: joi.number() })
-  .required()
+const projectsMoveCardBodySchema = z.object({
+  position: z.coerce.string(),
+  column_id: z.coerce.number().optional(),
+})
 
 router.post(
   "projectsMoveCard",
@@ -10566,10 +9993,7 @@ router.post(
   }
 )
 
-const projectsGetColumnParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsGetColumnParamSchema = z.object({ column_id: z.coerce.number() })
 
 router.get(
   "projectsGetColumn",
@@ -10591,15 +10015,11 @@ router.get(
   }
 )
 
-const projectsUpdateColumnParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsUpdateColumnParamSchema = z.object({
+  column_id: z.coerce.number(),
+})
 
-const projectsUpdateColumnBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const projectsUpdateColumnBodySchema = z.object({ name: z.coerce.string() })
 
 router.patch(
   "projectsUpdateColumn",
@@ -10628,10 +10048,9 @@ router.patch(
   }
 )
 
-const projectsDeleteColumnParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsDeleteColumnParamSchema = z.object({
+  column_id: z.coerce.number(),
+})
 
 router.delete(
   "projectsDeleteColumn",
@@ -10653,19 +10072,13 @@ router.delete(
   }
 )
 
-const projectsListCardsParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsListCardsParamSchema = z.object({ column_id: z.coerce.number() })
 
-const projectsListCardsQuerySchema = joi
-  .object()
-  .keys({
-    archived_state: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const projectsListCardsQuerySchema = z.object({
+  archived_state: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListCards",
@@ -10694,12 +10107,9 @@ router.get(
   }
 )
 
-const projectsCreateCardParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsCreateCardParamSchema = z.object({ column_id: z.coerce.number() })
 
-const projectsCreateCardBodySchema = joi.object().keys({}).required()
+const projectsCreateCardBodySchema = z.object({})
 
 router.post(
   "projectsCreateCard",
@@ -10728,15 +10138,9 @@ router.post(
   }
 )
 
-const projectsMoveColumnParamSchema = joi
-  .object()
-  .keys({ column_id: joi.number().required() })
-  .required()
+const projectsMoveColumnParamSchema = z.object({ column_id: z.coerce.number() })
 
-const projectsMoveColumnBodySchema = joi
-  .object()
-  .keys({ position: joi.string().required() })
-  .required()
+const projectsMoveColumnBodySchema = z.object({ position: z.coerce.string() })
 
 router.post(
   "projectsMoveColumn",
@@ -10765,10 +10169,7 @@ router.post(
   }
 )
 
-const projectsGetParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsGetParamSchema = z.object({ project_id: z.coerce.number() })
 
 router.get(
   "projectsGet",
@@ -10788,20 +10189,17 @@ router.get(
   }
 )
 
-const projectsUpdateParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsUpdateParamSchema = z.object({ project_id: z.coerce.number() })
 
-const projectsUpdateBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    body: joi.string(),
-    state: joi.string(),
-    organization_permission: joi.string(),
-    private: joi.boolean(),
+const projectsUpdateBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+    state: z.coerce.string().optional(),
+    organization_permission: z.coerce.string().optional(),
+    private: z.coerce.boolean().optional(),
   })
+  .optional()
 
 router.patch(
   "projectsUpdate",
@@ -10828,10 +10226,7 @@ router.patch(
   }
 )
 
-const projectsDeleteParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsDeleteParamSchema = z.object({ project_id: z.coerce.number() })
 
 router.delete(
   "projectsDelete",
@@ -10853,19 +10248,15 @@ router.delete(
   }
 )
 
-const projectsListCollaboratorsParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsListCollaboratorsParamSchema = z.object({
+  project_id: z.coerce.number(),
+})
 
-const projectsListCollaboratorsQuerySchema = joi
-  .object()
-  .keys({
-    affiliation: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const projectsListCollaboratorsQuerySchema = z.object({
+  affiliation: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListCollaborators",
@@ -10894,17 +10285,14 @@ router.get(
   }
 )
 
-const projectsAddCollaboratorParamSchema = joi
-  .object()
-  .keys({
-    project_id: joi.number().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const projectsAddCollaboratorParamSchema = z.object({
+  project_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
-const projectsAddCollaboratorBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const projectsAddCollaboratorBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "projectsAddCollaborator",
@@ -10933,13 +10321,10 @@ router.put(
   }
 )
 
-const projectsRemoveCollaboratorParamSchema = joi
-  .object()
-  .keys({
-    project_id: joi.number().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const projectsRemoveCollaboratorParamSchema = z.object({
+  project_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "projectsRemoveCollaborator",
@@ -10961,13 +10346,10 @@ router.delete(
   }
 )
 
-const projectsGetPermissionForUserParamSchema = joi
-  .object()
-  .keys({
-    project_id: joi.number().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const projectsGetPermissionForUserParamSchema = z.object({
+  project_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "projectsGetPermissionForUser",
@@ -10989,15 +10371,14 @@ router.get(
   }
 )
 
-const projectsListColumnsParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsListColumnsParamSchema = z.object({
+  project_id: z.coerce.number(),
+})
 
-const projectsListColumnsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const projectsListColumnsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListColumns",
@@ -11026,15 +10407,11 @@ router.get(
   }
 )
 
-const projectsCreateColumnParamSchema = joi
-  .object()
-  .keys({ project_id: joi.number().required() })
-  .required()
+const projectsCreateColumnParamSchema = z.object({
+  project_id: z.coerce.number(),
+})
 
-const projectsCreateColumnBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const projectsCreateColumnBodySchema = z.object({ name: z.coerce.string() })
 
 router.post(
   "projectsCreateColumn",
@@ -11077,15 +10454,15 @@ router.get(
   }
 )
 
-const actionsListRepoRequiredWorkflowsParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListRepoRequiredWorkflowsParamSchema = z.object({
+  org: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListRepoRequiredWorkflowsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListRepoRequiredWorkflowsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRepoRequiredWorkflows",
@@ -11114,14 +10491,11 @@ router.get(
   }
 )
 
-const actionsGetRepoRequiredWorkflowParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    repo: joi.string().required(),
-    required_workflow_id_for_repo: joi.number().required(),
-  })
-  .required()
+const actionsGetRepoRequiredWorkflowParamSchema = z.object({
+  org: z.coerce.string(),
+  repo: z.coerce.string(),
+  required_workflow_id_for_repo: z.coerce.number(),
+})
 
 router.get(
   "actionsGetRepoRequiredWorkflow",
@@ -11143,14 +10517,11 @@ router.get(
   }
 )
 
-const actionsGetRepoRequiredWorkflowUsageParamSchema = joi
-  .object()
-  .keys({
-    org: joi.string().required(),
-    repo: joi.string().required(),
-    required_workflow_id_for_repo: joi.number().required(),
-  })
-  .required()
+const actionsGetRepoRequiredWorkflowUsageParamSchema = z.object({
+  org: z.coerce.string(),
+  repo: z.coerce.string(),
+  required_workflow_id_for_repo: z.coerce.number(),
+})
 
 router.get(
   "actionsGetRepoRequiredWorkflowUsage",
@@ -11176,10 +10547,10 @@ router.get(
   }
 )
 
-const reposGetParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGet",
@@ -11196,48 +10567,52 @@ router.get(
   }
 )
 
-const reposUpdateParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposUpdateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposUpdateBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    description: joi.string(),
-    homepage: joi.string(),
-    private: joi.boolean(),
-    visibility: joi.string(),
-    security_and_analysis: joi
-      .object()
-      .keys({
-        advanced_security: joi.object().keys({ status: joi.string() }),
-        secret_scanning: joi.object().keys({ status: joi.string() }),
-        secret_scanning_push_protection: joi
-          .object()
-          .keys({ status: joi.string() }),
-      }),
-    has_issues: joi.boolean(),
-    has_projects: joi.boolean(),
-    has_wiki: joi.boolean(),
-    is_template: joi.boolean(),
-    default_branch: joi.string(),
-    allow_squash_merge: joi.boolean(),
-    allow_merge_commit: joi.boolean(),
-    allow_rebase_merge: joi.boolean(),
-    allow_auto_merge: joi.boolean(),
-    delete_branch_on_merge: joi.boolean(),
-    allow_update_branch: joi.boolean(),
-    use_squash_pr_title_as_default: joi.boolean(),
-    squash_merge_commit_title: joi.string(),
-    squash_merge_commit_message: joi.string(),
-    merge_commit_title: joi.string(),
-    merge_commit_message: joi.string(),
-    archived: joi.boolean(),
-    allow_forking: joi.boolean(),
-    web_commit_signoff_required: joi.boolean(),
+const reposUpdateBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    description: z.coerce.string().optional(),
+    homepage: z.coerce.string().optional(),
+    private: z.coerce.boolean().optional(),
+    visibility: z.coerce.string().optional(),
+    security_and_analysis: z
+      .object({
+        advanced_security: z
+          .object({ status: z.coerce.string().optional() })
+          .optional(),
+        secret_scanning: z
+          .object({ status: z.coerce.string().optional() })
+          .optional(),
+        secret_scanning_push_protection: z
+          .object({ status: z.coerce.string().optional() })
+          .optional(),
+      })
+      .optional(),
+    has_issues: z.coerce.boolean().optional(),
+    has_projects: z.coerce.boolean().optional(),
+    has_wiki: z.coerce.boolean().optional(),
+    is_template: z.coerce.boolean().optional(),
+    default_branch: z.coerce.string().optional(),
+    allow_squash_merge: z.coerce.boolean().optional(),
+    allow_merge_commit: z.coerce.boolean().optional(),
+    allow_rebase_merge: z.coerce.boolean().optional(),
+    allow_auto_merge: z.coerce.boolean().optional(),
+    delete_branch_on_merge: z.coerce.boolean().optional(),
+    allow_update_branch: z.coerce.boolean().optional(),
+    use_squash_pr_title_as_default: z.coerce.boolean().optional(),
+    squash_merge_commit_title: z.coerce.string().optional(),
+    squash_merge_commit_message: z.coerce.string().optional(),
+    merge_commit_title: z.coerce.string().optional(),
+    merge_commit_message: z.coerce.string().optional(),
+    archived: z.coerce.boolean().optional(),
+    allow_forking: z.coerce.boolean().optional(),
+    web_commit_signoff_required: z.coerce.boolean().optional(),
   })
+  .optional()
 
 router.patch(
   "reposUpdate",
@@ -11258,10 +10633,10 @@ router.patch(
   }
 )
 
-const reposDeleteParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposDeleteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "reposDelete",
@@ -11281,15 +10656,16 @@ router.delete(
   }
 )
 
-const actionsListArtifactsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListArtifactsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListArtifactsForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number(), name: joi.string() })
-  .required()
+const actionsListArtifactsForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  name: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsListArtifactsForRepo",
@@ -11318,14 +10694,11 @@ router.get(
   }
 )
 
-const actionsGetArtifactParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    artifact_id: joi.number().required(),
-  })
-  .required()
+const actionsGetArtifactParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  artifact_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetArtifact",
@@ -11347,14 +10720,11 @@ router.get(
   }
 )
 
-const actionsDeleteArtifactParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    artifact_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteArtifactParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  artifact_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteArtifact",
@@ -11376,15 +10746,12 @@ router.delete(
   }
 )
 
-const actionsDownloadArtifactParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    artifact_id: joi.number().required(),
-    archive_format: joi.string().required(),
-  })
-  .required()
+const actionsDownloadArtifactParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  artifact_id: z.coerce.number(),
+  archive_format: z.coerce.string(),
+})
 
 router.get(
   "actionsDownloadArtifact",
@@ -11406,10 +10773,10 @@ router.get(
   }
 )
 
-const actionsGetActionsCacheUsageParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetActionsCacheUsageParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetActionsCacheUsage",
@@ -11431,22 +10798,19 @@ router.get(
   }
 )
 
-const actionsGetActionsCacheListParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetActionsCacheListParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsGetActionsCacheListQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    ref: joi.string(),
-    key: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-  })
-  .required()
+const actionsGetActionsCacheListQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  ref: z.coerce.string().optional(),
+  key: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsGetActionsCacheList",
@@ -11475,15 +10839,15 @@ router.get(
   }
 )
 
-const actionsDeleteActionsCacheByKeyParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsDeleteActionsCacheByKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsDeleteActionsCacheByKeyQuerySchema = joi
-  .object()
-  .keys({ key: joi.string().required(), ref: joi.string() })
-  .required()
+const actionsDeleteActionsCacheByKeyQuerySchema = z.object({
+  key: z.coerce.string(),
+  ref: z.coerce.string().optional(),
+})
 
 router.delete(
   "actionsDeleteActionsCacheByKey",
@@ -11512,14 +10876,11 @@ router.delete(
   }
 )
 
-const actionsDeleteActionsCacheByIdParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    cache_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteActionsCacheByIdParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  cache_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteActionsCacheById",
@@ -11541,14 +10902,11 @@ router.delete(
   }
 )
 
-const actionsGetJobForWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    job_id: joi.number().required(),
-  })
-  .required()
+const actionsGetJobForWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  job_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetJobForWorkflowRun",
@@ -11570,14 +10928,11 @@ router.get(
   }
 )
 
-const actionsDownloadJobLogsForWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    job_id: joi.number().required(),
-  })
-  .required()
+const actionsDownloadJobLogsForWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  job_id: z.coerce.number(),
+})
 
 router.get(
   "actionsDownloadJobLogsForWorkflowRun",
@@ -11603,18 +10958,15 @@ router.get(
   }
 )
 
-const actionsReRunJobForWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    job_id: joi.number().required(),
-  })
-  .required()
+const actionsReRunJobForWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  job_id: z.coerce.number(),
+})
 
-const actionsReRunJobForWorkflowRunBodySchema = joi
-  .object()
-  .keys({ enable_debug_logging: joi.boolean() })
+const actionsReRunJobForWorkflowRunBodySchema = z
+  .object({ enable_debug_logging: z.coerce.boolean().optional() })
+  .optional()
 
 router.post(
   "actionsReRunJobForWorkflowRun",
@@ -11643,10 +10995,10 @@ router.post(
   }
 )
 
-const actionsGetCustomOidcSubClaimForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetCustomOidcSubClaimForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetCustomOidcSubClaimForRepo",
@@ -11672,18 +11024,15 @@ router.get(
   }
 )
 
-const actionsSetCustomOidcSubClaimForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsSetCustomOidcSubClaimForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsSetCustomOidcSubClaimForRepoBodySchema = joi
-  .object()
-  .keys({
-    use_default: joi.boolean().required(),
-    include_claim_keys: joi.array().items(joi.string()),
-  })
-  .required()
+const actionsSetCustomOidcSubClaimForRepoBodySchema = z.object({
+  use_default: z.coerce.boolean(),
+  include_claim_keys: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.put(
   "actionsSetCustomOidcSubClaimForRepo",
@@ -11712,10 +11061,10 @@ router.put(
   }
 )
 
-const actionsGetGithubActionsPermissionsRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetGithubActionsPermissionsRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetGithubActionsPermissionsRepository",
@@ -11741,15 +11090,15 @@ router.get(
   }
 )
 
-const actionsSetGithubActionsPermissionsRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsSetGithubActionsPermissionsRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsSetGithubActionsPermissionsRepositoryBodySchema = joi
-  .object()
-  .keys({ enabled: joi.boolean().required(), allowed_actions: joi.string() })
-  .required()
+const actionsSetGithubActionsPermissionsRepositoryBodySchema = z.object({
+  enabled: z.coerce.boolean(),
+  allowed_actions: z.coerce.string().optional(),
+})
 
 router.put(
   "actionsSetGithubActionsPermissionsRepository",
@@ -11778,10 +11127,10 @@ router.put(
   }
 )
 
-const actionsGetWorkflowAccessToRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetWorkflowAccessToRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetWorkflowAccessToRepository",
@@ -11807,15 +11156,14 @@ router.get(
   }
 )
 
-const actionsSetWorkflowAccessToRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsSetWorkflowAccessToRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsSetWorkflowAccessToRepositoryBodySchema = joi
-  .object()
-  .keys({ access_level: joi.string().required() })
-  .required()
+const actionsSetWorkflowAccessToRepositoryBodySchema = z.object({
+  access_level: z.coerce.string(),
+})
 
 router.put(
   "actionsSetWorkflowAccessToRepository",
@@ -11844,10 +11192,10 @@ router.put(
   }
 )
 
-const actionsGetAllowedActionsRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetAllowedActionsRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetAllowedActionsRepository",
@@ -11873,18 +11221,18 @@ router.get(
   }
 )
 
-const actionsSetAllowedActionsRepositoryParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsSetAllowedActionsRepositoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsSetAllowedActionsRepositoryBodySchema = joi
-  .object()
-  .keys({
-    github_owned_allowed: joi.boolean(),
-    verified_allowed: joi.boolean(),
-    patterns_allowed: joi.array().items(joi.string()),
+const actionsSetAllowedActionsRepositoryBodySchema = z
+  .object({
+    github_owned_allowed: z.coerce.boolean().optional(),
+    verified_allowed: z.coerce.boolean().optional(),
+    patterns_allowed: z.array(z.coerce.string().optional()).optional(),
   })
+  .optional()
 
 router.put(
   "actionsSetAllowedActionsRepository",
@@ -11914,10 +11262,7 @@ router.put(
 )
 
 const actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
-  joi
-    .object()
-    .keys({ owner: joi.string().required(), repo: joi.string().required() })
-    .required()
+  z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
 
 router.get(
   "actionsGetGithubActionsDefaultWorkflowPermissionsRepository",
@@ -11944,19 +11289,13 @@ router.get(
 )
 
 const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
-  joi
-    .object()
-    .keys({ owner: joi.string().required(), repo: joi.string().required() })
-    .required()
+  z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
 
 const actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
-  joi
-    .object()
-    .keys({
-      default_workflow_permissions: joi.string(),
-      can_approve_pull_request_reviews: joi.boolean(),
-    })
-    .required()
+  z.object({
+    default_workflow_permissions: z.coerce.string().optional(),
+    can_approve_pull_request_reviews: z.coerce.boolean().optional(),
+  })
 
 router.put(
   "actionsSetGithubActionsDefaultWorkflowPermissionsRepository",
@@ -11985,30 +11324,24 @@ router.put(
   }
 )
 
-const actionsListRequiredWorkflowRunsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    required_workflow_id_for_repo: joi.number().required(),
-  })
-  .required()
+const actionsListRequiredWorkflowRunsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  required_workflow_id_for_repo: z.coerce.number(),
+})
 
-const actionsListRequiredWorkflowRunsQuerySchema = joi
-  .object()
-  .keys({
-    actor: joi.string(),
-    branch: joi.string(),
-    event: joi.string(),
-    status: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    created: joi.string(),
-    exclude_pull_requests: joi.boolean(),
-    check_suite_id: joi.number(),
-    head_sha: joi.string(),
-  })
-  .required()
+const actionsListRequiredWorkflowRunsQuerySchema = z.object({
+  actor: z.coerce.string().optional(),
+  branch: z.coerce.string().optional(),
+  event: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  created: z.coerce.string().optional(),
+  exclude_pull_requests: z.coerce.boolean().optional(),
+  check_suite_id: z.coerce.number().optional(),
+  head_sha: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsListRequiredWorkflowRuns",
@@ -12037,15 +11370,15 @@ router.get(
   }
 )
 
-const actionsListSelfHostedRunnersForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListSelfHostedRunnersForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListSelfHostedRunnersForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListSelfHostedRunnersForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListSelfHostedRunnersForRepo",
@@ -12074,10 +11407,10 @@ router.get(
   }
 )
 
-const actionsListRunnerApplicationsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListRunnerApplicationsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsListRunnerApplicationsForRepo",
@@ -12103,10 +11436,10 @@ router.get(
   }
 )
 
-const actionsCreateRegistrationTokenForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsCreateRegistrationTokenForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateRegistrationTokenForRepo",
@@ -12132,10 +11465,10 @@ router.post(
   }
 )
 
-const actionsCreateRemoveTokenForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsCreateRemoveTokenForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateRemoveTokenForRepo",
@@ -12157,14 +11490,11 @@ router.post(
   }
 )
 
-const actionsGetSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsGetSelfHostedRunnerForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetSelfHostedRunnerForRepo",
@@ -12190,14 +11520,11 @@ router.get(
   }
 )
 
-const actionsDeleteSelfHostedRunnerFromRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteSelfHostedRunnerFromRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteSelfHostedRunnerFromRepo",
@@ -12223,14 +11550,11 @@ router.delete(
   }
 )
 
-const actionsListLabelsForSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsListLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
 router.get(
   "actionsListLabelsForSelfHostedRunnerForRepo",
@@ -12256,19 +11580,15 @@ router.get(
   }
 )
 
-const actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
-const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = joi
-  .object()
-  .keys({ labels: joi.array().items(joi.string()).required() })
-  .required()
+const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = z.object({
+  labels: z.array(z.coerce.string().optional()),
+})
 
 router.post(
   "actionsAddCustomLabelsToSelfHostedRunnerForRepo",
@@ -12297,19 +11617,15 @@ router.post(
   }
 )
 
-const actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-  })
-  .required()
+const actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  runner_id: z.coerce.number(),
+})
 
-const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = joi
-  .object()
-  .keys({ labels: joi.array().items(joi.string()).required() })
-  .required()
+const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = z.object({
+  labels: z.array(z.coerce.string().optional()),
+})
 
 router.put(
   "actionsSetCustomLabelsForSelfHostedRunnerForRepo",
@@ -12338,14 +11654,12 @@ router.put(
   }
 )
 
-const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
+const actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema =
+  z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    runner_id: z.coerce.number(),
   })
-  .required()
 
 router.delete(
   "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo",
@@ -12371,15 +11685,14 @@ router.delete(
   }
 )
 
-const actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    runner_id: joi.number().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema = z.object(
+  {
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    runner_id: z.coerce.number(),
+    name: z.coerce.string(),
+  }
+)
 
 router.delete(
   "actionsRemoveCustomLabelFromSelfHostedRunnerForRepo",
@@ -12405,26 +11718,23 @@ router.delete(
   }
 )
 
-const actionsListWorkflowRunsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListWorkflowRunsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListWorkflowRunsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    actor: joi.string(),
-    branch: joi.string(),
-    event: joi.string(),
-    status: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    created: joi.string(),
-    exclude_pull_requests: joi.boolean(),
-    check_suite_id: joi.number(),
-    head_sha: joi.string(),
-  })
-  .required()
+const actionsListWorkflowRunsForRepoQuerySchema = z.object({
+  actor: z.coerce.string().optional(),
+  branch: z.coerce.string().optional(),
+  event: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  created: z.coerce.string().optional(),
+  exclude_pull_requests: z.coerce.boolean().optional(),
+  check_suite_id: z.coerce.number().optional(),
+  head_sha: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsListWorkflowRunsForRepo",
@@ -12453,19 +11763,15 @@ router.get(
   }
 )
 
-const actionsGetWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsGetWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsGetWorkflowRunQuerySchema = joi
-  .object()
-  .keys({ exclude_pull_requests: joi.boolean() })
-  .required()
+const actionsGetWorkflowRunQuerySchema = z.object({
+  exclude_pull_requests: z.coerce.boolean().optional(),
+})
 
 router.get(
   "actionsGetWorkflowRun",
@@ -12494,14 +11800,11 @@ router.get(
   }
 )
 
-const actionsDeleteWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteWorkflowRun",
@@ -12523,14 +11826,11 @@ router.delete(
   }
 )
 
-const actionsGetReviewsForRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsGetReviewsForRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetReviewsForRun",
@@ -12552,14 +11852,11 @@ router.get(
   }
 )
 
-const actionsApproveWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsApproveWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.post(
   "actionsApproveWorkflowRun",
@@ -12581,19 +11878,16 @@ router.post(
   }
 )
 
-const actionsListWorkflowRunArtifactsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsListWorkflowRunArtifactsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsListWorkflowRunArtifactsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListWorkflowRunArtifactsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListWorkflowRunArtifacts",
@@ -12622,20 +11916,16 @@ router.get(
   }
 )
 
-const actionsGetWorkflowRunAttemptParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-    attempt_number: joi.number().required(),
-  })
-  .required()
+const actionsGetWorkflowRunAttemptParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+  attempt_number: z.coerce.number(),
+})
 
-const actionsGetWorkflowRunAttemptQuerySchema = joi
-  .object()
-  .keys({ exclude_pull_requests: joi.boolean() })
-  .required()
+const actionsGetWorkflowRunAttemptQuerySchema = z.object({
+  exclude_pull_requests: z.coerce.boolean().optional(),
+})
 
 router.get(
   "actionsGetWorkflowRunAttempt",
@@ -12664,20 +11954,17 @@ router.get(
   }
 )
 
-const actionsListJobsForWorkflowRunAttemptParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-    attempt_number: joi.number().required(),
-  })
-  .required()
+const actionsListJobsForWorkflowRunAttemptParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+  attempt_number: z.coerce.number(),
+})
 
-const actionsListJobsForWorkflowRunAttemptQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListJobsForWorkflowRunAttemptQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListJobsForWorkflowRunAttempt",
@@ -12706,15 +11993,12 @@ router.get(
   }
 )
 
-const actionsDownloadWorkflowRunAttemptLogsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-    attempt_number: joi.number().required(),
-  })
-  .required()
+const actionsDownloadWorkflowRunAttemptLogsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+  attempt_number: z.coerce.number(),
+})
 
 router.get(
   "actionsDownloadWorkflowRunAttemptLogs",
@@ -12740,14 +12024,11 @@ router.get(
   }
 )
 
-const actionsCancelWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsCancelWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.post(
   "actionsCancelWorkflowRun",
@@ -12769,19 +12050,17 @@ router.post(
   }
 )
 
-const actionsListJobsForWorkflowRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsListJobsForWorkflowRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsListJobsForWorkflowRunQuerySchema = joi
-  .object()
-  .keys({ filter: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListJobsForWorkflowRunQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListJobsForWorkflowRun",
@@ -12810,14 +12089,11 @@ router.get(
   }
 )
 
-const actionsDownloadWorkflowRunLogsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsDownloadWorkflowRunLogsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.get(
   "actionsDownloadWorkflowRunLogs",
@@ -12839,14 +12115,11 @@ router.get(
   }
 )
 
-const actionsDeleteWorkflowRunLogsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsDeleteWorkflowRunLogsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.delete(
   "actionsDeleteWorkflowRunLogs",
@@ -12868,14 +12141,11 @@ router.delete(
   }
 )
 
-const actionsGetPendingDeploymentsForRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsGetPendingDeploymentsForRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetPendingDeploymentsForRun",
@@ -12901,23 +12171,17 @@ router.get(
   }
 )
 
-const actionsReviewPendingDeploymentsForRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsReviewPendingDeploymentsForRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsReviewPendingDeploymentsForRunBodySchema = joi
-  .object()
-  .keys({
-    environment_ids: joi.array().items(joi.number()).required(),
-    state: joi.string().required(),
-    comment: joi.string().required(),
-  })
-  .required()
+const actionsReviewPendingDeploymentsForRunBodySchema = z.object({
+  environment_ids: z.array(z.coerce.number().optional()),
+  state: z.coerce.string(),
+  comment: z.coerce.string(),
+})
 
 router.post(
   "actionsReviewPendingDeploymentsForRun",
@@ -12946,18 +12210,15 @@ router.post(
   }
 )
 
-const actionsReRunWorkflowParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsReRunWorkflowParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsReRunWorkflowBodySchema = joi
-  .object()
-  .keys({ enable_debug_logging: joi.boolean() })
+const actionsReRunWorkflowBodySchema = z
+  .object({ enable_debug_logging: z.coerce.boolean().optional() })
+  .optional()
 
 router.post(
   "actionsReRunWorkflow",
@@ -12986,18 +12247,15 @@ router.post(
   }
 )
 
-const actionsReRunWorkflowFailedJobsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsReRunWorkflowFailedJobsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
-const actionsReRunWorkflowFailedJobsBodySchema = joi
-  .object()
-  .keys({ enable_debug_logging: joi.boolean() })
+const actionsReRunWorkflowFailedJobsBodySchema = z
+  .object({ enable_debug_logging: z.coerce.boolean().optional() })
+  .optional()
 
 router.post(
   "actionsReRunWorkflowFailedJobs",
@@ -13026,14 +12284,11 @@ router.post(
   }
 )
 
-const actionsGetWorkflowRunUsageParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    run_id: joi.number().required(),
-  })
-  .required()
+const actionsGetWorkflowRunUsageParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  run_id: z.coerce.number(),
+})
 
 router.get(
   "actionsGetWorkflowRunUsage",
@@ -13055,15 +12310,15 @@ router.get(
   }
 )
 
-const actionsListRepoSecretsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListRepoSecretsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListRepoSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListRepoSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRepoSecrets",
@@ -13092,10 +12347,10 @@ router.get(
   }
 )
 
-const actionsGetRepoPublicKeyParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsGetRepoPublicKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "actionsGetRepoPublicKey",
@@ -13117,14 +12372,11 @@ router.get(
   }
 )
 
-const actionsGetRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsGetRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetRepoSecret",
@@ -13146,19 +12398,16 @@ router.get(
   }
 )
 
-const actionsCreateOrUpdateRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsCreateOrUpdateRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const actionsCreateOrUpdateRepoSecretBodySchema = joi
-  .object()
-  .keys({ encrypted_value: joi.string(), key_id: joi.string() })
-  .required()
+const actionsCreateOrUpdateRepoSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+})
 
 router.put(
   "actionsCreateOrUpdateRepoSecret",
@@ -13187,14 +12436,11 @@ router.put(
   }
 )
 
-const actionsDeleteRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsDeleteRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteRepoSecret",
@@ -13216,15 +12462,15 @@ router.delete(
   }
 )
 
-const actionsListRepoVariablesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListRepoVariablesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListRepoVariablesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListRepoVariablesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRepoVariables",
@@ -13253,15 +12499,15 @@ router.get(
   }
 )
 
-const actionsCreateRepoVariableParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsCreateRepoVariableParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsCreateRepoVariableBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), value: joi.string().required() })
-  .required()
+const actionsCreateRepoVariableBodySchema = z.object({
+  name: z.coerce.string(),
+  value: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateRepoVariable",
@@ -13290,14 +12536,11 @@ router.post(
   }
 )
 
-const actionsGetRepoVariableParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsGetRepoVariableParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetRepoVariable",
@@ -13319,19 +12562,16 @@ router.get(
   }
 )
 
-const actionsUpdateRepoVariableParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsUpdateRepoVariableParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const actionsUpdateRepoVariableBodySchema = joi
-  .object()
-  .keys({ name: joi.string(), value: joi.string() })
-  .required()
+const actionsUpdateRepoVariableBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  value: z.coerce.string().optional(),
+})
 
 router.patch(
   "actionsUpdateRepoVariable",
@@ -13360,14 +12600,11 @@ router.patch(
   }
 )
 
-const actionsDeleteRepoVariableParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsDeleteRepoVariableParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteRepoVariable",
@@ -13389,15 +12626,15 @@ router.delete(
   }
 )
 
-const actionsListRepoWorkflowsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const actionsListRepoWorkflowsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const actionsListRepoWorkflowsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListRepoWorkflowsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListRepoWorkflows",
@@ -13426,14 +12663,11 @@ router.get(
   }
 )
 
-const actionsGetWorkflowParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsGetWorkflowParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
 router.get(
   "actionsGetWorkflow",
@@ -13455,14 +12689,11 @@ router.get(
   }
 )
 
-const actionsDisableWorkflowParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsDisableWorkflowParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
 router.put(
   "actionsDisableWorkflow",
@@ -13484,19 +12715,16 @@ router.put(
   }
 )
 
-const actionsCreateWorkflowDispatchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsCreateWorkflowDispatchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
-const actionsCreateWorkflowDispatchBodySchema = joi
-  .object()
-  .keys({ ref: joi.string().required(), inputs: joi.object().keys({}) })
-  .required()
+const actionsCreateWorkflowDispatchBodySchema = z.object({
+  ref: z.coerce.string(),
+  inputs: z.object({}).optional(),
+})
 
 router.post(
   "actionsCreateWorkflowDispatch",
@@ -13525,14 +12753,11 @@ router.post(
   }
 )
 
-const actionsEnableWorkflowParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsEnableWorkflowParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
 router.put(
   "actionsEnableWorkflow",
@@ -13554,30 +12779,24 @@ router.put(
   }
 )
 
-const actionsListWorkflowRunsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsListWorkflowRunsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
-const actionsListWorkflowRunsQuerySchema = joi
-  .object()
-  .keys({
-    actor: joi.string(),
-    branch: joi.string(),
-    event: joi.string(),
-    status: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    created: joi.string(),
-    exclude_pull_requests: joi.boolean(),
-    check_suite_id: joi.number(),
-    head_sha: joi.string(),
-  })
-  .required()
+const actionsListWorkflowRunsQuerySchema = z.object({
+  actor: z.coerce.string().optional(),
+  branch: z.coerce.string().optional(),
+  event: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  created: z.coerce.string().optional(),
+  exclude_pull_requests: z.coerce.boolean().optional(),
+  check_suite_id: z.coerce.number().optional(),
+  head_sha: z.coerce.string().optional(),
+})
 
 router.get(
   "actionsListWorkflowRuns",
@@ -13606,14 +12825,11 @@ router.get(
   }
 )
 
-const actionsGetWorkflowUsageParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    workflow_id: joi.object().keys({}).required(),
-  })
-  .required()
+const actionsGetWorkflowUsageParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  workflow_id: z.object({}),
+})
 
 router.get(
   "actionsGetWorkflowUsage",
@@ -13635,15 +12851,15 @@ router.get(
   }
 )
 
-const issuesListAssigneesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListAssigneesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListAssigneesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListAssigneesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListAssignees",
@@ -13672,14 +12888,11 @@ router.get(
   }
 )
 
-const issuesCheckUserCanBeAssignedParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    assignee: joi.string().required(),
-  })
-  .required()
+const issuesCheckUserCanBeAssignedParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  assignee: z.coerce.string(),
+})
 
 router.get(
   "issuesCheckUserCanBeAssigned",
@@ -13701,15 +12914,14 @@ router.get(
   }
 )
 
-const reposListAutolinksParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListAutolinksParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListAutolinksQuerySchema = joi
-  .object()
-  .keys({ page: joi.number() })
-  .required()
+const reposListAutolinksQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListAutolinks",
@@ -13738,19 +12950,16 @@ router.get(
   }
 )
 
-const reposCreateAutolinkParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateAutolinkParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateAutolinkBodySchema = joi
-  .object()
-  .keys({
-    key_prefix: joi.string().required(),
-    url_template: joi.string().required(),
-    is_alphanumeric: joi.boolean(),
-  })
-  .required()
+const reposCreateAutolinkBodySchema = z.object({
+  key_prefix: z.coerce.string(),
+  url_template: z.coerce.string(),
+  is_alphanumeric: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateAutolink",
@@ -13779,14 +12988,11 @@ router.post(
   }
 )
 
-const reposGetAutolinkParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    autolink_id: joi.number().required(),
-  })
-  .required()
+const reposGetAutolinkParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  autolink_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetAutolink",
@@ -13808,14 +13014,11 @@ router.get(
   }
 )
 
-const reposDeleteAutolinkParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    autolink_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteAutolinkParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  autolink_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteAutolink",
@@ -13837,10 +13040,10 @@ router.delete(
   }
 )
 
-const reposEnableAutomatedSecurityFixesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposEnableAutomatedSecurityFixesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.put(
   "reposEnableAutomatedSecurityFixes",
@@ -13866,10 +13069,10 @@ router.put(
   }
 )
 
-const reposDisableAutomatedSecurityFixesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposDisableAutomatedSecurityFixesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "reposDisableAutomatedSecurityFixes",
@@ -13895,19 +13098,16 @@ router.delete(
   }
 )
 
-const reposListBranchesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListBranchesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListBranchesQuerySchema = joi
-  .object()
-  .keys({
-    protected: joi.boolean(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListBranchesQuerySchema = z.object({
+  protected: z.coerce.boolean().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListBranches",
@@ -13936,14 +13136,11 @@ router.get(
   }
 )
 
-const reposGetBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetBranch",
@@ -13965,14 +13162,11 @@ router.get(
   }
 )
 
-const reposGetBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetBranchProtection",
@@ -13994,73 +13188,61 @@ router.get(
   }
 )
 
-const reposUpdateBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposUpdateBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposUpdateBranchProtectionBodySchema = joi
-  .object()
-  .keys({
-    required_status_checks: joi
-      .object()
-      .keys({
-        strict: joi.boolean().required(),
-        contexts: joi.array().items(joi.string()).required(),
-        checks: joi
-          .array()
-          .items(
-            joi
-              .object()
-              .keys({ context: joi.string().required(), app_id: joi.number() })
-          ),
+const reposUpdateBranchProtectionBodySchema = z.object({
+  required_status_checks: z.object({
+    strict: z.coerce.boolean(),
+    contexts: z.array(z.coerce.string().optional()),
+    checks: z
+      .array(
+        z
+          .object({
+            context: z.coerce.string(),
+            app_id: z.coerce.number().optional(),
+          })
+          .optional()
+      )
+      .optional(),
+  }),
+  enforce_admins: z.coerce.boolean(),
+  required_pull_request_reviews: z.object({
+    dismissal_restrictions: z
+      .object({
+        users: z.array(z.coerce.string().optional()).optional(),
+        teams: z.array(z.coerce.string().optional()).optional(),
+        apps: z.array(z.coerce.string().optional()).optional(),
       })
-      .required(),
-    enforce_admins: joi.boolean().required(),
-    required_pull_request_reviews: joi
-      .object()
-      .keys({
-        dismissal_restrictions: joi
-          .object()
-          .keys({
-            users: joi.array().items(joi.string()),
-            teams: joi.array().items(joi.string()),
-            apps: joi.array().items(joi.string()),
-          }),
-        dismiss_stale_reviews: joi.boolean(),
-        require_code_owner_reviews: joi.boolean(),
-        required_approving_review_count: joi.number(),
-        require_last_push_approval: joi.boolean(),
-        bypass_pull_request_allowances: joi
-          .object()
-          .keys({
-            users: joi.array().items(joi.string()),
-            teams: joi.array().items(joi.string()),
-            apps: joi.array().items(joi.string()),
-          }),
+      .optional(),
+    dismiss_stale_reviews: z.coerce.boolean().optional(),
+    require_code_owner_reviews: z.coerce.boolean().optional(),
+    required_approving_review_count: z.coerce.number().optional(),
+    require_last_push_approval: z.coerce.boolean().optional(),
+    bypass_pull_request_allowances: z
+      .object({
+        users: z.array(z.coerce.string().optional()).optional(),
+        teams: z.array(z.coerce.string().optional()).optional(),
+        apps: z.array(z.coerce.string().optional()).optional(),
       })
-      .required(),
-    restrictions: joi
-      .object()
-      .keys({
-        users: joi.array().items(joi.string()).required(),
-        teams: joi.array().items(joi.string()).required(),
-        apps: joi.array().items(joi.string()),
-      })
-      .required(),
-    required_linear_history: joi.boolean(),
-    allow_force_pushes: joi.boolean(),
-    allow_deletions: joi.boolean(),
-    block_creations: joi.boolean(),
-    required_conversation_resolution: joi.boolean(),
-    lock_branch: joi.boolean(),
-    allow_fork_syncing: joi.boolean(),
-  })
-  .required()
+      .optional(),
+  }),
+  restrictions: z.object({
+    users: z.array(z.coerce.string().optional()),
+    teams: z.array(z.coerce.string().optional()),
+    apps: z.array(z.coerce.string().optional()).optional(),
+  }),
+  required_linear_history: z.coerce.boolean().optional(),
+  allow_force_pushes: z.coerce.boolean().optional(),
+  allow_deletions: z.coerce.boolean().optional(),
+  block_creations: z.coerce.boolean().optional(),
+  required_conversation_resolution: z.coerce.boolean().optional(),
+  lock_branch: z.coerce.boolean().optional(),
+  allow_fork_syncing: z.coerce.boolean().optional(),
+})
 
 router.put(
   "reposUpdateBranchProtection",
@@ -14089,14 +13271,11 @@ router.put(
   }
 )
 
-const reposDeleteBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposDeleteBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposDeleteBranchProtection",
@@ -14118,14 +13297,11 @@ router.delete(
   }
 )
 
-const reposGetAdminBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetAdminBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetAdminBranchProtection",
@@ -14147,14 +13323,11 @@ router.get(
   }
 )
 
-const reposSetAdminBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposSetAdminBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.post(
   "reposSetAdminBranchProtection",
@@ -14176,14 +13349,11 @@ router.post(
   }
 )
 
-const reposDeleteAdminBranchProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposDeleteAdminBranchProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposDeleteAdminBranchProtection",
@@ -14209,14 +13379,11 @@ router.delete(
   }
 )
 
-const reposGetPullRequestReviewProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetPullRequestReviewProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetPullRequestReviewProtection",
@@ -14242,37 +13409,34 @@ router.get(
   }
 )
 
-const reposUpdatePullRequestReviewProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposUpdatePullRequestReviewProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposUpdatePullRequestReviewProtectionBodySchema = joi
-  .object()
-  .keys({
-    dismissal_restrictions: joi
-      .object()
-      .keys({
-        users: joi.array().items(joi.string()),
-        teams: joi.array().items(joi.string()),
-        apps: joi.array().items(joi.string()),
-      }),
-    dismiss_stale_reviews: joi.boolean(),
-    require_code_owner_reviews: joi.boolean(),
-    required_approving_review_count: joi.number(),
-    require_last_push_approval: joi.boolean(),
-    bypass_pull_request_allowances: joi
-      .object()
-      .keys({
-        users: joi.array().items(joi.string()),
-        teams: joi.array().items(joi.string()),
-        apps: joi.array().items(joi.string()),
-      }),
+const reposUpdatePullRequestReviewProtectionBodySchema = z
+  .object({
+    dismissal_restrictions: z
+      .object({
+        users: z.array(z.coerce.string().optional()).optional(),
+        teams: z.array(z.coerce.string().optional()).optional(),
+        apps: z.array(z.coerce.string().optional()).optional(),
+      })
+      .optional(),
+    dismiss_stale_reviews: z.coerce.boolean().optional(),
+    require_code_owner_reviews: z.coerce.boolean().optional(),
+    required_approving_review_count: z.coerce.number().optional(),
+    require_last_push_approval: z.coerce.boolean().optional(),
+    bypass_pull_request_allowances: z
+      .object({
+        users: z.array(z.coerce.string().optional()).optional(),
+        teams: z.array(z.coerce.string().optional()).optional(),
+        apps: z.array(z.coerce.string().optional()).optional(),
+      })
+      .optional(),
   })
+  .optional()
 
 router.patch(
   "reposUpdatePullRequestReviewProtection",
@@ -14301,14 +13465,11 @@ router.patch(
   }
 )
 
-const reposDeletePullRequestReviewProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposDeletePullRequestReviewProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposDeletePullRequestReviewProtection",
@@ -14334,14 +13495,11 @@ router.delete(
   }
 )
 
-const reposGetCommitSignatureProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetCommitSignatureProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetCommitSignatureProtection",
@@ -14367,14 +13525,11 @@ router.get(
   }
 )
 
-const reposCreateCommitSignatureProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposCreateCommitSignatureProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.post(
   "reposCreateCommitSignatureProtection",
@@ -14400,14 +13555,11 @@ router.post(
   }
 )
 
-const reposDeleteCommitSignatureProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposDeleteCommitSignatureProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposDeleteCommitSignatureProtection",
@@ -14433,14 +13585,11 @@ router.delete(
   }
 )
 
-const reposGetStatusChecksProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetStatusChecksProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetStatusChecksProtection",
@@ -14462,28 +13611,28 @@ router.get(
   }
 )
 
-const reposUpdateStatusCheckProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposUpdateStatusCheckProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposUpdateStatusCheckProtectionBodySchema = joi
-  .object()
-  .keys({
-    strict: joi.boolean(),
-    contexts: joi.array().items(joi.string()),
-    checks: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({ context: joi.string().required(), app_id: joi.number() })
-      ),
+const reposUpdateStatusCheckProtectionBodySchema = z
+  .object({
+    strict: z.coerce.boolean().optional(),
+    contexts: z.array(z.coerce.string().optional()).optional(),
+    checks: z
+      .array(
+        z
+          .object({
+            context: z.coerce.string(),
+            app_id: z.coerce.number().optional(),
+          })
+          .optional()
+      )
+      .optional(),
   })
+  .optional()
 
 router.patch(
   "reposUpdateStatusCheckProtection",
@@ -14512,14 +13661,11 @@ router.patch(
   }
 )
 
-const reposRemoveStatusCheckProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRemoveStatusCheckProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposRemoveStatusCheckProtection",
@@ -14545,14 +13691,11 @@ router.delete(
   }
 )
 
-const reposGetAllStatusCheckContextsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetAllStatusCheckContextsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetAllStatusCheckContexts",
@@ -14574,16 +13717,13 @@ router.get(
   }
 )
 
-const reposAddStatusCheckContextsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposAddStatusCheckContextsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposAddStatusCheckContextsBodySchema = joi.object().keys({})
+const reposAddStatusCheckContextsBodySchema = z.object({}).optional()
 
 router.post(
   "reposAddStatusCheckContexts",
@@ -14612,16 +13752,13 @@ router.post(
   }
 )
 
-const reposSetStatusCheckContextsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposSetStatusCheckContextsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposSetStatusCheckContextsBodySchema = joi.object().keys({})
+const reposSetStatusCheckContextsBodySchema = z.object({}).optional()
 
 router.put(
   "reposSetStatusCheckContexts",
@@ -14650,19 +13787,13 @@ router.put(
   }
 )
 
-const reposRemoveStatusCheckContextsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRemoveStatusCheckContextsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposRemoveStatusCheckContextsBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const reposRemoveStatusCheckContextsBodySchema = z.object({})
 
 router.delete(
   "reposRemoveStatusCheckContexts",
@@ -14691,14 +13822,11 @@ router.delete(
   }
 )
 
-const reposGetAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetAccessRestrictions",
@@ -14720,14 +13848,11 @@ router.get(
   }
 )
 
-const reposDeleteAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposDeleteAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.delete(
   "reposDeleteAccessRestrictions",
@@ -14749,14 +13874,11 @@ router.delete(
   }
 )
 
-const reposGetAppsWithAccessToProtectedBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetAppsWithAccessToProtectedBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetAppsWithAccessToProtectedBranch",
@@ -14782,16 +13904,13 @@ router.get(
   }
 )
 
-const reposAddAppAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposAddAppAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposAddAppAccessRestrictionsBodySchema = joi.object().keys({})
+const reposAddAppAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.post(
   "reposAddAppAccessRestrictions",
@@ -14820,16 +13939,13 @@ router.post(
   }
 )
 
-const reposSetAppAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposSetAppAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposSetAppAccessRestrictionsBodySchema = joi.object().keys({})
+const reposSetAppAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.put(
   "reposSetAppAccessRestrictions",
@@ -14858,19 +13974,13 @@ router.put(
   }
 )
 
-const reposRemoveAppAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRemoveAppAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposRemoveAppAccessRestrictionsBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const reposRemoveAppAccessRestrictionsBodySchema = z.object({})
 
 router.delete(
   "reposRemoveAppAccessRestrictions",
@@ -14899,14 +14009,11 @@ router.delete(
   }
 )
 
-const reposGetTeamsWithAccessToProtectedBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetTeamsWithAccessToProtectedBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetTeamsWithAccessToProtectedBranch",
@@ -14932,16 +14039,13 @@ router.get(
   }
 )
 
-const reposAddTeamAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposAddTeamAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposAddTeamAccessRestrictionsBodySchema = joi.object().keys({})
+const reposAddTeamAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.post(
   "reposAddTeamAccessRestrictions",
@@ -14970,16 +14074,13 @@ router.post(
   }
 )
 
-const reposSetTeamAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposSetTeamAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposSetTeamAccessRestrictionsBodySchema = joi.object().keys({})
+const reposSetTeamAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.put(
   "reposSetTeamAccessRestrictions",
@@ -15008,19 +14109,13 @@ router.put(
   }
 )
 
-const reposRemoveTeamAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRemoveTeamAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposRemoveTeamAccessRestrictionsBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const reposRemoveTeamAccessRestrictionsBodySchema = z.object({})
 
 router.delete(
   "reposRemoveTeamAccessRestrictions",
@@ -15049,14 +14144,11 @@ router.delete(
   }
 )
 
-const reposGetUsersWithAccessToProtectedBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposGetUsersWithAccessToProtectedBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
 router.get(
   "reposGetUsersWithAccessToProtectedBranch",
@@ -15082,16 +14174,13 @@ router.get(
   }
 )
 
-const reposAddUserAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposAddUserAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposAddUserAccessRestrictionsBodySchema = joi.object().keys({})
+const reposAddUserAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.post(
   "reposAddUserAccessRestrictions",
@@ -15120,16 +14209,13 @@ router.post(
   }
 )
 
-const reposSetUserAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposSetUserAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposSetUserAccessRestrictionsBodySchema = joi.object().keys({})
+const reposSetUserAccessRestrictionsBodySchema = z.object({}).optional()
 
 router.put(
   "reposSetUserAccessRestrictions",
@@ -15158,19 +14244,13 @@ router.put(
   }
 )
 
-const reposRemoveUserAccessRestrictionsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRemoveUserAccessRestrictionsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposRemoveUserAccessRestrictionsBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const reposRemoveUserAccessRestrictionsBodySchema = z.object({})
 
 router.delete(
   "reposRemoveUserAccessRestrictions",
@@ -15199,19 +14279,13 @@ router.delete(
   }
 )
 
-const reposRenameBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    branch: joi.string().required(),
-  })
-  .required()
+const reposRenameBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  branch: z.coerce.string(),
+})
 
-const reposRenameBranchBodySchema = joi
-  .object()
-  .keys({ new_name: joi.string().required() })
-  .required()
+const reposRenameBranchBodySchema = z.object({ new_name: z.coerce.string() })
 
 router.post(
   "reposRenameBranch",
@@ -15240,70 +14314,67 @@ router.post(
   }
 )
 
-const checksCreateParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const checksCreateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const checksCreateBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    head_sha: joi.string().required(),
-    details_url: joi.string(),
-    external_id: joi.string(),
-    status: joi.string(),
-    started_at: joi.string(),
-    conclusion: joi.string(),
-    completed_at: joi.string(),
-    output: joi
-      .object()
-      .keys({
-        title: joi.string().required(),
-        summary: joi.string().required(),
-        text: joi.string(),
-        annotations: joi
-          .array()
-          .items(
-            joi
-              .object()
-              .keys({
-                path: joi.string().required(),
-                start_line: joi.number().required(),
-                end_line: joi.number().required(),
-                start_column: joi.number(),
-                end_column: joi.number(),
-                annotation_level: joi.string().required(),
-                message: joi.string().required(),
-                title: joi.string(),
-                raw_details: joi.string(),
-              })
-          ),
-        images: joi
-          .array()
-          .items(
-            joi
-              .object()
-              .keys({
-                alt: joi.string().required(),
-                image_url: joi.string().required(),
-                caption: joi.string(),
-              })
-          ),
-      }),
-    actions: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({
-            label: joi.string().required(),
-            description: joi.string().required(),
-            identifier: joi.string().required(),
-          })
-      ),
-  })
-  .required()
+const checksCreateBodySchema = z.object({
+  name: z.coerce.string(),
+  head_sha: z.coerce.string(),
+  details_url: z.coerce.string().optional(),
+  external_id: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  started_at: z.coerce.string().optional(),
+  conclusion: z.coerce.string().optional(),
+  completed_at: z.coerce.string().optional(),
+  output: z
+    .object({
+      title: z.coerce.string(),
+      summary: z.coerce.string(),
+      text: z.coerce.string().optional(),
+      annotations: z
+        .array(
+          z
+            .object({
+              path: z.coerce.string(),
+              start_line: z.coerce.number(),
+              end_line: z.coerce.number(),
+              start_column: z.coerce.number().optional(),
+              end_column: z.coerce.number().optional(),
+              annotation_level: z.coerce.string(),
+              message: z.coerce.string(),
+              title: z.coerce.string().optional(),
+              raw_details: z.coerce.string().optional(),
+            })
+            .optional()
+        )
+        .optional(),
+      images: z
+        .array(
+          z
+            .object({
+              alt: z.coerce.string(),
+              image_url: z.coerce.string(),
+              caption: z.coerce.string().optional(),
+            })
+            .optional()
+        )
+        .optional(),
+    })
+    .optional(),
+  actions: z
+    .array(
+      z
+        .object({
+          label: z.coerce.string(),
+          description: z.coerce.string(),
+          identifier: z.coerce.string(),
+        })
+        .optional()
+    )
+    .optional(),
+})
 
 router.post(
   "checksCreate",
@@ -15328,14 +14399,11 @@ router.post(
   }
 )
 
-const checksGetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_run_id: joi.number().required(),
-  })
-  .required()
+const checksGetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_run_id: z.coerce.number(),
+})
 
 router.get(
   "checksGet",
@@ -15352,73 +14420,67 @@ router.get(
   }
 )
 
-const checksUpdateParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_run_id: joi.number().required(),
-  })
-  .required()
+const checksUpdateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_run_id: z.coerce.number(),
+})
 
-const checksUpdateBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    details_url: joi.string(),
-    external_id: joi.string(),
-    started_at: joi.string(),
-    status: joi.string(),
-    conclusion: joi.string(),
-    completed_at: joi.string(),
-    output: joi
-      .object()
-      .keys({
-        title: joi.string(),
-        summary: joi.string().required(),
-        text: joi.string(),
-        annotations: joi
-          .array()
-          .items(
-            joi
-              .object()
-              .keys({
-                path: joi.string().required(),
-                start_line: joi.number().required(),
-                end_line: joi.number().required(),
-                start_column: joi.number(),
-                end_column: joi.number(),
-                annotation_level: joi.string().required(),
-                message: joi.string().required(),
-                title: joi.string(),
-                raw_details: joi.string(),
-              })
-          ),
-        images: joi
-          .array()
-          .items(
-            joi
-              .object()
-              .keys({
-                alt: joi.string().required(),
-                image_url: joi.string().required(),
-                caption: joi.string(),
-              })
-          ),
-      }),
-    actions: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({
-            label: joi.string().required(),
-            description: joi.string().required(),
-            identifier: joi.string().required(),
-          })
-      ),
-  })
-  .required()
+const checksUpdateBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  details_url: z.coerce.string().optional(),
+  external_id: z.coerce.string().optional(),
+  started_at: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  conclusion: z.coerce.string().optional(),
+  completed_at: z.coerce.string().optional(),
+  output: z
+    .object({
+      title: z.coerce.string().optional(),
+      summary: z.coerce.string(),
+      text: z.coerce.string().optional(),
+      annotations: z
+        .array(
+          z
+            .object({
+              path: z.coerce.string(),
+              start_line: z.coerce.number(),
+              end_line: z.coerce.number(),
+              start_column: z.coerce.number().optional(),
+              end_column: z.coerce.number().optional(),
+              annotation_level: z.coerce.string(),
+              message: z.coerce.string(),
+              title: z.coerce.string().optional(),
+              raw_details: z.coerce.string().optional(),
+            })
+            .optional()
+        )
+        .optional(),
+      images: z
+        .array(
+          z
+            .object({
+              alt: z.coerce.string(),
+              image_url: z.coerce.string(),
+              caption: z.coerce.string().optional(),
+            })
+            .optional()
+        )
+        .optional(),
+    })
+    .optional(),
+  actions: z
+    .array(
+      z
+        .object({
+          label: z.coerce.string(),
+          description: z.coerce.string(),
+          identifier: z.coerce.string(),
+        })
+        .optional()
+    )
+    .optional(),
+})
 
 router.patch(
   "checksUpdate",
@@ -15443,19 +14505,16 @@ router.patch(
   }
 )
 
-const checksListAnnotationsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_run_id: joi.number().required(),
-  })
-  .required()
+const checksListAnnotationsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_run_id: z.coerce.number(),
+})
 
-const checksListAnnotationsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const checksListAnnotationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "checksListAnnotations",
@@ -15484,14 +14543,11 @@ router.get(
   }
 )
 
-const checksRerequestRunParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_run_id: joi.number().required(),
-  })
-  .required()
+const checksRerequestRunParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_run_id: z.coerce.number(),
+})
 
 router.post(
   "checksRerequestRun",
@@ -15513,15 +14569,12 @@ router.post(
   }
 )
 
-const checksCreateSuiteParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const checksCreateSuiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const checksCreateSuiteBodySchema = joi
-  .object()
-  .keys({ head_sha: joi.string().required() })
-  .required()
+const checksCreateSuiteBodySchema = z.object({ head_sha: z.coerce.string() })
 
 router.post(
   "checksCreateSuite",
@@ -15550,26 +14603,20 @@ router.post(
   }
 )
 
-const checksSetSuitesPreferencesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const checksSetSuitesPreferencesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const checksSetSuitesPreferencesBodySchema = joi
-  .object()
-  .keys({
-    auto_trigger_checks: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({
-            app_id: joi.number().required(),
-            setting: joi.boolean().required(),
-          })
-      ),
-  })
-  .required()
+const checksSetSuitesPreferencesBodySchema = z.object({
+  auto_trigger_checks: z
+    .array(
+      z
+        .object({ app_id: z.coerce.number(), setting: z.coerce.boolean() })
+        .optional()
+    )
+    .optional(),
+})
 
 router.patch(
   "checksSetSuitesPreferences",
@@ -15598,14 +14645,11 @@ router.patch(
   }
 )
 
-const checksGetSuiteParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_suite_id: joi.number().required(),
-  })
-  .required()
+const checksGetSuiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_suite_id: z.coerce.number(),
+})
 
 router.get(
   "checksGetSuite",
@@ -15627,25 +14671,19 @@ router.get(
   }
 )
 
-const checksListForSuiteParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_suite_id: joi.number().required(),
-  })
-  .required()
+const checksListForSuiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_suite_id: z.coerce.number(),
+})
 
-const checksListForSuiteQuerySchema = joi
-  .object()
-  .keys({
-    check_name: joi.string(),
-    status: joi.string(),
-    filter: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const checksListForSuiteQuerySchema = z.object({
+  check_name: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  filter: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "checksListForSuite",
@@ -15674,14 +14712,11 @@ router.get(
   }
 )
 
-const checksRerequestSuiteParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    check_suite_id: joi.number().required(),
-  })
-  .required()
+const checksRerequestSuiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  check_suite_id: z.coerce.number(),
+})
 
 router.post(
   "checksRerequestSuite",
@@ -15703,25 +14738,22 @@ router.post(
   }
 )
 
-const codeScanningListAlertsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codeScanningListAlertsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codeScanningListAlertsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    tool_name: joi.string(),
-    tool_guid: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    ref: joi.string(),
-    direction: joi.string(),
-    sort: joi.string(),
-    state: joi.string(),
-    severity: joi.string(),
-  })
-  .required()
+const codeScanningListAlertsForRepoQuerySchema = z.object({
+  tool_name: z.coerce.string().optional(),
+  tool_guid: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  ref: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  severity: z.coerce.string().optional(),
+})
 
 router.get(
   "codeScanningListAlertsForRepo",
@@ -15750,14 +14782,11 @@ router.get(
   }
 )
 
-const codeScanningGetAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const codeScanningGetAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
 router.get(
   "codeScanningGetAlert",
@@ -15779,23 +14808,17 @@ router.get(
   }
 )
 
-const codeScanningUpdateAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const codeScanningUpdateAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
-const codeScanningUpdateAlertBodySchema = joi
-  .object()
-  .keys({
-    state: joi.string().required(),
-    dismissed_reason: joi.string(),
-    dismissed_comment: joi.string(),
-  })
-  .required()
+const codeScanningUpdateAlertBodySchema = z.object({
+  state: z.coerce.string(),
+  dismissed_reason: z.coerce.string().optional(),
+  dismissed_comment: z.coerce.string().optional(),
+})
 
 router.patch(
   "codeScanningUpdateAlert",
@@ -15824,19 +14847,17 @@ router.patch(
   }
 )
 
-const codeScanningListAlertInstancesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const codeScanningListAlertInstancesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
-const codeScanningListAlertInstancesQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number(), ref: joi.string() })
-  .required()
+const codeScanningListAlertInstancesQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  ref: z.coerce.string().optional(),
+})
 
 router.get(
   "codeScanningListAlertInstances",
@@ -15865,24 +14886,21 @@ router.get(
   }
 )
 
-const codeScanningListRecentAnalysesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codeScanningListRecentAnalysesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codeScanningListRecentAnalysesQuerySchema = joi
-  .object()
-  .keys({
-    tool_name: joi.string(),
-    tool_guid: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    ref: joi.string(),
-    sarif_id: joi.string(),
-    direction: joi.string(),
-    sort: joi.string(),
-  })
-  .required()
+const codeScanningListRecentAnalysesQuerySchema = z.object({
+  tool_name: z.coerce.string().optional(),
+  tool_guid: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  ref: z.coerce.string().optional(),
+  sarif_id: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+})
 
 router.get(
   "codeScanningListRecentAnalyses",
@@ -15911,14 +14929,11 @@ router.get(
   }
 )
 
-const codeScanningGetAnalysisParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    analysis_id: joi.number().required(),
-  })
-  .required()
+const codeScanningGetAnalysisParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  analysis_id: z.coerce.number(),
+})
 
 router.get(
   "codeScanningGetAnalysis",
@@ -15940,19 +14955,15 @@ router.get(
   }
 )
 
-const codeScanningDeleteAnalysisParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    analysis_id: joi.number().required(),
-  })
-  .required()
+const codeScanningDeleteAnalysisParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  analysis_id: z.coerce.number(),
+})
 
-const codeScanningDeleteAnalysisQuerySchema = joi
-  .object()
-  .keys({ confirm_delete: joi.string() })
-  .required()
+const codeScanningDeleteAnalysisQuerySchema = z.object({
+  confirm_delete: z.coerce.string().optional(),
+})
 
 router.delete(
   "codeScanningDeleteAnalysis",
@@ -15981,10 +14992,10 @@ router.delete(
   }
 )
 
-const codeScanningListCodeqlDatabasesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codeScanningListCodeqlDatabasesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "codeScanningListCodeqlDatabases",
@@ -16006,14 +15017,11 @@ router.get(
   }
 )
 
-const codeScanningGetCodeqlDatabaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    language: joi.string().required(),
-  })
-  .required()
+const codeScanningGetCodeqlDatabaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  language: z.coerce.string(),
+})
 
 router.get(
   "codeScanningGetCodeqlDatabase",
@@ -16035,23 +15043,20 @@ router.get(
   }
 )
 
-const codeScanningUploadSarifParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codeScanningUploadSarifParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codeScanningUploadSarifBodySchema = joi
-  .object()
-  .keys({
-    commit_sha: joi.string().required(),
-    ref: joi.string().required(),
-    sarif: joi.string().required(),
-    checkout_uri: joi.string(),
-    started_at: joi.string(),
-    tool_name: joi.string(),
-    validate: joi.boolean(),
-  })
-  .required()
+const codeScanningUploadSarifBodySchema = z.object({
+  commit_sha: z.coerce.string(),
+  ref: z.coerce.string(),
+  sarif: z.coerce.string(),
+  checkout_uri: z.coerce.string().optional(),
+  started_at: z.coerce.string().optional(),
+  tool_name: z.coerce.string().optional(),
+  validate: z.coerce.boolean().optional(),
+})
 
 router.post(
   "codeScanningUploadSarif",
@@ -16080,14 +15085,11 @@ router.post(
   }
 )
 
-const codeScanningGetSarifParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    sarif_id: joi.string().required(),
-  })
-  .required()
+const codeScanningGetSarifParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  sarif_id: z.coerce.string(),
+})
 
 router.get(
   "codeScanningGetSarif",
@@ -16109,15 +15111,14 @@ router.get(
   }
 )
 
-const reposCodeownersErrorsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCodeownersErrorsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCodeownersErrorsQuerySchema = joi
-  .object()
-  .keys({ ref: joi.string() })
-  .required()
+const reposCodeownersErrorsQuerySchema = z.object({
+  ref: z.coerce.string().optional(),
+})
 
 router.get(
   "reposCodeownersErrors",
@@ -16146,15 +15147,15 @@ router.get(
   }
 )
 
-const codespacesListInRepositoryForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesListInRepositoryForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codespacesListInRepositoryForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesListInRepositoryForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListInRepositoryForAuthenticatedUser",
@@ -16183,26 +15184,23 @@ router.get(
   }
 )
 
-const codespacesCreateWithRepoForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesCreateWithRepoForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codespacesCreateWithRepoForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    ref: joi.string(),
-    location: joi.string(),
-    client_ip: joi.string(),
-    machine: joi.string(),
-    devcontainer_path: joi.string(),
-    multi_repo_permissions_opt_out: joi.boolean(),
-    working_directory: joi.string(),
-    idle_timeout_minutes: joi.number(),
-    display_name: joi.string(),
-    retention_period_minutes: joi.number(),
-  })
-  .required()
+const codespacesCreateWithRepoForAuthenticatedUserBodySchema = z.object({
+  ref: z.coerce.string().optional(),
+  location: z.coerce.string().optional(),
+  client_ip: z.coerce.string().optional(),
+  machine: z.coerce.string().optional(),
+  devcontainer_path: z.coerce.string().optional(),
+  multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
+  working_directory: z.coerce.string().optional(),
+  idle_timeout_minutes: z.coerce.number().optional(),
+  display_name: z.coerce.string().optional(),
+  retention_period_minutes: z.coerce.number().optional(),
+})
 
 router.post(
   "codespacesCreateWithRepoForAuthenticatedUser",
@@ -16232,13 +15230,13 @@ router.post(
 )
 
 const codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema =
-  joi
-    .object()
-    .keys({ owner: joi.string().required(), repo: joi.string().required() })
-    .required()
+  z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
 
 const codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema =
-  joi.object().keys({ per_page: joi.number(), page: joi.number() }).required()
+  z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
 
 router.get(
   "codespacesListDevcontainersInRepositoryForAuthenticatedUser",
@@ -16267,15 +15265,15 @@ router.get(
   }
 )
 
-const codespacesRepoMachinesForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesRepoMachinesForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codespacesRepoMachinesForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ location: joi.string(), client_ip: joi.string() })
-  .required()
+const codespacesRepoMachinesForAuthenticatedUserQuerySchema = z.object({
+  location: z.coerce.string().optional(),
+  client_ip: z.coerce.string().optional(),
+})
 
 router.get(
   "codespacesRepoMachinesForAuthenticatedUser",
@@ -16304,15 +15302,15 @@ router.get(
   }
 )
 
-const codespacesPreFlightWithRepoForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesPreFlightWithRepoForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ ref: joi.string(), client_ip: joi.string() })
-  .required()
+const codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema = z.object({
+  ref: z.coerce.string().optional(),
+  client_ip: z.coerce.string().optional(),
+})
 
 router.get(
   "codespacesPreFlightWithRepoForAuthenticatedUser",
@@ -16341,15 +15339,15 @@ router.get(
   }
 )
 
-const codespacesListRepoSecretsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesListRepoSecretsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const codespacesListRepoSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesListRepoSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListRepoSecrets",
@@ -16378,10 +15376,10 @@ router.get(
   }
 )
 
-const codespacesGetRepoPublicKeyParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const codespacesGetRepoPublicKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetRepoPublicKey",
@@ -16403,14 +15401,11 @@ router.get(
   }
 )
 
-const codespacesGetRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const codespacesGetRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetRepoSecret",
@@ -16432,19 +15427,16 @@ router.get(
   }
 )
 
-const codespacesCreateOrUpdateRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const codespacesCreateOrUpdateRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const codespacesCreateOrUpdateRepoSecretBodySchema = joi
-  .object()
-  .keys({ encrypted_value: joi.string(), key_id: joi.string() })
-  .required()
+const codespacesCreateOrUpdateRepoSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+})
 
 router.put(
   "codespacesCreateOrUpdateRepoSecret",
@@ -16473,14 +15465,11 @@ router.put(
   }
 )
 
-const codespacesDeleteRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const codespacesDeleteRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "codespacesDeleteRepoSecret",
@@ -16502,20 +15491,17 @@ router.delete(
   }
 )
 
-const reposListCollaboratorsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListCollaboratorsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListCollaboratorsQuerySchema = joi
-  .object()
-  .keys({
-    affiliation: joi.string(),
-    permission: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListCollaboratorsQuerySchema = z.object({
+  affiliation: z.coerce.string().optional(),
+  permission: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListCollaborators",
@@ -16544,14 +15530,11 @@ router.get(
   }
 )
 
-const reposCheckCollaboratorParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const reposCheckCollaboratorParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "reposCheckCollaborator",
@@ -16573,18 +15556,15 @@ router.get(
   }
 )
 
-const reposAddCollaboratorParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const reposAddCollaboratorParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const reposAddCollaboratorBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const reposAddCollaboratorBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "reposAddCollaborator",
@@ -16613,14 +15593,11 @@ router.put(
   }
 )
 
-const reposRemoveCollaboratorParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const reposRemoveCollaboratorParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "reposRemoveCollaborator",
@@ -16642,14 +15619,11 @@ router.delete(
   }
 )
 
-const reposGetCollaboratorPermissionLevelParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const reposGetCollaboratorPermissionLevelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "reposGetCollaboratorPermissionLevel",
@@ -16675,15 +15649,15 @@ router.get(
   }
 )
 
-const reposListCommitCommentsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListCommitCommentsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListCommitCommentsForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListCommitCommentsForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListCommitCommentsForRepo",
@@ -16712,14 +15686,11 @@ router.get(
   }
 )
 
-const reposGetCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reposGetCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetCommitComment",
@@ -16741,19 +15712,13 @@ router.get(
   }
 )
 
-const reposUpdateCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reposUpdateCommitCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const reposUpdateCommitCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.patch(
   "reposUpdateCommitComment",
@@ -16782,14 +15747,11 @@ router.patch(
   }
 )
 
-const reposDeleteCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteCommitComment",
@@ -16811,19 +15773,17 @@ router.delete(
   }
 )
 
-const reactionsListForCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsListForCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsListForCommitCommentQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForCommitCommentQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForCommitComment",
@@ -16852,19 +15812,15 @@ router.get(
   }
 )
 
-const reactionsCreateForCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsCreateForCommitCommentBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForCommitCommentBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForCommitComment",
@@ -16893,15 +15849,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForCommitComment",
@@ -16923,23 +15876,20 @@ router.delete(
   }
 )
 
-const reposListCommitsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListCommitsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListCommitsQuerySchema = joi
-  .object()
-  .keys({
-    sha: joi.string(),
-    path: joi.string(),
-    author: joi.string(),
-    since: joi.string(),
-    until: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListCommitsQuerySchema = z.object({
+  sha: z.coerce.string().optional(),
+  path: z.coerce.string().optional(),
+  author: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  until: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListCommits",
@@ -16968,14 +15918,11 @@ router.get(
   }
 )
 
-const reposListBranchesForHeadCommitParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    commit_sha: joi.string().required(),
-  })
-  .required()
+const reposListBranchesForHeadCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  commit_sha: z.coerce.string(),
+})
 
 router.get(
   "reposListBranchesForHeadCommit",
@@ -16997,19 +15944,16 @@ router.get(
   }
 )
 
-const reposListCommentsForCommitParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    commit_sha: joi.string().required(),
-  })
-  .required()
+const reposListCommentsForCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  commit_sha: z.coerce.string(),
+})
 
-const reposListCommentsForCommitQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListCommentsForCommitQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListCommentsForCommit",
@@ -17038,24 +15982,18 @@ router.get(
   }
 )
 
-const reposCreateCommitCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    commit_sha: joi.string().required(),
-  })
-  .required()
+const reposCreateCommitCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  commit_sha: z.coerce.string(),
+})
 
-const reposCreateCommitCommentBodySchema = joi
-  .object()
-  .keys({
-    body: joi.string().required(),
-    path: joi.string(),
-    position: joi.number(),
-    line: joi.number(),
-  })
-  .required()
+const reposCreateCommitCommentBodySchema = z.object({
+  body: z.coerce.string(),
+  path: z.coerce.string().optional(),
+  position: z.coerce.number().optional(),
+  line: z.coerce.number().optional(),
+})
 
 router.post(
   "reposCreateCommitComment",
@@ -17084,19 +16022,16 @@ router.post(
   }
 )
 
-const reposListPullRequestsAssociatedWithCommitParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    commit_sha: joi.string().required(),
-  })
-  .required()
+const reposListPullRequestsAssociatedWithCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  commit_sha: z.coerce.string(),
+})
 
-const reposListPullRequestsAssociatedWithCommitQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListPullRequestsAssociatedWithCommitQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListPullRequestsAssociatedWithCommit",
@@ -17125,19 +16060,16 @@ router.get(
   }
 )
 
-const reposGetCommitParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const reposGetCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const reposGetCommitQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const reposGetCommitQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposGetCommit",
@@ -17166,26 +16098,20 @@ router.get(
   }
 )
 
-const checksListForRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const checksListForRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const checksListForRefQuerySchema = joi
-  .object()
-  .keys({
-    check_name: joi.string(),
-    status: joi.string(),
-    filter: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    app_id: joi.number(),
-  })
-  .required()
+const checksListForRefQuerySchema = z.object({
+  check_name: z.coerce.string().optional(),
+  status: z.coerce.string().optional(),
+  filter: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  app_id: z.coerce.number().optional(),
+})
 
 router.get(
   "checksListForRef",
@@ -17214,24 +16140,18 @@ router.get(
   }
 )
 
-const checksListSuitesForRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const checksListSuitesForRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const checksListSuitesForRefQuerySchema = joi
-  .object()
-  .keys({
-    app_id: joi.number(),
-    check_name: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const checksListSuitesForRefQuerySchema = z.object({
+  app_id: z.coerce.number().optional(),
+  check_name: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "checksListSuitesForRef",
@@ -17260,19 +16180,16 @@ router.get(
   }
 )
 
-const reposGetCombinedStatusForRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const reposGetCombinedStatusForRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const reposGetCombinedStatusForRefQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposGetCombinedStatusForRefQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposGetCombinedStatusForRef",
@@ -17301,19 +16218,16 @@ router.get(
   }
 )
 
-const reposListCommitStatusesForRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const reposListCommitStatusesForRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const reposListCommitStatusesForRefQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListCommitStatusesForRefQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListCommitStatusesForRef",
@@ -17342,10 +16256,10 @@ router.get(
   }
 )
 
-const reposGetCommunityProfileMetricsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetCommunityProfileMetricsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetCommunityProfileMetrics",
@@ -17367,19 +16281,16 @@ router.get(
   }
 )
 
-const reposCompareCommitsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    basehead: joi.string().required(),
-  })
-  .required()
+const reposCompareCommitsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  basehead: z.coerce.string(),
+})
 
-const reposCompareCommitsQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const reposCompareCommitsQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposCompareCommits",
@@ -17408,19 +16319,15 @@ router.get(
   }
 )
 
-const reposGetContentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    path: joi.string().required(),
-  })
-  .required()
+const reposGetContentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  path: z.coerce.string(),
+})
 
-const reposGetContentQuerySchema = joi
-  .object()
-  .keys({ ref: joi.string() })
-  .required()
+const reposGetContentQuerySchema = z.object({
+  ref: z.coerce.string().optional(),
+})
 
 router.get(
   "reposGetContent",
@@ -17449,38 +16356,32 @@ router.get(
   }
 )
 
-const reposCreateOrUpdateFileContentsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    path: joi.string().required(),
-  })
-  .required()
+const reposCreateOrUpdateFileContentsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  path: z.coerce.string(),
+})
 
-const reposCreateOrUpdateFileContentsBodySchema = joi
-  .object()
-  .keys({
-    message: joi.string().required(),
-    content: joi.string().required(),
-    sha: joi.string(),
-    branch: joi.string(),
-    committer: joi
-      .object()
-      .keys({
-        name: joi.string().required(),
-        email: joi.string().required(),
-        date: joi.string(),
-      }),
-    author: joi
-      .object()
-      .keys({
-        name: joi.string().required(),
-        email: joi.string().required(),
-        date: joi.string(),
-      }),
-  })
-  .required()
+const reposCreateOrUpdateFileContentsBodySchema = z.object({
+  message: z.coerce.string(),
+  content: z.coerce.string(),
+  sha: z.coerce.string().optional(),
+  branch: z.coerce.string().optional(),
+  committer: z
+    .object({
+      name: z.coerce.string(),
+      email: z.coerce.string(),
+      date: z.coerce.string().optional(),
+    })
+    .optional(),
+  author: z
+    .object({
+      name: z.coerce.string(),
+      email: z.coerce.string(),
+      date: z.coerce.string().optional(),
+    })
+    .optional(),
+})
 
 router.put(
   "reposCreateOrUpdateFileContents",
@@ -17509,25 +16410,29 @@ router.put(
   }
 )
 
-const reposDeleteFileParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    path: joi.string().required(),
-  })
-  .required()
+const reposDeleteFileParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  path: z.coerce.string(),
+})
 
-const reposDeleteFileBodySchema = joi
-  .object()
-  .keys({
-    message: joi.string().required(),
-    sha: joi.string().required(),
-    branch: joi.string(),
-    committer: joi.object().keys({ name: joi.string(), email: joi.string() }),
-    author: joi.object().keys({ name: joi.string(), email: joi.string() }),
-  })
-  .required()
+const reposDeleteFileBodySchema = z.object({
+  message: z.coerce.string(),
+  sha: z.coerce.string(),
+  branch: z.coerce.string().optional(),
+  committer: z
+    .object({
+      name: z.coerce.string().optional(),
+      email: z.coerce.string().optional(),
+    })
+    .optional(),
+  author: z
+    .object({
+      name: z.coerce.string().optional(),
+      email: z.coerce.string().optional(),
+    })
+    .optional(),
+})
 
 router.delete(
   "reposDeleteFile",
@@ -17554,15 +16459,16 @@ router.delete(
   }
 )
 
-const reposListContributorsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListContributorsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListContributorsQuerySchema = joi
-  .object()
-  .keys({ anon: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListContributorsQuerySchema = z.object({
+  anon: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListContributors",
@@ -17591,30 +16497,27 @@ router.get(
   }
 )
 
-const dependabotListAlertsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const dependabotListAlertsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const dependabotListAlertsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    severity: joi.string(),
-    ecosystem: joi.string(),
-    package: joi.string(),
-    manifest: joi.string(),
-    scope: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    before: joi.string(),
-    after: joi.string(),
-    first: joi.number(),
-    last: joi.number(),
-  })
-  .required()
+const dependabotListAlertsForRepoQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  severity: z.coerce.string().optional(),
+  ecosystem: z.coerce.string().optional(),
+  package: z.coerce.string().optional(),
+  manifest: z.coerce.string().optional(),
+  scope: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+  first: z.coerce.number().optional(),
+  last: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListAlertsForRepo",
@@ -17643,14 +16546,11 @@ router.get(
   }
 )
 
-const dependabotGetAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const dependabotGetAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
 router.get(
   "dependabotGetAlert",
@@ -17672,23 +16572,17 @@ router.get(
   }
 )
 
-const dependabotUpdateAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const dependabotUpdateAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
-const dependabotUpdateAlertBodySchema = joi
-  .object()
-  .keys({
-    state: joi.string().required(),
-    dismissed_reason: joi.string(),
-    dismissed_comment: joi.string(),
-  })
-  .required()
+const dependabotUpdateAlertBodySchema = z.object({
+  state: z.coerce.string(),
+  dismissed_reason: z.coerce.string().optional(),
+  dismissed_comment: z.coerce.string().optional(),
+})
 
 router.patch(
   "dependabotUpdateAlert",
@@ -17717,15 +16611,15 @@ router.patch(
   }
 )
 
-const dependabotListRepoSecretsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const dependabotListRepoSecretsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const dependabotListRepoSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const dependabotListRepoSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "dependabotListRepoSecrets",
@@ -17754,10 +16648,10 @@ router.get(
   }
 )
 
-const dependabotGetRepoPublicKeyParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const dependabotGetRepoPublicKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "dependabotGetRepoPublicKey",
@@ -17779,14 +16673,11 @@ router.get(
   }
 )
 
-const dependabotGetRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const dependabotGetRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "dependabotGetRepoSecret",
@@ -17808,19 +16699,16 @@ router.get(
   }
 )
 
-const dependabotCreateOrUpdateRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const dependabotCreateOrUpdateRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const dependabotCreateOrUpdateRepoSecretBodySchema = joi
-  .object()
-  .keys({ encrypted_value: joi.string(), key_id: joi.string() })
-  .required()
+const dependabotCreateOrUpdateRepoSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string().optional(),
+})
 
 router.put(
   "dependabotCreateOrUpdateRepoSecret",
@@ -17849,14 +16737,11 @@ router.put(
   }
 )
 
-const dependabotDeleteRepoSecretParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const dependabotDeleteRepoSecretParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "dependabotDeleteRepoSecret",
@@ -17878,19 +16763,15 @@ router.delete(
   }
 )
 
-const dependencyGraphDiffRangeParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    basehead: joi.string().required(),
-  })
-  .required()
+const dependencyGraphDiffRangeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  basehead: z.coerce.string(),
+})
 
-const dependencyGraphDiffRangeQuerySchema = joi
-  .object()
-  .keys({ name: joi.string() })
-  .required()
+const dependencyGraphDiffRangeQuerySchema = z.object({
+  name: z.coerce.string().optional(),
+})
 
 router.get(
   "dependencyGraphDiffRange",
@@ -17919,38 +16800,29 @@ router.get(
   }
 )
 
-const dependencyGraphCreateRepositorySnapshotParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const dependencyGraphCreateRepositorySnapshotParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const dependencyGraphCreateRepositorySnapshotBodySchema = joi
-  .object()
-  .keys({
-    version: joi.number().required(),
-    job: joi
-      .object()
-      .keys({
-        id: joi.string().required(),
-        correlator: joi.string().required(),
-        html_url: joi.string(),
-      })
-      .required(),
-    sha: joi.string().required(),
-    ref: joi.string().required(),
-    detector: joi
-      .object()
-      .keys({
-        name: joi.string().required(),
-        version: joi.string().required(),
-        url: joi.string().required(),
-      })
-      .required(),
-    metadata: joi.object().keys({}),
-    manifests: joi.object().keys({}),
-    scanned: joi.string().required(),
-  })
-  .required()
+const dependencyGraphCreateRepositorySnapshotBodySchema = z.object({
+  version: z.coerce.number(),
+  job: z.object({
+    id: z.coerce.string(),
+    correlator: z.coerce.string(),
+    html_url: z.coerce.string().optional(),
+  }),
+  sha: z.coerce.string(),
+  ref: z.coerce.string(),
+  detector: z.object({
+    name: z.coerce.string(),
+    version: z.coerce.string(),
+    url: z.coerce.string(),
+  }),
+  metadata: z.object({}).optional(),
+  manifests: z.object({}).optional(),
+  scanned: z.coerce.string(),
+})
 
 router.post(
   "dependencyGraphCreateRepositorySnapshot",
@@ -17979,22 +16851,19 @@ router.post(
   }
 )
 
-const reposListDeploymentsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListDeploymentsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListDeploymentsQuerySchema = joi
-  .object()
-  .keys({
-    sha: joi.string(),
-    ref: joi.string(),
-    task: joi.string(),
-    environment: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListDeploymentsQuerySchema = z.object({
+  sha: z.coerce.string().optional(),
+  ref: z.coerce.string().optional(),
+  task: z.coerce.string().optional(),
+  environment: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListDeployments",
@@ -18023,25 +16892,22 @@ router.get(
   }
 )
 
-const reposCreateDeploymentParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateDeploymentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateDeploymentBodySchema = joi
-  .object()
-  .keys({
-    ref: joi.string().required(),
-    task: joi.string(),
-    auto_merge: joi.boolean(),
-    required_contexts: joi.array().items(joi.string()),
-    payload: joi.object().keys({}),
-    environment: joi.string(),
-    description: joi.string(),
-    transient_environment: joi.boolean(),
-    production_environment: joi.boolean(),
-  })
-  .required()
+const reposCreateDeploymentBodySchema = z.object({
+  ref: z.coerce.string(),
+  task: z.coerce.string().optional(),
+  auto_merge: z.coerce.boolean().optional(),
+  required_contexts: z.array(z.coerce.string().optional()).optional(),
+  payload: z.object({}).optional(),
+  environment: z.coerce.string().optional(),
+  description: z.coerce.string().optional(),
+  transient_environment: z.coerce.boolean().optional(),
+  production_environment: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateDeployment",
@@ -18070,14 +16936,11 @@ router.post(
   }
 )
 
-const reposGetDeploymentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    deployment_id: joi.number().required(),
-  })
-  .required()
+const reposGetDeploymentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  deployment_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetDeployment",
@@ -18099,14 +16962,11 @@ router.get(
   }
 )
 
-const reposDeleteDeploymentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    deployment_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteDeploymentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  deployment_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteDeployment",
@@ -18128,19 +16988,16 @@ router.delete(
   }
 )
 
-const reposListDeploymentStatusesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    deployment_id: joi.number().required(),
-  })
-  .required()
+const reposListDeploymentStatusesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  deployment_id: z.coerce.number(),
+})
 
-const reposListDeploymentStatusesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListDeploymentStatusesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListDeploymentStatuses",
@@ -18169,27 +17026,21 @@ router.get(
   }
 )
 
-const reposCreateDeploymentStatusParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    deployment_id: joi.number().required(),
-  })
-  .required()
+const reposCreateDeploymentStatusParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  deployment_id: z.coerce.number(),
+})
 
-const reposCreateDeploymentStatusBodySchema = joi
-  .object()
-  .keys({
-    state: joi.string().required(),
-    target_url: joi.string(),
-    log_url: joi.string(),
-    description: joi.string(),
-    environment: joi.string(),
-    environment_url: joi.string(),
-    auto_inactive: joi.boolean(),
-  })
-  .required()
+const reposCreateDeploymentStatusBodySchema = z.object({
+  state: z.coerce.string(),
+  target_url: z.coerce.string().optional(),
+  log_url: z.coerce.string().optional(),
+  description: z.coerce.string().optional(),
+  environment: z.coerce.string().optional(),
+  environment_url: z.coerce.string().optional(),
+  auto_inactive: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateDeploymentStatus",
@@ -18218,15 +17069,12 @@ router.post(
   }
 )
 
-const reposGetDeploymentStatusParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    deployment_id: joi.number().required(),
-    status_id: joi.number().required(),
-  })
-  .required()
+const reposGetDeploymentStatusParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  deployment_id: z.coerce.number(),
+  status_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetDeploymentStatus",
@@ -18248,18 +17096,15 @@ router.get(
   }
 )
 
-const reposCreateDispatchEventParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateDispatchEventParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateDispatchEventBodySchema = joi
-  .object()
-  .keys({
-    event_type: joi.string().required(),
-    client_payload: joi.object().keys({}),
-  })
-  .required()
+const reposCreateDispatchEventBodySchema = z.object({
+  event_type: z.coerce.string(),
+  client_payload: z.object({}).optional(),
+})
 
 router.post(
   "reposCreateDispatchEvent",
@@ -18288,15 +17133,15 @@ router.post(
   }
 )
 
-const reposGetAllEnvironmentsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetAllEnvironmentsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGetAllEnvironmentsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposGetAllEnvironmentsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposGetAllEnvironments",
@@ -18325,14 +17170,11 @@ router.get(
   }
 )
 
-const reposGetEnvironmentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const reposGetEnvironmentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+})
 
 router.get(
   "reposGetEnvironment",
@@ -18354,29 +17196,33 @@ router.get(
   }
 )
 
-const reposCreateOrUpdateEnvironmentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const reposCreateOrUpdateEnvironmentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+})
 
-const reposCreateOrUpdateEnvironmentBodySchema = joi
-  .object()
-  .keys({
-    wait_timer: joi.number(),
-    reviewers: joi
-      .array()
-      .items(joi.object().keys({ type: joi.string(), id: joi.number() })),
-    deployment_branch_policy: joi
-      .object()
-      .keys({
-        protected_branches: joi.boolean().required(),
-        custom_branch_policies: joi.boolean().required(),
-      }),
+const reposCreateOrUpdateEnvironmentBodySchema = z
+  .object({
+    wait_timer: z.coerce.number().optional(),
+    reviewers: z
+      .array(
+        z
+          .object({
+            type: z.coerce.string().optional(),
+            id: z.coerce.number().optional(),
+          })
+          .optional()
+      )
+      .optional(),
+    deployment_branch_policy: z
+      .object({
+        protected_branches: z.coerce.boolean(),
+        custom_branch_policies: z.coerce.boolean(),
+      })
+      .optional(),
   })
+  .optional()
 
 router.put(
   "reposCreateOrUpdateEnvironment",
@@ -18405,14 +17251,11 @@ router.put(
   }
 )
 
-const reposDeleteAnEnvironmentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const reposDeleteAnEnvironmentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+})
 
 router.delete(
   "reposDeleteAnEnvironment",
@@ -18434,19 +17277,16 @@ router.delete(
   }
 )
 
-const reposListDeploymentBranchPoliciesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const reposListDeploymentBranchPoliciesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+})
 
-const reposListDeploymentBranchPoliciesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListDeploymentBranchPoliciesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListDeploymentBranchPolicies",
@@ -18475,19 +17315,15 @@ router.get(
   }
 )
 
-const reposCreateDeploymentBranchPolicyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const reposCreateDeploymentBranchPolicyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+})
 
-const reposCreateDeploymentBranchPolicyBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const reposCreateDeploymentBranchPolicyBodySchema = z.object({
+  name: z.coerce.string(),
+})
 
 router.post(
   "reposCreateDeploymentBranchPolicy",
@@ -18516,15 +17352,12 @@ router.post(
   }
 )
 
-const reposGetDeploymentBranchPolicyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-    branch_policy_id: joi.number().required(),
-  })
-  .required()
+const reposGetDeploymentBranchPolicyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+  branch_policy_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetDeploymentBranchPolicy",
@@ -18546,20 +17379,16 @@ router.get(
   }
 )
 
-const reposUpdateDeploymentBranchPolicyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-    branch_policy_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateDeploymentBranchPolicyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+  branch_policy_id: z.coerce.number(),
+})
 
-const reposUpdateDeploymentBranchPolicyBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required() })
-  .required()
+const reposUpdateDeploymentBranchPolicyBodySchema = z.object({
+  name: z.coerce.string(),
+})
 
 router.put(
   "reposUpdateDeploymentBranchPolicy",
@@ -18588,15 +17417,12 @@ router.put(
   }
 )
 
-const reposDeleteDeploymentBranchPolicyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    environment_name: joi.string().required(),
-    branch_policy_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteDeploymentBranchPolicyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  environment_name: z.coerce.string(),
+  branch_policy_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteDeploymentBranchPolicy",
@@ -18622,15 +17448,15 @@ router.delete(
   }
 )
 
-const activityListRepoEventsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityListRepoEventsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityListRepoEventsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListRepoEventsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListRepoEvents",
@@ -18659,15 +17485,16 @@ router.get(
   }
 )
 
-const reposListForksParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListForksParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListForksQuerySchema = joi
-  .object()
-  .keys({ sort: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListForksQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListForks",
@@ -18696,18 +17523,18 @@ router.get(
   }
 )
 
-const reposCreateForkParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateForkParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateForkBodySchema = joi
-  .object()
-  .keys({
-    organization: joi.string(),
-    name: joi.string(),
-    default_branch_only: joi.boolean(),
+const reposCreateForkBodySchema = z
+  .object({
+    organization: z.coerce.string().optional(),
+    name: z.coerce.string().optional(),
+    default_branch_only: z.coerce.boolean().optional(),
   })
+  .optional()
 
 router.post(
   "reposCreateFork",
@@ -18734,15 +17561,15 @@ router.post(
   }
 )
 
-const gitCreateBlobParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const gitCreateBlobParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const gitCreateBlobBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required(), encoding: joi.string() })
-  .required()
+const gitCreateBlobBodySchema = z.object({
+  content: z.coerce.string(),
+  encoding: z.coerce.string().optional(),
+})
 
 router.post(
   "gitCreateBlob",
@@ -18767,14 +17594,11 @@ router.post(
   }
 )
 
-const gitGetBlobParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    file_sha: joi.string().required(),
-  })
-  .required()
+const gitGetBlobParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  file_sha: z.coerce.string(),
+})
 
 router.get(
   "gitGetBlob",
@@ -18794,30 +17618,31 @@ router.get(
   }
 )
 
-const gitCreateCommitParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const gitCreateCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const gitCreateCommitBodySchema = joi
-  .object()
-  .keys({
-    message: joi.string().required(),
-    tree: joi.string().required(),
-    parents: joi.array().items(joi.string()),
-    author: joi
-      .object()
-      .keys({
-        name: joi.string().required(),
-        email: joi.string().required(),
-        date: joi.string(),
-      }),
-    committer: joi
-      .object()
-      .keys({ name: joi.string(), email: joi.string(), date: joi.string() }),
-    signature: joi.string(),
-  })
-  .required()
+const gitCreateCommitBodySchema = z.object({
+  message: z.coerce.string(),
+  tree: z.coerce.string(),
+  parents: z.array(z.coerce.string().optional()).optional(),
+  author: z
+    .object({
+      name: z.coerce.string(),
+      email: z.coerce.string(),
+      date: z.coerce.string().optional(),
+    })
+    .optional(),
+  committer: z
+    .object({
+      name: z.coerce.string().optional(),
+      email: z.coerce.string().optional(),
+      date: z.coerce.string().optional(),
+    })
+    .optional(),
+  signature: z.coerce.string().optional(),
+})
 
 router.post(
   "gitCreateCommit",
@@ -18844,14 +17669,11 @@ router.post(
   }
 )
 
-const gitGetCommitParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    commit_sha: joi.string().required(),
-  })
-  .required()
+const gitGetCommitParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  commit_sha: z.coerce.string(),
+})
 
 router.get(
   "gitGetCommit",
@@ -18871,14 +17693,11 @@ router.get(
   }
 )
 
-const gitListMatchingRefsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const gitListMatchingRefsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
 router.get(
   "gitListMatchingRefs",
@@ -18900,14 +17719,11 @@ router.get(
   }
 )
 
-const gitGetRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const gitGetRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
 router.get(
   "gitGetRef",
@@ -18924,19 +17740,16 @@ router.get(
   }
 )
 
-const gitCreateRefParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const gitCreateRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const gitCreateRefBodySchema = joi
-  .object()
-  .keys({
-    ref: joi.string().required(),
-    sha: joi.string().required(),
-    key: joi.string(),
-  })
-  .required()
+const gitCreateRefBodySchema = z.object({
+  ref: z.coerce.string(),
+  sha: z.coerce.string(),
+  key: z.coerce.string().optional(),
+})
 
 router.post(
   "gitCreateRef",
@@ -18961,19 +17774,16 @@ router.post(
   }
 )
 
-const gitUpdateRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const gitUpdateRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
-const gitUpdateRefBodySchema = joi
-  .object()
-  .keys({ sha: joi.string().required(), force: joi.boolean() })
-  .required()
+const gitUpdateRefBodySchema = z.object({
+  sha: z.coerce.string(),
+  force: z.coerce.boolean().optional(),
+})
 
 router.patch(
   "gitUpdateRef",
@@ -18998,14 +17808,11 @@ router.patch(
   }
 )
 
-const gitDeleteRefParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const gitDeleteRefParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
 router.delete(
   "gitDeleteRef",
@@ -19025,27 +17832,24 @@ router.delete(
   }
 )
 
-const gitCreateTagParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const gitCreateTagParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const gitCreateTagBodySchema = joi
-  .object()
-  .keys({
-    tag: joi.string().required(),
-    message: joi.string().required(),
-    object: joi.string().required(),
-    type: joi.string().required(),
-    tagger: joi
-      .object()
-      .keys({
-        name: joi.string().required(),
-        email: joi.string().required(),
-        date: joi.string(),
-      }),
-  })
-  .required()
+const gitCreateTagBodySchema = z.object({
+  tag: z.coerce.string(),
+  message: z.coerce.string(),
+  object: z.coerce.string(),
+  type: z.coerce.string(),
+  tagger: z
+    .object({
+      name: z.coerce.string(),
+      email: z.coerce.string(),
+      date: z.coerce.string().optional(),
+    })
+    .optional(),
+})
 
 router.post(
   "gitCreateTag",
@@ -19070,14 +17874,11 @@ router.post(
   }
 )
 
-const gitGetTagParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    tag_sha: joi.string().required(),
-  })
-  .required()
+const gitGetTagParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  tag_sha: z.coerce.string(),
+})
 
 router.get(
   "gitGetTag",
@@ -19094,31 +17895,25 @@ router.get(
   }
 )
 
-const gitCreateTreeParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const gitCreateTreeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const gitCreateTreeBodySchema = joi
-  .object()
-  .keys({
-    tree: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({
-            path: joi.string(),
-            mode: joi.string(),
-            type: joi.string(),
-            sha: joi.string(),
-            content: joi.string(),
-          })
-      )
-      .required(),
-    base_tree: joi.string(),
-  })
-  .required()
+const gitCreateTreeBodySchema = z.object({
+  tree: z.array(
+    z
+      .object({
+        path: z.coerce.string().optional(),
+        mode: z.coerce.string().optional(),
+        type: z.coerce.string().optional(),
+        sha: z.coerce.string().optional(),
+        content: z.coerce.string().optional(),
+      })
+      .optional()
+  ),
+  base_tree: z.coerce.string().optional(),
+})
 
 router.post(
   "gitCreateTree",
@@ -19143,19 +17938,15 @@ router.post(
   }
 )
 
-const gitGetTreeParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    tree_sha: joi.string().required(),
-  })
-  .required()
+const gitGetTreeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  tree_sha: z.coerce.string(),
+})
 
-const gitGetTreeQuerySchema = joi
-  .object()
-  .keys({ recursive: joi.string() })
-  .required()
+const gitGetTreeQuerySchema = z.object({
+  recursive: z.coerce.string().optional(),
+})
 
 router.get(
   "gitGetTree",
@@ -19176,15 +17967,15 @@ router.get(
   }
 )
 
-const reposListWebhooksParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListWebhooksParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListWebhooksQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListWebhooksQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListWebhooks",
@@ -19213,28 +18004,28 @@ router.get(
   }
 )
 
-const reposCreateWebhookParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateWebhookBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    config: joi
-      .object()
-      .keys({
-        url: joi.string(),
-        content_type: joi.string(),
-        secret: joi.string(),
-        insecure_ssl: joi.object().keys({}),
-        token: joi.string(),
-        digest: joi.string(),
-      }),
-    events: joi.array().items(joi.string()),
-    active: joi.boolean(),
+const reposCreateWebhookBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    config: z
+      .object({
+        url: z.coerce.string().optional(),
+        content_type: z.coerce.string().optional(),
+        secret: z.coerce.string().optional(),
+        insecure_ssl: z.object({}).optional(),
+        token: z.coerce.string().optional(),
+        digest: z.coerce.string().optional(),
+      })
+      .optional(),
+    events: z.array(z.coerce.string().optional()).optional(),
+    active: z.coerce.boolean().optional(),
   })
+  .optional()
 
 router.post(
   "reposCreateWebhook",
@@ -19263,14 +18054,11 @@ router.post(
   }
 )
 
-const reposGetWebhookParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposGetWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetWebhook",
@@ -19292,34 +18080,28 @@ router.get(
   }
 )
 
-const reposUpdateWebhookParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const reposUpdateWebhookBodySchema = joi
-  .object()
-  .keys({
-    config: joi
-      .object()
-      .keys({
-        url: joi.string().required(),
-        content_type: joi.string(),
-        secret: joi.string(),
-        insecure_ssl: joi.object().keys({}),
-        address: joi.string(),
-        room: joi.string(),
-      }),
-    events: joi.array().items(joi.string()),
-    add_events: joi.array().items(joi.string()),
-    remove_events: joi.array().items(joi.string()),
-    active: joi.boolean(),
-  })
-  .required()
+const reposUpdateWebhookBodySchema = z.object({
+  config: z
+    .object({
+      url: z.coerce.string(),
+      content_type: z.coerce.string().optional(),
+      secret: z.coerce.string().optional(),
+      insecure_ssl: z.object({}).optional(),
+      address: z.coerce.string().optional(),
+      room: z.coerce.string().optional(),
+    })
+    .optional(),
+  events: z.array(z.coerce.string().optional()).optional(),
+  add_events: z.array(z.coerce.string().optional()).optional(),
+  remove_events: z.array(z.coerce.string().optional()).optional(),
+  active: z.coerce.boolean().optional(),
+})
 
 router.patch(
   "reposUpdateWebhook",
@@ -19348,14 +18130,11 @@ router.patch(
   }
 )
 
-const reposDeleteWebhookParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteWebhook",
@@ -19377,14 +18156,11 @@ router.delete(
   }
 )
 
-const reposGetWebhookConfigForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposGetWebhookConfigForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetWebhookConfigForRepo",
@@ -19406,23 +18182,20 @@ router.get(
   }
 )
 
-const reposUpdateWebhookConfigForRepoParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateWebhookConfigForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const reposUpdateWebhookConfigForRepoBodySchema = joi
-  .object()
-  .keys({
-    url: joi.string(),
-    content_type: joi.string(),
-    secret: joi.string(),
-    insecure_ssl: joi.object().keys({}),
+const reposUpdateWebhookConfigForRepoBodySchema = z
+  .object({
+    url: z.coerce.string().optional(),
+    content_type: z.coerce.string().optional(),
+    secret: z.coerce.string().optional(),
+    insecure_ssl: z.object({}).optional(),
   })
+  .optional()
 
 router.patch(
   "reposUpdateWebhookConfigForRepo",
@@ -19451,23 +18224,17 @@ router.patch(
   }
 )
 
-const reposListWebhookDeliveriesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposListWebhookDeliveriesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
-const reposListWebhookDeliveriesQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    cursor: joi.string(),
-    redelivery: joi.boolean(),
-  })
-  .required()
+const reposListWebhookDeliveriesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  cursor: z.coerce.string().optional(),
+  redelivery: z.coerce.boolean().optional(),
+})
 
 router.get(
   "reposListWebhookDeliveries",
@@ -19496,15 +18263,12 @@ router.get(
   }
 )
 
-const reposGetWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-    delivery_id: joi.number().required(),
-  })
-  .required()
+const reposGetWebhookDeliveryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+  delivery_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetWebhookDelivery",
@@ -19526,15 +18290,12 @@ router.get(
   }
 )
 
-const reposRedeliverWebhookDeliveryParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-    delivery_id: joi.number().required(),
-  })
-  .required()
+const reposRedeliverWebhookDeliveryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+  delivery_id: z.coerce.number(),
+})
 
 router.post(
   "reposRedeliverWebhookDelivery",
@@ -19556,14 +18317,11 @@ router.post(
   }
 )
 
-const reposPingWebhookParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposPingWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.post(
   "reposPingWebhook",
@@ -19585,14 +18343,11 @@ router.post(
   }
 )
 
-const reposTestPushWebhookParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    hook_id: joi.number().required(),
-  })
-  .required()
+const reposTestPushWebhookParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  hook_id: z.coerce.number(),
+})
 
 router.post(
   "reposTestPushWebhook",
@@ -19614,10 +18369,10 @@ router.post(
   }
 )
 
-const migrationsGetImportStatusParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsGetImportStatusParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "migrationsGetImportStatus",
@@ -19639,21 +18394,18 @@ router.get(
   }
 )
 
-const migrationsStartImportParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsStartImportParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const migrationsStartImportBodySchema = joi
-  .object()
-  .keys({
-    vcs_url: joi.string().required(),
-    vcs: joi.string(),
-    vcs_username: joi.string(),
-    vcs_password: joi.string(),
-    tfvc_project: joi.string(),
-  })
-  .required()
+const migrationsStartImportBodySchema = z.object({
+  vcs_url: z.coerce.string(),
+  vcs: z.coerce.string().optional(),
+  vcs_username: z.coerce.string().optional(),
+  vcs_password: z.coerce.string().optional(),
+  tfvc_project: z.coerce.string().optional(),
+})
 
 router.put(
   "migrationsStartImport",
@@ -19682,19 +18434,19 @@ router.put(
   }
 )
 
-const migrationsUpdateImportParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsUpdateImportParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const migrationsUpdateImportBodySchema = joi
-  .object()
-  .keys({
-    vcs_username: joi.string(),
-    vcs_password: joi.string(),
-    vcs: joi.string(),
-    tfvc_project: joi.string(),
+const migrationsUpdateImportBodySchema = z
+  .object({
+    vcs_username: z.coerce.string().optional(),
+    vcs_password: z.coerce.string().optional(),
+    vcs: z.coerce.string().optional(),
+    tfvc_project: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "migrationsUpdateImport",
@@ -19723,10 +18475,10 @@ router.patch(
   }
 )
 
-const migrationsCancelImportParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsCancelImportParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "migrationsCancelImport",
@@ -19748,15 +18500,14 @@ router.delete(
   }
 )
 
-const migrationsGetCommitAuthorsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsGetCommitAuthorsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const migrationsGetCommitAuthorsQuerySchema = joi
-  .object()
-  .keys({ since: joi.number() })
-  .required()
+const migrationsGetCommitAuthorsQuerySchema = z.object({
+  since: z.coerce.number().optional(),
+})
 
 router.get(
   "migrationsGetCommitAuthors",
@@ -19785,18 +18536,18 @@ router.get(
   }
 )
 
-const migrationsMapCommitAuthorParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    author_id: joi.number().required(),
-  })
-  .required()
+const migrationsMapCommitAuthorParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  author_id: z.coerce.number(),
+})
 
-const migrationsMapCommitAuthorBodySchema = joi
-  .object()
-  .keys({ email: joi.string(), name: joi.string() })
+const migrationsMapCommitAuthorBodySchema = z
+  .object({
+    email: z.coerce.string().optional(),
+    name: z.coerce.string().optional(),
+  })
+  .optional()
 
 router.patch(
   "migrationsMapCommitAuthor",
@@ -19825,10 +18576,10 @@ router.patch(
   }
 )
 
-const migrationsGetLargeFilesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsGetLargeFilesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "migrationsGetLargeFiles",
@@ -19850,15 +18601,14 @@ router.get(
   }
 )
 
-const migrationsSetLfsPreferenceParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const migrationsSetLfsPreferenceParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const migrationsSetLfsPreferenceBodySchema = joi
-  .object()
-  .keys({ use_lfs: joi.string().required() })
-  .required()
+const migrationsSetLfsPreferenceBodySchema = z.object({
+  use_lfs: z.coerce.string(),
+})
 
 router.patch(
   "migrationsSetLfsPreference",
@@ -19887,10 +18637,10 @@ router.patch(
   }
 )
 
-const appsGetRepoInstallationParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const appsGetRepoInstallationParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "appsGetRepoInstallation",
@@ -19912,10 +18662,10 @@ router.get(
   }
 )
 
-const interactionsGetRestrictionsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const interactionsGetRestrictionsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "interactionsGetRestrictionsForRepo",
@@ -19941,15 +18691,15 @@ router.get(
   }
 )
 
-const interactionsSetRestrictionsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const interactionsSetRestrictionsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const interactionsSetRestrictionsForRepoBodySchema = joi
-  .object()
-  .keys({ limit: joi.string().required(), expiry: joi.string() })
-  .required()
+const interactionsSetRestrictionsForRepoBodySchema = z.object({
+  limit: z.coerce.string(),
+  expiry: z.coerce.string().optional(),
+})
 
 router.put(
   "interactionsSetRestrictionsForRepo",
@@ -19978,10 +18728,10 @@ router.put(
   }
 )
 
-const interactionsRemoveRestrictionsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const interactionsRemoveRestrictionsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "interactionsRemoveRestrictionsForRepo",
@@ -20007,15 +18757,15 @@ router.delete(
   }
 )
 
-const reposListInvitationsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListInvitationsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListInvitationsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListInvitationsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListInvitations",
@@ -20044,18 +18794,15 @@ router.get(
   }
 )
 
-const reposUpdateInvitationParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    invitation_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateInvitationParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  invitation_id: z.coerce.number(),
+})
 
-const reposUpdateInvitationBodySchema = joi
-  .object()
-  .keys({ permissions: joi.string() })
+const reposUpdateInvitationBodySchema = z
+  .object({ permissions: z.coerce.string().optional() })
+  .optional()
 
 router.patch(
   "reposUpdateInvitation",
@@ -20084,14 +18831,11 @@ router.patch(
   }
 )
 
-const reposDeleteInvitationParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    invitation_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteInvitationParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  invitation_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteInvitation",
@@ -20113,27 +18857,24 @@ router.delete(
   }
 )
 
-const issuesListForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListForRepoQuerySchema = joi
-  .object()
-  .keys({
-    milestone: joi.string(),
-    state: joi.string(),
-    assignee: joi.string(),
-    creator: joi.string(),
-    mentioned: joi.string(),
-    labels: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListForRepoQuerySchema = z.object({
+  milestone: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  assignee: z.coerce.string().optional(),
+  creator: z.coerce.string().optional(),
+  mentioned: z.coerce.string().optional(),
+  labels: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListForRepo",
@@ -20162,22 +18903,19 @@ router.get(
   }
 )
 
-const issuesCreateParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesCreateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesCreateBodySchema = joi
-  .object()
-  .keys({
-    title: joi.object().keys({}).required(),
-    body: joi.string(),
-    assignee: joi.string(),
-    milestone: joi.object().keys({}),
-    labels: joi.array().items(joi.object().keys({})),
-    assignees: joi.array().items(joi.string()),
-  })
-  .required()
+const issuesCreateBodySchema = z.object({
+  title: z.object({}),
+  body: z.coerce.string().optional(),
+  assignee: z.coerce.string().optional(),
+  milestone: z.object({}).optional(),
+  labels: z.array(z.object({}).optional()).optional(),
+  assignees: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.post(
   "issuesCreate",
@@ -20202,21 +18940,18 @@ router.post(
   }
 )
 
-const issuesListCommentsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListCommentsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListCommentsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListCommentsForRepoQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListCommentsForRepo",
@@ -20245,14 +18980,11 @@ router.get(
   }
 )
 
-const issuesGetCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const issuesGetCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.get(
   "issuesGetComment",
@@ -20274,19 +19006,13 @@ router.get(
   }
 )
 
-const issuesUpdateCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const issuesUpdateCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const issuesUpdateCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const issuesUpdateCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.patch(
   "issuesUpdateComment",
@@ -20315,14 +19041,11 @@ router.patch(
   }
 )
 
-const issuesDeleteCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const issuesDeleteCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.delete(
   "issuesDeleteComment",
@@ -20344,19 +19067,17 @@ router.delete(
   }
 )
 
-const reactionsListForIssueCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsListForIssueCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsListForIssueCommentQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForIssueCommentQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForIssueComment",
@@ -20385,19 +19106,15 @@ router.get(
   }
 )
 
-const reactionsCreateForIssueCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForIssueCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsCreateForIssueCommentBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForIssueCommentBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForIssueComment",
@@ -20426,15 +19143,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForIssueCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForIssueCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForIssueComment",
@@ -20456,15 +19170,15 @@ router.delete(
   }
 )
 
-const issuesListEventsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListEventsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListEventsForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListEventsForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListEventsForRepo",
@@ -20493,14 +19207,11 @@ router.get(
   }
 )
 
-const issuesGetEventParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    event_id: joi.number().required(),
-  })
-  .required()
+const issuesGetEventParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  event_id: z.coerce.number(),
+})
 
 router.get(
   "issuesGetEvent",
@@ -20522,14 +19233,11 @@ router.get(
   }
 )
 
-const issuesGetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesGetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
 router.get(
   "issuesGet",
@@ -20546,27 +19254,24 @@ router.get(
   }
 )
 
-const issuesUpdateParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesUpdateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesUpdateBodySchema = joi
-  .object()
-  .keys({
-    title: joi.object().keys({}),
-    body: joi.string(),
-    assignee: joi.string(),
-    state: joi.string(),
-    state_reason: joi.string(),
-    milestone: joi.object().keys({}),
-    labels: joi.array().items(joi.object().keys({})),
-    assignees: joi.array().items(joi.string()),
+const issuesUpdateBodySchema = z
+  .object({
+    title: z.object({}).optional(),
+    body: z.coerce.string().optional(),
+    assignee: z.coerce.string().optional(),
+    state: z.coerce.string().optional(),
+    state_reason: z.coerce.string().optional(),
+    milestone: z.object({}).optional(),
+    labels: z.array(z.object({}).optional()).optional(),
+    assignees: z.array(z.coerce.string().optional()).optional(),
   })
+  .optional()
 
 router.patch(
   "issuesUpdate",
@@ -20591,18 +19296,15 @@ router.patch(
   }
 )
 
-const issuesAddAssigneesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesAddAssigneesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesAddAssigneesBodySchema = joi
-  .object()
-  .keys({ assignees: joi.array().items(joi.string()) })
+const issuesAddAssigneesBodySchema = z
+  .object({ assignees: z.array(z.coerce.string().optional()).optional() })
+  .optional()
 
 router.post(
   "issuesAddAssignees",
@@ -20631,19 +19333,15 @@ router.post(
   }
 )
 
-const issuesRemoveAssigneesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesRemoveAssigneesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesRemoveAssigneesBodySchema = joi
-  .object()
-  .keys({ assignees: joi.array().items(joi.string()) })
-  .required()
+const issuesRemoveAssigneesBodySchema = z.object({
+  assignees: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.delete(
   "issuesRemoveAssignees",
@@ -20672,15 +19370,12 @@ router.delete(
   }
 )
 
-const issuesCheckUserCanBeAssignedToIssueParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-    assignee: joi.string().required(),
-  })
-  .required()
+const issuesCheckUserCanBeAssignedToIssueParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+  assignee: z.coerce.string(),
+})
 
 router.get(
   "issuesCheckUserCanBeAssignedToIssue",
@@ -20706,19 +19401,17 @@ router.get(
   }
 )
 
-const issuesListCommentsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesListCommentsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesListCommentsQuerySchema = joi
-  .object()
-  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListCommentsQuerySchema = z.object({
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListComments",
@@ -20747,19 +19440,13 @@ router.get(
   }
 )
 
-const issuesCreateCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesCreateCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesCreateCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const issuesCreateCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.post(
   "issuesCreateComment",
@@ -20788,19 +19475,16 @@ router.post(
   }
 )
 
-const issuesListEventsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesListEventsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesListEventsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListEventsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListEvents",
@@ -20829,19 +19513,16 @@ router.get(
   }
 )
 
-const issuesListLabelsOnIssueParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesListLabelsOnIssueParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesListLabelsOnIssueQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListLabelsOnIssueQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListLabelsOnIssue",
@@ -20870,16 +19551,13 @@ router.get(
   }
 )
 
-const issuesAddLabelsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesAddLabelsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesAddLabelsBodySchema = joi.object().keys({})
+const issuesAddLabelsBodySchema = z.object({}).optional()
 
 router.post(
   "issuesAddLabels",
@@ -20906,16 +19584,13 @@ router.post(
   }
 )
 
-const issuesSetLabelsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesSetLabelsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesSetLabelsBodySchema = joi.object().keys({})
+const issuesSetLabelsBodySchema = z.object({}).optional()
 
 router.put(
   "issuesSetLabels",
@@ -20942,14 +19617,11 @@ router.put(
   }
 )
 
-const issuesRemoveAllLabelsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesRemoveAllLabelsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
 router.delete(
   "issuesRemoveAllLabels",
@@ -20971,15 +19643,12 @@ router.delete(
   }
 )
 
-const issuesRemoveLabelParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const issuesRemoveLabelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "issuesRemoveLabel",
@@ -21001,16 +19670,15 @@ router.delete(
   }
 )
 
-const issuesLockParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesLockParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesLockBodySchema = joi.object().keys({ lock_reason: joi.string() })
+const issuesLockBodySchema = z
+  .object({ lock_reason: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "issuesLock",
@@ -21031,14 +19699,11 @@ router.put(
   }
 )
 
-const issuesUnlockParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesUnlockParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
 router.delete(
   "issuesUnlock",
@@ -21058,19 +19723,17 @@ router.delete(
   }
 )
 
-const reactionsListForIssueParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const reactionsListForIssueParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const reactionsListForIssueQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForIssueQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForIssue",
@@ -21099,19 +19762,15 @@ router.get(
   }
 )
 
-const reactionsCreateForIssueParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForIssueParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const reactionsCreateForIssueBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForIssueBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForIssue",
@@ -21140,15 +19799,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForIssueParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForIssueParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForIssue",
@@ -21170,19 +19826,16 @@ router.delete(
   }
 )
 
-const issuesListEventsForTimelineParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    issue_number: joi.number().required(),
-  })
-  .required()
+const issuesListEventsForTimelineParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  issue_number: z.coerce.number(),
+})
 
-const issuesListEventsForTimelineQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListEventsForTimelineQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListEventsForTimeline",
@@ -21211,15 +19864,15 @@ router.get(
   }
 )
 
-const reposListDeployKeysParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListDeployKeysParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListDeployKeysQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListDeployKeysQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListDeployKeys",
@@ -21248,19 +19901,16 @@ router.get(
   }
 )
 
-const reposCreateDeployKeyParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateDeployKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateDeployKeyBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string(),
-    key: joi.string().required(),
-    read_only: joi.boolean(),
-  })
-  .required()
+const reposCreateDeployKeyBodySchema = z.object({
+  title: z.coerce.string().optional(),
+  key: z.coerce.string(),
+  read_only: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateDeployKey",
@@ -21289,14 +19939,11 @@ router.post(
   }
 )
 
-const reposGetDeployKeyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    key_id: joi.number().required(),
-  })
-  .required()
+const reposGetDeployKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  key_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetDeployKey",
@@ -21318,14 +19965,11 @@ router.get(
   }
 )
 
-const reposDeleteDeployKeyParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    key_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteDeployKeyParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  key_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteDeployKey",
@@ -21347,15 +19991,15 @@ router.delete(
   }
 )
 
-const issuesListLabelsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListLabelsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListLabelsForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListLabelsForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListLabelsForRepo",
@@ -21384,19 +20028,16 @@ router.get(
   }
 )
 
-const issuesCreateLabelParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesCreateLabelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesCreateLabelBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    color: joi.string(),
-    description: joi.string(),
-  })
-  .required()
+const issuesCreateLabelBodySchema = z.object({
+  name: z.coerce.string(),
+  color: z.coerce.string().optional(),
+  description: z.coerce.string().optional(),
+})
 
 router.post(
   "issuesCreateLabel",
@@ -21425,14 +20066,11 @@ router.post(
   }
 )
 
-const issuesGetLabelParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const issuesGetLabelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.get(
   "issuesGetLabel",
@@ -21454,22 +20092,19 @@ router.get(
   }
 )
 
-const issuesUpdateLabelParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const issuesUpdateLabelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const issuesUpdateLabelBodySchema = joi
-  .object()
-  .keys({
-    new_name: joi.string(),
-    color: joi.string(),
-    description: joi.string(),
+const issuesUpdateLabelBodySchema = z
+  .object({
+    new_name: z.coerce.string().optional(),
+    color: z.coerce.string().optional(),
+    description: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "issuesUpdateLabel",
@@ -21498,14 +20133,11 @@ router.patch(
   }
 )
 
-const issuesDeleteLabelParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const issuesDeleteLabelParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "issuesDeleteLabel",
@@ -21527,10 +20159,10 @@ router.delete(
   }
 )
 
-const reposListLanguagesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListLanguagesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposListLanguages",
@@ -21552,10 +20184,10 @@ router.get(
   }
 )
 
-const reposEnableLfsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposEnableLfsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.put(
   "reposEnableLfsForRepo",
@@ -21577,10 +20209,10 @@ router.put(
   }
 )
 
-const reposDisableLfsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposDisableLfsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "reposDisableLfsForRepo",
@@ -21602,10 +20234,10 @@ router.delete(
   }
 )
 
-const licensesGetForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const licensesGetForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "licensesGetForRepo",
@@ -21627,15 +20259,12 @@ router.get(
   }
 )
 
-const reposMergeUpstreamParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposMergeUpstreamParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposMergeUpstreamBodySchema = joi
-  .object()
-  .keys({ branch: joi.string().required() })
-  .required()
+const reposMergeUpstreamBodySchema = z.object({ branch: z.coerce.string() })
 
 router.post(
   "reposMergeUpstream",
@@ -21664,19 +20293,16 @@ router.post(
   }
 )
 
-const reposMergeParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposMergeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposMergeBodySchema = joi
-  .object()
-  .keys({
-    base: joi.string().required(),
-    head: joi.string().required(),
-    commit_message: joi.string(),
-  })
-  .required()
+const reposMergeBodySchema = z.object({
+  base: z.coerce.string(),
+  head: z.coerce.string(),
+  commit_message: z.coerce.string().optional(),
+})
 
 router.post(
   "reposMerge",
@@ -21697,21 +20323,18 @@ router.post(
   }
 )
 
-const issuesListMilestonesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesListMilestonesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesListMilestonesQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListMilestonesQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListMilestones",
@@ -21740,20 +20363,17 @@ router.get(
   }
 )
 
-const issuesCreateMilestoneParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const issuesCreateMilestoneParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const issuesCreateMilestoneBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string().required(),
-    state: joi.string(),
-    description: joi.string(),
-    due_on: joi.string(),
-  })
-  .required()
+const issuesCreateMilestoneBodySchema = z.object({
+  title: z.coerce.string(),
+  state: z.coerce.string().optional(),
+  description: z.coerce.string().optional(),
+  due_on: z.coerce.string().optional(),
+})
 
 router.post(
   "issuesCreateMilestone",
@@ -21782,14 +20402,11 @@ router.post(
   }
 )
 
-const issuesGetMilestoneParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    milestone_number: joi.number().required(),
-  })
-  .required()
+const issuesGetMilestoneParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  milestone_number: z.coerce.number(),
+})
 
 router.get(
   "issuesGetMilestone",
@@ -21811,23 +20428,20 @@ router.get(
   }
 )
 
-const issuesUpdateMilestoneParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    milestone_number: joi.number().required(),
-  })
-  .required()
+const issuesUpdateMilestoneParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  milestone_number: z.coerce.number(),
+})
 
-const issuesUpdateMilestoneBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string(),
-    state: joi.string(),
-    description: joi.string(),
-    due_on: joi.string(),
+const issuesUpdateMilestoneBodySchema = z
+  .object({
+    title: z.coerce.string().optional(),
+    state: z.coerce.string().optional(),
+    description: z.coerce.string().optional(),
+    due_on: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "issuesUpdateMilestone",
@@ -21856,14 +20470,11 @@ router.patch(
   }
 )
 
-const issuesDeleteMilestoneParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    milestone_number: joi.number().required(),
-  })
-  .required()
+const issuesDeleteMilestoneParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  milestone_number: z.coerce.number(),
+})
 
 router.delete(
   "issuesDeleteMilestone",
@@ -21885,19 +20496,16 @@ router.delete(
   }
 )
 
-const issuesListLabelsForMilestoneParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    milestone_number: joi.number().required(),
-  })
-  .required()
+const issuesListLabelsForMilestoneParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  milestone_number: z.coerce.number(),
+})
 
-const issuesListLabelsForMilestoneQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const issuesListLabelsForMilestoneQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListLabelsForMilestone",
@@ -21926,22 +20534,19 @@ router.get(
   }
 )
 
-const activityListRepoNotificationsForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityListRepoNotificationsForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityListRepoNotificationsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    all: joi.boolean(),
-    participating: joi.boolean(),
-    since: joi.string(),
-    before: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const activityListRepoNotificationsForAuthenticatedUserQuerySchema = z.object({
+  all: z.coerce.boolean().optional(),
+  participating: z.coerce.boolean().optional(),
+  since: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListRepoNotificationsForAuthenticatedUser",
@@ -21970,14 +20575,14 @@ router.get(
   }
 )
 
-const activityMarkRepoNotificationsAsReadParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityMarkRepoNotificationsAsReadParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityMarkRepoNotificationsAsReadBodySchema = joi
-  .object()
-  .keys({ last_read_at: joi.string() })
+const activityMarkRepoNotificationsAsReadBodySchema = z
+  .object({ last_read_at: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "activityMarkRepoNotificationsAsRead",
@@ -22006,10 +20611,10 @@ router.put(
   }
 )
 
-const reposGetPagesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetPagesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetPages",
@@ -22029,20 +20634,17 @@ router.get(
   }
 )
 
-const reposCreatePagesSiteParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreatePagesSiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreatePagesSiteBodySchema = joi
-  .object()
-  .keys({
-    build_type: joi.string(),
-    source: joi
-      .object()
-      .keys({ branch: joi.string().required(), path: joi.string() }),
-  })
-  .required()
+const reposCreatePagesSiteBodySchema = z.object({
+  build_type: z.coerce.string().optional(),
+  source: z
+    .object({ branch: z.coerce.string(), path: z.coerce.string().optional() })
+    .optional(),
+})
 
 router.post(
   "reposCreatePagesSite",
@@ -22071,20 +20673,17 @@ router.post(
   }
 )
 
-const reposUpdateInformationAboutPagesSiteParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposUpdateInformationAboutPagesSiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposUpdateInformationAboutPagesSiteBodySchema = joi
-  .object()
-  .keys({
-    cname: joi.string(),
-    https_enforced: joi.boolean(),
-    build_type: joi.string(),
-    source: joi.object().keys({}),
-  })
-  .required()
+const reposUpdateInformationAboutPagesSiteBodySchema = z.object({
+  cname: z.coerce.string().optional(),
+  https_enforced: z.coerce.boolean().optional(),
+  build_type: z.coerce.string().optional(),
+  source: z.object({}).optional(),
+})
 
 router.put(
   "reposUpdateInformationAboutPagesSite",
@@ -22113,10 +20712,10 @@ router.put(
   }
 )
 
-const reposDeletePagesSiteParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposDeletePagesSiteParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "reposDeletePagesSite",
@@ -22138,15 +20737,15 @@ router.delete(
   }
 )
 
-const reposListPagesBuildsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListPagesBuildsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListPagesBuildsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListPagesBuildsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListPagesBuilds",
@@ -22175,10 +20774,10 @@ router.get(
   }
 )
 
-const reposRequestPagesBuildParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposRequestPagesBuildParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.post(
   "reposRequestPagesBuild",
@@ -22200,10 +20799,10 @@ router.post(
   }
 )
 
-const reposGetLatestPagesBuildParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetLatestPagesBuildParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetLatestPagesBuild",
@@ -22225,14 +20824,11 @@ router.get(
   }
 )
 
-const reposGetPagesBuildParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    build_id: joi.number().required(),
-  })
-  .required()
+const reposGetPagesBuildParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  build_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetPagesBuild",
@@ -22254,20 +20850,17 @@ router.get(
   }
 )
 
-const reposCreatePagesDeploymentParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreatePagesDeploymentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreatePagesDeploymentBodySchema = joi
-  .object()
-  .keys({
-    artifact_url: joi.string().required(),
-    environment: joi.string(),
-    pages_build_version: joi.string().required(),
-    oidc_token: joi.string().required(),
-  })
-  .required()
+const reposCreatePagesDeploymentBodySchema = z.object({
+  artifact_url: z.coerce.string(),
+  environment: z.coerce.string().optional(),
+  pages_build_version: z.coerce.string(),
+  oidc_token: z.coerce.string(),
+})
 
 router.post(
   "reposCreatePagesDeployment",
@@ -22296,10 +20889,10 @@ router.post(
   }
 )
 
-const reposGetPagesHealthCheckParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetPagesHealthCheckParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetPagesHealthCheck",
@@ -22321,15 +20914,16 @@ router.get(
   }
 )
 
-const projectsListForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const projectsListForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const projectsListForRepoQuerySchema = joi
-  .object()
-  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const projectsListForRepoQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListForRepo",
@@ -22358,15 +20952,15 @@ router.get(
   }
 )
 
-const projectsCreateForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const projectsCreateForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const projectsCreateForRepoBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), body: joi.string() })
-  .required()
+const projectsCreateForRepoBodySchema = z.object({
+  name: z.coerce.string(),
+  body: z.coerce.string().optional(),
+})
 
 router.post(
   "projectsCreateForRepo",
@@ -22395,23 +20989,20 @@ router.post(
   }
 )
 
-const pullsListParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const pullsListParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const pullsListQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    head: joi.string(),
-    base: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const pullsListQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  head: z.coerce.string().optional(),
+  base: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsList",
@@ -22432,23 +21023,20 @@ router.get(
   }
 )
 
-const pullsCreateParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const pullsCreateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const pullsCreateBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string(),
-    head: joi.string().required(),
-    base: joi.string().required(),
-    body: joi.string(),
-    maintainer_can_modify: joi.boolean(),
-    draft: joi.boolean(),
-    issue: joi.number(),
-  })
-  .required()
+const pullsCreateBodySchema = z.object({
+  title: z.coerce.string().optional(),
+  head: z.coerce.string(),
+  base: z.coerce.string(),
+  body: z.coerce.string().optional(),
+  maintainer_can_modify: z.coerce.boolean().optional(),
+  draft: z.coerce.boolean().optional(),
+  issue: z.coerce.number().optional(),
+})
 
 router.post(
   "pullsCreate",
@@ -22469,21 +21057,18 @@ router.post(
   }
 )
 
-const pullsListReviewCommentsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const pullsListReviewCommentsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const pullsListReviewCommentsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const pullsListReviewCommentsForRepoQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListReviewCommentsForRepo",
@@ -22512,14 +21097,11 @@ router.get(
   }
 )
 
-const pullsGetReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const pullsGetReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.get(
   "pullsGetReviewComment",
@@ -22541,19 +21123,13 @@ router.get(
   }
 )
 
-const pullsUpdateReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const pullsUpdateReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const pullsUpdateReviewCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const pullsUpdateReviewCommentBodySchema = z.object({ body: z.coerce.string() })
 
 router.patch(
   "pullsUpdateReviewComment",
@@ -22582,14 +21158,11 @@ router.patch(
   }
 )
 
-const pullsDeleteReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const pullsDeleteReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
 router.delete(
   "pullsDeleteReviewComment",
@@ -22611,19 +21184,17 @@ router.delete(
   }
 )
 
-const reactionsListForPullRequestReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsListForPullRequestReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsListForPullRequestReviewCommentQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForPullRequestReviewCommentQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForPullRequestReviewComment",
@@ -22652,19 +21223,15 @@ router.get(
   }
 )
 
-const reactionsCreateForPullRequestReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForPullRequestReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+})
 
-const reactionsCreateForPullRequestReviewCommentBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForPullRequestReviewCommentBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForPullRequestReviewComment",
@@ -22693,15 +21260,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForPullRequestCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    comment_id: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForPullRequestCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  comment_id: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForPullRequestComment",
@@ -22727,14 +21291,11 @@ router.delete(
   }
 )
 
-const pullsGetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsGetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
 router.get(
   "pullsGet",
@@ -22751,24 +21312,21 @@ router.get(
   }
 )
 
-const pullsUpdateParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsUpdateParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsUpdateBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string(),
-    body: joi.string(),
-    state: joi.string(),
-    base: joi.string(),
-    maintainer_can_modify: joi.boolean(),
+const pullsUpdateBodySchema = z
+  .object({
+    title: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+    state: z.coerce.string().optional(),
+    base: z.coerce.string().optional(),
+    maintainer_can_modify: z.coerce.boolean().optional(),
   })
+  .optional()
 
 router.patch(
   "pullsUpdate",
@@ -22789,29 +21347,23 @@ router.patch(
   }
 )
 
-const codespacesCreateWithPrForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const codespacesCreateWithPrForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const codespacesCreateWithPrForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    location: joi.string(),
-    client_ip: joi.string(),
-    machine: joi.string(),
-    devcontainer_path: joi.string(),
-    multi_repo_permissions_opt_out: joi.boolean(),
-    working_directory: joi.string(),
-    idle_timeout_minutes: joi.number(),
-    display_name: joi.string(),
-    retention_period_minutes: joi.number(),
-  })
-  .required()
+const codespacesCreateWithPrForAuthenticatedUserBodySchema = z.object({
+  location: z.coerce.string().optional(),
+  client_ip: z.coerce.string().optional(),
+  machine: z.coerce.string().optional(),
+  devcontainer_path: z.coerce.string().optional(),
+  multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
+  working_directory: z.coerce.string().optional(),
+  idle_timeout_minutes: z.coerce.number().optional(),
+  display_name: z.coerce.string().optional(),
+  retention_period_minutes: z.coerce.number().optional(),
+})
 
 router.post(
   "codespacesCreateWithPrForAuthenticatedUser",
@@ -22840,25 +21392,19 @@ router.post(
   }
 )
 
-const pullsListReviewCommentsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsListReviewCommentsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsListReviewCommentsQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const pullsListReviewCommentsQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListReviewComments",
@@ -22887,29 +21433,23 @@ router.get(
   }
 )
 
-const pullsCreateReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsCreateReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsCreateReviewCommentBodySchema = joi
-  .object()
-  .keys({
-    body: joi.string().required(),
-    commit_id: joi.string().required(),
-    path: joi.string().required(),
-    position: joi.number(),
-    side: joi.string(),
-    line: joi.number().required(),
-    start_line: joi.number(),
-    start_side: joi.string(),
-    in_reply_to: joi.number(),
-  })
-  .required()
+const pullsCreateReviewCommentBodySchema = z.object({
+  body: z.coerce.string(),
+  commit_id: z.coerce.string(),
+  path: z.coerce.string(),
+  position: z.coerce.number().optional(),
+  side: z.coerce.string().optional(),
+  line: z.coerce.number(),
+  start_line: z.coerce.number().optional(),
+  start_side: z.coerce.string().optional(),
+  in_reply_to: z.coerce.number().optional(),
+})
 
 router.post(
   "pullsCreateReviewComment",
@@ -22938,20 +21478,16 @@ router.post(
   }
 )
 
-const pullsCreateReplyForReviewCommentParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    comment_id: joi.number().required(),
-  })
-  .required()
+const pullsCreateReplyForReviewCommentParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  comment_id: z.coerce.number(),
+})
 
-const pullsCreateReplyForReviewCommentBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const pullsCreateReplyForReviewCommentBodySchema = z.object({
+  body: z.coerce.string(),
+})
 
 router.post(
   "pullsCreateReplyForReviewComment",
@@ -22980,19 +21516,16 @@ router.post(
   }
 )
 
-const pullsListCommitsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsListCommitsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsListCommitsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const pullsListCommitsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListCommits",
@@ -23021,19 +21554,16 @@ router.get(
   }
 )
 
-const pullsListFilesParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsListFilesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsListFilesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const pullsListFilesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListFiles",
@@ -23062,14 +21592,11 @@ router.get(
   }
 )
 
-const pullsCheckIfMergedParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsCheckIfMergedParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
 router.get(
   "pullsCheckIfMerged",
@@ -23091,23 +21618,20 @@ router.get(
   }
 )
 
-const pullsMergeParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsMergeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsMergeBodySchema = joi
-  .object()
-  .keys({
-    commit_title: joi.string(),
-    commit_message: joi.string(),
-    sha: joi.string(),
-    merge_method: joi.string(),
+const pullsMergeBodySchema = z
+  .object({
+    commit_title: z.coerce.string().optional(),
+    commit_message: z.coerce.string().optional(),
+    sha: z.coerce.string().optional(),
+    merge_method: z.coerce.string().optional(),
   })
+  .optional()
 
 router.put(
   "pullsMerge",
@@ -23128,14 +21652,11 @@ router.put(
   }
 )
 
-const pullsListRequestedReviewersParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsListRequestedReviewersParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
 router.get(
   "pullsListRequestedReviewers",
@@ -23157,21 +21678,18 @@ router.get(
   }
 )
 
-const pullsRequestReviewersParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsRequestReviewersParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsRequestReviewersBodySchema = joi
-  .object()
-  .keys({
-    reviewers: joi.array().items(joi.string()),
-    team_reviewers: joi.array().items(joi.string()),
+const pullsRequestReviewersBodySchema = z
+  .object({
+    reviewers: z.array(z.coerce.string().optional()).optional(),
+    team_reviewers: z.array(z.coerce.string().optional()).optional(),
   })
+  .optional()
 
 router.post(
   "pullsRequestReviewers",
@@ -23200,22 +21718,16 @@ router.post(
   }
 )
 
-const pullsRemoveRequestedReviewersParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsRemoveRequestedReviewersParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsRemoveRequestedReviewersBodySchema = joi
-  .object()
-  .keys({
-    reviewers: joi.array().items(joi.string()).required(),
-    team_reviewers: joi.array().items(joi.string()),
-  })
-  .required()
+const pullsRemoveRequestedReviewersBodySchema = z.object({
+  reviewers: z.array(z.coerce.string().optional()),
+  team_reviewers: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.delete(
   "pullsRemoveRequestedReviewers",
@@ -23244,19 +21756,16 @@ router.delete(
   }
 )
 
-const pullsListReviewsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsListReviewsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsListReviewsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const pullsListReviewsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListReviews",
@@ -23285,37 +21794,34 @@ router.get(
   }
 )
 
-const pullsCreateReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsCreateReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsCreateReviewBodySchema = joi
-  .object()
-  .keys({
-    commit_id: joi.string(),
-    body: joi.string(),
-    event: joi.string(),
-    comments: joi
-      .array()
-      .items(
-        joi
-          .object()
-          .keys({
-            path: joi.string().required(),
-            position: joi.number(),
-            body: joi.string().required(),
-            line: joi.number(),
-            side: joi.string(),
-            start_line: joi.number(),
-            start_side: joi.string(),
+const pullsCreateReviewBodySchema = z
+  .object({
+    commit_id: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+    event: z.coerce.string().optional(),
+    comments: z
+      .array(
+        z
+          .object({
+            path: z.coerce.string(),
+            position: z.coerce.number().optional(),
+            body: z.coerce.string(),
+            line: z.coerce.number().optional(),
+            side: z.coerce.string().optional(),
+            start_line: z.coerce.number().optional(),
+            start_side: z.coerce.string().optional(),
           })
-      ),
+          .optional()
+      )
+      .optional(),
   })
+  .optional()
 
 router.post(
   "pullsCreateReview",
@@ -23344,15 +21850,12 @@ router.post(
   }
 )
 
-const pullsGetReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsGetReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
 router.get(
   "pullsGetReview",
@@ -23374,20 +21877,14 @@ router.get(
   }
 )
 
-const pullsUpdateReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsUpdateReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
-const pullsUpdateReviewBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const pullsUpdateReviewBodySchema = z.object({ body: z.coerce.string() })
 
 router.put(
   "pullsUpdateReview",
@@ -23416,15 +21913,12 @@ router.put(
   }
 )
 
-const pullsDeletePendingReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsDeletePendingReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
 router.delete(
   "pullsDeletePendingReview",
@@ -23446,20 +21940,17 @@ router.delete(
   }
 )
 
-const pullsListCommentsForReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsListCommentsForReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
-const pullsListCommentsForReviewQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const pullsListCommentsForReviewQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "pullsListCommentsForReview",
@@ -23488,20 +21979,17 @@ router.get(
   }
 )
 
-const pullsDismissReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsDismissReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
-const pullsDismissReviewBodySchema = joi
-  .object()
-  .keys({ message: joi.string().required(), event: joi.string() })
-  .required()
+const pullsDismissReviewBodySchema = z.object({
+  message: z.coerce.string(),
+  event: z.coerce.string().optional(),
+})
 
 router.put(
   "pullsDismissReview",
@@ -23530,20 +22018,17 @@ router.put(
   }
 )
 
-const pullsSubmitReviewParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-    review_id: joi.number().required(),
-  })
-  .required()
+const pullsSubmitReviewParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+  review_id: z.coerce.number(),
+})
 
-const pullsSubmitReviewBodySchema = joi
-  .object()
-  .keys({ body: joi.string(), event: joi.string().required() })
-  .required()
+const pullsSubmitReviewBodySchema = z.object({
+  body: z.coerce.string().optional(),
+  event: z.coerce.string(),
+})
 
 router.post(
   "pullsSubmitReview",
@@ -23572,18 +22057,15 @@ router.post(
   }
 )
 
-const pullsUpdateBranchParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    pull_number: joi.number().required(),
-  })
-  .required()
+const pullsUpdateBranchParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  pull_number: z.coerce.number(),
+})
 
-const pullsUpdateBranchBodySchema = joi
-  .object()
-  .keys({ expected_head_sha: joi.string() })
+const pullsUpdateBranchBodySchema = z
+  .object({ expected_head_sha: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "pullsUpdateBranch",
@@ -23612,15 +22094,14 @@ router.put(
   }
 )
 
-const reposGetReadmeParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetReadmeParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGetReadmeQuerySchema = joi
-  .object()
-  .keys({ ref: joi.string() })
-  .required()
+const reposGetReadmeQuerySchema = z.object({
+  ref: z.coerce.string().optional(),
+})
 
 router.get(
   "reposGetReadme",
@@ -23649,19 +22130,15 @@ router.get(
   }
 )
 
-const reposGetReadmeInDirectoryParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    dir: joi.string().required(),
-  })
-  .required()
+const reposGetReadmeInDirectoryParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  dir: z.coerce.string(),
+})
 
-const reposGetReadmeInDirectoryQuerySchema = joi
-  .object()
-  .keys({ ref: joi.string() })
-  .required()
+const reposGetReadmeInDirectoryQuerySchema = z.object({
+  ref: z.coerce.string().optional(),
+})
 
 router.get(
   "reposGetReadmeInDirectory",
@@ -23690,15 +22167,15 @@ router.get(
   }
 )
 
-const reposListReleasesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListReleasesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListReleasesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListReleasesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListReleases",
@@ -23727,25 +22204,22 @@ router.get(
   }
 )
 
-const reposCreateReleaseParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateReleaseBodySchema = joi
-  .object()
-  .keys({
-    tag_name: joi.string().required(),
-    target_commitish: joi.string(),
-    name: joi.string(),
-    body: joi.string(),
-    draft: joi.boolean(),
-    prerelease: joi.boolean(),
-    discussion_category_name: joi.string(),
-    generate_release_notes: joi.boolean(),
-    make_latest: joi.string(),
-  })
-  .required()
+const reposCreateReleaseBodySchema = z.object({
+  tag_name: z.coerce.string(),
+  target_commitish: z.coerce.string().optional(),
+  name: z.coerce.string().optional(),
+  body: z.coerce.string().optional(),
+  draft: z.coerce.boolean().optional(),
+  prerelease: z.coerce.boolean().optional(),
+  discussion_category_name: z.coerce.string().optional(),
+  generate_release_notes: z.coerce.boolean().optional(),
+  make_latest: z.coerce.string().optional(),
+})
 
 router.post(
   "reposCreateRelease",
@@ -23774,14 +22248,11 @@ router.post(
   }
 )
 
-const reposGetReleaseAssetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    asset_id: joi.number().required(),
-  })
-  .required()
+const reposGetReleaseAssetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  asset_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetReleaseAsset",
@@ -23803,18 +22274,19 @@ router.get(
   }
 )
 
-const reposUpdateReleaseAssetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    asset_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateReleaseAssetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  asset_id: z.coerce.number(),
+})
 
-const reposUpdateReleaseAssetBodySchema = joi
-  .object()
-  .keys({ name: joi.string(), label: joi.string(), state: joi.string() })
+const reposUpdateReleaseAssetBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    label: z.coerce.string().optional(),
+    state: z.coerce.string().optional(),
+  })
+  .optional()
 
 router.patch(
   "reposUpdateReleaseAsset",
@@ -23843,14 +22315,11 @@ router.patch(
   }
 )
 
-const reposDeleteReleaseAssetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    asset_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteReleaseAssetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  asset_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteReleaseAsset",
@@ -23872,20 +22341,17 @@ router.delete(
   }
 )
 
-const reposGenerateReleaseNotesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGenerateReleaseNotesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGenerateReleaseNotesBodySchema = joi
-  .object()
-  .keys({
-    tag_name: joi.string().required(),
-    target_commitish: joi.string(),
-    previous_tag_name: joi.string(),
-    configuration_file_path: joi.string(),
-  })
-  .required()
+const reposGenerateReleaseNotesBodySchema = z.object({
+  tag_name: z.coerce.string(),
+  target_commitish: z.coerce.string().optional(),
+  previous_tag_name: z.coerce.string().optional(),
+  configuration_file_path: z.coerce.string().optional(),
+})
 
 router.post(
   "reposGenerateReleaseNotes",
@@ -23914,10 +22380,10 @@ router.post(
   }
 )
 
-const reposGetLatestReleaseParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetLatestReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetLatestRelease",
@@ -23939,14 +22405,11 @@ router.get(
   }
 )
 
-const reposGetReleaseByTagParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    tag: joi.string().required(),
-  })
-  .required()
+const reposGetReleaseByTagParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  tag: z.coerce.string(),
+})
 
 router.get(
   "reposGetReleaseByTag",
@@ -23968,14 +22431,11 @@ router.get(
   }
 )
 
-const reposGetReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reposGetReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
 router.get(
   "reposGetRelease",
@@ -23997,27 +22457,24 @@ router.get(
   }
 )
 
-const reposUpdateReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reposUpdateReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
-const reposUpdateReleaseBodySchema = joi
-  .object()
-  .keys({
-    tag_name: joi.string(),
-    target_commitish: joi.string(),
-    name: joi.string(),
-    body: joi.string(),
-    draft: joi.boolean(),
-    prerelease: joi.boolean(),
-    make_latest: joi.string(),
-    discussion_category_name: joi.string(),
+const reposUpdateReleaseBodySchema = z
+  .object({
+    tag_name: z.coerce.string().optional(),
+    target_commitish: z.coerce.string().optional(),
+    name: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+    draft: z.coerce.boolean().optional(),
+    prerelease: z.coerce.boolean().optional(),
+    make_latest: z.coerce.string().optional(),
+    discussion_category_name: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "reposUpdateRelease",
@@ -24046,14 +22503,11 @@ router.patch(
   }
 )
 
-const reposDeleteReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteRelease",
@@ -24075,19 +22529,16 @@ router.delete(
   }
 )
 
-const reposListReleaseAssetsParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reposListReleaseAssetsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
-const reposListReleaseAssetsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListReleaseAssetsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListReleaseAssets",
@@ -24116,21 +22567,18 @@ router.get(
   }
 )
 
-const reposUploadReleaseAssetParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reposUploadReleaseAssetParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
-const reposUploadReleaseAssetQuerySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), label: joi.string() })
-  .required()
+const reposUploadReleaseAssetQuerySchema = z.object({
+  name: z.coerce.string(),
+  label: z.coerce.string().optional(),
+})
 
-const reposUploadReleaseAssetBodySchema = joi.string()
+const reposUploadReleaseAssetBodySchema = z.coerce.string().optional()
 
 router.post(
   "reposUploadReleaseAsset",
@@ -24162,19 +22610,17 @@ router.post(
   }
 )
 
-const reactionsListForReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reactionsListForReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
-const reactionsListForReleaseQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForReleaseQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForRelease",
@@ -24203,19 +22649,15 @@ router.get(
   }
 )
 
-const reactionsCreateForReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+})
 
-const reactionsCreateForReleaseBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForReleaseBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForRelease",
@@ -24244,15 +22686,12 @@ router.post(
   }
 )
 
-const reactionsDeleteForReleaseParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    release_id: joi.number().required(),
-    reaction_id: joi.number().required(),
-  })
-  .required()
+const reactionsDeleteForReleaseParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  release_id: z.coerce.number(),
+  reaction_id: z.coerce.number(),
+})
 
 router.delete(
   "reactionsDeleteForRelease",
@@ -24274,25 +22713,22 @@ router.delete(
   }
 )
 
-const secretScanningListAlertsForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const secretScanningListAlertsForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const secretScanningListAlertsForRepoQuerySchema = joi
-  .object()
-  .keys({
-    state: joi.string(),
-    secret_type: joi.string(),
-    resolution: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    page: joi.number(),
-    per_page: joi.number(),
-    before: joi.string(),
-    after: joi.string(),
-  })
-  .required()
+const secretScanningListAlertsForRepoQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  secret_type: z.coerce.string().optional(),
+  resolution: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+  before: z.coerce.string().optional(),
+  after: z.coerce.string().optional(),
+})
 
 router.get(
   "secretScanningListAlertsForRepo",
@@ -24321,14 +22757,11 @@ router.get(
   }
 )
 
-const secretScanningGetAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const secretScanningGetAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
 router.get(
   "secretScanningGetAlert",
@@ -24350,23 +22783,17 @@ router.get(
   }
 )
 
-const secretScanningUpdateAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const secretScanningUpdateAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
-const secretScanningUpdateAlertBodySchema = joi
-  .object()
-  .keys({
-    state: joi.string().required(),
-    resolution: joi.string(),
-    resolution_comment: joi.string(),
-  })
-  .required()
+const secretScanningUpdateAlertBodySchema = z.object({
+  state: z.coerce.string(),
+  resolution: z.coerce.string().optional(),
+  resolution_comment: z.coerce.string().optional(),
+})
 
 router.patch(
   "secretScanningUpdateAlert",
@@ -24395,19 +22822,16 @@ router.patch(
   }
 )
 
-const secretScanningListLocationsForAlertParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    alert_number: joi.number().required(),
-  })
-  .required()
+const secretScanningListLocationsForAlertParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  alert_number: z.coerce.number(),
+})
 
-const secretScanningListLocationsForAlertQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const secretScanningListLocationsForAlertQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "secretScanningListLocationsForAlert",
@@ -24436,15 +22860,15 @@ router.get(
   }
 )
 
-const activityListStargazersForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityListStargazersForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityListStargazersForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListStargazersForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListStargazersForRepo",
@@ -24473,10 +22897,10 @@ router.get(
   }
 )
 
-const reposGetCodeFrequencyStatsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetCodeFrequencyStatsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetCodeFrequencyStats",
@@ -24498,10 +22922,10 @@ router.get(
   }
 )
 
-const reposGetCommitActivityStatsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetCommitActivityStatsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetCommitActivityStats",
@@ -24523,10 +22947,10 @@ router.get(
   }
 )
 
-const reposGetContributorsStatsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetContributorsStatsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetContributorsStats",
@@ -24548,10 +22972,10 @@ router.get(
   }
 )
 
-const reposGetParticipationStatsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetParticipationStatsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetParticipationStats",
@@ -24573,10 +22997,10 @@ router.get(
   }
 )
 
-const reposGetPunchCardStatsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetPunchCardStatsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetPunchCardStats",
@@ -24598,24 +23022,18 @@ router.get(
   }
 )
 
-const reposCreateCommitStatusParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    sha: joi.string().required(),
-  })
-  .required()
+const reposCreateCommitStatusParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  sha: z.coerce.string(),
+})
 
-const reposCreateCommitStatusBodySchema = joi
-  .object()
-  .keys({
-    state: joi.string().required(),
-    target_url: joi.string(),
-    description: joi.string(),
-    context: joi.string(),
-  })
-  .required()
+const reposCreateCommitStatusBodySchema = z.object({
+  state: z.coerce.string(),
+  target_url: z.coerce.string().optional(),
+  description: z.coerce.string().optional(),
+  context: z.coerce.string().optional(),
+})
 
 router.post(
   "reposCreateCommitStatus",
@@ -24644,15 +23062,15 @@ router.post(
   }
 )
 
-const activityListWatchersForRepoParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityListWatchersForRepoParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activityListWatchersForRepoQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListWatchersForRepoQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListWatchersForRepo",
@@ -24681,10 +23099,10 @@ router.get(
   }
 )
 
-const activityGetRepoSubscriptionParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityGetRepoSubscriptionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "activityGetRepoSubscription",
@@ -24706,14 +23124,17 @@ router.get(
   }
 )
 
-const activitySetRepoSubscriptionParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activitySetRepoSubscriptionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const activitySetRepoSubscriptionBodySchema = joi
-  .object()
-  .keys({ subscribed: joi.boolean(), ignored: joi.boolean() })
+const activitySetRepoSubscriptionBodySchema = z
+  .object({
+    subscribed: z.coerce.boolean().optional(),
+    ignored: z.coerce.boolean().optional(),
+  })
+  .optional()
 
 router.put(
   "activitySetRepoSubscription",
@@ -24742,10 +23163,10 @@ router.put(
   }
 )
 
-const activityDeleteRepoSubscriptionParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityDeleteRepoSubscriptionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "activityDeleteRepoSubscription",
@@ -24767,15 +23188,15 @@ router.delete(
   }
 )
 
-const reposListTagsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListTagsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListTagsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListTagsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListTags",
@@ -24800,10 +23221,10 @@ router.get(
   }
 )
 
-const reposListTagProtectionParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListTagProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposListTagProtection",
@@ -24825,15 +23246,14 @@ router.get(
   }
 )
 
-const reposCreateTagProtectionParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCreateTagProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposCreateTagProtectionBodySchema = joi
-  .object()
-  .keys({ pattern: joi.string().required() })
-  .required()
+const reposCreateTagProtectionBodySchema = z.object({
+  pattern: z.coerce.string(),
+})
 
 router.post(
   "reposCreateTagProtection",
@@ -24862,14 +23282,11 @@ router.post(
   }
 )
 
-const reposDeleteTagProtectionParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    tag_protection_id: joi.number().required(),
-  })
-  .required()
+const reposDeleteTagProtectionParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  tag_protection_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeleteTagProtection",
@@ -24891,14 +23308,11 @@ router.delete(
   }
 )
 
-const reposDownloadTarballArchiveParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const reposDownloadTarballArchiveParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
 router.get(
   "reposDownloadTarballArchive",
@@ -24920,15 +23334,15 @@ router.get(
   }
 )
 
-const reposListTeamsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposListTeamsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposListTeamsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListTeamsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListTeams",
@@ -24957,15 +23371,15 @@ router.get(
   }
 )
 
-const reposGetAllTopicsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetAllTopicsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGetAllTopicsQuerySchema = joi
-  .object()
-  .keys({ page: joi.number(), per_page: joi.number() })
-  .required()
+const reposGetAllTopicsQuerySchema = z.object({
+  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposGetAllTopics",
@@ -24994,15 +23408,14 @@ router.get(
   }
 )
 
-const reposReplaceAllTopicsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposReplaceAllTopicsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposReplaceAllTopicsBodySchema = joi
-  .object()
-  .keys({ names: joi.array().items(joi.string()).required() })
-  .required()
+const reposReplaceAllTopicsBodySchema = z.object({
+  names: z.array(z.coerce.string().optional()),
+})
 
 router.put(
   "reposReplaceAllTopics",
@@ -25031,15 +23444,14 @@ router.put(
   }
 )
 
-const reposGetClonesParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetClonesParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGetClonesQuerySchema = joi
-  .object()
-  .keys({ per: joi.string() })
-  .required()
+const reposGetClonesQuerySchema = z.object({
+  per: z.coerce.string().optional(),
+})
 
 router.get(
   "reposGetClones",
@@ -25068,10 +23480,10 @@ router.get(
   }
 )
 
-const reposGetTopPathsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetTopPathsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetTopPaths",
@@ -25093,10 +23505,10 @@ router.get(
   }
 )
 
-const reposGetTopReferrersParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetTopReferrersParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposGetTopReferrers",
@@ -25118,15 +23530,12 @@ router.get(
   }
 )
 
-const reposGetViewsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposGetViewsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposGetViewsQuerySchema = joi
-  .object()
-  .keys({ per: joi.string() })
-  .required()
+const reposGetViewsQuerySchema = z.object({ per: z.coerce.string().optional() })
 
 router.get(
   "reposGetViews",
@@ -25151,19 +23560,16 @@ router.get(
   }
 )
 
-const reposTransferParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposTransferParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const reposTransferBodySchema = joi
-  .object()
-  .keys({
-    new_owner: joi.string().required(),
-    new_name: joi.string(),
-    team_ids: joi.array().items(joi.number()),
-  })
-  .required()
+const reposTransferBodySchema = z.object({
+  new_owner: z.coerce.string(),
+  new_name: z.coerce.string().optional(),
+  team_ids: z.array(z.coerce.number().optional()).optional(),
+})
 
 router.post(
   "reposTransfer",
@@ -25188,10 +23594,10 @@ router.post(
   }
 )
 
-const reposCheckVulnerabilityAlertsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposCheckVulnerabilityAlertsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "reposCheckVulnerabilityAlerts",
@@ -25213,10 +23619,10 @@ router.get(
   }
 )
 
-const reposEnableVulnerabilityAlertsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposEnableVulnerabilityAlertsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.put(
   "reposEnableVulnerabilityAlerts",
@@ -25238,10 +23644,10 @@ router.put(
   }
 )
 
-const reposDisableVulnerabilityAlertsParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const reposDisableVulnerabilityAlertsParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "reposDisableVulnerabilityAlerts",
@@ -25263,14 +23669,11 @@ router.delete(
   }
 )
 
-const reposDownloadZipballArchiveParamSchema = joi
-  .object()
-  .keys({
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-    ref: joi.string().required(),
-  })
-  .required()
+const reposDownloadZipballArchiveParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+  ref: z.coerce.string(),
+})
 
 router.get(
   "reposDownloadZipballArchive",
@@ -25292,24 +23695,18 @@ router.get(
   }
 )
 
-const reposCreateUsingTemplateParamSchema = joi
-  .object()
-  .keys({
-    template_owner: joi.string().required(),
-    template_repo: joi.string().required(),
-  })
-  .required()
+const reposCreateUsingTemplateParamSchema = z.object({
+  template_owner: z.coerce.string(),
+  template_repo: z.coerce.string(),
+})
 
-const reposCreateUsingTemplateBodySchema = joi
-  .object()
-  .keys({
-    owner: joi.string(),
-    name: joi.string().required(),
-    description: joi.string(),
-    include_all_branches: joi.boolean(),
-    private: joi.boolean(),
-  })
-  .required()
+const reposCreateUsingTemplateBodySchema = z.object({
+  owner: z.coerce.string().optional(),
+  name: z.coerce.string(),
+  description: z.coerce.string().optional(),
+  include_all_branches: z.coerce.boolean().optional(),
+  private: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateUsingTemplate",
@@ -25338,10 +23735,9 @@ router.post(
   }
 )
 
-const reposListPublicQuerySchema = joi
-  .object()
-  .keys({ since: joi.number() })
-  .required()
+const reposListPublicQuerySchema = z.object({
+  since: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListPublic",
@@ -25363,18 +23759,15 @@ router.get(
   }
 )
 
-const actionsListEnvironmentSecretsParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const actionsListEnvironmentSecretsParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+})
 
-const actionsListEnvironmentSecretsQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListEnvironmentSecretsQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListEnvironmentSecrets",
@@ -25403,13 +23796,10 @@ router.get(
   }
 )
 
-const actionsGetEnvironmentPublicKeyParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const actionsGetEnvironmentPublicKeyParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetEnvironmentPublicKey",
@@ -25431,14 +23821,11 @@ router.get(
   }
 )
 
-const actionsGetEnvironmentSecretParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsGetEnvironmentSecretParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetEnvironmentSecret",
@@ -25460,22 +23847,16 @@ router.get(
   }
 )
 
-const actionsCreateOrUpdateEnvironmentSecretParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsCreateOrUpdateEnvironmentSecretParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
-const actionsCreateOrUpdateEnvironmentSecretBodySchema = joi
-  .object()
-  .keys({
-    encrypted_value: joi.string().required(),
-    key_id: joi.string().required(),
-  })
-  .required()
+const actionsCreateOrUpdateEnvironmentSecretBodySchema = z.object({
+  encrypted_value: z.coerce.string(),
+  key_id: z.coerce.string(),
+})
 
 router.put(
   "actionsCreateOrUpdateEnvironmentSecret",
@@ -25504,14 +23885,11 @@ router.put(
   }
 )
 
-const actionsDeleteEnvironmentSecretParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    secret_name: joi.string().required(),
-  })
-  .required()
+const actionsDeleteEnvironmentSecretParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteEnvironmentSecret",
@@ -25533,18 +23911,15 @@ router.delete(
   }
 )
 
-const actionsListEnvironmentVariablesParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const actionsListEnvironmentVariablesParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+})
 
-const actionsListEnvironmentVariablesQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const actionsListEnvironmentVariablesQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "actionsListEnvironmentVariables",
@@ -25573,18 +23948,15 @@ router.get(
   }
 )
 
-const actionsCreateEnvironmentVariableParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-  })
-  .required()
+const actionsCreateEnvironmentVariableParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+})
 
-const actionsCreateEnvironmentVariableBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), value: joi.string().required() })
-  .required()
+const actionsCreateEnvironmentVariableBodySchema = z.object({
+  name: z.coerce.string(),
+  value: z.coerce.string(),
+})
 
 router.post(
   "actionsCreateEnvironmentVariable",
@@ -25613,14 +23985,11 @@ router.post(
   }
 )
 
-const actionsGetEnvironmentVariableParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsGetEnvironmentVariableParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.get(
   "actionsGetEnvironmentVariable",
@@ -25642,19 +24011,16 @@ router.get(
   }
 )
 
-const actionsUpdateEnvironmentVariableParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsUpdateEnvironmentVariableParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
-const actionsUpdateEnvironmentVariableBodySchema = joi
-  .object()
-  .keys({ name: joi.string(), value: joi.string() })
-  .required()
+const actionsUpdateEnvironmentVariableBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  value: z.coerce.string().optional(),
+})
 
 router.patch(
   "actionsUpdateEnvironmentVariable",
@@ -25683,14 +24049,11 @@ router.patch(
   }
 )
 
-const actionsDeleteEnvironmentVariableParamSchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    environment_name: joi.string().required(),
-    name: joi.string().required(),
-  })
-  .required()
+const actionsDeleteEnvironmentVariableParamSchema = z.object({
+  repository_id: z.coerce.number(),
+  environment_name: z.coerce.string(),
+  name: z.coerce.string(),
+})
 
 router.delete(
   "actionsDeleteEnvironmentVariable",
@@ -25716,16 +24079,13 @@ router.delete(
   }
 )
 
-const searchCodeQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchCodeQuerySchema = z.object({
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchCode",
@@ -25745,16 +24105,13 @@ router.get(
   }
 )
 
-const searchCommitsQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchCommitsQuerySchema = z.object({
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchCommits",
@@ -25774,16 +24131,13 @@ router.get(
   }
 )
 
-const searchIssuesAndPullRequestsQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchIssuesAndPullRequestsQuerySchema = z.object({
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchIssuesAndPullRequests",
@@ -25805,17 +24159,14 @@ router.get(
   }
 )
 
-const searchLabelsQuerySchema = joi
-  .object()
-  .keys({
-    repository_id: joi.number().required(),
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchLabelsQuerySchema = z.object({
+  repository_id: z.coerce.number(),
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchLabels",
@@ -25835,16 +24186,13 @@ router.get(
   }
 )
 
-const searchReposQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchReposQuerySchema = z.object({
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchRepos",
@@ -25864,14 +24212,11 @@ router.get(
   }
 )
 
-const searchTopicsQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchTopicsQuerySchema = z.object({
+  q: z.coerce.string(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchTopics",
@@ -25891,16 +24236,13 @@ router.get(
   }
 )
 
-const searchUsersQuerySchema = joi
-  .object()
-  .keys({
-    q: joi.string().required(),
-    sort: joi.string(),
-    order: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const searchUsersQuerySchema = z.object({
+  q: z.coerce.string(),
+  sort: z.coerce.string().optional(),
+  order: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "searchUsers",
@@ -25920,10 +24262,7 @@ router.get(
   }
 )
 
-const teamsGetLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsGetLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
 router.get(
   "teamsGetLegacy",
@@ -25945,21 +24284,15 @@ router.get(
   }
 )
 
-const teamsUpdateLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsUpdateLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
-const teamsUpdateLegacyBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    description: joi.string(),
-    privacy: joi.string(),
-    permission: joi.string(),
-    parent_team_id: joi.number(),
-  })
-  .required()
+const teamsUpdateLegacyBodySchema = z.object({
+  name: z.coerce.string(),
+  description: z.coerce.string().optional(),
+  privacy: z.coerce.string().optional(),
+  permission: z.coerce.string().optional(),
+  parent_team_id: z.coerce.number().optional(),
+})
 
 router.patch(
   "teamsUpdateLegacy",
@@ -25988,10 +24321,7 @@ router.patch(
   }
 )
 
-const teamsDeleteLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsDeleteLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
 router.delete(
   "teamsDeleteLegacy",
@@ -26013,15 +24343,15 @@ router.delete(
   }
 )
 
-const teamsListDiscussionsLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListDiscussionsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+})
 
-const teamsListDiscussionsLegacyQuerySchema = joi
-  .object()
-  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListDiscussionsLegacyQuerySchema = z.object({
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListDiscussionsLegacy",
@@ -26050,19 +24380,15 @@ router.get(
   }
 )
 
-const teamsCreateDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsCreateDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+})
 
-const teamsCreateDiscussionLegacyBodySchema = joi
-  .object()
-  .keys({
-    title: joi.string().required(),
-    body: joi.string().required(),
-    private: joi.boolean(),
-  })
-  .required()
+const teamsCreateDiscussionLegacyBodySchema = z.object({
+  title: z.coerce.string(),
+  body: z.coerce.string(),
+  private: z.coerce.boolean().optional(),
+})
 
 router.post(
   "teamsCreateDiscussionLegacy",
@@ -26091,13 +24417,10 @@ router.post(
   }
 )
 
-const teamsGetDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsGetDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
 router.get(
   "teamsGetDiscussionLegacy",
@@ -26119,17 +24442,17 @@ router.get(
   }
 )
 
-const teamsUpdateDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsUpdateDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsUpdateDiscussionLegacyBodySchema = joi
-  .object()
-  .keys({ title: joi.string(), body: joi.string() })
+const teamsUpdateDiscussionLegacyBodySchema = z
+  .object({
+    title: z.coerce.string().optional(),
+    body: z.coerce.string().optional(),
+  })
+  .optional()
 
 router.patch(
   "teamsUpdateDiscussionLegacy",
@@ -26158,13 +24481,10 @@ router.patch(
   }
 )
 
-const teamsDeleteDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsDeleteDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
 router.delete(
   "teamsDeleteDiscussionLegacy",
@@ -26186,18 +24506,16 @@ router.delete(
   }
 )
 
-const teamsListDiscussionCommentsLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsListDiscussionCommentsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsListDiscussionCommentsLegacyQuerySchema = joi
-  .object()
-  .keys({ direction: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListDiscussionCommentsLegacyQuerySchema = z.object({
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListDiscussionCommentsLegacy",
@@ -26226,18 +24544,14 @@ router.get(
   }
 )
 
-const teamsCreateDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const teamsCreateDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
-const teamsCreateDiscussionCommentLegacyBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const teamsCreateDiscussionCommentLegacyBodySchema = z.object({
+  body: z.coerce.string(),
+})
 
 router.post(
   "teamsCreateDiscussionCommentLegacy",
@@ -26266,14 +24580,11 @@ router.post(
   }
 )
 
-const teamsGetDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsGetDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
 router.get(
   "teamsGetDiscussionCommentLegacy",
@@ -26295,19 +24606,15 @@ router.get(
   }
 )
 
-const teamsUpdateDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsUpdateDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const teamsUpdateDiscussionCommentLegacyBodySchema = joi
-  .object()
-  .keys({ body: joi.string().required() })
-  .required()
+const teamsUpdateDiscussionCommentLegacyBodySchema = z.object({
+  body: z.coerce.string(),
+})
 
 router.patch(
   "teamsUpdateDiscussionCommentLegacy",
@@ -26336,14 +24643,11 @@ router.patch(
   }
 )
 
-const teamsDeleteDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const teamsDeleteDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
 router.delete(
   "teamsDeleteDiscussionCommentLegacy",
@@ -26369,19 +24673,17 @@ router.delete(
   }
 )
 
-const reactionsListForTeamDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const reactionsListForTeamDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const reactionsListForTeamDiscussionCommentLegacyQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForTeamDiscussionCommentLegacyQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForTeamDiscussionCommentLegacy",
@@ -26410,19 +24712,15 @@ router.get(
   }
 )
 
-const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-    comment_number: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForTeamDiscussionCommentLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+  comment_number: z.coerce.number(),
+})
 
-const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForTeamDiscussionCommentLegacyBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForTeamDiscussionCommentLegacy",
@@ -26451,18 +24749,16 @@ router.post(
   }
 )
 
-const reactionsListForTeamDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const reactionsListForTeamDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
-const reactionsListForTeamDiscussionLegacyQuerySchema = joi
-  .object()
-  .keys({ content: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const reactionsListForTeamDiscussionLegacyQuerySchema = z.object({
+  content: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reactionsListForTeamDiscussionLegacy",
@@ -26491,18 +24787,14 @@ router.get(
   }
 )
 
-const reactionsCreateForTeamDiscussionLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    discussion_number: joi.number().required(),
-  })
-  .required()
+const reactionsCreateForTeamDiscussionLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  discussion_number: z.coerce.number(),
+})
 
-const reactionsCreateForTeamDiscussionLegacyBodySchema = joi
-  .object()
-  .keys({ content: joi.string().required() })
-  .required()
+const reactionsCreateForTeamDiscussionLegacyBodySchema = z.object({
+  content: z.coerce.string(),
+})
 
 router.post(
   "reactionsCreateForTeamDiscussionLegacy",
@@ -26531,15 +24823,14 @@ router.post(
   }
 )
 
-const teamsListPendingInvitationsLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListPendingInvitationsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+})
 
-const teamsListPendingInvitationsLegacyQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListPendingInvitationsLegacyQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListPendingInvitationsLegacy",
@@ -26568,15 +24859,15 @@ router.get(
   }
 )
 
-const teamsListMembersLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListMembersLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+})
 
-const teamsListMembersLegacyQuerySchema = joi
-  .object()
-  .keys({ role: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListMembersLegacyQuerySchema = z.object({
+  role: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListMembersLegacy",
@@ -26605,10 +24896,10 @@ router.get(
   }
 )
 
-const teamsGetMemberLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsGetMemberLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "teamsGetMemberLegacy",
@@ -26630,10 +24921,10 @@ router.get(
   }
 )
 
-const teamsAddMemberLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsAddMemberLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.put(
   "teamsAddMemberLegacy",
@@ -26655,10 +24946,10 @@ router.put(
   }
 )
 
-const teamsRemoveMemberLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsRemoveMemberLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "teamsRemoveMemberLegacy",
@@ -26680,10 +24971,10 @@ router.delete(
   }
 )
 
-const teamsGetMembershipForUserLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsGetMembershipForUserLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "teamsGetMembershipForUserLegacy",
@@ -26705,14 +24996,14 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateMembershipForUserLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsAddOrUpdateMembershipForUserLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
-const teamsAddOrUpdateMembershipForUserLegacyBodySchema = joi
-  .object()
-  .keys({ role: joi.string() })
+const teamsAddOrUpdateMembershipForUserLegacyBodySchema = z
+  .object({ role: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateMembershipForUserLegacy",
@@ -26741,10 +25032,10 @@ router.put(
   }
 )
 
-const teamsRemoveMembershipForUserLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required(), username: joi.string().required() })
-  .required()
+const teamsRemoveMembershipForUserLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "teamsRemoveMembershipForUserLegacy",
@@ -26770,15 +25061,14 @@ router.delete(
   }
 )
 
-const teamsListProjectsLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListProjectsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+})
 
-const teamsListProjectsLegacyQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListProjectsLegacyQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListProjectsLegacy",
@@ -26807,13 +25097,10 @@ router.get(
   }
 )
 
-const teamsCheckPermissionsForProjectLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsCheckPermissionsForProjectLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  project_id: z.coerce.number(),
+})
 
 router.get(
   "teamsCheckPermissionsForProjectLegacy",
@@ -26839,17 +25126,14 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsAddOrUpdateProjectPermissionsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  project_id: z.coerce.number(),
+})
 
-const teamsAddOrUpdateProjectPermissionsLegacyBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const teamsAddOrUpdateProjectPermissionsLegacyBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateProjectPermissionsLegacy",
@@ -26878,13 +25162,10 @@ router.put(
   }
 )
 
-const teamsRemoveProjectLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    project_id: joi.number().required(),
-  })
-  .required()
+const teamsRemoveProjectLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  project_id: z.coerce.number(),
+})
 
 router.delete(
   "teamsRemoveProjectLegacy",
@@ -26906,15 +25187,12 @@ router.delete(
   }
 )
 
-const teamsListReposLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListReposLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
-const teamsListReposLegacyQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListReposLegacyQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListReposLegacy",
@@ -26943,14 +25221,11 @@ router.get(
   }
 )
 
-const teamsCheckPermissionsForRepoLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsCheckPermissionsForRepoLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "teamsCheckPermissionsForRepoLegacy",
@@ -26976,18 +25251,15 @@ router.get(
   }
 )
 
-const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsAddOrUpdateRepoPermissionsLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
-const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = joi
-  .object()
-  .keys({ permission: joi.string() })
+const teamsAddOrUpdateRepoPermissionsLegacyBodySchema = z
+  .object({ permission: z.coerce.string().optional() })
+  .optional()
 
 router.put(
   "teamsAddOrUpdateRepoPermissionsLegacy",
@@ -27016,14 +25288,11 @@ router.put(
   }
 )
 
-const teamsRemoveRepoLegacyParamSchema = joi
-  .object()
-  .keys({
-    team_id: joi.number().required(),
-    owner: joi.string().required(),
-    repo: joi.string().required(),
-  })
-  .required()
+const teamsRemoveRepoLegacyParamSchema = z.object({
+  team_id: z.coerce.number(),
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "teamsRemoveRepoLegacy",
@@ -27045,15 +25314,12 @@ router.delete(
   }
 )
 
-const teamsListChildLegacyParamSchema = joi
-  .object()
-  .keys({ team_id: joi.number().required() })
-  .required()
+const teamsListChildLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
-const teamsListChildLegacyQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListChildLegacyQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListChildLegacy",
@@ -27096,18 +25362,18 @@ router.get(
   }
 )
 
-const usersUpdateAuthenticatedBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string(),
-    email: joi.string(),
-    blog: joi.string(),
-    twitter_username: joi.string(),
-    company: joi.string(),
-    location: joi.string(),
-    hireable: joi.boolean(),
-    bio: joi.string(),
+const usersUpdateAuthenticatedBodySchema = z
+  .object({
+    name: z.coerce.string().optional(),
+    email: z.coerce.string().optional(),
+    blog: z.coerce.string().optional(),
+    twitter_username: z.coerce.string().optional(),
+    company: z.coerce.string().optional(),
+    location: z.coerce.string().optional(),
+    hireable: z.coerce.boolean().optional(),
+    bio: z.coerce.string().optional(),
   })
+  .optional()
 
 router.patch(
   "usersUpdateAuthenticated",
@@ -27129,10 +25395,10 @@ router.patch(
   }
 )
 
-const usersListBlockedByAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListBlockedByAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListBlockedByAuthenticatedUser",
@@ -27158,10 +25424,7 @@ router.get(
   }
 )
 
-const usersCheckBlockedParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersCheckBlockedParamSchema = z.object({ username: z.coerce.string() })
 
 router.get(
   "usersCheckBlocked",
@@ -27183,10 +25446,7 @@ router.get(
   }
 )
 
-const usersBlockParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersBlockParamSchema = z.object({ username: z.coerce.string() })
 
 router.put(
   "usersBlock",
@@ -27206,10 +25466,7 @@ router.put(
   }
 )
 
-const usersUnblockParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersUnblockParamSchema = z.object({ username: z.coerce.string() })
 
 router.delete(
   "usersUnblock",
@@ -27229,14 +25486,11 @@ router.delete(
   }
 )
 
-const codespacesListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    per_page: joi.number(),
-    page: joi.number(),
-    repository_id: joi.number(),
-  })
-  .required()
+const codespacesListForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  repository_id: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListForAuthenticatedUser",
@@ -27262,10 +25516,7 @@ router.get(
   }
 )
 
-const codespacesCreateForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const codespacesCreateForAuthenticatedUserBodySchema = z.object({})
 
 router.post(
   "codespacesCreateForAuthenticatedUser",
@@ -27291,10 +25542,10 @@ router.post(
   }
 )
 
-const codespacesListSecretsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const codespacesListSecretsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "codespacesListSecretsForAuthenticatedUser",
@@ -27334,10 +25585,9 @@ router.get(
   }
 )
 
-const codespacesGetSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ secret_name: joi.string().required() })
-  .required()
+const codespacesGetSecretForAuthenticatedUserParamSchema = z.object({
+  secret_name: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetSecretForAuthenticatedUser",
@@ -27363,19 +25613,15 @@ router.get(
   }
 )
 
-const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ secret_name: joi.string().required() })
-  .required()
+const codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = z.object({
+  secret_name: z.coerce.string(),
+})
 
-const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    encrypted_value: joi.string(),
-    key_id: joi.string().required(),
-    selected_repository_ids: joi.array().items(joi.string()),
-  })
-  .required()
+const codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = z.object({
+  encrypted_value: z.coerce.string().optional(),
+  key_id: z.coerce.string(),
+  selected_repository_ids: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.put(
   "codespacesCreateOrUpdateSecretForAuthenticatedUser",
@@ -27404,10 +25650,9 @@ router.put(
   }
 )
 
-const codespacesDeleteSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ secret_name: joi.string().required() })
-  .required()
+const codespacesDeleteSecretForAuthenticatedUserParamSchema = z.object({
+  secret_name: z.coerce.string(),
+})
 
 router.delete(
   "codespacesDeleteSecretForAuthenticatedUser",
@@ -27433,10 +25678,8 @@ router.delete(
   }
 )
 
-const codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ secret_name: joi.string().required() })
-  .required()
+const codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema =
+  z.object({ secret_name: z.coerce.string() })
 
 router.get(
   "codespacesListRepositoriesForSecretForAuthenticatedUser",
@@ -27462,15 +25705,11 @@ router.get(
   }
 )
 
-const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ secret_name: joi.string().required() })
-  .required()
+const codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
+  z.object({ secret_name: z.coerce.string() })
 
-const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ selected_repository_ids: joi.array().items(joi.number()).required() })
-  .required()
+const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
+  z.object({ selected_repository_ids: z.array(z.coerce.number().optional()) })
 
 router.put(
   "codespacesSetRepositoriesForSecretForAuthenticatedUser",
@@ -27499,13 +25738,8 @@ router.put(
   }
 )
 
-const codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema =
+  z.object({ secret_name: z.coerce.string(), repository_id: z.coerce.number() })
 
 router.put(
   "codespacesAddRepositoryForSecretForAuthenticatedUser",
@@ -27531,13 +25765,8 @@ router.put(
   }
 )
 
-const codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    secret_name: joi.string().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema =
+  z.object({ secret_name: z.coerce.string(), repository_id: z.coerce.number() })
 
 router.delete(
   "codespacesRemoveRepositoryForSecretForAuthenticatedUser",
@@ -27563,10 +25792,9 @@ router.delete(
   }
 )
 
-const codespacesGetForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesGetForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetForAuthenticatedUser",
@@ -27592,18 +25820,17 @@ router.get(
   }
 )
 
-const codespacesUpdateForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesUpdateForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
-const codespacesUpdateForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    machine: joi.string(),
-    display_name: joi.string(),
-    recent_folders: joi.array().items(joi.string()),
+const codespacesUpdateForAuthenticatedUserBodySchema = z
+  .object({
+    machine: z.coerce.string().optional(),
+    display_name: z.coerce.string().optional(),
+    recent_folders: z.array(z.coerce.string().optional()).optional(),
   })
+  .optional()
 
 router.patch(
   "codespacesUpdateForAuthenticatedUser",
@@ -27632,10 +25859,9 @@ router.patch(
   }
 )
 
-const codespacesDeleteForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesDeleteForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.delete(
   "codespacesDeleteForAuthenticatedUser",
@@ -27661,10 +25887,9 @@ router.delete(
   }
 )
 
-const codespacesExportForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesExportForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.post(
   "codespacesExportForAuthenticatedUser",
@@ -27690,13 +25915,10 @@ router.post(
   }
 )
 
-const codespacesGetExportDetailsForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    codespace_name: joi.string().required(),
-    export_id: joi.string().required(),
-  })
-  .required()
+const codespacesGetExportDetailsForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+  export_id: z.coerce.string(),
+})
 
 router.get(
   "codespacesGetExportDetailsForAuthenticatedUser",
@@ -27722,10 +25944,9 @@ router.get(
   }
 )
 
-const codespacesCodespaceMachinesForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesCodespaceMachinesForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.get(
   "codespacesCodespaceMachinesForAuthenticatedUser",
@@ -27751,15 +25972,14 @@ router.get(
   }
 )
 
-const codespacesPublishForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesPublishForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
-const codespacesPublishForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ name: joi.string(), private: joi.boolean() })
-  .required()
+const codespacesPublishForAuthenticatedUserBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  private: z.coerce.boolean().optional(),
+})
 
 router.post(
   "codespacesPublishForAuthenticatedUser",
@@ -27788,10 +26008,9 @@ router.post(
   }
 )
 
-const codespacesStartForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesStartForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.post(
   "codespacesStartForAuthenticatedUser",
@@ -27817,10 +26036,9 @@ router.post(
   }
 )
 
-const codespacesStopForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ codespace_name: joi.string().required() })
-  .required()
+const codespacesStopForAuthenticatedUserParamSchema = z.object({
+  codespace_name: z.coerce.string(),
+})
 
 router.post(
   "codespacesStopForAuthenticatedUser",
@@ -27846,10 +26064,9 @@ router.post(
   }
 )
 
-const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ visibility: joi.string().required() })
-  .required()
+const usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = z.object({
+  visibility: z.coerce.string(),
+})
 
 router.patch(
   "usersSetPrimaryEmailVisibilityForAuthenticatedUser",
@@ -27875,10 +26092,10 @@ router.patch(
   }
 )
 
-const usersListEmailsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListEmailsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListEmailsForAuthenticatedUser",
@@ -27904,7 +26121,7 @@ router.get(
   }
 )
 
-const usersAddEmailForAuthenticatedUserBodySchema = joi.object().keys({})
+const usersAddEmailForAuthenticatedUserBodySchema = z.object({}).optional()
 
 router.post(
   "usersAddEmailForAuthenticatedUser",
@@ -27930,10 +26147,7 @@ router.post(
   }
 )
 
-const usersDeleteEmailForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({})
-  .required()
+const usersDeleteEmailForAuthenticatedUserBodySchema = z.object({})
 
 router.delete(
   "usersDeleteEmailForAuthenticatedUser",
@@ -27959,10 +26173,10 @@ router.delete(
   }
 )
 
-const usersListFollowersForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListFollowersForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListFollowersForAuthenticatedUser",
@@ -27988,10 +26202,10 @@ router.get(
   }
 )
 
-const usersListFollowedByAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListFollowedByAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListFollowedByAuthenticatedUser",
@@ -28017,10 +26231,9 @@ router.get(
   }
 )
 
-const usersCheckPersonIsFollowedByAuthenticatedParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersCheckPersonIsFollowedByAuthenticatedParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
 router.get(
   "usersCheckPersonIsFollowedByAuthenticated",
@@ -28046,10 +26259,7 @@ router.get(
   }
 )
 
-const usersFollowParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersFollowParamSchema = z.object({ username: z.coerce.string() })
 
 router.put(
   "usersFollow",
@@ -28069,10 +26279,7 @@ router.put(
   }
 )
 
-const usersUnfollowParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersUnfollowParamSchema = z.object({ username: z.coerce.string() })
 
 router.delete(
   "usersUnfollow",
@@ -28092,10 +26299,10 @@ router.delete(
   }
 )
 
-const usersListGpgKeysForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListGpgKeysForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListGpgKeysForAuthenticatedUser",
@@ -28121,10 +26328,10 @@ router.get(
   }
 )
 
-const usersCreateGpgKeyForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ name: joi.string(), armored_public_key: joi.string().required() })
-  .required()
+const usersCreateGpgKeyForAuthenticatedUserBodySchema = z.object({
+  name: z.coerce.string().optional(),
+  armored_public_key: z.coerce.string(),
+})
 
 router.post(
   "usersCreateGpgKeyForAuthenticatedUser",
@@ -28150,10 +26357,9 @@ router.post(
   }
 )
 
-const usersGetGpgKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ gpg_key_id: joi.number().required() })
-  .required()
+const usersGetGpgKeyForAuthenticatedUserParamSchema = z.object({
+  gpg_key_id: z.coerce.number(),
+})
 
 router.get(
   "usersGetGpgKeyForAuthenticatedUser",
@@ -28179,10 +26385,9 @@ router.get(
   }
 )
 
-const usersDeleteGpgKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ gpg_key_id: joi.number().required() })
-  .required()
+const usersDeleteGpgKeyForAuthenticatedUserParamSchema = z.object({
+  gpg_key_id: z.coerce.number(),
+})
 
 router.delete(
   "usersDeleteGpgKeyForAuthenticatedUser",
@@ -28208,10 +26413,10 @@ router.delete(
   }
 )
 
-const appsListInstallationsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListInstallationsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListInstallationsForAuthenticatedUser",
@@ -28237,15 +26442,14 @@ router.get(
   }
 )
 
-const appsListInstallationReposForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ installation_id: joi.number().required() })
-  .required()
+const appsListInstallationReposForAuthenticatedUserParamSchema = z.object({
+  installation_id: z.coerce.number(),
+})
 
-const appsListInstallationReposForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListInstallationReposForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListInstallationReposForAuthenticatedUser",
@@ -28274,13 +26478,10 @@ router.get(
   }
 )
 
-const appsAddRepoToInstallationForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    installation_id: joi.number().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const appsAddRepoToInstallationForAuthenticatedUserParamSchema = z.object({
+  installation_id: z.coerce.number(),
+  repository_id: z.coerce.number(),
+})
 
 router.put(
   "appsAddRepoToInstallationForAuthenticatedUser",
@@ -28306,13 +26507,10 @@ router.put(
   }
 )
 
-const appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    installation_id: joi.number().required(),
-    repository_id: joi.number().required(),
-  })
-  .required()
+const appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema = z.object({
+  installation_id: z.coerce.number(),
+  repository_id: z.coerce.number(),
+})
 
 router.delete(
   "appsRemoveRepoFromInstallationForAuthenticatedUser",
@@ -28352,10 +26550,10 @@ router.get(
   }
 )
 
-const interactionsSetRestrictionsForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ limit: joi.string().required(), expiry: joi.string() })
-  .required()
+const interactionsSetRestrictionsForAuthenticatedUserBodySchema = z.object({
+  limit: z.coerce.string(),
+  expiry: z.coerce.string().optional(),
+})
 
 router.put(
   "interactionsSetRestrictionsForAuthenticatedUser",
@@ -28395,19 +26593,16 @@ router.delete(
   }
 )
 
-const issuesListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    filter: joi.string(),
-    state: joi.string(),
-    labels: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    since: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const issuesListForAuthenticatedUserQuerySchema = z.object({
+  filter: z.coerce.string().optional(),
+  state: z.coerce.string().optional(),
+  labels: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "issuesListForAuthenticatedUser",
@@ -28429,10 +26624,10 @@ router.get(
   }
 )
 
-const usersListPublicSshKeysForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListPublicSshKeysForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListPublicSshKeysForAuthenticatedUser",
@@ -28458,10 +26653,10 @@ router.get(
   }
 )
 
-const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ title: joi.string(), key: joi.string().required() })
-  .required()
+const usersCreatePublicSshKeyForAuthenticatedUserBodySchema = z.object({
+  title: z.coerce.string().optional(),
+  key: z.coerce.string(),
+})
 
 router.post(
   "usersCreatePublicSshKeyForAuthenticatedUser",
@@ -28487,10 +26682,9 @@ router.post(
   }
 )
 
-const usersGetPublicSshKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ key_id: joi.number().required() })
-  .required()
+const usersGetPublicSshKeyForAuthenticatedUserParamSchema = z.object({
+  key_id: z.coerce.number(),
+})
 
 router.get(
   "usersGetPublicSshKeyForAuthenticatedUser",
@@ -28516,10 +26710,9 @@ router.get(
   }
 )
 
-const usersDeletePublicSshKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ key_id: joi.number().required() })
-  .required()
+const usersDeletePublicSshKeyForAuthenticatedUserParamSchema = z.object({
+  key_id: z.coerce.number(),
+})
 
 router.delete(
   "usersDeletePublicSshKeyForAuthenticatedUser",
@@ -28545,10 +26738,10 @@ router.delete(
   }
 )
 
-const appsListSubscriptionsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListSubscriptionsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUser",
@@ -28574,10 +26767,10 @@ router.get(
   }
 )
 
-const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "appsListSubscriptionsForAuthenticatedUserStubbed",
@@ -28603,10 +26796,11 @@ router.get(
   }
 )
 
-const orgsListMembershipsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListMembershipsForAuthenticatedUserQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListMembershipsForAuthenticatedUser",
@@ -28632,10 +26826,9 @@ router.get(
   }
 )
 
-const orgsGetMembershipForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsGetMembershipForAuthenticatedUserParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
 router.get(
   "orgsGetMembershipForAuthenticatedUser",
@@ -28661,15 +26854,13 @@ router.get(
   }
 )
 
-const orgsUpdateMembershipForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ org: joi.string().required() })
-  .required()
+const orgsUpdateMembershipForAuthenticatedUserParamSchema = z.object({
+  org: z.coerce.string(),
+})
 
-const orgsUpdateMembershipForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ state: joi.string().required() })
-  .required()
+const orgsUpdateMembershipForAuthenticatedUserBodySchema = z.object({
+  state: z.coerce.string(),
+})
 
 router.patch(
   "orgsUpdateMembershipForAuthenticatedUser",
@@ -28698,10 +26889,10 @@ router.patch(
   }
 )
 
-const migrationsListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const migrationsListForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "migrationsListForAuthenticatedUser",
@@ -28727,20 +26918,17 @@ router.get(
   }
 )
 
-const migrationsStartForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    lock_repositories: joi.boolean(),
-    exclude_metadata: joi.boolean(),
-    exclude_git_data: joi.boolean(),
-    exclude_attachments: joi.boolean(),
-    exclude_releases: joi.boolean(),
-    exclude_owner_projects: joi.boolean(),
-    org_metadata_only: joi.boolean(),
-    exclude: joi.array().items(joi.string()),
-    repositories: joi.array().items(joi.string()).required(),
-  })
-  .required()
+const migrationsStartForAuthenticatedUserBodySchema = z.object({
+  lock_repositories: z.coerce.boolean().optional(),
+  exclude_metadata: z.coerce.boolean().optional(),
+  exclude_git_data: z.coerce.boolean().optional(),
+  exclude_attachments: z.coerce.boolean().optional(),
+  exclude_releases: z.coerce.boolean().optional(),
+  exclude_owner_projects: z.coerce.boolean().optional(),
+  org_metadata_only: z.coerce.boolean().optional(),
+  exclude: z.array(z.coerce.string().optional()).optional(),
+  repositories: z.array(z.coerce.string().optional()),
+})
 
 router.post(
   "migrationsStartForAuthenticatedUser",
@@ -28766,15 +26954,13 @@ router.post(
   }
 )
 
-const migrationsGetStatusForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ migration_id: joi.number().required() })
-  .required()
+const migrationsGetStatusForAuthenticatedUserParamSchema = z.object({
+  migration_id: z.coerce.number(),
+})
 
-const migrationsGetStatusForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ exclude: joi.array().items(joi.string()) })
-  .required()
+const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
+  exclude: z.array(z.coerce.string().optional()).optional(),
+})
 
 router.get(
   "migrationsGetStatusForAuthenticatedUser",
@@ -28803,10 +26989,9 @@ router.get(
   }
 )
 
-const migrationsGetArchiveForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ migration_id: joi.number().required() })
-  .required()
+const migrationsGetArchiveForAuthenticatedUserParamSchema = z.object({
+  migration_id: z.coerce.number(),
+})
 
 router.get(
   "migrationsGetArchiveForAuthenticatedUser",
@@ -28832,10 +27017,9 @@ router.get(
   }
 )
 
-const migrationsDeleteArchiveForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ migration_id: joi.number().required() })
-  .required()
+const migrationsDeleteArchiveForAuthenticatedUserParamSchema = z.object({
+  migration_id: z.coerce.number(),
+})
 
 router.delete(
   "migrationsDeleteArchiveForAuthenticatedUser",
@@ -28861,13 +27045,10 @@ router.delete(
   }
 )
 
-const migrationsUnlockRepoForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    migration_id: joi.number().required(),
-    repo_name: joi.string().required(),
-  })
-  .required()
+const migrationsUnlockRepoForAuthenticatedUserParamSchema = z.object({
+  migration_id: z.coerce.number(),
+  repo_name: z.coerce.string(),
+})
 
 router.delete(
   "migrationsUnlockRepoForAuthenticatedUser",
@@ -28893,15 +27074,14 @@ router.delete(
   }
 )
 
-const migrationsListReposForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ migration_id: joi.number().required() })
-  .required()
+const migrationsListReposForAuthenticatedUserParamSchema = z.object({
+  migration_id: z.coerce.number(),
+})
 
-const migrationsListReposForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const migrationsListReposForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "migrationsListReposForAuthenticatedUser",
@@ -28930,10 +27110,10 @@ router.get(
   }
 )
 
-const orgsListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListForAuthenticatedUser",
@@ -28955,10 +27135,10 @@ router.get(
   }
 )
 
-const packagesListPackagesForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ package_type: joi.string().required(), visibility: joi.string() })
-  .required()
+const packagesListPackagesForAuthenticatedUserQuerySchema = z.object({
+  package_type: z.coerce.string(),
+  visibility: z.coerce.string().optional(),
+})
 
 router.get(
   "packagesListPackagesForAuthenticatedUser",
@@ -28984,13 +27164,10 @@ router.get(
   }
 )
 
-const packagesGetPackageForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-  })
-  .required()
+const packagesGetPackageForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+})
 
 router.get(
   "packagesGetPackageForAuthenticatedUser",
@@ -29016,13 +27193,10 @@ router.get(
   }
 )
 
-const packagesDeletePackageForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-  })
-  .required()
+const packagesDeletePackageForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+})
 
 router.delete(
   "packagesDeletePackageForAuthenticatedUser",
@@ -29048,18 +27222,14 @@ router.delete(
   }
 )
 
-const packagesRestorePackageForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-  })
-  .required()
+const packagesRestorePackageForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+})
 
-const packagesRestorePackageForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ token: joi.string() })
-  .required()
+const packagesRestorePackageForAuthenticatedUserQuerySchema = z.object({
+  token: z.coerce.string().optional(),
+})
 
 router.post(
   "packagesRestorePackageForAuthenticatedUser",
@@ -29089,19 +27259,14 @@ router.post(
 )
 
 const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema =
-  joi
-    .object()
-    .keys({
-      package_type: joi.string().required(),
-      package_name: joi.string().required(),
-    })
-    .required()
+  z.object({ package_type: z.coerce.string(), package_name: z.coerce.string() })
 
 const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema =
-  joi
-    .object()
-    .keys({ page: joi.number(), per_page: joi.number(), state: joi.string() })
-    .required()
+  z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+    state: z.coerce.string().optional(),
+  })
 
 router.get(
   "packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser",
@@ -29130,14 +27295,11 @@ router.get(
   }
 )
 
-const packagesGetPackageVersionForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesGetPackageVersionForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.get(
   "packagesGetPackageVersionForAuthenticatedUser",
@@ -29163,14 +27325,11 @@ router.get(
   }
 )
 
-const packagesDeletePackageVersionForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesDeletePackageVersionForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.delete(
   "packagesDeletePackageVersionForAuthenticatedUser",
@@ -29196,14 +27355,11 @@ router.delete(
   }
 )
 
-const packagesRestorePackageVersionForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesRestorePackageVersionForAuthenticatedUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.post(
   "packagesRestorePackageVersionForAuthenticatedUser",
@@ -29229,10 +27385,10 @@ router.post(
   }
 )
 
-const projectsCreateForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ name: joi.string().required(), body: joi.string() })
-  .required()
+const projectsCreateForAuthenticatedUserBodySchema = z.object({
+  name: z.coerce.string(),
+  body: z.coerce.string().optional(),
+})
 
 router.post(
   "projectsCreateForAuthenticatedUser",
@@ -29258,10 +27414,10 @@ router.post(
   }
 )
 
-const usersListPublicEmailsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListPublicEmailsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListPublicEmailsForAuthenticatedUser",
@@ -29287,20 +27443,17 @@ router.get(
   }
 )
 
-const reposListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    visibility: joi.string(),
-    affiliation: joi.string(),
-    type: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-    since: joi.string(),
-    before: joi.string(),
-  })
-  .required()
+const reposListForAuthenticatedUserQuerySchema = z.object({
+  visibility: z.coerce.string().optional(),
+  affiliation: z.coerce.string().optional(),
+  type: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+  since: z.coerce.string().optional(),
+  before: z.coerce.string().optional(),
+})
 
 router.get(
   "reposListForAuthenticatedUser",
@@ -29322,34 +27475,31 @@ router.get(
   }
 )
 
-const reposCreateForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({
-    name: joi.string().required(),
-    description: joi.string(),
-    homepage: joi.string(),
-    private: joi.boolean(),
-    has_issues: joi.boolean(),
-    has_projects: joi.boolean(),
-    has_wiki: joi.boolean(),
-    has_discussions: joi.boolean(),
-    team_id: joi.number(),
-    auto_init: joi.boolean(),
-    gitignore_template: joi.string(),
-    license_template: joi.string(),
-    allow_squash_merge: joi.boolean(),
-    allow_merge_commit: joi.boolean(),
-    allow_rebase_merge: joi.boolean(),
-    allow_auto_merge: joi.boolean(),
-    delete_branch_on_merge: joi.boolean(),
-    squash_merge_commit_title: joi.string(),
-    squash_merge_commit_message: joi.string(),
-    merge_commit_title: joi.string(),
-    merge_commit_message: joi.string(),
-    has_downloads: joi.boolean(),
-    is_template: joi.boolean(),
-  })
-  .required()
+const reposCreateForAuthenticatedUserBodySchema = z.object({
+  name: z.coerce.string(),
+  description: z.coerce.string().optional(),
+  homepage: z.coerce.string().optional(),
+  private: z.coerce.boolean().optional(),
+  has_issues: z.coerce.boolean().optional(),
+  has_projects: z.coerce.boolean().optional(),
+  has_wiki: z.coerce.boolean().optional(),
+  has_discussions: z.coerce.boolean().optional(),
+  team_id: z.coerce.number().optional(),
+  auto_init: z.coerce.boolean().optional(),
+  gitignore_template: z.coerce.string().optional(),
+  license_template: z.coerce.string().optional(),
+  allow_squash_merge: z.coerce.boolean().optional(),
+  allow_merge_commit: z.coerce.boolean().optional(),
+  allow_rebase_merge: z.coerce.boolean().optional(),
+  allow_auto_merge: z.coerce.boolean().optional(),
+  delete_branch_on_merge: z.coerce.boolean().optional(),
+  squash_merge_commit_title: z.coerce.string().optional(),
+  squash_merge_commit_message: z.coerce.string().optional(),
+  merge_commit_title: z.coerce.string().optional(),
+  merge_commit_message: z.coerce.string().optional(),
+  has_downloads: z.coerce.boolean().optional(),
+  is_template: z.coerce.boolean().optional(),
+})
 
 router.post(
   "reposCreateForAuthenticatedUser",
@@ -29371,10 +27521,10 @@ router.post(
   }
 )
 
-const reposListInvitationsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const reposListInvitationsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListInvitationsForAuthenticatedUser",
@@ -29400,10 +27550,9 @@ router.get(
   }
 )
 
-const reposAcceptInvitationForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ invitation_id: joi.number().required() })
-  .required()
+const reposAcceptInvitationForAuthenticatedUserParamSchema = z.object({
+  invitation_id: z.coerce.number(),
+})
 
 router.patch(
   "reposAcceptInvitationForAuthenticatedUser",
@@ -29429,10 +27578,9 @@ router.patch(
   }
 )
 
-const reposDeclineInvitationForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ invitation_id: joi.number().required() })
-  .required()
+const reposDeclineInvitationForAuthenticatedUserParamSchema = z.object({
+  invitation_id: z.coerce.number(),
+})
 
 router.delete(
   "reposDeclineInvitationForAuthenticatedUser",
@@ -29458,10 +27606,10 @@ router.delete(
   }
 )
 
-const usersListSshSigningKeysForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListSshSigningKeysForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListSshSigningKeysForAuthenticatedUser",
@@ -29487,10 +27635,10 @@ router.get(
   }
 )
 
-const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = joi
-  .object()
-  .keys({ title: joi.string(), key: joi.string().required() })
-  .required()
+const usersCreateSshSigningKeyForAuthenticatedUserBodySchema = z.object({
+  title: z.coerce.string().optional(),
+  key: z.coerce.string(),
+})
 
 router.post(
   "usersCreateSshSigningKeyForAuthenticatedUser",
@@ -29516,10 +27664,9 @@ router.post(
   }
 )
 
-const usersGetSshSigningKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ ssh_signing_key_id: joi.number().required() })
-  .required()
+const usersGetSshSigningKeyForAuthenticatedUserParamSchema = z.object({
+  ssh_signing_key_id: z.coerce.number(),
+})
 
 router.get(
   "usersGetSshSigningKeyForAuthenticatedUser",
@@ -29545,10 +27692,9 @@ router.get(
   }
 )
 
-const usersDeleteSshSigningKeyForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ ssh_signing_key_id: joi.number().required() })
-  .required()
+const usersDeleteSshSigningKeyForAuthenticatedUserParamSchema = z.object({
+  ssh_signing_key_id: z.coerce.number(),
+})
 
 router.delete(
   "usersDeleteSshSigningKeyForAuthenticatedUser",
@@ -29574,15 +27720,12 @@ router.delete(
   }
 )
 
-const activityListReposStarredByAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const activityListReposStarredByAuthenticatedUserQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListReposStarredByAuthenticatedUser",
@@ -29608,10 +27751,10 @@ router.get(
   }
 )
 
-const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityCheckRepoIsStarredByAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.get(
   "activityCheckRepoIsStarredByAuthenticatedUser",
@@ -29637,10 +27780,10 @@ router.get(
   }
 )
 
-const activityStarRepoForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityStarRepoForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.put(
   "activityStarRepoForAuthenticatedUser",
@@ -29666,10 +27809,10 @@ router.put(
   }
 )
 
-const activityUnstarRepoForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ owner: joi.string().required(), repo: joi.string().required() })
-  .required()
+const activityUnstarRepoForAuthenticatedUserParamSchema = z.object({
+  owner: z.coerce.string(),
+  repo: z.coerce.string(),
+})
 
 router.delete(
   "activityUnstarRepoForAuthenticatedUser",
@@ -29695,10 +27838,10 @@ router.delete(
   }
 )
 
-const activityListWatchedReposForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListWatchedReposForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListWatchedReposForAuthenticatedUser",
@@ -29724,10 +27867,10 @@ router.get(
   }
 )
 
-const teamsListForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const teamsListForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "teamsListForAuthenticatedUser",
@@ -29749,10 +27892,10 @@ router.get(
   }
 )
 
-const usersListQuerySchema = joi
-  .object()
-  .keys({ since: joi.number(), per_page: joi.number() })
-  .required()
+const usersListQuerySchema = z.object({
+  since: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersList",
@@ -29769,10 +27912,7 @@ router.get(
   }
 )
 
-const usersGetByUsernameParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersGetByUsernameParamSchema = z.object({ username: z.coerce.string() })
 
 router.get(
   "usersGetByUsername",
@@ -29794,15 +27934,14 @@ router.get(
   }
 )
 
-const activityListEventsForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListEventsForAuthenticatedUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListEventsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListEventsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListEventsForAuthenticatedUser",
@@ -29831,15 +27970,15 @@ router.get(
   }
 )
 
-const activityListOrgEventsForAuthenticatedUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required(), org: joi.string().required() })
-  .required()
+const activityListOrgEventsForAuthenticatedUserParamSchema = z.object({
+  username: z.coerce.string(),
+  org: z.coerce.string(),
+})
 
-const activityListOrgEventsForAuthenticatedUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListOrgEventsForAuthenticatedUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListOrgEventsForAuthenticatedUser",
@@ -29868,15 +28007,14 @@ router.get(
   }
 )
 
-const activityListPublicEventsForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListPublicEventsForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListPublicEventsForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListPublicEventsForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListPublicEventsForUser",
@@ -29905,15 +28043,14 @@ router.get(
   }
 )
 
-const usersListFollowersForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersListFollowersForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersListFollowersForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListFollowersForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListFollowersForUser",
@@ -29942,15 +28079,14 @@ router.get(
   }
 )
 
-const usersListFollowingForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersListFollowingForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersListFollowingForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListFollowingForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListFollowingForUser",
@@ -29979,13 +28115,10 @@ router.get(
   }
 )
 
-const usersCheckFollowingForUserParamSchema = joi
-  .object()
-  .keys({
-    username: joi.string().required(),
-    target_user: joi.string().required(),
-  })
-  .required()
+const usersCheckFollowingForUserParamSchema = z.object({
+  username: z.coerce.string(),
+  target_user: z.coerce.string(),
+})
 
 router.get(
   "usersCheckFollowingForUser",
@@ -30007,15 +28140,13 @@ router.get(
   }
 )
 
-const gistsListForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const gistsListForUserParamSchema = z.object({ username: z.coerce.string() })
 
-const gistsListForUserQuerySchema = joi
-  .object()
-  .keys({ since: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const gistsListForUserQuerySchema = z.object({
+  since: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "gistsListForUser",
@@ -30044,15 +28175,14 @@ router.get(
   }
 )
 
-const usersListGpgKeysForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersListGpgKeysForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersListGpgKeysForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListGpgKeysForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListGpgKeysForUser",
@@ -30081,15 +28211,14 @@ router.get(
   }
 )
 
-const usersGetContextForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersGetContextForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersGetContextForUserQuerySchema = joi
-  .object()
-  .keys({ subject_type: joi.string(), subject_id: joi.string() })
-  .required()
+const usersGetContextForUserQuerySchema = z.object({
+  subject_type: z.coerce.string().optional(),
+  subject_id: z.coerce.string().optional(),
+})
 
 router.get(
   "usersGetContextForUser",
@@ -30118,10 +28247,9 @@ router.get(
   }
 )
 
-const appsGetUserInstallationParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const appsGetUserInstallationParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
 router.get(
   "appsGetUserInstallation",
@@ -30143,15 +28271,14 @@ router.get(
   }
 )
 
-const usersListPublicKeysForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersListPublicKeysForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersListPublicKeysForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListPublicKeysForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListPublicKeysForUser",
@@ -30180,15 +28307,12 @@ router.get(
   }
 )
 
-const orgsListForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const orgsListForUserParamSchema = z.object({ username: z.coerce.string() })
 
-const orgsListForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const orgsListForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "orgsListForUser",
@@ -30217,15 +28341,14 @@ router.get(
   }
 )
 
-const packagesListPackagesForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const packagesListPackagesForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const packagesListPackagesForUserQuerySchema = joi
-  .object()
-  .keys({ package_type: joi.string().required(), visibility: joi.string() })
-  .required()
+const packagesListPackagesForUserQuerySchema = z.object({
+  package_type: z.coerce.string(),
+  visibility: z.coerce.string().optional(),
+})
 
 router.get(
   "packagesListPackagesForUser",
@@ -30254,14 +28377,11 @@ router.get(
   }
 )
 
-const packagesGetPackageForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const packagesGetPackageForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "packagesGetPackageForUser",
@@ -30283,14 +28403,11 @@ router.get(
   }
 )
 
-const packagesDeletePackageForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const packagesDeletePackageForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.delete(
   "packagesDeletePackageForUser",
@@ -30312,19 +28429,15 @@ router.delete(
   }
 )
 
-const packagesRestorePackageForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const packagesRestorePackageForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
-const packagesRestorePackageForUserQuerySchema = joi
-  .object()
-  .keys({ token: joi.string() })
-  .required()
+const packagesRestorePackageForUserQuerySchema = z.object({
+  token: z.coerce.string().optional(),
+})
 
 router.post(
   "packagesRestorePackageForUser",
@@ -30353,14 +28466,11 @@ router.post(
   }
 )
 
-const packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "packagesGetAllPackageVersionsForPackageOwnedByUser",
@@ -30386,15 +28496,12 @@ router.get(
   }
 )
 
-const packagesGetPackageVersionForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    package_version_id: joi.number().required(),
-    username: joi.string().required(),
-  })
-  .required()
+const packagesGetPackageVersionForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+  username: z.coerce.string(),
+})
 
 router.get(
   "packagesGetPackageVersionForUser",
@@ -30420,15 +28527,12 @@ router.get(
   }
 )
 
-const packagesDeletePackageVersionForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesDeletePackageVersionForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.delete(
   "packagesDeletePackageVersionForUser",
@@ -30454,15 +28558,12 @@ router.delete(
   }
 )
 
-const packagesRestorePackageVersionForUserParamSchema = joi
-  .object()
-  .keys({
-    package_type: joi.string().required(),
-    package_name: joi.string().required(),
-    username: joi.string().required(),
-    package_version_id: joi.number().required(),
-  })
-  .required()
+const packagesRestorePackageVersionForUserParamSchema = z.object({
+  package_type: z.coerce.string(),
+  package_name: z.coerce.string(),
+  username: z.coerce.string(),
+  package_version_id: z.coerce.number(),
+})
 
 router.post(
   "packagesRestorePackageVersionForUser",
@@ -30488,15 +28589,13 @@ router.post(
   }
 )
 
-const projectsListForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const projectsListForUserParamSchema = z.object({ username: z.coerce.string() })
 
-const projectsListForUserQuerySchema = joi
-  .object()
-  .keys({ state: joi.string(), per_page: joi.number(), page: joi.number() })
-  .required()
+const projectsListForUserQuerySchema = z.object({
+  state: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "projectsListForUser",
@@ -30525,15 +28624,14 @@ router.get(
   }
 )
 
-const activityListReceivedEventsForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListReceivedEventsForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListReceivedEventsForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListReceivedEventsForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListReceivedEventsForUser",
@@ -30562,15 +28660,14 @@ router.get(
   }
 )
 
-const activityListReceivedPublicEventsForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListReceivedPublicEventsForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListReceivedPublicEventsForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListReceivedPublicEventsForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListReceivedPublicEventsForUser",
@@ -30599,21 +28696,15 @@ router.get(
   }
 )
 
-const reposListForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const reposListForUserParamSchema = z.object({ username: z.coerce.string() })
 
-const reposListForUserQuerySchema = joi
-  .object()
-  .keys({
-    type: joi.string(),
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const reposListForUserQuerySchema = z.object({
+  type: z.coerce.string().optional(),
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "reposListForUser",
@@ -30642,10 +28733,9 @@ router.get(
   }
 )
 
-const billingGetGithubActionsBillingUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const billingGetGithubActionsBillingUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
 router.get(
   "billingGetGithubActionsBillingUser",
@@ -30671,10 +28761,9 @@ router.get(
   }
 )
 
-const billingGetGithubPackagesBillingUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const billingGetGithubPackagesBillingUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
 router.get(
   "billingGetGithubPackagesBillingUser",
@@ -30700,10 +28789,9 @@ router.get(
   }
 )
 
-const billingGetSharedStorageBillingUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const billingGetSharedStorageBillingUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
 router.get(
   "billingGetSharedStorageBillingUser",
@@ -30729,15 +28817,14 @@ router.get(
   }
 )
 
-const usersListSshSigningKeysForUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const usersListSshSigningKeysForUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const usersListSshSigningKeysForUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const usersListSshSigningKeysForUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "usersListSshSigningKeysForUser",
@@ -30766,20 +28853,16 @@ router.get(
   }
 )
 
-const activityListReposStarredByUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListReposStarredByUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListReposStarredByUserQuerySchema = joi
-  .object()
-  .keys({
-    sort: joi.string(),
-    direction: joi.string(),
-    per_page: joi.number(),
-    page: joi.number(),
-  })
-  .required()
+const activityListReposStarredByUserQuerySchema = z.object({
+  sort: z.coerce.string().optional(),
+  direction: z.coerce.string().optional(),
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListReposStarredByUser",
@@ -30808,15 +28891,14 @@ router.get(
   }
 )
 
-const activityListReposWatchedByUserParamSchema = joi
-  .object()
-  .keys({ username: joi.string().required() })
-  .required()
+const activityListReposWatchedByUserParamSchema = z.object({
+  username: z.coerce.string(),
+})
 
-const activityListReposWatchedByUserQuerySchema = joi
-  .object()
-  .keys({ per_page: joi.number(), page: joi.number() })
-  .required()
+const activityListReposWatchedByUserQuerySchema = z.object({
+  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional(),
+})
 
 router.get(
   "activityListReposWatchedByUser",
