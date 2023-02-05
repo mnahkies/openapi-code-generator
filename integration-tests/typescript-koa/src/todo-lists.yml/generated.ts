@@ -72,6 +72,22 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.getTodoLists(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z
+        .array(
+          z.object({
+            id: z.coerce.string(),
+            name: z.coerce.string(),
+            totalItemCount: z.coerce.number(),
+            incompleteItemCount: z.coerce.number(),
+            created: z.coerce.string().datetime({ offset: true }),
+            updated: z.coerce.string().datetime({ offset: true }),
+          })
+        )
+        .parse(body)
+    }
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -87,6 +103,27 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.getTodoListById(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z
+        .object({
+          id: z.coerce.string(),
+          name: z.coerce.string(),
+          totalItemCount: z.coerce.number(),
+          incompleteItemCount: z.coerce.number(),
+          created: z.coerce.string().datetime({ offset: true }),
+          updated: z.coerce.string().datetime({ offset: true }),
+        })
+        .parse(body)
+    }
+
+    ctx.body = z
+      .object({
+        message: z.coerce.string().optional(),
+        code: z.coerce.number().optional(),
+      })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -104,6 +141,27 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.updateTodoListById(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z
+        .object({
+          id: z.coerce.string(),
+          name: z.coerce.string(),
+          totalItemCount: z.coerce.number(),
+          incompleteItemCount: z.coerce.number(),
+          created: z.coerce.string().datetime({ offset: true }),
+          updated: z.coerce.string().datetime({ offset: true }),
+        })
+        .parse(body)
+    }
+
+    ctx.body = z
+      .object({
+        message: z.coerce.string().optional(),
+        code: z.coerce.number().optional(),
+      })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -119,6 +177,14 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.deleteTodoListById(input, ctx)
+
+    ctx.body = z
+      .object({
+        message: z.coerce.string().optional(),
+        code: z.coerce.number().optional(),
+      })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()

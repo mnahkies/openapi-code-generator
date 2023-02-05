@@ -64,7 +64,6 @@ export class ServerBuilder {
     const schemaBuilder = this.schemaBuilder
 
     const pathParams = operation.parameters.filter(it => it.in === "path")
-
     const paramSchema = pathParams.length ? schemaBuilder.fromParameters(pathParams) : undefined
     let pathParamsType = "void"
 
@@ -118,6 +117,29 @@ export class ServerBuilder {
        }
 
         const {status, body} = await implementation.${operation.operationId}(input, ctx)
+
+       ${
+        Object.entries(operation.responses ?? []).map(([status, response]) => {
+          const content = Object.values(response.content ?? {}).pop()
+
+          if (/^\d+$/.test(status) && content) {
+            return `
+            if(status === ${ status }) {
+              ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)
+            }
+            `
+          } else if (/^\dxx$/.test(status) && content) {
+            return `
+            if(status >= ${ status[0] }00 && status < ${ status[0] + 1 }00){
+              ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)
+            }
+            `
+          } else if (content) {
+            return `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`
+          }
+        }).join("\n")
+      }
+
         ctx.status = status
         ctx.body = body
         return next();

@@ -67,6 +67,15 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.findPets(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z.array(z.object({})).parse(body)
+    }
+
+    ctx.body = z
+      .object({ code: z.coerce.number(), message: z.coerce.string() })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -85,6 +94,15 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.addPet(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z.object({}).parse(body)
+    }
+
+    ctx.body = z
+      .object({ code: z.coerce.number(), message: z.coerce.string() })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -100,6 +118,15 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.findPetById(input, ctx)
+
+    if (status === 200) {
+      ctx.body = z.object({}).parse(body)
+    }
+
+    ctx.body = z
+      .object({ code: z.coerce.number(), message: z.coerce.string() })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
@@ -115,6 +142,11 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.deletePet(input, ctx)
+
+    ctx.body = z
+      .object({ code: z.coerce.number(), message: z.coerce.string() })
+      .parse(body)
+
     ctx.status = status
     ctx.body = body
     return next()
