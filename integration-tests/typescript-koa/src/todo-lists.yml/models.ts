@@ -10,6 +10,11 @@ export type t_GetTodoListByIdParamSchema = {
   listId?: string
 }
 
+export type t_GetTodoListsQuerySchema = {
+  created?: string
+  status?: "incomplete" | "complete"
+}
+
 export type t_UpdateTodoListByIdBodySchema = {
   name: string
 }

@@ -14,9 +14,11 @@ export interface IRModelNumeric extends IRModelBase {
   enum?: number[]
 }
 
+export type IRModelStringFormat = "byte" | "binary" | "date" | "date-time" | "password" | "email"
+
 export interface IRModelString extends IRModelBase {
   type: "string"
-  format?: "byte" | "binary" | "date" | "date-time" | "password"
+  format?: IRModelStringFormat
   enum?: string[]
 }
 

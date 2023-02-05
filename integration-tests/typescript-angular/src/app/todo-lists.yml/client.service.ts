@@ -51,6 +51,23 @@ export class ApiClient {
     return result
   }
 
+  getTodoLists(p: {
+    created?: string
+    status?: "incomplete" | "complete"
+  }): Observable<t_TodoList[]> {
+    const headers: Record<string, string | undefined> = {}
+
+    const queryParameters = { created: p["created"], status: p["status"] }
+
+    return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {
+      params: this.queryParams(queryParameters),
+      headers: this.headers(headers),
+
+      observe: "body",
+      reportProgress: false,
+    })
+  }
+
   getTodoListById(p: {
     listId: string
   }): Observable<t_TodoList | t_Error | void> {

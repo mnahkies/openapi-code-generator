@@ -239,6 +239,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         ...base,
         // todo support format
         type: "number",
+        format: schemaObject.format as any,
         enum: enumValues.length ? enumValues : undefined,
       })
     }
@@ -248,6 +249,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
       return type<IRModelString>({
         ...base,
         type: schemaObject.type,
+        format: schemaObject.format as any,
         enum: enumValues.length ? enumValues : undefined,
       })
     }
