@@ -1,12 +1,14 @@
 import _ from "lodash"
 import { Input } from "../../core/input"
-import { IRModelObject, IROperation, IRParameter} from "../../core/openapi-types-normalized"
+import { IRModelObject, IROperation, IRParameter } from "../../core/openapi-types-normalized"
 import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
 import { isDefined } from "../../core/utils"
 import { logger } from "../../core/logger"
-import { JoiBuilder } from "./joi-schema-builder"
+import { JoiBuilder } from "./schema-builders/joi-schema-builder"
+import { SchemaBuilder } from "./schema-builders/schema-builder"
+import { ZodBuilder } from "./schema-builders/zod-schema-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -18,7 +20,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
 export class ServerBuilder {
   private readonly imports: ImportBuilder
   private readonly models: ModelBuilder
-  private readonly joiBuilder: JoiBuilder
+  private readonly schemaBuilder: SchemaBuilder
 
   private readonly operations: string[] = []
 
@@ -28,6 +30,7 @@ export class ServerBuilder {
     private readonly input: Input,
     models: ModelBuilder,
     private existingRegions: { [operationId: string]: string },
+    schemaBuilderType: "zod" | "joi" = "zod",
   ) {
     this.imports = new ImportBuilder()
     this.imports.addModule('Koa', 'koa')
@@ -37,15 +40,28 @@ export class ServerBuilder {
     this.imports.addModule('KoaRouter', '@koa/router')
     this.imports.addModule('koaBody', 'koa-body')
     this.imports.addModule('cors', '@koa/cors')
-    this.imports.addModule('joi', '@hapi/joi')
+
+    switch (schemaBuilderType) {
+      case "joi": {
+        this.imports.addModule('joi', '@hapi/joi')
+        this.schemaBuilder = new JoiBuilder('joi', this.input)
+        break
+      }
+      case "zod": {
+        this.imports.addSingle('z', 'zod')
+        this.imports.addSingle('ZodSchema', 'zod')
+        this.schemaBuilder = new ZodBuilder('z', this.input)
+        break
+      }
+    }
+
 
     this.models = models.withImports(this.imports)
-    this.joiBuilder = new JoiBuilder('joi', this.input)
   }
 
   add(operation: IROperation): void {
     const models = this.models
-    const joiBuilder = this.joiBuilder
+    const joiBuilder = this.schemaBuilder
 
     const pathParams = operation.parameters.filter(it => it.in === "path")
     const paramSchema = pathParams.length ? joiBuilder.fromParameters(pathParams) : undefined
@@ -136,47 +152,7 @@ ${ imports.toString() }
 //region safe-edit-region-header
 //endregion safe-edit-region-header
 
-function paramValidationFactory<Type>(schema: joi.Schema): Middleware<{ params: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.params, { stripUnknown: true })
-
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.params = result.value
-
-    return next()
-  }
-}
-
-function queryValidationFactory<Type>(schema: joi.Schema): Middleware<{ query: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
-
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.query = result.value
-
-    return next()
-  }
-}
-
-function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.request.body, { stripUnknown: true })
-
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.body = result.value
-
-    return next()
-  }
-}
+${this.schemaBuilder.staticHelpers()}
 
 interface ValidatedCtx<Params, Query, Body> extends Context {
   state: { params: Params, query: Query, body: Body }
