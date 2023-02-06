@@ -89,7 +89,6 @@ export function bootstrap(
     }
 
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -115,17 +114,16 @@ export function bootstrap(
           updated: z.coerce.string().datetime({ offset: true }),
         })
         .parse(body)
+    } else {
+      ctx.body = z
+        .object({
+          message: z.coerce.string().optional(),
+          code: z.coerce.number().optional(),
+        })
+        .parse(body)
     }
 
-    ctx.body = z
-      .object({
-        message: z.coerce.string().optional(),
-        code: z.coerce.number().optional(),
-      })
-      .parse(body)
-
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -153,17 +151,16 @@ export function bootstrap(
           updated: z.coerce.string().datetime({ offset: true }),
         })
         .parse(body)
+    } else {
+      ctx.body = z
+        .object({
+          message: z.coerce.string().optional(),
+          code: z.coerce.number().optional(),
+        })
+        .parse(body)
     }
 
-    ctx.body = z
-      .object({
-        message: z.coerce.string().optional(),
-        code: z.coerce.number().optional(),
-      })
-      .parse(body)
-
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -186,7 +183,6 @@ export function bootstrap(
       .parse(body)
 
     ctx.status = status
-    ctx.body = body
     return next()
   })
 

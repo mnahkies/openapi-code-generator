@@ -7,6 +7,7 @@ import { ModelBuilder } from "../common/model-builder"
 import { isDefined, titleCase } from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
 import {requestBodyAsParameter} from "../common/typescript-common"
+import { ifElseIfBuilder } from "../common/typescript-common"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -119,29 +120,29 @@ export class ServerBuilder {
         const {status, body} = await implementation.${operation.operationId}(input, ctx)
 
        ${
-        Object.entries(operation.responses ?? []).map(([status, response]) => {
+        ifElseIfBuilder(Object.entries(operation.responses ?? []).map(([status, response]) => {
           const content = Object.values(response.content ?? {}).pop()
 
           if (/^\d+$/.test(status) && content) {
-            return `
-            if(status === ${ status }) {
-              ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)
+            return {
+              condition: `status === ${ status }`,
+              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
             }
-            `
           } else if (/^\dxx$/.test(status) && content) {
-            return `
-            if(status >= ${ status[0] }00 && status < ${ status[0] + 1 }00){
-              ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)
+            return {
+              condition: `status >= ${ status[0] }00 && status < ${ status[0] + 1 }00`,
+              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
             }
-            `
           } else if (content) {
-            return `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`
+            return {
+              condition: undefined,
+              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
+            }
           }
-        }).join("\n")
+        }))
       }
 
         ctx.status = status
-        ctx.body = body
         return next();
       })`,
     ].filter(isDefined).join("\n"))

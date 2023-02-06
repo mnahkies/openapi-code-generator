@@ -79,7 +79,7 @@ export function asyncMethod({ name, parameters, returnType, overloads = [], body
 }
 
 export function requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
-  const { requestBody } = operation
+  const {requestBody} = operation
 
   if (!requestBody) {
     return {}
@@ -103,6 +103,26 @@ export function requestBodyAsParameter(operation: IROperation): { requestBodyPar
 
   logger.warn("no content on defined request body ", requestBody)
   return {}
+}
+
+export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | undefined)[]) {
+  const result = []
+
+  const definedParts = parts.filter(isDefined).sort((a,b) => a.condition && !b.condition ? -1 : 1)
+
+  for (const {condition, body} of definedParts) {
+    if (result.length === 0 && condition) {
+      result.push(`if(${ condition }) { ${ body } }`)
+    } else if (condition) {
+      result.push(`else if(${ condition }) { ${ body } }`)
+    } else if(result.length > 0) {
+      result.push(`else { ${ body } }`)
+    } else {
+      result.push(body)
+    }
+  }
+
+  return result.join("\n")
 }
 
 // TODO do we need to quote names sometimes here?

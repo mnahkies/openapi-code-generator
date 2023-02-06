@@ -70,14 +70,13 @@ export function bootstrap(
 
     if (status === 200) {
       ctx.body = z.array(z.object({})).parse(body)
+    } else {
+      ctx.body = z
+        .object({ code: z.coerce.number(), message: z.coerce.string() })
+        .parse(body)
     }
 
-    ctx.body = z
-      .object({ code: z.coerce.number(), message: z.coerce.string() })
-      .parse(body)
-
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -97,14 +96,13 @@ export function bootstrap(
 
     if (status === 200) {
       ctx.body = z.object({}).parse(body)
+    } else {
+      ctx.body = z
+        .object({ code: z.coerce.number(), message: z.coerce.string() })
+        .parse(body)
     }
 
-    ctx.body = z
-      .object({ code: z.coerce.number(), message: z.coerce.string() })
-      .parse(body)
-
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -121,14 +119,13 @@ export function bootstrap(
 
     if (status === 200) {
       ctx.body = z.object({}).parse(body)
+    } else {
+      ctx.body = z
+        .object({ code: z.coerce.number(), message: z.coerce.string() })
+        .parse(body)
     }
 
-    ctx.body = z
-      .object({ code: z.coerce.number(), message: z.coerce.string() })
-      .parse(body)
-
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
@@ -148,7 +145,6 @@ export function bootstrap(
       .parse(body)
 
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
