@@ -1,7 +1,8 @@
 import { IRParameter, MaybeIRModel } from "../../../core/openapi-types-normalized"
+import { ImportBuilder } from "../../common/import-builder"
 
 export interface SchemaBuilder {
-  staticHelpers(): string
+  importHelpers(importBuilder: ImportBuilder): void
 
   fromParameters(parameters: IRParameter[]): string
 

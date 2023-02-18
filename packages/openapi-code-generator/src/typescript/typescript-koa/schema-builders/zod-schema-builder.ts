@@ -7,6 +7,7 @@ import {
 } from "../../../core/openapi-types-normalized"
 import { isDefined } from "../../../core/utils"
 import { SchemaBuilder } from "./schema-builder"
+import { ImportBuilder } from "../../common/import-builder"
 
 export class ZodBuilder implements SchemaBuilder {
   constructor(
@@ -15,50 +16,9 @@ export class ZodBuilder implements SchemaBuilder {
   ) {
   }
 
-  staticHelpers(): string {
-    return `
-function paramValidationFactory<Type>(schema: ZodSchema): Middleware<{ params: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.params)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.params = result.data
-
-    return next()
-  }
-}
-
-function queryValidationFactory<Type>(schema: ZodSchema): Middleware<{ query: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.query)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.query = result.data
-
-    return next()
-  }
-}
-
-function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.request.body)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.body = result.data
-
-    return next()
-  }
-}
-`
+  importHelpers(importBuilder: ImportBuilder) {
+    importBuilder.from("@nahkies/typescript-koa-runtime/dist/zod")
+      .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
   }
 
   fromParameters(parameters: IRParameter[]): string {

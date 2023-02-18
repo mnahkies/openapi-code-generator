@@ -4,6 +4,11 @@
     "declaration": true,
     "sourceMap": true,
     "importHelpers": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@nahkies/*": [
+        "./packages/*/src"
+      ]
+    }
   }
 }

@@ -11,60 +11,17 @@ import {
 } from "./models"
 import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
+import {
+  bodyValidationFactory,
+  paramValidationFactory,
+  queryValidationFactory,
+} from "@nahkies/typescript-koa-runtime/dist/zod"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
 import { ZodSchema, z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
-
-function paramValidationFactory<Type>(
-  schema: ZodSchema
-): Middleware<{ params: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.params)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.params = result.data
-
-    return next()
-  }
-}
-
-function queryValidationFactory<Type>(
-  schema: ZodSchema
-): Middleware<{ query: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.query)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.query = result.data
-
-    return next()
-  }
-}
-
-function bodyValidationFactory<Type>(
-  schema: ZodSchema
-): Middleware<{ body: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.request.body)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.body = result.data
-
-    return next()
-  }
-}
 
 type Params<Params, Query, Body> = { params: Params; query: Query; body: Body }
 
