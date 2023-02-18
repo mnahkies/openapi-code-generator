@@ -44,11 +44,16 @@ export async function emitGenerationResult(dest: string, units: CompilationUnit[
 }
 
 async function formatOutput(raw: string): Promise<string> {
-  return prettier.format(raw, {
-    semi: false,
-    arrowParens: "always",
-    parser: "typescript",
-  })
+  // try {
+    return prettier.format(raw, {
+      semi: false,
+      arrowParens: "always",
+      parser: "typescript",
+    })
+  // } catch (err){
+  //   logger.error("failed to prettier", {err})
+  //   return raw
+  // }
 }
 
 async function writeOutput(folder: string, filename: string, data: string) {

@@ -16,3 +16,19 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
 ): z.infer<Schema> | undefined {
   return schema?.parse(input)
 }
+
+export function responseValidationFactory(possibleResponses: [string, z.ZodTypeAny][]) {
+  return (status: number, value: any) => {
+
+    for(const [match, schema] of possibleResponses) {
+
+      const isMatch = match === "default"
+        || /^\\d+$/.test(match) && String(status) === match
+        || /^\\dxx$/.test(match) && String(status)[0] === match[0]
+
+      if(isMatch) {
+        return schema.parse(value)
+      }
+    }
+  }
+}
