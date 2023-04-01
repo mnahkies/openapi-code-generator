@@ -8,19 +8,19 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
 
   protected buildImports(imports: ImportBuilder): void {
     imports
-      .from('@angular/core')
-      .add('Injectable')
+      .from("@angular/core")
+      .add("Injectable")
 
     imports
-      .from('@angular/common/http')
+      .from("@angular/common/http")
       .add(
-        'HttpClient',
-        'HttpHeaders',
-        'HttpParams',
+        "HttpClient",
+        "HttpHeaders",
+        "HttpParams",
       )
 
-    imports.from('rxjs')
-      .add('Observable')
+    imports.from("rxjs")
+      .add("Observable")
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
@@ -32,25 +32,25 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
     const queryString = builder.queryString()
     const headers = builder.headers()
 
-    const hasAcceptHeader = builder.hasHeader('Accept')
+    const hasAcceptHeader = builder.hasHeader("Accept")
 
     const returnType = builder.returnType()
       .map(({ responseType }) => {
         return `${ responseType }`
       })
-      .join(' | ')
+      .join(" | ")
 
     const url = routeToTemplateString(route)
 
     const body = `
 const headers: Record<string,string|undefined> = {${
       [
-        hasAcceptHeader ? undefined : `'Accept': 'application/json',`,
+        hasAcceptHeader ? undefined : "'Accept': 'application/json',",
         requestBodyContentType ? `'Content-Type': '${ requestBodyContentType }',` : undefined,
         headers || undefined,
       ]
         .filter(isDefined)
-        .join('\n')
+        .join("\n")
     }}
 
 const queryParameters = {${ queryString }};
@@ -60,7 +60,7 @@ return this.httpClient.request<any>(
   this.config.basePath + \`${ url }\`, {
     params: this.queryParams(queryParameters),
     headers: this.headers(headers),
-    ${ requestBodyParameter ? `body: ${ builder.paramName(requestBodyParameter.name) },` : '' }
+    ${ requestBodyParameter ? `body: ${ builder.paramName(requestBodyParameter.name) },` : "" }
     observe: 'body',
     reportProgress: false,
   });
@@ -112,7 +112,7 @@ export class ${ clientName } {
     return result
   }
 
-  ${ clientMethods.join('\n') }
+  ${ clientMethods.join("\n") }
 }`
   }
 }

@@ -14,7 +14,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
     acc.properties[parameter.name] = parameter.schema
     return acc
-  }, { type: 'object', properties: {} } as IRModelObject)
+  }, { type: "object", properties: {} } as IRModelObject)
 }
 
 export class ServerBuilder {
@@ -34,24 +34,24 @@ export class ServerBuilder {
     schemaBuilderType: "zod" | "joi" = "zod",
   ) {
     this.imports = new ImportBuilder()
-    this.imports.addModule('Koa', 'koa')
-    this.imports.addSingle('Middleware', 'koa')
-    this.imports.addSingle('Context', 'koa')
-    this.imports.addSingle('Next', 'koa')
-    this.imports.addModule('KoaRouter', '@koa/router')
-    this.imports.addModule('koaBody', 'koa-body')
-    this.imports.addModule('cors', '@koa/cors')
+    this.imports.addModule("Koa", "koa")
+    this.imports.addSingle("Middleware", "koa")
+    this.imports.addSingle("Context", "koa")
+    this.imports.addSingle("Next", "koa")
+    this.imports.addModule("KoaRouter", "@koa/router")
+    this.imports.addModule("koaBody", "koa-body")
+    this.imports.addModule("cors", "@koa/cors")
 
     switch (schemaBuilderType) {
       case "joi": {
-        this.imports.addModule('joi', '@hapi/joi')
-        this.schemaBuilder = new JoiBuilder('joi', this.input)
+        this.imports.addModule("joi", "@hapi/joi")
+        this.schemaBuilder = new JoiBuilder("joi", this.input)
         break
       }
       case "zod": {
-        this.imports.addSingle('z', 'zod')
-        this.imports.addSingle('ZodSchema', 'zod')
-        this.schemaBuilder = new ZodBuilder('z', this.input)
+        this.imports.addSingle("z", "zod")
+        this.imports.addSingle("ZodSchema", "zod")
+        this.schemaBuilder = new ZodBuilder("z", this.input)
         break
       }
     }
@@ -66,24 +66,24 @@ export class ServerBuilder {
 
     const pathParams = operation.parameters.filter(it => it.in === "path")
     const paramSchema = pathParams.length ? joiBuilder.fromParameters(pathParams) : undefined
-    let pathParamsType = 'void'
+    let pathParamsType = "void"
 
     const queryParams = operation.parameters.filter(it => it.in === "query")
     const querySchema = queryParams.length ? joiBuilder.fromParameters(queryParams) : undefined
-    let queryParamsType = 'void'
+    let queryParamsType = "void"
 
     const { requestBodyParameter } = this.requestBodyAsParameter(operation)
     const bodyParamSchema = requestBodyParameter ? joiBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
-    let bodyParamsType = 'void'
+    let bodyParamsType = "void"
 
     if (paramSchema) {
-      let name = `${ operation.operationId }ParamSchema`
+      const name = `${ operation.operationId }ParamSchema`
       pathParamsType = models.schemaObjectToType({ $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams)) })
       this.statements.push(`const ${ name } = ${ paramSchema.toString() }`)
     }
 
     if (querySchema) {
-      let name = `${ operation.operationId }QuerySchema`
+      const name = `${ operation.operationId }QuerySchema`
       queryParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(queryParams)),
       })
@@ -91,7 +91,7 @@ export class ServerBuilder {
     }
 
     if (bodyParamSchema && requestBodyParameter) {
-      let name = `${ operation.operationId }BodySchema`
+      const name = `${ operation.operationId }BodySchema`
       bodyParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)),
       })
@@ -118,7 +118,7 @@ export class ServerBuilder {
         ctx.body = body
         return next();
       })`,
-    ].filter(isDefined).join('\n'))
+    ].filter(isDefined).join("\n"))
   }
 
   requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
@@ -133,7 +133,7 @@ export class ServerBuilder {
       return {
         requestBodyContentType,
         requestBodyParameter: {
-          name: 'requestBody',
+          name: "requestBody",
           description: requestBody.description,
           in: "body",
           required: requestBody.required,
@@ -167,10 +167,10 @@ interface ValidatedCtx<Params, Query, Body> extends Context {
   state: { params: Params, query: Query, body: Body }
 }
 
-${Object.values(this.operationTypeMap).join('\n\n')}
+${Object.values(this.operationTypeMap).join("\n\n")}
 
 export type Implementation = {
-    ${Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(',')}
+    ${Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")}
 }
 
 export function bootstrap(implementation: Implementation, configuration: {port: number}){
@@ -182,7 +182,7 @@ export function bootstrap(implementation: Implementation, configuration: {port: 
 
   const router = new KoaRouter
 
-  ${ routes.join('\n\n') }
+  ${ routes.join("\n\n") }
 
   server.use(router.allowedMethods())
   server.use(router.routes())
@@ -202,13 +202,13 @@ function route(route: string): string {
 
   return Array.from(route.matchAll(placeholder))
     .reduce((result, match) => {
-      return result.replace(match[0], ':' + _.camelCase(match[1]))
+      return result.replace(match[0], ":" + _.camelCase(match[1]))
     }, route)
 }
 
 export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {
-  const models = ModelBuilder.fromInput('./models.ts', input)
-  const server = new ServerBuilder('generated.ts', 'ApiClient', input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: 'index.ts' })))
+  const models = ModelBuilder.fromInput("./models.ts", input)
+  const server = new ServerBuilder("generated.ts", "ApiClient", input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: "index.ts" })))
 
   input.allOperations()
     .map(it => server.add(it))
@@ -224,22 +224,21 @@ const regionBoundary = /.+safe-edit-region-(.+)/
 function loadExistingImplementations(data: string): Record<string, string> {
   const result: Record<string, string> = {}
 
-  let safeRegionName = ''
+  let safeRegionName = ""
   let buffer = []
 
-  for (const line of data.split('\n')) {
+  for (const line of data.split("\n")) {
 
     const match = regionBoundary.exec(line)
 
     if (match) {
 
       if (safeRegionName) {
-        result[safeRegionName] = buffer.join('\n')
+        result[safeRegionName] = buffer.join("\n")
         buffer = []
-        safeRegionName = ''
+        safeRegionName = ""
       } else {
         // this is safe because we tested that the regex matched prior to
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         safeRegionName = match[1]
       }
     } else if (safeRegionName) {

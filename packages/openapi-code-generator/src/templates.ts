@@ -9,7 +9,7 @@ export interface OpenapiGenerator {
 }
 
 export const templates: Record<string, OpenapiGenerator> = {
-  'typescript-fetch': generateTypescriptFetch,
-  'typescript-angular': generateTypescriptAngular,
-  'typescript-koa': generateTypescriptKoa,
+  "typescript-fetch": generateTypescriptFetch,
+  "typescript-angular": generateTypescriptAngular,
+  "typescript-koa": generateTypescriptKoa,
 }

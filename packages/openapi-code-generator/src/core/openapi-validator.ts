@@ -1,7 +1,7 @@
 import Ajv2020, { ValidateFunction } from "ajv/dist/2020"
 import addFormats from "ajv-formats"
 import { promptContinue } from "./cli-utils"
-import openapi3Specification = require('./openapi-3-specification.json')
+import openapi3Specification = require("./openapi-3-specification.json")
 import { logger } from "./logger"
 
 export class OpenapiValidator {
@@ -11,7 +11,7 @@ export class OpenapiValidator {
   private constructor() {
     const ajv = new Ajv2020({strict: false})
     addFormats(ajv)
-    ajv.addFormat('media-range', true)
+    ajv.addFormat("media-range", true)
     this.validationFunction = ajv.compile(openapi3Specification)
   }
 
@@ -20,7 +20,7 @@ export class OpenapiValidator {
 
     if (!isValid) {
       logger.warn(`Found errors validating '${ filename }'.`)
-      logger.warn(`Note errors may cascade, and should be investigated top to bottom. Errors:\n`)
+      logger.warn("Note errors may cascade, and should be investigated top to bottom. Errors:\n")
 
       this.validationFunction.errors?.forEach(err => {
         logger.warn(`-> ${ err.message } at path '${ err.instancePath }'`, err.params)

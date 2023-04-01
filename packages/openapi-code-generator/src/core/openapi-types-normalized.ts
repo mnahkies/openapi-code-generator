@@ -45,7 +45,7 @@ export type MaybeIRModel = IRModel | IRRef
 
 export interface IRParameter {
   name: string
-  in: 'path' | 'query' | 'header' | 'cookie' | 'body'
+  in: "path" | "query" | "header" | "cookie" | "body"
   schema: MaybeIRModel
   description?: string
   required: boolean

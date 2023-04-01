@@ -17,7 +17,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
 
   let result: any | undefined
 
-  if (file.endsWith('.json')) {
+  if (file.endsWith(".json")) {
     try {
       result = JSON.parse(raw)
     } catch (err: any) {
@@ -26,7 +26,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
     }
   }
 
-  if (file.endsWith('.yaml') || file.endsWith('.yml')) {
+  if (file.endsWith(".yaml") || file.endsWith(".yml")) {
     try {
       result = yaml.load(raw)
     } catch (err: any) {
@@ -48,5 +48,5 @@ async function loadRemoteFile(uri: string): Promise<[string, any]> {
 }
 
 export function isRemote(location: string): boolean {
-  return location.startsWith('http://') || location.startsWith('https://')
+  return location.startsWith("http://") || location.startsWith("https://")
 }

@@ -10,7 +10,7 @@ import { SchemaBuilder } from "./schema-builder"
 
 export class ZodBuilder implements SchemaBuilder {
   constructor(
-    private readonly zod = 'z',
+    private readonly zod = "z",
     private readonly input: Input,
   ) {
   }
@@ -111,25 +111,25 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
   private object(keys: Record<string, string>, required: boolean): string {
     return [
       this.zod,
-      `object({${ Object.entries(keys).map(([key, value]) => `"${ key }": ${ value }`).join(',') }})`,
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      `object({${ Object.entries(keys).map(([key, value]) => `"${ key }": ${ value }`).join(",") }})`,
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
   private array(items: string[], required: boolean): string {
     return [
       this.zod,
-      `array(${ items.join(',') })`,
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      `array(${ items.join(",") })`,
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
   private number(required: boolean) {
     return [
       this.zod,
       "coerce.number()",
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
   private string(model: IRModelString, required: boolean) {
@@ -140,10 +140,10 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
     return [
       this.zod,
       "coerce.string()",
-      model.format === 'date-time' ? 'datetime({offset:true})' : undefined,
-      model.format === 'email' ? 'email()' : undefined,
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      model.format === "date-time" ? "datetime({offset:true})" : undefined,
+      model.format === "email" ? "email()" : undefined,
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
   private enum(model: IRModelString, required: boolean) {
@@ -153,9 +153,9 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
 
     return [
       this.zod,
-      `enum([${ model.enum.map(it => `"${ it }"`).join(',') }])`,
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      `enum([${ model.enum.map(it => `"${ it }"`).join(",") }])`,
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
   private boolean(required: boolean) {
@@ -163,8 +163,8 @@ function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type
       this.zod,
       // TODO: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
-      required ? undefined : 'optional()',
-    ].filter(isDefined).join('.')
+      required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
   }
 
 }
