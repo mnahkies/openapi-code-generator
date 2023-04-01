@@ -73,6 +73,7 @@ export class ServerBuilder {
     let queryParamsType = "void"
 
     const { requestBodyParameter } = this.requestBodyAsParameter(operation)
+    const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
     const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
     let bodyParamsType = "void"
 
@@ -101,7 +102,7 @@ export class ServerBuilder {
 
     this.operationTypeMap[operation.operationId] = `
         export type ${titleCase(operation.operationId)} = (
-            params: Params<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>,
+            params: Params<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined") }>,
             ctx: Context
         ) => Promise<{status: number, body: any}>
 `
