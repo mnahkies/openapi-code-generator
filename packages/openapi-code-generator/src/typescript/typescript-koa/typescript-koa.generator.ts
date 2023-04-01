@@ -67,15 +67,15 @@ export class ServerBuilder {
     const pathParams = operation.parameters.filter(it => it.in === "path")
 
     const paramSchema = pathParams.length ? schemaBuilder.fromParameters(pathParams) : undefined
-    let pathParamsType = 'void'
+    let pathParamsType = "void"
 
     const queryParams = operation.parameters.filter(it => it.in === "query")
     const querySchema = queryParams.length ? schemaBuilder.fromParameters(queryParams) : undefined
-    let queryParamsType = 'void'
+    let queryParamsType = "void"
 
     const { requestBodyParameter } = this.requestBodyAsParameter(operation)
     const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
-    let bodyParamsType = 'void'
+    let bodyParamsType = "void"
 
     if (paramSchema) {
       const name = `${ operation.operationId }ParamSchema`
