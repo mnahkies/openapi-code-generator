@@ -1,4 +1,4 @@
-import { expect } from "chai"
+import { describe, it, expect } from "@jest/globals"
 import { JoiBuilder } from "./joi-schema-builder"
 
 describe("joi-schema-builder", function () {
@@ -15,7 +15,7 @@ describe("joi-schema-builder", function () {
         .fromModel({ type: "string", nullable: true, readOnly: false }, false)
 
       const expected = "joi.string()"
-      expect(actual).to.equal(expected)
+      expect(actual).toBe(expected)
     })
 
     it("handles a required value", function () {
@@ -23,7 +23,7 @@ describe("joi-schema-builder", function () {
         .fromModel({ type: "string", nullable: true, readOnly: false }, true)
 
       const expected = "joi.string().required()"
-      expect(actual).to.equal(expected)
+      expect(actual).toBe(expected)
     })
   })
 
@@ -34,7 +34,7 @@ describe("joi-schema-builder", function () {
         .fromModel({ type: "number", nullable: true, readOnly: false }, false)
 
       const expected = "joi.number()"
-      expect(actual).to.equal(expected)
+      expect(actual).toBe(expected)
     })
 
     it("handles a required value", function () {
@@ -42,7 +42,7 @@ describe("joi-schema-builder", function () {
         .fromModel({ type: "number", nullable: true, readOnly: false }, true)
 
       const expected = "joi.number().required()"
-      expect(actual).to.equal(expected)
+      expect(actual).toBe(expected)
     })
 
   })

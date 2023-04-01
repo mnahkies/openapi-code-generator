@@ -1,4 +1,4 @@
-import { assert } from "chai"
+import { describe, it, expect } from "@jest/globals"
 import { ImportBuilder } from "./import-builder"
 
 describe("typescript/common/import-builder", function () {
@@ -7,7 +7,7 @@ describe("typescript/common/import-builder", function () {
     const builder = new ImportBuilder()
     builder.addModule("_", "lodash")
 
-    assert.equal(builder.toString(), "import _ from 'lodash'")
+    expect(builder.toString()).toBe("import _ from 'lodash'")
   })
 
   it("can import individual exports", () => {
@@ -16,7 +16,7 @@ describe("typescript/common/import-builder", function () {
     builder.addSingle("Cat", "./models.ts")
     builder.addSingle("Dog", "./models.ts")
 
-    assert.equal(builder.toString(), "import {Cat, Dog} from './models'")
+    expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
   })
 
   it("can import a whole module, and individual exports", function () {
@@ -26,6 +26,6 @@ describe("typescript/common/import-builder", function () {
     builder.addSingle("Context", "koa")
     builder.addModule("koa", "koa")
 
-    assert.equal(builder.toString(), "import koa, {Context, Next} from 'koa'")
+    expect(builder.toString()).toBe("import koa, {Context, Next} from 'koa'")
   })
 })

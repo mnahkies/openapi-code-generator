@@ -28,8 +28,8 @@ jobs:
     - run: yarn ci-build
     - run: yarn ci-test
     - run: yarn ci-lint
-    - run: yarn generate
-    - run: yarn validate
+    - run: yarn integration:generate
+    - run: yarn integration:validate
     - run: |
         if [ -n "$(git status --porcelain=v1)" ]; then
           echo "Uncommitted changes to repo found!"

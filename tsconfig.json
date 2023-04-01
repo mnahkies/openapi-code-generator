@@ -3,6 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "sourceMap": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "resolveJsonModule": true
   }
 }
