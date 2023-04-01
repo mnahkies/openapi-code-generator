@@ -9,14 +9,14 @@
     "refresh": "./scripts/refresh-data.sh",
     "start": "nodemon",
     "lint": "eslint . --cache --report-unused-disable-directives --fix",
-    "build": "lerna run build --scope 'openapi-code-generator'",
+    "build": "lerna run build --scope '@nahkies/*'",
     "test": "jest",
     "integration:generate": "lerna run generate --stream --concurrency 1",
     "integration:validate": "lerna run validate --stream",
     "ci-build": "lerna run build --stream",
     "ci-test": "jest --coverage",
     "ci-lint": "eslint . --cache --report-unused-disable-directives",
-    "ci-pipeline": " yarn ci-build && yarn ci-test && yarn ci-lint && yarn integration:generate && yarn integration:validate"
+    "ci-pipeline": "yarn ci-build && yarn ci-test && yarn ci-lint && yarn integration:generate && yarn integration:validate"
   },
   "author": "Michael Nahkies",
   "license": "MIT",

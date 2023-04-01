@@ -56,24 +56,25 @@ export class ServerBuilder {
       }
     }
 
-
+    this.schemaBuilder.importHelpers(this.imports)
     this.models = models.withImports(this.imports)
   }
 
   add(operation: IROperation): void {
     const models = this.models
-    const joiBuilder = this.schemaBuilder
+    const schemaBuilder = this.schemaBuilder
 
     const pathParams = operation.parameters.filter(it => it.in === "path")
-    const paramSchema = pathParams.length ? joiBuilder.fromParameters(pathParams) : undefined
+
+    const paramSchema = pathParams.length ? schemaBuilder.fromParameters(pathParams) : undefined
     let pathParamsType = "void"
 
     const queryParams = operation.parameters.filter(it => it.in === "query")
-    const querySchema = queryParams.length ? joiBuilder.fromParameters(queryParams) : undefined
+    const querySchema = queryParams.length ? schemaBuilder.fromParameters(queryParams) : undefined
     let queryParamsType = "void"
 
     const { requestBodyParameter } = this.requestBodyAsParameter(operation)
-    const bodyParamSchema = requestBodyParameter ? joiBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
+    const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
     let bodyParamsType = "void"
 
     if (paramSchema) {
@@ -158,8 +159,6 @@ ${ imports.toString() }
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
-
-${this.schemaBuilder.staticHelpers()}
 
 type Params<Params, Query, Body> = {params: Params, query: Query, body: Body}
 
