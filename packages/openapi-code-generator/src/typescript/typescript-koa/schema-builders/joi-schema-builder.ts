@@ -22,7 +22,7 @@ export class JoiBuilder implements SchemaBuilder {
 
 
   importHelpers(importBuilder: ImportBuilder) {
-    importBuilder.from("@nahkies/typescript-koa-runtime/dist/joi")
+    importBuilder.from("@nahkies/typescript-koa-runtime/joi")
       .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
   }
 
