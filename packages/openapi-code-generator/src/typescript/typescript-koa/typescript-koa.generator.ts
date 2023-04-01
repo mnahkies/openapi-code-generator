@@ -34,13 +34,13 @@ export class ServerBuilder {
     schemaBuilderType: "zod" | "joi" = "zod",
   ) {
     this.imports = new ImportBuilder()
-    this.imports.addModule("Koa", "koa")
-    this.imports.addSingle("Middleware", "koa")
+    // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
+    this.imports.addSingle("startServer", "@nahkies/typescript-koa-runtime/server")
+    this.imports.addSingle("ServerConfig", "@nahkies/typescript-koa-runtime/server")
+
     this.imports.addSingle("Context", "koa")
     this.imports.addSingle("Next", "koa")
     this.imports.addModule("KoaRouter", "@koa/router")
-    this.imports.addModule("koaBody", "koa-body")
-    this.imports.addModule("cors", "@koa/cors")
 
     switch (schemaBuilderType) {
       case "joi": {
@@ -50,7 +50,6 @@ export class ServerBuilder {
       }
       case "zod": {
         this.imports.addSingle("z", "zod")
-        this.imports.addSingle("ZodSchema", "zod")
         this.schemaBuilder = new ZodBuilder("z", this.input)
         break
       }
@@ -172,25 +171,17 @@ export type Implementation = {
     ${Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")}
 }
 
-export function bootstrap(implementation: Implementation, configuration: {port: number}){
+export function bootstrap(implementation: Implementation, config: Omit<ServerConfig, "router">){
   // ${ clientName }
-  const server = new Koa()
-
-  server.use(cors())
-  server.use(koaBody())
-
-  const router = new KoaRouter
+  const router = new KoaRouter()
 
   ${ routes.join("\n\n") }
 
-  server.use(router.allowedMethods())
-  server.use(router.routes())
-
-  server.listen(configuration.port, () => {
-    console.info("server listening", {port: configuration.port})
-  });
-
-  return server
+  return startServer({
+    middleware: [],
+    router,
+    port: config.port
+  })
 }
 `
   }

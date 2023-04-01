@@ -1258,16 +1258,18 @@ import {
   t_UsersUnfollowParamSchema,
   t_UsersUpdateAuthenticatedBodySchema,
 } from "./models"
-import cors from "@koa/cors"
 import KoaRouter from "@koa/router"
+import {
+  ServerConfig,
+  startServer,
+} from "@nahkies/typescript-koa-runtime/server"
 import {
   bodyValidationFactory,
   paramValidationFactory,
   queryValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import Koa, { Context, Middleware, Next } from "koa"
-import koaBody from "koa-body"
-import { ZodSchema, z } from "zod"
+import { Context, Next } from "koa"
+import { z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
@@ -8365,14 +8367,9 @@ export type Implementation = {
 
 export function bootstrap(
   implementation: Implementation,
-  configuration: { port: number }
+  config: Omit<ServerConfig, "router">
 ) {
   // ApiClient
-  const server = new Koa()
-
-  server.use(cors())
-  server.use(koaBody())
-
   const router = new KoaRouter()
 
   router.get(
@@ -36413,12 +36410,9 @@ export function bootstrap(
     }
   )
 
-  server.use(router.allowedMethods())
-  server.use(router.routes())
-
-  server.listen(configuration.port, () => {
-    console.info("server listening", { port: configuration.port })
+  return startServer({
+    middleware: [],
+    router,
+    port: config.port,
   })
-
-  return server
 }
