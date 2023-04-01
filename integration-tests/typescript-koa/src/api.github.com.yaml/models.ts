@@ -125,9 +125,7 @@ export type t_wait_timer = number
 
 export type t_webhook_config_content_type = string
 
-export type t_webhook_config_insecure_ssl = {
-  [key: string]: unknown
-}
+export type t_webhook_config_insecure_ssl = string | number
 
 export type t_webhook_config_secret = string
 
@@ -306,9 +304,7 @@ export type t_ActionsCreateWorkflowDispatchBodySchema = {
 export type t_ActionsCreateWorkflowDispatchParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsDeleteActionsCacheByIdParamSchema = {
@@ -409,9 +405,7 @@ export type t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSche
 export type t_ActionsDisableWorkflowParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsDownloadArtifactParamSchema = {
@@ -449,9 +443,7 @@ export type t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchem
 export type t_ActionsEnableWorkflowParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsGetActionsCacheListParamSchema = {
@@ -628,9 +620,7 @@ export type t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema = {
 export type t_ActionsGetWorkflowParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsGetWorkflowAccessToRepositoryParamSchema = {
@@ -668,9 +658,7 @@ export type t_ActionsGetWorkflowRunUsageParamSchema = {
 export type t_ActionsGetWorkflowUsageParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsListArtifactsForRepoParamSchema = {
@@ -946,9 +934,7 @@ export type t_ActionsListWorkflowRunArtifactsQuerySchema = {
 export type t_ActionsListWorkflowRunsParamSchema = {
   owner?: string
   repo?: string
-  workflow_id?: {
-    [key: string]: unknown
-  }
+  workflow_id?: number | string
 }
 
 export type t_ActionsListWorkflowRunsQuerySchema = {
@@ -1772,50 +1758,19 @@ export type t_BillingGetSharedStorageBillingUserParamSchema = {
   username?: string
 }
 
-export type t_ChecksCreateBodySchema = {
-  actions?: {
-    description: string
-    identifier: string
-    label: string
-  }[]
-  completed_at?: string
-  conclusion?:
-    | "action_required"
-    | "cancelled"
-    | "failure"
-    | "neutral"
-    | "success"
-    | "skipped"
-    | "stale"
-    | "timed_out"
-  details_url?: string
-  external_id?: string
-  head_sha: string
-  name: string
-  output?: {
-    annotations?: {
-      annotation_level: "notice" | "warning" | "failure"
-      end_column?: number
-      end_line: number
-      message: string
-      path: string
-      raw_details?: string
-      start_column?: number
-      start_line: number
-      title?: string
-    }[]
-    images?: {
-      alt: string
-      caption?: string
-      image_url: string
-    }[]
-    summary: string
-    text?: string
-    title: string
-  }
-  started_at?: string
-  status?: "queued" | "in_progress" | "completed"
-}
+export type t_ChecksCreateBodySchema =
+  | {
+      status: {
+        [key: string]: unknown
+      }
+      [key: string]: unknown
+    }
+  | {
+      status?: {
+        [key: string]: unknown
+      }
+      [key: string]: unknown
+    }
 
 export type t_ChecksCreateParamSchema = {
   owner?: string
@@ -2118,9 +2073,31 @@ export type t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema = {
   codespace_name?: string
 }
 
-export type t_CodespacesCreateForAuthenticatedUserBodySchema = {
-  [key: string]: unknown
-}
+export type t_CodespacesCreateForAuthenticatedUserBodySchema =
+  | {
+      client_ip?: string
+      devcontainer_path?: string
+      display_name?: string
+      idle_timeout_minutes?: number
+      location?: string
+      machine?: string
+      multi_repo_permissions_opt_out?: boolean
+      ref?: string
+      repository_id: number
+      retention_period_minutes?: number
+      working_directory?: string
+    }
+  | {
+      devcontainer_path?: string
+      idle_timeout_minutes?: number
+      location?: string
+      machine?: string
+      pull_request: {
+        pull_request_number: number
+        repository_id: number
+      }
+      working_directory?: string
+    }
 
 export type t_CodespacesCreateOrUpdateOrgSecretBodySchema = {
   encrypted_value?: string
@@ -2744,9 +2721,7 @@ export type t_GistsCreateBodySchema = {
   files: {
     [key: string]: unknown
   }
-  public?: {
-    [key: string]: unknown
-  }
+  public?: boolean | "true" | "false"
 }
 
 export type t_GistsCreateCommentBodySchema = {
@@ -3056,9 +3031,20 @@ export type t_IssuesAddAssigneesParamSchema = {
   repo?: string
 }
 
-export type t_IssuesAddLabelsBodySchema = {
-  [key: string]: unknown
-}
+export type t_IssuesAddLabelsBodySchema =
+  | {
+      labels?: string[]
+    }
+  | string[]
+  | {
+      labels?: {
+        name: string
+      }[]
+    }
+  | {
+      name: string
+    }[]
+  | string
 
 export type t_IssuesAddLabelsParamSchema = {
   issue_number?: number
@@ -3083,15 +3069,17 @@ export type t_IssuesCreateBodySchema = {
   assignee?: string | null
   assignees?: string[]
   body?: string
-  labels?: {
-    [key: string]: unknown
-  }[]
-  milestone?: {
-    [key: string]: unknown
-  } | null
-  title: {
-    [key: string]: unknown
-  }
+  labels?: (
+    | string
+    | {
+        color?: string | null
+        description?: string | null
+        id?: number
+        name?: string
+      }
+  )[]
+  milestone?: (string | number) | null
+  title: string | number
 }
 
 export type t_IssuesCreateParamSchema = {
@@ -3385,9 +3373,20 @@ export type t_IssuesRemoveLabelParamSchema = {
   repo?: string
 }
 
-export type t_IssuesSetLabelsBodySchema = {
-  [key: string]: unknown
-}
+export type t_IssuesSetLabelsBodySchema =
+  | {
+      labels?: string[]
+    }
+  | string[]
+  | {
+      labels?: {
+        name: string
+      }[]
+    }
+  | {
+      name: string
+    }[]
+  | string
 
 export type t_IssuesSetLabelsParamSchema = {
   issue_number?: number
@@ -3405,17 +3404,19 @@ export type t_IssuesUpdateBodySchema = {
   assignee?: string | null
   assignees?: string[]
   body?: string | null
-  labels?: {
-    [key: string]: unknown
-  }[]
-  milestone?: {
-    [key: string]: unknown
-  } | null
+  labels?: (
+    | string
+    | {
+        color?: string | null
+        description?: string | null
+        id?: number
+        name?: string
+      }
+  )[]
+  milestone?: (string | number) | null
   state?: "open" | "closed"
   state_reason?: "completed" | "not_planned" | "reopened" | null
-  title?: {
-    [key: string]: unknown
-  } | null
+  title?: (string | number) | null
 }
 
 export type t_IssuesUpdateParamSchema = {
@@ -4234,9 +4235,14 @@ export type t_ProjectsAddCollaboratorParamSchema = {
   username?: string
 }
 
-export type t_ProjectsCreateCardBodySchema = {
-  [key: string]: unknown
-}
+export type t_ProjectsCreateCardBodySchema =
+  | {
+      note: string | null
+    }
+  | {
+      content_id: number
+      content_type: string
+    }
 
 export type t_ProjectsCreateCardParamSchema = {
   column_id?: number
@@ -5094,9 +5100,11 @@ export type t_ReposAcceptInvitationForAuthenticatedUserParamSchema = {
   invitation_id?: number
 }
 
-export type t_ReposAddAppAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposAddAppAccessRestrictionsBodySchema =
+  | {
+      apps: string[]
+    }
+  | string[]
 
 export type t_ReposAddAppAccessRestrictionsParamSchema = {
   branch?: string
@@ -5114,9 +5122,11 @@ export type t_ReposAddCollaboratorParamSchema = {
   username?: string
 }
 
-export type t_ReposAddStatusCheckContextsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposAddStatusCheckContextsBodySchema =
+  | {
+      contexts: string[]
+    }
+  | string[]
 
 export type t_ReposAddStatusCheckContextsParamSchema = {
   branch?: string
@@ -5124,9 +5134,11 @@ export type t_ReposAddStatusCheckContextsParamSchema = {
   repo?: string
 }
 
-export type t_ReposAddTeamAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposAddTeamAccessRestrictionsBodySchema =
+  | {
+      teams: string[]
+    }
+  | string[]
 
 export type t_ReposAddTeamAccessRestrictionsParamSchema = {
   branch?: string
@@ -5134,9 +5146,11 @@ export type t_ReposAddTeamAccessRestrictionsParamSchema = {
   repo?: string
 }
 
-export type t_ReposAddUserAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposAddUserAccessRestrictionsBodySchema =
+  | {
+      users: string[]
+    }
+  | string[]
 
 export type t_ReposAddUserAccessRestrictionsParamSchema = {
   branch?: string
@@ -5233,9 +5247,11 @@ export type t_ReposCreateDeploymentBodySchema = {
   auto_merge?: boolean
   description?: string | null
   environment?: string
-  payload?: {
-    [key: string]: unknown
-  }
+  payload?:
+    | {
+        [key: string]: unknown
+      }
+    | string
   production_environment?: boolean
   ref: string
   required_contexts?: string[]
@@ -6317,9 +6333,11 @@ export type t_ReposRedeliverWebhookDeliveryParamSchema = {
   repo?: string
 }
 
-export type t_ReposRemoveAppAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposRemoveAppAccessRestrictionsBodySchema =
+  | {
+      apps: string[]
+    }
+  | string[]
 
 export type t_ReposRemoveAppAccessRestrictionsParamSchema = {
   branch?: string
@@ -6333,9 +6351,11 @@ export type t_ReposRemoveCollaboratorParamSchema = {
   username?: string
 }
 
-export type t_ReposRemoveStatusCheckContextsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposRemoveStatusCheckContextsBodySchema =
+  | {
+      contexts: string[]
+    }
+  | string[]
 
 export type t_ReposRemoveStatusCheckContextsParamSchema = {
   branch?: string
@@ -6349,9 +6369,11 @@ export type t_ReposRemoveStatusCheckProtectionParamSchema = {
   repo?: string
 }
 
-export type t_ReposRemoveTeamAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposRemoveTeamAccessRestrictionsBodySchema =
+  | {
+      teams: string[]
+    }
+  | string[]
 
 export type t_ReposRemoveTeamAccessRestrictionsParamSchema = {
   branch?: string
@@ -6359,9 +6381,11 @@ export type t_ReposRemoveTeamAccessRestrictionsParamSchema = {
   repo?: string
 }
 
-export type t_ReposRemoveUserAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposRemoveUserAccessRestrictionsBodySchema =
+  | {
+      users: string[]
+    }
+  | string[]
 
 export type t_ReposRemoveUserAccessRestrictionsParamSchema = {
   branch?: string
@@ -6399,9 +6423,11 @@ export type t_ReposSetAdminBranchProtectionParamSchema = {
   repo?: string
 }
 
-export type t_ReposSetAppAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposSetAppAccessRestrictionsBodySchema =
+  | {
+      apps: string[]
+    }
+  | string[]
 
 export type t_ReposSetAppAccessRestrictionsParamSchema = {
   branch?: string
@@ -6409,9 +6435,11 @@ export type t_ReposSetAppAccessRestrictionsParamSchema = {
   repo?: string
 }
 
-export type t_ReposSetStatusCheckContextsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposSetStatusCheckContextsBodySchema =
+  | {
+      contexts: string[]
+    }
+  | string[]
 
 export type t_ReposSetStatusCheckContextsParamSchema = {
   branch?: string
@@ -6419,9 +6447,11 @@ export type t_ReposSetStatusCheckContextsParamSchema = {
   repo?: string
 }
 
-export type t_ReposSetTeamAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposSetTeamAccessRestrictionsBodySchema =
+  | {
+      teams: string[]
+    }
+  | string[]
 
 export type t_ReposSetTeamAccessRestrictionsParamSchema = {
   branch?: string
@@ -6429,9 +6459,11 @@ export type t_ReposSetTeamAccessRestrictionsParamSchema = {
   repo?: string
 }
 
-export type t_ReposSetUserAccessRestrictionsBodySchema = {
-  [key: string]: unknown
-}
+export type t_ReposSetUserAccessRestrictionsBodySchema =
+  | {
+      users: string[]
+    }
+  | string[]
 
 export type t_ReposSetUserAccessRestrictionsParamSchema = {
   branch?: string
@@ -7362,9 +7394,12 @@ export type t_TeamsUpdateLegacyParamSchema = {
   team_id?: number
 }
 
-export type t_UsersAddEmailForAuthenticatedUserBodySchema = {
-  [key: string]: unknown
-}
+export type t_UsersAddEmailForAuthenticatedUserBodySchema =
+  | {
+      emails: string[]
+    }
+  | string[]
+  | string
 
 export type t_UsersBlockParamSchema = {
   username?: string
@@ -7398,9 +7433,12 @@ export type t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema = {
   title?: string
 }
 
-export type t_UsersDeleteEmailForAuthenticatedUserBodySchema = {
-  [key: string]: unknown
-}
+export type t_UsersDeleteEmailForAuthenticatedUserBodySchema =
+  | {
+      emails: string[]
+    }
+  | string[]
+  | string
 
 export type t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema = {
   gpg_key_id?: number

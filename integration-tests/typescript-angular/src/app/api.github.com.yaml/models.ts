@@ -1142,6 +1142,24 @@ export type t_community_profile = {
   updated_at: string | null
 }
 
+export type t_content_directory = {
+  _links: {
+    git: string | null
+    html: string | null
+    self: string
+  }
+  content?: string
+  download_url: string | null
+  git_url: string | null
+  html_url: string | null
+  name: string
+  path: string
+  sha: string
+  size: number
+  type: "dir" | "file" | "submodule" | "symlink"
+  url: string
+}[]
+
 export type t_content_file = {
   _links: {
     git: string | null
@@ -1160,6 +1178,42 @@ export type t_content_file = {
   submodule_git_url?: string
   target?: string
   type: "file"
+  url: string
+}
+
+export type t_content_submodule = {
+  _links: {
+    git: string | null
+    html: string | null
+    self: string
+  }
+  download_url: string | null
+  git_url: string | null
+  html_url: string | null
+  name: string
+  path: string
+  sha: string
+  size: number
+  submodule_git_url: string
+  type: "submodule"
+  url: string
+}
+
+export type t_content_symlink = {
+  _links: {
+    git: string | null
+    html: string | null
+    self: string
+  }
+  download_url: string | null
+  git_url: string | null
+  html_url: string | null
+  name: string
+  path: string
+  sha: string
+  size: number
+  target: string
+  type: "symlink"
   url: string
 }
 
@@ -1350,9 +1404,11 @@ export type t_deployment = {
   id: number
   node_id: string
   original_environment?: string
-  payload: {
-    [key: string]: unknown
-  }
+  payload:
+    | {
+        [key: string]: unknown
+      }
+    | string
   performed_via_github_app?: t_nullable_integration
   production_environment?: boolean
   ref: string
@@ -2158,9 +2214,18 @@ export type t_issue = {
   events_url: string
   html_url: string
   id: number
-  labels: {
-    [key: string]: unknown
-  }[]
+  labels: (
+    | string
+    | {
+        color?: string | null
+        default?: boolean
+        description?: string | null
+        id?: number
+        name?: string
+        node_id?: string
+        url?: string
+      }
+  )[]
   labels_url: string
   locked: boolean
   milestone: t_nullable_milestone
@@ -2760,9 +2825,18 @@ export type t_nullable_issue = {
   events_url: string
   html_url: string
   id: number
-  labels: {
-    [key: string]: unknown
-  }[]
+  labels: (
+    | string
+    | {
+        color?: string | null
+        default?: boolean
+        description?: string | null
+        id?: number
+        name?: string
+        node_id?: string
+        url?: string
+      }
+  )[]
   labels_url: string
   locked: boolean
   milestone: t_nullable_milestone
@@ -5017,10 +5091,36 @@ export type t_secret_scanning_alert_resolution_comment = string
 export type t_secret_scanning_alert_state = "open" | "resolved"
 
 export type t_secret_scanning_location = {
-  details: {
-    [key: string]: unknown
-  }
+  details:
+    | t_secret_scanning_location_commit
+    | t_secret_scanning_location_issue_title
+    | t_secret_scanning_location_issue_body
+    | t_secret_scanning_location_issue_comment
   type: "commit" | "issue_title" | "issue_body" | "issue_comment"
+}
+
+export type t_secret_scanning_location_commit = {
+  blob_sha: string
+  blob_url: string
+  commit_sha: string
+  commit_url: string
+  end_column: number
+  end_line: number
+  path: string
+  start_column: number
+  start_line: number
+}
+
+export type t_secret_scanning_location_issue_body = {
+  issue_body_url: string
+}
+
+export type t_secret_scanning_location_issue_comment = {
+  issue_comment_url: string
+}
+
+export type t_secret_scanning_location_issue_title = {
+  issue_title_url: string
 }
 
 export type t_security_and_analysis = {
@@ -5652,9 +5752,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: {
-      [key: string]: unknown
-    }
+    value?: string | number | string[]
   }[]
   message: string
 }
@@ -5689,9 +5787,7 @@ export type t_webhook_config = {
 
 export type t_webhook_config_content_type = string
 
-export type t_webhook_config_insecure_ssl = {
-  [key: string]: unknown
-}
+export type t_webhook_config_insecure_ssl = string | number
 
 export type t_webhook_config_secret = string
 
