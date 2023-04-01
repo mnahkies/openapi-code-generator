@@ -13,11 +13,7 @@ import {
   ServerConfig,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  bodyValidationFactory,
-  paramValidationFactory,
-  queryValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { Context, Next } from "koa"
 import { z } from "zod"
 
@@ -72,12 +68,17 @@ export function bootstrap(
   router.get(
     "findPets",
     "/pets",
-    queryValidationFactory<t_FindPetsQuerySchema>(findPetsQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_FindPetsQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.findPets(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(findPetsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.findPets(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -92,9 +93,14 @@ export function bootstrap(
   router.post(
     "addPet",
     "/pets",
-    bodyValidationFactory<t_AddPetBodySchema>(addPetBodySchema),
     async (ctx: ValidatedCtx<void, void, t_AddPetBodySchema>, next: Next) => {
-      const { status, body } = await implementation.addPet(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(addPetBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.addPet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -106,12 +112,17 @@ export function bootstrap(
   router.get(
     "findPetById",
     "/pets/:id",
-    paramValidationFactory<t_FindPetByIdParamSchema>(findPetByIdParamSchema),
     async (
       ctx: ValidatedCtx<t_FindPetByIdParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.findPetById(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(findPetByIdParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.findPetById(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -123,12 +134,17 @@ export function bootstrap(
   router.delete(
     "deletePet",
     "/pets/:id",
-    paramValidationFactory<t_DeletePetParamSchema>(deletePetParamSchema),
     async (
       ctx: ValidatedCtx<t_DeletePetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.deletePet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(deletePetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.deletePet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()

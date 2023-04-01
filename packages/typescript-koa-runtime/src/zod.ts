@@ -1,44 +1,18 @@
-import type { ZodSchema } from "zod"
-import type { Context, Middleware, Next } from "koa"
+import {z} from "zod"
 
-export function paramValidationFactory<Type>(schema: ZodSchema): Middleware<{ params: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.params)
+export type Params<Params, Query, Body> = { params: Params, query: Query, body: Body }
 
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.params = result.data
-
-    return next()
-  }
-}
-
-export function queryValidationFactory<Type>(schema: ZodSchema): Middleware<{ query: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.query)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.query = result.data
-
-    return next()
-  }
-}
-
-export function bodyValidationFactory<Type>(schema: ZodSchema): Middleware<{ body: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.safeParse(ctx.request.body)
-
-    if (!result.success) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.body = result.data
-
-    return next()
-  }
+export function parseRequestInput<Schema extends z.ZodTypeAny>(
+  schema: Schema,
+  input: unknown
+): z.infer<Schema>;
+export function parseRequestInput(
+  schema: undefined,
+  input: unknown
+): undefined;
+export function parseRequestInput<Schema extends z.ZodTypeAny>(
+  schema: Schema | undefined,
+  input: unknown
+): z.infer<Schema> | undefined {
+  return schema?.parse(input)
 }

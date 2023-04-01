@@ -5,7 +5,6 @@ import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
 import { isDefined, titleCase } from "../../core/utils"
-import { logger } from "../../core/logger"
 import { JoiBuilder } from "./schema-builders/joi-schema-builder"
 import { SchemaBuilder } from "./schema-builders/schema-builder"
 import { ZodBuilder } from "./schema-builders/zod-schema-builder"
@@ -109,12 +108,15 @@ export class ServerBuilder {
 
     this.statements.push([
       `router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }',`,
-      paramSchema && `paramValidationFactory<${ pathParamsType }>(${ operation.operationId }ParamSchema),`,
-      querySchema && `queryValidationFactory<${ queryParamsType }>(${ operation.operationId }QuerySchema),`,
-      bodyParamSchema && `bodyValidationFactory<${ bodyParamsType }>(${ operation.operationId }BodySchema),`,
       `async (ctx: ValidatedCtx<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>, next: Next) => {
 
-        const {status, body} = await implementation.${operation.operationId}(ctx.state, ctx)
+       const input = {
+        params: ${paramSchema ? `parseRequestInput(${ operation.operationId }ParamSchema, ctx.params)` : "undefined"},
+        query: ${querySchema ? `parseRequestInput(${ operation.operationId }QuerySchema, ctx.query)` : "undefined"},
+        body: ${bodyParamSchema ? `parseRequestInput(${ operation.operationId }BodySchema, ctx.body)` : "undefined"},
+       }
+
+        const {status, body} = await implementation.${operation.operationId}(input, ctx)
         ctx.status = status
         ctx.body = body
         return next();

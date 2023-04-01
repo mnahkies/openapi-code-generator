@@ -14,11 +14,7 @@ import {
   ServerConfig,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  bodyValidationFactory,
-  paramValidationFactory,
-  queryValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { Context, Next } from "koa"
 import { z } from "zod"
 
@@ -77,12 +73,17 @@ export function bootstrap(
   router.get(
     "getTodoLists",
     "/list",
-    queryValidationFactory<t_GetTodoListsQuerySchema>(getTodoListsQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_GetTodoListsQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.getTodoLists(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(getTodoListsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.getTodoLists(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -94,17 +95,17 @@ export function bootstrap(
   router.get(
     "getTodoListById",
     "/list/:listId",
-    paramValidationFactory<t_GetTodoListByIdParamSchema>(
-      getTodoListByIdParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GetTodoListByIdParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.getTodoListById(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(getTodoListByIdParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.getTodoListById(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -118,12 +119,6 @@ export function bootstrap(
   router.put(
     "updateTodoListById",
     "/list/:listId",
-    paramValidationFactory<t_UpdateTodoListByIdParamSchema>(
-      updateTodoListByIdParamSchema
-    ),
-    bodyValidationFactory<t_UpdateTodoListByIdBodySchema>(
-      updateTodoListByIdBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UpdateTodoListByIdParamSchema,
@@ -132,8 +127,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(updateTodoListByIdParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(updateTodoListByIdBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.updateTodoListById(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -147,15 +148,18 @@ export function bootstrap(
   router.delete(
     "deleteTodoListById",
     "/list/:listId",
-    paramValidationFactory<t_DeleteTodoListByIdParamSchema>(
-      deleteTodoListByIdParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DeleteTodoListByIdParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(deleteTodoListByIdParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.deleteTodoListById(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status

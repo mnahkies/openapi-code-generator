@@ -1263,11 +1263,7 @@ import {
   ServerConfig,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  bodyValidationFactory,
-  paramValidationFactory,
-  queryValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { Context, Next } from "koa"
 import { z } from "zod"
 
@@ -8414,7 +8410,13 @@ export function bootstrap(
     "metaRoot",
     "/",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.metaRoot(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.metaRoot(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8425,8 +8427,14 @@ export function bootstrap(
     "appsGetAuthenticated",
     "/app",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetAuthenticated(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8442,15 +8450,21 @@ export function bootstrap(
   router.post(
     "appsCreateFromManifest",
     "/app-manifests/:code/conversions",
-    paramValidationFactory<t_AppsCreateFromManifestParamSchema>(
-      appsCreateFromManifestParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsCreateFromManifestParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsCreateFromManifestParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsCreateFromManifest(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8463,8 +8477,14 @@ export function bootstrap(
     "appsGetWebhookConfigForApp",
     "/app/hook/config",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetWebhookConfigForApp(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8483,15 +8503,21 @@ export function bootstrap(
   router.patch(
     "appsUpdateWebhookConfigForApp",
     "/app/hook/config",
-    bodyValidationFactory<t_AppsUpdateWebhookConfigForAppBodySchema>(
-      appsUpdateWebhookConfigForAppBodySchema
-    ),
     async (
       ctx: ValidatedCtx<void, void, t_AppsUpdateWebhookConfigForAppBodySchema>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          appsUpdateWebhookConfigForAppBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.appsUpdateWebhookConfigForApp(ctx.state, ctx)
+        await implementation.appsUpdateWebhookConfigForApp(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8507,15 +8533,21 @@ export function bootstrap(
   router.get(
     "appsListWebhookDeliveries",
     "/app/hook/deliveries",
-    queryValidationFactory<t_AppsListWebhookDeliveriesQuerySchema>(
-      appsListWebhookDeliveriesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_AppsListWebhookDeliveriesQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListWebhookDeliveriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsListWebhookDeliveries(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8531,15 +8563,21 @@ export function bootstrap(
   router.get(
     "appsGetWebhookDelivery",
     "/app/hook/deliveries/:deliveryId",
-    paramValidationFactory<t_AppsGetWebhookDeliveryParamSchema>(
-      appsGetWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetWebhookDelivery(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8555,15 +8593,21 @@ export function bootstrap(
   router.post(
     "appsRedeliverWebhookDelivery",
     "/app/hook/deliveries/:deliveryId/attempts",
-    paramValidationFactory<t_AppsRedeliverWebhookDeliveryParamSchema>(
-      appsRedeliverWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsRedeliverWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsRedeliverWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.appsRedeliverWebhookDelivery(ctx.state, ctx)
+        await implementation.appsRedeliverWebhookDelivery(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8580,15 +8624,18 @@ export function bootstrap(
   router.get(
     "appsListInstallations",
     "/app/installations",
-    queryValidationFactory<t_AppsListInstallationsQuerySchema>(
-      appsListInstallationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_AppsListInstallationsQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(appsListInstallationsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsListInstallations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8604,15 +8651,18 @@ export function bootstrap(
   router.get(
     "appsGetInstallation",
     "/app/installations/:installationId",
-    paramValidationFactory<t_AppsGetInstallationParamSchema>(
-      appsGetInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(appsGetInstallationParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8628,15 +8678,21 @@ export function bootstrap(
   router.delete(
     "appsDeleteInstallation",
     "/app/installations/:installationId",
-    paramValidationFactory<t_AppsDeleteInstallationParamSchema>(
-      appsDeleteInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsDeleteInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsDeleteInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsDeleteInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8700,12 +8756,6 @@ export function bootstrap(
   router.post(
     "appsCreateInstallationAccessToken",
     "/app/installations/:installationId/access_tokens",
-    paramValidationFactory<t_AppsCreateInstallationAccessTokenParamSchema>(
-      appsCreateInstallationAccessTokenParamSchema
-    ),
-    bodyValidationFactory<t_AppsCreateInstallationAccessTokenBodySchema>(
-      appsCreateInstallationAccessTokenBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsCreateInstallationAccessTokenParamSchema,
@@ -8714,8 +8764,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsCreateInstallationAccessTokenParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          appsCreateInstallationAccessTokenBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.appsCreateInstallationAccessToken(ctx.state, ctx)
+        await implementation.appsCreateInstallationAccessToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8729,15 +8791,21 @@ export function bootstrap(
   router.put(
     "appsSuspendInstallation",
     "/app/installations/:installationId/suspended",
-    paramValidationFactory<t_AppsSuspendInstallationParamSchema>(
-      appsSuspendInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsSuspendInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsSuspendInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsSuspendInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8753,15 +8821,21 @@ export function bootstrap(
   router.delete(
     "appsUnsuspendInstallation",
     "/app/installations/:installationId/suspended",
-    paramValidationFactory<t_AppsUnsuspendInstallationParamSchema>(
-      appsUnsuspendInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsUnsuspendInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsUnsuspendInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsUnsuspendInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8781,12 +8855,6 @@ export function bootstrap(
   router.delete(
     "appsDeleteAuthorization",
     "/applications/:clientId/grant",
-    paramValidationFactory<t_AppsDeleteAuthorizationParamSchema>(
-      appsDeleteAuthorizationParamSchema
-    ),
-    bodyValidationFactory<t_AppsDeleteAuthorizationBodySchema>(
-      appsDeleteAuthorizationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsDeleteAuthorizationParamSchema,
@@ -8795,8 +8863,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsDeleteAuthorizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(appsDeleteAuthorizationBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.appsDeleteAuthorization(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -8812,10 +8889,6 @@ export function bootstrap(
   router.post(
     "appsCheckToken",
     "/applications/:clientId/token",
-    paramValidationFactory<t_AppsCheckTokenParamSchema>(
-      appsCheckTokenParamSchema
-    ),
-    bodyValidationFactory<t_AppsCheckTokenBodySchema>(appsCheckTokenBodySchema),
     async (
       ctx: ValidatedCtx<
         t_AppsCheckTokenParamSchema,
@@ -8824,10 +8897,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsCheckToken(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(appsCheckTokenParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(appsCheckTokenBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.appsCheckToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8841,10 +8917,6 @@ export function bootstrap(
   router.patch(
     "appsResetToken",
     "/applications/:clientId/token",
-    paramValidationFactory<t_AppsResetTokenParamSchema>(
-      appsResetTokenParamSchema
-    ),
-    bodyValidationFactory<t_AppsResetTokenBodySchema>(appsResetTokenBodySchema),
     async (
       ctx: ValidatedCtx<
         t_AppsResetTokenParamSchema,
@@ -8853,10 +8925,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsResetToken(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(appsResetTokenParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(appsResetTokenBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.appsResetToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8872,12 +8947,6 @@ export function bootstrap(
   router.delete(
     "appsDeleteToken",
     "/applications/:clientId/token",
-    paramValidationFactory<t_AppsDeleteTokenParamSchema>(
-      appsDeleteTokenParamSchema
-    ),
-    bodyValidationFactory<t_AppsDeleteTokenBodySchema>(
-      appsDeleteTokenBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsDeleteTokenParamSchema,
@@ -8886,10 +8955,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsDeleteToken(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(appsDeleteTokenParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(appsDeleteTokenBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.appsDeleteToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8946,10 +9018,6 @@ export function bootstrap(
   router.post(
     "appsScopeToken",
     "/applications/:clientId/token/scoped",
-    paramValidationFactory<t_AppsScopeTokenParamSchema>(
-      appsScopeTokenParamSchema
-    ),
-    bodyValidationFactory<t_AppsScopeTokenBodySchema>(appsScopeTokenBodySchema),
     async (
       ctx: ValidatedCtx<
         t_AppsScopeTokenParamSchema,
@@ -8958,10 +9026,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsScopeToken(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(appsScopeTokenParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(appsScopeTokenBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.appsScopeToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8973,17 +9044,17 @@ export function bootstrap(
   router.get(
     "appsGetBySlug",
     "/apps/:appSlug",
-    paramValidationFactory<t_AppsGetBySlugParamSchema>(
-      appsGetBySlugParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetBySlugParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsGetBySlug(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(appsGetBySlugParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.appsGetBySlug(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -8994,8 +9065,14 @@ export function bootstrap(
     "codesOfConductGetAllCodesOfConduct",
     "/codes_of_conduct",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codesOfConductGetAllCodesOfConduct(ctx.state, ctx)
+        await implementation.codesOfConductGetAllCodesOfConduct(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9009,15 +9086,21 @@ export function bootstrap(
   router.get(
     "codesOfConductGetConductCode",
     "/codes_of_conduct/:key",
-    paramValidationFactory<t_CodesOfConductGetConductCodeParamSchema>(
-      codesOfConductGetConductCodeParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodesOfConductGetConductCodeParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codesOfConductGetConductCodeParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codesOfConductGetConductCode(ctx.state, ctx)
+        await implementation.codesOfConductGetConductCode(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9028,7 +9111,13 @@ export function bootstrap(
     "emojisGet",
     "/emojis",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.emojisGet(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.emojisGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9041,9 +9130,6 @@ export function bootstrap(
   router.put(
     "enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise",
     "/enterprises/:enterprise/actions/permissions/organizations/:orgId",
-    paramValidationFactory<t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema>(
-      enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
@@ -9052,9 +9138,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9076,12 +9171,6 @@ export function bootstrap(
   router.get(
     "enterpriseAdminListSelfHostedRunnerGroupsForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups",
-    paramValidationFactory<t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema>(
-      enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema
-    ),
-    queryValidationFactory<t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema>(
-      enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
@@ -9090,9 +9179,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminListSelfHostedRunnerGroupsForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9118,12 +9219,6 @@ export function bootstrap(
   router.post(
     "enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups",
-    paramValidationFactory<t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema>(
-      enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema
-    ),
-    bodyValidationFactory<t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema>(
-      enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
@@ -9132,9 +9227,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9152,9 +9259,6 @@ export function bootstrap(
   router.get(
     "enterpriseAdminGetSelfHostedRunnerGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId",
-    paramValidationFactory<t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema>(
-      enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
@@ -9163,9 +9267,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminGetSelfHostedRunnerGroupForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9184,9 +9297,6 @@ export function bootstrap(
   router.put(
     "enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/organizations/:orgId",
-    paramValidationFactory<t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema>(
-      enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
@@ -9195,9 +9305,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9216,9 +9335,6 @@ export function bootstrap(
   router.delete(
     "enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    paramValidationFactory<t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema>(
-      enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
@@ -9227,9 +9343,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9244,9 +9369,6 @@ export function bootstrap(
   router.delete(
     "enterpriseAdminDeleteSelfHostedRunnerFromEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId",
-    paramValidationFactory<t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema>(
-      enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
@@ -9255,9 +9377,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminDeleteSelfHostedRunnerFromEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9272,9 +9403,6 @@ export function bootstrap(
   router.get(
     "enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema>(
-      enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
@@ -9283,9 +9411,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9303,12 +9440,6 @@ export function bootstrap(
   router.post(
     "enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema>(
-      enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema
-    ),
-    bodyValidationFactory<t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema>(
-      enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
@@ -9317,9 +9448,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9334,9 +9477,6 @@ export function bootstrap(
   router.get(
     "secretScanningGetSecurityAnalysisSettingsForEnterprise",
     "/enterprises/:enterprise/code_security_and_analysis",
-    paramValidationFactory<t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema>(
-      secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
@@ -9345,9 +9485,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.secretScanningGetSecurityAnalysisSettingsForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9377,12 +9526,6 @@ export function bootstrap(
   router.patch(
     "secretScanningPatchSecurityAnalysisSettingsForEnterprise",
     "/enterprises/:enterprise/code_security_and_analysis",
-    paramValidationFactory<t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema>(
-      secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema
-    ),
-    bodyValidationFactory<t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema>(
-      secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
@@ -9391,9 +9534,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.secretScanningPatchSecurityAnalysisSettingsForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9424,12 +9579,6 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForEnterprise",
     "/enterprises/:enterprise/dependabot/alerts",
-    paramValidationFactory<t_DependabotListAlertsForEnterpriseParamSchema>(
-      dependabotListAlertsForEnterpriseParamSchema
-    ),
-    queryValidationFactory<t_DependabotListAlertsForEnterpriseQuerySchema>(
-      dependabotListAlertsForEnterpriseQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListAlertsForEnterpriseParamSchema,
@@ -9438,8 +9587,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListAlertsForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListAlertsForEnterpriseQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.dependabotListAlertsForEnterprise(ctx.state, ctx)
+        await implementation.dependabotListAlertsForEnterprise(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9464,12 +9625,6 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForEnterprise",
     "/enterprises/:enterprise/secret-scanning/alerts",
-    paramValidationFactory<t_SecretScanningListAlertsForEnterpriseParamSchema>(
-      secretScanningListAlertsForEnterpriseParamSchema
-    ),
-    queryValidationFactory<t_SecretScanningListAlertsForEnterpriseQuerySchema>(
-      secretScanningListAlertsForEnterpriseQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningListAlertsForEnterpriseParamSchema,
@@ -9478,11 +9633,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningListAlertsForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          secretScanningListAlertsForEnterpriseQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.secretScanningListAlertsForEnterprise(
-          ctx.state,
-          ctx
-        )
+        await implementation.secretScanningListAlertsForEnterprise(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9503,9 +9667,6 @@ export function bootstrap(
   router.post(
     "secretScanningPostSecurityProductEnablementForEnterprise",
     "/enterprises/:enterprise/:securityProduct/:enablement",
-    paramValidationFactory<t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema>(
-      secretScanningPostSecurityProductEnablementForEnterpriseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
@@ -9514,9 +9675,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.secretScanningPostSecurityProductEnablementForEnterprise(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -9533,15 +9703,21 @@ export function bootstrap(
   router.get(
     "activityListPublicEvents",
     "/events",
-    queryValidationFactory<t_ActivityListPublicEventsQuerySchema>(
-      activityListPublicEventsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_ActivityListPublicEventsQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          activityListPublicEventsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityListPublicEvents(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9554,10 +9730,13 @@ export function bootstrap(
     "activityGetFeeds",
     "/feeds",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.activityGetFeeds(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.activityGetFeeds(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9573,12 +9752,17 @@ export function bootstrap(
   router.get(
     "gistsList",
     "/gists",
-    queryValidationFactory<t_GistsListQuerySchema>(gistsListQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_GistsListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsList(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(gistsListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9594,12 +9778,17 @@ export function bootstrap(
   router.post(
     "gistsCreate",
     "/gists",
-    bodyValidationFactory<t_GistsCreateBodySchema>(gistsCreateBodySchema),
     async (
       ctx: ValidatedCtx<void, void, t_GistsCreateBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsCreate(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(gistsCreateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gistsCreate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9615,17 +9804,17 @@ export function bootstrap(
   router.get(
     "gistsListPublic",
     "/gists/public",
-    queryValidationFactory<t_GistsListPublicQuerySchema>(
-      gistsListPublicQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_GistsListPublicQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsListPublic(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(gistsListPublicQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsListPublic(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9641,17 +9830,17 @@ export function bootstrap(
   router.get(
     "gistsListStarred",
     "/gists/starred",
-    queryValidationFactory<t_GistsListStarredQuerySchema>(
-      gistsListStarredQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_GistsListStarredQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsListStarred(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(gistsListStarredQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsListStarred(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9663,12 +9852,17 @@ export function bootstrap(
   router.get(
     "gistsGet",
     "/gists/:gistId",
-    paramValidationFactory<t_GistsGetParamSchema>(gistsGetParamSchema),
     async (
       ctx: ValidatedCtx<t_GistsGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9685,8 +9879,6 @@ export function bootstrap(
   router.patch(
     "gistsUpdate",
     "/gists/:gistId",
-    paramValidationFactory<t_GistsUpdateParamSchema>(gistsUpdateParamSchema),
-    bodyValidationFactory<t_GistsUpdateBodySchema>(gistsUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GistsUpdateParamSchema,
@@ -9695,7 +9887,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gistsUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gistsUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9707,12 +9905,17 @@ export function bootstrap(
   router.delete(
     "gistsDelete",
     "/gists/:gistId",
-    paramValidationFactory<t_GistsDeleteParamSchema>(gistsDeleteParamSchema),
     async (
       ctx: ValidatedCtx<t_GistsDeleteParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsDelete(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsDeleteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsDelete(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9729,12 +9932,6 @@ export function bootstrap(
   router.get(
     "gistsListComments",
     "/gists/:gistId/comments",
-    paramValidationFactory<t_GistsListCommentsParamSchema>(
-      gistsListCommentsParamSchema
-    ),
-    queryValidationFactory<t_GistsListCommentsQuerySchema>(
-      gistsListCommentsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsListCommentsParamSchema,
@@ -9743,8 +9940,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gistsListCommentsParamSchema, ctx.params),
+        query: parseRequestInput(gistsListCommentsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gistsListComments(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9760,12 +9963,6 @@ export function bootstrap(
   router.post(
     "gistsCreateComment",
     "/gists/:gistId/comments",
-    paramValidationFactory<t_GistsCreateCommentParamSchema>(
-      gistsCreateCommentParamSchema
-    ),
-    bodyValidationFactory<t_GistsCreateCommentBodySchema>(
-      gistsCreateCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsCreateCommentParamSchema,
@@ -9774,8 +9971,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gistsCreateCommentParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gistsCreateCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.gistsCreateComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9792,17 +9995,17 @@ export function bootstrap(
   router.get(
     "gistsGetComment",
     "/gists/:gistId/comments/:commentId",
-    paramValidationFactory<t_GistsGetCommentParamSchema>(
-      gistsGetCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GistsGetCommentParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsGetComment(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gistsGetCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsGetComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9819,12 +10022,6 @@ export function bootstrap(
   router.patch(
     "gistsUpdateComment",
     "/gists/:gistId/comments/:commentId",
-    paramValidationFactory<t_GistsUpdateCommentParamSchema>(
-      gistsUpdateCommentParamSchema
-    ),
-    bodyValidationFactory<t_GistsUpdateCommentBodySchema>(
-      gistsUpdateCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsUpdateCommentParamSchema,
@@ -9833,8 +10030,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gistsUpdateCommentParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gistsUpdateCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.gistsUpdateComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9851,15 +10054,18 @@ export function bootstrap(
   router.delete(
     "gistsDeleteComment",
     "/gists/:gistId/comments/:commentId",
-    paramValidationFactory<t_GistsDeleteCommentParamSchema>(
-      gistsDeleteCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GistsDeleteCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gistsDeleteCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gistsDeleteComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9878,12 +10084,6 @@ export function bootstrap(
   router.get(
     "gistsListCommits",
     "/gists/:gistId/commits",
-    paramValidationFactory<t_GistsListCommitsParamSchema>(
-      gistsListCommitsParamSchema
-    ),
-    queryValidationFactory<t_GistsListCommitsQuerySchema>(
-      gistsListCommitsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsListCommitsParamSchema,
@@ -9892,10 +10092,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsListCommits(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gistsListCommitsParamSchema, ctx.params),
+        query: parseRequestInput(gistsListCommitsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsListCommits(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9912,12 +10115,6 @@ export function bootstrap(
   router.get(
     "gistsListForks",
     "/gists/:gistId/forks",
-    paramValidationFactory<t_GistsListForksParamSchema>(
-      gistsListForksParamSchema
-    ),
-    queryValidationFactory<t_GistsListForksQuerySchema>(
-      gistsListForksQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsListForksParamSchema,
@@ -9926,10 +10123,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsListForks(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gistsListForksParamSchema, ctx.params),
+        query: parseRequestInput(gistsListForksQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsListForks(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9941,12 +10141,17 @@ export function bootstrap(
   router.post(
     "gistsFork",
     "/gists/:gistId/forks",
-    paramValidationFactory<t_GistsForkParamSchema>(gistsForkParamSchema),
     async (
       ctx: ValidatedCtx<t_GistsForkParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsFork(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsForkParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsFork(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9960,15 +10165,18 @@ export function bootstrap(
   router.get(
     "gistsCheckIsStarred",
     "/gists/:gistId/star",
-    paramValidationFactory<t_GistsCheckIsStarredParamSchema>(
-      gistsCheckIsStarredParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GistsCheckIsStarredParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gistsCheckIsStarredParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gistsCheckIsStarred(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -9982,12 +10190,17 @@ export function bootstrap(
   router.put(
     "gistsStar",
     "/gists/:gistId/star",
-    paramValidationFactory<t_GistsStarParamSchema>(gistsStarParamSchema),
     async (
       ctx: ValidatedCtx<t_GistsStarParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsStar(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsStarParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsStar(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -9999,12 +10212,17 @@ export function bootstrap(
   router.delete(
     "gistsUnstar",
     "/gists/:gistId/star",
-    paramValidationFactory<t_GistsUnstarParamSchema>(gistsUnstarParamSchema),
     async (
       ctx: ValidatedCtx<t_GistsUnstarParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsUnstar(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gistsUnstarParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsUnstar(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10019,17 +10237,17 @@ export function bootstrap(
   router.get(
     "gistsGetRevision",
     "/gists/:gistId/:sha",
-    paramValidationFactory<t_GistsGetRevisionParamSchema>(
-      gistsGetRevisionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GistsGetRevisionParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsGetRevision(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gistsGetRevisionParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsGetRevision(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10040,8 +10258,14 @@ export function bootstrap(
     "gitignoreGetAllTemplates",
     "/gitignore/templates",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gitignoreGetAllTemplates(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10055,15 +10279,18 @@ export function bootstrap(
   router.get(
     "gitignoreGetTemplate",
     "/gitignore/templates/:name",
-    paramValidationFactory<t_GitignoreGetTemplateParamSchema>(
-      gitignoreGetTemplateParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GitignoreGetTemplateParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gitignoreGetTemplateParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gitignoreGetTemplate(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10080,9 +10307,6 @@ export function bootstrap(
   router.get(
     "appsListReposAccessibleToInstallation",
     "/installation/repositories",
-    queryValidationFactory<t_AppsListReposAccessibleToInstallationQuerySchema>(
-      appsListReposAccessibleToInstallationQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -10091,11 +10315,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListReposAccessibleToInstallationQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.appsListReposAccessibleToInstallation(
-          ctx.state,
-          ctx
-        )
+        await implementation.appsListReposAccessibleToInstallation(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10106,8 +10336,14 @@ export function bootstrap(
     "appsRevokeInstallationAccessToken",
     "/installation/token",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.appsRevokeInstallationAccessToken(ctx.state, ctx)
+        await implementation.appsRevokeInstallationAccessToken(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10134,12 +10370,17 @@ export function bootstrap(
   router.get(
     "issuesList",
     "/issues",
-    queryValidationFactory<t_IssuesListQuerySchema>(issuesListQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_IssuesListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesList(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(issuesListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10155,15 +10396,21 @@ export function bootstrap(
   router.get(
     "licensesGetAllCommonlyUsed",
     "/licenses",
-    queryValidationFactory<t_LicensesGetAllCommonlyUsedQuerySchema>(
-      licensesGetAllCommonlyUsedQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_LicensesGetAllCommonlyUsedQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          licensesGetAllCommonlyUsedQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.licensesGetAllCommonlyUsed(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10177,12 +10424,17 @@ export function bootstrap(
   router.get(
     "licensesGet",
     "/licenses/:license",
-    paramValidationFactory<t_LicensesGetParamSchema>(licensesGetParamSchema),
     async (
       ctx: ValidatedCtx<t_LicensesGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.licensesGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(licensesGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.licensesGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10198,15 +10450,17 @@ export function bootstrap(
   router.post(
     "markdownRender",
     "/markdown",
-    bodyValidationFactory<t_MarkdownRenderBodySchema>(markdownRenderBodySchema),
     async (
       ctx: ValidatedCtx<void, void, t_MarkdownRenderBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.markdownRender(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(markdownRenderBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.markdownRender(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10218,15 +10472,18 @@ export function bootstrap(
   router.post(
     "markdownRenderRaw",
     "/markdown/raw",
-    bodyValidationFactory<t_MarkdownRenderRawBodySchema>(
-      markdownRenderRawBodySchema
-    ),
     async (
       ctx: ValidatedCtx<void, void, t_MarkdownRenderRawBodySchema>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(markdownRenderRawBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.markdownRenderRaw(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10242,9 +10499,6 @@ export function bootstrap(
   router.get(
     "appsGetSubscriptionPlanForAccount",
     "/marketplace_listing/accounts/:accountId",
-    paramValidationFactory<t_AppsGetSubscriptionPlanForAccountParamSchema>(
-      appsGetSubscriptionPlanForAccountParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsGetSubscriptionPlanForAccountParamSchema,
@@ -10253,8 +10507,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetSubscriptionPlanForAccountParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.appsGetSubscriptionPlanForAccount(ctx.state, ctx)
+        await implementation.appsGetSubscriptionPlanForAccount(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10269,17 +10532,17 @@ export function bootstrap(
   router.get(
     "appsListPlans",
     "/marketplace_listing/plans",
-    queryValidationFactory<t_AppsListPlansQuerySchema>(
-      appsListPlansQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_AppsListPlansQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.appsListPlans(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(appsListPlansQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.appsListPlans(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10300,12 +10563,6 @@ export function bootstrap(
   router.get(
     "appsListAccountsForPlan",
     "/marketplace_listing/plans/:planId/accounts",
-    paramValidationFactory<t_AppsListAccountsForPlanParamSchema>(
-      appsListAccountsForPlanParamSchema
-    ),
-    queryValidationFactory<t_AppsListAccountsForPlanQuerySchema>(
-      appsListAccountsForPlanQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsListAccountsForPlanParamSchema,
@@ -10314,8 +10571,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsListAccountsForPlanParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(appsListAccountsForPlanQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsListAccountsForPlan(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10331,9 +10597,6 @@ export function bootstrap(
   router.get(
     "appsGetSubscriptionPlanForAccountStubbed",
     "/marketplace_listing/stubbed/accounts/:accountId",
-    paramValidationFactory<t_AppsGetSubscriptionPlanForAccountStubbedParamSchema>(
-      appsGetSubscriptionPlanForAccountStubbedParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsGetSubscriptionPlanForAccountStubbedParamSchema,
@@ -10342,9 +10605,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetSubscriptionPlanForAccountStubbedParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsGetSubscriptionPlanForAccountStubbed(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -10361,15 +10633,18 @@ export function bootstrap(
   router.get(
     "appsListPlansStubbed",
     "/marketplace_listing/stubbed/plans",
-    queryValidationFactory<t_AppsListPlansStubbedQuerySchema>(
-      appsListPlansStubbedQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_AppsListPlansStubbedQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(appsListPlansStubbedQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsListPlansStubbed(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10392,12 +10667,6 @@ export function bootstrap(
   router.get(
     "appsListAccountsForPlanStubbed",
     "/marketplace_listing/stubbed/plans/:planId/accounts",
-    paramValidationFactory<t_AppsListAccountsForPlanStubbedParamSchema>(
-      appsListAccountsForPlanStubbedParamSchema
-    ),
-    queryValidationFactory<t_AppsListAccountsForPlanStubbedQuerySchema>(
-      appsListAccountsForPlanStubbedQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsListAccountsForPlanStubbedParamSchema,
@@ -10406,8 +10675,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsListAccountsForPlanStubbedParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          appsListAccountsForPlanStubbedQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.appsListAccountsForPlanStubbed(ctx.state, ctx)
+        await implementation.appsListAccountsForPlanStubbed(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10418,7 +10699,13 @@ export function bootstrap(
     "metaGet",
     "/meta",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.metaGet(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.metaGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10438,12 +10725,6 @@ export function bootstrap(
   router.get(
     "activityListPublicEventsForRepoNetwork",
     "/networks/:owner/:repo/events",
-    paramValidationFactory<t_ActivityListPublicEventsForRepoNetworkParamSchema>(
-      activityListPublicEventsForRepoNetworkParamSchema
-    ),
-    queryValidationFactory<t_ActivityListPublicEventsForRepoNetworkQuerySchema>(
-      activityListPublicEventsForRepoNetworkQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListPublicEventsForRepoNetworkParamSchema,
@@ -10452,11 +10733,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListPublicEventsForRepoNetworkParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListPublicEventsForRepoNetworkQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListPublicEventsForRepoNetwork(
-          ctx.state,
-          ctx
-        )
+        await implementation.activityListPublicEventsForRepoNetwork(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10475,9 +10765,6 @@ export function bootstrap(
   router.get(
     "activityListNotificationsForAuthenticatedUser",
     "/notifications",
-    queryValidationFactory<t_ActivityListNotificationsForAuthenticatedUserQuerySchema>(
-      activityListNotificationsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -10486,9 +10773,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          activityListNotificationsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityListNotificationsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -10507,9 +10803,6 @@ export function bootstrap(
   router.put(
     "activityMarkNotificationsAsRead",
     "/notifications",
-    bodyValidationFactory<t_ActivityMarkNotificationsAsReadBodySchema>(
-      activityMarkNotificationsAsReadBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -10518,8 +10811,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          activityMarkNotificationsAsReadBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.activityMarkNotificationsAsRead(ctx.state, ctx)
+        await implementation.activityMarkNotificationsAsRead(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10533,15 +10835,18 @@ export function bootstrap(
   router.get(
     "activityGetThread",
     "/notifications/threads/:threadId",
-    paramValidationFactory<t_ActivityGetThreadParamSchema>(
-      activityGetThreadParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActivityGetThreadParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(activityGetThreadParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityGetThread(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10557,15 +10862,21 @@ export function bootstrap(
   router.patch(
     "activityMarkThreadAsRead",
     "/notifications/threads/:threadId",
-    paramValidationFactory<t_ActivityMarkThreadAsReadParamSchema>(
-      activityMarkThreadAsReadParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActivityMarkThreadAsReadParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityMarkThreadAsReadParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityMarkThreadAsRead(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -10581,9 +10892,6 @@ export function bootstrap(
   router.get(
     "activityGetThreadSubscriptionForAuthenticatedUser",
     "/notifications/threads/:threadId/subscription",
-    paramValidationFactory<t_ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema>(
-      activityGetThreadSubscriptionForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema,
@@ -10592,9 +10900,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityGetThreadSubscriptionForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityGetThreadSubscriptionForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -10614,12 +10931,6 @@ export function bootstrap(
   router.put(
     "activitySetThreadSubscription",
     "/notifications/threads/:threadId/subscription",
-    paramValidationFactory<t_ActivitySetThreadSubscriptionParamSchema>(
-      activitySetThreadSubscriptionParamSchema
-    ),
-    bodyValidationFactory<t_ActivitySetThreadSubscriptionBodySchema>(
-      activitySetThreadSubscriptionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivitySetThreadSubscriptionParamSchema,
@@ -10628,8 +10939,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activitySetThreadSubscriptionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          activitySetThreadSubscriptionBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.activitySetThreadSubscription(ctx.state, ctx)
+        await implementation.activitySetThreadSubscription(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10643,9 +10966,6 @@ export function bootstrap(
   router.delete(
     "activityDeleteThreadSubscription",
     "/notifications/threads/:threadId/subscription",
-    paramValidationFactory<t_ActivityDeleteThreadSubscriptionParamSchema>(
-      activityDeleteThreadSubscriptionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -10654,8 +10974,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityDeleteThreadSubscriptionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityDeleteThreadSubscription(ctx.state, ctx)
+        await implementation.activityDeleteThreadSubscription(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10669,17 +10998,17 @@ export function bootstrap(
   router.get(
     "metaGetOctocat",
     "/octocat",
-    queryValidationFactory<t_MetaGetOctocatQuerySchema>(
-      metaGetOctocatQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_MetaGetOctocatQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.metaGetOctocat(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(metaGetOctocatQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.metaGetOctocat(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10694,12 +11023,17 @@ export function bootstrap(
   router.get(
     "orgsList",
     "/organizations",
-    queryValidationFactory<t_OrgsListQuerySchema>(orgsListQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_OrgsListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsList(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(orgsListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10711,9 +11045,14 @@ export function bootstrap(
   router.get(
     "orgsGet",
     "/orgs/:org",
-    paramValidationFactory<t_OrgsGetParamSchema>(orgsGetParamSchema),
     async (ctx: ValidatedCtx<t_OrgsGetParamSchema, void, void>, next: Next) => {
-      const { status, body } = await implementation.orgsGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(orgsGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10777,13 +11116,17 @@ export function bootstrap(
   router.patch(
     "orgsUpdate",
     "/orgs/:org",
-    paramValidationFactory<t_OrgsUpdateParamSchema>(orgsUpdateParamSchema),
-    bodyValidationFactory<t_OrgsUpdateBodySchema>(orgsUpdateBodySchema),
     async (
       ctx: ValidatedCtx<t_OrgsUpdateParamSchema, void, t_OrgsUpdateBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(orgsUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(orgsUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.orgsUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10797,9 +11140,6 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsageForOrg",
     "/orgs/:org/actions/cache/usage",
-    paramValidationFactory<t_ActionsGetActionsCacheUsageForOrgParamSchema>(
-      actionsGetActionsCacheUsageForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetActionsCacheUsageForOrgParamSchema,
@@ -10808,8 +11148,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheUsageForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetActionsCacheUsageForOrg(ctx.state, ctx)
+        await implementation.actionsGetActionsCacheUsageForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10828,12 +11177,6 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsageByRepoForOrg",
     "/orgs/:org/actions/cache/usage-by-repository",
-    paramValidationFactory<t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema>(
-      actionsGetActionsCacheUsageByRepoForOrgParamSchema
-    ),
-    queryValidationFactory<t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema>(
-      actionsGetActionsCacheUsageByRepoForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
@@ -10842,11 +11185,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheUsageByRepoForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsGetActionsCacheUsageByRepoForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetActionsCacheUsageByRepoForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsGetActionsCacheUsageByRepoForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10860,9 +11212,6 @@ export function bootstrap(
   router.get(
     "oidcGetOidcCustomSubTemplateForOrg",
     "/orgs/:org/actions/oidc/customization/sub",
-    paramValidationFactory<t_OidcGetOidcCustomSubTemplateForOrgParamSchema>(
-      oidcGetOidcCustomSubTemplateForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OidcGetOidcCustomSubTemplateForOrgParamSchema,
@@ -10871,8 +11220,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          oidcGetOidcCustomSubTemplateForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.oidcGetOidcCustomSubTemplateForOrg(ctx.state, ctx)
+        await implementation.oidcGetOidcCustomSubTemplateForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10890,12 +11248,6 @@ export function bootstrap(
   router.put(
     "oidcUpdateOidcCustomSubTemplateForOrg",
     "/orgs/:org/actions/oidc/customization/sub",
-    paramValidationFactory<t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema>(
-      oidcUpdateOidcCustomSubTemplateForOrgParamSchema
-    ),
-    bodyValidationFactory<t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema>(
-      oidcUpdateOidcCustomSubTemplateForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
@@ -10904,11 +11256,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          oidcUpdateOidcCustomSubTemplateForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.oidcUpdateOidcCustomSubTemplateForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.oidcUpdateOidcCustomSubTemplateForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -10922,9 +11283,6 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsPermissionsOrganization",
     "/orgs/:org/actions/permissions",
-    paramValidationFactory<t_ActionsGetGithubActionsPermissionsOrganizationParamSchema>(
-      actionsGetGithubActionsPermissionsOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetGithubActionsPermissionsOrganizationParamSchema,
@@ -10933,9 +11291,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetGithubActionsPermissionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsGetGithubActionsPermissionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -10956,12 +11323,6 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsPermissionsOrganization",
     "/orgs/:org/actions/permissions",
-    paramValidationFactory<t_ActionsSetGithubActionsPermissionsOrganizationParamSchema>(
-      actionsSetGithubActionsPermissionsOrganizationParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetGithubActionsPermissionsOrganizationBodySchema>(
-      actionsSetGithubActionsPermissionsOrganizationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
@@ -10970,9 +11331,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetGithubActionsPermissionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetGithubActionsPermissionsOrganizationBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetGithubActionsPermissionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -10993,12 +11366,6 @@ export function bootstrap(
   router.get(
     "actionsListSelectedRepositoriesEnabledGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories",
-    paramValidationFactory<t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema>(
-      actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema>(
-      actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
@@ -11007,9 +11374,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11027,12 +11406,6 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories",
-    paramValidationFactory<t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema>(
-      actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema>(
-      actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
@@ -11041,9 +11414,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11058,9 +11443,6 @@ export function bootstrap(
   router.put(
     "actionsEnableSelectedRepositoryGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema>(
-      actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -11069,9 +11451,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsEnableSelectedRepositoryGithubActionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11086,9 +11477,6 @@ export function bootstrap(
   router.delete(
     "actionsDisableSelectedRepositoryGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema>(
-      actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -11097,9 +11485,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsDisableSelectedRepositoryGithubActionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11115,9 +11512,6 @@ export function bootstrap(
   router.get(
     "actionsGetAllowedActionsOrganization",
     "/orgs/:org/actions/permissions/selected-actions",
-    paramValidationFactory<t_ActionsGetAllowedActionsOrganizationParamSchema>(
-      actionsGetAllowedActionsOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetAllowedActionsOrganizationParamSchema,
@@ -11126,11 +11520,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetAllowedActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetAllowedActionsOrganization(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsGetAllowedActionsOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11152,12 +11552,6 @@ export function bootstrap(
   router.put(
     "actionsSetAllowedActionsOrganization",
     "/orgs/:org/actions/permissions/selected-actions",
-    paramValidationFactory<t_ActionsSetAllowedActionsOrganizationParamSchema>(
-      actionsSetAllowedActionsOrganizationParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetAllowedActionsOrganizationBodySchema>(
-      actionsSetAllowedActionsOrganizationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetAllowedActionsOrganizationParamSchema,
@@ -11166,11 +11560,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetAllowedActionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetAllowedActionsOrganizationBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetAllowedActionsOrganization(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsSetAllowedActionsOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11183,9 +11586,6 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsDefaultWorkflowPermissionsOrganization",
     "/orgs/:org/actions/permissions/workflow",
-    paramValidationFactory<t_ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema>(
-      actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
@@ -11194,9 +11594,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11219,12 +11628,6 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization",
     "/orgs/:org/actions/permissions/workflow",
-    paramValidationFactory<t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema>(
-      actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema>(
-      actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
@@ -11233,9 +11636,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11256,12 +11671,6 @@ export function bootstrap(
   router.get(
     "actionsListRequiredWorkflows",
     "/orgs/:org/actions/required_workflows",
-    paramValidationFactory<t_ActionsListRequiredWorkflowsParamSchema>(
-      actionsListRequiredWorkflowsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRequiredWorkflowsQuerySchema>(
-      actionsListRequiredWorkflowsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRequiredWorkflowsParamSchema,
@@ -11270,8 +11679,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRequiredWorkflowsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRequiredWorkflowsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListRequiredWorkflows(ctx.state, ctx)
+        await implementation.actionsListRequiredWorkflows(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11292,12 +11713,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRequiredWorkflow",
     "/orgs/:org/actions/required_workflows",
-    paramValidationFactory<t_ActionsCreateRequiredWorkflowParamSchema>(
-      actionsCreateRequiredWorkflowParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateRequiredWorkflowBodySchema>(
-      actionsCreateRequiredWorkflowBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRequiredWorkflowParamSchema,
@@ -11306,8 +11721,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateRequiredWorkflowBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateRequiredWorkflow(ctx.state, ctx)
+        await implementation.actionsCreateRequiredWorkflow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11322,15 +11749,21 @@ export function bootstrap(
   router.get(
     "actionsGetRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    paramValidationFactory<t_ActionsGetRequiredWorkflowParamSchema>(
-      actionsGetRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetRequiredWorkflowParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetRequiredWorkflow(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -11354,12 +11787,6 @@ export function bootstrap(
   router.patch(
     "actionsUpdateRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    paramValidationFactory<t_ActionsUpdateRequiredWorkflowParamSchema>(
-      actionsUpdateRequiredWorkflowParamSchema
-    ),
-    bodyValidationFactory<t_ActionsUpdateRequiredWorkflowBodySchema>(
-      actionsUpdateRequiredWorkflowBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsUpdateRequiredWorkflowParamSchema,
@@ -11368,8 +11795,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsUpdateRequiredWorkflowBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsUpdateRequiredWorkflow(ctx.state, ctx)
+        await implementation.actionsUpdateRequiredWorkflow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11384,15 +11823,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    paramValidationFactory<t_ActionsDeleteRequiredWorkflowParamSchema>(
-      actionsDeleteRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteRequiredWorkflowParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteRequiredWorkflow(ctx.state, ctx)
+        await implementation.actionsDeleteRequiredWorkflow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11407,9 +11852,6 @@ export function bootstrap(
   router.get(
     "actionsListSelectedRepositoriesRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    paramValidationFactory<t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema>(
-      actionsListSelectedRepositoriesRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema,
@@ -11418,9 +11860,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelectedRepositoriesRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListSelectedRepositoriesRequiredWorkflow(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11441,12 +11892,6 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposToRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    paramValidationFactory<t_ActionsSetSelectedReposToRequiredWorkflowParamSchema>(
-      actionsSetSelectedReposToRequiredWorkflowParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetSelectedReposToRequiredWorkflowBodySchema>(
-      actionsSetSelectedReposToRequiredWorkflowBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetSelectedReposToRequiredWorkflowParamSchema,
@@ -11455,9 +11900,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelectedReposToRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelectedReposToRequiredWorkflowBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetSelectedReposToRequiredWorkflow(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11475,9 +11932,6 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema>(
-      actionsAddSelectedRepoToRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema,
@@ -11486,9 +11940,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddSelectedRepoToRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsAddSelectedRepoToRequiredWorkflow(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11506,9 +11969,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema>(
-      actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
@@ -11517,9 +11977,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveSelectedRepoFromRequiredWorkflow(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11541,12 +12010,6 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnerGroupsForOrg",
     "/orgs/:org/actions/runner-groups",
-    paramValidationFactory<t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema>(
-      actionsListSelfHostedRunnerGroupsForOrgParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema>(
-      actionsListSelfHostedRunnerGroupsForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
@@ -11555,11 +12018,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnerGroupsForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnerGroupsForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListSelfHostedRunnerGroupsForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsListSelfHostedRunnerGroupsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11583,12 +12055,6 @@ export function bootstrap(
   router.post(
     "actionsCreateSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups",
-    paramValidationFactory<t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema>(
-      actionsCreateSelfHostedRunnerGroupForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema>(
-      actionsCreateSelfHostedRunnerGroupForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
@@ -11597,9 +12063,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsCreateSelfHostedRunnerGroupForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11616,9 +12094,6 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    paramValidationFactory<t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema>(
-      actionsGetSelfHostedRunnerGroupForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
@@ -11627,11 +12102,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerGroupForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsGetSelfHostedRunnerGroupForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11654,12 +12135,6 @@ export function bootstrap(
   router.patch(
     "actionsUpdateSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    paramValidationFactory<t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema>(
-      actionsUpdateSelfHostedRunnerGroupForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema>(
-      actionsUpdateSelfHostedRunnerGroupForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
@@ -11668,9 +12143,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsUpdateSelfHostedRunnerGroupForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11687,9 +12174,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerGroupFromOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    paramValidationFactory<t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema>(
-      actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
@@ -11698,9 +12182,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsDeleteSelfHostedRunnerGroupFromOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11723,12 +12216,6 @@ export function bootstrap(
   router.get(
     "actionsListRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    paramValidationFactory<t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema>(
-      actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema>(
-      actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -11737,9 +12224,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11760,12 +12259,6 @@ export function bootstrap(
   router.put(
     "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    paramValidationFactory<t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema>(
-      actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema>(
-      actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -11774,9 +12267,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11795,9 +12300,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema>(
-      actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -11806,9 +12308,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11830,12 +12341,6 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersInGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    paramValidationFactory<t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema>(
-      actionsListSelfHostedRunnersInGroupForOrgParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema>(
-      actionsListSelfHostedRunnersInGroupForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
@@ -11844,9 +12349,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnersInGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnersInGroupForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListSelfHostedRunnersInGroupForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11867,12 +12384,6 @@ export function bootstrap(
   router.put(
     "actionsSetSelfHostedRunnersInGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    paramValidationFactory<t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema>(
-      actionsSetSelfHostedRunnersInGroupForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema>(
-      actionsSetSelfHostedRunnersInGroupForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
@@ -11881,9 +12392,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelfHostedRunnersInGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetSelfHostedRunnersInGroupForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11901,9 +12424,6 @@ export function bootstrap(
   router.put(
     "actionsAddSelfHostedRunnerToGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    paramValidationFactory<t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema>(
-      actionsAddSelfHostedRunnerToGroupForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
@@ -11912,11 +12432,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddSelfHostedRunnerToGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsAddSelfHostedRunnerToGroupForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsAddSelfHostedRunnerToGroupForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11932,9 +12458,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelfHostedRunnerFromGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    paramValidationFactory<t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema>(
-      actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
@@ -11943,9 +12466,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveSelfHostedRunnerFromGroupForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -11966,12 +12498,6 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersForOrg",
     "/orgs/:org/actions/runners",
-    paramValidationFactory<t_ActionsListSelfHostedRunnersForOrgParamSchema>(
-      actionsListSelfHostedRunnersForOrgParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelfHostedRunnersForOrgQuerySchema>(
-      actionsListSelfHostedRunnersForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelfHostedRunnersForOrgParamSchema,
@@ -11980,8 +12506,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnersForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnersForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListSelfHostedRunnersForOrg(ctx.state, ctx)
+        await implementation.actionsListSelfHostedRunnersForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -11995,9 +12533,6 @@ export function bootstrap(
   router.get(
     "actionsListRunnerApplicationsForOrg",
     "/orgs/:org/actions/runners/downloads",
-    paramValidationFactory<t_ActionsListRunnerApplicationsForOrgParamSchema>(
-      actionsListRunnerApplicationsForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRunnerApplicationsForOrgParamSchema,
@@ -12006,8 +12541,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRunnerApplicationsForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListRunnerApplicationsForOrg(ctx.state, ctx)
+        await implementation.actionsListRunnerApplicationsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12021,9 +12565,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRegistrationTokenForOrg",
     "/orgs/:org/actions/runners/registration-token",
-    paramValidationFactory<t_ActionsCreateRegistrationTokenForOrgParamSchema>(
-      actionsCreateRegistrationTokenForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRegistrationTokenForOrgParamSchema,
@@ -12032,11 +12573,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRegistrationTokenForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsCreateRegistrationTokenForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsCreateRegistrationTokenForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12050,9 +12597,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRemoveTokenForOrg",
     "/orgs/:org/actions/runners/remove-token",
-    paramValidationFactory<t_ActionsCreateRemoveTokenForOrgParamSchema>(
-      actionsCreateRemoveTokenForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRemoveTokenForOrgParamSchema,
@@ -12061,8 +12605,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRemoveTokenForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsCreateRemoveTokenForOrg(ctx.state, ctx)
+        await implementation.actionsCreateRemoveTokenForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12077,9 +12630,6 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId",
-    paramValidationFactory<t_ActionsGetSelfHostedRunnerForOrgParamSchema>(
-      actionsGetSelfHostedRunnerForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetSelfHostedRunnerForOrgParamSchema,
@@ -12088,8 +12638,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerForOrg(ctx.state, ctx)
+        await implementation.actionsGetSelfHostedRunnerForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12104,9 +12663,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerFromOrg",
     "/orgs/:org/actions/runners/:runnerId",
-    paramValidationFactory<t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema>(
-      actionsDeleteSelfHostedRunnerFromOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
@@ -12115,11 +12671,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteSelfHostedRunnerFromOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteSelfHostedRunnerFromOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsDeleteSelfHostedRunnerFromOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12134,9 +12696,6 @@ export function bootstrap(
   router.get(
     "actionsListLabelsForSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsListLabelsForSelfHostedRunnerForOrgParamSchema>(
-      actionsListLabelsForSelfHostedRunnerForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListLabelsForSelfHostedRunnerForOrgParamSchema,
@@ -12145,9 +12704,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListLabelsForSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListLabelsForSelfHostedRunnerForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12168,12 +12736,6 @@ export function bootstrap(
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema>(
-      actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema>(
-      actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
@@ -12182,9 +12744,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsAddCustomLabelsToSelfHostedRunnerForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12205,12 +12779,6 @@ export function bootstrap(
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema>(
-      actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema>(
-      actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
@@ -12219,9 +12787,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetCustomLabelsForSelfHostedRunnerForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12236,9 +12816,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema>(
-      actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
@@ -12247,9 +12824,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12268,9 +12854,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels/:name",
-    paramValidationFactory<t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema>(
-      actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
@@ -12279,9 +12862,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12300,12 +12892,6 @@ export function bootstrap(
   router.get(
     "actionsListOrgSecrets",
     "/orgs/:org/actions/secrets",
-    paramValidationFactory<t_ActionsListOrgSecretsParamSchema>(
-      actionsListOrgSecretsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListOrgSecretsQuerySchema>(
-      actionsListOrgSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListOrgSecretsParamSchema,
@@ -12314,8 +12900,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsListOrgSecretsParamSchema, ctx.params),
+        query: parseRequestInput(actionsListOrgSecretsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListOrgSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12329,15 +12921,21 @@ export function bootstrap(
   router.get(
     "actionsGetOrgPublicKey",
     "/orgs/:org/actions/secrets/public-key",
-    paramValidationFactory<t_ActionsGetOrgPublicKeyParamSchema>(
-      actionsGetOrgPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetOrgPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetOrgPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetOrgPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12354,15 +12952,18 @@ export function bootstrap(
   router.get(
     "actionsGetOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsGetOrgSecretParamSchema>(
-      actionsGetOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetOrgSecretParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12386,12 +12987,6 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsCreateOrUpdateOrgSecretParamSchema>(
-      actionsCreateOrUpdateOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateOrUpdateOrgSecretBodySchema>(
-      actionsCreateOrUpdateOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateOrUpdateOrgSecretParamSchema,
@@ -12400,8 +12995,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateOrUpdateOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateOrUpdateOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateOrUpdateOrgSecret(ctx.state, ctx)
+        await implementation.actionsCreateOrUpdateOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12416,15 +13023,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsDeleteOrgSecretParamSchema>(
-      actionsDeleteOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12446,12 +13059,6 @@ export function bootstrap(
   router.get(
     "actionsListSelectedReposForOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories",
-    paramValidationFactory<t_ActionsListSelectedReposForOrgSecretParamSchema>(
-      actionsListSelectedReposForOrgSecretParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelectedReposForOrgSecretQuerySchema>(
-      actionsListSelectedReposForOrgSecretQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelectedReposForOrgSecretParamSchema,
@@ -12460,11 +13067,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelectedReposForOrgSecretQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListSelectedReposForOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsListSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12483,12 +13099,6 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposForOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories",
-    paramValidationFactory<t_ActionsSetSelectedReposForOrgSecretParamSchema>(
-      actionsSetSelectedReposForOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetSelectedReposForOrgSecretBodySchema>(
-      actionsSetSelectedReposForOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetSelectedReposForOrgSecretParamSchema,
@@ -12497,8 +13107,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelectedReposForOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetSelectedReposForOrgSecret(ctx.state, ctx)
+        await implementation.actionsSetSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12514,9 +13136,6 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsAddSelectedRepoToOrgSecretParamSchema>(
-      actionsAddSelectedRepoToOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddSelectedRepoToOrgSecretParamSchema,
@@ -12525,8 +13144,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddSelectedRepoToOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsAddSelectedRepoToOrgSecret(ctx.state, ctx)
+        await implementation.actionsAddSelectedRepoToOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12542,9 +13170,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema>(
-      actionsRemoveSelectedRepoFromOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -12553,11 +13178,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveSelectedRepoFromOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsRemoveSelectedRepoFromOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsRemoveSelectedRepoFromOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12576,12 +13207,6 @@ export function bootstrap(
   router.get(
     "actionsListOrgVariables",
     "/orgs/:org/actions/variables",
-    paramValidationFactory<t_ActionsListOrgVariablesParamSchema>(
-      actionsListOrgVariablesParamSchema
-    ),
-    queryValidationFactory<t_ActionsListOrgVariablesQuerySchema>(
-      actionsListOrgVariablesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListOrgVariablesParamSchema,
@@ -12590,8 +13215,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListOrgVariablesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(actionsListOrgVariablesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListOrgVariables(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12614,12 +13248,6 @@ export function bootstrap(
   router.post(
     "actionsCreateOrgVariable",
     "/orgs/:org/actions/variables",
-    paramValidationFactory<t_ActionsCreateOrgVariableParamSchema>(
-      actionsCreateOrgVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateOrgVariableBodySchema>(
-      actionsCreateOrgVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateOrgVariableParamSchema,
@@ -12628,8 +13256,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(actionsCreateOrgVariableBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.actionsCreateOrgVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12646,15 +13283,18 @@ export function bootstrap(
   router.get(
     "actionsGetOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    paramValidationFactory<t_ActionsGetOrgVariableParamSchema>(
-      actionsGetOrgVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetOrgVariableParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetOrgVariableParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetOrgVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12678,12 +13318,6 @@ export function bootstrap(
   router.patch(
     "actionsUpdateOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    paramValidationFactory<t_ActionsUpdateOrgVariableParamSchema>(
-      actionsUpdateOrgVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsUpdateOrgVariableBodySchema>(
-      actionsUpdateOrgVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsUpdateOrgVariableParamSchema,
@@ -12692,8 +13326,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(actionsUpdateOrgVariableBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.actionsUpdateOrgVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12710,15 +13353,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    paramValidationFactory<t_ActionsDeleteOrgVariableParamSchema>(
-      actionsDeleteOrgVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteOrgVariableParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteOrgVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12740,12 +13389,6 @@ export function bootstrap(
   router.get(
     "actionsListSelectedReposForOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories",
-    paramValidationFactory<t_ActionsListSelectedReposForOrgVariableParamSchema>(
-      actionsListSelectedReposForOrgVariableParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelectedReposForOrgVariableQuerySchema>(
-      actionsListSelectedReposForOrgVariableQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelectedReposForOrgVariableParamSchema,
@@ -12754,11 +13397,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelectedReposForOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelectedReposForOrgVariableQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListSelectedReposForOrgVariable(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsListSelectedReposForOrgVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12777,12 +13429,6 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposForOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories",
-    paramValidationFactory<t_ActionsSetSelectedReposForOrgVariableParamSchema>(
-      actionsSetSelectedReposForOrgVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetSelectedReposForOrgVariableBodySchema>(
-      actionsSetSelectedReposForOrgVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetSelectedReposForOrgVariableParamSchema,
@@ -12791,11 +13437,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelectedReposForOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelectedReposForOrgVariableBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetSelectedReposForOrgVariable(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsSetSelectedReposForOrgVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12811,9 +13466,6 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsAddSelectedRepoToOrgVariableParamSchema>(
-      actionsAddSelectedRepoToOrgVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddSelectedRepoToOrgVariableParamSchema,
@@ -12822,8 +13474,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddSelectedRepoToOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsAddSelectedRepoToOrgVariable(ctx.state, ctx)
+        await implementation.actionsAddSelectedRepoToOrgVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12839,9 +13500,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
-    paramValidationFactory<t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema>(
-      actionsRemoveSelectedRepoFromOrgVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
@@ -12850,9 +13508,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveSelectedRepoFromOrgVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveSelectedRepoFromOrgVariable(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -12871,12 +13538,6 @@ export function bootstrap(
   router.get(
     "orgsListBlockedUsers",
     "/orgs/:org/blocks",
-    paramValidationFactory<t_OrgsListBlockedUsersParamSchema>(
-      orgsListBlockedUsersParamSchema
-    ),
-    queryValidationFactory<t_OrgsListBlockedUsersQuerySchema>(
-      orgsListBlockedUsersQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListBlockedUsersParamSchema,
@@ -12885,8 +13546,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsListBlockedUsersParamSchema, ctx.params),
+        query: parseRequestInput(orgsListBlockedUsersQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListBlockedUsers(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12903,15 +13570,18 @@ export function bootstrap(
   router.get(
     "orgsCheckBlockedUser",
     "/orgs/:org/blocks/:username",
-    paramValidationFactory<t_OrgsCheckBlockedUserParamSchema>(
-      orgsCheckBlockedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsCheckBlockedUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsCheckBlockedUserParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsCheckBlockedUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -12928,17 +13598,17 @@ export function bootstrap(
   router.put(
     "orgsBlockUser",
     "/orgs/:org/blocks/:username",
-    paramValidationFactory<t_OrgsBlockUserParamSchema>(
-      orgsBlockUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsBlockUserParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsBlockUser(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsBlockUserParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsBlockUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12953,17 +13623,17 @@ export function bootstrap(
   router.delete(
     "orgsUnblockUser",
     "/orgs/:org/blocks/:username",
-    paramValidationFactory<t_OrgsUnblockUserParamSchema>(
-      orgsUnblockUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsUnblockUserParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsUnblockUser(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsUnblockUserParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsUnblockUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -12992,12 +13662,6 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertsForOrg",
     "/orgs/:org/code-scanning/alerts",
-    paramValidationFactory<t_CodeScanningListAlertsForOrgParamSchema>(
-      codeScanningListAlertsForOrgParamSchema
-    ),
-    queryValidationFactory<t_CodeScanningListAlertsForOrgQuerySchema>(
-      codeScanningListAlertsForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningListAlertsForOrgParamSchema,
@@ -13006,8 +13670,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningListAlertsForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codeScanningListAlertsForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningListAlertsForOrg(ctx.state, ctx)
+        await implementation.codeScanningListAlertsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13026,12 +13702,6 @@ export function bootstrap(
   router.get(
     "codespacesListInOrganization",
     "/orgs/:org/codespaces",
-    paramValidationFactory<t_CodespacesListInOrganizationParamSchema>(
-      codespacesListInOrganizationParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListInOrganizationQuerySchema>(
-      codespacesListInOrganizationQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListInOrganizationParamSchema,
@@ -13040,8 +13710,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListInOrganizationParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListInOrganizationQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesListInOrganization(ctx.state, ctx)
+        await implementation.codespacesListInOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13065,12 +13747,6 @@ export function bootstrap(
   router.put(
     "codespacesSetCodespacesBilling",
     "/orgs/:org/codespaces/billing",
-    paramValidationFactory<t_CodespacesSetCodespacesBillingParamSchema>(
-      codespacesSetCodespacesBillingParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesSetCodespacesBillingBodySchema>(
-      codespacesSetCodespacesBillingBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesSetCodespacesBillingParamSchema,
@@ -13079,8 +13755,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesSetCodespacesBillingParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesSetCodespacesBillingBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesSetCodespacesBilling(ctx.state, ctx)
+        await implementation.codespacesSetCodespacesBilling(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13099,12 +13787,6 @@ export function bootstrap(
   router.get(
     "codespacesListOrgSecrets",
     "/orgs/:org/codespaces/secrets",
-    paramValidationFactory<t_CodespacesListOrgSecretsParamSchema>(
-      codespacesListOrgSecretsParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListOrgSecretsQuerySchema>(
-      codespacesListOrgSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListOrgSecretsParamSchema,
@@ -13113,8 +13795,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListOrgSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListOrgSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesListOrgSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13130,15 +13824,21 @@ export function bootstrap(
   router.get(
     "codespacesGetOrgPublicKey",
     "/orgs/:org/codespaces/secrets/public-key",
-    paramValidationFactory<t_CodespacesGetOrgPublicKeyParamSchema>(
-      codespacesGetOrgPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesGetOrgPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetOrgPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesGetOrgPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13155,15 +13855,21 @@ export function bootstrap(
   router.get(
     "codespacesGetOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesGetOrgSecretParamSchema>(
-      codespacesGetOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesGetOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesGetOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13187,12 +13893,6 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesCreateOrUpdateOrgSecretParamSchema>(
-      codespacesCreateOrUpdateOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesCreateOrUpdateOrgSecretBodySchema>(
-      codespacesCreateOrUpdateOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCreateOrUpdateOrgSecretParamSchema,
@@ -13201,8 +13901,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCreateOrUpdateOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateOrUpdateOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesCreateOrUpdateOrgSecret(ctx.state, ctx)
+        await implementation.codespacesCreateOrUpdateOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13217,15 +13929,21 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesDeleteOrgSecretParamSchema>(
-      codespacesDeleteOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesDeleteOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesDeleteOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13247,12 +13965,6 @@ export function bootstrap(
   router.get(
     "codespacesListSelectedReposForOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories",
-    paramValidationFactory<t_CodespacesListSelectedReposForOrgSecretParamSchema>(
-      codespacesListSelectedReposForOrgSecretParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListSelectedReposForOrgSecretQuerySchema>(
-      codespacesListSelectedReposForOrgSecretQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListSelectedReposForOrgSecretParamSchema,
@@ -13261,11 +13973,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListSelectedReposForOrgSecretQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesListSelectedReposForOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesListSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13284,12 +14005,6 @@ export function bootstrap(
   router.put(
     "codespacesSetSelectedReposForOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories",
-    paramValidationFactory<t_CodespacesSetSelectedReposForOrgSecretParamSchema>(
-      codespacesSetSelectedReposForOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesSetSelectedReposForOrgSecretBodySchema>(
-      codespacesSetSelectedReposForOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesSetSelectedReposForOrgSecretParamSchema,
@@ -13298,11 +14013,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesSetSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesSetSelectedReposForOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesSetSelectedReposForOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesSetSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13318,9 +14042,6 @@ export function bootstrap(
   router.put(
     "codespacesAddSelectedRepoToOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_CodespacesAddSelectedRepoToOrgSecretParamSchema>(
-      codespacesAddSelectedRepoToOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesAddSelectedRepoToOrgSecretParamSchema,
@@ -13329,11 +14050,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesAddSelectedRepoToOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesAddSelectedRepoToOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesAddSelectedRepoToOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13349,9 +14076,6 @@ export function bootstrap(
   router.delete(
     "codespacesRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema>(
-      codespacesRemoveSelectedRepoFromOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -13360,9 +14084,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesRemoveSelectedRepoFromOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesRemoveSelectedRepoFromOrgSecret(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -13393,12 +14126,6 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForOrg",
     "/orgs/:org/dependabot/alerts",
-    paramValidationFactory<t_DependabotListAlertsForOrgParamSchema>(
-      dependabotListAlertsForOrgParamSchema
-    ),
-    queryValidationFactory<t_DependabotListAlertsForOrgQuerySchema>(
-      dependabotListAlertsForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListAlertsForOrgParamSchema,
@@ -13407,8 +14134,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListAlertsForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListAlertsForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotListAlertsForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13429,12 +14168,6 @@ export function bootstrap(
   router.get(
     "dependabotListOrgSecrets",
     "/orgs/:org/dependabot/secrets",
-    paramValidationFactory<t_DependabotListOrgSecretsParamSchema>(
-      dependabotListOrgSecretsParamSchema
-    ),
-    queryValidationFactory<t_DependabotListOrgSecretsQuerySchema>(
-      dependabotListOrgSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListOrgSecretsParamSchema,
@@ -13443,8 +14176,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListOrgSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListOrgSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotListOrgSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13460,15 +14205,21 @@ export function bootstrap(
   router.get(
     "dependabotGetOrgPublicKey",
     "/orgs/:org/dependabot/secrets/public-key",
-    paramValidationFactory<t_DependabotGetOrgPublicKeyParamSchema>(
-      dependabotGetOrgPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotGetOrgPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotGetOrgPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotGetOrgPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13485,15 +14236,21 @@ export function bootstrap(
   router.get(
     "dependabotGetOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotGetOrgSecretParamSchema>(
-      dependabotGetOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotGetOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotGetOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotGetOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13517,12 +14274,6 @@ export function bootstrap(
   router.put(
     "dependabotCreateOrUpdateOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotCreateOrUpdateOrgSecretParamSchema>(
-      dependabotCreateOrUpdateOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_DependabotCreateOrUpdateOrgSecretBodySchema>(
-      dependabotCreateOrUpdateOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotCreateOrUpdateOrgSecretParamSchema,
@@ -13531,8 +14282,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotCreateOrUpdateOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependabotCreateOrUpdateOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.dependabotCreateOrUpdateOrgSecret(ctx.state, ctx)
+        await implementation.dependabotCreateOrUpdateOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13547,15 +14310,21 @@ export function bootstrap(
   router.delete(
     "dependabotDeleteOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotDeleteOrgSecretParamSchema>(
-      dependabotDeleteOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotDeleteOrgSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotDeleteOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotDeleteOrgSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13577,12 +14346,6 @@ export function bootstrap(
   router.get(
     "dependabotListSelectedReposForOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories",
-    paramValidationFactory<t_DependabotListSelectedReposForOrgSecretParamSchema>(
-      dependabotListSelectedReposForOrgSecretParamSchema
-    ),
-    queryValidationFactory<t_DependabotListSelectedReposForOrgSecretQuerySchema>(
-      dependabotListSelectedReposForOrgSecretQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListSelectedReposForOrgSecretParamSchema,
@@ -13591,11 +14354,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListSelectedReposForOrgSecretQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.dependabotListSelectedReposForOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.dependabotListSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13614,12 +14386,6 @@ export function bootstrap(
   router.put(
     "dependabotSetSelectedReposForOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories",
-    paramValidationFactory<t_DependabotSetSelectedReposForOrgSecretParamSchema>(
-      dependabotSetSelectedReposForOrgSecretParamSchema
-    ),
-    bodyValidationFactory<t_DependabotSetSelectedReposForOrgSecretBodySchema>(
-      dependabotSetSelectedReposForOrgSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotSetSelectedReposForOrgSecretParamSchema,
@@ -13628,11 +14394,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotSetSelectedReposForOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependabotSetSelectedReposForOrgSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.dependabotSetSelectedReposForOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.dependabotSetSelectedReposForOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13648,9 +14423,6 @@ export function bootstrap(
   router.put(
     "dependabotAddSelectedRepoToOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_DependabotAddSelectedRepoToOrgSecretParamSchema>(
-      dependabotAddSelectedRepoToOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotAddSelectedRepoToOrgSecretParamSchema,
@@ -13659,11 +14431,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotAddSelectedRepoToOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.dependabotAddSelectedRepoToOrgSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.dependabotAddSelectedRepoToOrgSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13679,9 +14457,6 @@ export function bootstrap(
   router.delete(
     "dependabotRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema>(
-      dependabotRemoveSelectedRepoFromOrgSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -13690,9 +14465,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotRemoveSelectedRepoFromOrgSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.dependabotRemoveSelectedRepoFromOrgSecret(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -13713,12 +14497,6 @@ export function bootstrap(
   router.get(
     "activityListPublicOrgEvents",
     "/orgs/:org/events",
-    paramValidationFactory<t_ActivityListPublicOrgEventsParamSchema>(
-      activityListPublicOrgEventsParamSchema
-    ),
-    queryValidationFactory<t_ActivityListPublicOrgEventsQuerySchema>(
-      activityListPublicOrgEventsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListPublicOrgEventsParamSchema,
@@ -13727,8 +14505,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListPublicOrgEventsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListPublicOrgEventsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityListPublicOrgEvents(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13749,12 +14539,6 @@ export function bootstrap(
   router.get(
     "orgsListFailedInvitations",
     "/orgs/:org/failed_invitations",
-    paramValidationFactory<t_OrgsListFailedInvitationsParamSchema>(
-      orgsListFailedInvitationsParamSchema
-    ),
-    queryValidationFactory<t_OrgsListFailedInvitationsQuerySchema>(
-      orgsListFailedInvitationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListFailedInvitationsParamSchema,
@@ -13763,8 +14547,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListFailedInvitationsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListFailedInvitationsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListFailedInvitations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13783,12 +14579,6 @@ export function bootstrap(
   router.get(
     "orgsListWebhooks",
     "/orgs/:org/hooks",
-    paramValidationFactory<t_OrgsListWebhooksParamSchema>(
-      orgsListWebhooksParamSchema
-    ),
-    queryValidationFactory<t_OrgsListWebhooksQuerySchema>(
-      orgsListWebhooksQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListWebhooksParamSchema,
@@ -13797,10 +14587,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsListWebhooks(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsListWebhooksParamSchema, ctx.params),
+        query: parseRequestInput(orgsListWebhooksQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListWebhooks(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13826,12 +14619,6 @@ export function bootstrap(
   router.post(
     "orgsCreateWebhook",
     "/orgs/:org/hooks",
-    paramValidationFactory<t_OrgsCreateWebhookParamSchema>(
-      orgsCreateWebhookParamSchema
-    ),
-    bodyValidationFactory<t_OrgsCreateWebhookBodySchema>(
-      orgsCreateWebhookBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsCreateWebhookParamSchema,
@@ -13840,8 +14627,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsCreateWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.orgsCreateWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13858,17 +14651,17 @@ export function bootstrap(
   router.get(
     "orgsGetWebhook",
     "/orgs/:org/hooks/:hookId",
-    paramValidationFactory<t_OrgsGetWebhookParamSchema>(
-      orgsGetWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsGetWebhookParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsGetWebhook(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsGetWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsGetWebhook(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -13899,12 +14692,6 @@ export function bootstrap(
   router.patch(
     "orgsUpdateWebhook",
     "/orgs/:org/hooks/:hookId",
-    paramValidationFactory<t_OrgsUpdateWebhookParamSchema>(
-      orgsUpdateWebhookParamSchema
-    ),
-    bodyValidationFactory<t_OrgsUpdateWebhookBodySchema>(
-      orgsUpdateWebhookBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsUpdateWebhookParamSchema,
@@ -13913,8 +14700,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsUpdateWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(orgsUpdateWebhookBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.orgsUpdateWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13931,15 +14724,18 @@ export function bootstrap(
   router.delete(
     "orgsDeleteWebhook",
     "/orgs/:org/hooks/:hookId",
-    paramValidationFactory<t_OrgsDeleteWebhookParamSchema>(
-      orgsDeleteWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsDeleteWebhookParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsDeleteWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsDeleteWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13956,15 +14752,21 @@ export function bootstrap(
   router.get(
     "orgsGetWebhookConfigForOrg",
     "/orgs/:org/hooks/:hookId/config",
-    paramValidationFactory<t_OrgsGetWebhookConfigForOrgParamSchema>(
-      orgsGetWebhookConfigForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsGetWebhookConfigForOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetWebhookConfigForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsGetWebhookConfigForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -13990,12 +14792,6 @@ export function bootstrap(
   router.patch(
     "orgsUpdateWebhookConfigForOrg",
     "/orgs/:org/hooks/:hookId/config",
-    paramValidationFactory<t_OrgsUpdateWebhookConfigForOrgParamSchema>(
-      orgsUpdateWebhookConfigForOrgParamSchema
-    ),
-    bodyValidationFactory<t_OrgsUpdateWebhookConfigForOrgBodySchema>(
-      orgsUpdateWebhookConfigForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsUpdateWebhookConfigForOrgParamSchema,
@@ -14004,8 +14800,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsUpdateWebhookConfigForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdateWebhookConfigForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.orgsUpdateWebhookConfigForOrg(ctx.state, ctx)
+        await implementation.orgsUpdateWebhookConfigForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14026,12 +14834,6 @@ export function bootstrap(
   router.get(
     "orgsListWebhookDeliveries",
     "/orgs/:org/hooks/:hookId/deliveries",
-    paramValidationFactory<t_OrgsListWebhookDeliveriesParamSchema>(
-      orgsListWebhookDeliveriesParamSchema
-    ),
-    queryValidationFactory<t_OrgsListWebhookDeliveriesQuerySchema>(
-      orgsListWebhookDeliveriesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListWebhookDeliveriesParamSchema,
@@ -14040,8 +14842,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListWebhookDeliveriesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListWebhookDeliveriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListWebhookDeliveries(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14059,15 +14873,21 @@ export function bootstrap(
   router.get(
     "orgsGetWebhookDelivery",
     "/orgs/:org/hooks/:hookId/deliveries/:deliveryId",
-    paramValidationFactory<t_OrgsGetWebhookDeliveryParamSchema>(
-      orgsGetWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsGetWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsGetWebhookDelivery(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14085,15 +14905,21 @@ export function bootstrap(
   router.post(
     "orgsRedeliverWebhookDelivery",
     "/orgs/:org/hooks/:hookId/deliveries/:deliveryId/attempts",
-    paramValidationFactory<t_OrgsRedeliverWebhookDeliveryParamSchema>(
-      orgsRedeliverWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsRedeliverWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsRedeliverWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsRedeliverWebhookDelivery(ctx.state, ctx)
+        await implementation.orgsRedeliverWebhookDelivery(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14108,17 +14934,17 @@ export function bootstrap(
   router.post(
     "orgsPingWebhook",
     "/orgs/:org/hooks/:hookId/pings",
-    paramValidationFactory<t_OrgsPingWebhookParamSchema>(
-      orgsPingWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsPingWebhookParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsPingWebhook(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsPingWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsPingWebhook(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14130,15 +14956,21 @@ export function bootstrap(
   router.get(
     "appsGetOrgInstallation",
     "/orgs/:org/installation",
-    paramValidationFactory<t_AppsGetOrgInstallationParamSchema>(
-      appsGetOrgInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetOrgInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetOrgInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetOrgInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14159,12 +14991,6 @@ export function bootstrap(
   router.get(
     "orgsListAppInstallations",
     "/orgs/:org/installations",
-    paramValidationFactory<t_OrgsListAppInstallationsParamSchema>(
-      orgsListAppInstallationsParamSchema
-    ),
-    queryValidationFactory<t_OrgsListAppInstallationsQuerySchema>(
-      orgsListAppInstallationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListAppInstallationsParamSchema,
@@ -14173,8 +14999,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListAppInstallationsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListAppInstallationsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListAppInstallations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14190,9 +15028,6 @@ export function bootstrap(
   router.get(
     "interactionsGetRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    paramValidationFactory<t_InteractionsGetRestrictionsForOrgParamSchema>(
-      interactionsGetRestrictionsForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsGetRestrictionsForOrgParamSchema,
@@ -14201,8 +15036,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsGetRestrictionsForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.interactionsGetRestrictionsForOrg(ctx.state, ctx)
+        await implementation.interactionsGetRestrictionsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14227,12 +15071,6 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    paramValidationFactory<t_InteractionsSetRestrictionsForOrgParamSchema>(
-      interactionsSetRestrictionsForOrgParamSchema
-    ),
-    bodyValidationFactory<t_InteractionsSetRestrictionsForOrgBodySchema>(
-      interactionsSetRestrictionsForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsSetRestrictionsForOrgParamSchema,
@@ -14241,8 +15079,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsSetRestrictionsForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          interactionsSetRestrictionsForOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.interactionsSetRestrictionsForOrg(ctx.state, ctx)
+        await implementation.interactionsSetRestrictionsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14256,9 +15106,6 @@ export function bootstrap(
   router.delete(
     "interactionsRemoveRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    paramValidationFactory<t_InteractionsRemoveRestrictionsForOrgParamSchema>(
-      interactionsRemoveRestrictionsForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsRemoveRestrictionsForOrgParamSchema,
@@ -14267,11 +15114,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsRemoveRestrictionsForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.interactionsRemoveRestrictionsForOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.interactionsRemoveRestrictionsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14290,12 +15143,6 @@ export function bootstrap(
   router.get(
     "orgsListPendingInvitations",
     "/orgs/:org/invitations",
-    paramValidationFactory<t_OrgsListPendingInvitationsParamSchema>(
-      orgsListPendingInvitationsParamSchema
-    ),
-    queryValidationFactory<t_OrgsListPendingInvitationsQuerySchema>(
-      orgsListPendingInvitationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListPendingInvitationsParamSchema,
@@ -14304,8 +15151,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPendingInvitationsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListPendingInvitationsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListPendingInvitations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14328,12 +15187,6 @@ export function bootstrap(
   router.post(
     "orgsCreateInvitation",
     "/orgs/:org/invitations",
-    paramValidationFactory<t_OrgsCreateInvitationParamSchema>(
-      orgsCreateInvitationParamSchema
-    ),
-    bodyValidationFactory<t_OrgsCreateInvitationBodySchema>(
-      orgsCreateInvitationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsCreateInvitationParamSchema,
@@ -14342,8 +15195,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsCreateInvitationParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(orgsCreateInvitationBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.orgsCreateInvitation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14360,15 +15219,18 @@ export function bootstrap(
   router.delete(
     "orgsCancelInvitation",
     "/orgs/:org/invitations/:invitationId",
-    paramValidationFactory<t_OrgsCancelInvitationParamSchema>(
-      orgsCancelInvitationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsCancelInvitationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsCancelInvitationParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsCancelInvitation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14390,12 +15252,6 @@ export function bootstrap(
   router.get(
     "orgsListInvitationTeams",
     "/orgs/:org/invitations/:invitationId/teams",
-    paramValidationFactory<t_OrgsListInvitationTeamsParamSchema>(
-      orgsListInvitationTeamsParamSchema
-    ),
-    queryValidationFactory<t_OrgsListInvitationTeamsQuerySchema>(
-      orgsListInvitationTeamsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListInvitationTeamsParamSchema,
@@ -14404,8 +15260,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListInvitationTeamsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(orgsListInvitationTeamsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListInvitationTeams(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14432,12 +15297,6 @@ export function bootstrap(
   router.get(
     "issuesListForOrg",
     "/orgs/:org/issues",
-    paramValidationFactory<t_IssuesListForOrgParamSchema>(
-      issuesListForOrgParamSchema
-    ),
-    queryValidationFactory<t_IssuesListForOrgQuerySchema>(
-      issuesListForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListForOrgParamSchema,
@@ -14446,10 +15305,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesListForOrg(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesListForOrgParamSchema, ctx.params),
+        query: parseRequestInput(issuesListForOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesListForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14468,12 +15330,6 @@ export function bootstrap(
   router.get(
     "orgsListMembers",
     "/orgs/:org/members",
-    paramValidationFactory<t_OrgsListMembersParamSchema>(
-      orgsListMembersParamSchema
-    ),
-    queryValidationFactory<t_OrgsListMembersQuerySchema>(
-      orgsListMembersQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListMembersParamSchema,
@@ -14482,10 +15338,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsListMembers(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsListMembersParamSchema, ctx.params),
+        query: parseRequestInput(orgsListMembersQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListMembers(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14500,15 +15359,21 @@ export function bootstrap(
   router.get(
     "orgsCheckMembershipForUser",
     "/orgs/:org/members/:username",
-    paramValidationFactory<t_OrgsCheckMembershipForUserParamSchema>(
-      orgsCheckMembershipForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsCheckMembershipForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsCheckMembershipForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsCheckMembershipForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14525,17 +15390,17 @@ export function bootstrap(
   router.delete(
     "orgsRemoveMember",
     "/orgs/:org/members/:username",
-    paramValidationFactory<t_OrgsRemoveMemberParamSchema>(
-      orgsRemoveMemberParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsRemoveMemberParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsRemoveMember(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsRemoveMemberParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsRemoveMember(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14555,12 +15420,6 @@ export function bootstrap(
   router.get(
     "codespacesGetCodespacesForUserInOrg",
     "/orgs/:org/members/:username/codespaces",
-    paramValidationFactory<t_CodespacesGetCodespacesForUserInOrgParamSchema>(
-      codespacesGetCodespacesForUserInOrgParamSchema
-    ),
-    queryValidationFactory<t_CodespacesGetCodespacesForUserInOrgQuerySchema>(
-      codespacesGetCodespacesForUserInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesGetCodespacesForUserInOrgParamSchema,
@@ -14569,8 +15428,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetCodespacesForUserInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesGetCodespacesForUserInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesGetCodespacesForUserInOrg(ctx.state, ctx)
+        await implementation.codespacesGetCodespacesForUserInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14586,9 +15457,6 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteFromOrganization",
     "/orgs/:org/members/:username/codespaces/:codespaceName",
-    paramValidationFactory<t_CodespacesDeleteFromOrganizationParamSchema>(
-      codespacesDeleteFromOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesDeleteFromOrganizationParamSchema,
@@ -14597,8 +15465,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteFromOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesDeleteFromOrganization(ctx.state, ctx)
+        await implementation.codespacesDeleteFromOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14614,15 +15491,21 @@ export function bootstrap(
   router.post(
     "codespacesStopInOrganization",
     "/orgs/:org/members/:username/codespaces/:codespaceName/stop",
-    paramValidationFactory<t_CodespacesStopInOrganizationParamSchema>(
-      codespacesStopInOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesStopInOrganizationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesStopInOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesStopInOrganization(ctx.state, ctx)
+        await implementation.codespacesStopInOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14637,15 +15520,21 @@ export function bootstrap(
   router.get(
     "orgsGetMembershipForUser",
     "/orgs/:org/memberships/:username",
-    paramValidationFactory<t_OrgsGetMembershipForUserParamSchema>(
-      orgsGetMembershipForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsGetMembershipForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetMembershipForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsGetMembershipForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14666,12 +15555,6 @@ export function bootstrap(
   router.put(
     "orgsSetMembershipForUser",
     "/orgs/:org/memberships/:username",
-    paramValidationFactory<t_OrgsSetMembershipForUserParamSchema>(
-      orgsSetMembershipForUserParamSchema
-    ),
-    bodyValidationFactory<t_OrgsSetMembershipForUserBodySchema>(
-      orgsSetMembershipForUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsSetMembershipForUserParamSchema,
@@ -14680,8 +15563,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsSetMembershipForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(orgsSetMembershipForUserBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.orgsSetMembershipForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14698,15 +15590,21 @@ export function bootstrap(
   router.delete(
     "orgsRemoveMembershipForUser",
     "/orgs/:org/memberships/:username",
-    paramValidationFactory<t_OrgsRemoveMembershipForUserParamSchema>(
-      orgsRemoveMembershipForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsRemoveMembershipForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsRemoveMembershipForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsRemoveMembershipForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14726,12 +15624,6 @@ export function bootstrap(
   router.get(
     "migrationsListForOrg",
     "/orgs/:org/migrations",
-    paramValidationFactory<t_MigrationsListForOrgParamSchema>(
-      migrationsListForOrgParamSchema
-    ),
-    queryValidationFactory<t_MigrationsListForOrgQuerySchema>(
-      migrationsListForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsListForOrgParamSchema,
@@ -14740,8 +15632,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(migrationsListForOrgParamSchema, ctx.params),
+        query: parseRequestInput(migrationsListForOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsListForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14767,12 +15665,6 @@ export function bootstrap(
   router.post(
     "migrationsStartForOrg",
     "/orgs/:org/migrations",
-    paramValidationFactory<t_MigrationsStartForOrgParamSchema>(
-      migrationsStartForOrgParamSchema
-    ),
-    bodyValidationFactory<t_MigrationsStartForOrgBodySchema>(
-      migrationsStartForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsStartForOrgParamSchema,
@@ -14781,8 +15673,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(migrationsStartForOrgParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(migrationsStartForOrgBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.migrationsStartForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14803,12 +15701,6 @@ export function bootstrap(
   router.get(
     "migrationsGetStatusForOrg",
     "/orgs/:org/migrations/:migrationId",
-    paramValidationFactory<t_MigrationsGetStatusForOrgParamSchema>(
-      migrationsGetStatusForOrgParamSchema
-    ),
-    queryValidationFactory<t_MigrationsGetStatusForOrgQuerySchema>(
-      migrationsGetStatusForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsGetStatusForOrgParamSchema,
@@ -14817,8 +15709,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetStatusForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          migrationsGetStatusForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsGetStatusForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14835,9 +15739,6 @@ export function bootstrap(
   router.get(
     "migrationsDownloadArchiveForOrg",
     "/orgs/:org/migrations/:migrationId/archive",
-    paramValidationFactory<t_MigrationsDownloadArchiveForOrgParamSchema>(
-      migrationsDownloadArchiveForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsDownloadArchiveForOrgParamSchema,
@@ -14846,8 +15747,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsDownloadArchiveForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.migrationsDownloadArchiveForOrg(ctx.state, ctx)
+        await implementation.migrationsDownloadArchiveForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14862,15 +15772,21 @@ export function bootstrap(
   router.delete(
     "migrationsDeleteArchiveForOrg",
     "/orgs/:org/migrations/:migrationId/archive",
-    paramValidationFactory<t_MigrationsDeleteArchiveForOrgParamSchema>(
-      migrationsDeleteArchiveForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_MigrationsDeleteArchiveForOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsDeleteArchiveForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.migrationsDeleteArchiveForOrg(ctx.state, ctx)
+        await implementation.migrationsDeleteArchiveForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14886,15 +15802,21 @@ export function bootstrap(
   router.delete(
     "migrationsUnlockRepoForOrg",
     "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
-    paramValidationFactory<t_MigrationsUnlockRepoForOrgParamSchema>(
-      migrationsUnlockRepoForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_MigrationsUnlockRepoForOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsUnlockRepoForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsUnlockRepoForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14916,12 +15838,6 @@ export function bootstrap(
   router.get(
     "migrationsListReposForOrg",
     "/orgs/:org/migrations/:migrationId/repositories",
-    paramValidationFactory<t_MigrationsListReposForOrgParamSchema>(
-      migrationsListReposForOrgParamSchema
-    ),
-    queryValidationFactory<t_MigrationsListReposForOrgQuerySchema>(
-      migrationsListReposForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsListReposForOrgParamSchema,
@@ -14930,8 +15846,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsListReposForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          migrationsListReposForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsListReposForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -14953,12 +15881,6 @@ export function bootstrap(
   router.get(
     "orgsListOutsideCollaborators",
     "/orgs/:org/outside_collaborators",
-    paramValidationFactory<t_OrgsListOutsideCollaboratorsParamSchema>(
-      orgsListOutsideCollaboratorsParamSchema
-    ),
-    queryValidationFactory<t_OrgsListOutsideCollaboratorsQuerySchema>(
-      orgsListOutsideCollaboratorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListOutsideCollaboratorsParamSchema,
@@ -14967,8 +15889,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListOutsideCollaboratorsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListOutsideCollaboratorsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsListOutsideCollaborators(ctx.state, ctx)
+        await implementation.orgsListOutsideCollaborators(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -14987,12 +15921,6 @@ export function bootstrap(
   router.put(
     "orgsConvertMemberToOutsideCollaborator",
     "/orgs/:org/outside_collaborators/:username",
-    paramValidationFactory<t_OrgsConvertMemberToOutsideCollaboratorParamSchema>(
-      orgsConvertMemberToOutsideCollaboratorParamSchema
-    ),
-    bodyValidationFactory<t_OrgsConvertMemberToOutsideCollaboratorBodySchema>(
-      orgsConvertMemberToOutsideCollaboratorBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
@@ -15001,11 +15929,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsConvertMemberToOutsideCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsConvertMemberToOutsideCollaboratorBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.orgsConvertMemberToOutsideCollaborator(
-          ctx.state,
-          ctx
-        )
+        await implementation.orgsConvertMemberToOutsideCollaborator(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15020,15 +15957,21 @@ export function bootstrap(
   router.delete(
     "orgsRemoveOutsideCollaborator",
     "/orgs/:org/outside_collaborators/:username",
-    paramValidationFactory<t_OrgsRemoveOutsideCollaboratorParamSchema>(
-      orgsRemoveOutsideCollaboratorParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsRemoveOutsideCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsRemoveOutsideCollaborator(ctx.state, ctx)
+        await implementation.orgsRemoveOutsideCollaborator(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15054,12 +15997,6 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForOrganization",
     "/orgs/:org/packages",
-    paramValidationFactory<t_PackagesListPackagesForOrganizationParamSchema>(
-      packagesListPackagesForOrganizationParamSchema
-    ),
-    queryValidationFactory<t_PackagesListPackagesForOrganizationQuerySchema>(
-      packagesListPackagesForOrganizationQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesListPackagesForOrganizationParamSchema,
@@ -15068,8 +16005,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesListPackagesForOrganizationParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesListPackagesForOrganizationQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesListPackagesForOrganization(ctx.state, ctx)
+        await implementation.packagesListPackagesForOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15092,9 +16041,6 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForOrganization",
     "/orgs/:org/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesGetPackageForOrganizationParamSchema>(
-      packagesGetPackageForOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetPackageForOrganizationParamSchema,
@@ -15103,8 +16049,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageForOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesGetPackageForOrganization(ctx.state, ctx)
+        await implementation.packagesGetPackageForOrganization(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15127,15 +16082,21 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForOrg",
     "/orgs/:org/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesDeletePackageForOrgParamSchema>(
-      packagesDeletePackageForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PackagesDeletePackageForOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.packagesDeletePackageForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -15164,12 +16125,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForOrg",
     "/orgs/:org/packages/:packageType/:packageName/restore",
-    paramValidationFactory<t_PackagesRestorePackageForOrgParamSchema>(
-      packagesRestorePackageForOrgParamSchema
-    ),
-    queryValidationFactory<t_PackagesRestorePackageForOrgQuerySchema>(
-      packagesRestorePackageForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageForOrgParamSchema,
@@ -15178,8 +16133,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesRestorePackageForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesRestorePackageForOrg(ctx.state, ctx)
+        await implementation.packagesRestorePackageForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15212,12 +16179,6 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions",
-    paramValidationFactory<t_PackagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema>(
-      packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema
-    ),
-    queryValidationFactory<t_PackagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema>(
-      packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
@@ -15226,9 +16187,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -15254,9 +16227,6 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForOrganization",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesGetPackageVersionForOrganizationParamSchema>(
-      packagesGetPackageVersionForOrganizationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetPackageVersionForOrganizationParamSchema,
@@ -15265,9 +16235,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageVersionForOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesGetPackageVersionForOrganization(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -15293,9 +16272,6 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesDeletePackageVersionForOrgParamSchema>(
-      packagesDeletePackageVersionForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesDeletePackageVersionForOrgParamSchema,
@@ -15304,8 +16280,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageVersionForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesDeletePackageVersionForOrg(ctx.state, ctx)
+        await implementation.packagesDeletePackageVersionForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15329,9 +16314,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    paramValidationFactory<t_PackagesRestorePackageVersionForOrgParamSchema>(
-      packagesRestorePackageVersionForOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageVersionForOrgParamSchema,
@@ -15340,8 +16322,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageVersionForOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesRestorePackageVersionForOrg(ctx.state, ctx)
+        await implementation.packagesRestorePackageVersionForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15359,12 +16350,6 @@ export function bootstrap(
   router.get(
     "projectsListForOrg",
     "/orgs/:org/projects",
-    paramValidationFactory<t_ProjectsListForOrgParamSchema>(
-      projectsListForOrgParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListForOrgQuerySchema>(
-      projectsListForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListForOrgParamSchema,
@@ -15373,8 +16358,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsListForOrgParamSchema, ctx.params),
+        query: parseRequestInput(projectsListForOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -15393,12 +16384,6 @@ export function bootstrap(
   router.post(
     "projectsCreateForOrg",
     "/orgs/:org/projects",
-    paramValidationFactory<t_ProjectsCreateForOrgParamSchema>(
-      projectsCreateForOrgParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsCreateForOrgBodySchema>(
-      projectsCreateForOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsCreateForOrgParamSchema,
@@ -15407,8 +16392,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsCreateForOrgParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsCreateForOrgBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsCreateForOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -15427,12 +16418,6 @@ export function bootstrap(
   router.get(
     "orgsListPublicMembers",
     "/orgs/:org/public_members",
-    paramValidationFactory<t_OrgsListPublicMembersParamSchema>(
-      orgsListPublicMembersParamSchema
-    ),
-    queryValidationFactory<t_OrgsListPublicMembersQuerySchema>(
-      orgsListPublicMembersQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListPublicMembersParamSchema,
@@ -15441,8 +16426,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(orgsListPublicMembersParamSchema, ctx.params),
+        query: parseRequestInput(orgsListPublicMembersQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsListPublicMembers(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -15459,9 +16450,6 @@ export function bootstrap(
   router.get(
     "orgsCheckPublicMembershipForUser",
     "/orgs/:org/public_members/:username",
-    paramValidationFactory<t_OrgsCheckPublicMembershipForUserParamSchema>(
-      orgsCheckPublicMembershipForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsCheckPublicMembershipForUserParamSchema,
@@ -15470,8 +16458,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsCheckPublicMembershipForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsCheckPublicMembershipForUser(ctx.state, ctx)
+        await implementation.orgsCheckPublicMembershipForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15486,9 +16483,6 @@ export function bootstrap(
   router.put(
     "orgsSetPublicMembershipForAuthenticatedUser",
     "/orgs/:org/public_members/:username",
-    paramValidationFactory<t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema>(
-      orgsSetPublicMembershipForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
@@ -15497,9 +16491,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsSetPublicMembershipForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.orgsSetPublicMembershipForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -15516,9 +16519,6 @@ export function bootstrap(
   router.delete(
     "orgsRemovePublicMembershipForAuthenticatedUser",
     "/orgs/:org/public_members/:username",
-    paramValidationFactory<t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema>(
-      orgsRemovePublicMembershipForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
@@ -15527,9 +16527,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsRemovePublicMembershipForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.orgsRemovePublicMembershipForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -15553,12 +16562,6 @@ export function bootstrap(
   router.get(
     "reposListForOrg",
     "/orgs/:org/repos",
-    paramValidationFactory<t_ReposListForOrgParamSchema>(
-      reposListForOrgParamSchema
-    ),
-    queryValidationFactory<t_ReposListForOrgQuerySchema>(
-      reposListForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListForOrgParamSchema,
@@ -15567,10 +16570,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListForOrg(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListForOrgParamSchema, ctx.params),
+        query: parseRequestInput(reposListForOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15613,12 +16619,6 @@ export function bootstrap(
   router.post(
     "reposCreateInOrg",
     "/orgs/:org/repos",
-    paramValidationFactory<t_ReposCreateInOrgParamSchema>(
-      reposCreateInOrgParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateInOrgBodySchema>(
-      reposCreateInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateInOrgParamSchema,
@@ -15627,10 +16627,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposCreateInOrg(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposCreateInOrgParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateInOrgBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposCreateInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15656,12 +16659,6 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForOrg",
     "/orgs/:org/secret-scanning/alerts",
-    paramValidationFactory<t_SecretScanningListAlertsForOrgParamSchema>(
-      secretScanningListAlertsForOrgParamSchema
-    ),
-    queryValidationFactory<t_SecretScanningListAlertsForOrgQuerySchema>(
-      secretScanningListAlertsForOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningListAlertsForOrgParamSchema,
@@ -15670,8 +16667,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningListAlertsForOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          secretScanningListAlertsForOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.secretScanningListAlertsForOrg(ctx.state, ctx)
+        await implementation.secretScanningListAlertsForOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15685,15 +16694,21 @@ export function bootstrap(
   router.get(
     "orgsListSecurityManagerTeams",
     "/orgs/:org/security-managers",
-    paramValidationFactory<t_OrgsListSecurityManagerTeamsParamSchema>(
-      orgsListSecurityManagerTeamsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsListSecurityManagerTeamsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListSecurityManagerTeamsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsListSecurityManagerTeams(ctx.state, ctx)
+        await implementation.orgsListSecurityManagerTeams(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15708,15 +16723,21 @@ export function bootstrap(
   router.put(
     "orgsAddSecurityManagerTeam",
     "/orgs/:org/security-managers/teams/:teamSlug",
-    paramValidationFactory<t_OrgsAddSecurityManagerTeamParamSchema>(
-      orgsAddSecurityManagerTeamParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsAddSecurityManagerTeamParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsAddSecurityManagerTeamParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.orgsAddSecurityManagerTeam(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -15733,15 +16754,21 @@ export function bootstrap(
   router.delete(
     "orgsRemoveSecurityManagerTeam",
     "/orgs/:org/security-managers/teams/:teamSlug",
-    paramValidationFactory<t_OrgsRemoveSecurityManagerTeamParamSchema>(
-      orgsRemoveSecurityManagerTeamParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_OrgsRemoveSecurityManagerTeamParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsRemoveSecurityManagerTeamParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsRemoveSecurityManagerTeam(ctx.state, ctx)
+        await implementation.orgsRemoveSecurityManagerTeam(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15755,9 +16782,6 @@ export function bootstrap(
   router.get(
     "billingGetGithubActionsBillingOrg",
     "/orgs/:org/settings/billing/actions",
-    paramValidationFactory<t_BillingGetGithubActionsBillingOrgParamSchema>(
-      billingGetGithubActionsBillingOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetGithubActionsBillingOrgParamSchema,
@@ -15766,8 +16790,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubActionsBillingOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetGithubActionsBillingOrg(ctx.state, ctx)
+        await implementation.billingGetGithubActionsBillingOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15781,9 +16814,6 @@ export function bootstrap(
   router.get(
     "billingGetGithubPackagesBillingOrg",
     "/orgs/:org/settings/billing/packages",
-    paramValidationFactory<t_BillingGetGithubPackagesBillingOrgParamSchema>(
-      billingGetGithubPackagesBillingOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetGithubPackagesBillingOrgParamSchema,
@@ -15792,8 +16822,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubPackagesBillingOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetGithubPackagesBillingOrg(ctx.state, ctx)
+        await implementation.billingGetGithubPackagesBillingOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15807,9 +16846,6 @@ export function bootstrap(
   router.get(
     "billingGetSharedStorageBillingOrg",
     "/orgs/:org/settings/billing/shared-storage",
-    paramValidationFactory<t_BillingGetSharedStorageBillingOrgParamSchema>(
-      billingGetSharedStorageBillingOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetSharedStorageBillingOrgParamSchema,
@@ -15818,8 +16854,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetSharedStorageBillingOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetSharedStorageBillingOrg(ctx.state, ctx)
+        await implementation.billingGetSharedStorageBillingOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15836,13 +16881,17 @@ export function bootstrap(
   router.get(
     "teamsList",
     "/orgs/:org/teams",
-    paramValidationFactory<t_TeamsListParamSchema>(teamsListParamSchema),
-    queryValidationFactory<t_TeamsListQuerySchema>(teamsListQuerySchema),
     async (
       ctx: ValidatedCtx<t_TeamsListParamSchema, t_TeamsListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsList(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(teamsListParamSchema, ctx.params),
+        query: parseRequestInput(teamsListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.teamsList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15864,8 +16913,6 @@ export function bootstrap(
   router.post(
     "teamsCreate",
     "/orgs/:org/teams",
-    paramValidationFactory<t_TeamsCreateParamSchema>(teamsCreateParamSchema),
-    bodyValidationFactory<t_TeamsCreateBodySchema>(teamsCreateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_TeamsCreateParamSchema,
@@ -15874,7 +16921,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsCreate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(teamsCreateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(teamsCreateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.teamsCreate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15889,17 +16942,17 @@ export function bootstrap(
   router.get(
     "teamsGetByName",
     "/orgs/:org/teams/:teamSlug",
-    paramValidationFactory<t_TeamsGetByNameParamSchema>(
-      teamsGetByNameParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsGetByNameParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsGetByName(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(teamsGetByNameParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.teamsGetByName(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15924,12 +16977,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateInOrg",
     "/orgs/:org/teams/:teamSlug",
-    paramValidationFactory<t_TeamsUpdateInOrgParamSchema>(
-      teamsUpdateInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateInOrgBodySchema>(
-      teamsUpdateInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateInOrgParamSchema,
@@ -15938,10 +16985,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsUpdateInOrg(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(teamsUpdateInOrgParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(teamsUpdateInOrgBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.teamsUpdateInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15956,17 +17006,17 @@ export function bootstrap(
   router.delete(
     "teamsDeleteInOrg",
     "/orgs/:org/teams/:teamSlug",
-    paramValidationFactory<t_TeamsDeleteInOrgParamSchema>(
-      teamsDeleteInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsDeleteInOrgParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsDeleteInOrg(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(teamsDeleteInOrgParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.teamsDeleteInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -15988,12 +17038,6 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionsInOrg",
     "/orgs/:org/teams/:teamSlug/discussions",
-    paramValidationFactory<t_TeamsListDiscussionsInOrgParamSchema>(
-      teamsListDiscussionsInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListDiscussionsInOrgQuerySchema>(
-      teamsListDiscussionsInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListDiscussionsInOrgParamSchema,
@@ -16002,8 +17046,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListDiscussionsInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListDiscussionsInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListDiscussionsInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16026,12 +17082,6 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions",
-    paramValidationFactory<t_TeamsCreateDiscussionInOrgParamSchema>(
-      teamsCreateDiscussionInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsCreateDiscussionInOrgBodySchema>(
-      teamsCreateDiscussionInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCreateDiscussionInOrgParamSchema,
@@ -16040,8 +17090,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCreateDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(teamsCreateDiscussionInOrgBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.teamsCreateDiscussionInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16059,15 +17118,21 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsGetDiscussionInOrgParamSchema>(
-      teamsGetDiscussionInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsGetDiscussionInOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsGetDiscussionInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16092,12 +17157,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsUpdateDiscussionInOrgParamSchema>(
-      teamsUpdateDiscussionInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateDiscussionInOrgBodySchema>(
-      teamsUpdateDiscussionInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateDiscussionInOrgParamSchema,
@@ -16106,8 +17165,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsUpdateDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(teamsUpdateDiscussionInOrgBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.teamsUpdateDiscussionInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16125,15 +17193,21 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsDeleteDiscussionInOrgParamSchema>(
-      teamsDeleteDiscussionInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsDeleteDiscussionInOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsDeleteDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsDeleteDiscussionInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16157,12 +17231,6 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionCommentsInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-    paramValidationFactory<t_TeamsListDiscussionCommentsInOrgParamSchema>(
-      teamsListDiscussionCommentsInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListDiscussionCommentsInOrgQuerySchema>(
-      teamsListDiscussionCommentsInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListDiscussionCommentsInOrgParamSchema,
@@ -16171,8 +17239,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListDiscussionCommentsInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListDiscussionCommentsInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsListDiscussionCommentsInOrg(ctx.state, ctx)
+        await implementation.teamsListDiscussionCommentsInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16192,12 +17272,6 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-    paramValidationFactory<t_TeamsCreateDiscussionCommentInOrgParamSchema>(
-      teamsCreateDiscussionCommentInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsCreateDiscussionCommentInOrgBodySchema>(
-      teamsCreateDiscussionCommentInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCreateDiscussionCommentInOrgParamSchema,
@@ -16206,8 +17280,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCreateDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsCreateDiscussionCommentInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsCreateDiscussionCommentInOrg(ctx.state, ctx)
+        await implementation.teamsCreateDiscussionCommentInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16224,9 +17310,6 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsGetDiscussionCommentInOrgParamSchema>(
-      teamsGetDiscussionCommentInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsGetDiscussionCommentInOrgParamSchema,
@@ -16235,8 +17318,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsGetDiscussionCommentInOrg(ctx.state, ctx)
+        await implementation.teamsGetDiscussionCommentInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16257,12 +17349,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsUpdateDiscussionCommentInOrgParamSchema>(
-      teamsUpdateDiscussionCommentInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateDiscussionCommentInOrgBodySchema>(
-      teamsUpdateDiscussionCommentInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateDiscussionCommentInOrgParamSchema,
@@ -16271,8 +17357,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsUpdateDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsUpdateDiscussionCommentInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsUpdateDiscussionCommentInOrg(ctx.state, ctx)
+        await implementation.teamsUpdateDiscussionCommentInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16289,9 +17387,6 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsDeleteDiscussionCommentInOrgParamSchema>(
-      teamsDeleteDiscussionCommentInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsDeleteDiscussionCommentInOrgParamSchema,
@@ -16300,8 +17395,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsDeleteDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsDeleteDiscussionCommentInOrg(ctx.state, ctx)
+        await implementation.teamsDeleteDiscussionCommentInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16335,12 +17439,6 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    paramValidationFactory<t_ReactionsListForTeamDiscussionCommentInOrgParamSchema>(
-      reactionsListForTeamDiscussionCommentInOrgParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema>(
-      reactionsListForTeamDiscussionCommentInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForTeamDiscussionCommentInOrgParamSchema,
@@ -16349,9 +17447,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForTeamDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForTeamDiscussionCommentInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reactionsListForTeamDiscussionCommentInOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -16383,12 +17493,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    paramValidationFactory<t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema>(
-      reactionsCreateForTeamDiscussionCommentInOrgParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema>(
-      reactionsCreateForTeamDiscussionCommentInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
@@ -16397,9 +17501,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForTeamDiscussionCommentInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.reactionsCreateForTeamDiscussionCommentInOrg(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -16419,9 +17535,6 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForTeamDiscussionComment",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForTeamDiscussionCommentParamSchema>(
-      reactionsDeleteForTeamDiscussionCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsDeleteForTeamDiscussionCommentParamSchema,
@@ -16430,11 +17543,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForTeamDiscussionCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsDeleteForTeamDiscussionComment(
-          ctx.state,
-          ctx
-        )
+        await implementation.reactionsDeleteForTeamDiscussionComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16467,12 +17586,6 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-    paramValidationFactory<t_ReactionsListForTeamDiscussionInOrgParamSchema>(
-      reactionsListForTeamDiscussionInOrgParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForTeamDiscussionInOrgQuerySchema>(
-      reactionsListForTeamDiscussionInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForTeamDiscussionInOrgParamSchema,
@@ -16481,8 +17594,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForTeamDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForTeamDiscussionInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsListForTeamDiscussionInOrg(ctx.state, ctx)
+        await implementation.reactionsListForTeamDiscussionInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16511,12 +17636,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-    paramValidationFactory<t_ReactionsCreateForTeamDiscussionInOrgParamSchema>(
-      reactionsCreateForTeamDiscussionInOrgParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForTeamDiscussionInOrgBodySchema>(
-      reactionsCreateForTeamDiscussionInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
@@ -16525,11 +17644,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForTeamDiscussionInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForTeamDiscussionInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionInOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.reactionsCreateForTeamDiscussionInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16546,9 +17674,6 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForTeamDiscussion",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForTeamDiscussionParamSchema>(
-      reactionsDeleteForTeamDiscussionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsDeleteForTeamDiscussionParamSchema,
@@ -16557,8 +17682,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForTeamDiscussionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsDeleteForTeamDiscussion(ctx.state, ctx)
+        await implementation.reactionsDeleteForTeamDiscussion(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16578,12 +17712,6 @@ export function bootstrap(
   router.get(
     "teamsListPendingInvitationsInOrg",
     "/orgs/:org/teams/:teamSlug/invitations",
-    paramValidationFactory<t_TeamsListPendingInvitationsInOrgParamSchema>(
-      teamsListPendingInvitationsInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListPendingInvitationsInOrgQuerySchema>(
-      teamsListPendingInvitationsInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListPendingInvitationsInOrgParamSchema,
@@ -16592,8 +17720,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListPendingInvitationsInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListPendingInvitationsInOrgQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsListPendingInvitationsInOrg(ctx.state, ctx)
+        await implementation.teamsListPendingInvitationsInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16614,12 +17754,6 @@ export function bootstrap(
   router.get(
     "teamsListMembersInOrg",
     "/orgs/:org/teams/:teamSlug/members",
-    paramValidationFactory<t_TeamsListMembersInOrgParamSchema>(
-      teamsListMembersInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListMembersInOrgQuerySchema>(
-      teamsListMembersInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListMembersInOrgParamSchema,
@@ -16628,8 +17762,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsListMembersInOrgParamSchema, ctx.params),
+        query: parseRequestInput(teamsListMembersInOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListMembersInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16647,9 +17787,6 @@ export function bootstrap(
   router.get(
     "teamsGetMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    paramValidationFactory<t_TeamsGetMembershipForUserInOrgParamSchema>(
-      teamsGetMembershipForUserInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsGetMembershipForUserInOrgParamSchema,
@@ -16658,8 +17795,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetMembershipForUserInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsGetMembershipForUserInOrg(ctx.state, ctx)
+        await implementation.teamsGetMembershipForUserInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16679,12 +17825,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    paramValidationFactory<t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema>(
-      teamsAddOrUpdateMembershipForUserInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema>(
-      teamsAddOrUpdateMembershipForUserInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
@@ -16693,11 +17833,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateMembershipForUserInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateMembershipForUserInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsAddOrUpdateMembershipForUserInOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsAddOrUpdateMembershipForUserInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16713,9 +17862,6 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    paramValidationFactory<t_TeamsRemoveMembershipForUserInOrgParamSchema>(
-      teamsRemoveMembershipForUserInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsRemoveMembershipForUserInOrgParamSchema,
@@ -16724,8 +17870,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsRemoveMembershipForUserInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsRemoveMembershipForUserInOrg(ctx.state, ctx)
+        await implementation.teamsRemoveMembershipForUserInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16745,12 +17900,6 @@ export function bootstrap(
   router.get(
     "teamsListProjectsInOrg",
     "/orgs/:org/teams/:teamSlug/projects",
-    paramValidationFactory<t_TeamsListProjectsInOrgParamSchema>(
-      teamsListProjectsInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListProjectsInOrgQuerySchema>(
-      teamsListProjectsInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListProjectsInOrgParamSchema,
@@ -16759,8 +17908,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListProjectsInOrgParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(teamsListProjectsInOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListProjectsInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16778,9 +17936,6 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForProjectInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    paramValidationFactory<t_TeamsCheckPermissionsForProjectInOrgParamSchema>(
-      teamsCheckPermissionsForProjectInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCheckPermissionsForProjectInOrgParamSchema,
@@ -16789,11 +17944,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCheckPermissionsForProjectInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsCheckPermissionsForProjectInOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsCheckPermissionsForProjectInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16813,12 +17974,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateProjectPermissionsInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    paramValidationFactory<t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema>(
-      teamsAddOrUpdateProjectPermissionsInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema>(
-      teamsAddOrUpdateProjectPermissionsInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
@@ -16827,11 +17982,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateProjectPermissionsInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsAddOrUpdateProjectPermissionsInOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsAddOrUpdateProjectPermissionsInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16847,15 +18011,21 @@ export function bootstrap(
   router.delete(
     "teamsRemoveProjectInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    paramValidationFactory<t_TeamsRemoveProjectInOrgParamSchema>(
-      teamsRemoveProjectInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsRemoveProjectInOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsRemoveProjectInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsRemoveProjectInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16877,12 +18047,6 @@ export function bootstrap(
   router.get(
     "teamsListReposInOrg",
     "/orgs/:org/teams/:teamSlug/repos",
-    paramValidationFactory<t_TeamsListReposInOrgParamSchema>(
-      teamsListReposInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListReposInOrgQuerySchema>(
-      teamsListReposInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListReposInOrgParamSchema,
@@ -16891,8 +18055,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsListReposInOrgParamSchema, ctx.params),
+        query: parseRequestInput(teamsListReposInOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListReposInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -16911,9 +18081,6 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForRepoInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsCheckPermissionsForRepoInOrgParamSchema>(
-      teamsCheckPermissionsForRepoInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCheckPermissionsForRepoInOrgParamSchema,
@@ -16922,8 +18089,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCheckPermissionsForRepoInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsCheckPermissionsForRepoInOrg(ctx.state, ctx)
+        await implementation.teamsCheckPermissionsForRepoInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16944,12 +18120,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateRepoPermissionsInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema>(
-      teamsAddOrUpdateRepoPermissionsInOrgParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema>(
-      teamsAddOrUpdateRepoPermissionsInOrgBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
@@ -16958,11 +18128,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateRepoPermissionsInOrgParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsAddOrUpdateRepoPermissionsInOrg(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsAddOrUpdateRepoPermissionsInOrg(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -16979,15 +18158,18 @@ export function bootstrap(
   router.delete(
     "teamsRemoveRepoInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsRemoveRepoInOrgParamSchema>(
-      teamsRemoveRepoInOrgParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsRemoveRepoInOrgParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsRemoveRepoInOrgParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsRemoveRepoInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17009,12 +18191,6 @@ export function bootstrap(
   router.get(
     "teamsListChildInOrg",
     "/orgs/:org/teams/:teamSlug/teams",
-    paramValidationFactory<t_TeamsListChildInOrgParamSchema>(
-      teamsListChildInOrgParamSchema
-    ),
-    queryValidationFactory<t_TeamsListChildInOrgQuerySchema>(
-      teamsListChildInOrgQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListChildInOrgParamSchema,
@@ -17023,8 +18199,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsListChildInOrgParamSchema, ctx.params),
+        query: parseRequestInput(teamsListChildInOrgQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListChildInOrg(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17049,9 +18231,6 @@ export function bootstrap(
   router.post(
     "orgsEnableOrDisableSecurityProductOnAllOrgRepos",
     "/orgs/:org/:securityProduct/:enablement",
-    paramValidationFactory<t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema>(
-      orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
@@ -17060,9 +18239,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.orgsEnableOrDisableSecurityProductOnAllOrgRepos(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -17076,17 +18264,17 @@ export function bootstrap(
   router.get(
     "projectsGetCard",
     "/projects/columns/cards/:cardId",
-    paramValidationFactory<t_ProjectsGetCardParamSchema>(
-      projectsGetCardParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsGetCardParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.projectsGetCard(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(projectsGetCardParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.projectsGetCard(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17105,12 +18293,6 @@ export function bootstrap(
   router.patch(
     "projectsUpdateCard",
     "/projects/columns/cards/:cardId",
-    paramValidationFactory<t_ProjectsUpdateCardParamSchema>(
-      projectsUpdateCardParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsUpdateCardBodySchema>(
-      projectsUpdateCardBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsUpdateCardParamSchema,
@@ -17119,8 +18301,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsUpdateCardParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsUpdateCardBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsUpdateCard(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17134,15 +18322,18 @@ export function bootstrap(
   router.delete(
     "projectsDeleteCard",
     "/projects/columns/cards/:cardId",
-    paramValidationFactory<t_ProjectsDeleteCardParamSchema>(
-      projectsDeleteCardParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsDeleteCardParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsDeleteCardParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsDeleteCard(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17161,12 +18352,6 @@ export function bootstrap(
   router.post(
     "projectsMoveCard",
     "/projects/columns/cards/:cardId/moves",
-    paramValidationFactory<t_ProjectsMoveCardParamSchema>(
-      projectsMoveCardParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsMoveCardBodySchema>(
-      projectsMoveCardBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsMoveCardParamSchema,
@@ -17175,10 +18360,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.projectsMoveCard(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(projectsMoveCardParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsMoveCardBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.projectsMoveCard(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17192,15 +18380,18 @@ export function bootstrap(
   router.get(
     "projectsGetColumn",
     "/projects/columns/:columnId",
-    paramValidationFactory<t_ProjectsGetColumnParamSchema>(
-      projectsGetColumnParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsGetColumnParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsGetColumnParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsGetColumn(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17218,12 +18409,6 @@ export function bootstrap(
   router.patch(
     "projectsUpdateColumn",
     "/projects/columns/:columnId",
-    paramValidationFactory<t_ProjectsUpdateColumnParamSchema>(
-      projectsUpdateColumnParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsUpdateColumnBodySchema>(
-      projectsUpdateColumnBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsUpdateColumnParamSchema,
@@ -17232,8 +18417,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsUpdateColumnParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsUpdateColumnBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsUpdateColumn(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17249,15 +18440,18 @@ export function bootstrap(
   router.delete(
     "projectsDeleteColumn",
     "/projects/columns/:columnId",
-    paramValidationFactory<t_ProjectsDeleteColumnParamSchema>(
-      projectsDeleteColumnParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsDeleteColumnParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsDeleteColumnParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsDeleteColumn(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17279,12 +18473,6 @@ export function bootstrap(
   router.get(
     "projectsListCards",
     "/projects/columns/:columnId/cards",
-    paramValidationFactory<t_ProjectsListCardsParamSchema>(
-      projectsListCardsParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListCardsQuerySchema>(
-      projectsListCardsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListCardsParamSchema,
@@ -17293,8 +18481,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsListCardsParamSchema, ctx.params),
+        query: parseRequestInput(projectsListCardsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListCards(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17318,12 +18512,6 @@ export function bootstrap(
   router.post(
     "projectsCreateCard",
     "/projects/columns/:columnId/cards",
-    paramValidationFactory<t_ProjectsCreateCardParamSchema>(
-      projectsCreateCardParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsCreateCardBodySchema>(
-      projectsCreateCardBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsCreateCardParamSchema,
@@ -17332,8 +18520,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsCreateCardParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsCreateCardBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsCreateCard(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17351,12 +18545,6 @@ export function bootstrap(
   router.post(
     "projectsMoveColumn",
     "/projects/columns/:columnId/moves",
-    paramValidationFactory<t_ProjectsMoveColumnParamSchema>(
-      projectsMoveColumnParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsMoveColumnBodySchema>(
-      projectsMoveColumnBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsMoveColumnParamSchema,
@@ -17365,8 +18553,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsMoveColumnParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsMoveColumnBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsMoveColumn(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17380,12 +18574,17 @@ export function bootstrap(
   router.get(
     "projectsGet",
     "/projects/:projectId",
-    paramValidationFactory<t_ProjectsGetParamSchema>(projectsGetParamSchema),
     async (
       ctx: ValidatedCtx<t_ProjectsGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.projectsGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(projectsGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.projectsGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17409,10 +18608,6 @@ export function bootstrap(
   router.patch(
     "projectsUpdate",
     "/projects/:projectId",
-    paramValidationFactory<t_ProjectsUpdateParamSchema>(
-      projectsUpdateParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsUpdateBodySchema>(projectsUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_ProjectsUpdateParamSchema,
@@ -17421,10 +18616,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.projectsUpdate(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(projectsUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.projectsUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17436,17 +18634,17 @@ export function bootstrap(
   router.delete(
     "projectsDelete",
     "/projects/:projectId",
-    paramValidationFactory<t_ProjectsDeleteParamSchema>(
-      projectsDeleteParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsDeleteParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.projectsDelete(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(projectsDeleteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.projectsDelete(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17466,12 +18664,6 @@ export function bootstrap(
   router.get(
     "projectsListCollaborators",
     "/projects/:projectId/collaborators",
-    paramValidationFactory<t_ProjectsListCollaboratorsParamSchema>(
-      projectsListCollaboratorsParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListCollaboratorsQuerySchema>(
-      projectsListCollaboratorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListCollaboratorsParamSchema,
@@ -17480,8 +18672,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          projectsListCollaboratorsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          projectsListCollaboratorsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListCollaborators(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17502,12 +18706,6 @@ export function bootstrap(
   router.put(
     "projectsAddCollaborator",
     "/projects/:projectId/collaborators/:username",
-    paramValidationFactory<t_ProjectsAddCollaboratorParamSchema>(
-      projectsAddCollaboratorParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsAddCollaboratorBodySchema>(
-      projectsAddCollaboratorBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsAddCollaboratorParamSchema,
@@ -17516,8 +18714,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          projectsAddCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(projectsAddCollaboratorBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsAddCollaborator(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17534,15 +18741,21 @@ export function bootstrap(
   router.delete(
     "projectsRemoveCollaborator",
     "/projects/:projectId/collaborators/:username",
-    paramValidationFactory<t_ProjectsRemoveCollaboratorParamSchema>(
-      projectsRemoveCollaboratorParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsRemoveCollaboratorParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          projectsRemoveCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsRemoveCollaborator(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17559,15 +18772,21 @@ export function bootstrap(
   router.get(
     "projectsGetPermissionForUser",
     "/projects/:projectId/collaborators/:username/permission",
-    paramValidationFactory<t_ProjectsGetPermissionForUserParamSchema>(
-      projectsGetPermissionForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ProjectsGetPermissionForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          projectsGetPermissionForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.projectsGetPermissionForUser(ctx.state, ctx)
+        await implementation.projectsGetPermissionForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17586,12 +18805,6 @@ export function bootstrap(
   router.get(
     "projectsListColumns",
     "/projects/:projectId/columns",
-    paramValidationFactory<t_ProjectsListColumnsParamSchema>(
-      projectsListColumnsParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListColumnsQuerySchema>(
-      projectsListColumnsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListColumnsParamSchema,
@@ -17600,8 +18813,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsListColumnsParamSchema, ctx.params),
+        query: parseRequestInput(projectsListColumnsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListColumns(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17619,12 +18838,6 @@ export function bootstrap(
   router.post(
     "projectsCreateColumn",
     "/projects/:projectId/columns",
-    paramValidationFactory<t_ProjectsCreateColumnParamSchema>(
-      projectsCreateColumnParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsCreateColumnBodySchema>(
-      projectsCreateColumnBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsCreateColumnParamSchema,
@@ -17633,8 +18846,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsCreateColumnParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsCreateColumnBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsCreateColumn(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17647,7 +18866,13 @@ export function bootstrap(
     "rateLimitGet",
     "/rate_limit",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.rateLimitGet(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.rateLimitGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17667,12 +18892,6 @@ export function bootstrap(
   router.get(
     "actionsListRepoRequiredWorkflows",
     "/repos/:org/:repo/actions/required_workflows",
-    paramValidationFactory<t_ActionsListRepoRequiredWorkflowsParamSchema>(
-      actionsListRepoRequiredWorkflowsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRepoRequiredWorkflowsQuerySchema>(
-      actionsListRepoRequiredWorkflowsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRepoRequiredWorkflowsParamSchema,
@@ -17681,8 +18900,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoRequiredWorkflowsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoRequiredWorkflowsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListRepoRequiredWorkflows(ctx.state, ctx)
+        await implementation.actionsListRepoRequiredWorkflows(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17698,9 +18929,6 @@ export function bootstrap(
   router.get(
     "actionsGetRepoRequiredWorkflow",
     "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo",
-    paramValidationFactory<t_ActionsGetRepoRequiredWorkflowParamSchema>(
-      actionsGetRepoRequiredWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetRepoRequiredWorkflowParamSchema,
@@ -17709,8 +18937,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetRepoRequiredWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetRepoRequiredWorkflow(ctx.state, ctx)
+        await implementation.actionsGetRepoRequiredWorkflow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17726,9 +18963,6 @@ export function bootstrap(
   router.get(
     "actionsGetRepoRequiredWorkflowUsage",
     "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/timing",
-    paramValidationFactory<t_ActionsGetRepoRequiredWorkflowUsageParamSchema>(
-      actionsGetRepoRequiredWorkflowUsageParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetRepoRequiredWorkflowUsageParamSchema,
@@ -17737,8 +18971,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetRepoRequiredWorkflowUsageParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetRepoRequiredWorkflowUsage(ctx.state, ctx)
+        await implementation.actionsGetRepoRequiredWorkflowUsage(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17753,12 +18996,17 @@ export function bootstrap(
   router.get(
     "reposGet",
     "/repos/:owner/:repo",
-    paramValidationFactory<t_ReposGetParamSchema>(reposGetParamSchema),
     async (
       ctx: ValidatedCtx<t_ReposGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(reposGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17819,8 +19067,6 @@ export function bootstrap(
   router.patch(
     "reposUpdate",
     "/repos/:owner/:repo",
-    paramValidationFactory<t_ReposUpdateParamSchema>(reposUpdateParamSchema),
-    bodyValidationFactory<t_ReposUpdateBodySchema>(reposUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateParamSchema,
@@ -17829,7 +19075,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(reposUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17844,12 +19096,17 @@ export function bootstrap(
   router.delete(
     "reposDelete",
     "/repos/:owner/:repo",
-    paramValidationFactory<t_ReposDeleteParamSchema>(reposDeleteParamSchema),
     async (
       ctx: ValidatedCtx<t_ReposDeleteParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposDelete(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(reposDeleteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposDelete(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -17870,12 +19127,6 @@ export function bootstrap(
   router.get(
     "actionsListArtifactsForRepo",
     "/repos/:owner/:repo/actions/artifacts",
-    paramValidationFactory<t_ActionsListArtifactsForRepoParamSchema>(
-      actionsListArtifactsForRepoParamSchema
-    ),
-    queryValidationFactory<t_ActionsListArtifactsForRepoQuerySchema>(
-      actionsListArtifactsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListArtifactsForRepoParamSchema,
@@ -17884,8 +19135,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListArtifactsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListArtifactsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListArtifactsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17903,15 +19166,18 @@ export function bootstrap(
   router.get(
     "actionsGetArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
-    paramValidationFactory<t_ActionsGetArtifactParamSchema>(
-      actionsGetArtifactParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetArtifactParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetArtifactParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetArtifact(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17929,15 +19195,18 @@ export function bootstrap(
   router.delete(
     "actionsDeleteArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
-    paramValidationFactory<t_ActionsDeleteArtifactParamSchema>(
-      actionsDeleteArtifactParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteArtifactParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsDeleteArtifactParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteArtifact(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17956,15 +19225,21 @@ export function bootstrap(
   router.get(
     "actionsDownloadArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
-    paramValidationFactory<t_ActionsDownloadArtifactParamSchema>(
-      actionsDownloadArtifactParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDownloadArtifactParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDownloadArtifactParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDownloadArtifact(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -17981,15 +19256,21 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsage",
     "/repos/:owner/:repo/actions/cache/usage",
-    paramValidationFactory<t_ActionsGetActionsCacheUsageParamSchema>(
-      actionsGetActionsCacheUsageParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetActionsCacheUsageParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheUsageParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetActionsCacheUsage(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -18017,12 +19298,6 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheList",
     "/repos/:owner/:repo/actions/caches",
-    paramValidationFactory<t_ActionsGetActionsCacheListParamSchema>(
-      actionsGetActionsCacheListParamSchema
-    ),
-    queryValidationFactory<t_ActionsGetActionsCacheListQuerySchema>(
-      actionsGetActionsCacheListQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetActionsCacheListParamSchema,
@@ -18031,8 +19306,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetActionsCacheListParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsGetActionsCacheListQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetActionsCacheList(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -18054,12 +19341,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteActionsCacheByKey",
     "/repos/:owner/:repo/actions/caches",
-    paramValidationFactory<t_ActionsDeleteActionsCacheByKeyParamSchema>(
-      actionsDeleteActionsCacheByKeyParamSchema
-    ),
-    queryValidationFactory<t_ActionsDeleteActionsCacheByKeyQuerySchema>(
-      actionsDeleteActionsCacheByKeyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteActionsCacheByKeyParamSchema,
@@ -18068,8 +19349,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteActionsCacheByKeyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsDeleteActionsCacheByKeyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteActionsCacheByKey(ctx.state, ctx)
+        await implementation.actionsDeleteActionsCacheByKey(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18085,15 +19378,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteActionsCacheById",
     "/repos/:owner/:repo/actions/caches/:cacheId",
-    paramValidationFactory<t_ActionsDeleteActionsCacheByIdParamSchema>(
-      actionsDeleteActionsCacheByIdParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteActionsCacheByIdParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteActionsCacheByIdParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteActionsCacheById(ctx.state, ctx)
+        await implementation.actionsDeleteActionsCacheById(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18109,15 +19408,21 @@ export function bootstrap(
   router.get(
     "actionsGetJobForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId",
-    paramValidationFactory<t_ActionsGetJobForWorkflowRunParamSchema>(
-      actionsGetJobForWorkflowRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetJobForWorkflowRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetJobForWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetJobForWorkflowRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -18135,9 +19440,6 @@ export function bootstrap(
   router.get(
     "actionsDownloadJobLogsForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId/logs",
-    paramValidationFactory<t_ActionsDownloadJobLogsForWorkflowRunParamSchema>(
-      actionsDownloadJobLogsForWorkflowRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDownloadJobLogsForWorkflowRunParamSchema,
@@ -18146,11 +19448,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDownloadJobLogsForWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDownloadJobLogsForWorkflowRun(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsDownloadJobLogsForWorkflowRun(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18170,12 +19478,6 @@ export function bootstrap(
   router.post(
     "actionsReRunJobForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId/rerun",
-    paramValidationFactory<t_ActionsReRunJobForWorkflowRunParamSchema>(
-      actionsReRunJobForWorkflowRunParamSchema
-    ),
-    bodyValidationFactory<t_ActionsReRunJobForWorkflowRunBodySchema>(
-      actionsReRunJobForWorkflowRunBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsReRunJobForWorkflowRunParamSchema,
@@ -18184,8 +19486,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsReRunJobForWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsReRunJobForWorkflowRunBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsReRunJobForWorkflowRun(ctx.state, ctx)
+        await implementation.actionsReRunJobForWorkflowRun(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18200,9 +19514,6 @@ export function bootstrap(
   router.get(
     "actionsGetCustomOidcSubClaimForRepo",
     "/repos/:owner/:repo/actions/oidc/customization/sub",
-    paramValidationFactory<t_ActionsGetCustomOidcSubClaimForRepoParamSchema>(
-      actionsGetCustomOidcSubClaimForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetCustomOidcSubClaimForRepoParamSchema,
@@ -18211,8 +19522,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetCustomOidcSubClaimForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetCustomOidcSubClaimForRepo(ctx.state, ctx)
+        await implementation.actionsGetCustomOidcSubClaimForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18232,12 +19552,6 @@ export function bootstrap(
   router.put(
     "actionsSetCustomOidcSubClaimForRepo",
     "/repos/:owner/:repo/actions/oidc/customization/sub",
-    paramValidationFactory<t_ActionsSetCustomOidcSubClaimForRepoParamSchema>(
-      actionsSetCustomOidcSubClaimForRepoParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetCustomOidcSubClaimForRepoBodySchema>(
-      actionsSetCustomOidcSubClaimForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
@@ -18246,8 +19560,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetCustomOidcSubClaimForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetCustomOidcSubClaimForRepoBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetCustomOidcSubClaimForRepo(ctx.state, ctx)
+        await implementation.actionsSetCustomOidcSubClaimForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18262,9 +19588,6 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions",
-    paramValidationFactory<t_ActionsGetGithubActionsPermissionsRepositoryParamSchema>(
-      actionsGetGithubActionsPermissionsRepositoryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetGithubActionsPermissionsRepositoryParamSchema,
@@ -18273,9 +19596,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetGithubActionsPermissionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsGetGithubActionsPermissionsRepository(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18297,12 +19629,6 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions",
-    paramValidationFactory<t_ActionsSetGithubActionsPermissionsRepositoryParamSchema>(
-      actionsSetGithubActionsPermissionsRepositoryParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetGithubActionsPermissionsRepositoryBodySchema>(
-      actionsSetGithubActionsPermissionsRepositoryBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
@@ -18311,9 +19637,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetGithubActionsPermissionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetGithubActionsPermissionsRepositoryBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetGithubActionsPermissionsRepository(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18330,9 +19668,6 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowAccessToRepository",
     "/repos/:owner/:repo/actions/permissions/access",
-    paramValidationFactory<t_ActionsGetWorkflowAccessToRepositoryParamSchema>(
-      actionsGetWorkflowAccessToRepositoryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetWorkflowAccessToRepositoryParamSchema,
@@ -18341,11 +19676,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetWorkflowAccessToRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetWorkflowAccessToRepository(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsGetWorkflowAccessToRepository(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18364,12 +19705,6 @@ export function bootstrap(
   router.put(
     "actionsSetWorkflowAccessToRepository",
     "/repos/:owner/:repo/actions/permissions/access",
-    paramValidationFactory<t_ActionsSetWorkflowAccessToRepositoryParamSchema>(
-      actionsSetWorkflowAccessToRepositoryParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetWorkflowAccessToRepositoryBodySchema>(
-      actionsSetWorkflowAccessToRepositoryBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetWorkflowAccessToRepositoryParamSchema,
@@ -18378,11 +19713,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetWorkflowAccessToRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetWorkflowAccessToRepositoryBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetWorkflowAccessToRepository(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsSetWorkflowAccessToRepository(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18397,9 +19741,6 @@ export function bootstrap(
   router.get(
     "actionsGetAllowedActionsRepository",
     "/repos/:owner/:repo/actions/permissions/selected-actions",
-    paramValidationFactory<t_ActionsGetAllowedActionsRepositoryParamSchema>(
-      actionsGetAllowedActionsRepositoryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetAllowedActionsRepositoryParamSchema,
@@ -18408,8 +19749,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetAllowedActionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetAllowedActionsRepository(ctx.state, ctx)
+        await implementation.actionsGetAllowedActionsRepository(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18432,12 +19782,6 @@ export function bootstrap(
   router.put(
     "actionsSetAllowedActionsRepository",
     "/repos/:owner/:repo/actions/permissions/selected-actions",
-    paramValidationFactory<t_ActionsSetAllowedActionsRepositoryParamSchema>(
-      actionsSetAllowedActionsRepositoryParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetAllowedActionsRepositoryBodySchema>(
-      actionsSetAllowedActionsRepositoryBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetAllowedActionsRepositoryParamSchema,
@@ -18446,8 +19790,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetAllowedActionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetAllowedActionsRepositoryBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsSetAllowedActionsRepository(ctx.state, ctx)
+        await implementation.actionsSetAllowedActionsRepository(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18460,9 +19816,6 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsDefaultWorkflowPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions/workflow",
-    paramValidationFactory<t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema>(
-      actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
@@ -18471,9 +19824,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18494,12 +19856,6 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions/workflow",
-    paramValidationFactory<t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema>(
-      actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema>(
-      actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
@@ -18508,9 +19864,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18557,12 +19925,6 @@ export function bootstrap(
   router.get(
     "actionsListRequiredWorkflowRuns",
     "/repos/:owner/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/runs",
-    paramValidationFactory<t_ActionsListRequiredWorkflowRunsParamSchema>(
-      actionsListRequiredWorkflowRunsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRequiredWorkflowRunsQuerySchema>(
-      actionsListRequiredWorkflowRunsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRequiredWorkflowRunsParamSchema,
@@ -18571,8 +19933,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRequiredWorkflowRunsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRequiredWorkflowRunsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListRequiredWorkflowRuns(ctx.state, ctx)
+        await implementation.actionsListRequiredWorkflowRuns(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18592,12 +19966,6 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersForRepo",
     "/repos/:owner/:repo/actions/runners",
-    paramValidationFactory<t_ActionsListSelfHostedRunnersForRepoParamSchema>(
-      actionsListSelfHostedRunnersForRepoParamSchema
-    ),
-    queryValidationFactory<t_ActionsListSelfHostedRunnersForRepoQuerySchema>(
-      actionsListSelfHostedRunnersForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListSelfHostedRunnersForRepoParamSchema,
@@ -18606,8 +19974,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnersForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnersForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListSelfHostedRunnersForRepo(ctx.state, ctx)
+        await implementation.actionsListSelfHostedRunnersForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18622,9 +20002,6 @@ export function bootstrap(
   router.get(
     "actionsListRunnerApplicationsForRepo",
     "/repos/:owner/:repo/actions/runners/downloads",
-    paramValidationFactory<t_ActionsListRunnerApplicationsForRepoParamSchema>(
-      actionsListRunnerApplicationsForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRunnerApplicationsForRepoParamSchema,
@@ -18633,11 +20010,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRunnerApplicationsForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListRunnerApplicationsForRepo(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsListRunnerApplicationsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18652,9 +20035,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRegistrationTokenForRepo",
     "/repos/:owner/:repo/actions/runners/registration-token",
-    paramValidationFactory<t_ActionsCreateRegistrationTokenForRepoParamSchema>(
-      actionsCreateRegistrationTokenForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRegistrationTokenForRepoParamSchema,
@@ -18663,11 +20043,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRegistrationTokenForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsCreateRegistrationTokenForRepo(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsCreateRegistrationTokenForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18682,9 +20068,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRemoveTokenForRepo",
     "/repos/:owner/:repo/actions/runners/remove-token",
-    paramValidationFactory<t_ActionsCreateRemoveTokenForRepoParamSchema>(
-      actionsCreateRemoveTokenForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRemoveTokenForRepoParamSchema,
@@ -18693,8 +20076,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRemoveTokenForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsCreateRemoveTokenForRepo(ctx.state, ctx)
+        await implementation.actionsCreateRemoveTokenForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18710,9 +20102,6 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId",
-    paramValidationFactory<t_ActionsGetSelfHostedRunnerForRepoParamSchema>(
-      actionsGetSelfHostedRunnerForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetSelfHostedRunnerForRepoParamSchema,
@@ -18721,8 +20110,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerForRepo(ctx.state, ctx)
+        await implementation.actionsGetSelfHostedRunnerForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18738,9 +20136,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerFromRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId",
-    paramValidationFactory<t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema>(
-      actionsDeleteSelfHostedRunnerFromRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
@@ -18749,11 +20144,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteSelfHostedRunnerFromRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteSelfHostedRunnerFromRepo(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsDeleteSelfHostedRunnerFromRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -18769,9 +20170,6 @@ export function bootstrap(
   router.get(
     "actionsListLabelsForSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsListLabelsForSelfHostedRunnerForRepoParamSchema>(
-      actionsListLabelsForSelfHostedRunnerForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListLabelsForSelfHostedRunnerForRepoParamSchema,
@@ -18780,9 +20178,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListLabelsForSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsListLabelsForSelfHostedRunnerForRepo(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18804,12 +20211,6 @@ export function bootstrap(
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema>(
-      actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema
-    ),
-    bodyValidationFactory<t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema>(
-      actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
@@ -18818,9 +20219,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsAddCustomLabelsToSelfHostedRunnerForRepo(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18842,12 +20255,6 @@ export function bootstrap(
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema>(
-      actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema
-    ),
-    bodyValidationFactory<t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema>(
-      actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
@@ -18856,9 +20263,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.actionsSetCustomLabelsForSelfHostedRunnerForRepo(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18877,9 +20296,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    paramValidationFactory<t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema>(
-      actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
@@ -18888,9 +20304,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18910,9 +20335,6 @@ export function bootstrap(
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels/:name",
-    paramValidationFactory<t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema>(
-      actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
@@ -18921,9 +20343,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -18969,12 +20400,6 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRunsForRepo",
     "/repos/:owner/:repo/actions/runs",
-    paramValidationFactory<t_ActionsListWorkflowRunsForRepoParamSchema>(
-      actionsListWorkflowRunsForRepoParamSchema
-    ),
-    queryValidationFactory<t_ActionsListWorkflowRunsForRepoQuerySchema>(
-      actionsListWorkflowRunsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListWorkflowRunsForRepoParamSchema,
@@ -18983,8 +20408,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListWorkflowRunsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListWorkflowRunsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListWorkflowRunsForRepo(ctx.state, ctx)
+        await implementation.actionsListWorkflowRunsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19004,12 +20441,6 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId",
-    paramValidationFactory<t_ActionsGetWorkflowRunParamSchema>(
-      actionsGetWorkflowRunParamSchema
-    ),
-    queryValidationFactory<t_ActionsGetWorkflowRunQuerySchema>(
-      actionsGetWorkflowRunQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetWorkflowRunParamSchema,
@@ -19018,8 +20449,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetWorkflowRunParamSchema, ctx.params),
+        query: parseRequestInput(actionsGetWorkflowRunQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetWorkflowRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19037,15 +20474,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId",
-    paramValidationFactory<t_ActionsDeleteWorkflowRunParamSchema>(
-      actionsDeleteWorkflowRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteWorkflowRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteWorkflowRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19063,15 +20506,21 @@ export function bootstrap(
   router.get(
     "actionsGetReviewsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/approvals",
-    paramValidationFactory<t_ActionsGetReviewsForRunParamSchema>(
-      actionsGetReviewsForRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetReviewsForRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetReviewsForRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetReviewsForRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19089,15 +20538,21 @@ export function bootstrap(
   router.post(
     "actionsApproveWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/approve",
-    paramValidationFactory<t_ActionsApproveWorkflowRunParamSchema>(
-      actionsApproveWorkflowRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsApproveWorkflowRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsApproveWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsApproveWorkflowRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19120,12 +20575,6 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRunArtifacts",
     "/repos/:owner/:repo/actions/runs/:runId/artifacts",
-    paramValidationFactory<t_ActionsListWorkflowRunArtifactsParamSchema>(
-      actionsListWorkflowRunArtifactsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListWorkflowRunArtifactsQuerySchema>(
-      actionsListWorkflowRunArtifactsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListWorkflowRunArtifactsParamSchema,
@@ -19134,8 +20583,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListWorkflowRunArtifactsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListWorkflowRunArtifactsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListWorkflowRunArtifacts(ctx.state, ctx)
+        await implementation.actionsListWorkflowRunArtifacts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19156,12 +20617,6 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRunAttempt",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber",
-    paramValidationFactory<t_ActionsGetWorkflowRunAttemptParamSchema>(
-      actionsGetWorkflowRunAttemptParamSchema
-    ),
-    queryValidationFactory<t_ActionsGetWorkflowRunAttemptQuerySchema>(
-      actionsGetWorkflowRunAttemptQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetWorkflowRunAttemptParamSchema,
@@ -19170,8 +20625,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetWorkflowRunAttemptParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsGetWorkflowRunAttemptQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetWorkflowRunAttempt(ctx.state, ctx)
+        await implementation.actionsGetWorkflowRunAttempt(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19193,12 +20660,6 @@ export function bootstrap(
   router.get(
     "actionsListJobsForWorkflowRunAttempt",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/jobs",
-    paramValidationFactory<t_ActionsListJobsForWorkflowRunAttemptParamSchema>(
-      actionsListJobsForWorkflowRunAttemptParamSchema
-    ),
-    queryValidationFactory<t_ActionsListJobsForWorkflowRunAttemptQuerySchema>(
-      actionsListJobsForWorkflowRunAttemptQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListJobsForWorkflowRunAttemptParamSchema,
@@ -19207,11 +20668,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListJobsForWorkflowRunAttemptParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListJobsForWorkflowRunAttemptQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListJobsForWorkflowRunAttempt(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsListJobsForWorkflowRunAttempt(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19228,9 +20698,6 @@ export function bootstrap(
   router.get(
     "actionsDownloadWorkflowRunAttemptLogs",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/logs",
-    paramValidationFactory<t_ActionsDownloadWorkflowRunAttemptLogsParamSchema>(
-      actionsDownloadWorkflowRunAttemptLogsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDownloadWorkflowRunAttemptLogsParamSchema,
@@ -19239,11 +20706,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDownloadWorkflowRunAttemptLogsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDownloadWorkflowRunAttemptLogs(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsDownloadWorkflowRunAttemptLogs(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19259,15 +20732,21 @@ export function bootstrap(
   router.post(
     "actionsCancelWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/cancel",
-    paramValidationFactory<t_ActionsCancelWorkflowRunParamSchema>(
-      actionsCancelWorkflowRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsCancelWorkflowRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCancelWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsCancelWorkflowRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19291,12 +20770,6 @@ export function bootstrap(
   router.get(
     "actionsListJobsForWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/jobs",
-    paramValidationFactory<t_ActionsListJobsForWorkflowRunParamSchema>(
-      actionsListJobsForWorkflowRunParamSchema
-    ),
-    queryValidationFactory<t_ActionsListJobsForWorkflowRunQuerySchema>(
-      actionsListJobsForWorkflowRunQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListJobsForWorkflowRunParamSchema,
@@ -19305,8 +20778,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListJobsForWorkflowRunParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListJobsForWorkflowRunQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListJobsForWorkflowRun(ctx.state, ctx)
+        await implementation.actionsListJobsForWorkflowRun(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19322,9 +20807,6 @@ export function bootstrap(
   router.get(
     "actionsDownloadWorkflowRunLogs",
     "/repos/:owner/:repo/actions/runs/:runId/logs",
-    paramValidationFactory<t_ActionsDownloadWorkflowRunLogsParamSchema>(
-      actionsDownloadWorkflowRunLogsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDownloadWorkflowRunLogsParamSchema,
@@ -19333,8 +20815,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDownloadWorkflowRunLogsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDownloadWorkflowRunLogs(ctx.state, ctx)
+        await implementation.actionsDownloadWorkflowRunLogs(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19350,15 +20841,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteWorkflowRunLogs",
     "/repos/:owner/:repo/actions/runs/:runId/logs",
-    paramValidationFactory<t_ActionsDeleteWorkflowRunLogsParamSchema>(
-      actionsDeleteWorkflowRunLogsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteWorkflowRunLogsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteWorkflowRunLogs(ctx.state, ctx)
+        await implementation.actionsDeleteWorkflowRunLogs(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19374,9 +20871,6 @@ export function bootstrap(
   router.get(
     "actionsGetPendingDeploymentsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
-    paramValidationFactory<t_ActionsGetPendingDeploymentsForRunParamSchema>(
-      actionsGetPendingDeploymentsForRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetPendingDeploymentsForRunParamSchema,
@@ -19385,8 +20879,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetPendingDeploymentsForRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetPendingDeploymentsForRun(ctx.state, ctx)
+        await implementation.actionsGetPendingDeploymentsForRun(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19408,12 +20911,6 @@ export function bootstrap(
   router.post(
     "actionsReviewPendingDeploymentsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
-    paramValidationFactory<t_ActionsReviewPendingDeploymentsForRunParamSchema>(
-      actionsReviewPendingDeploymentsForRunParamSchema
-    ),
-    bodyValidationFactory<t_ActionsReviewPendingDeploymentsForRunBodySchema>(
-      actionsReviewPendingDeploymentsForRunBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsReviewPendingDeploymentsForRunParamSchema,
@@ -19422,11 +20919,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsReviewPendingDeploymentsForRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsReviewPendingDeploymentsForRunBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsReviewPendingDeploymentsForRun(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsReviewPendingDeploymentsForRun(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19446,12 +20952,6 @@ export function bootstrap(
   router.post(
     "actionsReRunWorkflow",
     "/repos/:owner/:repo/actions/runs/:runId/rerun",
-    paramValidationFactory<t_ActionsReRunWorkflowParamSchema>(
-      actionsReRunWorkflowParamSchema
-    ),
-    bodyValidationFactory<t_ActionsReRunWorkflowBodySchema>(
-      actionsReRunWorkflowBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsReRunWorkflowParamSchema,
@@ -19460,8 +20960,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsReRunWorkflowParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(actionsReRunWorkflowBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.actionsReRunWorkflow(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19483,12 +20989,6 @@ export function bootstrap(
   router.post(
     "actionsReRunWorkflowFailedJobs",
     "/repos/:owner/:repo/actions/runs/:runId/rerun-failed-jobs",
-    paramValidationFactory<t_ActionsReRunWorkflowFailedJobsParamSchema>(
-      actionsReRunWorkflowFailedJobsParamSchema
-    ),
-    bodyValidationFactory<t_ActionsReRunWorkflowFailedJobsBodySchema>(
-      actionsReRunWorkflowFailedJobsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsReRunWorkflowFailedJobsParamSchema,
@@ -19497,8 +20997,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsReRunWorkflowFailedJobsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsReRunWorkflowFailedJobsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsReRunWorkflowFailedJobs(ctx.state, ctx)
+        await implementation.actionsReRunWorkflowFailedJobs(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19514,15 +21026,21 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRunUsage",
     "/repos/:owner/:repo/actions/runs/:runId/timing",
-    paramValidationFactory<t_ActionsGetWorkflowRunUsageParamSchema>(
-      actionsGetWorkflowRunUsageParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetWorkflowRunUsageParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetWorkflowRunUsageParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetWorkflowRunUsage(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19544,12 +21062,6 @@ export function bootstrap(
   router.get(
     "actionsListRepoSecrets",
     "/repos/:owner/:repo/actions/secrets",
-    paramValidationFactory<t_ActionsListRepoSecretsParamSchema>(
-      actionsListRepoSecretsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRepoSecretsQuerySchema>(
-      actionsListRepoSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRepoSecretsParamSchema,
@@ -19558,8 +21070,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(actionsListRepoSecretsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListRepoSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19576,15 +21097,21 @@ export function bootstrap(
   router.get(
     "actionsGetRepoPublicKey",
     "/repos/:owner/:repo/actions/secrets/public-key",
-    paramValidationFactory<t_ActionsGetRepoPublicKeyParamSchema>(
-      actionsGetRepoPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetRepoPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetRepoPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetRepoPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19602,15 +21129,18 @@ export function bootstrap(
   router.get(
     "actionsGetRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsGetRepoSecretParamSchema>(
-      actionsGetRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetRepoSecretParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19633,12 +21163,6 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsCreateOrUpdateRepoSecretParamSchema>(
-      actionsCreateOrUpdateRepoSecretParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateOrUpdateRepoSecretBodySchema>(
-      actionsCreateOrUpdateRepoSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateOrUpdateRepoSecretParamSchema,
@@ -19647,8 +21171,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateOrUpdateRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateOrUpdateRepoSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateOrUpdateRepoSecret(ctx.state, ctx)
+        await implementation.actionsCreateOrUpdateRepoSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19664,15 +21200,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    paramValidationFactory<t_ActionsDeleteRepoSecretParamSchema>(
-      actionsDeleteRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19694,12 +21236,6 @@ export function bootstrap(
   router.get(
     "actionsListRepoVariables",
     "/repos/:owner/:repo/actions/variables",
-    paramValidationFactory<t_ActionsListRepoVariablesParamSchema>(
-      actionsListRepoVariablesParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRepoVariablesQuerySchema>(
-      actionsListRepoVariablesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRepoVariablesParamSchema,
@@ -19708,8 +21244,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoVariablesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoVariablesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListRepoVariables(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19731,12 +21279,6 @@ export function bootstrap(
   router.post(
     "actionsCreateRepoVariable",
     "/repos/:owner/:repo/actions/variables",
-    paramValidationFactory<t_ActionsCreateRepoVariableParamSchema>(
-      actionsCreateRepoVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateRepoVariableBodySchema>(
-      actionsCreateRepoVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateRepoVariableParamSchema,
@@ -19745,8 +21287,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateRepoVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(actionsCreateRepoVariableBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.actionsCreateRepoVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19764,15 +21315,21 @@ export function bootstrap(
   router.get(
     "actionsGetRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    paramValidationFactory<t_ActionsGetRepoVariableParamSchema>(
-      actionsGetRepoVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetRepoVariableParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetRepoVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetRepoVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19795,12 +21352,6 @@ export function bootstrap(
   router.patch(
     "actionsUpdateRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    paramValidationFactory<t_ActionsUpdateRepoVariableParamSchema>(
-      actionsUpdateRepoVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsUpdateRepoVariableBodySchema>(
-      actionsUpdateRepoVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsUpdateRepoVariableParamSchema,
@@ -19809,8 +21360,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateRepoVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(actionsUpdateRepoVariableBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.actionsUpdateRepoVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19828,15 +21388,21 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    paramValidationFactory<t_ActionsDeleteRepoVariableParamSchema>(
-      actionsDeleteRepoVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDeleteRepoVariableParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteRepoVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDeleteRepoVariable(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19858,12 +21424,6 @@ export function bootstrap(
   router.get(
     "actionsListRepoWorkflows",
     "/repos/:owner/:repo/actions/workflows",
-    paramValidationFactory<t_ActionsListRepoWorkflowsParamSchema>(
-      actionsListRepoWorkflowsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListRepoWorkflowsQuerySchema>(
-      actionsListRepoWorkflowsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListRepoWorkflowsParamSchema,
@@ -19872,8 +21432,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoWorkflowsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoWorkflowsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListRepoWorkflows(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19891,15 +21463,18 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId",
-    paramValidationFactory<t_ActionsGetWorkflowParamSchema>(
-      actionsGetWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetWorkflowParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsGetWorkflowParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetWorkflow(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19917,15 +21492,21 @@ export function bootstrap(
   router.put(
     "actionsDisableWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId/disable",
-    paramValidationFactory<t_ActionsDisableWorkflowParamSchema>(
-      actionsDisableWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsDisableWorkflowParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDisableWorkflowParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsDisableWorkflow(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -19948,12 +21529,6 @@ export function bootstrap(
   router.post(
     "actionsCreateWorkflowDispatch",
     "/repos/:owner/:repo/actions/workflows/:workflowId/dispatches",
-    paramValidationFactory<t_ActionsCreateWorkflowDispatchParamSchema>(
-      actionsCreateWorkflowDispatchParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateWorkflowDispatchBodySchema>(
-      actionsCreateWorkflowDispatchBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateWorkflowDispatchParamSchema,
@@ -19962,8 +21537,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateWorkflowDispatchParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateWorkflowDispatchBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateWorkflowDispatch(ctx.state, ctx)
+        await implementation.actionsCreateWorkflowDispatch(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -19979,15 +21566,18 @@ export function bootstrap(
   router.put(
     "actionsEnableWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId/enable",
-    paramValidationFactory<t_ActionsEnableWorkflowParamSchema>(
-      actionsEnableWorkflowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsEnableWorkflowParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(actionsEnableWorkflowParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsEnableWorkflow(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20034,12 +21624,6 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRuns",
     "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
-    paramValidationFactory<t_ActionsListWorkflowRunsParamSchema>(
-      actionsListWorkflowRunsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListWorkflowRunsQuerySchema>(
-      actionsListWorkflowRunsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListWorkflowRunsParamSchema,
@@ -20048,8 +21632,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListWorkflowRunsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(actionsListWorkflowRunsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsListWorkflowRuns(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20067,15 +21660,21 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowUsage",
     "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
-    paramValidationFactory<t_ActionsGetWorkflowUsageParamSchema>(
-      actionsGetWorkflowUsageParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetWorkflowUsageParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetWorkflowUsageParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetWorkflowUsage(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20097,12 +21696,6 @@ export function bootstrap(
   router.get(
     "issuesListAssignees",
     "/repos/:owner/:repo/assignees",
-    paramValidationFactory<t_IssuesListAssigneesParamSchema>(
-      issuesListAssigneesParamSchema
-    ),
-    queryValidationFactory<t_IssuesListAssigneesQuerySchema>(
-      issuesListAssigneesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListAssigneesParamSchema,
@@ -20111,8 +21704,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesListAssigneesParamSchema, ctx.params),
+        query: parseRequestInput(issuesListAssigneesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListAssignees(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20130,15 +21729,21 @@ export function bootstrap(
   router.get(
     "issuesCheckUserCanBeAssigned",
     "/repos/:owner/:repo/assignees/:assignee",
-    paramValidationFactory<t_IssuesCheckUserCanBeAssignedParamSchema>(
-      issuesCheckUserCanBeAssignedParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesCheckUserCanBeAssignedParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesCheckUserCanBeAssignedParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.issuesCheckUserCanBeAssigned(ctx.state, ctx)
+        await implementation.issuesCheckUserCanBeAssigned(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20157,12 +21762,6 @@ export function bootstrap(
   router.get(
     "reposListAutolinks",
     "/repos/:owner/:repo/autolinks",
-    paramValidationFactory<t_ReposListAutolinksParamSchema>(
-      reposListAutolinksParamSchema
-    ),
-    queryValidationFactory<t_ReposListAutolinksQuerySchema>(
-      reposListAutolinksQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListAutolinksParamSchema,
@@ -20171,8 +21770,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListAutolinksParamSchema, ctx.params),
+        query: parseRequestInput(reposListAutolinksQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListAutolinks(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20195,12 +21800,6 @@ export function bootstrap(
   router.post(
     "reposCreateAutolink",
     "/repos/:owner/:repo/autolinks",
-    paramValidationFactory<t_ReposCreateAutolinkParamSchema>(
-      reposCreateAutolinkParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateAutolinkBodySchema>(
-      reposCreateAutolinkBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateAutolinkParamSchema,
@@ -20209,8 +21808,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreateAutolinkParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateAutolinkBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateAutolink(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20228,17 +21833,17 @@ export function bootstrap(
   router.get(
     "reposGetAutolink",
     "/repos/:owner/:repo/autolinks/:autolinkId",
-    paramValidationFactory<t_ReposGetAutolinkParamSchema>(
-      reposGetAutolinkParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetAutolinkParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetAutolink(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetAutolinkParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetAutolink(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20254,15 +21859,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteAutolink",
     "/repos/:owner/:repo/autolinks/:autolinkId",
-    paramValidationFactory<t_ReposDeleteAutolinkParamSchema>(
-      reposDeleteAutolinkParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteAutolinkParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteAutolinkParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteAutolink(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20279,9 +21887,6 @@ export function bootstrap(
   router.put(
     "reposEnableAutomatedSecurityFixes",
     "/repos/:owner/:repo/automated-security-fixes",
-    paramValidationFactory<t_ReposEnableAutomatedSecurityFixesParamSchema>(
-      reposEnableAutomatedSecurityFixesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposEnableAutomatedSecurityFixesParamSchema,
@@ -20290,8 +21895,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposEnableAutomatedSecurityFixesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposEnableAutomatedSecurityFixes(ctx.state, ctx)
+        await implementation.reposEnableAutomatedSecurityFixes(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20306,9 +21920,6 @@ export function bootstrap(
   router.delete(
     "reposDisableAutomatedSecurityFixes",
     "/repos/:owner/:repo/automated-security-fixes",
-    paramValidationFactory<t_ReposDisableAutomatedSecurityFixesParamSchema>(
-      reposDisableAutomatedSecurityFixesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDisableAutomatedSecurityFixesParamSchema,
@@ -20317,8 +21928,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisableAutomatedSecurityFixesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDisableAutomatedSecurityFixes(ctx.state, ctx)
+        await implementation.reposDisableAutomatedSecurityFixes(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20339,12 +21959,6 @@ export function bootstrap(
   router.get(
     "reposListBranches",
     "/repos/:owner/:repo/branches",
-    paramValidationFactory<t_ReposListBranchesParamSchema>(
-      reposListBranchesParamSchema
-    ),
-    queryValidationFactory<t_ReposListBranchesQuerySchema>(
-      reposListBranchesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListBranchesParamSchema,
@@ -20353,8 +21967,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListBranchesParamSchema, ctx.params),
+        query: parseRequestInput(reposListBranchesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListBranches(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20372,17 +21992,17 @@ export function bootstrap(
   router.get(
     "reposGetBranch",
     "/repos/:owner/:repo/branches/:branch",
-    paramValidationFactory<t_ReposGetBranchParamSchema>(
-      reposGetBranchParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetBranchParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetBranch(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetBranchParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetBranch(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20398,15 +22018,21 @@ export function bootstrap(
   router.get(
     "reposGetBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    paramValidationFactory<t_ReposGetBranchProtectionParamSchema>(
-      reposGetBranchProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetBranchProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetBranchProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20472,12 +22098,6 @@ export function bootstrap(
   router.put(
     "reposUpdateBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    paramValidationFactory<t_ReposUpdateBranchProtectionParamSchema>(
-      reposUpdateBranchProtectionParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateBranchProtectionBodySchema>(
-      reposUpdateBranchProtectionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateBranchProtectionParamSchema,
@@ -20486,8 +22106,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateBranchProtectionBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.reposUpdateBranchProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20505,15 +22137,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    paramValidationFactory<t_ReposDeleteBranchProtectionParamSchema>(
-      reposDeleteBranchProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteBranchProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteBranchProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20531,15 +22169,21 @@ export function bootstrap(
   router.get(
     "reposGetAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    paramValidationFactory<t_ReposGetAdminBranchProtectionParamSchema>(
-      reposGetAdminBranchProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetAdminBranchProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAdminBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetAdminBranchProtection(ctx.state, ctx)
+        await implementation.reposGetAdminBranchProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20555,15 +22199,21 @@ export function bootstrap(
   router.post(
     "reposSetAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    paramValidationFactory<t_ReposSetAdminBranchProtectionParamSchema>(
-      reposSetAdminBranchProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposSetAdminBranchProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposSetAdminBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposSetAdminBranchProtection(ctx.state, ctx)
+        await implementation.reposSetAdminBranchProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20579,9 +22229,6 @@ export function bootstrap(
   router.delete(
     "reposDeleteAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    paramValidationFactory<t_ReposDeleteAdminBranchProtectionParamSchema>(
-      reposDeleteAdminBranchProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeleteAdminBranchProtectionParamSchema,
@@ -20590,8 +22237,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteAdminBranchProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDeleteAdminBranchProtection(ctx.state, ctx)
+        await implementation.reposDeleteAdminBranchProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20607,9 +22263,6 @@ export function bootstrap(
   router.get(
     "reposGetPullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    paramValidationFactory<t_ReposGetPullRequestReviewProtectionParamSchema>(
-      reposGetPullRequestReviewProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetPullRequestReviewProtectionParamSchema,
@@ -20618,8 +22271,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetPullRequestReviewProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetPullRequestReviewProtection(ctx.state, ctx)
+        await implementation.reposGetPullRequestReviewProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20658,12 +22320,6 @@ export function bootstrap(
   router.patch(
     "reposUpdatePullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    paramValidationFactory<t_ReposUpdatePullRequestReviewProtectionParamSchema>(
-      reposUpdatePullRequestReviewProtectionParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdatePullRequestReviewProtectionBodySchema>(
-      reposUpdatePullRequestReviewProtectionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdatePullRequestReviewProtectionParamSchema,
@@ -20672,11 +22328,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdatePullRequestReviewProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdatePullRequestReviewProtectionBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposUpdatePullRequestReviewProtection(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposUpdatePullRequestReviewProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20692,9 +22357,6 @@ export function bootstrap(
   router.delete(
     "reposDeletePullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    paramValidationFactory<t_ReposDeletePullRequestReviewProtectionParamSchema>(
-      reposDeletePullRequestReviewProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeletePullRequestReviewProtectionParamSchema,
@@ -20703,11 +22365,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeletePullRequestReviewProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDeletePullRequestReviewProtection(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposDeletePullRequestReviewProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20723,9 +22391,6 @@ export function bootstrap(
   router.get(
     "reposGetCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    paramValidationFactory<t_ReposGetCommitSignatureProtectionParamSchema>(
-      reposGetCommitSignatureProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetCommitSignatureProtectionParamSchema,
@@ -20734,8 +22399,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCommitSignatureProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetCommitSignatureProtection(ctx.state, ctx)
+        await implementation.reposGetCommitSignatureProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20751,9 +22425,6 @@ export function bootstrap(
   router.post(
     "reposCreateCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    paramValidationFactory<t_ReposCreateCommitSignatureProtectionParamSchema>(
-      reposCreateCommitSignatureProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateCommitSignatureProtectionParamSchema,
@@ -20762,11 +22433,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateCommitSignatureProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposCreateCommitSignatureProtection(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposCreateCommitSignatureProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20782,9 +22459,6 @@ export function bootstrap(
   router.delete(
     "reposDeleteCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    paramValidationFactory<t_ReposDeleteCommitSignatureProtectionParamSchema>(
-      reposDeleteCommitSignatureProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeleteCommitSignatureProtectionParamSchema,
@@ -20793,11 +22467,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteCommitSignatureProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDeleteCommitSignatureProtection(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposDeleteCommitSignatureProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20813,9 +22493,6 @@ export function bootstrap(
   router.get(
     "reposGetStatusChecksProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    paramValidationFactory<t_ReposGetStatusChecksProtectionParamSchema>(
-      reposGetStatusChecksProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetStatusChecksProtectionParamSchema,
@@ -20824,8 +22501,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetStatusChecksProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetStatusChecksProtection(ctx.state, ctx)
+        await implementation.reposGetStatusChecksProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20856,12 +22542,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateStatusCheckProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    paramValidationFactory<t_ReposUpdateStatusCheckProtectionParamSchema>(
-      reposUpdateStatusCheckProtectionParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateStatusCheckProtectionBodySchema>(
-      reposUpdateStatusCheckProtectionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateStatusCheckProtectionParamSchema,
@@ -20870,8 +22550,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateStatusCheckProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateStatusCheckProtectionBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposUpdateStatusCheckProtection(ctx.state, ctx)
+        await implementation.reposUpdateStatusCheckProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20887,9 +22579,6 @@ export function bootstrap(
   router.delete(
     "reposRemoveStatusCheckProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    paramValidationFactory<t_ReposRemoveStatusCheckProtectionParamSchema>(
-      reposRemoveStatusCheckProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRemoveStatusCheckProtectionParamSchema,
@@ -20898,8 +22587,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveStatusCheckProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposRemoveStatusCheckProtection(ctx.state, ctx)
+        await implementation.reposRemoveStatusCheckProtection(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20915,9 +22613,6 @@ export function bootstrap(
   router.get(
     "reposGetAllStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    paramValidationFactory<t_ReposGetAllStatusCheckContextsParamSchema>(
-      reposGetAllStatusCheckContextsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetAllStatusCheckContextsParamSchema,
@@ -20926,8 +22621,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAllStatusCheckContextsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetAllStatusCheckContexts(ctx.state, ctx)
+        await implementation.reposGetAllStatusCheckContexts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -20948,12 +22652,6 @@ export function bootstrap(
   router.post(
     "reposAddStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    paramValidationFactory<t_ReposAddStatusCheckContextsParamSchema>(
-      reposAddStatusCheckContextsParamSchema
-    ),
-    bodyValidationFactory<t_ReposAddStatusCheckContextsBodySchema>(
-      reposAddStatusCheckContextsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAddStatusCheckContextsParamSchema,
@@ -20962,8 +22660,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposAddStatusCheckContextsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposAddStatusCheckContextsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.reposAddStatusCheckContexts(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -20986,12 +22696,6 @@ export function bootstrap(
   router.put(
     "reposSetStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    paramValidationFactory<t_ReposSetStatusCheckContextsParamSchema>(
-      reposSetStatusCheckContextsParamSchema
-    ),
-    bodyValidationFactory<t_ReposSetStatusCheckContextsBodySchema>(
-      reposSetStatusCheckContextsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposSetStatusCheckContextsParamSchema,
@@ -21000,8 +22704,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposSetStatusCheckContextsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposSetStatusCheckContextsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.reposSetStatusCheckContexts(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21024,12 +22740,6 @@ export function bootstrap(
   router.delete(
     "reposRemoveStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    paramValidationFactory<t_ReposRemoveStatusCheckContextsParamSchema>(
-      reposRemoveStatusCheckContextsParamSchema
-    ),
-    bodyValidationFactory<t_ReposRemoveStatusCheckContextsBodySchema>(
-      reposRemoveStatusCheckContextsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRemoveStatusCheckContextsParamSchema,
@@ -21038,8 +22748,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveStatusCheckContextsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposRemoveStatusCheckContextsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposRemoveStatusCheckContexts(ctx.state, ctx)
+        await implementation.reposRemoveStatusCheckContexts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21055,15 +22777,21 @@ export function bootstrap(
   router.get(
     "reposGetAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-    paramValidationFactory<t_ReposGetAccessRestrictionsParamSchema>(
-      reposGetAccessRestrictionsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetAccessRestrictionsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetAccessRestrictions(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21081,15 +22809,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-    paramValidationFactory<t_ReposDeleteAccessRestrictionsParamSchema>(
-      reposDeleteAccessRestrictionsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteAccessRestrictionsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDeleteAccessRestrictions(ctx.state, ctx)
+        await implementation.reposDeleteAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21105,9 +22839,6 @@ export function bootstrap(
   router.get(
     "reposGetAppsWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    paramValidationFactory<t_ReposGetAppsWithAccessToProtectedBranchParamSchema>(
-      reposGetAppsWithAccessToProtectedBranchParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetAppsWithAccessToProtectedBranchParamSchema,
@@ -21116,11 +22847,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAppsWithAccessToProtectedBranchParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetAppsWithAccessToProtectedBranch(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposGetAppsWithAccessToProtectedBranch(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21141,12 +22878,6 @@ export function bootstrap(
   router.post(
     "reposAddAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    paramValidationFactory<t_ReposAddAppAccessRestrictionsParamSchema>(
-      reposAddAppAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposAddAppAccessRestrictionsBodySchema>(
-      reposAddAppAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAddAppAccessRestrictionsParamSchema,
@@ -21155,8 +22886,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposAddAppAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposAddAppAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposAddAppAccessRestrictions(ctx.state, ctx)
+        await implementation.reposAddAppAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21177,12 +22920,6 @@ export function bootstrap(
   router.put(
     "reposSetAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    paramValidationFactory<t_ReposSetAppAccessRestrictionsParamSchema>(
-      reposSetAppAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposSetAppAccessRestrictionsBodySchema>(
-      reposSetAppAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposSetAppAccessRestrictionsParamSchema,
@@ -21191,8 +22928,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposSetAppAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposSetAppAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposSetAppAccessRestrictions(ctx.state, ctx)
+        await implementation.reposSetAppAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21213,12 +22962,6 @@ export function bootstrap(
   router.delete(
     "reposRemoveAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    paramValidationFactory<t_ReposRemoveAppAccessRestrictionsParamSchema>(
-      reposRemoveAppAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposRemoveAppAccessRestrictionsBodySchema>(
-      reposRemoveAppAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRemoveAppAccessRestrictionsParamSchema,
@@ -21227,8 +22970,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveAppAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposRemoveAppAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposRemoveAppAccessRestrictions(ctx.state, ctx)
+        await implementation.reposRemoveAppAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21244,9 +22999,6 @@ export function bootstrap(
   router.get(
     "reposGetTeamsWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    paramValidationFactory<t_ReposGetTeamsWithAccessToProtectedBranchParamSchema>(
-      reposGetTeamsWithAccessToProtectedBranchParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetTeamsWithAccessToProtectedBranchParamSchema,
@@ -21255,9 +23007,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetTeamsWithAccessToProtectedBranchParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposGetTeamsWithAccessToProtectedBranch(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -21280,12 +23041,6 @@ export function bootstrap(
   router.post(
     "reposAddTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    paramValidationFactory<t_ReposAddTeamAccessRestrictionsParamSchema>(
-      reposAddTeamAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposAddTeamAccessRestrictionsBodySchema>(
-      reposAddTeamAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAddTeamAccessRestrictionsParamSchema,
@@ -21294,8 +23049,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposAddTeamAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposAddTeamAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposAddTeamAccessRestrictions(ctx.state, ctx)
+        await implementation.reposAddTeamAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21316,12 +23083,6 @@ export function bootstrap(
   router.put(
     "reposSetTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    paramValidationFactory<t_ReposSetTeamAccessRestrictionsParamSchema>(
-      reposSetTeamAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposSetTeamAccessRestrictionsBodySchema>(
-      reposSetTeamAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposSetTeamAccessRestrictionsParamSchema,
@@ -21330,8 +23091,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposSetTeamAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposSetTeamAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposSetTeamAccessRestrictions(ctx.state, ctx)
+        await implementation.reposSetTeamAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21352,12 +23125,6 @@ export function bootstrap(
   router.delete(
     "reposRemoveTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    paramValidationFactory<t_ReposRemoveTeamAccessRestrictionsParamSchema>(
-      reposRemoveTeamAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposRemoveTeamAccessRestrictionsBodySchema>(
-      reposRemoveTeamAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRemoveTeamAccessRestrictionsParamSchema,
@@ -21366,8 +23133,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveTeamAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposRemoveTeamAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposRemoveTeamAccessRestrictions(ctx.state, ctx)
+        await implementation.reposRemoveTeamAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21383,9 +23162,6 @@ export function bootstrap(
   router.get(
     "reposGetUsersWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    paramValidationFactory<t_ReposGetUsersWithAccessToProtectedBranchParamSchema>(
-      reposGetUsersWithAccessToProtectedBranchParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetUsersWithAccessToProtectedBranchParamSchema,
@@ -21394,9 +23170,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetUsersWithAccessToProtectedBranchParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposGetUsersWithAccessToProtectedBranch(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -21419,12 +23204,6 @@ export function bootstrap(
   router.post(
     "reposAddUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    paramValidationFactory<t_ReposAddUserAccessRestrictionsParamSchema>(
-      reposAddUserAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposAddUserAccessRestrictionsBodySchema>(
-      reposAddUserAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAddUserAccessRestrictionsParamSchema,
@@ -21433,8 +23212,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposAddUserAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposAddUserAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposAddUserAccessRestrictions(ctx.state, ctx)
+        await implementation.reposAddUserAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21455,12 +23246,6 @@ export function bootstrap(
   router.put(
     "reposSetUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    paramValidationFactory<t_ReposSetUserAccessRestrictionsParamSchema>(
-      reposSetUserAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposSetUserAccessRestrictionsBodySchema>(
-      reposSetUserAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposSetUserAccessRestrictionsParamSchema,
@@ -21469,8 +23254,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposSetUserAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposSetUserAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposSetUserAccessRestrictions(ctx.state, ctx)
+        await implementation.reposSetUserAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21491,12 +23288,6 @@ export function bootstrap(
   router.delete(
     "reposRemoveUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    paramValidationFactory<t_ReposRemoveUserAccessRestrictionsParamSchema>(
-      reposRemoveUserAccessRestrictionsParamSchema
-    ),
-    bodyValidationFactory<t_ReposRemoveUserAccessRestrictionsBodySchema>(
-      reposRemoveUserAccessRestrictionsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRemoveUserAccessRestrictionsParamSchema,
@@ -21505,8 +23296,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveUserAccessRestrictionsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposRemoveUserAccessRestrictionsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposRemoveUserAccessRestrictions(ctx.state, ctx)
+        await implementation.reposRemoveUserAccessRestrictions(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21524,12 +23327,6 @@ export function bootstrap(
   router.post(
     "reposRenameBranch",
     "/repos/:owner/:repo/branches/:branch/rename",
-    paramValidationFactory<t_ReposRenameBranchParamSchema>(
-      reposRenameBranchParamSchema
-    ),
-    bodyValidationFactory<t_ReposRenameBranchBodySchema>(
-      reposRenameBranchBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposRenameBranchParamSchema,
@@ -21538,8 +23335,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposRenameBranchParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposRenameBranchBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposRenameBranch(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21561,8 +23364,6 @@ export function bootstrap(
   router.post(
     "checksCreate",
     "/repos/:owner/:repo/check-runs",
-    paramValidationFactory<t_ChecksCreateParamSchema>(checksCreateParamSchema),
-    bodyValidationFactory<t_ChecksCreateBodySchema>(checksCreateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_ChecksCreateParamSchema,
@@ -21571,7 +23372,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.checksCreate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(checksCreateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(checksCreateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.checksCreate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21587,12 +23394,17 @@ export function bootstrap(
   router.get(
     "checksGet",
     "/repos/:owner/:repo/check-runs/:checkRunId",
-    paramValidationFactory<t_ChecksGetParamSchema>(checksGetParamSchema),
     async (
       ctx: ValidatedCtx<t_ChecksGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.checksGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(checksGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.checksGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21669,8 +23481,6 @@ export function bootstrap(
   router.patch(
     "checksUpdate",
     "/repos/:owner/:repo/check-runs/:checkRunId",
-    paramValidationFactory<t_ChecksUpdateParamSchema>(checksUpdateParamSchema),
-    bodyValidationFactory<t_ChecksUpdateBodySchema>(checksUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_ChecksUpdateParamSchema,
@@ -21679,7 +23489,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.checksUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(checksUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(checksUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.checksUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21700,12 +23516,6 @@ export function bootstrap(
   router.get(
     "checksListAnnotations",
     "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
-    paramValidationFactory<t_ChecksListAnnotationsParamSchema>(
-      checksListAnnotationsParamSchema
-    ),
-    queryValidationFactory<t_ChecksListAnnotationsQuerySchema>(
-      checksListAnnotationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksListAnnotationsParamSchema,
@@ -21714,8 +23524,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(checksListAnnotationsParamSchema, ctx.params),
+        query: parseRequestInput(checksListAnnotationsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.checksListAnnotations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21733,15 +23549,18 @@ export function bootstrap(
   router.post(
     "checksRerequestRun",
     "/repos/:owner/:repo/check-runs/:checkRunId/rerequest",
-    paramValidationFactory<t_ChecksRerequestRunParamSchema>(
-      checksRerequestRunParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ChecksRerequestRunParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(checksRerequestRunParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.checksRerequestRun(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21760,12 +23579,6 @@ export function bootstrap(
   router.post(
     "checksCreateSuite",
     "/repos/:owner/:repo/check-suites",
-    paramValidationFactory<t_ChecksCreateSuiteParamSchema>(
-      checksCreateSuiteParamSchema
-    ),
-    bodyValidationFactory<t_ChecksCreateSuiteBodySchema>(
-      checksCreateSuiteBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksCreateSuiteParamSchema,
@@ -21774,8 +23587,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(checksCreateSuiteParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(checksCreateSuiteBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.checksCreateSuite(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21800,12 +23619,6 @@ export function bootstrap(
   router.patch(
     "checksSetSuitesPreferences",
     "/repos/:owner/:repo/check-suites/preferences",
-    paramValidationFactory<t_ChecksSetSuitesPreferencesParamSchema>(
-      checksSetSuitesPreferencesParamSchema
-    ),
-    bodyValidationFactory<t_ChecksSetSuitesPreferencesBodySchema>(
-      checksSetSuitesPreferencesBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksSetSuitesPreferencesParamSchema,
@@ -21814,8 +23627,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          checksSetSuitesPreferencesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(checksSetSuitesPreferencesBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.checksSetSuitesPreferences(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21833,17 +23655,17 @@ export function bootstrap(
   router.get(
     "checksGetSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId",
-    paramValidationFactory<t_ChecksGetSuiteParamSchema>(
-      checksGetSuiteParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ChecksGetSuiteParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.checksGetSuite(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(checksGetSuiteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.checksGetSuite(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21867,12 +23689,6 @@ export function bootstrap(
   router.get(
     "checksListForSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
-    paramValidationFactory<t_ChecksListForSuiteParamSchema>(
-      checksListForSuiteParamSchema
-    ),
-    queryValidationFactory<t_ChecksListForSuiteQuerySchema>(
-      checksListForSuiteQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksListForSuiteParamSchema,
@@ -21881,8 +23697,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(checksListForSuiteParamSchema, ctx.params),
+        query: parseRequestInput(checksListForSuiteQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.checksListForSuite(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21900,15 +23722,18 @@ export function bootstrap(
   router.post(
     "checksRerequestSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
-    paramValidationFactory<t_ChecksRerequestSuiteParamSchema>(
-      checksRerequestSuiteParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ChecksRerequestSuiteParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(checksRerequestSuiteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.checksRerequestSuite(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -21939,12 +23764,6 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertsForRepo",
     "/repos/:owner/:repo/code-scanning/alerts",
-    paramValidationFactory<t_CodeScanningListAlertsForRepoParamSchema>(
-      codeScanningListAlertsForRepoParamSchema
-    ),
-    queryValidationFactory<t_CodeScanningListAlertsForRepoQuerySchema>(
-      codeScanningListAlertsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningListAlertsForRepoParamSchema,
@@ -21953,8 +23772,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningListAlertsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codeScanningListAlertsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningListAlertsForRepo(ctx.state, ctx)
+        await implementation.codeScanningListAlertsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -21970,15 +23801,18 @@ export function bootstrap(
   router.get(
     "codeScanningGetAlert",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
-    paramValidationFactory<t_CodeScanningGetAlertParamSchema>(
-      codeScanningGetAlertParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodeScanningGetAlertParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(codeScanningGetAlertParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codeScanningGetAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22004,12 +23838,6 @@ export function bootstrap(
   router.patch(
     "codeScanningUpdateAlert",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
-    paramValidationFactory<t_CodeScanningUpdateAlertParamSchema>(
-      codeScanningUpdateAlertParamSchema
-    ),
-    bodyValidationFactory<t_CodeScanningUpdateAlertBodySchema>(
-      codeScanningUpdateAlertBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningUpdateAlertParamSchema,
@@ -22018,8 +23846,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningUpdateAlertParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(codeScanningUpdateAlertBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.codeScanningUpdateAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22043,12 +23880,6 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertInstances",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber/instances",
-    paramValidationFactory<t_CodeScanningListAlertInstancesParamSchema>(
-      codeScanningListAlertInstancesParamSchema
-    ),
-    queryValidationFactory<t_CodeScanningListAlertInstancesQuerySchema>(
-      codeScanningListAlertInstancesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningListAlertInstancesParamSchema,
@@ -22057,8 +23888,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningListAlertInstancesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codeScanningListAlertInstancesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningListAlertInstances(ctx.state, ctx)
+        await implementation.codeScanningListAlertInstances(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22084,12 +23927,6 @@ export function bootstrap(
   router.get(
     "codeScanningListRecentAnalyses",
     "/repos/:owner/:repo/code-scanning/analyses",
-    paramValidationFactory<t_CodeScanningListRecentAnalysesParamSchema>(
-      codeScanningListRecentAnalysesParamSchema
-    ),
-    queryValidationFactory<t_CodeScanningListRecentAnalysesQuerySchema>(
-      codeScanningListRecentAnalysesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningListRecentAnalysesParamSchema,
@@ -22098,8 +23935,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningListRecentAnalysesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codeScanningListRecentAnalysesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningListRecentAnalyses(ctx.state, ctx)
+        await implementation.codeScanningListRecentAnalyses(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22115,15 +23964,21 @@ export function bootstrap(
   router.get(
     "codeScanningGetAnalysis",
     "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
-    paramValidationFactory<t_CodeScanningGetAnalysisParamSchema>(
-      codeScanningGetAnalysisParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodeScanningGetAnalysisParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningGetAnalysisParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codeScanningGetAnalysis(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22145,12 +24000,6 @@ export function bootstrap(
   router.delete(
     "codeScanningDeleteAnalysis",
     "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
-    paramValidationFactory<t_CodeScanningDeleteAnalysisParamSchema>(
-      codeScanningDeleteAnalysisParamSchema
-    ),
-    queryValidationFactory<t_CodeScanningDeleteAnalysisQuerySchema>(
-      codeScanningDeleteAnalysisQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningDeleteAnalysisParamSchema,
@@ -22159,8 +24008,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningDeleteAnalysisParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codeScanningDeleteAnalysisQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codeScanningDeleteAnalysis(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22177,9 +24038,6 @@ export function bootstrap(
   router.get(
     "codeScanningListCodeqlDatabases",
     "/repos/:owner/:repo/code-scanning/codeql/databases",
-    paramValidationFactory<t_CodeScanningListCodeqlDatabasesParamSchema>(
-      codeScanningListCodeqlDatabasesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningListCodeqlDatabasesParamSchema,
@@ -22188,8 +24046,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningListCodeqlDatabasesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningListCodeqlDatabases(ctx.state, ctx)
+        await implementation.codeScanningListCodeqlDatabases(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22205,15 +24072,21 @@ export function bootstrap(
   router.get(
     "codeScanningGetCodeqlDatabase",
     "/repos/:owner/:repo/code-scanning/codeql/databases/:language",
-    paramValidationFactory<t_CodeScanningGetCodeqlDatabaseParamSchema>(
-      codeScanningGetCodeqlDatabaseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodeScanningGetCodeqlDatabaseParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningGetCodeqlDatabaseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codeScanningGetCodeqlDatabase(ctx.state, ctx)
+        await implementation.codeScanningGetCodeqlDatabase(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22238,12 +24111,6 @@ export function bootstrap(
   router.post(
     "codeScanningUploadSarif",
     "/repos/:owner/:repo/code-scanning/sarifs",
-    paramValidationFactory<t_CodeScanningUploadSarifParamSchema>(
-      codeScanningUploadSarifParamSchema
-    ),
-    bodyValidationFactory<t_CodeScanningUploadSarifBodySchema>(
-      codeScanningUploadSarifBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodeScanningUploadSarifParamSchema,
@@ -22252,8 +24119,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningUploadSarifParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(codeScanningUploadSarifBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.codeScanningUploadSarif(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22271,15 +24147,18 @@ export function bootstrap(
   router.get(
     "codeScanningGetSarif",
     "/repos/:owner/:repo/code-scanning/sarifs/:sarifId",
-    paramValidationFactory<t_CodeScanningGetSarifParamSchema>(
-      codeScanningGetSarifParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodeScanningGetSarifParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(codeScanningGetSarifParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codeScanningGetSarif(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22300,12 +24179,6 @@ export function bootstrap(
   router.get(
     "reposCodeownersErrors",
     "/repos/:owner/:repo/codeowners/errors",
-    paramValidationFactory<t_ReposCodeownersErrorsParamSchema>(
-      reposCodeownersErrorsParamSchema
-    ),
-    queryValidationFactory<t_ReposCodeownersErrorsQuerySchema>(
-      reposCodeownersErrorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCodeownersErrorsParamSchema,
@@ -22314,8 +24187,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCodeownersErrorsParamSchema, ctx.params),
+        query: parseRequestInput(reposCodeownersErrorsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposCodeownersErrors(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22337,12 +24216,6 @@ export function bootstrap(
   router.get(
     "codespacesListInRepositoryForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces",
-    paramValidationFactory<t_CodespacesListInRepositoryForAuthenticatedUserParamSchema>(
-      codespacesListInRepositoryForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListInRepositoryForAuthenticatedUserQuerySchema>(
-      codespacesListInRepositoryForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListInRepositoryForAuthenticatedUserParamSchema,
@@ -22351,9 +24224,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListInRepositoryForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListInRepositoryForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesListInRepositoryForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -22383,12 +24268,6 @@ export function bootstrap(
   router.post(
     "codespacesCreateWithRepoForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces",
-    paramValidationFactory<t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema>(
-      codespacesCreateWithRepoForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema>(
-      codespacesCreateWithRepoForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
@@ -22397,9 +24276,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCreateWithRepoForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateWithRepoForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.codespacesCreateWithRepoForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -22420,12 +24311,6 @@ export function bootstrap(
   router.get(
     "codespacesListDevcontainersInRepositoryForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/devcontainers",
-    paramValidationFactory<t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema>(
-      codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema>(
-      codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
@@ -22434,9 +24319,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesListDevcontainersInRepositoryForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -22458,12 +24355,6 @@ export function bootstrap(
   router.get(
     "codespacesRepoMachinesForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/machines",
-    paramValidationFactory<t_CodespacesRepoMachinesForAuthenticatedUserParamSchema>(
-      codespacesRepoMachinesForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema>(
-      codespacesRepoMachinesForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesRepoMachinesForAuthenticatedUserParamSchema,
@@ -22472,9 +24363,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesRepoMachinesForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesRepoMachinesForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesRepoMachinesForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -22496,12 +24399,6 @@ export function bootstrap(
   router.get(
     "codespacesPreFlightWithRepoForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/new",
-    paramValidationFactory<t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema>(
-      codespacesPreFlightWithRepoForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema>(
-      codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
@@ -22510,9 +24407,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesPreFlightWithRepoForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -22534,12 +24443,6 @@ export function bootstrap(
   router.get(
     "codespacesListRepoSecrets",
     "/repos/:owner/:repo/codespaces/secrets",
-    paramValidationFactory<t_CodespacesListRepoSecretsParamSchema>(
-      codespacesListRepoSecretsParamSchema
-    ),
-    queryValidationFactory<t_CodespacesListRepoSecretsQuerySchema>(
-      codespacesListRepoSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListRepoSecretsParamSchema,
@@ -22548,8 +24451,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListRepoSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          codespacesListRepoSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesListRepoSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22566,15 +24481,21 @@ export function bootstrap(
   router.get(
     "codespacesGetRepoPublicKey",
     "/repos/:owner/:repo/codespaces/secrets/public-key",
-    paramValidationFactory<t_CodespacesGetRepoPublicKeyParamSchema>(
-      codespacesGetRepoPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesGetRepoPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetRepoPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesGetRepoPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22592,15 +24513,21 @@ export function bootstrap(
   router.get(
     "codespacesGetRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesGetRepoSecretParamSchema>(
-      codespacesGetRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesGetRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesGetRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22623,12 +24550,6 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesCreateOrUpdateRepoSecretParamSchema>(
-      codespacesCreateOrUpdateRepoSecretParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesCreateOrUpdateRepoSecretBodySchema>(
-      codespacesCreateOrUpdateRepoSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCreateOrUpdateRepoSecretParamSchema,
@@ -22637,8 +24558,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCreateOrUpdateRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateOrUpdateRepoSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesCreateOrUpdateRepoSecret(ctx.state, ctx)
+        await implementation.codespacesCreateOrUpdateRepoSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22654,15 +24587,21 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesDeleteRepoSecretParamSchema>(
-      codespacesDeleteRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_CodespacesDeleteRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.codespacesDeleteRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22688,12 +24627,6 @@ export function bootstrap(
   router.get(
     "reposListCollaborators",
     "/repos/:owner/:repo/collaborators",
-    paramValidationFactory<t_ReposListCollaboratorsParamSchema>(
-      reposListCollaboratorsParamSchema
-    ),
-    queryValidationFactory<t_ReposListCollaboratorsQuerySchema>(
-      reposListCollaboratorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListCollaboratorsParamSchema,
@@ -22702,8 +24635,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListCollaboratorsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(reposListCollaboratorsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListCollaborators(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22721,15 +24663,21 @@ export function bootstrap(
   router.get(
     "reposCheckCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    paramValidationFactory<t_ReposCheckCollaboratorParamSchema>(
-      reposCheckCollaboratorParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposCheckCollaboratorParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCheckCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposCheckCollaborator(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22751,12 +24699,6 @@ export function bootstrap(
   router.put(
     "reposAddCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    paramValidationFactory<t_ReposAddCollaboratorParamSchema>(
-      reposAddCollaboratorParamSchema
-    ),
-    bodyValidationFactory<t_ReposAddCollaboratorBodySchema>(
-      reposAddCollaboratorBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAddCollaboratorParamSchema,
@@ -22765,8 +24707,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposAddCollaboratorParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposAddCollaboratorBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposAddCollaborator(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22784,15 +24732,21 @@ export function bootstrap(
   router.delete(
     "reposRemoveCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    paramValidationFactory<t_ReposRemoveCollaboratorParamSchema>(
-      reposRemoveCollaboratorParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposRemoveCollaboratorParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRemoveCollaboratorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposRemoveCollaborator(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22810,9 +24764,6 @@ export function bootstrap(
   router.get(
     "reposGetCollaboratorPermissionLevel",
     "/repos/:owner/:repo/collaborators/:username/permission",
-    paramValidationFactory<t_ReposGetCollaboratorPermissionLevelParamSchema>(
-      reposGetCollaboratorPermissionLevelParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetCollaboratorPermissionLevelParamSchema,
@@ -22821,8 +24772,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCollaboratorPermissionLevelParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetCollaboratorPermissionLevel(ctx.state, ctx)
+        await implementation.reposGetCollaboratorPermissionLevel(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22842,12 +24802,6 @@ export function bootstrap(
   router.get(
     "reposListCommitCommentsForRepo",
     "/repos/:owner/:repo/comments",
-    paramValidationFactory<t_ReposListCommitCommentsForRepoParamSchema>(
-      reposListCommitCommentsForRepoParamSchema
-    ),
-    queryValidationFactory<t_ReposListCommitCommentsForRepoQuerySchema>(
-      reposListCommitCommentsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListCommitCommentsForRepoParamSchema,
@@ -22856,8 +24810,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListCommitCommentsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListCommitCommentsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposListCommitCommentsForRepo(ctx.state, ctx)
+        await implementation.reposListCommitCommentsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -22873,15 +24839,18 @@ export function bootstrap(
   router.get(
     "reposGetCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    paramValidationFactory<t_ReposGetCommitCommentParamSchema>(
-      reposGetCommitCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetCommitCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetCommitCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetCommitComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22903,12 +24872,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    paramValidationFactory<t_ReposUpdateCommitCommentParamSchema>(
-      reposUpdateCommitCommentParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateCommitCommentBodySchema>(
-      reposUpdateCommitCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateCommitCommentParamSchema,
@@ -22917,8 +24880,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposUpdateCommitCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUpdateCommitComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22936,15 +24908,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    paramValidationFactory<t_ReposDeleteCommitCommentParamSchema>(
-      reposDeleteCommitCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteCommitCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteCommitComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -22979,12 +24957,6 @@ export function bootstrap(
   router.get(
     "reactionsListForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsListForCommitCommentParamSchema>(
-      reactionsListForCommitCommentParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForCommitCommentQuerySchema>(
-      reactionsListForCommitCommentQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForCommitCommentParamSchema,
@@ -22993,8 +24965,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForCommitCommentQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsListForCommitComment(ctx.state, ctx)
+        await implementation.reactionsListForCommitComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23023,12 +25007,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsCreateForCommitCommentParamSchema>(
-      reactionsCreateForCommitCommentParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForCommitCommentBodySchema>(
-      reactionsCreateForCommitCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForCommitCommentParamSchema,
@@ -23037,8 +25015,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForCommitCommentBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reactionsCreateForCommitComment(ctx.state, ctx)
+        await implementation.reactionsCreateForCommitComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23055,9 +25045,6 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForCommitCommentParamSchema>(
-      reactionsDeleteForCommitCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsDeleteForCommitCommentParamSchema,
@@ -23066,8 +25053,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsDeleteForCommitComment(ctx.state, ctx)
+        await implementation.reactionsDeleteForCommitComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23092,12 +25088,6 @@ export function bootstrap(
   router.get(
     "reposListCommits",
     "/repos/:owner/:repo/commits",
-    paramValidationFactory<t_ReposListCommitsParamSchema>(
-      reposListCommitsParamSchema
-    ),
-    queryValidationFactory<t_ReposListCommitsQuerySchema>(
-      reposListCommitsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListCommitsParamSchema,
@@ -23106,10 +25096,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListCommits(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListCommitsParamSchema, ctx.params),
+        query: parseRequestInput(reposListCommitsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListCommits(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23125,9 +25118,6 @@ export function bootstrap(
   router.get(
     "reposListBranchesForHeadCommit",
     "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
-    paramValidationFactory<t_ReposListBranchesForHeadCommitParamSchema>(
-      reposListBranchesForHeadCommitParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListBranchesForHeadCommitParamSchema,
@@ -23136,8 +25126,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListBranchesForHeadCommitParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposListBranchesForHeadCommit(ctx.state, ctx)
+        await implementation.reposListBranchesForHeadCommit(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23158,12 +25157,6 @@ export function bootstrap(
   router.get(
     "reposListCommentsForCommit",
     "/repos/:owner/:repo/commits/:commitSha/comments",
-    paramValidationFactory<t_ReposListCommentsForCommitParamSchema>(
-      reposListCommentsForCommitParamSchema
-    ),
-    queryValidationFactory<t_ReposListCommentsForCommitQuerySchema>(
-      reposListCommentsForCommitQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListCommentsForCommitParamSchema,
@@ -23172,8 +25165,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListCommentsForCommitParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListCommentsForCommitQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListCommentsForCommit(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23198,12 +25203,6 @@ export function bootstrap(
   router.post(
     "reposCreateCommitComment",
     "/repos/:owner/:repo/commits/:commitSha/comments",
-    paramValidationFactory<t_ReposCreateCommitCommentParamSchema>(
-      reposCreateCommitCommentParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateCommitCommentBodySchema>(
-      reposCreateCommitCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateCommitCommentParamSchema,
@@ -23212,8 +25211,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateCommitCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreateCommitCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateCommitComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23236,12 +25244,6 @@ export function bootstrap(
   router.get(
     "reposListPullRequestsAssociatedWithCommit",
     "/repos/:owner/:repo/commits/:commitSha/pulls",
-    paramValidationFactory<t_ReposListPullRequestsAssociatedWithCommitParamSchema>(
-      reposListPullRequestsAssociatedWithCommitParamSchema
-    ),
-    queryValidationFactory<t_ReposListPullRequestsAssociatedWithCommitQuerySchema>(
-      reposListPullRequestsAssociatedWithCommitQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListPullRequestsAssociatedWithCommitParamSchema,
@@ -23250,9 +25252,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListPullRequestsAssociatedWithCommitParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListPullRequestsAssociatedWithCommitQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposListPullRequestsAssociatedWithCommit(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -23275,12 +25289,6 @@ export function bootstrap(
   router.get(
     "reposGetCommit",
     "/repos/:owner/:repo/commits/:ref",
-    paramValidationFactory<t_ReposGetCommitParamSchema>(
-      reposGetCommitParamSchema
-    ),
-    queryValidationFactory<t_ReposGetCommitQuerySchema>(
-      reposGetCommitQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetCommitParamSchema,
@@ -23289,10 +25297,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetCommit(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetCommitParamSchema, ctx.params),
+        query: parseRequestInput(reposGetCommitQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetCommit(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23317,12 +25328,6 @@ export function bootstrap(
   router.get(
     "checksListForRef",
     "/repos/:owner/:repo/commits/:ref/check-runs",
-    paramValidationFactory<t_ChecksListForRefParamSchema>(
-      checksListForRefParamSchema
-    ),
-    queryValidationFactory<t_ChecksListForRefQuerySchema>(
-      checksListForRefQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksListForRefParamSchema,
@@ -23331,10 +25336,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.checksListForRef(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(checksListForRefParamSchema, ctx.params),
+        query: parseRequestInput(checksListForRefQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.checksListForRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23357,12 +25365,6 @@ export function bootstrap(
   router.get(
     "checksListSuitesForRef",
     "/repos/:owner/:repo/commits/:ref/check-suites",
-    paramValidationFactory<t_ChecksListSuitesForRefParamSchema>(
-      checksListSuitesForRefParamSchema
-    ),
-    queryValidationFactory<t_ChecksListSuitesForRefQuerySchema>(
-      checksListSuitesForRefQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ChecksListSuitesForRefParamSchema,
@@ -23371,8 +25373,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          checksListSuitesForRefParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(checksListSuitesForRefQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.checksListSuitesForRef(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23395,12 +25406,6 @@ export function bootstrap(
   router.get(
     "reposGetCombinedStatusForRef",
     "/repos/:owner/:repo/commits/:ref/status",
-    paramValidationFactory<t_ReposGetCombinedStatusForRefParamSchema>(
-      reposGetCombinedStatusForRefParamSchema
-    ),
-    queryValidationFactory<t_ReposGetCombinedStatusForRefQuerySchema>(
-      reposGetCombinedStatusForRefQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetCombinedStatusForRefParamSchema,
@@ -23409,8 +25414,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCombinedStatusForRefParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposGetCombinedStatusForRefQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetCombinedStatusForRef(ctx.state, ctx)
+        await implementation.reposGetCombinedStatusForRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23431,12 +25448,6 @@ export function bootstrap(
   router.get(
     "reposListCommitStatusesForRef",
     "/repos/:owner/:repo/commits/:ref/statuses",
-    paramValidationFactory<t_ReposListCommitStatusesForRefParamSchema>(
-      reposListCommitStatusesForRefParamSchema
-    ),
-    queryValidationFactory<t_ReposListCommitStatusesForRefQuerySchema>(
-      reposListCommitStatusesForRefQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListCommitStatusesForRefParamSchema,
@@ -23445,8 +25456,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListCommitStatusesForRefParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListCommitStatusesForRefQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposListCommitStatusesForRef(ctx.state, ctx)
+        await implementation.reposListCommitStatusesForRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23461,9 +25484,6 @@ export function bootstrap(
   router.get(
     "reposGetCommunityProfileMetrics",
     "/repos/:owner/:repo/community/profile",
-    paramValidationFactory<t_ReposGetCommunityProfileMetricsParamSchema>(
-      reposGetCommunityProfileMetricsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetCommunityProfileMetricsParamSchema,
@@ -23472,8 +25492,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCommunityProfileMetricsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetCommunityProfileMetrics(ctx.state, ctx)
+        await implementation.reposGetCommunityProfileMetrics(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23494,12 +25523,6 @@ export function bootstrap(
   router.get(
     "reposCompareCommits",
     "/repos/:owner/:repo/compare/:basehead",
-    paramValidationFactory<t_ReposCompareCommitsParamSchema>(
-      reposCompareCommitsParamSchema
-    ),
-    queryValidationFactory<t_ReposCompareCommitsQuerySchema>(
-      reposCompareCommitsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCompareCommitsParamSchema,
@@ -23508,8 +25531,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCompareCommitsParamSchema, ctx.params),
+        query: parseRequestInput(reposCompareCommitsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposCompareCommits(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23531,12 +25560,6 @@ export function bootstrap(
   router.get(
     "reposGetContent",
     "/repos/:owner/:repo/contents/:path",
-    paramValidationFactory<t_ReposGetContentParamSchema>(
-      reposGetContentParamSchema
-    ),
-    queryValidationFactory<t_ReposGetContentQuerySchema>(
-      reposGetContentQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetContentParamSchema,
@@ -23545,10 +25568,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetContent(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetContentParamSchema, ctx.params),
+        query: parseRequestInput(reposGetContentQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetContent(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23585,12 +25611,6 @@ export function bootstrap(
   router.put(
     "reposCreateOrUpdateFileContents",
     "/repos/:owner/:repo/contents/:path",
-    paramValidationFactory<t_ReposCreateOrUpdateFileContentsParamSchema>(
-      reposCreateOrUpdateFileContentsParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateOrUpdateFileContentsBodySchema>(
-      reposCreateOrUpdateFileContentsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateOrUpdateFileContentsParamSchema,
@@ -23599,8 +25619,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateOrUpdateFileContentsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateOrUpdateFileContentsBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposCreateOrUpdateFileContents(ctx.state, ctx)
+        await implementation.reposCreateOrUpdateFileContents(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23634,12 +25666,6 @@ export function bootstrap(
   router.delete(
     "reposDeleteFile",
     "/repos/:owner/:repo/contents/:path",
-    paramValidationFactory<t_ReposDeleteFileParamSchema>(
-      reposDeleteFileParamSchema
-    ),
-    bodyValidationFactory<t_ReposDeleteFileBodySchema>(
-      reposDeleteFileBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeleteFileParamSchema,
@@ -23648,10 +25674,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposDeleteFile(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposDeleteFileParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposDeleteFileBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposDeleteFile(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23672,12 +25701,6 @@ export function bootstrap(
   router.get(
     "reposListContributors",
     "/repos/:owner/:repo/contributors",
-    paramValidationFactory<t_ReposListContributorsParamSchema>(
-      reposListContributorsParamSchema
-    ),
-    queryValidationFactory<t_ReposListContributorsQuerySchema>(
-      reposListContributorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListContributorsParamSchema,
@@ -23686,8 +25709,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListContributorsParamSchema, ctx.params),
+        query: parseRequestInput(reposListContributorsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListContributors(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23721,12 +25750,6 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForRepo",
     "/repos/:owner/:repo/dependabot/alerts",
-    paramValidationFactory<t_DependabotListAlertsForRepoParamSchema>(
-      dependabotListAlertsForRepoParamSchema
-    ),
-    queryValidationFactory<t_DependabotListAlertsForRepoQuerySchema>(
-      dependabotListAlertsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListAlertsForRepoParamSchema,
@@ -23735,8 +25758,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListAlertsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListAlertsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotListAlertsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23754,15 +25789,18 @@ export function bootstrap(
   router.get(
     "dependabotGetAlert",
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
-    paramValidationFactory<t_DependabotGetAlertParamSchema>(
-      dependabotGetAlertParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotGetAlertParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(dependabotGetAlertParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotGetAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23794,12 +25832,6 @@ export function bootstrap(
   router.patch(
     "dependabotUpdateAlert",
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
-    paramValidationFactory<t_DependabotUpdateAlertParamSchema>(
-      dependabotUpdateAlertParamSchema
-    ),
-    bodyValidationFactory<t_DependabotUpdateAlertBodySchema>(
-      dependabotUpdateAlertBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotUpdateAlertParamSchema,
@@ -23808,8 +25840,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(dependabotUpdateAlertParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(dependabotUpdateAlertBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.dependabotUpdateAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23831,12 +25869,6 @@ export function bootstrap(
   router.get(
     "dependabotListRepoSecrets",
     "/repos/:owner/:repo/dependabot/secrets",
-    paramValidationFactory<t_DependabotListRepoSecretsParamSchema>(
-      dependabotListRepoSecretsParamSchema
-    ),
-    queryValidationFactory<t_DependabotListRepoSecretsQuerySchema>(
-      dependabotListRepoSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotListRepoSecretsParamSchema,
@@ -23845,8 +25877,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotListRepoSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependabotListRepoSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotListRepoSecrets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23863,15 +25907,21 @@ export function bootstrap(
   router.get(
     "dependabotGetRepoPublicKey",
     "/repos/:owner/:repo/dependabot/secrets/public-key",
-    paramValidationFactory<t_DependabotGetRepoPublicKeyParamSchema>(
-      dependabotGetRepoPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotGetRepoPublicKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotGetRepoPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotGetRepoPublicKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23889,15 +25939,21 @@ export function bootstrap(
   router.get(
     "dependabotGetRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotGetRepoSecretParamSchema>(
-      dependabotGetRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotGetRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotGetRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotGetRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23920,12 +25976,6 @@ export function bootstrap(
   router.put(
     "dependabotCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotCreateOrUpdateRepoSecretParamSchema>(
-      dependabotCreateOrUpdateRepoSecretParamSchema
-    ),
-    bodyValidationFactory<t_DependabotCreateOrUpdateRepoSecretBodySchema>(
-      dependabotCreateOrUpdateRepoSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependabotCreateOrUpdateRepoSecretParamSchema,
@@ -23934,8 +25984,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotCreateOrUpdateRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependabotCreateOrUpdateRepoSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.dependabotCreateOrUpdateRepoSecret(ctx.state, ctx)
+        await implementation.dependabotCreateOrUpdateRepoSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -23951,15 +26013,21 @@ export function bootstrap(
   router.delete(
     "dependabotDeleteRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    paramValidationFactory<t_DependabotDeleteRepoSecretParamSchema>(
-      dependabotDeleteRepoSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_DependabotDeleteRepoSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotDeleteRepoSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependabotDeleteRepoSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -23981,12 +26049,6 @@ export function bootstrap(
   router.get(
     "dependencyGraphDiffRange",
     "/repos/:owner/:repo/dependency-graph/compare/:basehead",
-    paramValidationFactory<t_DependencyGraphDiffRangeParamSchema>(
-      dependencyGraphDiffRangeParamSchema
-    ),
-    queryValidationFactory<t_DependencyGraphDiffRangeQuerySchema>(
-      dependencyGraphDiffRangeQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependencyGraphDiffRangeParamSchema,
@@ -23995,8 +26057,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependencyGraphDiffRangeParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          dependencyGraphDiffRangeQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.dependencyGraphDiffRange(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24032,12 +26106,6 @@ export function bootstrap(
   router.post(
     "dependencyGraphCreateRepositorySnapshot",
     "/repos/:owner/:repo/dependency-graph/snapshots",
-    paramValidationFactory<t_DependencyGraphCreateRepositorySnapshotParamSchema>(
-      dependencyGraphCreateRepositorySnapshotParamSchema
-    ),
-    bodyValidationFactory<t_DependencyGraphCreateRepositorySnapshotBodySchema>(
-      dependencyGraphCreateRepositorySnapshotBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_DependencyGraphCreateRepositorySnapshotParamSchema,
@@ -24046,11 +26114,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          dependencyGraphCreateRepositorySnapshotParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependencyGraphCreateRepositorySnapshotBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.dependencyGraphCreateRepositorySnapshot(
-          ctx.state,
-          ctx
-        )
+        await implementation.dependencyGraphCreateRepositorySnapshot(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24074,12 +26151,6 @@ export function bootstrap(
   router.get(
     "reposListDeployments",
     "/repos/:owner/:repo/deployments",
-    paramValidationFactory<t_ReposListDeploymentsParamSchema>(
-      reposListDeploymentsParamSchema
-    ),
-    queryValidationFactory<t_ReposListDeploymentsQuerySchema>(
-      reposListDeploymentsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListDeploymentsParamSchema,
@@ -24088,8 +26159,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListDeploymentsParamSchema, ctx.params),
+        query: parseRequestInput(reposListDeploymentsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListDeployments(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24118,12 +26195,6 @@ export function bootstrap(
   router.post(
     "reposCreateDeployment",
     "/repos/:owner/:repo/deployments",
-    paramValidationFactory<t_ReposCreateDeploymentParamSchema>(
-      reposCreateDeploymentParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateDeploymentBodySchema>(
-      reposCreateDeploymentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateDeploymentParamSchema,
@@ -24132,8 +26203,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreateDeploymentParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateDeploymentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateDeployment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24151,15 +26228,18 @@ export function bootstrap(
   router.get(
     "reposGetDeployment",
     "/repos/:owner/:repo/deployments/:deploymentId",
-    paramValidationFactory<t_ReposGetDeploymentParamSchema>(
-      reposGetDeploymentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetDeploymentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetDeploymentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetDeployment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24177,15 +26257,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeployment",
     "/repos/:owner/:repo/deployments/:deploymentId",
-    paramValidationFactory<t_ReposDeleteDeploymentParamSchema>(
-      reposDeleteDeploymentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteDeploymentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteDeploymentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteDeployment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24208,12 +26291,6 @@ export function bootstrap(
   router.get(
     "reposListDeploymentStatuses",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-    paramValidationFactory<t_ReposListDeploymentStatusesParamSchema>(
-      reposListDeploymentStatusesParamSchema
-    ),
-    queryValidationFactory<t_ReposListDeploymentStatusesQuerySchema>(
-      reposListDeploymentStatusesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListDeploymentStatusesParamSchema,
@@ -24222,8 +26299,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListDeploymentStatusesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListDeploymentStatusesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListDeploymentStatuses(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24259,12 +26348,6 @@ export function bootstrap(
   router.post(
     "reposCreateDeploymentStatus",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-    paramValidationFactory<t_ReposCreateDeploymentStatusParamSchema>(
-      reposCreateDeploymentStatusParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateDeploymentStatusBodySchema>(
-      reposCreateDeploymentStatusBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateDeploymentStatusParamSchema,
@@ -24273,8 +26356,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateDeploymentStatusParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateDeploymentStatusBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.reposCreateDeploymentStatus(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24293,15 +26388,21 @@ export function bootstrap(
   router.get(
     "reposGetDeploymentStatus",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
-    paramValidationFactory<t_ReposGetDeploymentStatusParamSchema>(
-      reposGetDeploymentStatusParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetDeploymentStatusParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetDeploymentStatusParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetDeploymentStatus(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24323,12 +26424,6 @@ export function bootstrap(
   router.post(
     "reposCreateDispatchEvent",
     "/repos/:owner/:repo/dispatches",
-    paramValidationFactory<t_ReposCreateDispatchEventParamSchema>(
-      reposCreateDispatchEventParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateDispatchEventBodySchema>(
-      reposCreateDispatchEventBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateDispatchEventParamSchema,
@@ -24337,8 +26432,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateDispatchEventParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreateDispatchEventBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateDispatchEvent(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24360,12 +26464,6 @@ export function bootstrap(
   router.get(
     "reposGetAllEnvironments",
     "/repos/:owner/:repo/environments",
-    paramValidationFactory<t_ReposGetAllEnvironmentsParamSchema>(
-      reposGetAllEnvironmentsParamSchema
-    ),
-    queryValidationFactory<t_ReposGetAllEnvironmentsQuerySchema>(
-      reposGetAllEnvironmentsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetAllEnvironmentsParamSchema,
@@ -24374,8 +26472,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAllEnvironmentsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(reposGetAllEnvironmentsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetAllEnvironments(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24393,15 +26500,18 @@ export function bootstrap(
   router.get(
     "reposGetEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    paramValidationFactory<t_ReposGetEnvironmentParamSchema>(
-      reposGetEnvironmentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetEnvironmentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetEnvironmentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetEnvironment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24439,12 +26549,6 @@ export function bootstrap(
   router.put(
     "reposCreateOrUpdateEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    paramValidationFactory<t_ReposCreateOrUpdateEnvironmentParamSchema>(
-      reposCreateOrUpdateEnvironmentParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateOrUpdateEnvironmentBodySchema>(
-      reposCreateOrUpdateEnvironmentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateOrUpdateEnvironmentParamSchema,
@@ -24453,8 +26557,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateOrUpdateEnvironmentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateOrUpdateEnvironmentBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposCreateOrUpdateEnvironment(ctx.state, ctx)
+        await implementation.reposCreateOrUpdateEnvironment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24470,15 +26586,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteAnEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    paramValidationFactory<t_ReposDeleteAnEnvironmentParamSchema>(
-      reposDeleteAnEnvironmentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteAnEnvironmentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteAnEnvironmentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteAnEnvironment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24501,12 +26623,6 @@ export function bootstrap(
   router.get(
     "reposListDeploymentBranchPolicies",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
-    paramValidationFactory<t_ReposListDeploymentBranchPoliciesParamSchema>(
-      reposListDeploymentBranchPoliciesParamSchema
-    ),
-    queryValidationFactory<t_ReposListDeploymentBranchPoliciesQuerySchema>(
-      reposListDeploymentBranchPoliciesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListDeploymentBranchPoliciesParamSchema,
@@ -24515,8 +26631,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListDeploymentBranchPoliciesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListDeploymentBranchPoliciesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposListDeploymentBranchPolicies(ctx.state, ctx)
+        await implementation.reposListDeploymentBranchPolicies(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24536,12 +26664,6 @@ export function bootstrap(
   router.post(
     "reposCreateDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
-    paramValidationFactory<t_ReposCreateDeploymentBranchPolicyParamSchema>(
-      reposCreateDeploymentBranchPolicyParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateDeploymentBranchPolicyBodySchema>(
-      reposCreateDeploymentBranchPolicyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateDeploymentBranchPolicyParamSchema,
@@ -24550,8 +26672,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateDeploymentBranchPolicyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateDeploymentBranchPolicyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposCreateDeploymentBranchPolicy(ctx.state, ctx)
+        await implementation.reposCreateDeploymentBranchPolicy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24568,9 +26702,6 @@ export function bootstrap(
   router.get(
     "reposGetDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    paramValidationFactory<t_ReposGetDeploymentBranchPolicyParamSchema>(
-      reposGetDeploymentBranchPolicyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetDeploymentBranchPolicyParamSchema,
@@ -24579,8 +26710,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetDeploymentBranchPolicyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetDeploymentBranchPolicy(ctx.state, ctx)
+        await implementation.reposGetDeploymentBranchPolicy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24601,12 +26741,6 @@ export function bootstrap(
   router.put(
     "reposUpdateDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    paramValidationFactory<t_ReposUpdateDeploymentBranchPolicyParamSchema>(
-      reposUpdateDeploymentBranchPolicyParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateDeploymentBranchPolicyBodySchema>(
-      reposUpdateDeploymentBranchPolicyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateDeploymentBranchPolicyParamSchema,
@@ -24615,8 +26749,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateDeploymentBranchPolicyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateDeploymentBranchPolicyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposUpdateDeploymentBranchPolicy(ctx.state, ctx)
+        await implementation.reposUpdateDeploymentBranchPolicy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24633,9 +26779,6 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    paramValidationFactory<t_ReposDeleteDeploymentBranchPolicyParamSchema>(
-      reposDeleteDeploymentBranchPolicyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeleteDeploymentBranchPolicyParamSchema,
@@ -24644,8 +26787,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteDeploymentBranchPolicyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDeleteDeploymentBranchPolicy(ctx.state, ctx)
+        await implementation.reposDeleteDeploymentBranchPolicy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24665,12 +26817,6 @@ export function bootstrap(
   router.get(
     "activityListRepoEvents",
     "/repos/:owner/:repo/events",
-    paramValidationFactory<t_ActivityListRepoEventsParamSchema>(
-      activityListRepoEventsParamSchema
-    ),
-    queryValidationFactory<t_ActivityListRepoEventsQuerySchema>(
-      activityListRepoEventsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListRepoEventsParamSchema,
@@ -24679,8 +26825,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListRepoEventsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(activityListRepoEventsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityListRepoEvents(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24703,12 +26858,6 @@ export function bootstrap(
   router.get(
     "reposListForks",
     "/repos/:owner/:repo/forks",
-    paramValidationFactory<t_ReposListForksParamSchema>(
-      reposListForksParamSchema
-    ),
-    queryValidationFactory<t_ReposListForksQuerySchema>(
-      reposListForksQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListForksParamSchema,
@@ -24717,10 +26866,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListForks(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListForksParamSchema, ctx.params),
+        query: parseRequestInput(reposListForksQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListForks(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24743,12 +26895,6 @@ export function bootstrap(
   router.post(
     "reposCreateFork",
     "/repos/:owner/:repo/forks",
-    paramValidationFactory<t_ReposCreateForkParamSchema>(
-      reposCreateForkParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateForkBodySchema>(
-      reposCreateForkBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateForkParamSchema,
@@ -24757,10 +26903,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposCreateFork(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposCreateForkParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateForkBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposCreateFork(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24780,10 +26929,6 @@ export function bootstrap(
   router.post(
     "gitCreateBlob",
     "/repos/:owner/:repo/git/blobs",
-    paramValidationFactory<t_GitCreateBlobParamSchema>(
-      gitCreateBlobParamSchema
-    ),
-    bodyValidationFactory<t_GitCreateBlobBodySchema>(gitCreateBlobBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GitCreateBlobParamSchema,
@@ -24792,10 +26937,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitCreateBlob(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gitCreateBlobParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitCreateBlobBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitCreateBlob(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24811,12 +26959,17 @@ export function bootstrap(
   router.get(
     "gitGetBlob",
     "/repos/:owner/:repo/git/blobs/:fileSha",
-    paramValidationFactory<t_GitGetBlobParamSchema>(gitGetBlobParamSchema),
     async (
       ctx: ValidatedCtx<t_GitGetBlobParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitGetBlob(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitGetBlobParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitGetBlob(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24852,12 +27005,6 @@ export function bootstrap(
   router.post(
     "gitCreateCommit",
     "/repos/:owner/:repo/git/commits",
-    paramValidationFactory<t_GitCreateCommitParamSchema>(
-      gitCreateCommitParamSchema
-    ),
-    bodyValidationFactory<t_GitCreateCommitBodySchema>(
-      gitCreateCommitBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GitCreateCommitParamSchema,
@@ -24866,10 +27013,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitCreateCommit(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gitCreateCommitParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitCreateCommitBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitCreateCommit(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24885,12 +27035,17 @@ export function bootstrap(
   router.get(
     "gitGetCommit",
     "/repos/:owner/:repo/git/commits/:commitSha",
-    paramValidationFactory<t_GitGetCommitParamSchema>(gitGetCommitParamSchema),
     async (
       ctx: ValidatedCtx<t_GitGetCommitParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitGetCommit(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitGetCommitParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitGetCommit(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24906,15 +27061,18 @@ export function bootstrap(
   router.get(
     "gitListMatchingRefs",
     "/repos/:owner/:repo/git/matching-refs/:ref",
-    paramValidationFactory<t_GitListMatchingRefsParamSchema>(
-      gitListMatchingRefsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_GitListMatchingRefsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(gitListMatchingRefsParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.gitListMatchingRefs(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -24932,12 +27090,17 @@ export function bootstrap(
   router.get(
     "gitGetRef",
     "/repos/:owner/:repo/git/ref/:ref",
-    paramValidationFactory<t_GitGetRefParamSchema>(gitGetRefParamSchema),
     async (
       ctx: ValidatedCtx<t_GitGetRefParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitGetRef(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitGetRefParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitGetRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24958,8 +27121,6 @@ export function bootstrap(
   router.post(
     "gitCreateRef",
     "/repos/:owner/:repo/git/refs",
-    paramValidationFactory<t_GitCreateRefParamSchema>(gitCreateRefParamSchema),
-    bodyValidationFactory<t_GitCreateRefBodySchema>(gitCreateRefBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GitCreateRefParamSchema,
@@ -24968,7 +27129,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitCreateRef(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitCreateRefParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitCreateRefBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitCreateRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -24989,8 +27156,6 @@ export function bootstrap(
   router.patch(
     "gitUpdateRef",
     "/repos/:owner/:repo/git/refs/:ref",
-    paramValidationFactory<t_GitUpdateRefParamSchema>(gitUpdateRefParamSchema),
-    bodyValidationFactory<t_GitUpdateRefBodySchema>(gitUpdateRefBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GitUpdateRefParamSchema,
@@ -24999,7 +27164,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitUpdateRef(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitUpdateRefParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitUpdateRefBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitUpdateRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25015,12 +27186,17 @@ export function bootstrap(
   router.delete(
     "gitDeleteRef",
     "/repos/:owner/:repo/git/refs/:ref",
-    paramValidationFactory<t_GitDeleteRefParamSchema>(gitDeleteRefParamSchema),
     async (
       ctx: ValidatedCtx<t_GitDeleteRefParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitDeleteRef(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitDeleteRefParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitDeleteRef(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25049,8 +27225,6 @@ export function bootstrap(
   router.post(
     "gitCreateTag",
     "/repos/:owner/:repo/git/tags",
-    paramValidationFactory<t_GitCreateTagParamSchema>(gitCreateTagParamSchema),
-    bodyValidationFactory<t_GitCreateTagBodySchema>(gitCreateTagBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GitCreateTagParamSchema,
@@ -25059,7 +27233,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitCreateTag(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitCreateTagParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitCreateTagBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitCreateTag(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25075,12 +27255,17 @@ export function bootstrap(
   router.get(
     "gitGetTag",
     "/repos/:owner/:repo/git/tags/:tagSha",
-    paramValidationFactory<t_GitGetTagParamSchema>(gitGetTagParamSchema),
     async (
       ctx: ValidatedCtx<t_GitGetTagParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitGetTag(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitGetTagParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitGetTag(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25110,10 +27295,6 @@ export function bootstrap(
   router.post(
     "gitCreateTree",
     "/repos/:owner/:repo/git/trees",
-    paramValidationFactory<t_GitCreateTreeParamSchema>(
-      gitCreateTreeParamSchema
-    ),
-    bodyValidationFactory<t_GitCreateTreeBodySchema>(gitCreateTreeBodySchema),
     async (
       ctx: ValidatedCtx<
         t_GitCreateTreeParamSchema,
@@ -25122,10 +27303,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitCreateTree(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gitCreateTreeParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(gitCreateTreeBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.gitCreateTree(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25145,13 +27329,17 @@ export function bootstrap(
   router.get(
     "gitGetTree",
     "/repos/:owner/:repo/git/trees/:treeSha",
-    paramValidationFactory<t_GitGetTreeParamSchema>(gitGetTreeParamSchema),
-    queryValidationFactory<t_GitGetTreeQuerySchema>(gitGetTreeQuerySchema),
     async (
       ctx: ValidatedCtx<t_GitGetTreeParamSchema, t_GitGetTreeQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.gitGetTree(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(gitGetTreeParamSchema, ctx.params),
+        query: parseRequestInput(gitGetTreeQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gitGetTree(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25171,12 +27359,6 @@ export function bootstrap(
   router.get(
     "reposListWebhooks",
     "/repos/:owner/:repo/hooks",
-    paramValidationFactory<t_ReposListWebhooksParamSchema>(
-      reposListWebhooksParamSchema
-    ),
-    queryValidationFactory<t_ReposListWebhooksQuerySchema>(
-      reposListWebhooksQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListWebhooksParamSchema,
@@ -25185,8 +27367,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListWebhooksParamSchema, ctx.params),
+        query: parseRequestInput(reposListWebhooksQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListWebhooks(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25221,12 +27409,6 @@ export function bootstrap(
   router.post(
     "reposCreateWebhook",
     "/repos/:owner/:repo/hooks",
-    paramValidationFactory<t_ReposCreateWebhookParamSchema>(
-      reposCreateWebhookParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateWebhookBodySchema>(
-      reposCreateWebhookBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateWebhookParamSchema,
@@ -25235,8 +27417,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreateWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateWebhookBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25254,17 +27442,17 @@ export function bootstrap(
   router.get(
     "reposGetWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    paramValidationFactory<t_ReposGetWebhookParamSchema>(
-      reposGetWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetWebhookParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetWebhook(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetWebhook(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25297,12 +27485,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    paramValidationFactory<t_ReposUpdateWebhookParamSchema>(
-      reposUpdateWebhookParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateWebhookBodySchema>(
-      reposUpdateWebhookBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateWebhookParamSchema,
@@ -25311,8 +27493,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposUpdateWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposUpdateWebhookBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUpdateWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25330,15 +27518,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    paramValidationFactory<t_ReposDeleteWebhookParamSchema>(
-      reposDeleteWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteWebhookParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25356,15 +27547,21 @@ export function bootstrap(
   router.get(
     "reposGetWebhookConfigForRepo",
     "/repos/:owner/:repo/hooks/:hookId/config",
-    paramValidationFactory<t_ReposGetWebhookConfigForRepoParamSchema>(
-      reposGetWebhookConfigForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetWebhookConfigForRepoParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetWebhookConfigForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposGetWebhookConfigForRepo(ctx.state, ctx)
+        await implementation.reposGetWebhookConfigForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25389,12 +27586,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateWebhookConfigForRepo",
     "/repos/:owner/:repo/hooks/:hookId/config",
-    paramValidationFactory<t_ReposUpdateWebhookConfigForRepoParamSchema>(
-      reposUpdateWebhookConfigForRepoParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateWebhookConfigForRepoBodySchema>(
-      reposUpdateWebhookConfigForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateWebhookConfigForRepoParamSchema,
@@ -25403,8 +27594,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateWebhookConfigForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateWebhookConfigForRepoBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposUpdateWebhookConfigForRepo(ctx.state, ctx)
+        await implementation.reposUpdateWebhookConfigForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25426,12 +27629,6 @@ export function bootstrap(
   router.get(
     "reposListWebhookDeliveries",
     "/repos/:owner/:repo/hooks/:hookId/deliveries",
-    paramValidationFactory<t_ReposListWebhookDeliveriesParamSchema>(
-      reposListWebhookDeliveriesParamSchema
-    ),
-    queryValidationFactory<t_ReposListWebhookDeliveriesQuerySchema>(
-      reposListWebhookDeliveriesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListWebhookDeliveriesParamSchema,
@@ -25440,8 +27637,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListWebhookDeliveriesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListWebhookDeliveriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListWebhookDeliveries(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25460,15 +27669,21 @@ export function bootstrap(
   router.get(
     "reposGetWebhookDelivery",
     "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId",
-    paramValidationFactory<t_ReposGetWebhookDeliveryParamSchema>(
-      reposGetWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetWebhookDelivery(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25487,15 +27702,21 @@ export function bootstrap(
   router.post(
     "reposRedeliverWebhookDelivery",
     "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId/attempts",
-    paramValidationFactory<t_ReposRedeliverWebhookDeliveryParamSchema>(
-      reposRedeliverWebhookDeliveryParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposRedeliverWebhookDeliveryParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRedeliverWebhookDeliveryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposRedeliverWebhookDelivery(ctx.state, ctx)
+        await implementation.reposRedeliverWebhookDelivery(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25511,17 +27732,17 @@ export function bootstrap(
   router.post(
     "reposPingWebhook",
     "/repos/:owner/:repo/hooks/:hookId/pings",
-    paramValidationFactory<t_ReposPingWebhookParamSchema>(
-      reposPingWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposPingWebhookParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposPingWebhook(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposPingWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposPingWebhook(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25537,15 +27758,18 @@ export function bootstrap(
   router.post(
     "reposTestPushWebhook",
     "/repos/:owner/:repo/hooks/:hookId/tests",
-    paramValidationFactory<t_ReposTestPushWebhookParamSchema>(
-      reposTestPushWebhookParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposTestPushWebhookParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposTestPushWebhookParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposTestPushWebhook(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25562,15 +27786,21 @@ export function bootstrap(
   router.get(
     "migrationsGetImportStatus",
     "/repos/:owner/:repo/import",
-    paramValidationFactory<t_MigrationsGetImportStatusParamSchema>(
-      migrationsGetImportStatusParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_MigrationsGetImportStatusParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetImportStatusParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsGetImportStatus(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25595,12 +27825,6 @@ export function bootstrap(
   router.put(
     "migrationsStartImport",
     "/repos/:owner/:repo/import",
-    paramValidationFactory<t_MigrationsStartImportParamSchema>(
-      migrationsStartImportParamSchema
-    ),
-    bodyValidationFactory<t_MigrationsStartImportBodySchema>(
-      migrationsStartImportBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsStartImportParamSchema,
@@ -25609,8 +27833,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(migrationsStartImportParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(migrationsStartImportBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.migrationsStartImport(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25636,12 +27866,6 @@ export function bootstrap(
   router.patch(
     "migrationsUpdateImport",
     "/repos/:owner/:repo/import",
-    paramValidationFactory<t_MigrationsUpdateImportParamSchema>(
-      migrationsUpdateImportParamSchema
-    ),
-    bodyValidationFactory<t_MigrationsUpdateImportBodySchema>(
-      migrationsUpdateImportBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsUpdateImportParamSchema,
@@ -25650,8 +27874,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsUpdateImportParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(migrationsUpdateImportBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.migrationsUpdateImport(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25668,15 +27901,21 @@ export function bootstrap(
   router.delete(
     "migrationsCancelImport",
     "/repos/:owner/:repo/import",
-    paramValidationFactory<t_MigrationsCancelImportParamSchema>(
-      migrationsCancelImportParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_MigrationsCancelImportParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsCancelImportParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsCancelImport(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25697,12 +27936,6 @@ export function bootstrap(
   router.get(
     "migrationsGetCommitAuthors",
     "/repos/:owner/:repo/import/authors",
-    paramValidationFactory<t_MigrationsGetCommitAuthorsParamSchema>(
-      migrationsGetCommitAuthorsParamSchema
-    ),
-    queryValidationFactory<t_MigrationsGetCommitAuthorsQuerySchema>(
-      migrationsGetCommitAuthorsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsGetCommitAuthorsParamSchema,
@@ -25711,8 +27944,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetCommitAuthorsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          migrationsGetCommitAuthorsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsGetCommitAuthors(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25737,12 +27982,6 @@ export function bootstrap(
   router.patch(
     "migrationsMapCommitAuthor",
     "/repos/:owner/:repo/import/authors/:authorId",
-    paramValidationFactory<t_MigrationsMapCommitAuthorParamSchema>(
-      migrationsMapCommitAuthorParamSchema
-    ),
-    bodyValidationFactory<t_MigrationsMapCommitAuthorBodySchema>(
-      migrationsMapCommitAuthorBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsMapCommitAuthorParamSchema,
@@ -25751,8 +27990,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsMapCommitAuthorParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(migrationsMapCommitAuthorBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.migrationsMapCommitAuthor(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25769,15 +28017,21 @@ export function bootstrap(
   router.get(
     "migrationsGetLargeFiles",
     "/repos/:owner/:repo/import/large_files",
-    paramValidationFactory<t_MigrationsGetLargeFilesParamSchema>(
-      migrationsGetLargeFilesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_MigrationsGetLargeFilesParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetLargeFilesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.migrationsGetLargeFiles(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25798,12 +28052,6 @@ export function bootstrap(
   router.patch(
     "migrationsSetLfsPreference",
     "/repos/:owner/:repo/import/lfs",
-    paramValidationFactory<t_MigrationsSetLfsPreferenceParamSchema>(
-      migrationsSetLfsPreferenceParamSchema
-    ),
-    bodyValidationFactory<t_MigrationsSetLfsPreferenceBodySchema>(
-      migrationsSetLfsPreferenceBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsSetLfsPreferenceParamSchema,
@@ -25812,8 +28060,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsSetLfsPreferenceParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(migrationsSetLfsPreferenceBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.migrationsSetLfsPreference(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25830,15 +28087,21 @@ export function bootstrap(
   router.get(
     "appsGetRepoInstallation",
     "/repos/:owner/:repo/installation",
-    paramValidationFactory<t_AppsGetRepoInstallationParamSchema>(
-      appsGetRepoInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetRepoInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetRepoInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetRepoInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25855,9 +28118,6 @@ export function bootstrap(
   router.get(
     "interactionsGetRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    paramValidationFactory<t_InteractionsGetRestrictionsForRepoParamSchema>(
-      interactionsGetRestrictionsForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsGetRestrictionsForRepoParamSchema,
@@ -25866,8 +28126,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsGetRestrictionsForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.interactionsGetRestrictionsForRepo(ctx.state, ctx)
+        await implementation.interactionsGetRestrictionsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25893,12 +28162,6 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    paramValidationFactory<t_InteractionsSetRestrictionsForRepoParamSchema>(
-      interactionsSetRestrictionsForRepoParamSchema
-    ),
-    bodyValidationFactory<t_InteractionsSetRestrictionsForRepoBodySchema>(
-      interactionsSetRestrictionsForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsSetRestrictionsForRepoParamSchema,
@@ -25907,8 +28170,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsSetRestrictionsForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          interactionsSetRestrictionsForRepoBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.interactionsSetRestrictionsForRepo(ctx.state, ctx)
+        await implementation.interactionsSetRestrictionsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25923,9 +28198,6 @@ export function bootstrap(
   router.delete(
     "interactionsRemoveRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    paramValidationFactory<t_InteractionsRemoveRestrictionsForRepoParamSchema>(
-      interactionsRemoveRestrictionsForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_InteractionsRemoveRestrictionsForRepoParamSchema,
@@ -25934,11 +28206,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          interactionsRemoveRestrictionsForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.interactionsRemoveRestrictionsForRepo(
-          ctx.state,
-          ctx
-        )
+        await implementation.interactionsRemoveRestrictionsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -25958,12 +28236,6 @@ export function bootstrap(
   router.get(
     "reposListInvitations",
     "/repos/:owner/:repo/invitations",
-    paramValidationFactory<t_ReposListInvitationsParamSchema>(
-      reposListInvitationsParamSchema
-    ),
-    queryValidationFactory<t_ReposListInvitationsQuerySchema>(
-      reposListInvitationsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListInvitationsParamSchema,
@@ -25972,8 +28244,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListInvitationsParamSchema, ctx.params),
+        query: parseRequestInput(reposListInvitationsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListInvitations(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -25999,12 +28277,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateInvitation",
     "/repos/:owner/:repo/invitations/:invitationId",
-    paramValidationFactory<t_ReposUpdateInvitationParamSchema>(
-      reposUpdateInvitationParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateInvitationBodySchema>(
-      reposUpdateInvitationBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateInvitationParamSchema,
@@ -26013,8 +28285,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposUpdateInvitationParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposUpdateInvitationBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUpdateInvitation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26032,15 +28310,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteInvitation",
     "/repos/:owner/:repo/invitations/:invitationId",
-    paramValidationFactory<t_ReposDeleteInvitationParamSchema>(
-      reposDeleteInvitationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteInvitationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteInvitationParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteInvitation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26071,12 +28352,6 @@ export function bootstrap(
   router.get(
     "issuesListForRepo",
     "/repos/:owner/:repo/issues",
-    paramValidationFactory<t_IssuesListForRepoParamSchema>(
-      issuesListForRepoParamSchema
-    ),
-    queryValidationFactory<t_IssuesListForRepoQuerySchema>(
-      issuesListForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListForRepoParamSchema,
@@ -26085,8 +28360,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesListForRepoParamSchema, ctx.params),
+        query: parseRequestInput(issuesListForRepoQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26124,8 +28405,6 @@ export function bootstrap(
   router.post(
     "issuesCreate",
     "/repos/:owner/:repo/issues",
-    paramValidationFactory<t_IssuesCreateParamSchema>(issuesCreateParamSchema),
-    bodyValidationFactory<t_IssuesCreateBodySchema>(issuesCreateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_IssuesCreateParamSchema,
@@ -26134,7 +28413,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesCreate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(issuesCreateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesCreateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.issuesCreate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26157,12 +28442,6 @@ export function bootstrap(
   router.get(
     "issuesListCommentsForRepo",
     "/repos/:owner/:repo/issues/comments",
-    paramValidationFactory<t_IssuesListCommentsForRepoParamSchema>(
-      issuesListCommentsForRepoParamSchema
-    ),
-    queryValidationFactory<t_IssuesListCommentsForRepoQuerySchema>(
-      issuesListCommentsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListCommentsForRepoParamSchema,
@@ -26171,8 +28450,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListCommentsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          issuesListCommentsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListCommentsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26190,17 +28481,17 @@ export function bootstrap(
   router.get(
     "issuesGetComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    paramValidationFactory<t_IssuesGetCommentParamSchema>(
-      issuesGetCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesGetCommentParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesGetComment(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesGetCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesGetComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26218,12 +28509,6 @@ export function bootstrap(
   router.patch(
     "issuesUpdateComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    paramValidationFactory<t_IssuesUpdateCommentParamSchema>(
-      issuesUpdateCommentParamSchema
-    ),
-    bodyValidationFactory<t_IssuesUpdateCommentBodySchema>(
-      issuesUpdateCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesUpdateCommentParamSchema,
@@ -26232,8 +28517,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesUpdateCommentParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesUpdateCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesUpdateComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26251,15 +28542,18 @@ export function bootstrap(
   router.delete(
     "issuesDeleteComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    paramValidationFactory<t_IssuesDeleteCommentParamSchema>(
-      issuesDeleteCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesDeleteCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesDeleteCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesDeleteComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26294,12 +28588,6 @@ export function bootstrap(
   router.get(
     "reactionsListForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsListForIssueCommentParamSchema>(
-      reactionsListForIssueCommentParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForIssueCommentQuerySchema>(
-      reactionsListForIssueCommentQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForIssueCommentParamSchema,
@@ -26308,8 +28596,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForIssueCommentParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForIssueCommentQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsListForIssueComment(ctx.state, ctx)
+        await implementation.reactionsListForIssueComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26338,12 +28638,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsCreateForIssueCommentParamSchema>(
-      reactionsCreateForIssueCommentParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForIssueCommentBodySchema>(
-      reactionsCreateForIssueCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForIssueCommentParamSchema,
@@ -26352,8 +28646,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForIssueCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForIssueCommentBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reactionsCreateForIssueComment(ctx.state, ctx)
+        await implementation.reactionsCreateForIssueComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26370,9 +28676,6 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForIssueCommentParamSchema>(
-      reactionsDeleteForIssueCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsDeleteForIssueCommentParamSchema,
@@ -26381,8 +28684,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForIssueCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsDeleteForIssueComment(ctx.state, ctx)
+        await implementation.reactionsDeleteForIssueComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26402,12 +28714,6 @@ export function bootstrap(
   router.get(
     "issuesListEventsForRepo",
     "/repos/:owner/:repo/issues/events",
-    paramValidationFactory<t_IssuesListEventsForRepoParamSchema>(
-      issuesListEventsForRepoParamSchema
-    ),
-    queryValidationFactory<t_IssuesListEventsForRepoQuerySchema>(
-      issuesListEventsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListEventsForRepoParamSchema,
@@ -26416,8 +28722,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListEventsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(issuesListEventsForRepoQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListEventsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26435,17 +28750,17 @@ export function bootstrap(
   router.get(
     "issuesGetEvent",
     "/repos/:owner/:repo/issues/events/:eventId",
-    paramValidationFactory<t_IssuesGetEventParamSchema>(
-      issuesGetEventParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesGetEventParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesGetEvent(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesGetEventParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesGetEvent(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26461,12 +28776,17 @@ export function bootstrap(
   router.get(
     "issuesGet",
     "/repos/:owner/:repo/issues/:issueNumber",
-    paramValidationFactory<t_IssuesGetParamSchema>(issuesGetParamSchema),
     async (
       ctx: ValidatedCtx<t_IssuesGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(issuesGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26507,8 +28827,6 @@ export function bootstrap(
   router.patch(
     "issuesUpdate",
     "/repos/:owner/:repo/issues/:issueNumber",
-    paramValidationFactory<t_IssuesUpdateParamSchema>(issuesUpdateParamSchema),
-    bodyValidationFactory<t_IssuesUpdateBodySchema>(issuesUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_IssuesUpdateParamSchema,
@@ -26517,7 +28835,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(issuesUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.issuesUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26537,12 +28861,6 @@ export function bootstrap(
   router.post(
     "issuesAddAssignees",
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
-    paramValidationFactory<t_IssuesAddAssigneesParamSchema>(
-      issuesAddAssigneesParamSchema
-    ),
-    bodyValidationFactory<t_IssuesAddAssigneesBodySchema>(
-      issuesAddAssigneesBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesAddAssigneesParamSchema,
@@ -26551,8 +28869,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesAddAssigneesParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesAddAssigneesBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesAddAssignees(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26574,12 +28898,6 @@ export function bootstrap(
   router.delete(
     "issuesRemoveAssignees",
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
-    paramValidationFactory<t_IssuesRemoveAssigneesParamSchema>(
-      issuesRemoveAssigneesParamSchema
-    ),
-    bodyValidationFactory<t_IssuesRemoveAssigneesBodySchema>(
-      issuesRemoveAssigneesBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesRemoveAssigneesParamSchema,
@@ -26588,8 +28906,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesRemoveAssigneesParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesRemoveAssigneesBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesRemoveAssignees(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26608,9 +28932,6 @@ export function bootstrap(
   router.get(
     "issuesCheckUserCanBeAssignedToIssue",
     "/repos/:owner/:repo/issues/:issueNumber/assignees/:assignee",
-    paramValidationFactory<t_IssuesCheckUserCanBeAssignedToIssueParamSchema>(
-      issuesCheckUserCanBeAssignedToIssueParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
@@ -26619,8 +28940,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesCheckUserCanBeAssignedToIssueParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.issuesCheckUserCanBeAssignedToIssue(ctx.state, ctx)
+        await implementation.issuesCheckUserCanBeAssignedToIssue(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26642,12 +28972,6 @@ export function bootstrap(
   router.get(
     "issuesListComments",
     "/repos/:owner/:repo/issues/:issueNumber/comments",
-    paramValidationFactory<t_IssuesListCommentsParamSchema>(
-      issuesListCommentsParamSchema
-    ),
-    queryValidationFactory<t_IssuesListCommentsQuerySchema>(
-      issuesListCommentsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListCommentsParamSchema,
@@ -26656,8 +28980,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesListCommentsParamSchema, ctx.params),
+        query: parseRequestInput(issuesListCommentsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListComments(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26677,12 +29007,6 @@ export function bootstrap(
   router.post(
     "issuesCreateComment",
     "/repos/:owner/:repo/issues/:issueNumber/comments",
-    paramValidationFactory<t_IssuesCreateCommentParamSchema>(
-      issuesCreateCommentParamSchema
-    ),
-    bodyValidationFactory<t_IssuesCreateCommentBodySchema>(
-      issuesCreateCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesCreateCommentParamSchema,
@@ -26691,8 +29015,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesCreateCommentParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesCreateCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesCreateComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26715,12 +29045,6 @@ export function bootstrap(
   router.get(
     "issuesListEvents",
     "/repos/:owner/:repo/issues/:issueNumber/events",
-    paramValidationFactory<t_IssuesListEventsParamSchema>(
-      issuesListEventsParamSchema
-    ),
-    queryValidationFactory<t_IssuesListEventsQuerySchema>(
-      issuesListEventsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListEventsParamSchema,
@@ -26729,10 +29053,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesListEvents(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesListEventsParamSchema, ctx.params),
+        query: parseRequestInput(issuesListEventsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesListEvents(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26753,12 +29080,6 @@ export function bootstrap(
   router.get(
     "issuesListLabelsOnIssue",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    paramValidationFactory<t_IssuesListLabelsOnIssueParamSchema>(
-      issuesListLabelsOnIssueParamSchema
-    ),
-    queryValidationFactory<t_IssuesListLabelsOnIssueQuerySchema>(
-      issuesListLabelsOnIssueQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListLabelsOnIssueParamSchema,
@@ -26767,8 +29088,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListLabelsOnIssueParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(issuesListLabelsOnIssueQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListLabelsOnIssue(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26796,12 +29126,6 @@ export function bootstrap(
   router.post(
     "issuesAddLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    paramValidationFactory<t_IssuesAddLabelsParamSchema>(
-      issuesAddLabelsParamSchema
-    ),
-    bodyValidationFactory<t_IssuesAddLabelsBodySchema>(
-      issuesAddLabelsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesAddLabelsParamSchema,
@@ -26810,10 +29134,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesAddLabels(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesAddLabelsParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesAddLabelsBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.issuesAddLabels(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26839,12 +29166,6 @@ export function bootstrap(
   router.put(
     "issuesSetLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    paramValidationFactory<t_IssuesSetLabelsParamSchema>(
-      issuesSetLabelsParamSchema
-    ),
-    bodyValidationFactory<t_IssuesSetLabelsBodySchema>(
-      issuesSetLabelsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesSetLabelsParamSchema,
@@ -26853,10 +29174,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesSetLabels(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesSetLabelsParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesSetLabelsBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.issuesSetLabels(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26872,15 +29196,18 @@ export function bootstrap(
   router.delete(
     "issuesRemoveAllLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    paramValidationFactory<t_IssuesRemoveAllLabelsParamSchema>(
-      issuesRemoveAllLabelsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesRemoveAllLabelsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesRemoveAllLabelsParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesRemoveAllLabels(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26899,15 +29226,18 @@ export function bootstrap(
   router.delete(
     "issuesRemoveLabel",
     "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
-    paramValidationFactory<t_IssuesRemoveLabelParamSchema>(
-      issuesRemoveLabelParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesRemoveLabelParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesRemoveLabelParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesRemoveLabel(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -26933,13 +29263,17 @@ export function bootstrap(
   router.put(
     "issuesLock",
     "/repos/:owner/:repo/issues/:issueNumber/lock",
-    paramValidationFactory<t_IssuesLockParamSchema>(issuesLockParamSchema),
-    bodyValidationFactory<t_IssuesLockBodySchema>(issuesLockBodySchema),
     async (
       ctx: ValidatedCtx<t_IssuesLockParamSchema, void, t_IssuesLockBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesLock(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(issuesLockParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesLockBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.issuesLock(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26955,12 +29289,17 @@ export function bootstrap(
   router.delete(
     "issuesUnlock",
     "/repos/:owner/:repo/issues/:issueNumber/lock",
-    paramValidationFactory<t_IssuesUnlockParamSchema>(issuesUnlockParamSchema),
     async (
       ctx: ValidatedCtx<t_IssuesUnlockParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesUnlock(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(issuesUnlockParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesUnlock(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -26993,12 +29332,6 @@ export function bootstrap(
   router.get(
     "reactionsListForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions",
-    paramValidationFactory<t_ReactionsListForIssueParamSchema>(
-      reactionsListForIssueParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForIssueQuerySchema>(
-      reactionsListForIssueQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForIssueParamSchema,
@@ -27007,8 +29340,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reactionsListForIssueParamSchema, ctx.params),
+        query: parseRequestInput(reactionsListForIssueQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reactionsListForIssue(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27039,12 +29378,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions",
-    paramValidationFactory<t_ReactionsCreateForIssueParamSchema>(
-      reactionsCreateForIssueParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForIssueBodySchema>(
-      reactionsCreateForIssueBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForIssueParamSchema,
@@ -27053,8 +29386,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForIssueParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reactionsCreateForIssueBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reactionsCreateForIssue(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27073,15 +29415,21 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForIssueParamSchema>(
-      reactionsDeleteForIssueParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReactionsDeleteForIssueParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForIssueParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reactionsDeleteForIssue(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27104,12 +29452,6 @@ export function bootstrap(
   router.get(
     "issuesListEventsForTimeline",
     "/repos/:owner/:repo/issues/:issueNumber/timeline",
-    paramValidationFactory<t_IssuesListEventsForTimelineParamSchema>(
-      issuesListEventsForTimelineParamSchema
-    ),
-    queryValidationFactory<t_IssuesListEventsForTimelineQuerySchema>(
-      issuesListEventsForTimelineQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListEventsForTimelineParamSchema,
@@ -27118,8 +29460,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListEventsForTimelineParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          issuesListEventsForTimelineQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListEventsForTimeline(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27141,12 +29495,6 @@ export function bootstrap(
   router.get(
     "reposListDeployKeys",
     "/repos/:owner/:repo/keys",
-    paramValidationFactory<t_ReposListDeployKeysParamSchema>(
-      reposListDeployKeysParamSchema
-    ),
-    queryValidationFactory<t_ReposListDeployKeysQuerySchema>(
-      reposListDeployKeysQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListDeployKeysParamSchema,
@@ -27155,8 +29503,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListDeployKeysParamSchema, ctx.params),
+        query: parseRequestInput(reposListDeployKeysQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListDeployKeys(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27179,12 +29533,6 @@ export function bootstrap(
   router.post(
     "reposCreateDeployKey",
     "/repos/:owner/:repo/keys",
-    paramValidationFactory<t_ReposCreateDeployKeyParamSchema>(
-      reposCreateDeployKeyParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateDeployKeyBodySchema>(
-      reposCreateDeployKeyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateDeployKeyParamSchema,
@@ -27193,8 +29541,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreateDeployKeyParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateDeployKeyBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateDeployKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27212,15 +29566,18 @@ export function bootstrap(
   router.get(
     "reposGetDeployKey",
     "/repos/:owner/:repo/keys/:keyId",
-    paramValidationFactory<t_ReposGetDeployKeyParamSchema>(
-      reposGetDeployKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetDeployKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetDeployKeyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetDeployKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27238,15 +29595,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeployKey",
     "/repos/:owner/:repo/keys/:keyId",
-    paramValidationFactory<t_ReposDeleteDeployKeyParamSchema>(
-      reposDeleteDeployKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteDeployKeyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteDeployKeyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteDeployKey(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27268,12 +29628,6 @@ export function bootstrap(
   router.get(
     "issuesListLabelsForRepo",
     "/repos/:owner/:repo/labels",
-    paramValidationFactory<t_IssuesListLabelsForRepoParamSchema>(
-      issuesListLabelsForRepoParamSchema
-    ),
-    queryValidationFactory<t_IssuesListLabelsForRepoQuerySchema>(
-      issuesListLabelsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListLabelsForRepoParamSchema,
@@ -27282,8 +29636,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListLabelsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(issuesListLabelsForRepoQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListLabelsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27306,12 +29669,6 @@ export function bootstrap(
   router.post(
     "issuesCreateLabel",
     "/repos/:owner/:repo/labels",
-    paramValidationFactory<t_IssuesCreateLabelParamSchema>(
-      issuesCreateLabelParamSchema
-    ),
-    bodyValidationFactory<t_IssuesCreateLabelBodySchema>(
-      issuesCreateLabelBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesCreateLabelParamSchema,
@@ -27320,8 +29677,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesCreateLabelParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesCreateLabelBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesCreateLabel(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27339,17 +29702,17 @@ export function bootstrap(
   router.get(
     "issuesGetLabel",
     "/repos/:owner/:repo/labels/:name",
-    paramValidationFactory<t_IssuesGetLabelParamSchema>(
-      issuesGetLabelParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesGetLabelParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.issuesGetLabel(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(issuesGetLabelParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.issuesGetLabel(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27373,12 +29736,6 @@ export function bootstrap(
   router.patch(
     "issuesUpdateLabel",
     "/repos/:owner/:repo/labels/:name",
-    paramValidationFactory<t_IssuesUpdateLabelParamSchema>(
-      issuesUpdateLabelParamSchema
-    ),
-    bodyValidationFactory<t_IssuesUpdateLabelBodySchema>(
-      issuesUpdateLabelBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesUpdateLabelParamSchema,
@@ -27387,8 +29744,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesUpdateLabelParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesUpdateLabelBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesUpdateLabel(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27406,15 +29769,18 @@ export function bootstrap(
   router.delete(
     "issuesDeleteLabel",
     "/repos/:owner/:repo/labels/:name",
-    paramValidationFactory<t_IssuesDeleteLabelParamSchema>(
-      issuesDeleteLabelParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesDeleteLabelParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesDeleteLabelParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesDeleteLabel(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27431,15 +29797,18 @@ export function bootstrap(
   router.get(
     "reposListLanguages",
     "/repos/:owner/:repo/languages",
-    paramValidationFactory<t_ReposListLanguagesParamSchema>(
-      reposListLanguagesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposListLanguagesParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListLanguagesParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListLanguages(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27456,15 +29825,18 @@ export function bootstrap(
   router.put(
     "reposEnableLfsForRepo",
     "/repos/:owner/:repo/lfs",
-    paramValidationFactory<t_ReposEnableLfsForRepoParamSchema>(
-      reposEnableLfsForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposEnableLfsForRepoParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposEnableLfsForRepoParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposEnableLfsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27481,15 +29853,21 @@ export function bootstrap(
   router.delete(
     "reposDisableLfsForRepo",
     "/repos/:owner/:repo/lfs",
-    paramValidationFactory<t_ReposDisableLfsForRepoParamSchema>(
-      reposDisableLfsForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDisableLfsForRepoParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisableLfsForRepoParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDisableLfsForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27506,15 +29884,18 @@ export function bootstrap(
   router.get(
     "licensesGetForRepo",
     "/repos/:owner/:repo/license",
-    paramValidationFactory<t_LicensesGetForRepoParamSchema>(
-      licensesGetForRepoParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_LicensesGetForRepoParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(licensesGetForRepoParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.licensesGetForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27533,12 +29914,6 @@ export function bootstrap(
   router.post(
     "reposMergeUpstream",
     "/repos/:owner/:repo/merge-upstream",
-    paramValidationFactory<t_ReposMergeUpstreamParamSchema>(
-      reposMergeUpstreamParamSchema
-    ),
-    bodyValidationFactory<t_ReposMergeUpstreamBodySchema>(
-      reposMergeUpstreamBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposMergeUpstreamParamSchema,
@@ -27547,8 +29922,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposMergeUpstreamParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposMergeUpstreamBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposMergeUpstream(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27571,13 +29952,17 @@ export function bootstrap(
   router.post(
     "reposMerge",
     "/repos/:owner/:repo/merges",
-    paramValidationFactory<t_ReposMergeParamSchema>(reposMergeParamSchema),
-    bodyValidationFactory<t_ReposMergeBodySchema>(reposMergeBodySchema),
     async (
       ctx: ValidatedCtx<t_ReposMergeParamSchema, void, t_ReposMergeBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposMerge(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(reposMergeParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposMergeBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposMerge(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27600,12 +29985,6 @@ export function bootstrap(
   router.get(
     "issuesListMilestones",
     "/repos/:owner/:repo/milestones",
-    paramValidationFactory<t_IssuesListMilestonesParamSchema>(
-      issuesListMilestonesParamSchema
-    ),
-    queryValidationFactory<t_IssuesListMilestonesQuerySchema>(
-      issuesListMilestonesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListMilestonesParamSchema,
@@ -27614,8 +29993,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesListMilestonesParamSchema, ctx.params),
+        query: parseRequestInput(issuesListMilestonesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesListMilestones(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27639,12 +30024,6 @@ export function bootstrap(
   router.post(
     "issuesCreateMilestone",
     "/repos/:owner/:repo/milestones",
-    paramValidationFactory<t_IssuesCreateMilestoneParamSchema>(
-      issuesCreateMilestoneParamSchema
-    ),
-    bodyValidationFactory<t_IssuesCreateMilestoneBodySchema>(
-      issuesCreateMilestoneBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesCreateMilestoneParamSchema,
@@ -27653,8 +30032,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesCreateMilestoneParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesCreateMilestoneBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesCreateMilestone(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27672,15 +30057,18 @@ export function bootstrap(
   router.get(
     "issuesGetMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    paramValidationFactory<t_IssuesGetMilestoneParamSchema>(
-      issuesGetMilestoneParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesGetMilestoneParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesGetMilestoneParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesGetMilestone(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27707,12 +30095,6 @@ export function bootstrap(
   router.patch(
     "issuesUpdateMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    paramValidationFactory<t_IssuesUpdateMilestoneParamSchema>(
-      issuesUpdateMilestoneParamSchema
-    ),
-    bodyValidationFactory<t_IssuesUpdateMilestoneBodySchema>(
-      issuesUpdateMilestoneBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesUpdateMilestoneParamSchema,
@@ -27721,8 +30103,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesUpdateMilestoneParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(issuesUpdateMilestoneBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.issuesUpdateMilestone(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27740,15 +30128,18 @@ export function bootstrap(
   router.delete(
     "issuesDeleteMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    paramValidationFactory<t_IssuesDeleteMilestoneParamSchema>(
-      issuesDeleteMilestoneParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_IssuesDeleteMilestoneParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(issuesDeleteMilestoneParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.issuesDeleteMilestone(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27771,12 +30162,6 @@ export function bootstrap(
   router.get(
     "issuesListLabelsForMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
-    paramValidationFactory<t_IssuesListLabelsForMilestoneParamSchema>(
-      issuesListLabelsForMilestoneParamSchema
-    ),
-    queryValidationFactory<t_IssuesListLabelsForMilestoneQuerySchema>(
-      issuesListLabelsForMilestoneQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_IssuesListLabelsForMilestoneParamSchema,
@@ -27785,8 +30170,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListLabelsForMilestoneParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          issuesListLabelsForMilestoneQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.issuesListLabelsForMilestone(ctx.state, ctx)
+        await implementation.issuesListLabelsForMilestone(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27811,12 +30208,6 @@ export function bootstrap(
   router.get(
     "activityListRepoNotificationsForAuthenticatedUser",
     "/repos/:owner/:repo/notifications",
-    paramValidationFactory<t_ActivityListRepoNotificationsForAuthenticatedUserParamSchema>(
-      activityListRepoNotificationsForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListRepoNotificationsForAuthenticatedUserQuerySchema>(
-      activityListRepoNotificationsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListRepoNotificationsForAuthenticatedUserParamSchema,
@@ -27825,9 +30216,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListRepoNotificationsForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListRepoNotificationsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityListRepoNotificationsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -27850,12 +30253,6 @@ export function bootstrap(
   router.put(
     "activityMarkRepoNotificationsAsRead",
     "/repos/:owner/:repo/notifications",
-    paramValidationFactory<t_ActivityMarkRepoNotificationsAsReadParamSchema>(
-      activityMarkRepoNotificationsAsReadParamSchema
-    ),
-    bodyValidationFactory<t_ActivityMarkRepoNotificationsAsReadBodySchema>(
-      activityMarkRepoNotificationsAsReadBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityMarkRepoNotificationsAsReadParamSchema,
@@ -27864,8 +30261,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityMarkRepoNotificationsAsReadParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          activityMarkRepoNotificationsAsReadBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.activityMarkRepoNotificationsAsRead(ctx.state, ctx)
+        await implementation.activityMarkRepoNotificationsAsRead(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27880,17 +30289,17 @@ export function bootstrap(
   router.get(
     "reposGetPages",
     "/repos/:owner/:repo/pages",
-    paramValidationFactory<t_ReposGetPagesParamSchema>(
-      reposGetPagesParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetPagesParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetPages(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetPagesParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetPages(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27915,12 +30324,6 @@ export function bootstrap(
   router.post(
     "reposCreatePagesSite",
     "/repos/:owner/:repo/pages",
-    paramValidationFactory<t_ReposCreatePagesSiteParamSchema>(
-      reposCreatePagesSiteParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreatePagesSiteBodySchema>(
-      reposCreatePagesSiteBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreatePagesSiteParamSchema,
@@ -27929,8 +30332,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreatePagesSiteParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreatePagesSiteBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreatePagesSite(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -27954,12 +30363,6 @@ export function bootstrap(
   router.put(
     "reposUpdateInformationAboutPagesSite",
     "/repos/:owner/:repo/pages",
-    paramValidationFactory<t_ReposUpdateInformationAboutPagesSiteParamSchema>(
-      reposUpdateInformationAboutPagesSiteParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateInformationAboutPagesSiteBodySchema>(
-      reposUpdateInformationAboutPagesSiteBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateInformationAboutPagesSiteParamSchema,
@@ -27968,11 +30371,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateInformationAboutPagesSiteParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateInformationAboutPagesSiteBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposUpdateInformationAboutPagesSite(
-          ctx.state,
-          ctx
-        )
+        await implementation.reposUpdateInformationAboutPagesSite(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -27987,15 +30399,18 @@ export function bootstrap(
   router.delete(
     "reposDeletePagesSite",
     "/repos/:owner/:repo/pages",
-    paramValidationFactory<t_ReposDeletePagesSiteParamSchema>(
-      reposDeletePagesSiteParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeletePagesSiteParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeletePagesSiteParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeletePagesSite(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28017,12 +30432,6 @@ export function bootstrap(
   router.get(
     "reposListPagesBuilds",
     "/repos/:owner/:repo/pages/builds",
-    paramValidationFactory<t_ReposListPagesBuildsParamSchema>(
-      reposListPagesBuildsParamSchema
-    ),
-    queryValidationFactory<t_ReposListPagesBuildsQuerySchema>(
-      reposListPagesBuildsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListPagesBuildsParamSchema,
@@ -28031,8 +30440,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListPagesBuildsParamSchema, ctx.params),
+        query: parseRequestInput(reposListPagesBuildsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListPagesBuilds(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28049,15 +30464,21 @@ export function bootstrap(
   router.post(
     "reposRequestPagesBuild",
     "/repos/:owner/:repo/pages/builds",
-    paramValidationFactory<t_ReposRequestPagesBuildParamSchema>(
-      reposRequestPagesBuildParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposRequestPagesBuildParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposRequestPagesBuildParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposRequestPagesBuild(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28074,15 +30495,21 @@ export function bootstrap(
   router.get(
     "reposGetLatestPagesBuild",
     "/repos/:owner/:repo/pages/builds/latest",
-    paramValidationFactory<t_ReposGetLatestPagesBuildParamSchema>(
-      reposGetLatestPagesBuildParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetLatestPagesBuildParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetLatestPagesBuildParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetLatestPagesBuild(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28100,15 +30527,18 @@ export function bootstrap(
   router.get(
     "reposGetPagesBuild",
     "/repos/:owner/:repo/pages/builds/:buildId",
-    paramValidationFactory<t_ReposGetPagesBuildParamSchema>(
-      reposGetPagesBuildParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetPagesBuildParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetPagesBuildParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetPagesBuild(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28132,12 +30562,6 @@ export function bootstrap(
   router.post(
     "reposCreatePagesDeployment",
     "/repos/:owner/:repo/pages/deployment",
-    paramValidationFactory<t_ReposCreatePagesDeploymentParamSchema>(
-      reposCreatePagesDeploymentParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreatePagesDeploymentBodySchema>(
-      reposCreatePagesDeploymentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreatePagesDeploymentParamSchema,
@@ -28146,8 +30570,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreatePagesDeploymentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreatePagesDeploymentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreatePagesDeployment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28164,15 +30597,21 @@ export function bootstrap(
   router.get(
     "reposGetPagesHealthCheck",
     "/repos/:owner/:repo/pages/health",
-    paramValidationFactory<t_ReposGetPagesHealthCheckParamSchema>(
-      reposGetPagesHealthCheckParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetPagesHealthCheckParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetPagesHealthCheckParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetPagesHealthCheck(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28195,12 +30634,6 @@ export function bootstrap(
   router.get(
     "projectsListForRepo",
     "/repos/:owner/:repo/projects",
-    paramValidationFactory<t_ProjectsListForRepoParamSchema>(
-      projectsListForRepoParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListForRepoQuerySchema>(
-      projectsListForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListForRepoParamSchema,
@@ -28209,8 +30642,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsListForRepoParamSchema, ctx.params),
+        query: parseRequestInput(projectsListForRepoQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28232,12 +30671,6 @@ export function bootstrap(
   router.post(
     "projectsCreateForRepo",
     "/repos/:owner/:repo/projects",
-    paramValidationFactory<t_ProjectsCreateForRepoParamSchema>(
-      projectsCreateForRepoParamSchema
-    ),
-    bodyValidationFactory<t_ProjectsCreateForRepoBodySchema>(
-      projectsCreateForRepoBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsCreateForRepoParamSchema,
@@ -28246,8 +30679,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsCreateForRepoParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(projectsCreateForRepoBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.projectsCreateForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28276,13 +30715,17 @@ export function bootstrap(
   router.get(
     "pullsList",
     "/repos/:owner/:repo/pulls",
-    paramValidationFactory<t_PullsListParamSchema>(pullsListParamSchema),
-    queryValidationFactory<t_PullsListQuerySchema>(pullsListQuerySchema),
     async (
       ctx: ValidatedCtx<t_PullsListParamSchema, t_PullsListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsList(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(pullsListParamSchema, ctx.params),
+        query: parseRequestInput(pullsListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28307,8 +30750,6 @@ export function bootstrap(
   router.post(
     "pullsCreate",
     "/repos/:owner/:repo/pulls",
-    paramValidationFactory<t_PullsCreateParamSchema>(pullsCreateParamSchema),
-    bodyValidationFactory<t_PullsCreateBodySchema>(pullsCreateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_PullsCreateParamSchema,
@@ -28317,7 +30758,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsCreate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(pullsCreateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsCreateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.pullsCreate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28340,12 +30787,6 @@ export function bootstrap(
   router.get(
     "pullsListReviewCommentsForRepo",
     "/repos/:owner/:repo/pulls/comments",
-    paramValidationFactory<t_PullsListReviewCommentsForRepoParamSchema>(
-      pullsListReviewCommentsForRepoParamSchema
-    ),
-    queryValidationFactory<t_PullsListReviewCommentsForRepoQuerySchema>(
-      pullsListReviewCommentsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListReviewCommentsForRepoParamSchema,
@@ -28354,8 +30795,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsListReviewCommentsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          pullsListReviewCommentsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.pullsListReviewCommentsForRepo(ctx.state, ctx)
+        await implementation.pullsListReviewCommentsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28371,15 +30824,18 @@ export function bootstrap(
   router.get(
     "pullsGetReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    paramValidationFactory<t_PullsGetReviewCommentParamSchema>(
-      pullsGetReviewCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsGetReviewCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsGetReviewCommentParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsGetReviewComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28401,12 +30857,6 @@ export function bootstrap(
   router.patch(
     "pullsUpdateReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    paramValidationFactory<t_PullsUpdateReviewCommentParamSchema>(
-      pullsUpdateReviewCommentParamSchema
-    ),
-    bodyValidationFactory<t_PullsUpdateReviewCommentBodySchema>(
-      pullsUpdateReviewCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsUpdateReviewCommentParamSchema,
@@ -28415,8 +30865,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsUpdateReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(pullsUpdateReviewCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsUpdateReviewComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28434,15 +30893,21 @@ export function bootstrap(
   router.delete(
     "pullsDeleteReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    paramValidationFactory<t_PullsDeleteReviewCommentParamSchema>(
-      pullsDeleteReviewCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsDeleteReviewCommentParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsDeleteReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsDeleteReviewComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28477,12 +30942,6 @@ export function bootstrap(
   router.get(
     "reactionsListForPullRequestReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsListForPullRequestReviewCommentParamSchema>(
-      reactionsListForPullRequestReviewCommentParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForPullRequestReviewCommentQuerySchema>(
-      reactionsListForPullRequestReviewCommentQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForPullRequestReviewCommentParamSchema,
@@ -28491,9 +30950,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForPullRequestReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForPullRequestReviewCommentQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reactionsListForPullRequestReviewComment(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -28524,12 +30995,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForPullRequestReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-    paramValidationFactory<t_ReactionsCreateForPullRequestReviewCommentParamSchema>(
-      reactionsCreateForPullRequestReviewCommentParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForPullRequestReviewCommentBodySchema>(
-      reactionsCreateForPullRequestReviewCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForPullRequestReviewCommentParamSchema,
@@ -28538,9 +31003,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForPullRequestReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForPullRequestReviewCommentBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.reactionsCreateForPullRequestReviewComment(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -28559,9 +31036,6 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForPullRequestComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForPullRequestCommentParamSchema>(
-      reactionsDeleteForPullRequestCommentParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsDeleteForPullRequestCommentParamSchema,
@@ -28570,11 +31044,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForPullRequestCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsDeleteForPullRequestComment(
-          ctx.state,
-          ctx
-        )
+        await implementation.reactionsDeleteForPullRequestComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28590,12 +31070,17 @@ export function bootstrap(
   router.get(
     "pullsGet",
     "/repos/:owner/:repo/pulls/:pullNumber",
-    paramValidationFactory<t_PullsGetParamSchema>(pullsGetParamSchema),
     async (
       ctx: ValidatedCtx<t_PullsGetParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsGet(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(pullsGetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsGet(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28621,8 +31106,6 @@ export function bootstrap(
   router.patch(
     "pullsUpdate",
     "/repos/:owner/:repo/pulls/:pullNumber",
-    paramValidationFactory<t_PullsUpdateParamSchema>(pullsUpdateParamSchema),
-    bodyValidationFactory<t_PullsUpdateBodySchema>(pullsUpdateBodySchema),
     async (
       ctx: ValidatedCtx<
         t_PullsUpdateParamSchema,
@@ -28631,7 +31114,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsUpdate(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(pullsUpdateParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsUpdateBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.pullsUpdate(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28659,12 +31148,6 @@ export function bootstrap(
   router.post(
     "codespacesCreateWithPrForAuthenticatedUser",
     "/repos/:owner/:repo/pulls/:pullNumber/codespaces",
-    paramValidationFactory<t_CodespacesCreateWithPrForAuthenticatedUserParamSchema>(
-      codespacesCreateWithPrForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesCreateWithPrForAuthenticatedUserBodySchema>(
-      codespacesCreateWithPrForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
@@ -28673,9 +31156,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCreateWithPrForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateWithPrForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.codespacesCreateWithPrForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -28701,12 +31196,6 @@ export function bootstrap(
   router.get(
     "pullsListReviewComments",
     "/repos/:owner/:repo/pulls/:pullNumber/comments",
-    paramValidationFactory<t_PullsListReviewCommentsParamSchema>(
-      pullsListReviewCommentsParamSchema
-    ),
-    queryValidationFactory<t_PullsListReviewCommentsQuerySchema>(
-      pullsListReviewCommentsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListReviewCommentsParamSchema,
@@ -28715,8 +31204,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsListReviewCommentsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(pullsListReviewCommentsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsListReviewComments(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28746,12 +31244,6 @@ export function bootstrap(
   router.post(
     "pullsCreateReviewComment",
     "/repos/:owner/:repo/pulls/:pullNumber/comments",
-    paramValidationFactory<t_PullsCreateReviewCommentParamSchema>(
-      pullsCreateReviewCommentParamSchema
-    ),
-    bodyValidationFactory<t_PullsCreateReviewCommentBodySchema>(
-      pullsCreateReviewCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsCreateReviewCommentParamSchema,
@@ -28760,8 +31252,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsCreateReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(pullsCreateReviewCommentBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsCreateReviewComment(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28784,12 +31285,6 @@ export function bootstrap(
   router.post(
     "pullsCreateReplyForReviewComment",
     "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
-    paramValidationFactory<t_PullsCreateReplyForReviewCommentParamSchema>(
-      pullsCreateReplyForReviewCommentParamSchema
-    ),
-    bodyValidationFactory<t_PullsCreateReplyForReviewCommentBodySchema>(
-      pullsCreateReplyForReviewCommentBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsCreateReplyForReviewCommentParamSchema,
@@ -28798,8 +31293,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsCreateReplyForReviewCommentParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          pullsCreateReplyForReviewCommentBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.pullsCreateReplyForReviewComment(ctx.state, ctx)
+        await implementation.pullsCreateReplyForReviewComment(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28820,12 +31327,6 @@ export function bootstrap(
   router.get(
     "pullsListCommits",
     "/repos/:owner/:repo/pulls/:pullNumber/commits",
-    paramValidationFactory<t_PullsListCommitsParamSchema>(
-      pullsListCommitsParamSchema
-    ),
-    queryValidationFactory<t_PullsListCommitsQuerySchema>(
-      pullsListCommitsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListCommitsParamSchema,
@@ -28834,10 +31335,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsListCommits(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(pullsListCommitsParamSchema, ctx.params),
+        query: parseRequestInput(pullsListCommitsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsListCommits(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28858,12 +31362,6 @@ export function bootstrap(
   router.get(
     "pullsListFiles",
     "/repos/:owner/:repo/pulls/:pullNumber/files",
-    paramValidationFactory<t_PullsListFilesParamSchema>(
-      pullsListFilesParamSchema
-    ),
-    queryValidationFactory<t_PullsListFilesQuerySchema>(
-      pullsListFilesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListFilesParamSchema,
@@ -28872,10 +31370,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsListFiles(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(pullsListFilesParamSchema, ctx.params),
+        query: parseRequestInput(pullsListFilesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsListFiles(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28891,15 +31392,18 @@ export function bootstrap(
   router.get(
     "pullsCheckIfMerged",
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
-    paramValidationFactory<t_PullsCheckIfMergedParamSchema>(
-      pullsCheckIfMergedParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsCheckIfMergedParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsCheckIfMergedParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsCheckIfMerged(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28926,13 +31430,17 @@ export function bootstrap(
   router.put(
     "pullsMerge",
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
-    paramValidationFactory<t_PullsMergeParamSchema>(pullsMergeParamSchema),
-    bodyValidationFactory<t_PullsMergeBodySchema>(pullsMergeBodySchema),
     async (
       ctx: ValidatedCtx<t_PullsMergeParamSchema, void, t_PullsMergeBodySchema>,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsMerge(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(pullsMergeParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsMergeBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.pullsMerge(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -28948,15 +31456,21 @@ export function bootstrap(
   router.get(
     "pullsListRequestedReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    paramValidationFactory<t_PullsListRequestedReviewersParamSchema>(
-      pullsListRequestedReviewersParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsListRequestedReviewersParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsListRequestedReviewersParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsListRequestedReviewers(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -28981,12 +31495,6 @@ export function bootstrap(
   router.post(
     "pullsRequestReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    paramValidationFactory<t_PullsRequestReviewersParamSchema>(
-      pullsRequestReviewersParamSchema
-    ),
-    bodyValidationFactory<t_PullsRequestReviewersBodySchema>(
-      pullsRequestReviewersBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsRequestReviewersParamSchema,
@@ -28995,8 +31503,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsRequestReviewersParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsRequestReviewersBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsRequestReviewers(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29019,12 +31533,6 @@ export function bootstrap(
   router.delete(
     "pullsRemoveRequestedReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    paramValidationFactory<t_PullsRemoveRequestedReviewersParamSchema>(
-      pullsRemoveRequestedReviewersParamSchema
-    ),
-    bodyValidationFactory<t_PullsRemoveRequestedReviewersBodySchema>(
-      pullsRemoveRequestedReviewersBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsRemoveRequestedReviewersParamSchema,
@@ -29033,8 +31541,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsRemoveRequestedReviewersParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          pullsRemoveRequestedReviewersBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.pullsRemoveRequestedReviewers(ctx.state, ctx)
+        await implementation.pullsRemoveRequestedReviewers(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -29055,12 +31575,6 @@ export function bootstrap(
   router.get(
     "pullsListReviews",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-    paramValidationFactory<t_PullsListReviewsParamSchema>(
-      pullsListReviewsParamSchema
-    ),
-    queryValidationFactory<t_PullsListReviewsQuerySchema>(
-      pullsListReviewsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListReviewsParamSchema,
@@ -29069,10 +31583,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsListReviews(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(pullsListReviewsParamSchema, ctx.params),
+        query: parseRequestInput(pullsListReviewsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsListReviews(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -29109,12 +31626,6 @@ export function bootstrap(
   router.post(
     "pullsCreateReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-    paramValidationFactory<t_PullsCreateReviewParamSchema>(
-      pullsCreateReviewParamSchema
-    ),
-    bodyValidationFactory<t_PullsCreateReviewBodySchema>(
-      pullsCreateReviewBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsCreateReviewParamSchema,
@@ -29123,8 +31634,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsCreateReviewParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsCreateReviewBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsCreateReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29143,17 +31660,17 @@ export function bootstrap(
   router.get(
     "pullsGetReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    paramValidationFactory<t_PullsGetReviewParamSchema>(
-      pullsGetReviewParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsGetReviewParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.pullsGetReview(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(pullsGetReviewParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.pullsGetReview(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -29172,12 +31689,6 @@ export function bootstrap(
   router.put(
     "pullsUpdateReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    paramValidationFactory<t_PullsUpdateReviewParamSchema>(
-      pullsUpdateReviewParamSchema
-    ),
-    bodyValidationFactory<t_PullsUpdateReviewBodySchema>(
-      pullsUpdateReviewBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsUpdateReviewParamSchema,
@@ -29186,8 +31697,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsUpdateReviewParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsUpdateReviewBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsUpdateReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29206,15 +31723,21 @@ export function bootstrap(
   router.delete(
     "pullsDeletePendingReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    paramValidationFactory<t_PullsDeletePendingReviewParamSchema>(
-      pullsDeletePendingReviewParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PullsDeletePendingReviewParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsDeletePendingReviewParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsDeletePendingReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29238,12 +31761,6 @@ export function bootstrap(
   router.get(
     "pullsListCommentsForReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
-    paramValidationFactory<t_PullsListCommentsForReviewParamSchema>(
-      pullsListCommentsForReviewParamSchema
-    ),
-    queryValidationFactory<t_PullsListCommentsForReviewQuerySchema>(
-      pullsListCommentsForReviewQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsListCommentsForReviewParamSchema,
@@ -29252,8 +31769,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          pullsListCommentsForReviewParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          pullsListCommentsForReviewQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.pullsListCommentsForReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29277,12 +31806,6 @@ export function bootstrap(
   router.put(
     "pullsDismissReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
-    paramValidationFactory<t_PullsDismissReviewParamSchema>(
-      pullsDismissReviewParamSchema
-    ),
-    bodyValidationFactory<t_PullsDismissReviewBodySchema>(
-      pullsDismissReviewBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsDismissReviewParamSchema,
@@ -29291,8 +31814,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsDismissReviewParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsDismissReviewBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsDismissReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29316,12 +31845,6 @@ export function bootstrap(
   router.post(
     "pullsSubmitReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
-    paramValidationFactory<t_PullsSubmitReviewParamSchema>(
-      pullsSubmitReviewParamSchema
-    ),
-    bodyValidationFactory<t_PullsSubmitReviewBodySchema>(
-      pullsSubmitReviewBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsSubmitReviewParamSchema,
@@ -29330,8 +31853,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsSubmitReviewParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsSubmitReviewBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsSubmitReview(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29353,12 +31882,6 @@ export function bootstrap(
   router.put(
     "pullsUpdateBranch",
     "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
-    paramValidationFactory<t_PullsUpdateBranchParamSchema>(
-      pullsUpdateBranchParamSchema
-    ),
-    bodyValidationFactory<t_PullsUpdateBranchBodySchema>(
-      pullsUpdateBranchBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PullsUpdateBranchParamSchema,
@@ -29367,8 +31890,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(pullsUpdateBranchParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(pullsUpdateBranchBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.pullsUpdateBranch(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29389,12 +31918,6 @@ export function bootstrap(
   router.get(
     "reposGetReadme",
     "/repos/:owner/:repo/readme",
-    paramValidationFactory<t_ReposGetReadmeParamSchema>(
-      reposGetReadmeParamSchema
-    ),
-    queryValidationFactory<t_ReposGetReadmeQuerySchema>(
-      reposGetReadmeQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetReadmeParamSchema,
@@ -29403,10 +31926,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetReadme(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetReadmeParamSchema, ctx.params),
+        query: parseRequestInput(reposGetReadmeQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetReadme(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -29426,12 +31952,6 @@ export function bootstrap(
   router.get(
     "reposGetReadmeInDirectory",
     "/repos/:owner/:repo/readme/:dir",
-    paramValidationFactory<t_ReposGetReadmeInDirectoryParamSchema>(
-      reposGetReadmeInDirectoryParamSchema
-    ),
-    queryValidationFactory<t_ReposGetReadmeInDirectoryQuerySchema>(
-      reposGetReadmeInDirectoryQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetReadmeInDirectoryParamSchema,
@@ -29440,8 +31960,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetReadmeInDirectoryParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposGetReadmeInDirectoryQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetReadmeInDirectory(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29463,12 +31995,6 @@ export function bootstrap(
   router.get(
     "reposListReleases",
     "/repos/:owner/:repo/releases",
-    paramValidationFactory<t_ReposListReleasesParamSchema>(
-      reposListReleasesParamSchema
-    ),
-    queryValidationFactory<t_ReposListReleasesQuerySchema>(
-      reposListReleasesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListReleasesParamSchema,
@@ -29477,8 +32003,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposListReleasesParamSchema, ctx.params),
+        query: parseRequestInput(reposListReleasesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListReleases(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29507,12 +32039,6 @@ export function bootstrap(
   router.post(
     "reposCreateRelease",
     "/repos/:owner/:repo/releases",
-    paramValidationFactory<t_ReposCreateReleaseParamSchema>(
-      reposCreateReleaseParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateReleaseBodySchema>(
-      reposCreateReleaseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateReleaseParamSchema,
@@ -29521,8 +32047,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposCreateReleaseParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposCreateReleaseBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29540,15 +32072,18 @@ export function bootstrap(
   router.get(
     "reposGetReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    paramValidationFactory<t_ReposGetReleaseAssetParamSchema>(
-      reposGetReleaseAssetParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetReleaseAssetParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetReleaseAssetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetReleaseAsset(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29574,12 +32109,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    paramValidationFactory<t_ReposUpdateReleaseAssetParamSchema>(
-      reposUpdateReleaseAssetParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateReleaseAssetBodySchema>(
-      reposUpdateReleaseAssetBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateReleaseAssetParamSchema,
@@ -29588,8 +32117,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateReleaseAssetParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposUpdateReleaseAssetBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUpdateReleaseAsset(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29607,15 +32145,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    paramValidationFactory<t_ReposDeleteReleaseAssetParamSchema>(
-      reposDeleteReleaseAssetParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteReleaseAssetParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteReleaseAssetParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteReleaseAsset(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29639,12 +32183,6 @@ export function bootstrap(
   router.post(
     "reposGenerateReleaseNotes",
     "/repos/:owner/:repo/releases/generate-notes",
-    paramValidationFactory<t_ReposGenerateReleaseNotesParamSchema>(
-      reposGenerateReleaseNotesParamSchema
-    ),
-    bodyValidationFactory<t_ReposGenerateReleaseNotesBodySchema>(
-      reposGenerateReleaseNotesBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGenerateReleaseNotesParamSchema,
@@ -29653,8 +32191,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGenerateReleaseNotesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposGenerateReleaseNotesBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposGenerateReleaseNotes(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29671,15 +32218,18 @@ export function bootstrap(
   router.get(
     "reposGetLatestRelease",
     "/repos/:owner/:repo/releases/latest",
-    paramValidationFactory<t_ReposGetLatestReleaseParamSchema>(
-      reposGetLatestReleaseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetLatestReleaseParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetLatestReleaseParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetLatestRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29697,15 +32247,18 @@ export function bootstrap(
   router.get(
     "reposGetReleaseByTag",
     "/repos/:owner/:repo/releases/tags/:tag",
-    paramValidationFactory<t_ReposGetReleaseByTagParamSchema>(
-      reposGetReleaseByTagParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetReleaseByTagParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetReleaseByTagParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetReleaseByTag(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29723,17 +32276,17 @@ export function bootstrap(
   router.get(
     "reposGetRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    paramValidationFactory<t_ReposGetReleaseParamSchema>(
-      reposGetReleaseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetReleaseParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetRelease(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetReleaseParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetRelease(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -29762,12 +32315,6 @@ export function bootstrap(
   router.patch(
     "reposUpdateRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    paramValidationFactory<t_ReposUpdateReleaseParamSchema>(
-      reposUpdateReleaseParamSchema
-    ),
-    bodyValidationFactory<t_ReposUpdateReleaseBodySchema>(
-      reposUpdateReleaseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUpdateReleaseParamSchema,
@@ -29776,8 +32323,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposUpdateReleaseParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposUpdateReleaseBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUpdateRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29795,15 +32348,18 @@ export function bootstrap(
   router.delete(
     "reposDeleteRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    paramValidationFactory<t_ReposDeleteReleaseParamSchema>(
-      reposDeleteReleaseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteReleaseParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposDeleteReleaseParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29826,12 +32382,6 @@ export function bootstrap(
   router.get(
     "reposListReleaseAssets",
     "/repos/:owner/:repo/releases/:releaseId/assets",
-    paramValidationFactory<t_ReposListReleaseAssetsParamSchema>(
-      reposListReleaseAssetsParamSchema
-    ),
-    queryValidationFactory<t_ReposListReleaseAssetsQuerySchema>(
-      reposListReleaseAssetsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListReleaseAssetsParamSchema,
@@ -29840,8 +32390,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListReleaseAssetsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(reposListReleaseAssetsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListReleaseAssets(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29866,15 +32425,6 @@ export function bootstrap(
   router.post(
     "reposUploadReleaseAsset",
     "/repos/:owner/:repo/releases/:releaseId/assets",
-    paramValidationFactory<t_ReposUploadReleaseAssetParamSchema>(
-      reposUploadReleaseAssetParamSchema
-    ),
-    queryValidationFactory<t_ReposUploadReleaseAssetQuerySchema>(
-      reposUploadReleaseAssetQuerySchema
-    ),
-    bodyValidationFactory<t_ReposUploadReleaseAssetBodySchema>(
-      reposUploadReleaseAssetBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposUploadReleaseAssetParamSchema,
@@ -29883,8 +32433,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposUploadReleaseAssetParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(reposUploadReleaseAssetQuerySchema, ctx.query),
+        body: parseRequestInput(reposUploadReleaseAssetBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposUploadReleaseAsset(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29910,12 +32469,6 @@ export function bootstrap(
   router.get(
     "reactionsListForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions",
-    paramValidationFactory<t_ReactionsListForReleaseParamSchema>(
-      reactionsListForReleaseParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForReleaseQuerySchema>(
-      reactionsListForReleaseQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForReleaseParamSchema,
@@ -29924,8 +32477,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForReleaseParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(reactionsListForReleaseQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reactionsListForRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29947,12 +32509,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions",
-    paramValidationFactory<t_ReactionsCreateForReleaseParamSchema>(
-      reactionsCreateForReleaseParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForReleaseBodySchema>(
-      reactionsCreateForReleaseBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForReleaseParamSchema,
@@ -29961,8 +32517,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForReleaseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reactionsCreateForReleaseBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reactionsCreateForRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -29981,15 +32546,21 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions/:reactionId",
-    paramValidationFactory<t_ReactionsDeleteForReleaseParamSchema>(
-      reactionsDeleteForReleaseParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReactionsDeleteForReleaseParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsDeleteForReleaseParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reactionsDeleteForRelease(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30018,12 +32589,6 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForRepo",
     "/repos/:owner/:repo/secret-scanning/alerts",
-    paramValidationFactory<t_SecretScanningListAlertsForRepoParamSchema>(
-      secretScanningListAlertsForRepoParamSchema
-    ),
-    queryValidationFactory<t_SecretScanningListAlertsForRepoQuerySchema>(
-      secretScanningListAlertsForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningListAlertsForRepoParamSchema,
@@ -30032,8 +32597,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningListAlertsForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          secretScanningListAlertsForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.secretScanningListAlertsForRepo(ctx.state, ctx)
+        await implementation.secretScanningListAlertsForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30049,15 +32626,21 @@ export function bootstrap(
   router.get(
     "secretScanningGetAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
-    paramValidationFactory<t_SecretScanningGetAlertParamSchema>(
-      secretScanningGetAlertParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_SecretScanningGetAlertParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningGetAlertParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.secretScanningGetAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30083,12 +32666,6 @@ export function bootstrap(
   router.patch(
     "secretScanningUpdateAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
-    paramValidationFactory<t_SecretScanningUpdateAlertParamSchema>(
-      secretScanningUpdateAlertParamSchema
-    ),
-    bodyValidationFactory<t_SecretScanningUpdateAlertBodySchema>(
-      secretScanningUpdateAlertBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningUpdateAlertParamSchema,
@@ -30097,8 +32674,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningUpdateAlertParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(secretScanningUpdateAlertBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.secretScanningUpdateAlert(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30121,12 +32707,6 @@ export function bootstrap(
   router.get(
     "secretScanningListLocationsForAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber/locations",
-    paramValidationFactory<t_SecretScanningListLocationsForAlertParamSchema>(
-      secretScanningListLocationsForAlertParamSchema
-    ),
-    queryValidationFactory<t_SecretScanningListLocationsForAlertQuerySchema>(
-      secretScanningListLocationsForAlertQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_SecretScanningListLocationsForAlertParamSchema,
@@ -30135,8 +32715,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningListLocationsForAlertParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          secretScanningListLocationsForAlertQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.secretScanningListLocationsForAlert(ctx.state, ctx)
+        await implementation.secretScanningListLocationsForAlert(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30156,12 +32748,6 @@ export function bootstrap(
   router.get(
     "activityListStargazersForRepo",
     "/repos/:owner/:repo/stargazers",
-    paramValidationFactory<t_ActivityListStargazersForRepoParamSchema>(
-      activityListStargazersForRepoParamSchema
-    ),
-    queryValidationFactory<t_ActivityListStargazersForRepoQuerySchema>(
-      activityListStargazersForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListStargazersForRepoParamSchema,
@@ -30170,8 +32756,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListStargazersForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListStargazersForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListStargazersForRepo(ctx.state, ctx)
+        await implementation.activityListStargazersForRepo(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30186,15 +32784,21 @@ export function bootstrap(
   router.get(
     "reposGetCodeFrequencyStats",
     "/repos/:owner/:repo/stats/code_frequency",
-    paramValidationFactory<t_ReposGetCodeFrequencyStatsParamSchema>(
-      reposGetCodeFrequencyStatsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetCodeFrequencyStatsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCodeFrequencyStatsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetCodeFrequencyStats(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30211,15 +32815,21 @@ export function bootstrap(
   router.get(
     "reposGetCommitActivityStats",
     "/repos/:owner/:repo/stats/commit_activity",
-    paramValidationFactory<t_ReposGetCommitActivityStatsParamSchema>(
-      reposGetCommitActivityStatsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetCommitActivityStatsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCommitActivityStatsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetCommitActivityStats(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30236,15 +32846,21 @@ export function bootstrap(
   router.get(
     "reposGetContributorsStats",
     "/repos/:owner/:repo/stats/contributors",
-    paramValidationFactory<t_ReposGetContributorsStatsParamSchema>(
-      reposGetContributorsStatsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetContributorsStatsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetContributorsStatsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetContributorsStats(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30261,15 +32877,21 @@ export function bootstrap(
   router.get(
     "reposGetParticipationStats",
     "/repos/:owner/:repo/stats/participation",
-    paramValidationFactory<t_ReposGetParticipationStatsParamSchema>(
-      reposGetParticipationStatsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetParticipationStatsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetParticipationStatsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetParticipationStats(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30286,15 +32908,21 @@ export function bootstrap(
   router.get(
     "reposGetPunchCardStats",
     "/repos/:owner/:repo/stats/punch_card",
-    paramValidationFactory<t_ReposGetPunchCardStatsParamSchema>(
-      reposGetPunchCardStatsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetPunchCardStatsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetPunchCardStatsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetPunchCardStats(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30319,12 +32947,6 @@ export function bootstrap(
   router.post(
     "reposCreateCommitStatus",
     "/repos/:owner/:repo/statuses/:sha",
-    paramValidationFactory<t_ReposCreateCommitStatusParamSchema>(
-      reposCreateCommitStatusParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateCommitStatusBodySchema>(
-      reposCreateCommitStatusBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateCommitStatusParamSchema,
@@ -30333,8 +32955,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateCommitStatusParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreateCommitStatusBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateCommitStatus(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30356,12 +32987,6 @@ export function bootstrap(
   router.get(
     "activityListWatchersForRepo",
     "/repos/:owner/:repo/subscribers",
-    paramValidationFactory<t_ActivityListWatchersForRepoParamSchema>(
-      activityListWatchersForRepoParamSchema
-    ),
-    queryValidationFactory<t_ActivityListWatchersForRepoQuerySchema>(
-      activityListWatchersForRepoQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListWatchersForRepoParamSchema,
@@ -30370,8 +32995,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListWatchersForRepoParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListWatchersForRepoQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityListWatchersForRepo(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30388,15 +33025,21 @@ export function bootstrap(
   router.get(
     "activityGetRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    paramValidationFactory<t_ActivityGetRepoSubscriptionParamSchema>(
-      activityGetRepoSubscriptionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActivityGetRepoSubscriptionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityGetRepoSubscriptionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.activityGetRepoSubscription(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30420,12 +33063,6 @@ export function bootstrap(
   router.put(
     "activitySetRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    paramValidationFactory<t_ActivitySetRepoSubscriptionParamSchema>(
-      activitySetRepoSubscriptionParamSchema
-    ),
-    bodyValidationFactory<t_ActivitySetRepoSubscriptionBodySchema>(
-      activitySetRepoSubscriptionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivitySetRepoSubscriptionParamSchema,
@@ -30434,8 +33071,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activitySetRepoSubscriptionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          activitySetRepoSubscriptionBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.activitySetRepoSubscription(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30452,9 +33101,6 @@ export function bootstrap(
   router.delete(
     "activityDeleteRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    paramValidationFactory<t_ActivityDeleteRepoSubscriptionParamSchema>(
-      activityDeleteRepoSubscriptionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityDeleteRepoSubscriptionParamSchema,
@@ -30463,8 +33109,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityDeleteRepoSubscriptionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityDeleteRepoSubscription(ctx.state, ctx)
+        await implementation.activityDeleteRepoSubscription(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30484,12 +33139,6 @@ export function bootstrap(
   router.get(
     "reposListTags",
     "/repos/:owner/:repo/tags",
-    paramValidationFactory<t_ReposListTagsParamSchema>(
-      reposListTagsParamSchema
-    ),
-    queryValidationFactory<t_ReposListTagsQuerySchema>(
-      reposListTagsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListTagsParamSchema,
@@ -30498,10 +33147,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListTags(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListTagsParamSchema, ctx.params),
+        query: parseRequestInput(reposListTagsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListTags(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30516,15 +33168,21 @@ export function bootstrap(
   router.get(
     "reposListTagProtection",
     "/repos/:owner/:repo/tags/protection",
-    paramValidationFactory<t_ReposListTagProtectionParamSchema>(
-      reposListTagProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposListTagProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposListTagProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposListTagProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30545,12 +33203,6 @@ export function bootstrap(
   router.post(
     "reposCreateTagProtection",
     "/repos/:owner/:repo/tags/protection",
-    paramValidationFactory<t_ReposCreateTagProtectionParamSchema>(
-      reposCreateTagProtectionParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateTagProtectionBodySchema>(
-      reposCreateTagProtectionBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateTagProtectionParamSchema,
@@ -30559,8 +33211,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateTagProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreateTagProtectionBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateTagProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30578,15 +33239,21 @@ export function bootstrap(
   router.delete(
     "reposDeleteTagProtection",
     "/repos/:owner/:repo/tags/protection/:tagProtectionId",
-    paramValidationFactory<t_ReposDeleteTagProtectionParamSchema>(
-      reposDeleteTagProtectionParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDeleteTagProtectionParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteTagProtectionParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDeleteTagProtection(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30604,15 +33271,21 @@ export function bootstrap(
   router.get(
     "reposDownloadTarballArchive",
     "/repos/:owner/:repo/tarball/:ref",
-    paramValidationFactory<t_ReposDownloadTarballArchiveParamSchema>(
-      reposDownloadTarballArchiveParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDownloadTarballArchiveParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDownloadTarballArchiveParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDownloadTarballArchive(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30634,12 +33307,6 @@ export function bootstrap(
   router.get(
     "reposListTeams",
     "/repos/:owner/:repo/teams",
-    paramValidationFactory<t_ReposListTeamsParamSchema>(
-      reposListTeamsParamSchema
-    ),
-    queryValidationFactory<t_ReposListTeamsQuerySchema>(
-      reposListTeamsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListTeamsParamSchema,
@@ -30648,10 +33315,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListTeams(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListTeamsParamSchema, ctx.params),
+        query: parseRequestInput(reposListTeamsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListTeams(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30671,12 +33341,6 @@ export function bootstrap(
   router.get(
     "reposGetAllTopics",
     "/repos/:owner/:repo/topics",
-    paramValidationFactory<t_ReposGetAllTopicsParamSchema>(
-      reposGetAllTopicsParamSchema
-    ),
-    queryValidationFactory<t_ReposGetAllTopicsQuerySchema>(
-      reposGetAllTopicsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetAllTopicsParamSchema,
@@ -30685,8 +33349,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetAllTopicsParamSchema, ctx.params),
+        query: parseRequestInput(reposGetAllTopicsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetAllTopics(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30707,12 +33377,6 @@ export function bootstrap(
   router.put(
     "reposReplaceAllTopics",
     "/repos/:owner/:repo/topics",
-    paramValidationFactory<t_ReposReplaceAllTopicsParamSchema>(
-      reposReplaceAllTopicsParamSchema
-    ),
-    bodyValidationFactory<t_ReposReplaceAllTopicsBodySchema>(
-      reposReplaceAllTopicsBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposReplaceAllTopicsParamSchema,
@@ -30721,8 +33385,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposReplaceAllTopicsParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposReplaceAllTopicsBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposReplaceAllTopics(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30743,12 +33413,6 @@ export function bootstrap(
   router.get(
     "reposGetClones",
     "/repos/:owner/:repo/traffic/clones",
-    paramValidationFactory<t_ReposGetClonesParamSchema>(
-      reposGetClonesParamSchema
-    ),
-    queryValidationFactory<t_ReposGetClonesQuerySchema>(
-      reposGetClonesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetClonesParamSchema,
@@ -30757,10 +33421,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetClones(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetClonesParamSchema, ctx.params),
+        query: parseRequestInput(reposGetClonesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetClones(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30775,17 +33442,17 @@ export function bootstrap(
   router.get(
     "reposGetTopPaths",
     "/repos/:owner/:repo/traffic/popular/paths",
-    paramValidationFactory<t_ReposGetTopPathsParamSchema>(
-      reposGetTopPathsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetTopPathsParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetTopPaths(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetTopPathsParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetTopPaths(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30800,15 +33467,18 @@ export function bootstrap(
   router.get(
     "reposGetTopReferrers",
     "/repos/:owner/:repo/traffic/popular/referrers",
-    paramValidationFactory<t_ReposGetTopReferrersParamSchema>(
-      reposGetTopReferrersParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposGetTopReferrersParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(reposGetTopReferrersParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposGetTopReferrers(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -30829,12 +33499,6 @@ export function bootstrap(
   router.get(
     "reposGetViews",
     "/repos/:owner/:repo/traffic/views",
-    paramValidationFactory<t_ReposGetViewsParamSchema>(
-      reposGetViewsParamSchema
-    ),
-    queryValidationFactory<t_ReposGetViewsQuerySchema>(
-      reposGetViewsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposGetViewsParamSchema,
@@ -30843,10 +33507,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposGetViews(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposGetViewsParamSchema, ctx.params),
+        query: parseRequestInput(reposGetViewsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetViews(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30867,10 +33534,6 @@ export function bootstrap(
   router.post(
     "reposTransfer",
     "/repos/:owner/:repo/transfer",
-    paramValidationFactory<t_ReposTransferParamSchema>(
-      reposTransferParamSchema
-    ),
-    bodyValidationFactory<t_ReposTransferBodySchema>(reposTransferBodySchema),
     async (
       ctx: ValidatedCtx<
         t_ReposTransferParamSchema,
@@ -30879,10 +33542,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposTransfer(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposTransferParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(reposTransferBodySchema, ctx.body),
+      }
+
+      const { status, body } = await implementation.reposTransfer(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30897,15 +33563,21 @@ export function bootstrap(
   router.get(
     "reposCheckVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    paramValidationFactory<t_ReposCheckVulnerabilityAlertsParamSchema>(
-      reposCheckVulnerabilityAlertsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposCheckVulnerabilityAlertsParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCheckVulnerabilityAlertsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposCheckVulnerabilityAlerts(ctx.state, ctx)
+        await implementation.reposCheckVulnerabilityAlerts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30920,9 +33592,6 @@ export function bootstrap(
   router.put(
     "reposEnableVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    paramValidationFactory<t_ReposEnableVulnerabilityAlertsParamSchema>(
-      reposEnableVulnerabilityAlertsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposEnableVulnerabilityAlertsParamSchema,
@@ -30931,8 +33600,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposEnableVulnerabilityAlertsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposEnableVulnerabilityAlerts(ctx.state, ctx)
+        await implementation.reposEnableVulnerabilityAlerts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30947,9 +33625,6 @@ export function bootstrap(
   router.delete(
     "reposDisableVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    paramValidationFactory<t_ReposDisableVulnerabilityAlertsParamSchema>(
-      reposDisableVulnerabilityAlertsParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDisableVulnerabilityAlertsParamSchema,
@@ -30958,8 +33633,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisableVulnerabilityAlertsParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposDisableVulnerabilityAlerts(ctx.state, ctx)
+        await implementation.reposDisableVulnerabilityAlerts(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -30975,15 +33659,21 @@ export function bootstrap(
   router.get(
     "reposDownloadZipballArchive",
     "/repos/:owner/:repo/zipball/:ref",
-    paramValidationFactory<t_ReposDownloadZipballArchiveParamSchema>(
-      reposDownloadZipballArchiveParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ReposDownloadZipballArchiveParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDownloadZipballArchiveParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.reposDownloadZipballArchive(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31008,12 +33698,6 @@ export function bootstrap(
   router.post(
     "reposCreateUsingTemplate",
     "/repos/:templateOwner/:templateRepo/generate",
-    paramValidationFactory<t_ReposCreateUsingTemplateParamSchema>(
-      reposCreateUsingTemplateParamSchema
-    ),
-    bodyValidationFactory<t_ReposCreateUsingTemplateBodySchema>(
-      reposCreateUsingTemplateBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposCreateUsingTemplateParamSchema,
@@ -31022,8 +33706,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateUsingTemplateParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(reposCreateUsingTemplateBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.reposCreateUsingTemplate(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31039,17 +33732,17 @@ export function bootstrap(
   router.get(
     "reposListPublic",
     "/repositories",
-    queryValidationFactory<t_ReposListPublicQuerySchema>(
-      reposListPublicQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_ReposListPublicQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListPublic(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(reposListPublicQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListPublic(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31069,12 +33762,6 @@ export function bootstrap(
   router.get(
     "actionsListEnvironmentSecrets",
     "/repositories/:repositoryId/environments/:environmentName/secrets",
-    paramValidationFactory<t_ActionsListEnvironmentSecretsParamSchema>(
-      actionsListEnvironmentSecretsParamSchema
-    ),
-    queryValidationFactory<t_ActionsListEnvironmentSecretsQuerySchema>(
-      actionsListEnvironmentSecretsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListEnvironmentSecretsParamSchema,
@@ -31083,8 +33770,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListEnvironmentSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListEnvironmentSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListEnvironmentSecrets(ctx.state, ctx)
+        await implementation.actionsListEnvironmentSecrets(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31099,9 +33798,6 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentPublicKey",
     "/repositories/:repositoryId/environments/:environmentName/secrets/public-key",
-    paramValidationFactory<t_ActionsGetEnvironmentPublicKeyParamSchema>(
-      actionsGetEnvironmentPublicKeyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsGetEnvironmentPublicKeyParamSchema,
@@ -31110,8 +33806,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetEnvironmentPublicKeyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetEnvironmentPublicKey(ctx.state, ctx)
+        await implementation.actionsGetEnvironmentPublicKey(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31127,15 +33832,21 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    paramValidationFactory<t_ActionsGetEnvironmentSecretParamSchema>(
-      actionsGetEnvironmentSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetEnvironmentSecretParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetEnvironmentSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.actionsGetEnvironmentSecret(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31158,12 +33869,6 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    paramValidationFactory<t_ActionsCreateOrUpdateEnvironmentSecretParamSchema>(
-      actionsCreateOrUpdateEnvironmentSecretParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateOrUpdateEnvironmentSecretBodySchema>(
-      actionsCreateOrUpdateEnvironmentSecretBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
@@ -31172,11 +33877,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateOrUpdateEnvironmentSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateOrUpdateEnvironmentSecretBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateOrUpdateEnvironmentSecret(
-          ctx.state,
-          ctx
-        )
+        await implementation.actionsCreateOrUpdateEnvironmentSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31192,9 +33906,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    paramValidationFactory<t_ActionsDeleteEnvironmentSecretParamSchema>(
-      actionsDeleteEnvironmentSecretParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteEnvironmentSecretParamSchema,
@@ -31203,8 +33914,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteEnvironmentSecretParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteEnvironmentSecret(ctx.state, ctx)
+        await implementation.actionsDeleteEnvironmentSecret(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31224,12 +33944,6 @@ export function bootstrap(
   router.get(
     "actionsListEnvironmentVariables",
     "/repositories/:repositoryId/environments/:environmentName/variables",
-    paramValidationFactory<t_ActionsListEnvironmentVariablesParamSchema>(
-      actionsListEnvironmentVariablesParamSchema
-    ),
-    queryValidationFactory<t_ActionsListEnvironmentVariablesQuerySchema>(
-      actionsListEnvironmentVariablesQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsListEnvironmentVariablesParamSchema,
@@ -31238,8 +33952,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListEnvironmentVariablesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListEnvironmentVariablesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsListEnvironmentVariables(ctx.state, ctx)
+        await implementation.actionsListEnvironmentVariables(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31259,12 +33985,6 @@ export function bootstrap(
   router.post(
     "actionsCreateEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables",
-    paramValidationFactory<t_ActionsCreateEnvironmentVariableParamSchema>(
-      actionsCreateEnvironmentVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsCreateEnvironmentVariableBodySchema>(
-      actionsCreateEnvironmentVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsCreateEnvironmentVariableParamSchema,
@@ -31273,8 +33993,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateEnvironmentVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateEnvironmentVariableBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsCreateEnvironmentVariable(ctx.state, ctx)
+        await implementation.actionsCreateEnvironmentVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31290,15 +34022,21 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    paramValidationFactory<t_ActionsGetEnvironmentVariableParamSchema>(
-      actionsGetEnvironmentVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_ActionsGetEnvironmentVariableParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetEnvironmentVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsGetEnvironmentVariable(ctx.state, ctx)
+        await implementation.actionsGetEnvironmentVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31319,12 +34057,6 @@ export function bootstrap(
   router.patch(
     "actionsUpdateEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    paramValidationFactory<t_ActionsUpdateEnvironmentVariableParamSchema>(
-      actionsUpdateEnvironmentVariableParamSchema
-    ),
-    bodyValidationFactory<t_ActionsUpdateEnvironmentVariableBodySchema>(
-      actionsUpdateEnvironmentVariableBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsUpdateEnvironmentVariableParamSchema,
@@ -31333,8 +34065,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateEnvironmentVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsUpdateEnvironmentVariableBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.actionsUpdateEnvironmentVariable(ctx.state, ctx)
+        await implementation.actionsUpdateEnvironmentVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31350,9 +34094,6 @@ export function bootstrap(
   router.delete(
     "actionsDeleteEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    paramValidationFactory<t_ActionsDeleteEnvironmentVariableParamSchema>(
-      actionsDeleteEnvironmentVariableParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActionsDeleteEnvironmentVariableParamSchema,
@@ -31361,8 +34102,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteEnvironmentVariableParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.actionsDeleteEnvironmentVariable(ctx.state, ctx)
+        await implementation.actionsDeleteEnvironmentVariable(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31380,12 +34130,17 @@ export function bootstrap(
   router.get(
     "searchCode",
     "/search/code",
-    queryValidationFactory<t_SearchCodeQuerySchema>(searchCodeQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_SearchCodeQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchCode(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchCodeQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchCode(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31403,17 +34158,17 @@ export function bootstrap(
   router.get(
     "searchCommits",
     "/search/commits",
-    queryValidationFactory<t_SearchCommitsQuerySchema>(
-      searchCommitsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_SearchCommitsQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchCommits(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchCommitsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchCommits(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31445,15 +34200,21 @@ export function bootstrap(
   router.get(
     "searchIssuesAndPullRequests",
     "/search/issues",
-    queryValidationFactory<t_SearchIssuesAndPullRequestsQuerySchema>(
-      searchIssuesAndPullRequestsQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_SearchIssuesAndPullRequestsQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          searchIssuesAndPullRequestsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.searchIssuesAndPullRequests(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31474,12 +34235,17 @@ export function bootstrap(
   router.get(
     "searchLabels",
     "/search/labels",
-    queryValidationFactory<t_SearchLabelsQuerySchema>(searchLabelsQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_SearchLabelsQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchLabels(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchLabelsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchLabels(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31499,12 +34265,17 @@ export function bootstrap(
   router.get(
     "searchRepos",
     "/search/repositories",
-    queryValidationFactory<t_SearchReposQuerySchema>(searchReposQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_SearchReposQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchRepos(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchReposQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchRepos(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31520,12 +34291,17 @@ export function bootstrap(
   router.get(
     "searchTopics",
     "/search/topics",
-    queryValidationFactory<t_SearchTopicsQuerySchema>(searchTopicsQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_SearchTopicsQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchTopics(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchTopicsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchTopics(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31543,12 +34319,17 @@ export function bootstrap(
   router.get(
     "searchUsers",
     "/search/users",
-    queryValidationFactory<t_SearchUsersQuerySchema>(searchUsersQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_SearchUsersQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.searchUsers(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(searchUsersQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.searchUsers(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31560,17 +34341,17 @@ export function bootstrap(
   router.get(
     "teamsGetLegacy",
     "/teams/:teamId",
-    paramValidationFactory<t_TeamsGetLegacyParamSchema>(
-      teamsGetLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsGetLegacyParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.teamsGetLegacy(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(teamsGetLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.teamsGetLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31590,12 +34371,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateLegacy",
     "/teams/:teamId",
-    paramValidationFactory<t_TeamsUpdateLegacyParamSchema>(
-      teamsUpdateLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateLegacyBodySchema>(
-      teamsUpdateLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateLegacyParamSchema,
@@ -31604,8 +34379,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsUpdateLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.teamsUpdateLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31619,15 +34400,18 @@ export function bootstrap(
   router.delete(
     "teamsDeleteLegacy",
     "/teams/:teamId",
-    paramValidationFactory<t_TeamsDeleteLegacyParamSchema>(
-      teamsDeleteLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsDeleteLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsDeleteLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsDeleteLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31649,12 +34433,6 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionsLegacy",
     "/teams/:teamId/discussions",
-    paramValidationFactory<t_TeamsListDiscussionsLegacyParamSchema>(
-      teamsListDiscussionsLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListDiscussionsLegacyQuerySchema>(
-      teamsListDiscussionsLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListDiscussionsLegacyParamSchema,
@@ -31663,8 +34441,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListDiscussionsLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListDiscussionsLegacyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListDiscussionsLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31686,12 +34476,6 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionLegacy",
     "/teams/:teamId/discussions",
-    paramValidationFactory<t_TeamsCreateDiscussionLegacyParamSchema>(
-      teamsCreateDiscussionLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsCreateDiscussionLegacyBodySchema>(
-      teamsCreateDiscussionLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCreateDiscussionLegacyParamSchema,
@@ -31700,8 +34484,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCreateDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsCreateDiscussionLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.teamsCreateDiscussionLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31718,15 +34514,21 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsGetDiscussionLegacyParamSchema>(
-      teamsGetDiscussionLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsGetDiscussionLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsGetDiscussionLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31750,12 +34552,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsUpdateDiscussionLegacyParamSchema>(
-      teamsUpdateDiscussionLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateDiscussionLegacyBodySchema>(
-      teamsUpdateDiscussionLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateDiscussionLegacyParamSchema,
@@ -31764,8 +34560,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsUpdateDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsUpdateDiscussionLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } = await implementation.teamsUpdateDiscussionLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31782,15 +34590,21 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    paramValidationFactory<t_TeamsDeleteDiscussionLegacyParamSchema>(
-      teamsDeleteDiscussionLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsDeleteDiscussionLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsDeleteDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsDeleteDiscussionLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -31813,12 +34627,6 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionCommentsLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments",
-    paramValidationFactory<t_TeamsListDiscussionCommentsLegacyParamSchema>(
-      teamsListDiscussionCommentsLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListDiscussionCommentsLegacyQuerySchema>(
-      teamsListDiscussionCommentsLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListDiscussionCommentsLegacyParamSchema,
@@ -31827,8 +34635,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListDiscussionCommentsLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListDiscussionCommentsLegacyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsListDiscussionCommentsLegacy(ctx.state, ctx)
+        await implementation.teamsListDiscussionCommentsLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31847,12 +34667,6 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments",
-    paramValidationFactory<t_TeamsCreateDiscussionCommentLegacyParamSchema>(
-      teamsCreateDiscussionCommentLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsCreateDiscussionCommentLegacyBodySchema>(
-      teamsCreateDiscussionCommentLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCreateDiscussionCommentLegacyParamSchema,
@@ -31861,8 +34675,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCreateDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsCreateDiscussionCommentLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsCreateDiscussionCommentLegacy(ctx.state, ctx)
+        await implementation.teamsCreateDiscussionCommentLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31878,9 +34704,6 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsGetDiscussionCommentLegacyParamSchema>(
-      teamsGetDiscussionCommentLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsGetDiscussionCommentLegacyParamSchema,
@@ -31889,8 +34712,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsGetDiscussionCommentLegacy(ctx.state, ctx)
+        await implementation.teamsGetDiscussionCommentLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31910,12 +34742,6 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsUpdateDiscussionCommentLegacyParamSchema>(
-      teamsUpdateDiscussionCommentLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsUpdateDiscussionCommentLegacyBodySchema>(
-      teamsUpdateDiscussionCommentLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsUpdateDiscussionCommentLegacyParamSchema,
@@ -31924,8 +34750,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsUpdateDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsUpdateDiscussionCommentLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsUpdateDiscussionCommentLegacy(ctx.state, ctx)
+        await implementation.teamsUpdateDiscussionCommentLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31941,9 +34779,6 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    paramValidationFactory<t_TeamsDeleteDiscussionCommentLegacyParamSchema>(
-      teamsDeleteDiscussionCommentLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsDeleteDiscussionCommentLegacyParamSchema,
@@ -31952,8 +34787,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsDeleteDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsDeleteDiscussionCommentLegacy(ctx.state, ctx)
+        await implementation.teamsDeleteDiscussionCommentLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -31986,12 +34830,6 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    paramValidationFactory<t_ReactionsListForTeamDiscussionCommentLegacyParamSchema>(
-      reactionsListForTeamDiscussionCommentLegacyParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema>(
-      reactionsListForTeamDiscussionCommentLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForTeamDiscussionCommentLegacyParamSchema,
@@ -32000,9 +34838,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForTeamDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForTeamDiscussionCommentLegacyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reactionsListForTeamDiscussionCommentLegacy(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -32033,12 +34883,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    paramValidationFactory<t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema>(
-      reactionsCreateForTeamDiscussionCommentLegacyParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema>(
-      reactionsCreateForTeamDiscussionCommentLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
@@ -32047,9 +34891,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForTeamDiscussionCommentLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.reactionsCreateForTeamDiscussionCommentLegacy(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -32083,12 +34939,6 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber/reactions",
-    paramValidationFactory<t_ReactionsListForTeamDiscussionLegacyParamSchema>(
-      reactionsListForTeamDiscussionLegacyParamSchema
-    ),
-    queryValidationFactory<t_ReactionsListForTeamDiscussionLegacyQuerySchema>(
-      reactionsListForTeamDiscussionLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsListForTeamDiscussionLegacyParamSchema,
@@ -32097,11 +34947,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsListForTeamDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reactionsListForTeamDiscussionLegacyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reactionsListForTeamDiscussionLegacy(
-          ctx.state,
-          ctx
-        )
+        await implementation.reactionsListForTeamDiscussionLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32129,12 +34988,6 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber/reactions",
-    paramValidationFactory<t_ReactionsCreateForTeamDiscussionLegacyParamSchema>(
-      reactionsCreateForTeamDiscussionLegacyParamSchema
-    ),
-    bodyValidationFactory<t_ReactionsCreateForTeamDiscussionLegacyBodySchema>(
-      reactionsCreateForTeamDiscussionLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
@@ -32143,11 +34996,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reactionsCreateForTeamDiscussionLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reactionsCreateForTeamDiscussionLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reactionsCreateForTeamDiscussionLegacy(
-          ctx.state,
-          ctx
-        )
+        await implementation.reactionsCreateForTeamDiscussionLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32166,12 +35028,6 @@ export function bootstrap(
   router.get(
     "teamsListPendingInvitationsLegacy",
     "/teams/:teamId/invitations",
-    paramValidationFactory<t_TeamsListPendingInvitationsLegacyParamSchema>(
-      teamsListPendingInvitationsLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListPendingInvitationsLegacyQuerySchema>(
-      teamsListPendingInvitationsLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListPendingInvitationsLegacyParamSchema,
@@ -32180,8 +35036,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListPendingInvitationsLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          teamsListPendingInvitationsLegacyQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsListPendingInvitationsLegacy(ctx.state, ctx)
+        await implementation.teamsListPendingInvitationsLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32201,12 +35069,6 @@ export function bootstrap(
   router.get(
     "teamsListMembersLegacy",
     "/teams/:teamId/members",
-    paramValidationFactory<t_TeamsListMembersLegacyParamSchema>(
-      teamsListMembersLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListMembersLegacyQuerySchema>(
-      teamsListMembersLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListMembersLegacyParamSchema,
@@ -32215,8 +35077,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListMembersLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(teamsListMembersLegacyQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListMembersLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32233,15 +35104,18 @@ export function bootstrap(
   router.get(
     "teamsGetMemberLegacy",
     "/teams/:teamId/members/:username",
-    paramValidationFactory<t_TeamsGetMemberLegacyParamSchema>(
-      teamsGetMemberLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsGetMemberLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsGetMemberLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsGetMemberLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32258,15 +35132,18 @@ export function bootstrap(
   router.put(
     "teamsAddMemberLegacy",
     "/teams/:teamId/members/:username",
-    paramValidationFactory<t_TeamsAddMemberLegacyParamSchema>(
-      teamsAddMemberLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsAddMemberLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsAddMemberLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsAddMemberLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32283,15 +35160,21 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMemberLegacy",
     "/teams/:teamId/members/:username",
-    paramValidationFactory<t_TeamsRemoveMemberLegacyParamSchema>(
-      teamsRemoveMemberLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsRemoveMemberLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsRemoveMemberLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsRemoveMemberLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32308,9 +35191,6 @@ export function bootstrap(
   router.get(
     "teamsGetMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    paramValidationFactory<t_TeamsGetMembershipForUserLegacyParamSchema>(
-      teamsGetMembershipForUserLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsGetMembershipForUserLegacyParamSchema,
@@ -32319,8 +35199,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsGetMembershipForUserLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsGetMembershipForUserLegacy(ctx.state, ctx)
+        await implementation.teamsGetMembershipForUserLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32339,12 +35228,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    paramValidationFactory<t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema>(
-      teamsAddOrUpdateMembershipForUserLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema>(
-      teamsAddOrUpdateMembershipForUserLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
@@ -32353,11 +35236,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateMembershipForUserLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateMembershipForUserLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsAddOrUpdateMembershipForUserLegacy(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsAddOrUpdateMembershipForUserLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32372,9 +35264,6 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    paramValidationFactory<t_TeamsRemoveMembershipForUserLegacyParamSchema>(
-      teamsRemoveMembershipForUserLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsRemoveMembershipForUserLegacyParamSchema,
@@ -32383,8 +35272,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsRemoveMembershipForUserLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsRemoveMembershipForUserLegacy(ctx.state, ctx)
+        await implementation.teamsRemoveMembershipForUserLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32403,12 +35301,6 @@ export function bootstrap(
   router.get(
     "teamsListProjectsLegacy",
     "/teams/:teamId/projects",
-    paramValidationFactory<t_TeamsListProjectsLegacyParamSchema>(
-      teamsListProjectsLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListProjectsLegacyQuerySchema>(
-      teamsListProjectsLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListProjectsLegacyParamSchema,
@@ -32417,8 +35309,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsListProjectsLegacyParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(teamsListProjectsLegacyQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListProjectsLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32435,9 +35336,6 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForProjectLegacy",
     "/teams/:teamId/projects/:projectId",
-    paramValidationFactory<t_TeamsCheckPermissionsForProjectLegacyParamSchema>(
-      teamsCheckPermissionsForProjectLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCheckPermissionsForProjectLegacyParamSchema,
@@ -32446,11 +35344,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCheckPermissionsForProjectLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsCheckPermissionsForProjectLegacy(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsCheckPermissionsForProjectLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32469,12 +35373,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateProjectPermissionsLegacy",
     "/teams/:teamId/projects/:projectId",
-    paramValidationFactory<t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema>(
-      teamsAddOrUpdateProjectPermissionsLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema>(
-      teamsAddOrUpdateProjectPermissionsLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
@@ -32483,9 +35381,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateProjectPermissionsLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.teamsAddOrUpdateProjectPermissionsLegacy(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -32502,15 +35412,21 @@ export function bootstrap(
   router.delete(
     "teamsRemoveProjectLegacy",
     "/teams/:teamId/projects/:projectId",
-    paramValidationFactory<t_TeamsRemoveProjectLegacyParamSchema>(
-      teamsRemoveProjectLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsRemoveProjectLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsRemoveProjectLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsRemoveProjectLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32531,12 +35447,6 @@ export function bootstrap(
   router.get(
     "teamsListReposLegacy",
     "/teams/:teamId/repos",
-    paramValidationFactory<t_TeamsListReposLegacyParamSchema>(
-      teamsListReposLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListReposLegacyQuerySchema>(
-      teamsListReposLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListReposLegacyParamSchema,
@@ -32545,8 +35455,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsListReposLegacyParamSchema, ctx.params),
+        query: parseRequestInput(teamsListReposLegacyQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListReposLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32564,9 +35480,6 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForRepoLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsCheckPermissionsForRepoLegacyParamSchema>(
-      teamsCheckPermissionsForRepoLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsCheckPermissionsForRepoLegacyParamSchema,
@@ -32575,8 +35488,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsCheckPermissionsForRepoLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsCheckPermissionsForRepoLegacy(ctx.state, ctx)
+        await implementation.teamsCheckPermissionsForRepoLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32596,12 +35518,6 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateRepoPermissionsLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema>(
-      teamsAddOrUpdateRepoPermissionsLegacyParamSchema
-    ),
-    bodyValidationFactory<t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema>(
-      teamsAddOrUpdateRepoPermissionsLegacyBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
@@ -32610,11 +35526,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          teamsAddOrUpdateRepoPermissionsLegacyParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.teamsAddOrUpdateRepoPermissionsLegacy(
-          ctx.state,
-          ctx
-        )
+        await implementation.teamsAddOrUpdateRepoPermissionsLegacy(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32630,15 +35555,18 @@ export function bootstrap(
   router.delete(
     "teamsRemoveRepoLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    paramValidationFactory<t_TeamsRemoveRepoLegacyParamSchema>(
-      teamsRemoveRepoLegacyParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_TeamsRemoveRepoLegacyParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsRemoveRepoLegacyParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsRemoveRepoLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32659,12 +35587,6 @@ export function bootstrap(
   router.get(
     "teamsListChildLegacy",
     "/teams/:teamId/teams",
-    paramValidationFactory<t_TeamsListChildLegacyParamSchema>(
-      teamsListChildLegacyParamSchema
-    ),
-    queryValidationFactory<t_TeamsListChildLegacyQuerySchema>(
-      teamsListChildLegacyQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_TeamsListChildLegacyParamSchema,
@@ -32673,8 +35595,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(teamsListChildLegacyParamSchema, ctx.params),
+        query: parseRequestInput(teamsListChildLegacyQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.teamsListChildLegacy(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32687,8 +35615,14 @@ export function bootstrap(
     "usersGetAuthenticated",
     "/user",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersGetAuthenticated(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32713,15 +35647,18 @@ export function bootstrap(
   router.patch(
     "usersUpdateAuthenticated",
     "/user",
-    bodyValidationFactory<t_UsersUpdateAuthenticatedBodySchema>(
-      usersUpdateAuthenticatedBodySchema
-    ),
     async (
       ctx: ValidatedCtx<void, void, t_UsersUpdateAuthenticatedBodySchema>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(usersUpdateAuthenticatedBodySchema, ctx.body),
+      }
+
       const { status, body } = await implementation.usersUpdateAuthenticated(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32738,9 +35675,6 @@ export function bootstrap(
   router.get(
     "usersListBlockedByAuthenticatedUser",
     "/user/blocks",
-    queryValidationFactory<t_UsersListBlockedByAuthenticatedUserQuerySchema>(
-      usersListBlockedByAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -32749,8 +35683,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListBlockedByAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListBlockedByAuthenticatedUser(ctx.state, ctx)
+        await implementation.usersListBlockedByAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32762,15 +35705,18 @@ export function bootstrap(
   router.get(
     "usersCheckBlocked",
     "/user/blocks/:username",
-    paramValidationFactory<t_UsersCheckBlockedParamSchema>(
-      usersCheckBlockedParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_UsersCheckBlockedParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(usersCheckBlockedParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersCheckBlocked(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -32784,12 +35730,17 @@ export function bootstrap(
   router.put(
     "usersBlock",
     "/user/blocks/:username",
-    paramValidationFactory<t_UsersBlockParamSchema>(usersBlockParamSchema),
     async (
       ctx: ValidatedCtx<t_UsersBlockParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.usersBlock(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(usersBlockParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.usersBlock(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32801,12 +35752,17 @@ export function bootstrap(
   router.delete(
     "usersUnblock",
     "/user/blocks/:username",
-    paramValidationFactory<t_UsersUnblockParamSchema>(usersUnblockParamSchema),
     async (
       ctx: ValidatedCtx<t_UsersUnblockParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.usersUnblock(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(usersUnblockParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.usersUnblock(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32822,9 +35778,6 @@ export function bootstrap(
   router.get(
     "codespacesListForAuthenticatedUser",
     "/user/codespaces",
-    queryValidationFactory<t_CodespacesListForAuthenticatedUserQuerySchema>(
-      codespacesListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -32833,8 +35786,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          codespacesListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.codespacesListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32871,9 +35833,6 @@ export function bootstrap(
   router.post(
     "codespacesCreateForAuthenticatedUser",
     "/user/codespaces",
-    bodyValidationFactory<t_CodespacesCreateForAuthenticatedUserBodySchema>(
-      codespacesCreateForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -32882,11 +35841,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesCreateForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesCreateForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32901,9 +35866,6 @@ export function bootstrap(
   router.get(
     "codespacesListSecretsForAuthenticatedUser",
     "/user/codespaces/secrets",
-    queryValidationFactory<t_CodespacesListSecretsForAuthenticatedUserQuerySchema>(
-      codespacesListSecretsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -32912,9 +35874,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          codespacesListSecretsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesListSecretsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -32927,9 +35898,15 @@ export function bootstrap(
     "codespacesGetPublicKeyForAuthenticatedUser",
     "/user/codespaces/secrets/public-key",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesGetPublicKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -32945,9 +35922,6 @@ export function bootstrap(
   router.get(
     "codespacesGetSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesGetSecretForAuthenticatedUserParamSchema>(
-      codespacesGetSecretForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesGetSecretForAuthenticatedUserParamSchema,
@@ -32956,11 +35930,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesGetSecretForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesGetSecretForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -32981,12 +35961,6 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema>(
-      codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema>(
-      codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
@@ -32995,9 +35969,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.codespacesCreateOrUpdateSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33013,9 +35999,6 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    paramValidationFactory<t_CodespacesDeleteSecretForAuthenticatedUserParamSchema>(
-      codespacesDeleteSecretForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesDeleteSecretForAuthenticatedUserParamSchema,
@@ -33024,9 +36007,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesDeleteSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33041,9 +36033,6 @@ export function bootstrap(
   router.get(
     "codespacesListRepositoriesForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories",
-    paramValidationFactory<t_CodespacesListRepositoriesForSecretForAuthenticatedUserParamSchema>(
-      codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
@@ -33052,9 +36041,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesListRepositoriesForSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33072,12 +36070,6 @@ export function bootstrap(
   router.put(
     "codespacesSetRepositoriesForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories",
-    paramValidationFactory<t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema>(
-      codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema>(
-      codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
@@ -33086,9 +36078,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.codespacesSetRepositoriesForSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33106,9 +36110,6 @@ export function bootstrap(
   router.put(
     "codespacesAddRepositoryForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema>(
-      codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
@@ -33117,9 +36118,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesAddRepositoryForSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33137,9 +36147,6 @@ export function bootstrap(
   router.delete(
     "codespacesRemoveRepositoryForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
-    paramValidationFactory<t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema>(
-      codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
@@ -33148,9 +36155,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesRemoveRepositoryForSecretForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33166,9 +36182,6 @@ export function bootstrap(
   router.get(
     "codespacesGetForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    paramValidationFactory<t_CodespacesGetForAuthenticatedUserParamSchema>(
-      codespacesGetForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesGetForAuthenticatedUserParamSchema,
@@ -33177,8 +36190,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesGetForAuthenticatedUser(ctx.state, ctx)
+        await implementation.codespacesGetForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33200,12 +36222,6 @@ export function bootstrap(
   router.patch(
     "codespacesUpdateForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    paramValidationFactory<t_CodespacesUpdateForAuthenticatedUserParamSchema>(
-      codespacesUpdateForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesUpdateForAuthenticatedUserBodySchema>(
-      codespacesUpdateForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesUpdateForAuthenticatedUserParamSchema,
@@ -33214,11 +36230,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesUpdateForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesUpdateForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesUpdateForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesUpdateForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33232,9 +36257,6 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    paramValidationFactory<t_CodespacesDeleteForAuthenticatedUserParamSchema>(
-      codespacesDeleteForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesDeleteForAuthenticatedUserParamSchema,
@@ -33243,11 +36265,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesDeleteForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesDeleteForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33261,9 +36289,6 @@ export function bootstrap(
   router.post(
     "codespacesExportForAuthenticatedUser",
     "/user/codespaces/:codespaceName/exports",
-    paramValidationFactory<t_CodespacesExportForAuthenticatedUserParamSchema>(
-      codespacesExportForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesExportForAuthenticatedUserParamSchema,
@@ -33272,11 +36297,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesExportForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesExportForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesExportForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33291,9 +36322,6 @@ export function bootstrap(
   router.get(
     "codespacesGetExportDetailsForAuthenticatedUser",
     "/user/codespaces/:codespaceName/exports/:exportId",
-    paramValidationFactory<t_CodespacesGetExportDetailsForAuthenticatedUserParamSchema>(
-      codespacesGetExportDetailsForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesGetExportDetailsForAuthenticatedUserParamSchema,
@@ -33302,9 +36330,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesGetExportDetailsForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesGetExportDetailsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33320,9 +36357,6 @@ export function bootstrap(
   router.get(
     "codespacesCodespaceMachinesForAuthenticatedUser",
     "/user/codespaces/:codespaceName/machines",
-    paramValidationFactory<t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema>(
-      codespacesCodespaceMachinesForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema,
@@ -33331,9 +36365,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesCodespaceMachinesForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.codespacesCodespaceMachinesForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33354,12 +36397,6 @@ export function bootstrap(
   router.post(
     "codespacesPublishForAuthenticatedUser",
     "/user/codespaces/:codespaceName/publish",
-    paramValidationFactory<t_CodespacesPublishForAuthenticatedUserParamSchema>(
-      codespacesPublishForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_CodespacesPublishForAuthenticatedUserBodySchema>(
-      codespacesPublishForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesPublishForAuthenticatedUserParamSchema,
@@ -33368,11 +36405,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesPublishForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesPublishForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.codespacesPublishForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.codespacesPublishForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33386,9 +36432,6 @@ export function bootstrap(
   router.post(
     "codespacesStartForAuthenticatedUser",
     "/user/codespaces/:codespaceName/start",
-    paramValidationFactory<t_CodespacesStartForAuthenticatedUserParamSchema>(
-      codespacesStartForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesStartForAuthenticatedUserParamSchema,
@@ -33397,8 +36440,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesStartForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesStartForAuthenticatedUser(ctx.state, ctx)
+        await implementation.codespacesStartForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33412,9 +36464,6 @@ export function bootstrap(
   router.post(
     "codespacesStopForAuthenticatedUser",
     "/user/codespaces/:codespaceName/stop",
-    paramValidationFactory<t_CodespacesStopForAuthenticatedUserParamSchema>(
-      codespacesStopForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_CodespacesStopForAuthenticatedUserParamSchema,
@@ -33423,8 +36472,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesStopForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.codespacesStopForAuthenticatedUser(ctx.state, ctx)
+        await implementation.codespacesStopForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33438,9 +36496,6 @@ export function bootstrap(
   router.patch(
     "usersSetPrimaryEmailVisibilityForAuthenticatedUser",
     "/user/email/visibility",
-    bodyValidationFactory<t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema>(
-      usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33449,9 +36504,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.usersSetPrimaryEmailVisibilityForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33468,9 +36532,6 @@ export function bootstrap(
   router.get(
     "usersListEmailsForAuthenticatedUser",
     "/user/emails",
-    queryValidationFactory<t_UsersListEmailsForAuthenticatedUserQuerySchema>(
-      usersListEmailsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33479,8 +36540,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListEmailsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListEmailsForAuthenticatedUser(ctx.state, ctx)
+        await implementation.usersListEmailsForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33496,9 +36566,6 @@ export function bootstrap(
   router.post(
     "usersAddEmailForAuthenticatedUser",
     "/user/emails",
-    bodyValidationFactory<t_UsersAddEmailForAuthenticatedUserBodySchema>(
-      usersAddEmailForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33507,8 +36574,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersAddEmailForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.usersAddEmailForAuthenticatedUser(ctx.state, ctx)
+        await implementation.usersAddEmailForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33524,9 +36600,6 @@ export function bootstrap(
   router.delete(
     "usersDeleteEmailForAuthenticatedUser",
     "/user/emails",
-    bodyValidationFactory<t_UsersDeleteEmailForAuthenticatedUserBodySchema>(
-      usersDeleteEmailForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33535,11 +36608,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersDeleteEmailForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.usersDeleteEmailForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersDeleteEmailForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33554,9 +36633,6 @@ export function bootstrap(
   router.get(
     "usersListFollowersForAuthenticatedUser",
     "/user/followers",
-    queryValidationFactory<t_UsersListFollowersForAuthenticatedUserQuerySchema>(
-      usersListFollowersForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33565,11 +36641,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListFollowersForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListFollowersForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersListFollowersForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33584,9 +36666,6 @@ export function bootstrap(
   router.get(
     "usersListFollowedByAuthenticatedUser",
     "/user/following",
-    queryValidationFactory<t_UsersListFollowedByAuthenticatedUserQuerySchema>(
-      usersListFollowedByAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33595,11 +36674,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListFollowedByAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListFollowedByAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersListFollowedByAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33613,9 +36698,6 @@ export function bootstrap(
   router.get(
     "usersCheckPersonIsFollowedByAuthenticated",
     "/user/following/:username",
-    paramValidationFactory<t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema>(
-      usersCheckPersonIsFollowedByAuthenticatedParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
@@ -33624,9 +36706,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersCheckPersonIsFollowedByAuthenticatedParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersCheckPersonIsFollowedByAuthenticated(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33640,12 +36731,17 @@ export function bootstrap(
   router.put(
     "usersFollow",
     "/user/following/:username",
-    paramValidationFactory<t_UsersFollowParamSchema>(usersFollowParamSchema),
     async (
       ctx: ValidatedCtx<t_UsersFollowParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.usersFollow(ctx.state, ctx)
+      const input = {
+        params: parseRequestInput(usersFollowParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.usersFollow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33657,17 +36753,17 @@ export function bootstrap(
   router.delete(
     "usersUnfollow",
     "/user/following/:username",
-    paramValidationFactory<t_UsersUnfollowParamSchema>(
-      usersUnfollowParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_UsersUnfollowParamSchema, void, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.usersUnfollow(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(usersUnfollowParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.usersUnfollow(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33682,9 +36778,6 @@ export function bootstrap(
   router.get(
     "usersListGpgKeysForAuthenticatedUser",
     "/user/gpg_keys",
-    queryValidationFactory<t_UsersListGpgKeysForAuthenticatedUserQuerySchema>(
-      usersListGpgKeysForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33693,11 +36786,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListGpgKeysForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListGpgKeysForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersListGpgKeysForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33712,9 +36811,6 @@ export function bootstrap(
   router.post(
     "usersCreateGpgKeyForAuthenticatedUser",
     "/user/gpg_keys",
-    bodyValidationFactory<t_UsersCreateGpgKeyForAuthenticatedUserBodySchema>(
-      usersCreateGpgKeyForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33723,11 +36819,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersCreateGpgKeyForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.usersCreateGpgKeyForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersCreateGpgKeyForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33741,9 +36843,6 @@ export function bootstrap(
   router.get(
     "usersGetGpgKeyForAuthenticatedUser",
     "/user/gpg_keys/:gpgKeyId",
-    paramValidationFactory<t_UsersGetGpgKeyForAuthenticatedUserParamSchema>(
-      usersGetGpgKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
@@ -33752,8 +36851,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersGetGpgKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersGetGpgKeyForAuthenticatedUser(ctx.state, ctx)
+        await implementation.usersGetGpgKeyForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33767,9 +36875,6 @@ export function bootstrap(
   router.delete(
     "usersDeleteGpgKeyForAuthenticatedUser",
     "/user/gpg_keys/:gpgKeyId",
-    paramValidationFactory<t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema>(
-      usersDeleteGpgKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
@@ -33778,11 +36883,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeleteGpgKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersDeleteGpgKeyForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.usersDeleteGpgKeyForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -33797,9 +36908,6 @@ export function bootstrap(
   router.get(
     "appsListInstallationsForAuthenticatedUser",
     "/user/installations",
-    queryValidationFactory<t_AppsListInstallationsForAuthenticatedUserQuerySchema>(
-      appsListInstallationsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33808,9 +36916,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListInstallationsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsListInstallationsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33831,12 +36948,6 @@ export function bootstrap(
   router.get(
     "appsListInstallationReposForAuthenticatedUser",
     "/user/installations/:installationId/repositories",
-    paramValidationFactory<t_AppsListInstallationReposForAuthenticatedUserParamSchema>(
-      appsListInstallationReposForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_AppsListInstallationReposForAuthenticatedUserQuerySchema>(
-      appsListInstallationReposForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsListInstallationReposForAuthenticatedUserParamSchema,
@@ -33845,9 +36956,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsListInstallationReposForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          appsListInstallationReposForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsListInstallationReposForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33864,9 +36987,6 @@ export function bootstrap(
   router.put(
     "appsAddRepoToInstallationForAuthenticatedUser",
     "/user/installations/:installationId/repositories/:repositoryId",
-    paramValidationFactory<t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema>(
-      appsAddRepoToInstallationForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema,
@@ -33875,9 +36995,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsAddRepoToInstallationForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsAddRepoToInstallationForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33895,9 +37024,6 @@ export function bootstrap(
   router.delete(
     "appsRemoveRepoFromInstallationForAuthenticatedUser",
     "/user/installations/:installationId/repositories/:repositoryId",
-    paramValidationFactory<t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema>(
-      appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
@@ -33906,9 +37032,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsRemoveRepoFromInstallationForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33921,9 +37056,15 @@ export function bootstrap(
     "interactionsGetRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.interactionsGetRestrictionsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33946,9 +37087,6 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
-    bodyValidationFactory<t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema>(
-      interactionsSetRestrictionsForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -33957,9 +37095,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          interactionsSetRestrictionsForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.interactionsSetRestrictionsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33972,9 +37119,15 @@ export function bootstrap(
     "interactionsRemoveRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.interactionsRemoveRestrictionsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -33999,9 +37152,6 @@ export function bootstrap(
   router.get(
     "issuesListForAuthenticatedUser",
     "/user/issues",
-    queryValidationFactory<t_IssuesListForAuthenticatedUserQuerySchema>(
-      issuesListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34010,8 +37160,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          issuesListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.issuesListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.issuesListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34026,9 +37185,6 @@ export function bootstrap(
   router.get(
     "usersListPublicSshKeysForAuthenticatedUser",
     "/user/keys",
-    queryValidationFactory<t_UsersListPublicSshKeysForAuthenticatedUserQuerySchema>(
-      usersListPublicSshKeysForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34037,9 +37193,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListPublicSshKeysForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersListPublicSshKeysForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34056,9 +37221,6 @@ export function bootstrap(
   router.post(
     "usersCreatePublicSshKeyForAuthenticatedUser",
     "/user/keys",
-    bodyValidationFactory<t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema>(
-      usersCreatePublicSshKeyForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34067,9 +37229,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.usersCreatePublicSshKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34085,9 +37256,6 @@ export function bootstrap(
   router.get(
     "usersGetPublicSshKeyForAuthenticatedUser",
     "/user/keys/:keyId",
-    paramValidationFactory<t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema>(
-      usersGetPublicSshKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
@@ -34096,9 +37264,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersGetPublicSshKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersGetPublicSshKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34114,9 +37291,6 @@ export function bootstrap(
   router.delete(
     "usersDeletePublicSshKeyForAuthenticatedUser",
     "/user/keys/:keyId",
-    paramValidationFactory<t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema>(
-      usersDeletePublicSshKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
@@ -34125,9 +37299,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeletePublicSshKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersDeletePublicSshKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34144,9 +37327,6 @@ export function bootstrap(
   router.get(
     "appsListSubscriptionsForAuthenticatedUser",
     "/user/marketplace_purchases",
-    queryValidationFactory<t_AppsListSubscriptionsForAuthenticatedUserQuerySchema>(
-      appsListSubscriptionsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34155,9 +37335,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListSubscriptionsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsListSubscriptionsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34174,9 +37363,6 @@ export function bootstrap(
   router.get(
     "appsListSubscriptionsForAuthenticatedUserStubbed",
     "/user/marketplace_purchases/stubbed",
-    queryValidationFactory<t_AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema>(
-      appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34185,9 +37371,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.appsListSubscriptionsForAuthenticatedUserStubbed(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34205,9 +37400,6 @@ export function bootstrap(
   router.get(
     "orgsListMembershipsForAuthenticatedUser",
     "/user/memberships/orgs",
-    queryValidationFactory<t_OrgsListMembershipsForAuthenticatedUserQuerySchema>(
-      orgsListMembershipsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34216,11 +37408,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          orgsListMembershipsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsListMembershipsForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.orgsListMembershipsForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34234,9 +37432,6 @@ export function bootstrap(
   router.get(
     "orgsGetMembershipForAuthenticatedUser",
     "/user/memberships/orgs/:org",
-    paramValidationFactory<t_OrgsGetMembershipForAuthenticatedUserParamSchema>(
-      orgsGetMembershipForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsGetMembershipForAuthenticatedUserParamSchema,
@@ -34245,11 +37440,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetMembershipForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsGetMembershipForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.orgsGetMembershipForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34267,12 +37468,6 @@ export function bootstrap(
   router.patch(
     "orgsUpdateMembershipForAuthenticatedUser",
     "/user/memberships/orgs/:org",
-    paramValidationFactory<t_OrgsUpdateMembershipForAuthenticatedUserParamSchema>(
-      orgsUpdateMembershipForAuthenticatedUserParamSchema
-    ),
-    bodyValidationFactory<t_OrgsUpdateMembershipForAuthenticatedUserBodySchema>(
-      orgsUpdateMembershipForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
@@ -34281,9 +37476,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          orgsUpdateMembershipForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdateMembershipForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.orgsUpdateMembershipForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34300,9 +37507,6 @@ export function bootstrap(
   router.get(
     "migrationsListForAuthenticatedUser",
     "/user/migrations",
-    queryValidationFactory<t_MigrationsListForAuthenticatedUserQuerySchema>(
-      migrationsListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34311,8 +37515,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          migrationsListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.migrationsListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.migrationsListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34334,9 +37547,6 @@ export function bootstrap(
   router.post(
     "migrationsStartForAuthenticatedUser",
     "/user/migrations",
-    bodyValidationFactory<t_MigrationsStartForAuthenticatedUserBodySchema>(
-      migrationsStartForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34345,8 +37555,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          migrationsStartForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.migrationsStartForAuthenticatedUser(ctx.state, ctx)
+        await implementation.migrationsStartForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34364,12 +37583,6 @@ export function bootstrap(
   router.get(
     "migrationsGetStatusForAuthenticatedUser",
     "/user/migrations/:migrationId",
-    paramValidationFactory<t_MigrationsGetStatusForAuthenticatedUserParamSchema>(
-      migrationsGetStatusForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_MigrationsGetStatusForAuthenticatedUserQuerySchema>(
-      migrationsGetStatusForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsGetStatusForAuthenticatedUserParamSchema,
@@ -34378,11 +37591,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetStatusForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          migrationsGetStatusForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.migrationsGetStatusForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.migrationsGetStatusForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34396,9 +37618,6 @@ export function bootstrap(
   router.get(
     "migrationsGetArchiveForAuthenticatedUser",
     "/user/migrations/:migrationId/archive",
-    paramValidationFactory<t_MigrationsGetArchiveForAuthenticatedUserParamSchema>(
-      migrationsGetArchiveForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsGetArchiveForAuthenticatedUserParamSchema,
@@ -34407,9 +37626,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsGetArchiveForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.migrationsGetArchiveForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34425,9 +37653,6 @@ export function bootstrap(
   router.delete(
     "migrationsDeleteArchiveForAuthenticatedUser",
     "/user/migrations/:migrationId/archive",
-    paramValidationFactory<t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema>(
-      migrationsDeleteArchiveForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
@@ -34436,9 +37661,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsDeleteArchiveForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.migrationsDeleteArchiveForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34455,9 +37689,6 @@ export function bootstrap(
   router.delete(
     "migrationsUnlockRepoForAuthenticatedUser",
     "/user/migrations/:migrationId/repos/:repoName/lock",
-    paramValidationFactory<t_MigrationsUnlockRepoForAuthenticatedUserParamSchema>(
-      migrationsUnlockRepoForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsUnlockRepoForAuthenticatedUserParamSchema,
@@ -34466,9 +37697,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsUnlockRepoForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.migrationsUnlockRepoForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34489,12 +37729,6 @@ export function bootstrap(
   router.get(
     "migrationsListReposForAuthenticatedUser",
     "/user/migrations/:migrationId/repositories",
-    paramValidationFactory<t_MigrationsListReposForAuthenticatedUserParamSchema>(
-      migrationsListReposForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_MigrationsListReposForAuthenticatedUserQuerySchema>(
-      migrationsListReposForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_MigrationsListReposForAuthenticatedUserParamSchema,
@@ -34503,11 +37737,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          migrationsListReposForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          migrationsListReposForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.migrationsListReposForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.migrationsListReposForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34522,15 +37765,21 @@ export function bootstrap(
   router.get(
     "orgsListForAuthenticatedUser",
     "/user/orgs",
-    queryValidationFactory<t_OrgsListForAuthenticatedUserQuerySchema>(
-      orgsListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_OrgsListForAuthenticatedUserQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          orgsListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.orgsListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.orgsListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34552,9 +37801,6 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForAuthenticatedUser",
     "/user/packages",
-    queryValidationFactory<t_PackagesListPackagesForAuthenticatedUserQuerySchema>(
-      packagesListPackagesForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34563,9 +37809,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          packagesListPackagesForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesListPackagesForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34589,9 +37844,6 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesGetPackageForAuthenticatedUserParamSchema>(
-      packagesGetPackageForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetPackageForAuthenticatedUserParamSchema,
@@ -34600,11 +37852,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesGetPackageForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.packagesGetPackageForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34626,9 +37884,6 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesDeletePackageForAuthenticatedUserParamSchema>(
-      packagesDeletePackageForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesDeletePackageForAuthenticatedUserParamSchema,
@@ -34637,9 +37892,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesDeletePackageForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34667,12 +37931,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/restore",
-    paramValidationFactory<t_PackagesRestorePackageForAuthenticatedUserParamSchema>(
-      packagesRestorePackageForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_PackagesRestorePackageForAuthenticatedUserQuerySchema>(
-      packagesRestorePackageForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageForAuthenticatedUserParamSchema,
@@ -34681,9 +37939,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesRestorePackageForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesRestorePackageForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34715,12 +37985,6 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions",
-    paramValidationFactory<t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema>(
-      packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema>(
-      packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
@@ -34729,9 +37993,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34756,9 +38032,6 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesGetPackageVersionForAuthenticatedUserParamSchema>(
-      packagesGetPackageVersionForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetPackageVersionForAuthenticatedUserParamSchema,
@@ -34767,9 +38040,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageVersionForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesGetPackageVersionForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34794,9 +38076,6 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesDeletePackageVersionForAuthenticatedUserParamSchema>(
-      packagesDeletePackageVersionForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesDeletePackageVersionForAuthenticatedUserParamSchema,
@@ -34805,9 +38084,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageVersionForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesDeletePackageVersionForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34834,9 +38122,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    paramValidationFactory<t_PackagesRestorePackageVersionForAuthenticatedUserParamSchema>(
-      packagesRestorePackageVersionForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageVersionForAuthenticatedUserParamSchema,
@@ -34845,9 +38130,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageVersionForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesRestorePackageVersionForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34864,9 +38158,6 @@ export function bootstrap(
   router.post(
     "projectsCreateForAuthenticatedUser",
     "/user/projects",
-    bodyValidationFactory<t_ProjectsCreateForAuthenticatedUserBodySchema>(
-      projectsCreateForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34875,8 +38166,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          projectsCreateForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.projectsCreateForAuthenticatedUser(ctx.state, ctx)
+        await implementation.projectsCreateForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34891,9 +38191,6 @@ export function bootstrap(
   router.get(
     "usersListPublicEmailsForAuthenticatedUser",
     "/user/public_emails",
-    queryValidationFactory<t_UsersListPublicEmailsForAuthenticatedUserQuerySchema>(
-      usersListPublicEmailsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34902,9 +38199,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListPublicEmailsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersListPublicEmailsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -34928,15 +38234,21 @@ export function bootstrap(
   router.get(
     "reposListForAuthenticatedUser",
     "/user/repos",
-    queryValidationFactory<t_ReposListForAuthenticatedUserQuerySchema>(
-      reposListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_ReposListForAuthenticatedUserQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          reposListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.reposListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.reposListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -34976,9 +38288,6 @@ export function bootstrap(
   router.post(
     "reposCreateForAuthenticatedUser",
     "/user/repos",
-    bodyValidationFactory<t_ReposCreateForAuthenticatedUserBodySchema>(
-      reposCreateForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -34987,8 +38296,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
-        await implementation.reposCreateForAuthenticatedUser(ctx.state, ctx)
+        await implementation.reposCreateForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35003,9 +38321,6 @@ export function bootstrap(
   router.get(
     "reposListInvitationsForAuthenticatedUser",
     "/user/repository_invitations",
-    queryValidationFactory<t_ReposListInvitationsForAuthenticatedUserQuerySchema>(
-      reposListInvitationsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -35014,9 +38329,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          reposListInvitationsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposListInvitationsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35032,9 +38356,6 @@ export function bootstrap(
   router.patch(
     "reposAcceptInvitationForAuthenticatedUser",
     "/user/repository_invitations/:invitationId",
-    paramValidationFactory<t_ReposAcceptInvitationForAuthenticatedUserParamSchema>(
-      reposAcceptInvitationForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposAcceptInvitationForAuthenticatedUserParamSchema,
@@ -35043,9 +38364,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposAcceptInvitationForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposAcceptInvitationForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35061,9 +38391,6 @@ export function bootstrap(
   router.delete(
     "reposDeclineInvitationForAuthenticatedUser",
     "/user/repository_invitations/:invitationId",
-    paramValidationFactory<t_ReposDeclineInvitationForAuthenticatedUserParamSchema>(
-      reposDeclineInvitationForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposDeclineInvitationForAuthenticatedUserParamSchema,
@@ -35072,9 +38399,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeclineInvitationForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.reposDeclineInvitationForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35091,9 +38427,6 @@ export function bootstrap(
   router.get(
     "usersListSshSigningKeysForAuthenticatedUser",
     "/user/ssh_signing_keys",
-    queryValidationFactory<t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema>(
-      usersListSshSigningKeysForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -35102,9 +38435,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListSshSigningKeysForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersListSshSigningKeysForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35121,9 +38463,6 @@ export function bootstrap(
   router.post(
     "usersCreateSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys",
-    bodyValidationFactory<t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema>(
-      usersCreateSshSigningKeyForAuthenticatedUserBodySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -35132,9 +38471,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
+          ctx.body
+        ),
+      }
+
       const { status, body } =
         await implementation.usersCreateSshSigningKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35150,9 +38498,6 @@ export function bootstrap(
   router.get(
     "usersGetSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys/:sshSigningKeyId",
-    paramValidationFactory<t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema>(
-      usersGetSshSigningKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
@@ -35161,9 +38506,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersGetSshSigningKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersGetSshSigningKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35179,9 +38533,6 @@ export function bootstrap(
   router.delete(
     "usersDeleteSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys/:sshSigningKeyId",
-    paramValidationFactory<t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema>(
-      usersDeleteSshSigningKeyForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
@@ -35190,9 +38541,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.usersDeleteSshSigningKeyForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35211,9 +38571,6 @@ export function bootstrap(
   router.get(
     "activityListReposStarredByAuthenticatedUser",
     "/user/starred",
-    queryValidationFactory<t_ActivityListReposStarredByAuthenticatedUserQuerySchema>(
-      activityListReposStarredByAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -35222,9 +38579,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          activityListReposStarredByAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityListReposStarredByAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35241,9 +38607,6 @@ export function bootstrap(
   router.get(
     "activityCheckRepoIsStarredByAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    paramValidationFactory<t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema>(
-      activityCheckRepoIsStarredByAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
@@ -35252,9 +38615,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityCheckRepoIsStarredByAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityCheckRepoIsStarredByAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35271,9 +38643,6 @@ export function bootstrap(
   router.put(
     "activityStarRepoForAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    paramValidationFactory<t_ActivityStarRepoForAuthenticatedUserParamSchema>(
-      activityStarRepoForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityStarRepoForAuthenticatedUserParamSchema,
@@ -35282,11 +38651,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityStarRepoForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityStarRepoForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.activityStarRepoForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35301,9 +38676,6 @@ export function bootstrap(
   router.delete(
     "activityUnstarRepoForAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    paramValidationFactory<t_ActivityUnstarRepoForAuthenticatedUserParamSchema>(
-      activityUnstarRepoForAuthenticatedUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
@@ -35312,11 +38684,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityUnstarRepoForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityUnstarRepoForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.activityUnstarRepoForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35331,9 +38709,6 @@ export function bootstrap(
   router.get(
     "activityListWatchedReposForAuthenticatedUser",
     "/user/subscriptions",
-    queryValidationFactory<t_ActivityListWatchedReposForAuthenticatedUserQuerySchema>(
-      activityListWatchedReposForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         void,
@@ -35342,9 +38717,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          activityListWatchedReposForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityListWatchedReposForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35361,15 +38745,21 @@ export function bootstrap(
   router.get(
     "teamsListForAuthenticatedUser",
     "/user/teams",
-    queryValidationFactory<t_TeamsListForAuthenticatedUserQuerySchema>(
-      teamsListForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<void, t_TeamsListForAuthenticatedUserQuerySchema, void>,
       next: Next
     ) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          teamsListForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.teamsListForAuthenticatedUser(ctx.state, ctx)
+        await implementation.teamsListForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35384,12 +38774,17 @@ export function bootstrap(
   router.get(
     "usersList",
     "/users",
-    queryValidationFactory<t_UsersListQuerySchema>(usersListQuerySchema),
     async (
       ctx: ValidatedCtx<void, t_UsersListQuerySchema, void>,
       next: Next
     ) => {
-      const { status, body } = await implementation.usersList(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: parseRequestInput(usersListQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.usersList(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35403,15 +38798,18 @@ export function bootstrap(
   router.get(
     "usersGetByUsername",
     "/users/:username",
-    paramValidationFactory<t_UsersGetByUsernameParamSchema>(
-      usersGetByUsernameParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_UsersGetByUsernameParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(usersGetByUsernameParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersGetByUsername(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35432,12 +38830,6 @@ export function bootstrap(
   router.get(
     "activityListEventsForAuthenticatedUser",
     "/users/:username/events",
-    paramValidationFactory<t_ActivityListEventsForAuthenticatedUserParamSchema>(
-      activityListEventsForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListEventsForAuthenticatedUserQuerySchema>(
-      activityListEventsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListEventsForAuthenticatedUserParamSchema,
@@ -35446,11 +38838,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListEventsForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListEventsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListEventsForAuthenticatedUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.activityListEventsForAuthenticatedUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35470,12 +38871,6 @@ export function bootstrap(
   router.get(
     "activityListOrgEventsForAuthenticatedUser",
     "/users/:username/events/orgs/:org",
-    paramValidationFactory<t_ActivityListOrgEventsForAuthenticatedUserParamSchema>(
-      activityListOrgEventsForAuthenticatedUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListOrgEventsForAuthenticatedUserQuerySchema>(
-      activityListOrgEventsForAuthenticatedUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListOrgEventsForAuthenticatedUserParamSchema,
@@ -35484,9 +38879,21 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListOrgEventsForAuthenticatedUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListOrgEventsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.activityListOrgEventsForAuthenticatedUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -35507,12 +38914,6 @@ export function bootstrap(
   router.get(
     "activityListPublicEventsForUser",
     "/users/:username/events/public",
-    paramValidationFactory<t_ActivityListPublicEventsForUserParamSchema>(
-      activityListPublicEventsForUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListPublicEventsForUserQuerySchema>(
-      activityListPublicEventsForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListPublicEventsForUserParamSchema,
@@ -35521,8 +38922,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListPublicEventsForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListPublicEventsForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListPublicEventsForUser(ctx.state, ctx)
+        await implementation.activityListPublicEventsForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35541,12 +38954,6 @@ export function bootstrap(
   router.get(
     "usersListFollowersForUser",
     "/users/:username/followers",
-    paramValidationFactory<t_UsersListFollowersForUserParamSchema>(
-      usersListFollowersForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersListFollowersForUserQuerySchema>(
-      usersListFollowersForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersListFollowersForUserParamSchema,
@@ -35555,8 +38962,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersListFollowersForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          usersListFollowersForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersListFollowersForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35577,12 +38996,6 @@ export function bootstrap(
   router.get(
     "usersListFollowingForUser",
     "/users/:username/following",
-    paramValidationFactory<t_UsersListFollowingForUserParamSchema>(
-      usersListFollowingForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersListFollowingForUserQuerySchema>(
-      usersListFollowingForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersListFollowingForUserParamSchema,
@@ -35591,8 +39004,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersListFollowingForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          usersListFollowingForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersListFollowingForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35609,15 +39034,21 @@ export function bootstrap(
   router.get(
     "usersCheckFollowingForUser",
     "/users/:username/following/:targetUser",
-    paramValidationFactory<t_UsersCheckFollowingForUserParamSchema>(
-      usersCheckFollowingForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_UsersCheckFollowingForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersCheckFollowingForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersCheckFollowingForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35637,12 +39068,6 @@ export function bootstrap(
   router.get(
     "gistsListForUser",
     "/users/:username/gists",
-    paramValidationFactory<t_GistsListForUserParamSchema>(
-      gistsListForUserParamSchema
-    ),
-    queryValidationFactory<t_GistsListForUserQuerySchema>(
-      gistsListForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_GistsListForUserParamSchema,
@@ -35651,10 +39076,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.gistsListForUser(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(gistsListForUserParamSchema, ctx.params),
+        query: parseRequestInput(gistsListForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.gistsListForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35673,12 +39101,6 @@ export function bootstrap(
   router.get(
     "usersListGpgKeysForUser",
     "/users/:username/gpg_keys",
-    paramValidationFactory<t_UsersListGpgKeysForUserParamSchema>(
-      usersListGpgKeysForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersListGpgKeysForUserQuerySchema>(
-      usersListGpgKeysForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersListGpgKeysForUserParamSchema,
@@ -35687,8 +39109,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersListGpgKeysForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(usersListGpgKeysForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersListGpgKeysForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35711,12 +39142,6 @@ export function bootstrap(
   router.get(
     "usersGetContextForUser",
     "/users/:username/hovercard",
-    paramValidationFactory<t_UsersGetContextForUserParamSchema>(
-      usersGetContextForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersGetContextForUserQuerySchema>(
-      usersGetContextForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersGetContextForUserParamSchema,
@@ -35725,8 +39150,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersGetContextForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(usersGetContextForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersGetContextForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35742,15 +39176,21 @@ export function bootstrap(
   router.get(
     "appsGetUserInstallation",
     "/users/:username/installation",
-    paramValidationFactory<t_AppsGetUserInstallationParamSchema>(
-      appsGetUserInstallationParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_AppsGetUserInstallationParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          appsGetUserInstallationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.appsGetUserInstallation(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35771,12 +39211,6 @@ export function bootstrap(
   router.get(
     "usersListPublicKeysForUser",
     "/users/:username/keys",
-    paramValidationFactory<t_UsersListPublicKeysForUserParamSchema>(
-      usersListPublicKeysForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersListPublicKeysForUserQuerySchema>(
-      usersListPublicKeysForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersListPublicKeysForUserParamSchema,
@@ -35785,8 +39219,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersListPublicKeysForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          usersListPublicKeysForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.usersListPublicKeysForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35805,12 +39251,6 @@ export function bootstrap(
   router.get(
     "orgsListForUser",
     "/users/:username/orgs",
-    paramValidationFactory<t_OrgsListForUserParamSchema>(
-      orgsListForUserParamSchema
-    ),
-    queryValidationFactory<t_OrgsListForUserQuerySchema>(
-      orgsListForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_OrgsListForUserParamSchema,
@@ -35819,10 +39259,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.orgsListForUser(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(orgsListForUserParamSchema, ctx.params),
+        query: parseRequestInput(orgsListForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35848,12 +39291,6 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForUser",
     "/users/:username/packages",
-    paramValidationFactory<t_PackagesListPackagesForUserParamSchema>(
-      packagesListPackagesForUserParamSchema
-    ),
-    queryValidationFactory<t_PackagesListPackagesForUserQuerySchema>(
-      packagesListPackagesForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesListPackagesForUserParamSchema,
@@ -35862,8 +39299,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesListPackagesForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesListPackagesForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.packagesListPackagesForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35888,15 +39337,21 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForUser",
     "/users/:username/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesGetPackageForUserParamSchema>(
-      packagesGetPackageForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PackagesGetPackageForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.packagesGetPackageForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -35921,15 +39376,21 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForUser",
     "/users/:username/packages/:packageType/:packageName",
-    paramValidationFactory<t_PackagesDeletePackageForUserParamSchema>(
-      packagesDeletePackageForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<t_PackagesDeletePackageForUserParamSchema, void, void>,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesDeletePackageForUser(ctx.state, ctx)
+        await implementation.packagesDeletePackageForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35956,12 +39417,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForUser",
     "/users/:username/packages/:packageType/:packageName/restore",
-    paramValidationFactory<t_PackagesRestorePackageForUserParamSchema>(
-      packagesRestorePackageForUserParamSchema
-    ),
-    queryValidationFactory<t_PackagesRestorePackageForUserQuerySchema>(
-      packagesRestorePackageForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageForUserParamSchema,
@@ -35970,8 +39425,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          packagesRestorePackageForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesRestorePackageForUser(ctx.state, ctx)
+        await implementation.packagesRestorePackageForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -35995,9 +39462,6 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByUser",
     "/users/:username/packages/:packageType/:packageName/versions",
-    paramValidationFactory<t_PackagesGetAllPackageVersionsForPackageOwnedByUserParamSchema>(
-      packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
@@ -36006,9 +39470,18 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
         await implementation.packagesGetAllPackageVersionsForPackageOwnedByUser(
-          ctx.state,
+          input,
           ctx
         )
       ctx.status = status
@@ -36034,9 +39507,6 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesGetPackageVersionForUserParamSchema>(
-      packagesGetPackageVersionForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesGetPackageVersionForUserParamSchema,
@@ -36045,8 +39515,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesGetPackageVersionForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesGetPackageVersionForUser(ctx.state, ctx)
+        await implementation.packagesGetPackageVersionForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36070,9 +39549,6 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
-    paramValidationFactory<t_PackagesDeletePackageVersionForUserParamSchema>(
-      packagesDeletePackageVersionForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesDeletePackageVersionForUserParamSchema,
@@ -36081,8 +39557,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesDeletePackageVersionForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesDeletePackageVersionForUser(ctx.state, ctx)
+        await implementation.packagesDeletePackageVersionForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36106,9 +39591,6 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    paramValidationFactory<t_PackagesRestorePackageVersionForUserParamSchema>(
-      packagesRestorePackageVersionForUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_PackagesRestorePackageVersionForUserParamSchema,
@@ -36117,11 +39599,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          packagesRestorePackageVersionForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.packagesRestorePackageVersionForUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.packagesRestorePackageVersionForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36141,12 +39629,6 @@ export function bootstrap(
   router.get(
     "projectsListForUser",
     "/users/:username/projects",
-    paramValidationFactory<t_ProjectsListForUserParamSchema>(
-      projectsListForUserParamSchema
-    ),
-    queryValidationFactory<t_ProjectsListForUserQuerySchema>(
-      projectsListForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ProjectsListForUserParamSchema,
@@ -36155,8 +39637,14 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(projectsListForUserParamSchema, ctx.params),
+        query: parseRequestInput(projectsListForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
       const { status, body } = await implementation.projectsListForUser(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -36177,12 +39665,6 @@ export function bootstrap(
   router.get(
     "activityListReceivedEventsForUser",
     "/users/:username/received_events",
-    paramValidationFactory<t_ActivityListReceivedEventsForUserParamSchema>(
-      activityListReceivedEventsForUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListReceivedEventsForUserQuerySchema>(
-      activityListReceivedEventsForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListReceivedEventsForUserParamSchema,
@@ -36191,8 +39673,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListReceivedEventsForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListReceivedEventsForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListReceivedEventsForUser(ctx.state, ctx)
+        await implementation.activityListReceivedEventsForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36211,12 +39705,6 @@ export function bootstrap(
   router.get(
     "activityListReceivedPublicEventsForUser",
     "/users/:username/received_events/public",
-    paramValidationFactory<t_ActivityListReceivedPublicEventsForUserParamSchema>(
-      activityListReceivedPublicEventsForUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListReceivedPublicEventsForUserQuerySchema>(
-      activityListReceivedPublicEventsForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListReceivedPublicEventsForUserParamSchema,
@@ -36225,11 +39713,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListReceivedPublicEventsForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListReceivedPublicEventsForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListReceivedPublicEventsForUser(
-          ctx.state,
-          ctx
-        )
+        await implementation.activityListReceivedPublicEventsForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36249,12 +39746,6 @@ export function bootstrap(
   router.get(
     "reposListForUser",
     "/users/:username/repos",
-    paramValidationFactory<t_ReposListForUserParamSchema>(
-      reposListForUserParamSchema
-    ),
-    queryValidationFactory<t_ReposListForUserQuerySchema>(
-      reposListForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ReposListForUserParamSchema,
@@ -36263,10 +39754,13 @@ export function bootstrap(
       >,
       next: Next
     ) => {
-      const { status, body } = await implementation.reposListForUser(
-        ctx.state,
-        ctx
-      )
+      const input = {
+        params: parseRequestInput(reposListForUserParamSchema, ctx.params),
+        query: parseRequestInput(reposListForUserQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36280,9 +39774,6 @@ export function bootstrap(
   router.get(
     "billingGetGithubActionsBillingUser",
     "/users/:username/settings/billing/actions",
-    paramValidationFactory<t_BillingGetGithubActionsBillingUserParamSchema>(
-      billingGetGithubActionsBillingUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetGithubActionsBillingUserParamSchema,
@@ -36291,8 +39782,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubActionsBillingUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetGithubActionsBillingUser(ctx.state, ctx)
+        await implementation.billingGetGithubActionsBillingUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36306,9 +39806,6 @@ export function bootstrap(
   router.get(
     "billingGetGithubPackagesBillingUser",
     "/users/:username/settings/billing/packages",
-    paramValidationFactory<t_BillingGetGithubPackagesBillingUserParamSchema>(
-      billingGetGithubPackagesBillingUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetGithubPackagesBillingUserParamSchema,
@@ -36317,8 +39814,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubPackagesBillingUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetGithubPackagesBillingUser(ctx.state, ctx)
+        await implementation.billingGetGithubPackagesBillingUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36332,9 +39838,6 @@ export function bootstrap(
   router.get(
     "billingGetSharedStorageBillingUser",
     "/users/:username/settings/billing/shared-storage",
-    paramValidationFactory<t_BillingGetSharedStorageBillingUserParamSchema>(
-      billingGetSharedStorageBillingUserParamSchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_BillingGetSharedStorageBillingUserParamSchema,
@@ -36343,8 +39846,17 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetSharedStorageBillingUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.billingGetSharedStorageBillingUser(ctx.state, ctx)
+        await implementation.billingGetSharedStorageBillingUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36363,12 +39875,6 @@ export function bootstrap(
   router.get(
     "usersListSshSigningKeysForUser",
     "/users/:username/ssh_signing_keys",
-    paramValidationFactory<t_UsersListSshSigningKeysForUserParamSchema>(
-      usersListSshSigningKeysForUserParamSchema
-    ),
-    queryValidationFactory<t_UsersListSshSigningKeysForUserQuerySchema>(
-      usersListSshSigningKeysForUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_UsersListSshSigningKeysForUserParamSchema,
@@ -36377,8 +39883,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          usersListSshSigningKeysForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          usersListSshSigningKeysForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.usersListSshSigningKeysForUser(ctx.state, ctx)
+        await implementation.usersListSshSigningKeysForUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36399,12 +39917,6 @@ export function bootstrap(
   router.get(
     "activityListReposStarredByUser",
     "/users/:username/starred",
-    paramValidationFactory<t_ActivityListReposStarredByUserParamSchema>(
-      activityListReposStarredByUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListReposStarredByUserQuerySchema>(
-      activityListReposStarredByUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListReposStarredByUserParamSchema,
@@ -36413,8 +39925,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListReposStarredByUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListReposStarredByUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListReposStarredByUser(ctx.state, ctx)
+        await implementation.activityListReposStarredByUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36433,12 +39957,6 @@ export function bootstrap(
   router.get(
     "activityListReposWatchedByUser",
     "/users/:username/subscriptions",
-    paramValidationFactory<t_ActivityListReposWatchedByUserParamSchema>(
-      activityListReposWatchedByUserParamSchema
-    ),
-    queryValidationFactory<t_ActivityListReposWatchedByUserQuerySchema>(
-      activityListReposWatchedByUserQuerySchema
-    ),
     async (
       ctx: ValidatedCtx<
         t_ActivityListReposWatchedByUserParamSchema,
@@ -36447,8 +39965,20 @@ export function bootstrap(
       >,
       next: Next
     ) => {
+      const input = {
+        params: parseRequestInput(
+          activityListReposWatchedByUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          activityListReposWatchedByUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
       const { status, body } =
-        await implementation.activityListReposWatchedByUser(ctx.state, ctx)
+        await implementation.activityListReposWatchedByUser(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
@@ -36459,8 +39989,14 @@ export function bootstrap(
     "metaGetAllVersions",
     "/versions",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
       const { status, body } = await implementation.metaGetAllVersions(
-        ctx.state,
+        input,
         ctx
       )
       ctx.status = status
@@ -36473,7 +40009,13 @@ export function bootstrap(
     "metaGetZen",
     "/zen",
     async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const { status, body } = await implementation.metaGetZen(ctx.state, ctx)
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.metaGetZen(input, ctx)
       ctx.status = status
       ctx.body = body
       return next()
