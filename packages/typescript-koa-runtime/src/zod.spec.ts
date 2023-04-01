@@ -1,5 +1,5 @@
-import { describe } from "node:test"
+import { describe, it } from "@jest/globals"
 
-describe("zod", function(){
-  it("works")
+describe("zod", () =>{
+  it.todo("works")
 })

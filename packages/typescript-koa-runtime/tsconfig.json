@@ -2,9 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "resolveJsonModule": true,
-    "types": ["@types/mocha"]
+    "rootDir": "./src"
   },
   "include": ["src/**/*"]
 }

@@ -1,5 +1,6 @@
 import type {Schema} from "@hapi/joi"
 import type { Context, Middleware, Next } from "koa"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type koaBody from "koa-body"
 
 export function paramValidationFactory<Type>(schema: Schema): Middleware<{ params: Type }> {
