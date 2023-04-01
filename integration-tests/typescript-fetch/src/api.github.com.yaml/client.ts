@@ -351,10 +351,10 @@ export class ApiClient {
 
   async appsUpdateWebhookConfigForApp(p: {
     requestBody: {
-      content_type: t_webhook_config_content_type
-      insecure_ssl: t_webhook_config_insecure_ssl
-      secret: t_webhook_config_secret
-      url: t_webhook_config_url
+      content_type?: t_webhook_config_content_type
+      insecure_ssl?: t_webhook_config_insecure_ssl
+      secret?: t_webhook_config_secret
+      url?: t_webhook_config_url
     }
   }): Promise<Res<200, t_webhook_config>> {
     const headers: Record<string, string | undefined> = {
@@ -507,7 +507,7 @@ export class ApiClient {
   async appsCreateInstallationAccessToken(p: {
     installationId: number
     requestBody?: {
-      permissions: t_app_permissions
+      permissions?: t_app_permissions
       repositories?: string[]
       repository_ids?: number[]
     }
@@ -672,7 +672,7 @@ export class ApiClient {
     clientId: string
     requestBody: {
       access_token: string
-      permissions: t_app_permissions
+      permissions?: t_app_permissions
       repositories?: string[]
       repository_ids?: number[]
       target?: string
@@ -2501,7 +2501,7 @@ export class ApiClient {
   async actionsSetGithubActionsPermissionsOrganization(p: {
     org: string
     requestBody: {
-      allowed_actions: t_allowed_actions
+      allowed_actions?: t_allowed_actions
       enabled_repositories: t_enabled_repositories
     }
   }): Promise<Res<204, void>> {
@@ -4691,10 +4691,10 @@ export class ApiClient {
     requestBody: {
       active?: boolean
       config: {
-        content_type: t_webhook_config_content_type
-        insecure_ssl: t_webhook_config_insecure_ssl
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
         password?: string
-        secret: t_webhook_config_secret
+        secret?: t_webhook_config_secret
         url: t_webhook_config_url
         username?: string
       }
@@ -4744,9 +4744,9 @@ export class ApiClient {
     requestBody?: {
       active?: boolean
       config?: {
-        content_type: t_webhook_config_content_type
-        insecure_ssl: t_webhook_config_insecure_ssl
-        secret: t_webhook_config_secret
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
+        secret?: t_webhook_config_secret
         url: t_webhook_config_url
       }
       events?: string[]
@@ -4814,10 +4814,10 @@ export class ApiClient {
     org: string
     hookId: number
     requestBody?: {
-      content_type: t_webhook_config_content_type
-      insecure_ssl: t_webhook_config_insecure_ssl
-      secret: t_webhook_config_secret
-      url: t_webhook_config_url
+      content_type?: t_webhook_config_content_type
+      insecure_ssl?: t_webhook_config_insecure_ssl
+      secret?: t_webhook_config_secret
+      url?: t_webhook_config_url
     }
   }): Promise<Res<200, t_webhook_config>> {
     const headers: Record<string, string | undefined> = {
@@ -8277,7 +8277,7 @@ export class ApiClient {
     owner: string
     repo: string
     requestBody: {
-      allowed_actions: t_allowed_actions
+      allowed_actions?: t_allowed_actions
       enabled: t_actions_enabled
     }
   }): Promise<Res<204, void>> {
@@ -11228,8 +11228,8 @@ export class ApiClient {
     repo: string
     alertNumber: t_alert_number
     requestBody: {
-      dismissed_comment: t_code_scanning_alert_dismissed_comment
-      dismissed_reason: t_code_scanning_alert_dismissed_reason
+      dismissed_comment?: t_code_scanning_alert_dismissed_comment
+      dismissed_reason?: t_code_scanning_alert_dismissed_reason
       state: t_code_scanning_alert_set_state
     }
   }): Promise<
@@ -11762,7 +11762,7 @@ export class ApiClient {
     | Res<
         200,
         {
-          billable_owner: t_simple_user
+          billable_owner?: t_simple_user
           defaults?: {
             devcontainer_path: string | null
             location: string
@@ -13322,14 +13322,14 @@ export class ApiClient {
     repo: string
     environmentName: string
     requestBody?: {
-      deployment_branch_policy: t_deployment_branch_policy_settings
+      deployment_branch_policy?: t_deployment_branch_policy_settings
       reviewers?:
         | {
             id?: number
-            type: t_deployment_reviewer_type
+            type?: t_deployment_reviewer_type
           }[]
         | null
-      wait_timer: t_wait_timer
+      wait_timer?: t_wait_timer
     }
   }): Promise<Res<200, t_environment> | Res<422, t_basic_error>> {
     const headers: Record<string, string | undefined> = {
@@ -13955,12 +13955,12 @@ export class ApiClient {
     requestBody?: {
       active?: boolean
       config?: {
-        content_type: t_webhook_config_content_type
+        content_type?: t_webhook_config_content_type
         digest?: string
-        insecure_ssl: t_webhook_config_insecure_ssl
-        secret: t_webhook_config_secret
+        insecure_ssl?: t_webhook_config_insecure_ssl
+        secret?: t_webhook_config_secret
         token?: string
-        url: t_webhook_config_url
+        url?: t_webhook_config_url
       }
       events?: string[]
       name?: string
@@ -14017,10 +14017,10 @@ export class ApiClient {
       add_events?: string[]
       config?: {
         address?: string
-        content_type: t_webhook_config_content_type
-        insecure_ssl: t_webhook_config_insecure_ssl
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
         room?: string
-        secret: t_webhook_config_secret
+        secret?: t_webhook_config_secret
         url: t_webhook_config_url
       }
       events?: string[]
@@ -14092,10 +14092,10 @@ export class ApiClient {
     repo: string
     hookId: number
     requestBody?: {
-      content_type: t_webhook_config_content_type
-      insecure_ssl: t_webhook_config_insecure_ssl
-      secret: t_webhook_config_secret
-      url: t_webhook_config_url
+      content_type?: t_webhook_config_content_type
+      insecure_ssl?: t_webhook_config_insecure_ssl
+      secret?: t_webhook_config_secret
+      url?: t_webhook_config_url
     }
   }): Promise<Res<200, t_webhook_config>> {
     const headers: Record<string, string | undefined> = {
@@ -17865,8 +17865,8 @@ export class ApiClient {
     repo: string
     alertNumber: t_alert_number
     requestBody: {
-      resolution: t_secret_scanning_alert_resolution
-      resolution_comment: t_secret_scanning_alert_resolution_comment
+      resolution?: t_secret_scanning_alert_resolution
+      resolution_comment?: t_secret_scanning_alert_resolution_comment
       state: t_secret_scanning_alert_state
     }
   }): Promise<

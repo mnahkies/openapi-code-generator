@@ -132,20 +132,21 @@ export class ModelBuilder {
         const members = Object.entries(schemaObject.properties)
           .sort(([a], [b]) => a < b ? -1 : 1)
           .map(([name, definition]) => {
+            const isRequired = schemaObject.required.some(it => it === name)
 
             if (isRef(definition)) {
               this.add(definition)
 
               return [
                 `"${name}"`,
+                isRequired ? "" : "?",
                 ":",
                 getNameFromRef(definition),
                 ";",
-              ].join(" ")
+              ].filter(Boolean).join(" ")
             }
 
             const isReadonly = definition.readOnly
-            const isRequired = schemaObject.required.some(it => it === name)
             const isNullable = definition.nullable
             const type = this.schemaObjectToType(definition)
 
@@ -155,19 +156,21 @@ export class ModelBuilder {
               isRequired ? "" : "?",
               ":",
               type,
-              isNullable ? " | null" : "",
+              isNullable ? "| null" : "",
               ";",
-            ].join(" ")
+            ].filter(Boolean).join(" ")
           })
 
         // TODO better support
         const additionalProperties = schemaObject.additionalProperties || members.length === 0 ?
           "[key: string]: unknown;" : ""
 
-        return `{
-      ${ members.join("\n") }
-      ${ additionalProperties }
-      }`
+        return [
+          "{",
+          ...members,
+          additionalProperties,
+          "}"
+        ].filter(Boolean).join("\n")
       }
       default: {
         throw new Error(`unsupported type '${ JSON.stringify(schemaObject, undefined, 2) }'`)
