@@ -77,7 +77,10 @@ import {
   t_commit_comparison,
   t_commit_search_result_item,
   t_community_profile,
+  t_content_directory,
   t_content_file,
+  t_content_submodule,
+  t_content_symlink,
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
@@ -174,6 +177,7 @@ import {
   t_protected_branch,
   t_protected_branch_admin_enforced,
   t_protected_branch_pull_request_review,
+  t_public_user,
   t_pull_request,
   t_pull_request_merge_result,
   t_pull_request_review,
@@ -1234,9 +1238,7 @@ export class ApiClient {
       files: {
         [key: string]: unknown
       }
-      public?: {
-        [key: string]: unknown
-      }
+      public?: boolean | "true" | "false"
     }
   }): Promise<
     | Res<201, t_gist_simple>
@@ -2372,12 +2374,7 @@ export class ApiClient {
   }): Promise<
     | Res<200, t_organization_full>
     | Res<409, t_basic_error>
-    | Res<
-        422,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Res<422, t_validation_error | t_validation_error_simple>
   > {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -7401,20 +7398,20 @@ export class ApiClient {
 
   async projectsCreateCard(p: {
     columnId: number
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          note: string | null
+        }
+      | {
+          content_id: number
+          content_type: string
+        }
   }): Promise<
     | Res<201, t_project_card>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
-    | Res<
-        422,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Res<422, t_validation_error | t_validation_error_simple>
     | Res<
         503,
         {
@@ -9541,9 +9538,7 @@ export class ApiClient {
   async actionsGetWorkflow(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
   }): Promise<Res<200, t_workflow>> {
     const headers: Record<string, string | undefined> = {}
 
@@ -9563,9 +9558,7 @@ export class ApiClient {
   async actionsDisableWorkflow(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = {}
 
@@ -9585,9 +9578,7 @@ export class ApiClient {
   async actionsCreateWorkflowDispatch(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
     requestBody: {
       inputs?: {
         [key: string]: unknown
@@ -9616,9 +9607,7 @@ export class ApiClient {
   async actionsEnableWorkflow(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
   }): Promise<Res<204, void>> {
     const headers: Record<string, string | undefined> = {}
 
@@ -9638,9 +9627,7 @@ export class ApiClient {
   async actionsListWorkflowRuns(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
     actor?: string
     branch?: string
     event?: string
@@ -9704,9 +9691,7 @@ export class ApiClient {
   async actionsGetWorkflowUsage(p: {
     owner: string
     repo: string
-    workflowId: {
-      [key: string]: unknown
-    }
+    workflowId: number | string
   }): Promise<Res<200, t_workflow_usage>> {
     const headers: Record<string, string | undefined> = {}
 
@@ -10355,9 +10340,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          contexts: string[]
+        }
+      | string[]
   }): Promise<
     | Res<200, string[]>
     | Res<403, t_basic_error>
@@ -10386,9 +10373,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          contexts: string[]
+        }
+      | string[]
   }): Promise<
     Res<200, string[]> | Res<404, t_basic_error> | Res<422, t_validation_error>
   > {
@@ -10414,9 +10403,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          contexts: string[]
+        }
+      | string[]
   }): Promise<
     Res<200, string[]> | Res<404, t_basic_error> | Res<422, t_validation_error>
   > {
@@ -10502,9 +10493,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          apps: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_integration[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10528,9 +10521,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          apps: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_integration[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10554,9 +10549,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          apps: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_integration[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10600,9 +10597,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          teams: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_team[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10626,9 +10625,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          teams: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_team[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10652,9 +10653,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          teams: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_team[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10698,9 +10701,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          users: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_simple_user[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10724,9 +10729,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          users: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_simple_user[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10750,9 +10757,11 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          users: string[]
+        }
+      | string[]
   }): Promise<Res<200, t_simple_user[]> | Res<422, t_validation_error>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10806,50 +10815,19 @@ export class ApiClient {
   async checksCreate(p: {
     owner: string
     repo: string
-    requestBody: {
-      actions?: {
-        description: string
-        identifier: string
-        label: string
-      }[]
-      completed_at?: string
-      conclusion?:
-        | "action_required"
-        | "cancelled"
-        | "failure"
-        | "neutral"
-        | "success"
-        | "skipped"
-        | "stale"
-        | "timed_out"
-      details_url?: string
-      external_id?: string
-      head_sha: string
-      name: string
-      output?: {
-        annotations?: {
-          annotation_level: "notice" | "warning" | "failure"
-          end_column?: number
-          end_line: number
-          message: string
-          path: string
-          raw_details?: string
-          start_column?: number
-          start_line: number
-          title?: string
-        }[]
-        images?: {
-          alt: string
-          caption?: string
-          image_url: string
-        }[]
-        summary: string
-        text?: string
-        title: string
-      }
-      started_at?: string
-      status?: "queued" | "in_progress" | "completed"
-    }
+    requestBody:
+      | {
+          status: {
+            [key: string]: unknown
+          }
+          [key: string]: unknown
+        }
+      | {
+          status?: {
+            [key: string]: unknown
+          }
+          [key: string]: unknown
+        }
   }): Promise<Res<201, t_check_run>> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -12586,9 +12564,10 @@ export class ApiClient {
   }): Promise<
     | Res<
         200,
-        {
-          [key: string]: unknown
-        }
+        | t_content_directory
+        | t_content_file
+        | t_content_symlink
+        | t_content_submodule
       >
     | Res<302, void>
     | Res<403, t_basic_error>
@@ -13073,9 +13052,11 @@ export class ApiClient {
       auto_merge?: boolean
       description?: string | null
       environment?: string
-      payload?: {
-        [key: string]: unknown
-      }
+      payload?:
+        | {
+            [key: string]: unknown
+          }
+        | string
       production_environment?: boolean
       ref: string
       required_contexts?: string[]
@@ -14657,15 +14638,17 @@ export class ApiClient {
       assignee?: string | null
       assignees?: string[]
       body?: string
-      labels?: {
-        [key: string]: unknown
-      }[]
-      milestone?: {
-        [key: string]: unknown
-      } | null
-      title: {
-        [key: string]: unknown
-      }
+      labels?: (
+        | string
+        | {
+            color?: string | null
+            description?: string | null
+            id?: number
+            name?: string
+          }
+      )[]
+      milestone?: (string | number) | null
+      title: string | number
     }
   }): Promise<
     | Res<201, t_issue>
@@ -14976,17 +14959,19 @@ export class ApiClient {
       assignee?: string | null
       assignees?: string[]
       body?: string | null
-      labels?: {
-        [key: string]: unknown
-      }[]
-      milestone?: {
-        [key: string]: unknown
-      } | null
+      labels?: (
+        | string
+        | {
+            color?: string | null
+            description?: string | null
+            id?: number
+            name?: string
+          }
+      )[]
+      milestone?: (string | number) | null
       state?: "open" | "closed"
       state_reason?: "completed" | "not_planned" | "reopened" | null
-      title?: {
-        [key: string]: unknown
-      } | null
+      title?: (string | number) | null
     }
   }): Promise<
     | Res<200, t_issue>
@@ -15217,9 +15202,20 @@ export class ApiClient {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          labels?: string[]
+        }
+      | string[]
+      | {
+          labels?: {
+            name: string
+          }[]
+        }
+      | {
+          name: string
+        }[]
+      | string
   }): Promise<
     | Res<200, t_label[]>
     | Res<301, t_basic_error>
@@ -15249,9 +15245,20 @@ export class ApiClient {
     owner: string
     repo: string
     issueNumber: number
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          labels?: string[]
+        }
+      | string[]
+      | {
+          labels?: {
+            name: string
+          }[]
+        }
+      | {
+          name: string
+        }[]
+      | string
   }): Promise<
     | Res<200, t_label[]>
     | Res<301, t_basic_error>
@@ -20016,12 +20023,7 @@ export class ApiClient {
   }
 
   async usersGetAuthenticated(): Promise<
-    | Res<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Res<200, t_private_user | t_public_user>
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -20206,9 +20208,31 @@ export class ApiClient {
   }
 
   async codespacesCreateForAuthenticatedUser(p: {
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          client_ip?: string
+          devcontainer_path?: string
+          display_name?: string
+          idle_timeout_minutes?: number
+          location?: string
+          machine?: string
+          multi_repo_permissions_opt_out?: boolean
+          ref?: string
+          repository_id: number
+          retention_period_minutes?: number
+          working_directory?: string
+        }
+      | {
+          devcontainer_path?: string
+          idle_timeout_minutes?: number
+          location?: string
+          machine?: string
+          pull_request: {
+            pull_request_number: number
+            repository_id: number
+          }
+          working_directory?: string
+        }
   }): Promise<
     | Res<201, t_codespace>
     | Res<202, t_codespace>
@@ -20750,9 +20774,12 @@ export class ApiClient {
   }
 
   async usersAddEmailForAuthenticatedUser(p: {
-    requestBody?: {
-      [key: string]: unknown
-    }
+    requestBody?:
+      | {
+          emails: string[]
+        }
+      | string[]
+      | string
   }): Promise<
     | Res<201, t_email[]>
     | Res<304, void>
@@ -20776,9 +20803,12 @@ export class ApiClient {
   }
 
   async usersDeleteEmailForAuthenticatedUser(p: {
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | {
+          emails: string[]
+        }
+      | string[]
+      | string
   }): Promise<
     | Res<204, void>
     | Res<304, void>
@@ -22362,14 +22392,10 @@ export class ApiClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersGetByUsername(p: { username: string }): Promise<
-    | Res<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
-    | Res<404, t_basic_error>
+  async usersGetByUsername(p: {
+    username: string
+  }): Promise<
+    Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
   > {
     const headers: Record<string, string | undefined> = {}
 

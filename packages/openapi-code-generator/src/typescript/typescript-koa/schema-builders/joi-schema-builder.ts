@@ -26,6 +26,12 @@ export class JoiBuilder extends SchemaBuilder {
       .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected union(schemas: string[]): string {
+    // TODO: implement
+    throw new Error("Method not implemented.")
+  }
+
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.joi,

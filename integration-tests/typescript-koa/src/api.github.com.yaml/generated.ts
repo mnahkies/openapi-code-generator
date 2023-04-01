@@ -8439,7 +8439,7 @@ export function bootstrap(
     url: z.coerce.string().optional(),
     content_type: z.coerce.string().optional(),
     secret: z.coerce.string().optional(),
-    insecure_ssl: z.object({}).optional(),
+    insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
   })
 
   router.patch(
@@ -8613,8 +8613,8 @@ export function bootstrap(
 
   const appsCreateInstallationAccessTokenBodySchema = z
     .object({
-      repositories: z.array(z.coerce.string().optional()).optional(),
-      repository_ids: z.array(z.coerce.number().optional()).optional(),
+      repositories: z.array(z.coerce.string()).optional(),
+      repository_ids: z.array(z.coerce.number()).optional(),
       permissions: z
         .object({
           actions: z.enum(["read", "write"]).optional(),
@@ -8864,8 +8864,8 @@ export function bootstrap(
     access_token: z.coerce.string(),
     target: z.coerce.string().optional(),
     target_id: z.coerce.number().optional(),
-    repositories: z.array(z.coerce.string().optional()).optional(),
-    repository_ids: z.array(z.coerce.number().optional()).optional(),
+    repositories: z.array(z.coerce.string()).optional(),
+    repository_ids: z.array(z.coerce.number()).optional(),
     permissions: z
       .object({
         actions: z.enum(["read", "write"]).optional(),
@@ -9070,13 +9070,11 @@ export function bootstrap(
     z.object({
       name: z.coerce.string(),
       visibility: z.enum(["selected", "all"]).optional(),
-      selected_organization_ids: z
-        .array(z.coerce.number().optional())
-        .optional(),
-      runners: z.array(z.coerce.number().optional()).optional(),
+      selected_organization_ids: z.array(z.coerce.number()).optional(),
+      runners: z.array(z.coerce.number()).optional(),
       allows_public_repositories: z.coerce.boolean().optional(),
       restricted_to_workflows: z.coerce.boolean().optional(),
-      selected_workflows: z.array(z.coerce.string().optional()).optional(),
+      selected_workflows: z.array(z.coerce.string()).optional(),
     })
 
   router.post(
@@ -9262,7 +9260,7 @@ export function bootstrap(
     z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
 
   const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema =
-    z.object({ labels: z.array(z.coerce.string().optional()) })
+    z.object({ labels: z.array(z.coerce.string()) })
 
   router.post(
     "enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise",
@@ -9552,7 +9550,7 @@ export function bootstrap(
   const gistsCreateBodySchema = z.object({
     description: z.coerce.string().optional(),
     files: z.object({}),
-    public: z.object({}).optional(),
+    public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]),
   })
 
   router.post(
@@ -10848,7 +10846,7 @@ export function bootstrap(
   })
 
   const oidcUpdateOidcCustomSubTemplateForOrgBodySchema = z.object({
-    include_claim_keys: z.array(z.coerce.string().optional()),
+    include_claim_keys: z.array(z.coerce.string()),
   })
 
   router.put(
@@ -10986,7 +10984,7 @@ export function bootstrap(
     z.object({ org: z.coerce.string() })
 
   const actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
-    z.object({ selected_repository_ids: z.array(z.coerce.number().optional()) })
+    z.object({ selected_repository_ids: z.array(z.coerce.number()) })
 
   router.put(
     "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization",
@@ -11109,7 +11107,7 @@ export function bootstrap(
     .object({
       github_owned_allowed: z.coerce.boolean().optional(),
       verified_allowed: z.coerce.boolean().optional(),
-      patterns_allowed: z.array(z.coerce.string().optional()).optional(),
+      patterns_allowed: z.array(z.coerce.string()).optional(),
     })
     .optional()
 
@@ -11250,7 +11248,7 @@ export function bootstrap(
     workflow_file_path: z.coerce.string(),
     repository_id: z.coerce.string(),
     scope: z.enum(["selected", "all"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.post(
@@ -11312,7 +11310,7 @@ export function bootstrap(
     workflow_file_path: z.coerce.string().optional(),
     repository_id: z.coerce.string().optional(),
     scope: z.enum(["selected", "all"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.patch(
@@ -11399,7 +11397,7 @@ export function bootstrap(
   })
 
   const actionsSetSelectedReposToRequiredWorkflowBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -11537,11 +11535,11 @@ export function bootstrap(
   const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
     name: z.coerce.string(),
     visibility: z.enum(["selected", "all", "private"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
-    runners: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    runners: z.array(z.coerce.number()).optional(),
     allows_public_repositories: z.coerce.boolean().optional(),
     restricted_to_workflows: z.coerce.boolean().optional(),
-    selected_workflows: z.array(z.coerce.string().optional()).optional(),
+    selected_workflows: z.array(z.coerce.string()).optional(),
   })
 
   router.post(
@@ -11612,7 +11610,7 @@ export function bootstrap(
     visibility: z.enum(["selected", "all", "private"]).optional(),
     allows_public_repositories: z.coerce.boolean().optional(),
     restricted_to_workflows: z.coerce.boolean().optional(),
-    selected_workflows: z.array(z.coerce.string().optional()).optional(),
+    selected_workflows: z.array(z.coerce.string()).optional(),
   })
 
   router.patch(
@@ -11718,7 +11716,7 @@ export function bootstrap(
   })
 
   const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -11825,7 +11823,7 @@ export function bootstrap(
   })
 
   const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = z.object({
-    runners: z.array(z.coerce.number().optional()),
+    runners: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -12126,7 +12124,7 @@ export function bootstrap(
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.coerce.string().optional()),
+    labels: z.array(z.coerce.string()),
   })
 
   router.post(
@@ -12163,7 +12161,7 @@ export function bootstrap(
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = z.object({
-    labels: z.array(z.coerce.string().optional()),
+    labels: z.array(z.coerce.string()),
   })
 
   router.put(
@@ -12344,7 +12342,7 @@ export function bootstrap(
     encrypted_value: z.coerce.string().optional(),
     key_id: z.coerce.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.put(
@@ -12441,7 +12439,7 @@ export function bootstrap(
   })
 
   const actionsSetSelectedReposForOrgSecretBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -12572,7 +12570,7 @@ export function bootstrap(
     name: z.coerce.string(),
     value: z.coerce.string(),
     visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.post(
@@ -12636,7 +12634,7 @@ export function bootstrap(
     name: z.coerce.string().optional(),
     value: z.coerce.string().optional(),
     visibility: z.enum(["all", "private", "selected"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.patch(
@@ -12735,7 +12733,7 @@ export function bootstrap(
   })
 
   const actionsSetSelectedReposForOrgVariableBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -13023,7 +13021,7 @@ export function bootstrap(
       "all_members",
       "all_members_and_outside_collaborators",
     ]),
-    selected_usernames: z.array(z.coerce.string().optional()).optional(),
+    selected_usernames: z.array(z.coerce.string()).optional(),
   })
 
   router.put(
@@ -13145,7 +13143,7 @@ export function bootstrap(
     encrypted_value: z.coerce.string().optional(),
     key_id: z.coerce.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.number().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.put(
@@ -13242,7 +13240,7 @@ export function bootstrap(
   })
 
   const codespacesSetSelectedReposForOrgSecretBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -13475,7 +13473,7 @@ export function bootstrap(
     encrypted_value: z.coerce.string().optional(),
     key_id: z.coerce.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
-    selected_repository_ids: z.array(z.coerce.string().optional()).optional(),
+    selected_repository_ids: z.array(z.coerce.string()).optional(),
   })
 
   router.put(
@@ -13572,7 +13570,7 @@ export function bootstrap(
   })
 
   const dependabotSetSelectedReposForOrgSecretBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number().optional()),
+    selected_repository_ids: z.array(z.coerce.number()),
   })
 
   router.put(
@@ -13779,11 +13777,11 @@ export function bootstrap(
       url: z.coerce.string(),
       content_type: z.coerce.string().optional(),
       secret: z.coerce.string().optional(),
-      insecure_ssl: z.object({}).optional(),
+      insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
       username: z.coerce.string().optional(),
       password: z.coerce.string().optional(),
     }),
-    events: z.array(z.coerce.string().optional()).optional(),
+    events: z.array(z.coerce.string()).optional(),
     active: z.coerce.boolean().optional(),
   })
 
@@ -13851,10 +13849,10 @@ export function bootstrap(
           url: z.coerce.string(),
           content_type: z.coerce.string().optional(),
           secret: z.coerce.string().optional(),
-          insecure_ssl: z.object({}).optional(),
+          insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
         })
         .optional(),
-      events: z.array(z.coerce.string().optional()).optional(),
+      events: z.array(z.coerce.string()).optional(),
       active: z.coerce.boolean().optional(),
       name: z.coerce.string().optional(),
     })
@@ -13947,7 +13945,7 @@ export function bootstrap(
       url: z.coerce.string().optional(),
       content_type: z.coerce.string().optional(),
       secret: z.coerce.string().optional(),
-      insecure_ssl: z.object({}).optional(),
+      insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
     })
     .optional()
 
@@ -14285,7 +14283,7 @@ export function bootstrap(
       invitee_id: z.coerce.number().optional(),
       email: z.coerce.string().optional(),
       role: z.enum(["admin", "direct_member", "billing_manager"]).optional(),
-      team_ids: z.array(z.coerce.number().optional()).optional(),
+      team_ids: z.array(z.coerce.number()).optional(),
     })
     .optional()
 
@@ -14684,7 +14682,7 @@ export function bootstrap(
   const migrationsListForOrgQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    exclude: z.array(z.enum(["repositories"]).optional()).optional(),
+    exclude: z.array(z.enum(["repositories"])).optional(),
   })
 
   router.get(
@@ -14717,7 +14715,7 @@ export function bootstrap(
   const migrationsStartForOrgParamSchema = z.object({ org: z.coerce.string() })
 
   const migrationsStartForOrgBodySchema = z.object({
-    repositories: z.array(z.coerce.string().optional()),
+    repositories: z.array(z.coerce.string()),
     lock_repositories: z.coerce.boolean().optional(),
     exclude_metadata: z.coerce.boolean().optional(),
     exclude_git_data: z.coerce.boolean().optional(),
@@ -14725,7 +14723,7 @@ export function bootstrap(
     exclude_releases: z.coerce.boolean().optional(),
     exclude_owner_projects: z.coerce.boolean().optional(),
     org_metadata_only: z.coerce.boolean().optional(),
-    exclude: z.array(z.enum(["repositories"]).optional()).optional(),
+    exclude: z.array(z.enum(["repositories"])).optional(),
   })
 
   router.post(
@@ -14761,7 +14759,7 @@ export function bootstrap(
   })
 
   const migrationsGetStatusForOrgQuerySchema = z.object({
-    exclude: z.array(z.enum(["repositories"]).optional()).optional(),
+    exclude: z.array(z.enum(["repositories"])).optional(),
   })
 
   router.get(
@@ -15818,8 +15816,8 @@ export function bootstrap(
   const teamsCreateBodySchema = z.object({
     name: z.coerce.string(),
     description: z.coerce.string().optional(),
-    maintainers: z.array(z.coerce.string().optional()).optional(),
-    repo_names: z.array(z.coerce.string().optional()).optional(),
+    maintainers: z.array(z.coerce.string()).optional(),
+    repo_names: z.array(z.coerce.string()).optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
     permission: z.enum(["pull", "push"]).optional(),
     parent_team_id: z.coerce.number().optional(),
@@ -17271,7 +17269,13 @@ export function bootstrap(
     column_id: z.coerce.number(),
   })
 
-  const projectsCreateCardBodySchema = z.object({})
+  const projectsCreateCardBodySchema = z.union([
+    z.object({ note: z.coerce.string() }),
+    z.object({
+      content_id: z.coerce.number(),
+      content_type: z.coerce.string(),
+    }),
+  ])
 
   router.post(
     "projectsCreateCard",
@@ -18184,7 +18188,7 @@ export function bootstrap(
 
   const actionsSetCustomOidcSubClaimForRepoBodySchema = z.object({
     use_default: z.coerce.boolean(),
-    include_claim_keys: z.array(z.coerce.string().optional()).optional(),
+    include_claim_keys: z.array(z.coerce.string()).optional(),
   })
 
   router.put(
@@ -18383,7 +18387,7 @@ export function bootstrap(
     .object({
       github_owned_allowed: z.coerce.boolean().optional(),
       verified_allowed: z.coerce.boolean().optional(),
-      patterns_allowed: z.array(z.coerce.string().optional()).optional(),
+      patterns_allowed: z.array(z.coerce.string()).optional(),
     })
     .optional()
 
@@ -18756,7 +18760,7 @@ export function bootstrap(
   })
 
   const actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.coerce.string().optional()),
+    labels: z.array(z.coerce.string()),
   })
 
   router.post(
@@ -18794,7 +18798,7 @@ export function bootstrap(
   })
 
   const actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = z.object({
-    labels: z.array(z.coerce.string().optional()),
+    labels: z.array(z.coerce.string()),
   })
 
   router.put(
@@ -19358,7 +19362,7 @@ export function bootstrap(
   })
 
   const actionsReviewPendingDeploymentsForRunBodySchema = z.object({
-    environment_ids: z.array(z.coerce.number().optional()),
+    environment_ids: z.array(z.coerce.number()),
     state: z.enum(["approved", "rejected"]),
     comment: z.coerce.string(),
   })
@@ -19843,7 +19847,7 @@ export function bootstrap(
   const actionsGetWorkflowParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   router.get(
@@ -19869,7 +19873,7 @@ export function bootstrap(
   const actionsDisableWorkflowParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   router.put(
@@ -19895,7 +19899,7 @@ export function bootstrap(
   const actionsCreateWorkflowDispatchParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   const actionsCreateWorkflowDispatchBodySchema = z.object({
@@ -19931,7 +19935,7 @@ export function bootstrap(
   const actionsEnableWorkflowParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   router.put(
@@ -19957,7 +19961,7 @@ export function bootstrap(
   const actionsListWorkflowRunsParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   const actionsListWorkflowRunsQuerySchema = z.object({
@@ -20019,7 +20023,7 @@ export function bootstrap(
   const actionsGetWorkflowUsageParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
-    workflow_id: z.object({}),
+    workflow_id: z.union([z.coerce.number(), z.coerce.string()]),
   })
 
   router.get(
@@ -20382,15 +20386,13 @@ export function bootstrap(
   const reposUpdateBranchProtectionBodySchema = z.object({
     required_status_checks: z.object({
       strict: z.coerce.boolean(),
-      contexts: z.array(z.coerce.string().optional()),
+      contexts: z.array(z.coerce.string()),
       checks: z
         .array(
-          z
-            .object({
-              context: z.coerce.string(),
-              app_id: z.coerce.number().optional(),
-            })
-            .optional()
+          z.object({
+            context: z.coerce.string(),
+            app_id: z.coerce.number().optional(),
+          })
         )
         .optional(),
     }),
@@ -20398,9 +20400,9 @@ export function bootstrap(
     required_pull_request_reviews: z.object({
       dismissal_restrictions: z
         .object({
-          users: z.array(z.coerce.string().optional()).optional(),
-          teams: z.array(z.coerce.string().optional()).optional(),
-          apps: z.array(z.coerce.string().optional()).optional(),
+          users: z.array(z.coerce.string()).optional(),
+          teams: z.array(z.coerce.string()).optional(),
+          apps: z.array(z.coerce.string()).optional(),
         })
         .optional(),
       dismiss_stale_reviews: z.coerce.boolean().optional(),
@@ -20409,16 +20411,16 @@ export function bootstrap(
       require_last_push_approval: z.coerce.boolean().optional(),
       bypass_pull_request_allowances: z
         .object({
-          users: z.array(z.coerce.string().optional()).optional(),
-          teams: z.array(z.coerce.string().optional()).optional(),
-          apps: z.array(z.coerce.string().optional()).optional(),
+          users: z.array(z.coerce.string()).optional(),
+          teams: z.array(z.coerce.string()).optional(),
+          apps: z.array(z.coerce.string()).optional(),
         })
         .optional(),
     }),
     restrictions: z.object({
-      users: z.array(z.coerce.string().optional()),
-      teams: z.array(z.coerce.string().optional()),
-      apps: z.array(z.coerce.string().optional()).optional(),
+      users: z.array(z.coerce.string()),
+      teams: z.array(z.coerce.string()),
+      apps: z.array(z.coerce.string()).optional(),
     }),
     required_linear_history: z.coerce.boolean().optional(),
     allow_force_pushes: z.coerce.boolean().optional(),
@@ -20596,9 +20598,9 @@ export function bootstrap(
     .object({
       dismissal_restrictions: z
         .object({
-          users: z.array(z.coerce.string().optional()).optional(),
-          teams: z.array(z.coerce.string().optional()).optional(),
-          apps: z.array(z.coerce.string().optional()).optional(),
+          users: z.array(z.coerce.string()).optional(),
+          teams: z.array(z.coerce.string()).optional(),
+          apps: z.array(z.coerce.string()).optional(),
         })
         .optional(),
       dismiss_stale_reviews: z.coerce.boolean().optional(),
@@ -20607,9 +20609,9 @@ export function bootstrap(
       require_last_push_approval: z.coerce.boolean().optional(),
       bypass_pull_request_allowances: z
         .object({
-          users: z.array(z.coerce.string().optional()).optional(),
-          teams: z.array(z.coerce.string().optional()).optional(),
-          apps: z.array(z.coerce.string().optional()).optional(),
+          users: z.array(z.coerce.string()).optional(),
+          teams: z.array(z.coerce.string()).optional(),
+          apps: z.array(z.coerce.string()).optional(),
         })
         .optional(),
     })
@@ -20801,15 +20803,13 @@ export function bootstrap(
   const reposUpdateStatusCheckProtectionBodySchema = z
     .object({
       strict: z.coerce.boolean().optional(),
-      contexts: z.array(z.coerce.string().optional()).optional(),
+      contexts: z.array(z.coerce.string()).optional(),
       checks: z
         .array(
-          z
-            .object({
-              context: z.coerce.string(),
-              app_id: z.coerce.number().optional(),
-            })
-            .optional()
+          z.object({
+            context: z.coerce.string(),
+            app_id: z.coerce.number().optional(),
+          })
         )
         .optional(),
     })
@@ -20902,7 +20902,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposAddStatusCheckContextsBodySchema = z.object({}).optional()
+  const reposAddStatusCheckContextsBodySchema = z.union([
+    z.object({ contexts: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.post(
     "reposAddStatusCheckContexts",
@@ -20937,7 +20940,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposSetStatusCheckContextsBodySchema = z.object({}).optional()
+  const reposSetStatusCheckContextsBodySchema = z.union([
+    z.object({ contexts: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.put(
     "reposSetStatusCheckContexts",
@@ -20972,7 +20978,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposRemoveStatusCheckContextsBodySchema = z.object({})
+  const reposRemoveStatusCheckContextsBodySchema = z.union([
+    z.object({ contexts: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.delete(
     "reposRemoveStatusCheckContexts",
@@ -21086,7 +21095,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposAddAppAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposAddAppAccessRestrictionsBodySchema = z.union([
+    z.object({ apps: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.post(
     "reposAddAppAccessRestrictions",
@@ -21119,7 +21131,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposSetAppAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposSetAppAccessRestrictionsBodySchema = z.union([
+    z.object({ apps: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.put(
     "reposSetAppAccessRestrictions",
@@ -21152,7 +21167,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsBodySchema = z.object({})
+  const reposRemoveAppAccessRestrictionsBodySchema = z.union([
+    z.object({ apps: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.delete(
     "reposRemoveAppAccessRestrictions",
@@ -21216,7 +21234,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposAddTeamAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposAddTeamAccessRestrictionsBodySchema = z.union([
+    z.object({ teams: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.post(
     "reposAddTeamAccessRestrictions",
@@ -21249,7 +21270,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposSetTeamAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposSetTeamAccessRestrictionsBodySchema = z.union([
+    z.object({ teams: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.put(
     "reposSetTeamAccessRestrictions",
@@ -21282,7 +21306,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposRemoveTeamAccessRestrictionsBodySchema = z.object({})
+  const reposRemoveTeamAccessRestrictionsBodySchema = z.union([
+    z.object({ teams: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.delete(
     "reposRemoveTeamAccessRestrictions",
@@ -21346,7 +21373,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposAddUserAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposAddUserAccessRestrictionsBodySchema = z.union([
+    z.object({ users: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.post(
     "reposAddUserAccessRestrictions",
@@ -21379,7 +21409,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposSetUserAccessRestrictionsBodySchema = z.object({}).optional()
+  const reposSetUserAccessRestrictionsBodySchema = z.union([
+    z.object({ users: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.put(
     "reposSetUserAccessRestrictions",
@@ -21412,7 +21445,10 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsBodySchema = z.object({})
+  const reposRemoveUserAccessRestrictionsBodySchema = z.union([
+    z.object({ users: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+  ])
 
   router.delete(
     "reposRemoveUserAccessRestrictions",
@@ -21479,73 +21515,10 @@ export function bootstrap(
     repo: z.coerce.string(),
   })
 
-  const checksCreateBodySchema = z.object({
-    name: z.coerce.string(),
-    head_sha: z.coerce.string(),
-    details_url: z.coerce.string().optional(),
-    external_id: z.coerce.string().optional(),
-    status: z.enum(["queued", "in_progress", "completed"]).optional(),
-    started_at: z.coerce.string().datetime({ offset: true }).optional(),
-    conclusion: z
-      .enum([
-        "action_required",
-        "cancelled",
-        "failure",
-        "neutral",
-        "success",
-        "skipped",
-        "stale",
-        "timed_out",
-      ])
-      .optional(),
-    completed_at: z.coerce.string().datetime({ offset: true }).optional(),
-    output: z
-      .object({
-        title: z.coerce.string(),
-        summary: z.coerce.string(),
-        text: z.coerce.string().optional(),
-        annotations: z
-          .array(
-            z
-              .object({
-                path: z.coerce.string(),
-                start_line: z.coerce.number(),
-                end_line: z.coerce.number(),
-                start_column: z.coerce.number().optional(),
-                end_column: z.coerce.number().optional(),
-                annotation_level: z.enum(["notice", "warning", "failure"]),
-                message: z.coerce.string(),
-                title: z.coerce.string().optional(),
-                raw_details: z.coerce.string().optional(),
-              })
-              .optional()
-          )
-          .optional(),
-        images: z
-          .array(
-            z
-              .object({
-                alt: z.coerce.string(),
-                image_url: z.coerce.string(),
-                caption: z.coerce.string().optional(),
-              })
-              .optional()
-          )
-          .optional(),
-      })
-      .optional(),
-    actions: z
-      .array(
-        z
-          .object({
-            label: z.coerce.string(),
-            description: z.coerce.string(),
-            identifier: z.coerce.string(),
-          })
-          .optional()
-      )
-      .optional(),
-  })
+  const checksCreateBodySchema = z.union([
+    z.object({ status: z.object({}) }),
+    z.object({ status: z.object({}).optional() }),
+  ])
 
   router.post(
     "checksCreate",
@@ -21620,43 +21593,37 @@ export function bootstrap(
         text: z.coerce.string().optional(),
         annotations: z
           .array(
-            z
-              .object({
-                path: z.coerce.string(),
-                start_line: z.coerce.number(),
-                end_line: z.coerce.number(),
-                start_column: z.coerce.number().optional(),
-                end_column: z.coerce.number().optional(),
-                annotation_level: z.enum(["notice", "warning", "failure"]),
-                message: z.coerce.string(),
-                title: z.coerce.string().optional(),
-                raw_details: z.coerce.string().optional(),
-              })
-              .optional()
+            z.object({
+              path: z.coerce.string(),
+              start_line: z.coerce.number(),
+              end_line: z.coerce.number(),
+              start_column: z.coerce.number().optional(),
+              end_column: z.coerce.number().optional(),
+              annotation_level: z.enum(["notice", "warning", "failure"]),
+              message: z.coerce.string(),
+              title: z.coerce.string().optional(),
+              raw_details: z.coerce.string().optional(),
+            })
           )
           .optional(),
         images: z
           .array(
-            z
-              .object({
-                alt: z.coerce.string(),
-                image_url: z.coerce.string(),
-                caption: z.coerce.string().optional(),
-              })
-              .optional()
+            z.object({
+              alt: z.coerce.string(),
+              image_url: z.coerce.string(),
+              caption: z.coerce.string().optional(),
+            })
           )
           .optional(),
       })
       .optional(),
     actions: z
       .array(
-        z
-          .object({
-            label: z.coerce.string(),
-            description: z.coerce.string(),
-            identifier: z.coerce.string(),
-          })
-          .optional()
+        z.object({
+          label: z.coerce.string(),
+          description: z.coerce.string(),
+          identifier: z.coerce.string(),
+        })
       )
       .optional(),
   })
@@ -21787,9 +21754,7 @@ export function bootstrap(
   const checksSetSuitesPreferencesBodySchema = z.object({
     auto_trigger_checks: z
       .array(
-        z
-          .object({ app_id: z.coerce.number(), setting: z.coerce.boolean() })
-          .optional()
+        z.object({ app_id: z.coerce.number(), setting: z.coerce.boolean() })
       )
       .optional(),
   })
@@ -24104,8 +24069,8 @@ export function bootstrap(
     ref: z.coerce.string(),
     task: z.coerce.string().optional(),
     auto_merge: z.coerce.boolean().optional(),
-    required_contexts: z.array(z.coerce.string().optional()).optional(),
-    payload: z.object({}).optional(),
+    required_contexts: z.array(z.coerce.string()).optional(),
+    payload: z.union([z.object({}), z.coerce.string()]),
     environment: z.coerce.string().optional(),
     description: z.coerce.string().optional(),
     transient_environment: z.coerce.boolean().optional(),
@@ -24418,12 +24383,10 @@ export function bootstrap(
       wait_timer: z.coerce.number().optional(),
       reviewers: z
         .array(
-          z
-            .object({
-              type: z.enum(["User", "Team"]).optional(),
-              id: z.coerce.number().optional(),
-            })
-            .optional()
+          z.object({
+            type: z.enum(["User", "Team"]).optional(),
+            id: z.coerce.number().optional(),
+          })
         )
         .optional(),
       deployment_branch_policy: z
@@ -24830,7 +24793,7 @@ export function bootstrap(
   const gitCreateCommitBodySchema = z.object({
     message: z.coerce.string(),
     tree: z.coerce.string(),
-    parents: z.array(z.coerce.string().optional()).optional(),
+    parents: z.array(z.coerce.string()).optional(),
     author: z
       .object({
         name: z.coerce.string(),
@@ -25093,17 +25056,15 @@ export function bootstrap(
 
   const gitCreateTreeBodySchema = z.object({
     tree: z.array(
-      z
-        .object({
-          path: z.coerce.string().optional(),
-          mode: z
-            .enum(["100644", "100755", "040000", "160000", "120000"])
-            .optional(),
-          type: z.enum(["blob", "tree", "commit"]).optional(),
-          sha: z.coerce.string().optional(),
-          content: z.coerce.string().optional(),
-        })
-        .optional()
+      z.object({
+        path: z.coerce.string().optional(),
+        mode: z
+          .enum(["100644", "100755", "040000", "160000", "120000"])
+          .optional(),
+        type: z.enum(["blob", "tree", "commit"]).optional(),
+        sha: z.coerce.string().optional(),
+        content: z.coerce.string().optional(),
+      })
     ),
     base_tree: z.coerce.string().optional(),
   })
@@ -25209,12 +25170,12 @@ export function bootstrap(
           url: z.coerce.string().optional(),
           content_type: z.coerce.string().optional(),
           secret: z.coerce.string().optional(),
-          insecure_ssl: z.object({}).optional(),
+          insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
           token: z.coerce.string().optional(),
           digest: z.coerce.string().optional(),
         })
         .optional(),
-      events: z.array(z.coerce.string().optional()).optional(),
+      events: z.array(z.coerce.string()).optional(),
       active: z.coerce.boolean().optional(),
     })
     .optional()
@@ -25284,14 +25245,14 @@ export function bootstrap(
         url: z.coerce.string(),
         content_type: z.coerce.string().optional(),
         secret: z.coerce.string().optional(),
-        insecure_ssl: z.object({}).optional(),
+        insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
         address: z.coerce.string().optional(),
         room: z.coerce.string().optional(),
       })
       .optional(),
-    events: z.array(z.coerce.string().optional()).optional(),
-    add_events: z.array(z.coerce.string().optional()).optional(),
-    remove_events: z.array(z.coerce.string().optional()).optional(),
+    events: z.array(z.coerce.string()).optional(),
+    add_events: z.array(z.coerce.string()).optional(),
+    remove_events: z.array(z.coerce.string()).optional(),
     active: z.coerce.boolean().optional(),
   })
 
@@ -25383,7 +25344,7 @@ export function bootstrap(
       url: z.coerce.string().optional(),
       content_type: z.coerce.string().optional(),
       secret: z.coerce.string().optional(),
-      insecure_ssl: z.object({}).optional(),
+      insecure_ssl: z.union([z.coerce.string(), z.coerce.number()]),
     })
     .optional()
 
@@ -26102,12 +26063,24 @@ export function bootstrap(
   })
 
   const issuesCreateBodySchema = z.object({
-    title: z.object({}),
+    title: z.union([z.coerce.string(), z.coerce.number()]),
     body: z.coerce.string().optional(),
     assignee: z.coerce.string().optional(),
-    milestone: z.object({}).optional(),
-    labels: z.array(z.object({}).optional()).optional(),
-    assignees: z.array(z.coerce.string().optional()).optional(),
+    milestone: z.union([z.coerce.string(), z.coerce.number()]),
+    labels: z
+      .array(
+        z.union([
+          z.coerce.string(),
+          z.object({
+            id: z.coerce.number().optional(),
+            name: z.coerce.string().optional(),
+            description: z.coerce.string().optional(),
+            color: z.coerce.string().optional(),
+          }),
+        ])
+      )
+      .optional(),
+    assignees: z.array(z.coerce.string()).optional(),
   })
 
   router.post(
@@ -26470,14 +26443,26 @@ export function bootstrap(
 
   const issuesUpdateBodySchema = z
     .object({
-      title: z.object({}).optional(),
+      title: z.union([z.coerce.string(), z.coerce.number()]),
       body: z.coerce.string().optional(),
       assignee: z.coerce.string().optional(),
       state: z.enum(["open", "closed"]).optional(),
       state_reason: z.enum(["completed", "not_planned", "reopened"]).optional(),
-      milestone: z.object({}).optional(),
-      labels: z.array(z.object({}).optional()).optional(),
-      assignees: z.array(z.coerce.string().optional()).optional(),
+      milestone: z.union([z.coerce.string(), z.coerce.number()]),
+      labels: z
+        .array(
+          z.union([
+            z.coerce.string(),
+            z.object({
+              id: z.coerce.number().optional(),
+              name: z.coerce.string().optional(),
+              description: z.coerce.string().optional(),
+              color: z.coerce.string().optional(),
+            }),
+          ])
+        )
+        .optional(),
+      assignees: z.array(z.coerce.string()).optional(),
     })
     .optional()
 
@@ -26508,7 +26493,7 @@ export function bootstrap(
   })
 
   const issuesAddAssigneesBodySchema = z
-    .object({ assignees: z.array(z.coerce.string().optional()).optional() })
+    .object({ assignees: z.array(z.coerce.string()).optional() })
     .optional()
 
   router.post(
@@ -26545,7 +26530,7 @@ export function bootstrap(
   })
 
   const issuesRemoveAssigneesBodySchema = z.object({
-    assignees: z.array(z.coerce.string().optional()).optional(),
+    assignees: z.array(z.coerce.string()).optional(),
   })
 
   router.delete(
@@ -26760,7 +26745,15 @@ export function bootstrap(
     issue_number: z.coerce.number(),
   })
 
-  const issuesAddLabelsBodySchema = z.object({}).optional()
+  const issuesAddLabelsBodySchema = z.union([
+    z.object({ labels: z.array(z.coerce.string()).optional() }),
+    z.array(z.coerce.string()),
+    z.object({
+      labels: z.array(z.object({ name: z.coerce.string() })).optional(),
+    }),
+    z.array(z.object({ name: z.coerce.string() })),
+    z.coerce.string(),
+  ])
 
   router.post(
     "issuesAddLabels",
@@ -26795,7 +26788,15 @@ export function bootstrap(
     issue_number: z.coerce.number(),
   })
 
-  const issuesSetLabelsBodySchema = z.object({}).optional()
+  const issuesSetLabelsBodySchema = z.union([
+    z.object({ labels: z.array(z.coerce.string()).optional() }),
+    z.array(z.coerce.string()),
+    z.object({
+      labels: z.array(z.object({ name: z.coerce.string() })).optional(),
+    }),
+    z.array(z.object({ name: z.coerce.string() })),
+    z.coerce.string(),
+  ])
 
   router.put(
     "issuesSetLabels",
@@ -28934,8 +28935,8 @@ export function bootstrap(
 
   const pullsRequestReviewersBodySchema = z
     .object({
-      reviewers: z.array(z.coerce.string().optional()).optional(),
-      team_reviewers: z.array(z.coerce.string().optional()).optional(),
+      reviewers: z.array(z.coerce.string()).optional(),
+      team_reviewers: z.array(z.coerce.string()).optional(),
     })
     .optional()
 
@@ -28973,8 +28974,8 @@ export function bootstrap(
   })
 
   const pullsRemoveRequestedReviewersBodySchema = z.object({
-    reviewers: z.array(z.coerce.string().optional()),
-    team_reviewers: z.array(z.coerce.string().optional()).optional(),
+    reviewers: z.array(z.coerce.string()),
+    team_reviewers: z.array(z.coerce.string()).optional(),
   })
 
   router.delete(
@@ -29053,17 +29054,15 @@ export function bootstrap(
       event: z.enum(["APPROVE", "REQUEST_CHANGES", "COMMENT"]).optional(),
       comments: z
         .array(
-          z
-            .object({
-              path: z.coerce.string(),
-              position: z.coerce.number().optional(),
-              body: z.coerce.string(),
-              line: z.coerce.number().optional(),
-              side: z.coerce.string().optional(),
-              start_line: z.coerce.number().optional(),
-              start_side: z.coerce.string().optional(),
-            })
-            .optional()
+          z.object({
+            path: z.coerce.string(),
+            position: z.coerce.number().optional(),
+            body: z.coerce.string(),
+            line: z.coerce.number().optional(),
+            side: z.coerce.string().optional(),
+            start_line: z.coerce.number().optional(),
+            start_side: z.coerce.string().optional(),
+          })
         )
         .optional(),
     })
@@ -30664,7 +30663,7 @@ export function bootstrap(
   })
 
   const reposReplaceAllTopicsBodySchema = z.object({
-    names: z.array(z.coerce.string().optional()),
+    names: z.array(z.coerce.string()),
   })
 
   router.put(
@@ -30824,7 +30823,7 @@ export function bootstrap(
   const reposTransferBodySchema = z.object({
     new_owner: z.coerce.string(),
     new_name: z.coerce.string().optional(),
-    team_ids: z.array(z.coerce.number().optional()).optional(),
+    team_ids: z.array(z.coerce.number()).optional(),
   })
 
   router.post(
@@ -32804,7 +32803,32 @@ export function bootstrap(
     }
   )
 
-  const codespacesCreateForAuthenticatedUserBodySchema = z.object({})
+  const codespacesCreateForAuthenticatedUserBodySchema = z.union([
+    z.object({
+      repository_id: z.coerce.number(),
+      ref: z.coerce.string().optional(),
+      location: z.coerce.string().optional(),
+      client_ip: z.coerce.string().optional(),
+      machine: z.coerce.string().optional(),
+      devcontainer_path: z.coerce.string().optional(),
+      multi_repo_permissions_opt_out: z.coerce.boolean().optional(),
+      working_directory: z.coerce.string().optional(),
+      idle_timeout_minutes: z.coerce.number().optional(),
+      display_name: z.coerce.string().optional(),
+      retention_period_minutes: z.coerce.number().optional(),
+    }),
+    z.object({
+      pull_request: z.object({
+        pull_request_number: z.coerce.number(),
+        repository_id: z.coerce.number(),
+      }),
+      location: z.coerce.string().optional(),
+      machine: z.coerce.string().optional(),
+      devcontainer_path: z.coerce.string().optional(),
+      working_directory: z.coerce.string().optional(),
+      idle_timeout_minutes: z.coerce.number().optional(),
+    }),
+  ])
 
   router.post(
     "codespacesCreateForAuthenticatedUser",
@@ -32912,7 +32936,7 @@ export function bootstrap(
     {
       encrypted_value: z.coerce.string().optional(),
       key_id: z.coerce.string(),
-      selected_repository_ids: z.array(z.coerce.string().optional()).optional(),
+      selected_repository_ids: z.array(z.coerce.string()).optional(),
     }
   )
 
@@ -33005,7 +33029,7 @@ export function bootstrap(
     z.object({ secret_name: z.coerce.string() })
 
   const codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
-    z.object({ selected_repository_ids: z.array(z.coerce.number().optional()) })
+    z.object({ selected_repository_ids: z.array(z.coerce.number()) })
 
   router.put(
     "codespacesSetRepositoriesForSecretForAuthenticatedUser",
@@ -33131,7 +33155,7 @@ export function bootstrap(
     .object({
       machine: z.coerce.string().optional(),
       display_name: z.coerce.string().optional(),
-      recent_folders: z.array(z.coerce.string().optional()).optional(),
+      recent_folders: z.array(z.coerce.string()).optional(),
     })
     .optional()
 
@@ -33425,7 +33449,11 @@ export function bootstrap(
     }
   )
 
-  const usersAddEmailForAuthenticatedUserBodySchema = z.object({}).optional()
+  const usersAddEmailForAuthenticatedUserBodySchema = z.union([
+    z.object({ emails: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+    z.coerce.string(),
+  ])
 
   router.post(
     "usersAddEmailForAuthenticatedUser",
@@ -33449,7 +33477,11 @@ export function bootstrap(
     }
   )
 
-  const usersDeleteEmailForAuthenticatedUserBodySchema = z.object({})
+  const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
+    z.object({ emails: z.array(z.coerce.string()) }),
+    z.array(z.coerce.string()),
+    z.coerce.string(),
+  ])
 
   router.delete(
     "usersDeleteEmailForAuthenticatedUser",
@@ -34257,8 +34289,8 @@ export function bootstrap(
     exclude_releases: z.coerce.boolean().optional(),
     exclude_owner_projects: z.coerce.boolean().optional(),
     org_metadata_only: z.coerce.boolean().optional(),
-    exclude: z.array(z.enum(["repositories"]).optional()).optional(),
-    repositories: z.array(z.coerce.string().optional()),
+    exclude: z.array(z.enum(["repositories"])).optional(),
+    repositories: z.array(z.coerce.string()),
   })
 
   router.post(
@@ -34288,7 +34320,7 @@ export function bootstrap(
   })
 
   const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
-    exclude: z.array(z.coerce.string().optional()).optional(),
+    exclude: z.array(z.coerce.string()).optional(),
   })
 
   router.get(

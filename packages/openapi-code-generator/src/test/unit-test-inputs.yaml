@@ -6,7 +6,6 @@ paths: { }
 components:
   schemas:
     SimpleObject:
-      type: object
       required:
         - str
         - num
@@ -27,7 +26,6 @@ components:
           type: string
 
     ObjectWithRefs:
-        type: object
         required:
           - requiredObject
         properties:
@@ -35,5 +33,22 @@ components:
             $ref: '#/components/schemas/SimpleObject'
           requiredObject:
             $ref: '#/components/schemas/SimpleObject'
+
+    OneOf:
+      oneOf:
+        - type: object
+          properties:
+            strs:
+              type: array
+              items:
+                type: string
+                minItems: 1
+          required:
+            - strs
+        - type: array
+          items:
+            type: string
+            minItems: 1
+        - type: string
 
   parameters: { }

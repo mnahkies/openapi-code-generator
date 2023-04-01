@@ -16,6 +16,7 @@ export abstract class SchemaBuilder {
       required: [],
       properties: {},
       allOf: [],
+      oneOf: [],
       readOnly: false,
       nullable: false,
       additionalProperties: false,
@@ -43,9 +44,14 @@ export abstract class SchemaBuilder {
         return this.boolean(required)
       case "array":
         return this.array([
-          this.fromModel(this.input.schema(model.items), false),
+          this.fromModel(this.input.schema(model.items), true),
         ], required)
       case "object":
+
+        if (model.oneOf.length) {
+          return this.union(model.oneOf.map(it => this.fromModel(it, true)))
+        }
+
         return this.object(
           Object.fromEntries(
             Object.entries(model.properties)
@@ -56,6 +62,8 @@ export abstract class SchemaBuilder {
         )
     }
   }
+
+  protected abstract union(maybeModels: string[]): string
 
   protected abstract object(keys: Record<string, string>, required: boolean): string
 
