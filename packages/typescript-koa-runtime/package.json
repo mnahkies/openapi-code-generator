@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "exports": {
     "./server": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/server.js",
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
     },
     "./joi": {
       "require": "./dist/joi.js",
