@@ -15,7 +15,7 @@ import {
   bodyValidationFactory,
   paramValidationFactory,
   queryValidationFactory,
-} from "@nahkies/typescript-koa-runtime/dist/zod"
+} from "@nahkies/typescript-koa-runtime/zod"
 import Koa, { Context, Middleware, Next } from "koa"
 import koaBody from "koa-body"
 import { ZodSchema, z } from "zod"

@@ -5,6 +5,7 @@
     "sourceMap": true,
     "importHelpers": true,
     "resolveJsonModule": true,
+    "moduleResolution": "Node16",
     "paths": {
       "@nahkies/*": [
         "./packages/*/src"

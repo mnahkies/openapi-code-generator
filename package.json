@@ -16,7 +16,7 @@
     "ci-build": "lerna run build --stream",
     "ci-test": "jest --coverage",
     "ci-lint": "eslint . --cache --report-unused-disable-directives",
-    "ci-pipeline": " yarn ci-build && yarn ci-test && yarn ci-lint && yarn integration:generate && yarn integration:validate"
+    "ci-pipeline": "yarn ci-build && yarn ci-test && yarn ci-lint && yarn integration:generate && yarn integration:validate"
   },
   "author": "Michael Nahkies",
   "license": "MIT",
