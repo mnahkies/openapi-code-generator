@@ -2510,12 +2510,17 @@ __metadata:
   resolution: "@nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime"
   dependencies:
     "@hapi/joi": ^17.1.1
-    "@types/koa": ^2.13.5
+    "@koa/cors": ^4.0.0
+    "@koa/router": ^12.0.0
+    "@types/koa": ^2.13.6
+    "@types/koa__cors": ^4.0.0
     "@types/koa__router": ^12.0.0
     koa: ^2.14.1
+    koa-body: ^6.0.1
     zod: ^3.20.6
   peerDependencies:
     "@hapi/joi": ^17.1.1
+    "@koa/router": ^12.0.0
     koa: ^2.14.1
     zod: ^3.20.6
   languageName: unknown
@@ -14309,15 +14314,12 @@ __metadata:
   resolution: "typescript-koa@workspace:integration-tests/typescript-koa"
   dependencies:
     "@hapi/joi": ^17.1.1
-    "@koa/cors": ^4.0.0
     "@koa/router": ^12.0.0
     "@nahkies/typescript-koa-runtime": 0.0.1
     "@types/hapi__joi": ^17.1.9
     "@types/koa": ^2.13.6
-    "@types/koa__cors": ^4.0.0
     "@types/koa__router": ^12.0.0
     koa: ^2.14.1
-    koa-body: ^6.0.1
     typescript: ~4.9.5
     zod: ^3.21.4
   languageName: unknown

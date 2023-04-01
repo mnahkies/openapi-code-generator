@@ -2,6 +2,11 @@
   "name": "@nahkies/typescript-koa-runtime",
   "version": "0.0.1",
   "exports": {
+    "./server": {
+      "require": "./dist/server.js",
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    },
     "./joi": {
       "require": "./dist/joi.js",
       "import": "./dist/joi.js",
@@ -17,14 +22,22 @@
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
   },
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "koa-body": "^6.0.1"
+  },
   "peerDependencies": {
     "@hapi/joi": "^17.1.1",
+    "@koa/router": "^12.0.0",
     "koa": "^2.14.1",
     "zod": "^3.20.6"
   },
   "devDependencies": {
     "@hapi/joi": "^17.1.1",
-    "@types/koa": "^2.13.5",
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
+    "@types/koa": "^2.13.6",
+    "@types/koa__cors": "^4.0.0",
     "@types/koa__router": "^12.0.0",
     "koa": "^2.14.1",
     "zod": "^3.20.6"
