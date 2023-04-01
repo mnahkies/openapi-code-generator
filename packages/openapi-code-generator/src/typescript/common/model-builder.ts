@@ -50,7 +50,7 @@ export class ModelBuilder {
     }
 
     return next
-      .join('\n\n')
+      .join("\n\n")
   }
 
   private generateModelFromRef($ref: string): string {
@@ -85,7 +85,7 @@ export class ModelBuilder {
 
     // todo unofficial extension to openapi3 - items doesn't normally accept an array.
     if (Array.isArray(items)) {
-      return `( ${ items.map(this.schemaObjectToType).join(` | `) } )`
+      return `( ${ items.map(this.schemaObjectToType).join(" | ") } )`
     }
 
     return `${ this.schemaObjectToType(items) }`
@@ -99,7 +99,7 @@ export class ModelBuilder {
     }
 
     if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      return `(${ schemaObject.allOf.map(this.schemaObjectToType).join(' & ') })`
+      return `(${ schemaObject.allOf.map(this.schemaObjectToType).join(" & ") })`
     }
 
     switch (schemaObject.type) {
@@ -107,7 +107,7 @@ export class ModelBuilder {
         return `${ this.itemsToType(schemaObject.items) }[]`
       }
       case "boolean": {
-        return `boolean`
+        return "boolean"
       }
       case "string": {
         if (schemaObject.enum) {
@@ -116,7 +116,7 @@ export class ModelBuilder {
             .join(" | ")
         }
 
-        return `string`
+        return "string"
       }
       case "number": {
         // todo support bigint as string
@@ -126,7 +126,7 @@ export class ModelBuilder {
             .join(" | ")
         }
 
-        return `number`
+        return "number"
       }
       case "object": {
         const members = Object.entries(schemaObject.properties)
@@ -138,10 +138,10 @@ export class ModelBuilder {
 
               return [
                 `"${name}"`,
-                ':',
+                ":",
                 getNameFromRef(definition),
-                ';',
-              ].join(' ')
+                ";",
+              ].join(" ")
             }
 
             const isReadonly = definition.readOnly
@@ -150,22 +150,22 @@ export class ModelBuilder {
             const type = this.schemaObjectToType(definition)
 
             return [
-              isReadonly ? 'readonly' : '',
+              isReadonly ? "readonly" : "",
               `"${name}"`,
-              isRequired ? '' : '?',
-              ':',
+              isRequired ? "" : "?",
+              ":",
               type,
-              isNullable ? ' | null' : '',
-              ';',
-            ].join(' ')
+              isNullable ? " | null" : "",
+              ";",
+            ].join(" ")
           })
 
         // TODO better support
         const additionalProperties = schemaObject.additionalProperties || members.length === 0 ?
-          `[key: string]: unknown;` : ``
+          "[key: string]: unknown;" : ""
 
         return `{
-      ${ members.join('\n') }
+      ${ members.join("\n") }
       ${ additionalProperties }
       }`
       }

@@ -2,7 +2,6 @@ export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
   private readonly importAll: Record<string, string> = {}
 
-  /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
   from(from: string) {
     return {
       add: (...names: string[]): this => {
@@ -50,16 +49,16 @@ export class ImportBuilder {
 
         const individualImports = Array.from(this.imports[from].values())
           .sort()
-          .join(', ')
+          .join(", ")
 
         return `import ${ [
-          this.importAll[from] ? this.importAll[from] : '',
-          individualImports.length > 0 ? `{${ individualImports }}` : '',
+          this.importAll[from] ? this.importAll[from] : "",
+          individualImports.length > 0 ? `{${ individualImports }}` : "",
         ]
           .filter(it => it.length)
-          .join(', ')
+          .join(", ")
         } from '${ from }'`
       })
-      .join('\n')
+      .join("\n")
   }
 }

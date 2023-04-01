@@ -32,6 +32,7 @@ export class Input {
   allOperations(): IROperation[] {
     const result: IROperation[] = []
 
+    // eslint-disable-next-line prefer-const
     for (let [route, paths] of Object.entries(this.loader.entryPoint.paths ?? [])) {
       paths = this.loader.paths(paths)
 
@@ -40,6 +41,7 @@ export class Input {
       const additionalAttributes = _.pickBy(paths, (_, key) => key !== "parameters" && !isHttpMethod(key)) as any
       const methods = _.pickBy(paths, (_, it) => isHttpMethod(it)) as Record<string, Operation | Reference>
 
+      // eslint-disable-next-line prefer-const
       for (let [method, definition] of Object.entries(methods)) {
 
         if (!definition) {
@@ -75,9 +77,9 @@ export class Input {
   operationsByFirstSlug(): Record<string, IROperation[]> {
     return this.groupedOperations(operation => {
       return (operation.route
-        .split('/')
-        .find(it => !!it) ?? '')
-        .replace(/[{}]*/g, '')
+        .split("/")
+        .find(it => !!it) ?? "")
+        .replace(/[{}]*/g, "")
     })
   }
 
@@ -138,7 +140,7 @@ export class Input {
       return _.camelCase(operationId)
     }
 
-    return _.camelCase([method, ...route.split('/')].join('-'))
+    return _.camelCase([method, ...route.split("/")].join("-"))
   }
 
 }

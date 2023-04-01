@@ -1,7 +1,7 @@
 import path from "path"
-import util from 'util'
+import util from "util"
 
-import { isRemote, loadFile } from './file-loader'
+import { isRemote, loadFile } from "./file-loader"
 
 import { generationLib, VirtualDefinition } from "./generation-lib"
 import { OpenapiValidator } from "./openapi-validator"
@@ -71,7 +71,7 @@ export class OpenapiLoader {
   }
 
   private $ref<T>({ $ref }: Reference): T {
-    const [key, objPath] = $ref.split('#')
+    const [key, objPath] = $ref.split("#")
 
     const obj = this.library.get(key)
 
@@ -84,7 +84,7 @@ export class OpenapiLoader {
     }
 
     const segments = objPath
-      .split('/')
+      .split("/")
       .map(decodeSegment)
       .filter(it => !!it)
 
@@ -142,9 +142,10 @@ export class OpenapiLoader {
     }
 
     function normalizeRef($ref: string) {
-      let [file, objPath] = $ref.split('#')
+      // eslint-disable-next-line prefer-const
+      let [file, objPath] = $ref.split("#")
 
-      if (file === '') {
+      if (file === "") {
         return objPath ? `${ loadedFrom }#${ objPath }` : `${ loadedFrom }`
       }
 
@@ -162,7 +163,7 @@ export class OpenapiLoader {
     }
 
     function pathFromRef($ref: string) {
-      return $ref.split('#')[0]
+      return $ref.split("#")[0]
     }
   }
 
@@ -184,7 +185,7 @@ export class OpenapiLoader {
   }
 
   toString(): string {
-    return `loaded ${ this.library.size } files: ${ Array.from(this.library.keys()).map(prettyKey).join(', ') }`
+    return `loaded ${ this.library.size } files: ${ Array.from(this.library.keys()).map(prettyKey).join(", ") }`
   }
 
   [util.inspect.custom](): Record<string, unknown> {
@@ -193,5 +194,5 @@ export class OpenapiLoader {
 }
 
 function prettyKey(key: string) {
-  return key.replace(process.cwd(), '')
+  return key.replace(process.cwd(), "")
 }

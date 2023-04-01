@@ -52,7 +52,7 @@ export class ClientOperationBuilder {
       return {
         requestBodyContentType,
         requestBodyParameter: {
-          name: 'requestBody',
+          name: "requestBody",
           description: requestBody.description,
           in: "body",
           required: requestBody.required,
@@ -87,7 +87,7 @@ export class ClientOperationBuilder {
     const { parameters } = this.operation
 
     return parameters
-      .find(it => it.in === 'header' && it.name.toLowerCase() === name.toLowerCase()) !== null
+      .find(it => it.in === "header" && it.name.toLowerCase() === name.toLowerCase()) !== null
   }
 
   returnType(): {statusType: string, responseType: string}[] {
@@ -97,7 +97,7 @@ export class ClientOperationBuilder {
       .map(it => {
         // Note: status can be a number, or "default", "5XX", etc
         //       and we can't represent 5XX easily as a specific type
-        const statusType = /^\d+$/.test(it.status) ? it.status : 'number'
+        const statusType = /^\d+$/.test(it.status) ? it.status : "number"
         const responseType = it.definition ? models.schemaObjectToType(it.definition) : "void"
         return {statusType, responseType}
       })

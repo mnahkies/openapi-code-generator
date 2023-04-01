@@ -1,4 +1,4 @@
-import util from 'util'
+import util from "util"
 
 /* eslint no-console:0 */
 
@@ -21,15 +21,15 @@ export class Logger {
   }
 
   readonly info = (message: string, meta?: LoggerMeta): void => {
-    console.log(this.format('info', message, meta))
+    console.log(this.format("info", message, meta))
   }
 
   readonly warn = (message: string, meta?: LoggerMeta): void => {
-    console.warn(this.format('warn', message, meta, Color.FgYellow))
+    console.warn(this.format("warn", message, meta, Color.FgYellow))
   }
 
   readonly error = (message: string, meta?: LoggerMeta): void => {
-    console.error(this.format('error', message, meta, Color.FgRed))
+    console.error(this.format("error", message, meta, Color.FgRed))
   }
 
   readonly time = (description: string): void => {
@@ -66,7 +66,7 @@ export class Logger {
 }
 
 function defaultFormat(level: string, message: string, meta?: LoggerMeta, color = Color.Reset) {
-  return `${ color }[${ level }]${ Color.Reset } ${ message } ${ meta ? util.inspect(meta) : '' }`
+  return `${ color }[${ level }]${ Color.Reset } ${ message } ${ meta ? util.inspect(meta) : "" }`
 }
 
 function diff(start: bigint, end: bigint) {

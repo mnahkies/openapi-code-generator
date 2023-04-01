@@ -14,7 +14,7 @@ export type MethodDefinition = {
   body: string
 }
 
-export function combineParams(parameters: MethodParameterDefinition[], name = 'p'): MethodParameterDefinition | undefined {
+export function combineParams(parameters: MethodParameterDefinition[], name = "p"): MethodParameterDefinition | undefined {
   if (!parameters.length) {
     return undefined
   }
@@ -38,7 +38,7 @@ export function combineAndDestructureParams(parameters: MethodParameterDefinitio
     name: `{
     ${
       parameters.map(it => it.name)
-        .join(`,\n`)
+        .join(",\n")
     }
     }`,
     type: `{
@@ -49,18 +49,18 @@ export function combineAndDestructureParams(parameters: MethodParameterDefinitio
   }
 }
 
-export function routeToTemplateString(route: string, paramName = 'p'): string {
+export function routeToTemplateString(route: string, paramName = "p"): string {
   const placeholder = /{([^{}]+)}/g
 
   return Array.from(route.matchAll(placeholder))
     .reduce((result, match) => {
-      return result.replace(match[0], '${' + paramName + '["' + _.camelCase(match[1]) + '"]}')
+      return result.replace(match[0], "${" + paramName + '["' + _.camelCase(match[1]) + '"]}')
     }, route)
 }
 
 export function buildMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `${ name }(${ params(it.parameters) }): ${ it.returnType };`).join('\n') }
+  ${ overloads.map(it => `${ name }(${ params(it.parameters) }): ${ it.returnType };`).join("\n") }
   ${ name }(${ params(parameters) }): ${ returnType }
   {
     ${ body }
@@ -69,7 +69,7 @@ export function buildMethod({ name, parameters, returnType, overloads = [], body
 
 export function asyncMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `async ${ name }(${ params(it.parameters) }): Promise<${ it.returnType }>;`).join('\n') }
+  ${ overloads.map(it => `async ${ name }(${ params(it.parameters) }): Promise<${ it.returnType }>;`).join("\n") }
   async ${ name }(${ params(parameters) }): Promise<${ returnType }>
   {
     ${ body }
@@ -82,7 +82,7 @@ function params(parameters: (MethodParameterDefinition | undefined)[], quoteName
     .filter(isDefined)
     .map((param) => {
       const name = quoteNames ? `"${ param.name }"` : param.name
-      return `${ name }${ param.required === false ? '?' : '' }: ${ (param.type) }`
+      return `${ name }${ param.required === false ? "?" : "" }: ${ (param.type) }`
     })
-    .join(',')
+    .join(",")
 }

@@ -4,17 +4,17 @@ import { isDefined } from "../../../core/utils"
 import { SchemaBuilder } from "./schema-builder"
 
 enum JoiFn {
-  Object = 'object()',
-  Array = 'array()',
-  Number = 'number()',
-  String = 'string()',
-  Boolean = 'boolean()',
-  Required = 'required()'
+  Object = "object()",
+  Array = "array()",
+  Number = "number()",
+  String = "string()",
+  Boolean = "boolean()",
+  Required = "required()"
 }
 
 export class JoiBuilder implements SchemaBuilder {
   constructor(
-    private readonly joi = 'joi',
+    private readonly joi = "joi",
     private readonly input: Input,
   ) {
   }
@@ -116,18 +116,18 @@ function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Typ
     return [
       this.joi,
       JoiFn.Object,
-      `keys({${ Object.entries(keys).map(([key, value]) => `"${ key }": ${ value }`).join(',') } })`,
+      `keys({${ Object.entries(keys).map(([key, value]) => `"${ key }": ${ value }`).join(",") } })`,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join('.')
+    ].filter(isDefined).join(".")
   }
 
   private array(items: string[], required: boolean): string {
     return [
       this.joi,
       JoiFn.Array,
-      `items(${ items.join(',') })`,
+      `items(${ items.join(",") })`,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join('.')
+    ].filter(isDefined).join(".")
   }
 
   private number(required: boolean) {
@@ -135,7 +135,7 @@ function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Typ
       this.joi,
       JoiFn.Number,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join('.')
+    ].filter(isDefined).join(".")
   }
 
   private string(required: boolean) {
@@ -143,7 +143,7 @@ function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Typ
       this.joi,
       JoiFn.String,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join('.')
+    ].filter(isDefined).join(".")
   }
 
   private boolean(required: boolean) {
@@ -151,7 +151,7 @@ function bodyValidationFactory<Type>(schema: joi.Schema): Middleware<{ body: Typ
       this.joi,
       JoiFn.Boolean,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join('.')
+    ].filter(isDefined).join(".")
   }
 
 }

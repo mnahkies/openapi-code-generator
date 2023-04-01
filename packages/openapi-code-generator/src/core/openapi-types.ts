@@ -1,5 +1,5 @@
 export interface OpenapiDocument {
-  openapi: '3.0.3'
+  openapi: "3.0.3"
   info: Info
   servers?: Server[]
   externalDocs?: ExternalDocumentation
@@ -184,7 +184,7 @@ export interface Header {
 
 export interface Parameter {
   name: string
-  in: 'path' | 'query' | 'header' | 'cookie'
+  in: "path" | "query" | "header" | "cookie"
   schema: Schema | Reference
   description?: string
   required?: boolean

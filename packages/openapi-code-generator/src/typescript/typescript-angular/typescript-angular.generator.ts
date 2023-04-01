@@ -5,11 +5,11 @@ import { AngularModuleBuilder } from "./angular-module-builder"
 import { AngularServiceBuilder } from "./angular-service-builder"
 
 export async function generateTypescriptAngular({ dest, input }: { dest: string, input: Input }): Promise<void> {
-  const models = ModelBuilder.fromInput('./models.ts', input)
+  const models = ModelBuilder.fromInput("./models.ts", input)
 
   const client = new AngularServiceBuilder(
-    'client.service.ts',
-    'ApiClient',
+    "client.service.ts",
+    "ApiClient",
     models,
   )
 
@@ -17,11 +17,11 @@ export async function generateTypescriptAngular({ dest, input }: { dest: string,
     .map(it => client.add(it))
 
   const module = new AngularModuleBuilder(
-    'api.module.ts',
-    'Api',
+    "api.module.ts",
+    "Api",
   )
 
-  module.provides('./' + client.filename)
+  module.provides("./" + client.filename)
     .add(client.name)
 
   await emitGenerationResult(dest, [

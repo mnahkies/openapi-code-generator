@@ -4,11 +4,11 @@ import { ModelBuilder } from "../common/model-builder"
 import { TypescriptFetchClientBuilder } from "./typescript-fetch-client-builder"
 
 export async function generateTypescriptFetch({ dest, input }: { dest: string, input: Input }): Promise<void> {
-  const models = ModelBuilder.fromInput('./models.ts', input)
+  const models = ModelBuilder.fromInput("./models.ts", input)
 
   const client = new TypescriptFetchClientBuilder(
-    'client.ts',
-    'ApiClient',
+    "client.ts",
+    "ApiClient",
     models,
   )
 

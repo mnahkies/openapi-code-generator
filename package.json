@@ -4,16 +4,17 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+    "postinstall": "husky install",
     "refresh": "./scripts/refresh-data.sh",
     "start": "nodemon",
-    "lint": "eslint ./packages/*/src --cache --fix --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --cache --report-unused-disable-directives --fix",
     "build": "lerna run build --scope 'openapi-code-generator'",
     "test": "lerna run test --scope 'openapi-code-generator'",
     "generate": "lerna run generate --stream --concurrency 1",
     "validate": "lerna run validate --stream",
     "ci-build": "lerna run ci-build --stream",
     "ci-test": "lerna run ci-test --stream",
-    "ci-lint": "eslint ./packages/*/src --ext .js,.jsx,.ts,.tsx",
+    "ci-lint": "eslint . --cache --report-unused-disable-directives",
     "ci-pipeline": " lerna run ci-pipeline && yarn generate && yarn validate"
   },
   "author": "Michael Nahkies",
@@ -29,7 +30,9 @@
     "chai": "^4.3.7",
     "eslint": "^8.37.0",
     "eslint-plugin-import": "^2.27.5",
+    "husky": "^8.0.3",
     "lerna": "^6.6.1",
+    "lint-staged": "^13.2.0",
     "mocha": "^10.2.0",
     "mocha-teamcity-reporter": "^4.2.0",
     "nodemon": "^2.0.22",
@@ -42,8 +45,13 @@
     "packages/*",
     "integration-tests/*"
   ],
-  "packageManager": "yarn@3.5.0",
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx}": [
+      "yarn lint"
+    ]
+  },
   "engines": {
-    "node": "^18"
-  }
+    "node": ">=18 <20"
+  },
+  "packageManager": "yarn@3.5.0"
 }

@@ -8,8 +8,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
     protected buildImports(imports: ImportBuilder): void {
         imports
-            .from('querystring')
-            .all('qs')
+            .from("querystring")
+            .all("qs")
     }
 
     protected buildOperation(builder: ClientOperationBuilder): string {
@@ -21,34 +21,34 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         const queryString = builder.queryString()
         const headers = builder.headers()
 
-        const hasAcceptHeader = builder.hasHeader('Accept')
+        const hasAcceptHeader = builder.hasHeader("Accept")
 
         const returnType = builder.returnType()
             .map(({ statusType, responseType }) => {
                 return `Res<${ statusType },${ responseType }>`
             })
-            .join(' | ')
+            .join(" | ")
 
 
 
-        const url = '`' + routeToTemplateString(route) + (queryString ? "?${this._query({" + queryString + "})}" : "") + '`'
+        const url = "`" + routeToTemplateString(route) + (queryString ? "?${this._query({" + queryString + "})}" : "") + "`"
         const body = `
 
 const headers: Record<string,string|undefined> = {${
             [
-                hasAcceptHeader ? undefined : `'Accept': 'application/json',`,
+                hasAcceptHeader ? undefined : "'Accept': 'application/json',",
                 requestBodyContentType ? `'Content-Type': '${ requestBodyContentType }',` : undefined,
                 headers || undefined,
             ]
                 .filter(isDefined)
-                .join('\n')
+                .join("\n")
         }}
 
 const res = await fetch(this.config.basePath + ${ url },
     {
     method: "${ method }",
     headers: this._headers(headers),
-    ${ requestBodyParameter ? `body: JSON.stringify(p.requestBody),` : '' }
+    ${ requestBodyParameter ? "body: JSON.stringify(p.requestBody)," : "" }
     })
 
 // TODO: this is a poor assumption
@@ -95,7 +95,7 @@ export class ${ clientName } {
     )
   }
 
-    ${ clientMethods.join('\n') }
+    ${ clientMethods.join("\n") }
 }`
     }
 }

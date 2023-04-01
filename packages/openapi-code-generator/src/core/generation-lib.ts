@@ -31,7 +31,7 @@ export class VirtualDefinition {
 export class GenerationLib extends VirtualDefinition {
   constructor() {
     super("generation.yaml")
-    this.addSchema('UnknownObject', {
+    this.addSchema("UnknownObject", {
       type: "object",
     })
   }

@@ -1,6 +1,5 @@
 import { ImportBuilder } from "../common/import-builder"
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export class AngularModuleBuilder {
   private readonly tsImports: ImportBuilder
@@ -17,8 +16,8 @@ export class AngularModuleBuilder {
     this.tsImports = new ImportBuilder()
 
     this.tsImports
-      .from('@angular/core')
-      .add('NgModule')
+      .from("@angular/core")
+      .add("NgModule")
   }
 
   imports(from: string) {
@@ -62,20 +61,19 @@ ${ this.tsImports.toString() }
 
 @NgModule({
   imports: [
-    ${ this.sorted(this.ngImports).join(',\n') }
+    ${ this.sorted(this.ngImports).join(",\n") }
   ],
   declarations: [
-    ${ this.sorted(this.ngDeclarations).join(',\n') }
+    ${ this.sorted(this.ngDeclarations).join(",\n") }
   ],
   exports: [
-    ${ this.sorted(this.ngExports).join(',\n') }
+    ${ this.sorted(this.ngExports).join(",\n") }
   ],
   providers: [
-    ${ this.sorted(this.ngProviders).join(',\n') }
+    ${ this.sorted(this.ngProviders).join(",\n") }
   ],
 })
 export class ${ name }Module {}
 `
   }
 }
-

@@ -14,3 +14,6 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+packages/openapi-code-generator/src/typescript/common/new-builder.ts
+packages/openapi-code-generator/src/typescript/typescript-axios/
