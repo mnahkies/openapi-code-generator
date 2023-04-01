@@ -1339,7 +1339,7 @@ export type AppsCreateInstallationAccessToken = (
   params: Params<
     t_AppsCreateInstallationAccessTokenParamSchema,
     void,
-    t_AppsCreateInstallationAccessTokenBodySchema
+    t_AppsCreateInstallationAccessTokenBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -1501,7 +1501,8 @@ export type SecretScanningPatchSecurityAnalysisSettingsForEnterprise = (
   params: Params<
     t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
     void,
-    t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
+    | t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
+    | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -1703,7 +1704,7 @@ export type MarkdownRender = (
 ) => Promise<{ status: number; body: any }>
 
 export type MarkdownRenderRaw = (
-  params: Params<void, void, t_MarkdownRenderRawBodySchema>,
+  params: Params<void, void, t_MarkdownRenderRawBodySchema | undefined>,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -1773,7 +1774,11 @@ export type ActivityListNotificationsForAuthenticatedUser = (
 ) => Promise<{ status: number; body: any }>
 
 export type ActivityMarkNotificationsAsRead = (
-  params: Params<void, void, t_ActivityMarkNotificationsAsReadBodySchema>,
+  params: Params<
+    void,
+    void,
+    t_ActivityMarkNotificationsAsReadBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -1800,7 +1805,7 @@ export type ActivitySetThreadSubscription = (
   params: Params<
     t_ActivitySetThreadSubscriptionParamSchema,
     void,
-    t_ActivitySetThreadSubscriptionBodySchema
+    t_ActivitySetThreadSubscriptionBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -1826,7 +1831,11 @@ export type OrgsGet = (
 ) => Promise<{ status: number; body: any }>
 
 export type OrgsUpdate = (
-  params: Params<t_OrgsUpdateParamSchema, void, t_OrgsUpdateBodySchema>,
+  params: Params<
+    t_OrgsUpdateParamSchema,
+    void,
+    t_OrgsUpdateBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -1921,7 +1930,7 @@ export type ActionsSetAllowedActionsOrganization = (
   params: Params<
     t_ActionsSetAllowedActionsOrganizationParamSchema,
     void,
-    t_ActionsSetAllowedActionsOrganizationBodySchema
+    t_ActionsSetAllowedActionsOrganizationBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -1939,7 +1948,8 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
   params: Params<
     t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
     void,
-    t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
+    | t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
+    | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -2573,7 +2583,7 @@ export type OrgsUpdateWebhook = (
   params: Params<
     t_OrgsUpdateWebhookParamSchema,
     void,
-    t_OrgsUpdateWebhookBodySchema
+    t_OrgsUpdateWebhookBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -2592,7 +2602,7 @@ export type OrgsUpdateWebhookConfigForOrg = (
   params: Params<
     t_OrgsUpdateWebhookConfigForOrgParamSchema,
     void,
-    t_OrgsUpdateWebhookConfigForOrgBodySchema
+    t_OrgsUpdateWebhookConfigForOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -2667,7 +2677,7 @@ export type OrgsCreateInvitation = (
   params: Params<
     t_OrgsCreateInvitationParamSchema,
     void,
-    t_OrgsCreateInvitationBodySchema
+    t_OrgsCreateInvitationBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -2742,7 +2752,7 @@ export type OrgsSetMembershipForUser = (
   params: Params<
     t_OrgsSetMembershipForUserParamSchema,
     void,
-    t_OrgsSetMembershipForUserBodySchema
+    t_OrgsSetMembershipForUserBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -2816,7 +2826,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   params: Params<
     t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
     void,
-    t_OrgsConvertMemberToOutsideCollaboratorBodySchema
+    t_OrgsConvertMemberToOutsideCollaboratorBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3008,7 +3018,7 @@ export type TeamsUpdateInOrg = (
   params: Params<
     t_TeamsUpdateInOrgParamSchema,
     void,
-    t_TeamsUpdateInOrgBodySchema
+    t_TeamsUpdateInOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3045,7 +3055,7 @@ export type TeamsUpdateDiscussionInOrg = (
   params: Params<
     t_TeamsUpdateDiscussionInOrgParamSchema,
     void,
-    t_TeamsUpdateDiscussionInOrgBodySchema
+    t_TeamsUpdateDiscussionInOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3169,7 +3179,7 @@ export type TeamsAddOrUpdateMembershipForUserInOrg = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema
+    t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3197,7 +3207,7 @@ export type TeamsAddOrUpdateProjectPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema
+    t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3225,7 +3235,7 @@ export type TeamsAddOrUpdateRepoPermissionsInOrg = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema
+    t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3262,7 +3272,7 @@ export type ProjectsUpdateCard = (
   params: Params<
     t_ProjectsUpdateCardParamSchema,
     void,
-    t_ProjectsUpdateCardBodySchema
+    t_ProjectsUpdateCardBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3333,7 +3343,11 @@ export type ProjectsGet = (
 ) => Promise<{ status: number; body: any }>
 
 export type ProjectsUpdate = (
-  params: Params<t_ProjectsUpdateParamSchema, void, t_ProjectsUpdateBodySchema>,
+  params: Params<
+    t_ProjectsUpdateParamSchema,
+    void,
+    t_ProjectsUpdateBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -3355,7 +3369,7 @@ export type ProjectsAddCollaborator = (
   params: Params<
     t_ProjectsAddCollaboratorParamSchema,
     void,
-    t_ProjectsAddCollaboratorBodySchema
+    t_ProjectsAddCollaboratorBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3418,7 +3432,11 @@ export type ReposGet = (
 ) => Promise<{ status: number; body: any }>
 
 export type ReposUpdate = (
-  params: Params<t_ReposUpdateParamSchema, void, t_ReposUpdateBodySchema>,
+  params: Params<
+    t_ReposUpdateParamSchema,
+    void,
+    t_ReposUpdateBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -3493,7 +3511,7 @@ export type ActionsReRunJobForWorkflowRun = (
   params: Params<
     t_ActionsReRunJobForWorkflowRunParamSchema,
     void,
-    t_ActionsReRunJobForWorkflowRunBodySchema
+    t_ActionsReRunJobForWorkflowRunBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3553,7 +3571,7 @@ export type ActionsSetAllowedActionsRepository = (
   params: Params<
     t_ActionsSetAllowedActionsRepositoryParamSchema,
     void,
-    t_ActionsSetAllowedActionsRepositoryBodySchema
+    t_ActionsSetAllowedActionsRepositoryBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3783,7 +3801,7 @@ export type ActionsReRunWorkflow = (
   params: Params<
     t_ActionsReRunWorkflowParamSchema,
     void,
-    t_ActionsReRunWorkflowBodySchema
+    t_ActionsReRunWorkflowBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -3792,7 +3810,7 @@ export type ActionsReRunWorkflowFailedJobs = (
   params: Params<
     t_ActionsReRunWorkflowFailedJobsParamSchema,
     void,
-    t_ActionsReRunWorkflowFailedJobsBodySchema
+    t_ActionsReRunWorkflowFailedJobsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4028,7 +4046,7 @@ export type ReposUpdatePullRequestReviewProtection = (
   params: Params<
     t_ReposUpdatePullRequestReviewProtectionParamSchema,
     void,
-    t_ReposUpdatePullRequestReviewProtectionBodySchema
+    t_ReposUpdatePullRequestReviewProtectionBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4066,7 +4084,7 @@ export type ReposUpdateStatusCheckProtection = (
   params: Params<
     t_ReposUpdateStatusCheckProtectionParamSchema,
     void,
-    t_ReposUpdateStatusCheckProtectionBodySchema
+    t_ReposUpdateStatusCheckProtectionBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4085,7 +4103,7 @@ export type ReposAddStatusCheckContexts = (
   params: Params<
     t_ReposAddStatusCheckContextsParamSchema,
     void,
-    t_ReposAddStatusCheckContextsBodySchema
+    t_ReposAddStatusCheckContextsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4094,7 +4112,7 @@ export type ReposSetStatusCheckContexts = (
   params: Params<
     t_ReposSetStatusCheckContextsParamSchema,
     void,
-    t_ReposSetStatusCheckContextsBodySchema
+    t_ReposSetStatusCheckContextsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4131,7 +4149,7 @@ export type ReposAddAppAccessRestrictions = (
   params: Params<
     t_ReposAddAppAccessRestrictionsParamSchema,
     void,
-    t_ReposAddAppAccessRestrictionsBodySchema
+    t_ReposAddAppAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4140,7 +4158,7 @@ export type ReposSetAppAccessRestrictions = (
   params: Params<
     t_ReposSetAppAccessRestrictionsParamSchema,
     void,
-    t_ReposSetAppAccessRestrictionsBodySchema
+    t_ReposSetAppAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4167,7 +4185,7 @@ export type ReposAddTeamAccessRestrictions = (
   params: Params<
     t_ReposAddTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposAddTeamAccessRestrictionsBodySchema
+    t_ReposAddTeamAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4176,7 +4194,7 @@ export type ReposSetTeamAccessRestrictions = (
   params: Params<
     t_ReposSetTeamAccessRestrictionsParamSchema,
     void,
-    t_ReposSetTeamAccessRestrictionsBodySchema
+    t_ReposSetTeamAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4203,7 +4221,7 @@ export type ReposAddUserAccessRestrictions = (
   params: Params<
     t_ReposAddUserAccessRestrictionsParamSchema,
     void,
-    t_ReposAddUserAccessRestrictionsBodySchema
+    t_ReposAddUserAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4212,7 +4230,7 @@ export type ReposSetUserAccessRestrictions = (
   params: Params<
     t_ReposSetUserAccessRestrictionsParamSchema,
     void,
-    t_ReposSetUserAccessRestrictionsBodySchema
+    t_ReposSetUserAccessRestrictionsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4485,7 +4503,7 @@ export type ReposAddCollaborator = (
   params: Params<
     t_ReposAddCollaboratorParamSchema,
     void,
-    t_ReposAddCollaboratorBodySchema
+    t_ReposAddCollaboratorBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4839,7 +4857,7 @@ export type ReposCreateOrUpdateEnvironment = (
   params: Params<
     t_ReposCreateOrUpdateEnvironmentParamSchema,
     void,
-    t_ReposCreateOrUpdateEnvironmentBodySchema
+    t_ReposCreateOrUpdateEnvironmentBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4908,7 +4926,7 @@ export type ReposCreateFork = (
   params: Params<
     t_ReposCreateForkParamSchema,
     void,
-    t_ReposCreateForkBodySchema
+    t_ReposCreateForkBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -4995,7 +5013,7 @@ export type ReposCreateWebhook = (
   params: Params<
     t_ReposCreateWebhookParamSchema,
     void,
-    t_ReposCreateWebhookBodySchema
+    t_ReposCreateWebhookBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5028,7 +5046,7 @@ export type ReposUpdateWebhookConfigForRepo = (
   params: Params<
     t_ReposUpdateWebhookConfigForRepoParamSchema,
     void,
-    t_ReposUpdateWebhookConfigForRepoBodySchema
+    t_ReposUpdateWebhookConfigForRepoBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5080,7 +5098,7 @@ export type MigrationsUpdateImport = (
   params: Params<
     t_MigrationsUpdateImportParamSchema,
     void,
-    t_MigrationsUpdateImportBodySchema
+    t_MigrationsUpdateImportBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5103,7 +5121,7 @@ export type MigrationsMapCommitAuthor = (
   params: Params<
     t_MigrationsMapCommitAuthorParamSchema,
     void,
-    t_MigrationsMapCommitAuthorBodySchema
+    t_MigrationsMapCommitAuthorBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5163,7 +5181,7 @@ export type ReposUpdateInvitation = (
   params: Params<
     t_ReposUpdateInvitationParamSchema,
     void,
-    t_ReposUpdateInvitationBodySchema
+    t_ReposUpdateInvitationBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5258,7 +5276,11 @@ export type IssuesGet = (
 ) => Promise<{ status: number; body: any }>
 
 export type IssuesUpdate = (
-  params: Params<t_IssuesUpdateParamSchema, void, t_IssuesUpdateBodySchema>,
+  params: Params<
+    t_IssuesUpdateParamSchema,
+    void,
+    t_IssuesUpdateBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -5266,7 +5288,7 @@ export type IssuesAddAssignees = (
   params: Params<
     t_IssuesAddAssigneesParamSchema,
     void,
-    t_IssuesAddAssigneesBodySchema
+    t_IssuesAddAssigneesBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5325,7 +5347,7 @@ export type IssuesAddLabels = (
   params: Params<
     t_IssuesAddLabelsParamSchema,
     void,
-    t_IssuesAddLabelsBodySchema
+    t_IssuesAddLabelsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5334,7 +5356,7 @@ export type IssuesSetLabels = (
   params: Params<
     t_IssuesSetLabelsParamSchema,
     void,
-    t_IssuesSetLabelsBodySchema
+    t_IssuesSetLabelsBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5350,7 +5372,11 @@ export type IssuesRemoveLabel = (
 ) => Promise<{ status: number; body: any }>
 
 export type IssuesLock = (
-  params: Params<t_IssuesLockParamSchema, void, t_IssuesLockBodySchema>,
+  params: Params<
+    t_IssuesLockParamSchema,
+    void,
+    t_IssuesLockBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -5446,7 +5472,7 @@ export type IssuesUpdateLabel = (
   params: Params<
     t_IssuesUpdateLabelParamSchema,
     void,
-    t_IssuesUpdateLabelBodySchema
+    t_IssuesUpdateLabelBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5517,7 +5543,7 @@ export type IssuesUpdateMilestone = (
   params: Params<
     t_IssuesUpdateMilestoneParamSchema,
     void,
-    t_IssuesUpdateMilestoneBodySchema
+    t_IssuesUpdateMilestoneBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5549,7 +5575,7 @@ export type ActivityMarkRepoNotificationsAsRead = (
   params: Params<
     t_ActivityMarkRepoNotificationsAsReadParamSchema,
     void,
-    t_ActivityMarkRepoNotificationsAsReadBodySchema
+    t_ActivityMarkRepoNotificationsAsReadBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5705,7 +5731,11 @@ export type PullsGet = (
 ) => Promise<{ status: number; body: any }>
 
 export type PullsUpdate = (
-  params: Params<t_PullsUpdateParamSchema, void, t_PullsUpdateBodySchema>,
+  params: Params<
+    t_PullsUpdateParamSchema,
+    void,
+    t_PullsUpdateBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -5769,7 +5799,11 @@ export type PullsCheckIfMerged = (
 ) => Promise<{ status: number; body: any }>
 
 export type PullsMerge = (
-  params: Params<t_PullsMergeParamSchema, void, t_PullsMergeBodySchema>,
+  params: Params<
+    t_PullsMergeParamSchema,
+    void,
+    t_PullsMergeBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -5782,7 +5816,7 @@ export type PullsRequestReviewers = (
   params: Params<
     t_PullsRequestReviewersParamSchema,
     void,
-    t_PullsRequestReviewersBodySchema
+    t_PullsRequestReviewersBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5809,7 +5843,7 @@ export type PullsCreateReview = (
   params: Params<
     t_PullsCreateReviewParamSchema,
     void,
-    t_PullsCreateReviewBodySchema
+    t_PullsCreateReviewBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5864,7 +5898,7 @@ export type PullsUpdateBranch = (
   params: Params<
     t_PullsUpdateBranchParamSchema,
     void,
-    t_PullsUpdateBranchBodySchema
+    t_PullsUpdateBranchBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5914,7 +5948,7 @@ export type ReposUpdateReleaseAsset = (
   params: Params<
     t_ReposUpdateReleaseAssetParamSchema,
     void,
-    t_ReposUpdateReleaseAssetBodySchema
+    t_ReposUpdateReleaseAssetBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5952,7 +5986,7 @@ export type ReposUpdateRelease = (
   params: Params<
     t_ReposUpdateReleaseParamSchema,
     void,
-    t_ReposUpdateReleaseBodySchema
+    t_ReposUpdateReleaseBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -5975,7 +6009,7 @@ export type ReposUploadReleaseAsset = (
   params: Params<
     t_ReposUploadReleaseAssetParamSchema,
     t_ReposUploadReleaseAssetQuerySchema,
-    t_ReposUploadReleaseAssetBodySchema
+    t_ReposUploadReleaseAssetBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6096,7 +6130,7 @@ export type ActivitySetRepoSubscription = (
   params: Params<
     t_ActivitySetRepoSubscriptionParamSchema,
     void,
-    t_ActivitySetRepoSubscriptionBodySchema
+    t_ActivitySetRepoSubscriptionBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6376,7 +6410,7 @@ export type TeamsUpdateDiscussionLegacy = (
   params: Params<
     t_TeamsUpdateDiscussionLegacyParamSchema,
     void,
-    t_TeamsUpdateDiscussionLegacyBodySchema
+    t_TeamsUpdateDiscussionLegacyBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6501,7 +6535,7 @@ export type TeamsAddOrUpdateMembershipForUserLegacy = (
   params: Params<
     t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema
+    t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6533,7 +6567,7 @@ export type TeamsAddOrUpdateProjectPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema
+    t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6561,7 +6595,7 @@ export type TeamsAddOrUpdateRepoPermissionsLegacy = (
   params: Params<
     t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
     void,
-    t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema
+    t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6586,7 +6620,7 @@ export type UsersGetAuthenticated = (
 ) => Promise<{ status: number; body: any }>
 
 export type UsersUpdateAuthenticated = (
-  params: Params<void, void, t_UsersUpdateAuthenticatedBodySchema>,
+  params: Params<void, void, t_UsersUpdateAuthenticatedBodySchema | undefined>,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
@@ -6706,7 +6740,7 @@ export type CodespacesUpdateForAuthenticatedUser = (
   params: Params<
     t_CodespacesUpdateForAuthenticatedUserParamSchema,
     void,
-    t_CodespacesUpdateForAuthenticatedUserBodySchema
+    t_CodespacesUpdateForAuthenticatedUserBodySchema | undefined
   >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
@@ -6773,7 +6807,11 @@ export type UsersListEmailsForAuthenticatedUser = (
 ) => Promise<{ status: number; body: any }>
 
 export type UsersAddEmailForAuthenticatedUser = (
-  params: Params<void, void, t_UsersAddEmailForAuthenticatedUserBodySchema>,
+  params: Params<
+    void,
+    void,
+    t_UsersAddEmailForAuthenticatedUserBodySchema | undefined
+  >,
   ctx: Context
 ) => Promise<{ status: number; body: any }>
 
