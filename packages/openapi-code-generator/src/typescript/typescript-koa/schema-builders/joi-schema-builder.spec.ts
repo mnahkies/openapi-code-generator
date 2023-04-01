@@ -1,16 +1,16 @@
 import { describe, it, expect } from "@jest/globals"
 import { JoiBuilder } from "./joi-schema-builder"
 
-describe("joi-schema-builder", function () {
+describe("joi-schema-builder", () => {
   const builder = new JoiBuilder("joi", {
     schema(it: unknown) {
       return it
     },
   } as any)
 
-  describe("for a string", function () {
+  describe("for a string", () => {
 
-    it("handles an optional value", function () {
+    it("handles an optional value", () => {
       const actual = builder
         .fromModel({ type: "string", nullable: true, readOnly: false }, false)
 
@@ -18,7 +18,7 @@ describe("joi-schema-builder", function () {
       expect(actual).toBe(expected)
     })
 
-    it("handles a required value", function () {
+    it("handles a required value", () => {
       const actual = builder
         .fromModel({ type: "string", nullable: true, readOnly: false }, true)
 
@@ -27,9 +27,9 @@ describe("joi-schema-builder", function () {
     })
   })
 
-  describe("for a number", function () {
+  describe("for a number", () => {
 
-    it("handles an optional value", function () {
+    it("handles an optional value", () => {
       const actual = builder
         .fromModel({ type: "number", nullable: true, readOnly: false }, false)
 
@@ -37,7 +37,7 @@ describe("joi-schema-builder", function () {
       expect(actual).toBe(expected)
     })
 
-    it("handles a required value", function () {
+    it("handles a required value", () => {
       const actual = builder
         .fromModel({ type: "number", nullable: true, readOnly: false }, true)
 

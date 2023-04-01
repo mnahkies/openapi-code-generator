@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals"
 import { ImportBuilder } from "./import-builder"
 
-describe("typescript/common/import-builder", function () {
+describe("typescript/common/import-builder", () => {
 
   it("can import whole modules", () => {
     const builder = new ImportBuilder()
@@ -19,7 +19,7 @@ describe("typescript/common/import-builder", function () {
     expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
   })
 
-  it("can import a whole module, and individual exports", function () {
+  it("can import a whole module, and individual exports", () => {
     const builder = new ImportBuilder()
 
     builder.addSingle("Next", "koa")

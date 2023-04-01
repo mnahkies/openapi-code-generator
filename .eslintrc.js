@@ -7,12 +7,11 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
   ],
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "jest"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
   },
-  overrides: [],
   rules: {
     indent: "off",
     "linebreak-style": ["error", "unix"],
@@ -26,4 +25,19 @@ module.exports = {
     ],
     "@typescript-eslint/no-explicit-any": "off"
   },
+  overrides: [
+    {
+      files: "**/*.spec.ts",
+      extends: [
+        "plugin:jest/recommended",
+        "plugin:jest/style"
+      ],
+      env: {
+        jest: true
+      },
+      rules: {
+        "prefer-arrow-callback": "error"
+      }
+    }
+  ],
 }
