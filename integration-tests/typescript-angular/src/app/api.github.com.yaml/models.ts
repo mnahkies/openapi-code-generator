@@ -61,9 +61,9 @@ export type t_actions_get_default_workflow_permissions = {
 }
 
 export type t_actions_organization_permissions = {
-  allowed_actions: t_allowed_actions
+  allowed_actions?: t_allowed_actions
   enabled_repositories: t_enabled_repositories
-  selected_actions_url: t_selected_actions_url
+  selected_actions_url?: t_selected_actions_url
   selected_repositories_url?: string
 }
 
@@ -77,9 +77,9 @@ export type t_actions_public_key = {
 }
 
 export type t_actions_repository_permissions = {
-  allowed_actions: t_allowed_actions
+  allowed_actions?: t_allowed_actions
   enabled: t_actions_enabled
-  selected_actions_url: t_selected_actions_url
+  selected_actions_url?: t_selected_actions_url
 }
 
 export type t_actions_secret = {
@@ -89,8 +89,8 @@ export type t_actions_secret = {
 }
 
 export type t_actions_set_default_workflow_permissions = {
-  can_approve_pull_request_reviews: t_actions_can_approve_pull_request_reviews
-  default_workflow_permissions: t_actions_default_workflow_permissions
+  can_approve_pull_request_reviews?: t_actions_can_approve_pull_request_reviews
+  default_workflow_permissions?: t_actions_default_workflow_permissions
 }
 
 export type t_actions_variable = {
@@ -239,7 +239,7 @@ export type t_authorization = {
   fingerprint: string | null
   hashed_token: string | null
   id: number
-  installation: t_nullable_scoped_installation
+  installation?: t_nullable_scoped_installation
   note: string | null
   note_url: string | null
   scopes: string[] | null
@@ -247,7 +247,7 @@ export type t_authorization = {
   token_last_eight: string | null
   updated_at: string
   url: string
-  user: t_nullable_simple_user
+  user?: t_nullable_simple_user
 }
 
 export type t_auto_merge = {
@@ -285,7 +285,7 @@ export type t_base_gist = {
   html_url: string
   id: string
   node_id: string
-  owner: t_simple_user
+  owner?: t_simple_user
   public: boolean
   truncated?: boolean
   updated_at: string
@@ -324,7 +324,7 @@ export type t_branch_protection = {
     enabled?: boolean
   }
   enabled?: boolean
-  enforce_admins: t_protected_branch_admin_enforced
+  enforce_admins?: t_protected_branch_admin_enforced
   lock_branch?: {
     enabled?: boolean
   }
@@ -336,13 +336,13 @@ export type t_branch_protection = {
   required_linear_history?: {
     enabled?: boolean
   }
-  required_pull_request_reviews: t_protected_branch_pull_request_review
+  required_pull_request_reviews?: t_protected_branch_pull_request_review
   required_signatures?: {
     enabled: boolean
     url: string
   }
-  required_status_checks: t_protected_branch_required_status_check
-  restrictions: t_branch_restriction_policy
+  required_status_checks?: t_protected_branch_required_status_check
+  restrictions?: t_branch_restriction_policy
   url?: string
 }
 
@@ -481,7 +481,7 @@ export type t_check_run = {
     | "timed_out"
     | "action_required"
     | null
-  deployment: t_deployment_simple
+  deployment?: t_deployment_simple
   details_url: string | null
   external_id: string | null
   head_sha: string
@@ -572,9 +572,9 @@ export type t_code_scanning_alert = {
   created_at: t_alert_created_at
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
-  dismissed_comment: t_code_scanning_alert_dismissed_comment
+  dismissed_comment?: t_code_scanning_alert_dismissed_comment
   dismissed_reason: t_code_scanning_alert_dismissed_reason
-  fixed_at: t_alert_fixed_at
+  fixed_at?: t_alert_fixed_at
   html_url: t_alert_html_url
   instances_url: t_alert_instances_url
   most_recent_instance: t_code_scanning_alert_instance
@@ -582,7 +582,7 @@ export type t_code_scanning_alert = {
   rule: t_code_scanning_alert_rule
   state: t_code_scanning_alert_state
   tool: t_code_scanning_analysis_tool
-  updated_at: t_alert_updated_at
+  updated_at?: t_alert_updated_at
   url: t_alert_url
 }
 
@@ -603,27 +603,27 @@ export type t_code_scanning_alert_dismissed_reason =
 export type t_code_scanning_alert_environment = string
 
 export type t_code_scanning_alert_instance = {
-  analysis_key: t_code_scanning_analysis_analysis_key
-  category: t_code_scanning_analysis_category
+  analysis_key?: t_code_scanning_analysis_analysis_key
+  category?: t_code_scanning_analysis_category
   classifications?: t_code_scanning_alert_classification[]
   commit_sha?: string
-  environment: t_code_scanning_alert_environment
+  environment?: t_code_scanning_alert_environment
   html_url?: string
-  location: t_code_scanning_alert_location
+  location?: t_code_scanning_alert_location
   message?: {
     text?: string
   }
-  ref: t_code_scanning_ref
-  state: t_code_scanning_alert_state
+  ref?: t_code_scanning_ref
+  state?: t_code_scanning_alert_state
 }
 
 export type t_code_scanning_alert_items = {
   created_at: t_alert_created_at
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
-  dismissed_comment: t_code_scanning_alert_dismissed_comment
+  dismissed_comment?: t_code_scanning_alert_dismissed_comment
   dismissed_reason: t_code_scanning_alert_dismissed_reason
-  fixed_at: t_alert_fixed_at
+  fixed_at?: t_alert_fixed_at
   html_url: t_alert_html_url
   instances_url: t_alert_instances_url
   most_recent_instance: t_code_scanning_alert_instance
@@ -631,7 +631,7 @@ export type t_code_scanning_alert_items = {
   rule: t_code_scanning_alert_rule_summary
   state: t_code_scanning_alert_state
   tool: t_code_scanning_analysis_tool
-  updated_at: t_alert_updated_at
+  updated_at?: t_alert_updated_at
   url: t_alert_url
 }
 
@@ -682,7 +682,7 @@ export type t_code_scanning_alert_state =
 
 export type t_code_scanning_analysis = {
   analysis_key: t_code_scanning_analysis_analysis_key
-  category: t_code_scanning_analysis_category
+  category?: t_code_scanning_analysis_category
   commit_sha: t_code_scanning_analysis_commit_sha
   created_at: t_code_scanning_analysis_created_at
   deletable: boolean
@@ -718,9 +718,9 @@ export type t_code_scanning_analysis_sarif_file = string
 export type t_code_scanning_analysis_sarif_id = string
 
 export type t_code_scanning_analysis_tool = {
-  guid: t_code_scanning_analysis_tool_guid
-  name: t_code_scanning_analysis_tool_name
-  version: t_code_scanning_analysis_tool_version
+  guid?: t_code_scanning_analysis_tool_guid
+  name?: t_code_scanning_analysis_tool_name
+  version?: t_code_scanning_analysis_tool_version
 }
 
 export type t_code_scanning_analysis_tool_guid = string
@@ -747,9 +747,9 @@ export type t_code_scanning_organization_alert_items = {
   created_at: t_alert_created_at
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
-  dismissed_comment: t_code_scanning_alert_dismissed_comment
+  dismissed_comment?: t_code_scanning_alert_dismissed_comment
   dismissed_reason: t_code_scanning_alert_dismissed_reason
-  fixed_at: t_alert_fixed_at
+  fixed_at?: t_alert_fixed_at
   html_url: t_alert_html_url
   instances_url: t_alert_instances_url
   most_recent_instance: t_code_scanning_alert_instance
@@ -758,14 +758,14 @@ export type t_code_scanning_organization_alert_items = {
   rule: t_code_scanning_alert_rule
   state: t_code_scanning_alert_state
   tool: t_code_scanning_analysis_tool
-  updated_at: t_alert_updated_at
+  updated_at?: t_alert_updated_at
   url: t_alert_url
 }
 
 export type t_code_scanning_ref = string
 
 export type t_code_scanning_sarifs_receipt = {
-  id: t_code_scanning_analysis_sarif_id
+  id?: t_code_scanning_analysis_sarif_id
   readonly url?: string
 }
 
@@ -787,7 +787,7 @@ export type t_code_search_result_item = {
   repository: t_minimal_repository
   score: number
   sha: string
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   url: string
 }
 
@@ -1032,7 +1032,7 @@ export type t_commit = {
       url: string
     }
     url: string
-    verification: t_verification
+    verification?: t_verification
   }
   committer: t_nullable_simple_user
   files?: t_diff_entry[]
@@ -1069,7 +1069,7 @@ export type t_commit_comment = {
   node_id: string
   path: string | null
   position: number | null
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -1108,7 +1108,7 @@ export type t_commit_search_result_item = {
       url: string
     }
     url: string
-    verification: t_verification
+    verification?: t_verification
   }
   committer: t_nullable_git_user
   html_url: string
@@ -1121,7 +1121,7 @@ export type t_commit_search_result_item = {
   repository: t_minimal_repository
   score: number
   sha: string
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   url: string
 }
 
@@ -1209,7 +1209,7 @@ export type t_dependabot_alert = {
   created_at: t_alert_created_at
   readonly dependency: {
     readonly manifest_path?: string
-    package: t_dependabot_alert_package
+    package?: t_dependabot_alert_package
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -1277,7 +1277,7 @@ export type t_dependabot_alert_with_repository = {
   created_at: t_alert_created_at
   readonly dependency: {
     readonly manifest_path?: string
-    package: t_dependabot_alert_package
+    package?: t_dependabot_alert_package
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -1353,7 +1353,7 @@ export type t_deployment = {
   payload: {
     [key: string]: unknown
   }
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   production_environment?: boolean
   ref: string
   repository_url: string
@@ -1389,7 +1389,7 @@ export type t_deployment_simple = {
   id: number
   node_id: string
   original_environment?: string
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   production_environment?: boolean
   repository_url: string
   statuses_url: string
@@ -1409,7 +1409,7 @@ export type t_deployment_status = {
   id: number
   log_url?: string
   node_id: string
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   repository_url: string
   state:
     | "error"
@@ -1467,7 +1467,7 @@ export type t_enterprise_security_analysis_settings = {
 
 export type t_environment = {
   created_at: string
-  deployment_branch_policy: t_deployment_branch_policy_settings
+  deployment_branch_policy?: t_deployment_branch_policy_settings
   html_url: string
   id: number
   name: string
@@ -1498,11 +1498,11 @@ export type t_event = {
   actor: t_actor
   created_at: string | null
   id: string
-  org: t_actor
+  org?: t_actor
   payload: {
     action?: string
-    comment: t_issue_comment
-    issue: t_issue
+    comment?: t_issue_comment
+    issue?: t_issue
     pages?: {
       action?: string
       html_url?: string
@@ -1523,14 +1523,14 @@ export type t_event = {
 
 export type t_feed = {
   _links: {
-    current_user: t_link_with_type
-    current_user_actor: t_link_with_type
-    current_user_organization: t_link_with_type
+    current_user?: t_link_with_type
+    current_user_actor?: t_link_with_type
+    current_user_organization?: t_link_with_type
     current_user_organizations?: t_link_with_type[]
-    current_user_public: t_link_with_type
-    repository_discussions: t_link_with_type
-    repository_discussions_category: t_link_with_type
-    security_advisories: t_link_with_type
+    current_user_public?: t_link_with_type
+    repository_discussions?: t_link_with_type
+    repository_discussions_category?: t_link_with_type
+    security_advisories?: t_link_with_type
     timeline: t_link_with_type
     user: t_link_with_type
   }
@@ -1611,7 +1611,7 @@ export type t_full_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
-  code_of_conduct: t_code_of_conduct_simple
+  code_of_conduct?: t_code_of_conduct_simple
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -1666,9 +1666,9 @@ export type t_full_repository = {
   notifications_url: string
   open_issues: number
   open_issues_count: number
-  organization: t_nullable_simple_user
+  organization?: t_nullable_simple_user
   owner: t_simple_user
-  parent: t_repository
+  parent?: t_repository
   permissions?: {
     admin: boolean
     maintain?: boolean
@@ -1680,9 +1680,9 @@ export type t_full_repository = {
   pulls_url: string
   pushed_at: string
   releases_url: string
-  security_and_analysis: t_security_and_analysis
+  security_and_analysis?: t_security_and_analysis
   size: number
-  source: t_repository
+  source?: t_repository
   squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
   squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
   ssh_url: string
@@ -1696,7 +1696,7 @@ export type t_full_repository = {
   tags_url: string
   teams_url: string
   temp_clone_token?: string | null
-  template_repository: t_nullable_repository
+  template_repository?: t_nullable_repository
   topics?: string[]
   trees_url: string
   updated_at: string
@@ -1739,7 +1739,7 @@ export type t_gist_history = {
   }
   committed_at?: string
   url?: string
-  user: t_nullable_simple_user
+  user?: t_nullable_simple_user
   version?: string
 }
 
@@ -1773,7 +1773,7 @@ export type t_gist_simple = {
     html_url: string
     id: string
     node_id: string
-    owner: t_nullable_simple_user
+    owner?: t_nullable_simple_user
     public: boolean
     truncated?: boolean
     updated_at: string
@@ -1786,7 +1786,7 @@ export type t_gist_simple = {
         id?: string
         updated_at?: string
         url?: string
-        user: t_public_user
+        user?: t_public_user
       }[]
     | null
   forks_url?: string
@@ -1796,7 +1796,7 @@ export type t_gist_simple = {
   html_url?: string
   id?: string
   node_id?: string
-  owner: t_simple_user
+  owner?: t_simple_user
   public?: boolean
   truncated?: boolean
   updated_at?: string
@@ -1864,7 +1864,7 @@ export type t_git_tag = {
     name: string
   }
   url: string
-  verification: t_verification
+  verification?: t_verification
 }
 
 export type t_git_tree = {
@@ -1929,16 +1929,16 @@ export type t_gpg_key = {
 export type t_hook = {
   active: boolean
   config: {
-    content_type: t_webhook_config_content_type
+    content_type?: t_webhook_config_content_type
     digest?: string
     email?: string
-    insecure_ssl: t_webhook_config_insecure_ssl
+    insecure_ssl?: t_webhook_config_insecure_ssl
     password?: string
     room?: string
-    secret: t_webhook_config_secret
+    secret?: t_webhook_config_secret
     subdomain?: string
     token?: string
-    url: t_webhook_config_url
+    url?: t_webhook_config_url
   }
   created_at: string
   deliveries_url?: string
@@ -2083,7 +2083,7 @@ export type t_installation = {
 export type t_installation_token = {
   expires_at: string
   has_multiple_single_files?: boolean
-  permissions: t_app_permissions
+  permissions?: t_app_permissions
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
   single_file?: string
@@ -2131,7 +2131,7 @@ export type t_interaction_group =
   | "collaborators_only"
 
 export type t_interaction_limit = {
-  expiry: t_interaction_expiry
+  expiry?: t_interaction_expiry
   limit: t_interaction_group
 }
 
@@ -2150,7 +2150,7 @@ export type t_issue = {
   body_html?: string
   body_text?: string
   closed_at: string | null
-  closed_by: t_nullable_simple_user
+  closed_by?: t_nullable_simple_user
   comments: number
   comments_url: string
   created_at: string
@@ -2166,7 +2166,7 @@ export type t_issue = {
   milestone: t_nullable_milestone
   node_id: string
   number: number
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   pull_request?: {
     diff_url: string | null
     html_url: string | null
@@ -2174,8 +2174,8 @@ export type t_issue = {
     patch_url: string | null
     url: string | null
   }
-  reactions: t_reaction_rollup
-  repository: t_repository
+  reactions?: t_reaction_rollup
+  repository?: t_repository
   repository_url: string
   state: string
   state_reason?: "completed" | "reopened" | "not_planned" | null
@@ -2196,8 +2196,8 @@ export type t_issue_comment = {
   id: number
   issue_url: string
   node_id: string
-  performed_via_github_app: t_nullable_integration
-  reactions: t_reaction_rollup
+  performed_via_github_app?: t_nullable_integration
+  reactions?: t_reaction_rollup
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -2205,26 +2205,26 @@ export type t_issue_comment = {
 
 export type t_issue_event = {
   actor: t_nullable_simple_user
-  assignee: t_nullable_simple_user
-  assigner: t_nullable_simple_user
-  author_association: t_author_association
+  assignee?: t_nullable_simple_user
+  assigner?: t_nullable_simple_user
+  author_association?: t_author_association
   commit_id: string | null
   commit_url: string | null
   created_at: string
-  dismissed_review: t_issue_event_dismissed_review
+  dismissed_review?: t_issue_event_dismissed_review
   event: string
   id: number
-  issue: t_nullable_issue
-  label: t_issue_event_label
+  issue?: t_nullable_issue
+  label?: t_issue_event_label
   lock_reason?: string | null
-  milestone: t_issue_event_milestone
+  milestone?: t_issue_event_milestone
   node_id: string
-  performed_via_github_app: t_nullable_integration
-  project_card: t_issue_event_project_card
-  rename: t_issue_event_rename
-  requested_reviewer: t_nullable_simple_user
-  requested_team: t_team
-  review_requester: t_nullable_simple_user
+  performed_via_github_app?: t_nullable_integration
+  project_card?: t_issue_event_project_card
+  rename?: t_issue_event_rename
+  requested_reviewer?: t_nullable_simple_user
+  requested_team?: t_team
+  review_requester?: t_nullable_simple_user
   url: string
 }
 
@@ -2292,7 +2292,7 @@ export type t_issue_search_result_item = {
   milestone: t_nullable_milestone
   node_id: string
   number: number
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   pull_request?: {
     diff_url: string | null
     html_url: string | null
@@ -2300,13 +2300,13 @@ export type t_issue_search_result_item = {
     patch_url: string | null
     url: string | null
   }
-  reactions: t_reaction_rollup
-  repository: t_repository
+  reactions?: t_reaction_rollup
+  repository?: t_repository
   repository_url: string
   score: number
   state: string
   state_reason?: string | null
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   timeline_url?: string
   title: string
   updated_at: string
@@ -2387,7 +2387,7 @@ export type t_label_search_result_item = {
   name: string
   node_id: string
   score: number
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   url: string
 }
 
@@ -2483,7 +2483,7 @@ export type t_marketplace_purchase = {
     effective_date?: string
     id?: number
     is_installed?: boolean
-    plan: t_marketplace_listing_plan
+    plan?: t_marketplace_listing_plan
     unit_count?: number | null
   } | null
   marketplace_purchase: {
@@ -2492,7 +2492,7 @@ export type t_marketplace_purchase = {
     is_installed?: boolean
     next_billing_date?: string | null
     on_free_trial?: boolean
-    plan: t_marketplace_listing_plan
+    plan?: t_marketplace_listing_plan
     unit_count?: number | null
     updated_at?: string
   }
@@ -2561,7 +2561,7 @@ export type t_minimal_repository = {
   blobs_url: string
   branches_url: string
   clone_url?: string
-  code_of_conduct: t_code_of_conduct
+  code_of_conduct?: t_code_of_conduct
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -2632,7 +2632,7 @@ export type t_minimal_repository = {
   pushed_at?: string | null
   releases_url: string
   role_name?: string
-  security_and_analysis: t_security_and_analysis
+  security_and_analysis?: t_security_and_analysis
   size?: number
   ssh_url?: string
   stargazers_count?: number
@@ -2752,7 +2752,7 @@ export type t_nullable_issue = {
   body_html?: string
   body_text?: string
   closed_at: string | null
-  closed_by: t_nullable_simple_user
+  closed_by?: t_nullable_simple_user
   comments: number
   comments_url: string
   created_at: string
@@ -2768,7 +2768,7 @@ export type t_nullable_issue = {
   milestone: t_nullable_milestone
   node_id: string
   number: number
-  performed_via_github_app: t_nullable_integration
+  performed_via_github_app?: t_nullable_integration
   pull_request?: {
     diff_url: string | null
     html_url: string | null
@@ -2776,8 +2776,8 @@ export type t_nullable_issue = {
     patch_url: string | null
     url: string | null
   }
-  reactions: t_reaction_rollup
-  repository: t_repository
+  reactions?: t_reaction_rollup
+  repository?: t_repository
   repository_url: string
   state: string
   state_reason?: "completed" | "reopened" | "not_planned" | null
@@ -2824,7 +2824,7 @@ export type t_nullable_minimal_repository = {
   blobs_url: string
   branches_url: string
   clone_url?: string
-  code_of_conduct: t_code_of_conduct
+  code_of_conduct?: t_code_of_conduct
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -2895,7 +2895,7 @@ export type t_nullable_minimal_repository = {
   pushed_at?: string | null
   releases_url: string
   role_name?: string
-  security_and_analysis: t_security_and_analysis
+  security_and_analysis?: t_security_and_analysis
   size?: number
   ssh_url?: string
   stargazers_count?: number
@@ -2986,7 +2986,7 @@ export type t_nullable_repository = {
   notifications_url: string
   open_issues: number
   open_issues_count: number
-  organization: t_nullable_simple_user
+  organization?: t_nullable_simple_user
   owner: t_simple_user
   permissions?: {
     admin: boolean
@@ -3349,24 +3349,24 @@ export type t_organization_invitation = {
 }
 
 export type t_organization_secret_scanning_alert = {
-  created_at: t_alert_created_at
-  html_url: t_alert_html_url
+  created_at?: t_alert_created_at
+  html_url?: t_alert_html_url
   locations_url?: string
-  number: t_alert_number
+  number?: t_alert_number
   push_protection_bypassed?: boolean | null
   push_protection_bypassed_at?: string | null
-  push_protection_bypassed_by: t_nullable_simple_user
-  repository: t_simple_repository
-  resolution: t_secret_scanning_alert_resolution
+  push_protection_bypassed_by?: t_nullable_simple_user
+  repository?: t_simple_repository
+  resolution?: t_secret_scanning_alert_resolution
   resolution_comment?: string | null
   resolved_at?: string | null
-  resolved_by: t_nullable_simple_user
+  resolved_by?: t_nullable_simple_user
   secret?: string
   secret_type?: string
   secret_type_display_name?: string
-  state: t_secret_scanning_alert_state
-  updated_at: t_nullable_alert_updated_at
-  url: t_alert_url
+  state?: t_secret_scanning_alert_state
+  updated_at?: t_nullable_alert_updated_at
+  url?: t_alert_url
 }
 
 export type t_organization_simple = {
@@ -3389,9 +3389,9 @@ export type t_package = {
   html_url: string
   id: number
   name: string
-  owner: t_nullable_simple_user
+  owner?: t_nullable_simple_user
   package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  repository: t_nullable_minimal_repository
+  repository?: t_nullable_minimal_repository
   updated_at: string
   url: string
   version_count: number
@@ -3437,12 +3437,12 @@ export type t_page = {
   cname: string | null
   custom_404: boolean
   html_url?: string
-  https_certificate: t_pages_https_certificate
+  https_certificate?: t_pages_https_certificate
   https_enforced?: boolean
   pending_domain_unverified_at?: string | null
   protected_domain_state?: "pending" | "verified" | "unverified" | null
   public: boolean
-  source: t_pages_source_hash
+  source?: t_pages_source_hash
   status: "built" | "building" | "errored" | null
   url: string
 }
@@ -3576,7 +3576,7 @@ export type t_pending_deployment = {
     reviewer?: {
       [key: string]: unknown
     }
-    type: t_deployment_reviewer_type
+    type?: t_deployment_reviewer_type
   }[]
   wait_timer: number
   wait_timer_started_at: string | null
@@ -3749,8 +3749,8 @@ export type t_protected_branch = {
     enabled: boolean
     url: string
   }
-  required_status_checks: t_status_check_policy
-  restrictions: t_branch_restriction_policy
+  required_status_checks?: t_status_check_policy
+  restrictions?: t_branch_restriction_policy
   url: string
 }
 
@@ -4270,7 +4270,7 @@ export type t_pull_request_review_comment = {
   position: number
   pull_request_review_id: number | null
   pull_request_url: string
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   side?: "LEFT" | "RIGHT"
   start_line?: number | null
   start_side?: "LEFT" | "RIGHT" | null
@@ -4362,15 +4362,15 @@ export type t_rate_limit = {
 export type t_rate_limit_overview = {
   rate: t_rate_limit
   resources: {
-    actions_runner_registration: t_rate_limit
-    code_scanning_upload: t_rate_limit
+    actions_runner_registration?: t_rate_limit
+    code_scanning_upload?: t_rate_limit
     core: t_rate_limit
-    dependency_snapshots: t_rate_limit
-    graphql: t_rate_limit
-    integration_manifest: t_rate_limit
-    scim: t_rate_limit
+    dependency_snapshots?: t_rate_limit
+    graphql?: t_rate_limit
+    integration_manifest?: t_rate_limit
+    scim?: t_rate_limit
     search: t_rate_limit
-    source_import: t_rate_limit
+    source_import?: t_rate_limit
   }
 }
 
@@ -4432,7 +4432,7 @@ export type t_release = {
   node_id: string
   prerelease: boolean
   published_at: string | null
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   tag_name: string
   tarball_url: string | null
   target_commitish: string
@@ -4569,7 +4569,7 @@ export type t_repo_search_result_item = {
   tags_url: string
   teams_url: string
   temp_clone_token?: string
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   topics?: string[]
   trees_url: string
   updated_at: string
@@ -4648,7 +4648,7 @@ export type t_repository = {
   notifications_url: string
   open_issues: number
   open_issues_count: number
-  organization: t_nullable_simple_user
+  organization?: t_nullable_simple_user
   owner: t_simple_user
   permissions?: {
     admin: boolean
@@ -4868,7 +4868,7 @@ export type t_review_comment = {
   position: number | null
   pull_request_review_id: number | null
   pull_request_url: string
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   side?: "LEFT" | "RIGHT"
   start_line?: number | null
   start_side?: "LEFT" | "RIGHT" | null
@@ -4986,23 +4986,23 @@ export type t_search_result_text_matches = {
 }[]
 
 export type t_secret_scanning_alert = {
-  created_at: t_alert_created_at
-  html_url: t_alert_html_url
+  created_at?: t_alert_created_at
+  html_url?: t_alert_html_url
   locations_url?: string
-  number: t_alert_number
+  number?: t_alert_number
   push_protection_bypassed?: boolean | null
   push_protection_bypassed_at?: string | null
-  push_protection_bypassed_by: t_nullable_simple_user
-  resolution: t_secret_scanning_alert_resolution
+  push_protection_bypassed_by?: t_nullable_simple_user
+  resolution?: t_secret_scanning_alert_resolution
   resolution_comment?: string | null
   resolved_at?: string | null
-  resolved_by: t_nullable_simple_user
+  resolved_by?: t_nullable_simple_user
   secret?: string
   secret_type?: string
   secret_type_display_name?: string
-  state: t_secret_scanning_alert_state
-  updated_at: t_nullable_alert_updated_at
-  url: t_alert_url
+  state?: t_secret_scanning_alert_state
+  updated_at?: t_nullable_alert_updated_at
+  url?: t_alert_url
 }
 
 export type t_secret_scanning_alert_resolution =
@@ -5055,7 +5055,7 @@ export type t_short_branch = {
   }
   name: string
   protected: boolean
-  protection: t_branch_protection
+  protection?: t_branch_protection
   protection_url?: string
 }
 
@@ -5175,7 +5175,7 @@ export type t_snapshot = {
   manifests?: {
     [key: string]: unknown
   }
-  metadata: t_metadata
+  metadata?: t_metadata
   ref: string
   scanned: string
   sha: string
@@ -5274,7 +5274,7 @@ export type t_team_discussion = {
   number: number
   pinned: boolean
   private: boolean
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   team_url: string
   title: string
   updated_at: string
@@ -5292,7 +5292,7 @@ export type t_team_discussion_comment = {
   last_edited_at: string | null
   node_id: string
   number: number
-  reactions: t_reaction_rollup
+  reactions?: t_reaction_rollup
   updated_at: string
   url: string
 }
@@ -5308,7 +5308,7 @@ export type t_team_full = {
   name: string
   node_id: string
   organization: t_team_organization
-  parent: t_nullable_team_simple
+  parent?: t_nullable_team_simple
   permission: string
   privacy?: "closed" | "secret"
   repos_count: number
@@ -5492,7 +5492,7 @@ export type t_team_repository = {
   tags_url: string
   teams_url: string
   temp_clone_token?: string
-  template_repository: t_nullable_repository
+  template_repository?: t_nullable_repository
   topics?: string[]
   trees_url: string
   updated_at: string | null
@@ -5586,7 +5586,7 @@ export type t_topic_search_result_item = {
   repository_count?: number | null
   score: number
   short_description: string | null
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   updated_at: string
 }
 
@@ -5638,7 +5638,7 @@ export type t_user_search_result_item = {
   starred_url: string
   subscriptions_url: string
   suspended_at?: string | null
-  text_matches: t_search_result_text_matches
+  text_matches?: t_search_result_text_matches
   type: string
   updated_at?: string
   url: string
@@ -5681,10 +5681,10 @@ export type t_view_traffic = {
 export type t_wait_timer = number
 
 export type t_webhook_config = {
-  content_type: t_webhook_config_content_type
-  insecure_ssl: t_webhook_config_insecure_ssl
-  secret: t_webhook_config_secret
-  url: t_webhook_config_url
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
 }
 
 export type t_webhook_config_content_type = string
@@ -5717,7 +5717,7 @@ export type t_workflow = {
 }
 
 export type t_workflow_run = {
-  actor: t_simple_user
+  actor?: t_simple_user
   artifacts_url: string
   cancel_url: string
   check_suite_id?: number
@@ -5748,7 +5748,7 @@ export type t_workflow_run = {
   run_number: number
   run_started_at?: string
   status: string | null
-  triggering_actor: t_simple_user
+  triggering_actor?: t_simple_user
   updated_at: string
   url: string
   workflow_id: number

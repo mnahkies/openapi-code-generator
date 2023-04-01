@@ -324,7 +324,7 @@ export type t_ActionsDeleteActionsCacheByKeyParamSchema = {
 
 export type t_ActionsDeleteActionsCacheByKeyQuerySchema = {
   key?: string
-  ref: t_code_scanning_ref
+  ref?: t_code_scanning_ref
 }
 
 export type t_ActionsDeleteArtifactParamSchema = {
@@ -464,7 +464,7 @@ export type t_ActionsGetActionsCacheListQuerySchema = {
   key?: string
   page?: number
   per_page?: number
-  ref: t_code_scanning_ref
+  ref?: t_code_scanning_ref
   sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
 }
 
@@ -1158,8 +1158,8 @@ export type t_ActionsSetCustomOidcSubClaimForRepoParamSchema = {
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
   {
-    can_approve_pull_request_reviews: t_actions_can_approve_pull_request_reviews
-    default_workflow_permissions: t_actions_default_workflow_permissions
+    can_approve_pull_request_reviews?: t_actions_can_approve_pull_request_reviews
+    default_workflow_permissions?: t_actions_default_workflow_permissions
   }
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
@@ -1169,8 +1169,8 @@ export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParam
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
   {
-    can_approve_pull_request_reviews: t_actions_can_approve_pull_request_reviews
-    default_workflow_permissions: t_actions_default_workflow_permissions
+    can_approve_pull_request_reviews?: t_actions_can_approve_pull_request_reviews
+    default_workflow_permissions?: t_actions_default_workflow_permissions
   }
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
@@ -1180,7 +1180,7 @@ export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSc
   }
 
 export type t_ActionsSetGithubActionsPermissionsOrganizationBodySchema = {
-  allowed_actions: t_allowed_actions
+  allowed_actions?: t_allowed_actions
   enabled_repositories: t_enabled_repositories
 }
 
@@ -1189,7 +1189,7 @@ export type t_ActionsSetGithubActionsPermissionsOrganizationParamSchema = {
 }
 
 export type t_ActionsSetGithubActionsPermissionsRepositoryBodySchema = {
-  allowed_actions: t_allowed_actions
+  allowed_actions?: t_allowed_actions
   enabled: t_actions_enabled
 }
 
@@ -1567,7 +1567,7 @@ export type t_AppsCreateFromManifestParamSchema = {
 }
 
 export type t_AppsCreateInstallationAccessTokenBodySchema = {
-  permissions: t_app_permissions
+  permissions?: t_app_permissions
   repositories?: string[]
   repository_ids?: number[]
 }
@@ -1722,7 +1722,7 @@ export type t_AppsResetTokenParamSchema = {
 
 export type t_AppsScopeTokenBodySchema = {
   access_token: string
-  permissions: t_app_permissions
+  permissions?: t_app_permissions
   repositories?: string[]
   repository_ids?: number[]
   target?: string
@@ -1742,10 +1742,10 @@ export type t_AppsUnsuspendInstallationParamSchema = {
 }
 
 export type t_AppsUpdateWebhookConfigForAppBodySchema = {
-  content_type: t_webhook_config_content_type
-  insecure_ssl: t_webhook_config_insecure_ssl
-  secret: t_webhook_config_secret
-  url: t_webhook_config_url
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
 }
 
 export type t_BillingGetGithubActionsBillingOrgParamSchema = {
@@ -1981,7 +1981,7 @@ export type t_CodeScanningDeleteAnalysisQuerySchema = {
 }
 
 export type t_CodeScanningGetAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -2005,7 +2005,7 @@ export type t_CodeScanningGetSarifParamSchema = {
 }
 
 export type t_CodeScanningListAlertInstancesParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -2013,7 +2013,7 @@ export type t_CodeScanningListAlertInstancesParamSchema = {
 export type t_CodeScanningListAlertInstancesQuerySchema = {
   page?: number
   per_page?: number
-  ref: t_code_scanning_ref
+  ref?: t_code_scanning_ref
 }
 
 export type t_CodeScanningListAlertsForOrgParamSchema = {
@@ -2026,11 +2026,11 @@ export type t_CodeScanningListAlertsForOrgQuerySchema = {
   direction?: "asc" | "desc"
   page?: number
   per_page?: number
-  severity: t_code_scanning_alert_severity
+  severity?: t_code_scanning_alert_severity
   sort?: "created" | "updated"
-  state: t_code_scanning_alert_state
-  tool_guid: t_code_scanning_analysis_tool_guid
-  tool_name: t_code_scanning_analysis_tool_name
+  state?: t_code_scanning_alert_state
+  tool_guid?: t_code_scanning_analysis_tool_guid
+  tool_name?: t_code_scanning_analysis_tool_name
 }
 
 export type t_CodeScanningListAlertsForRepoParamSchema = {
@@ -2042,12 +2042,12 @@ export type t_CodeScanningListAlertsForRepoQuerySchema = {
   direction?: "asc" | "desc"
   page?: number
   per_page?: number
-  ref: t_code_scanning_ref
-  severity: t_code_scanning_alert_severity
+  ref?: t_code_scanning_ref
+  severity?: t_code_scanning_alert_severity
   sort?: "created" | "updated"
-  state: t_code_scanning_alert_state
-  tool_guid: t_code_scanning_analysis_tool_guid
-  tool_name: t_code_scanning_analysis_tool_name
+  state?: t_code_scanning_alert_state
+  tool_guid?: t_code_scanning_analysis_tool_guid
+  tool_name?: t_code_scanning_analysis_tool_name
 }
 
 export type t_CodeScanningListCodeqlDatabasesParamSchema = {
@@ -2064,21 +2064,21 @@ export type t_CodeScanningListRecentAnalysesQuerySchema = {
   direction?: "asc" | "desc"
   page?: number
   per_page?: number
-  ref: t_code_scanning_ref
-  sarif_id: t_code_scanning_analysis_sarif_id
+  ref?: t_code_scanning_ref
+  sarif_id?: t_code_scanning_analysis_sarif_id
   sort?: "created"
-  tool_guid: t_code_scanning_analysis_tool_guid
-  tool_name: t_code_scanning_analysis_tool_name
+  tool_guid?: t_code_scanning_analysis_tool_guid
+  tool_name?: t_code_scanning_analysis_tool_name
 }
 
 export type t_CodeScanningUpdateAlertBodySchema = {
-  dismissed_comment: t_code_scanning_alert_dismissed_comment
-  dismissed_reason: t_code_scanning_alert_dismissed_reason
+  dismissed_comment?: t_code_scanning_alert_dismissed_comment
+  dismissed_reason?: t_code_scanning_alert_dismissed_reason
   state: t_code_scanning_alert_set_state
 }
 
 export type t_CodeScanningUpdateAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -2477,7 +2477,7 @@ export type t_DependabotDeleteRepoSecretParamSchema = {
 }
 
 export type t_DependabotGetAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -2618,7 +2618,7 @@ export type t_DependabotUpdateAlertBodySchema = {
 }
 
 export type t_DependabotUpdateAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -2637,7 +2637,7 @@ export type t_DependencyGraphCreateRepositorySnapshotBodySchema = {
   manifests?: {
     [key: string]: unknown
   }
-  metadata: t_metadata
+  metadata?: t_metadata
   ref: string
   scanned: string
   sha: string
@@ -3023,12 +3023,12 @@ export type t_InteractionsRemoveRestrictionsForRepoParamSchema = {
 }
 
 export type t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema = {
-  expiry: t_interaction_expiry
+  expiry?: t_interaction_expiry
   limit: t_interaction_group
 }
 
 export type t_InteractionsSetRestrictionsForOrgBodySchema = {
-  expiry: t_interaction_expiry
+  expiry?: t_interaction_expiry
   limit: t_interaction_group
 }
 
@@ -3037,7 +3037,7 @@ export type t_InteractionsSetRestrictionsForOrgParamSchema = {
 }
 
 export type t_InteractionsSetRestrictionsForRepoBodySchema = {
-  expiry: t_interaction_expiry
+  expiry?: t_interaction_expiry
   limit: t_interaction_group
 }
 
@@ -3728,10 +3728,10 @@ export type t_OrgsCreateInvitationParamSchema = {
 export type t_OrgsCreateWebhookBodySchema = {
   active?: boolean
   config: {
-    content_type: t_webhook_config_content_type
-    insecure_ssl: t_webhook_config_insecure_ssl
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
     password?: string
-    secret: t_webhook_config_secret
+    secret?: t_webhook_config_secret
     url: t_webhook_config_url
     username?: string
   }
@@ -4016,9 +4016,9 @@ export type t_OrgsUpdateMembershipForAuthenticatedUserParamSchema = {
 export type t_OrgsUpdateWebhookBodySchema = {
   active?: boolean
   config?: {
-    content_type: t_webhook_config_content_type
-    insecure_ssl: t_webhook_config_insecure_ssl
-    secret: t_webhook_config_secret
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
+    secret?: t_webhook_config_secret
     url: t_webhook_config_url
   }
   events?: string[]
@@ -4031,10 +4031,10 @@ export type t_OrgsUpdateWebhookParamSchema = {
 }
 
 export type t_OrgsUpdateWebhookConfigForOrgBodySchema = {
-  content_type: t_webhook_config_content_type
-  insecure_ssl: t_webhook_config_insecure_ssl
-  secret: t_webhook_config_secret
-  url: t_webhook_config_url
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
 }
 
 export type t_OrgsUpdateWebhookConfigForOrgParamSchema = {
@@ -5362,14 +5362,14 @@ export type t_ReposCreateInOrgParamSchema = {
 }
 
 export type t_ReposCreateOrUpdateEnvironmentBodySchema = {
-  deployment_branch_policy: t_deployment_branch_policy_settings
+  deployment_branch_policy?: t_deployment_branch_policy_settings
   reviewers?:
     | {
         id?: number
-        type: t_deployment_reviewer_type
+        type?: t_deployment_reviewer_type
       }[]
     | null
-  wait_timer: t_wait_timer
+  wait_timer?: t_wait_timer
 }
 
 export type t_ReposCreateOrUpdateEnvironmentParamSchema = {
@@ -5468,12 +5468,12 @@ export type t_ReposCreateUsingTemplateParamSchema = {
 export type t_ReposCreateWebhookBodySchema = {
   active?: boolean
   config?: {
-    content_type: t_webhook_config_content_type
+    content_type?: t_webhook_config_content_type
     digest?: string
-    insecure_ssl: t_webhook_config_insecure_ssl
-    secret: t_webhook_config_secret
+    insecure_ssl?: t_webhook_config_insecure_ssl
+    secret?: t_webhook_config_secret
     token?: string
-    url: t_webhook_config_url
+    url?: t_webhook_config_url
   }
   events?: string[]
   name?: string
@@ -6662,10 +6662,10 @@ export type t_ReposUpdateWebhookBodySchema = {
   add_events?: string[]
   config?: {
     address?: string
-    content_type: t_webhook_config_content_type
-    insecure_ssl: t_webhook_config_insecure_ssl
+    content_type?: t_webhook_config_content_type
+    insecure_ssl?: t_webhook_config_insecure_ssl
     room?: string
-    secret: t_webhook_config_secret
+    secret?: t_webhook_config_secret
     url: t_webhook_config_url
   }
   events?: string[]
@@ -6679,10 +6679,10 @@ export type t_ReposUpdateWebhookParamSchema = {
 }
 
 export type t_ReposUpdateWebhookConfigForRepoBodySchema = {
-  content_type: t_webhook_config_content_type
-  insecure_ssl: t_webhook_config_insecure_ssl
-  secret: t_webhook_config_secret
-  url: t_webhook_config_url
+  content_type?: t_webhook_config_content_type
+  insecure_ssl?: t_webhook_config_insecure_ssl
+  secret?: t_webhook_config_secret
+  url?: t_webhook_config_url
 }
 
 export type t_ReposUpdateWebhookConfigForRepoParamSchema = {
@@ -6771,7 +6771,7 @@ export type t_SearchUsersQuerySchema = {
 }
 
 export type t_SecretScanningGetAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -6830,7 +6830,7 @@ export type t_SecretScanningListAlertsForRepoQuerySchema = {
 }
 
 export type t_SecretScanningListLocationsForAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
@@ -6864,13 +6864,13 @@ export type t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchem
   }
 
 export type t_SecretScanningUpdateAlertBodySchema = {
-  resolution: t_secret_scanning_alert_resolution
-  resolution_comment: t_secret_scanning_alert_resolution_comment
+  resolution?: t_secret_scanning_alert_resolution
+  resolution_comment?: t_secret_scanning_alert_resolution_comment
   state: t_secret_scanning_alert_state
 }
 
 export type t_SecretScanningUpdateAlertParamSchema = {
-  alert_number: t_alert_number
+  alert_number?: t_alert_number
   owner?: string
   repo?: string
 }
