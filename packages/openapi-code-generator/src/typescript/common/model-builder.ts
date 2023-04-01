@@ -102,6 +102,10 @@ export class ModelBuilder {
       return `(${ schemaObject.allOf.map(this.schemaObjectToType).join(" & ") })`
     }
 
+    if(schemaObject.type === "object" && schemaObject.oneOf.length){
+      return `(${ schemaObject.oneOf.map(this.schemaObjectToType).join("\n | ") })`
+    }
+
     switch (schemaObject.type) {
       case "array": {
         return `${ this.itemsToType(schemaObject.items) }[]`

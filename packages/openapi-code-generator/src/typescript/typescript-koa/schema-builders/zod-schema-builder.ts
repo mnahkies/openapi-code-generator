@@ -19,6 +19,15 @@ export class ZodBuilder extends SchemaBuilder {
       .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
   }
 
+  protected union(maybeModels: string[]): string {
+    return [
+      this.zod,
+      `union([\n${
+        maybeModels.map(it => it + ",").join("\n")
+      }\n])`
+    ].filter(isDefined).join(".")
+  }
+
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.zod,

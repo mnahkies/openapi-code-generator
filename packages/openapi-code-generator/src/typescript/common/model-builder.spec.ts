@@ -20,6 +20,7 @@ describe("typescript/common/model-builder", () => {
     const actual = builder.schemaObjectToType(
       input.schema({ $ref: `${file}#/components/schemas/SimpleObject` })
     )
+
     expect(actual).toMatchInlineSnapshot(`
       "{
       "date" : string ;
@@ -37,11 +38,28 @@ describe("typescript/common/model-builder", () => {
     const actual = builder.schemaObjectToType(
       input.schema({ $ref: `${file}#/components/schemas/ObjectWithRefs` })
     )
+
     expect(actual).toMatchInlineSnapshot(`
       "{
       "optionalObject" ? : t_SimpleObject ;
       "requiredObject" : t_SimpleObject ;
       }"
+    `)
+  })
+
+  it("can build a type for a oneOf correctly", async () => {
+    const builder = ModelBuilder.fromInput("models.ts", input)
+
+    const actual = builder.schemaObjectToType(
+      input.schema({ $ref: `${file}#/components/schemas/OneOf` })
+    )
+
+    expect(actual).toMatchInlineSnapshot(`
+      "({
+      "strs" : string[] ;
+      }
+       | string[]
+       | string)"
     `)
   })
 })
