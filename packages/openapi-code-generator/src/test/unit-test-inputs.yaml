@@ -1,0 +1,39 @@
+openapi: "3.1.0"
+info:
+  title: unit-test-inputs
+  version: '0.0.1'
+paths: { }
+components:
+  schemas:
+    SimpleObject:
+      type: object
+      required:
+        - str
+        - num
+        - date
+        - datetime
+      properties:
+        str:
+          type: string
+        num:
+          type: number
+        date:
+          type: string
+          format: date
+        datetime:
+          type: string
+          format: date-time
+        optional_str:
+          type: string
+
+    ObjectWithRefs:
+        type: object
+        required:
+          - requiredObject
+        properties:
+          optionalObject:
+            $ref: '#/components/schemas/SimpleObject'
+          requiredObject:
+            $ref: '#/components/schemas/SimpleObject'
+
+  parameters: { }
