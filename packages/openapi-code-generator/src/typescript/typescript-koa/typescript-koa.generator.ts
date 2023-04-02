@@ -5,8 +5,8 @@ import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
 import { isDefined, titleCase } from "../../core/utils"
-import {logger} from "../../core/logger"
 import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
+import {requestBodyAsParameter} from "../common/typescript-common"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -72,7 +72,7 @@ export class ServerBuilder {
     const querySchema = queryParams.length ? schemaBuilder.fromParameters(queryParams) : undefined
     let queryParamsType = "void"
 
-    const { requestBodyParameter } = this.requestBodyAsParameter(operation)
+    const { requestBodyParameter } = requestBodyAsParameter(operation)
     const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
     const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
     let bodyParamsType = "void"
@@ -123,33 +123,6 @@ export class ServerBuilder {
         return next();
       })`,
     ].filter(isDefined).join("\n"))
-  }
-
-  requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
-    const { requestBody } = operation
-
-    if (!requestBody) {
-      return {}
-    }
-
-    // todo support multiple request body types
-    for (const [requestBodyContentType, definition] of Object.entries(requestBody.content)) {
-      return {
-        requestBodyContentType,
-        requestBodyParameter: {
-          name: "requestBody",
-          description: requestBody.description,
-          in: "body",
-          required: requestBody.required,
-          schema: definition.schema,
-          allowEmptyValue: false,
-          deprecated: false,
-        },
-      }
-    }
-
-    logger.warn("no content on defined request body ", requestBody)
-    return {}
   }
 
   toString(): string {

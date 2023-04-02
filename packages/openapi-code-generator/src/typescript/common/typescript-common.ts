@@ -1,5 +1,7 @@
 import _ from "lodash"
 import { isDefined } from "../../core/utils"
+import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
+import {logger} from "../../core/logger"
 
 export type MethodParameterDefinition = { name: string, type: string, required?: boolean }
 
@@ -74,6 +76,33 @@ export function asyncMethod({ name, parameters, returnType, overloads = [], body
   {
     ${ body }
   }`
+}
+
+export function requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
+  const { requestBody } = operation
+
+  if (!requestBody) {
+    return {}
+  }
+
+  // todo support multiple request body types
+  for (const [requestBodyContentType, definition] of Object.entries(requestBody.content)) {
+    return {
+      requestBodyContentType,
+      requestBodyParameter: {
+        name: "requestBody",
+        description: requestBody.description,
+        in: "body",
+        required: requestBody.required,
+        schema: definition.schema,
+        allowEmptyValue: false,
+        deprecated: false,
+      },
+    }
+  }
+
+  logger.warn("no content on defined request body ", requestBody)
+  return {}
 }
 
 // TODO do we need to quote names sometimes here?

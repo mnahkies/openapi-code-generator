@@ -2,9 +2,8 @@ import _ from "lodash"
 import { IROperation, IRParameter, MaybeIRModel } from "../../core/openapi-types-normalized"
 import { isDefined } from "../../core/utils"
 import { generationLib } from "../../core/generation-lib"
-import { logger } from "../../core/logger"
 import { ModelBuilder } from "./model-builder"
-import { combineParams, MethodParameterDefinition } from "./typescript-common"
+import {combineParams, MethodParameterDefinition, requestBodyAsParameter} from "./typescript-common"
 
 export class ClientOperationBuilder {
   constructor(
@@ -41,30 +40,7 @@ export class ClientOperationBuilder {
   }
 
   requestBodyAsParameter(): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
-    const { requestBody } = this.operation
-
-    if (!requestBody) {
-      return {}
-    }
-
-    // todo support multiple request body types
-    for (const [requestBodyContentType, definition] of Object.entries(requestBody.content)) {
-      return {
-        requestBodyContentType,
-        requestBodyParameter: {
-          name: "requestBody",
-          description: requestBody.description,
-          in: "body",
-          required: requestBody.required,
-          schema: definition.schema,
-          allowEmptyValue: false,
-          deprecated: false,
-        },
-      }
-    }
-
-    logger.warn("no content on defined request body ", requestBody)
-    return {}
+    return requestBodyAsParameter(this.operation)
   }
 
   queryString(): string {
