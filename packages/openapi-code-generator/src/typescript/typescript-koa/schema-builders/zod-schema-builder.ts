@@ -97,4 +97,18 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     ].filter(isDefined).join(".")
   }
 
+  public any(): string {
+    return [
+      this.zod,
+      "any()"
+    ].filter(isDefined).join(".")
+  }
+
+  public void(): string {
+    return [
+      this.zod,
+      "void()"
+    ].filter(isDefined).join(".")
+  }
+
 }

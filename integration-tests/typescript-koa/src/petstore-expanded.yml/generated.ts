@@ -5,12 +5,20 @@
 import {
   t_AddPetBodySchema,
   t_DeletePetParamSchema,
+  t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
+  t_Pet,
 } from "./models"
 import KoaRouter from "@koa/router"
 import {
+  Response,
   ServerConfig,
+  StatusCode,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -27,22 +35,22 @@ import { z } from "zod"
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>>
 
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<204, void> | Response<StatusCode, t_Error>>
 
 export type Implementation = {
   findPets: FindPets
@@ -72,14 +80,22 @@ export function bootstrap(
 
     const { status, body } = await implementation.findPets(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z.array(z.object({})).parse(body)
-    } else {
-      ctx.body = z
-        .object({ code: z.coerce.number(), message: z.coerce.string() })
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z.array(
+            z
+              .object({
+                name: z.coerce.string(),
+                tag: z.coerce.string().optional(),
+              })
+              .merge(z.object({ id: z.coerce.number() }))
+          ),
+        ],
+      ],
+      z.object({ code: z.coerce.number(), message: z.coerce.string() })
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -98,14 +114,20 @@ export function bootstrap(
 
     const { status, body } = await implementation.addPet(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z.object({}).parse(body)
-    } else {
-      ctx.body = z
-        .object({ code: z.coerce.number(), message: z.coerce.string() })
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z
+            .object({
+              name: z.coerce.string(),
+              tag: z.coerce.string().optional(),
+            })
+            .merge(z.object({ id: z.coerce.number() })),
+        ],
+      ],
+      z.object({ code: z.coerce.number(), message: z.coerce.string() })
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -121,14 +143,20 @@ export function bootstrap(
 
     const { status, body } = await implementation.findPetById(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z.object({}).parse(body)
-    } else {
-      ctx.body = z
-        .object({ code: z.coerce.number(), message: z.coerce.string() })
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z
+            .object({
+              name: z.coerce.string(),
+              tag: z.coerce.string().optional(),
+            })
+            .merge(z.object({ id: z.coerce.number() })),
+        ],
+      ],
+      z.object({ code: z.coerce.number(), message: z.coerce.string() })
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -144,10 +172,10 @@ export function bootstrap(
 
     const { status, body } = await implementation.deletePet(input, ctx)
 
-    ctx.body = z
-      .object({ code: z.coerce.number(), message: z.coerce.string() })
-      .parse(body)
-
+    ctx.body = responseValidationFactory(
+      [["204", z.void()]],
+      z.object({ code: z.coerce.number(), message: z.coerce.string() })
+    )(status, body)
     ctx.status = status
     return next()
   })

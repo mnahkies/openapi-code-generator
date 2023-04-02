@@ -17,18 +17,28 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
   return schema?.parse(input)
 }
 
-export function responseValidationFactory(possibleResponses: [string, z.ZodTypeAny][]) {
-  return (status: number, value: any) => {
+export function responseValidationFactory(possibleResponses: [string, z.ZodTypeAny][], defaultResponse?: z.ZodTypeAny) {
 
-    for(const [match, schema] of possibleResponses) {
+  // Exploit the natural ordering matching the desired specificity of eg: 404 vs 4xx
+  possibleResponses.sort((x, y) => x[0] < y[0] ? -1 : 1)
 
-      const isMatch = match === "default"
-        || /^\\d+$/.test(match) && String(status) === match
-        || /^\\dxx$/.test(match) && String(status)[0] === match[0]
+  return (status: number, value: unknown) => {
 
-      if(isMatch) {
+    for (const [match, schema] of possibleResponses) {
+
+      const isMatch =
+        /^\d+$/.test(match) && String(status) === match ||
+        /^\d[xX]{2}$/.test(match) && String(status)[0] === match[0]
+
+      if (isMatch) {
         return schema.parse(value)
       }
     }
+
+    if (defaultResponse) {
+      return defaultResponse.parse(value)
+    }
+
+    return value
   }
 }

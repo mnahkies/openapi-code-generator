@@ -67,6 +67,10 @@ export abstract class AbstractSchemaBuilder {
     }
   }
 
+  public abstract any(): string
+
+  public abstract void(): string
+
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string

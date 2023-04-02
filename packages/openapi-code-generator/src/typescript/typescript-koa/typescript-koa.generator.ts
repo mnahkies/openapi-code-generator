@@ -7,7 +7,6 @@ import { ModelBuilder } from "../common/model-builder"
 import { isDefined, titleCase } from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
 import {requestBodyAsParameter} from "../common/typescript-common"
-import { ifElseIfBuilder } from "../common/typescript-common"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -49,7 +48,14 @@ export class ServerBuilder {
     this.imports = new ImportBuilder()
     // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports.from("@nahkies/typescript-koa-runtime/server")
-      .add("startServer", "ServerConfig")
+      .add("startServer", "ServerConfig",
+        "Response",
+        "StatusCode2xx",
+        "StatusCode3xx",
+        "StatusCode4xx",
+        "StatusCode5xx",
+        "StatusCode",
+      )
 
     this.imports.from("koa")
       .add("Context")
@@ -99,14 +105,48 @@ export class ServerBuilder {
       this.statements.push(`const ${ name } = ${ bodyParamSchema }`)
     }
 
+    const statusStringToType = (status: string) => {
+      if (/^\d+$/.test(status)) {
+        return status
+      } else if (/^\d[xX]{2}$/.test(status)) {
+        return `StatusCode${status[0]}xx`
+      }
+      throw new Error(`unexpected status string '${status}'`)
+    }
+
+    const responseSchemas = Object.entries(operation.responses ?? {}).reduce((acc, [status, response]) => {
+      const content = Object.values(response.content ?? {}).pop()
+
+      if(status === "default"){
+        acc.defaultResponse = {
+          schema: content ? schemaBuilder.fromModel(content.schema, true) : schemaBuilder.void(),
+          type: content ? models.schemaObjectToType(content.schema) : "void",
+        }
+      } else {
+        acc.specific.push({
+          statusString: status,
+          statusType: statusStringToType(status),
+          type: content ? models.schemaObjectToType(content.schema) : "void",
+          schema: content ? schemaBuilder.fromModel(content.schema, true) : schemaBuilder.void(),
+        })
+      }
+
+      return acc
+    }, {specific: [], defaultResponse: undefined} as {specific: {statusString: string, statusType: string, schema: string, type: string}[], defaultResponse?: {
+        type: string, schema: string
+      }})
 
     this.operationTypeMap[operation.operationId] = `
         export type ${titleCase(operation.operationId)} = (
             params: Params<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined") }>,
             ctx: Context
-        ) => Promise<{status: number, body: any}>
+        ) => Promise<
+        ${[
+      ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
+      responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
+      ].filter(isDefined).join(" | ")}
+        >
 `
-
     this.statements.push([
       `router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }',`,
       `async (ctx, next) => {
@@ -119,29 +159,9 @@ export class ServerBuilder {
 
         const {status, body} = await implementation.${operation.operationId}(input, ctx)
 
-       ${
-        ifElseIfBuilder(Object.entries(operation.responses ?? []).map(([status, response]) => {
-          const content = Object.values(response.content ?? {}).pop()
-
-          if (/^\d+$/.test(status) && content) {
-            return {
-              condition: `status === ${ status }`,
-              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
-            }
-          } else if (/^\dxx$/.test(status) && content) {
-            return {
-              condition: `status >= ${ status[0] }00 && status < ${ status[0] + 1 }00`,
-              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
-            }
-          } else if (content) {
-            return {
-              condition: undefined,
-              body: `ctx.body = ${ schemaBuilder.fromModel(content.schema, true) }.parse(body)`,
-            }
-          }
-        }))
-      }
-
+        ctx.body = responseValidationFactory([${
+          responseSchemas.specific.map(it => `["${it.statusString}", ${it.schema}]`)}
+        ], ${responseSchemas.defaultResponse?.schema})(status, body)
         ctx.status = status
         return next();
       })`,

@@ -4,14 +4,22 @@
 
 import {
   t_DeleteTodoListByIdParamSchema,
+  t_Error,
   t_GetTodoListByIdParamSchema,
   t_GetTodoListsQuerySchema,
+  t_TodoList,
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
 import KoaRouter from "@koa/router"
 import {
+  Response,
   ServerConfig,
+  StatusCode,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -28,12 +36,16 @@ import { z } from "zod"
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_TodoList[]>>
 
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<200, t_TodoList>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type UpdateTodoListById = (
   params: Params<
@@ -42,12 +54,20 @@ export type UpdateTodoListById = (
     t_UpdateTodoListByIdBodySchema
   >,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<200, t_TodoList>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<204, void>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type Implementation = {
   getTodoLists: GetTodoLists
@@ -77,21 +97,24 @@ export function bootstrap(
 
     const { status, body } = await implementation.getTodoLists(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z
-        .array(
-          z.object({
-            id: z.coerce.string(),
-            name: z.coerce.string(),
-            totalItemCount: z.coerce.number(),
-            incompleteItemCount: z.coerce.number(),
-            created: z.coerce.string().datetime({ offset: true }),
-            updated: z.coerce.string().datetime({ offset: true }),
-          })
-        )
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z.array(
+            z.object({
+              id: z.coerce.string(),
+              name: z.coerce.string(),
+              totalItemCount: z.coerce.number(),
+              incompleteItemCount: z.coerce.number(),
+              created: z.coerce.string().datetime({ offset: true }),
+              updated: z.coerce.string().datetime({ offset: true }),
+            })
+          ),
+        ],
+      ],
+      undefined
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -107,26 +130,29 @@ export function bootstrap(
 
     const { status, body } = await implementation.getTodoListById(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z
-        .object({
-          id: z.coerce.string(),
-          name: z.coerce.string(),
-          totalItemCount: z.coerce.number(),
-          incompleteItemCount: z.coerce.number(),
-          created: z.coerce.string().datetime({ offset: true }),
-          updated: z.coerce.string().datetime({ offset: true }),
-        })
-        .parse(body)
-    } else {
-      ctx.body = z
-        .object({
-          message: z.coerce.string().optional(),
-          code: z.coerce.number().optional(),
-        })
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            id: z.coerce.string(),
+            name: z.coerce.string(),
+            totalItemCount: z.coerce.number(),
+            incompleteItemCount: z.coerce.number(),
+            created: z.coerce.string().datetime({ offset: true }),
+            updated: z.coerce.string().datetime({ offset: true }),
+          }),
+        ],
+        [
+          "4XX",
+          z.object({
+            message: z.coerce.string().optional(),
+            code: z.coerce.number().optional(),
+          }),
+        ],
+      ],
+      z.void()
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -144,26 +170,29 @@ export function bootstrap(
 
     const { status, body } = await implementation.updateTodoListById(input, ctx)
 
-    if (status === 200) {
-      ctx.body = z
-        .object({
-          id: z.coerce.string(),
-          name: z.coerce.string(),
-          totalItemCount: z.coerce.number(),
-          incompleteItemCount: z.coerce.number(),
-          created: z.coerce.string().datetime({ offset: true }),
-          updated: z.coerce.string().datetime({ offset: true }),
-        })
-        .parse(body)
-    } else {
-      ctx.body = z
-        .object({
-          message: z.coerce.string().optional(),
-          code: z.coerce.number().optional(),
-        })
-        .parse(body)
-    }
-
+    ctx.body = responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            id: z.coerce.string(),
+            name: z.coerce.string(),
+            totalItemCount: z.coerce.number(),
+            incompleteItemCount: z.coerce.number(),
+            created: z.coerce.string().datetime({ offset: true }),
+            updated: z.coerce.string().datetime({ offset: true }),
+          }),
+        ],
+        [
+          "4XX",
+          z.object({
+            message: z.coerce.string().optional(),
+            code: z.coerce.number().optional(),
+          }),
+        ],
+      ],
+      z.void()
+    )(status, body)
     ctx.status = status
     return next()
   })
@@ -179,13 +208,19 @@ export function bootstrap(
 
     const { status, body } = await implementation.deleteTodoListById(input, ctx)
 
-    ctx.body = z
-      .object({
-        message: z.coerce.string().optional(),
-        code: z.coerce.number().optional(),
-      })
-      .parse(body)
-
+    ctx.body = responseValidationFactory(
+      [
+        ["204", z.void()],
+        [
+          "4XX",
+          z.object({
+            message: z.coerce.string().optional(),
+            code: z.coerce.number().optional(),
+          }),
+        ],
+      ],
+      z.void()
+    )(status, body)
     ctx.status = status
     return next()
   })

@@ -28,6 +28,15 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       .add("parseRequestInput", "Params")
   }
 
+  public any(): string {
+    // TODO: implement
+    throw new Error("Method not implemented.")
+  }
+  public void(): string {
+    // TODO: implement
+    throw new Error("Method not implemented.")
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected intersect(schemas: string[]): string {
     // TODO: implement
