@@ -8,6 +8,7 @@ import { isDefined, titleCase } from "../../core/utils"
 import { JoiBuilder } from "./schema-builders/joi-schema-builder"
 import { SchemaBuilder } from "./schema-builders/schema-builder"
 import { ZodBuilder } from "./schema-builders/zod-schema-builder"
+import {logger} from "../../core/logger"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
