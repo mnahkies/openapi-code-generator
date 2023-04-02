@@ -7,7 +7,7 @@ export function isRef(it: any | Reference): it is Reference {
   return Reflect.has(it, "$ref")
 }
 
-export function getNameFromRef({ $ref }: Reference): string {
+export function getNameFromRef({ $ref }: Reference, prefix: string): string {
   const name = $ref.split("/").pop()
 
   if (!name) {
@@ -16,5 +16,5 @@ export function getNameFromRef({ $ref }: Reference): string {
 
   // TODO: this is a hack to workaround reserved words being used as names
   //       can likely improve to selectively apply when a reserved word is used.
-  return "t_" + name.replace(/-/g, "_")
+  return prefix + name.replace(/-/g, "_")
 }

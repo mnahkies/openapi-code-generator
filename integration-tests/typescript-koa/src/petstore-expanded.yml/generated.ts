@@ -8,8 +8,10 @@ import {
   t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
+  t_NewPet,
   t_Pet,
 } from "./models"
+import { s_Error, s_NewPet, s_Pet } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
   Response,
@@ -81,29 +83,14 @@ export function bootstrap(
     const { status, body } = await implementation.findPets(input, ctx)
 
     ctx.body = responseValidationFactory(
-      [
-        [
-          "200",
-          z.array(
-            z
-              .object({
-                name: z.coerce.string(),
-                tag: z.coerce.string().optional(),
-              })
-              .merge(z.object({ id: z.coerce.number() }))
-          ),
-        ],
-      ],
-      z.object({ code: z.coerce.number(), message: z.coerce.string() })
+      [["200", z.array(s_NewPet.merge(z.object({ id: z.coerce.number() })))]],
+      s_Error
     )(status, body)
     ctx.status = status
     return next()
   })
 
-  const addPetBodySchema = z.object({
-    name: z.coerce.string(),
-    tag: z.coerce.string().optional(),
-  })
+  const addPetBodySchema = s_NewPet
 
   router.post("addPet", "/pets", async (ctx, next) => {
     const input = {
@@ -114,20 +101,10 @@ export function bootstrap(
 
     const { status, body } = await implementation.addPet(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        [
-          "200",
-          z
-            .object({
-              name: z.coerce.string(),
-              tag: z.coerce.string().optional(),
-            })
-            .merge(z.object({ id: z.coerce.number() })),
-        ],
-      ],
-      z.object({ code: z.coerce.number(), message: z.coerce.string() })
-    )(status, body)
+    ctx.body = responseValidationFactory([["200", s_Pet]], s_Error)(
+      status,
+      body
+    )
     ctx.status = status
     return next()
   })
@@ -143,20 +120,10 @@ export function bootstrap(
 
     const { status, body } = await implementation.findPetById(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        [
-          "200",
-          z
-            .object({
-              name: z.coerce.string(),
-              tag: z.coerce.string().optional(),
-            })
-            .merge(z.object({ id: z.coerce.number() })),
-        ],
-      ],
-      z.object({ code: z.coerce.number(), message: z.coerce.string() })
-    )(status, body)
+    ctx.body = responseValidationFactory([["200", s_Pet]], s_Error)(
+      status,
+      body
+    )
     ctx.status = status
     return next()
   })
@@ -172,10 +139,10 @@ export function bootstrap(
 
     const { status, body } = await implementation.deletePet(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [["204", z.void()]],
-      z.object({ code: z.coerce.number(), message: z.coerce.string() })
-    )(status, body)
+    ctx.body = responseValidationFactory([["204", z.void()]], s_Error)(
+      status,
+      body
+    )
     ctx.status = status
     return next()
   })

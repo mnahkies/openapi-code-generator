@@ -16,12 +16,15 @@ enum JoiFn {
 export class JoiBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly joi = "joi",
+    filename: string,
     input: Input,
+    imports: ImportBuilder,
   ) {
-    super(input)
+    super(filename, input, imports)
   }
 
-  importHelpers(importBuilder: ImportBuilder) {
+
+  protected importHelpers(importBuilder: ImportBuilder) {
     importBuilder.addModule(this.joi, "@hapi/joi")
 
     importBuilder.from("@nahkies/typescript-koa-runtime/joi")

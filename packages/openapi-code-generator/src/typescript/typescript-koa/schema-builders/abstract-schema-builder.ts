@@ -1,14 +1,67 @@
 import {IRModelObject, IRModelString, IRParameter, MaybeIRModel} from "../../../core/openapi-types-normalized"
 import {ImportBuilder} from "../../common/import-builder"
 import {Input} from "../../../core/input"
+import {getNameFromRef, isRef} from "../../../core/openapi-utils"
+import {Reference} from "../../../core/openapi-types"
 
 export abstract class AbstractSchemaBuilder {
 
-  protected constructor(private readonly input: Input) {
+  protected constructor(
+    public readonly filename: string,
+    private readonly input: Input,
+    private readonly imports: ImportBuilder,
+    private readonly referenced = new Set<string>(),
+  ) {
   }
 
+  private add({$ref}: Reference): string {
+    this.referenced.add($ref)
 
-  abstract importHelpers(importBuilder: ImportBuilder): void
+    const name = getNameFromRef({$ref}, "s_")
+
+    if (this.imports) {
+      this.imports.addSingle(name, this.filename)
+    }
+
+    return name
+  }
+
+  toString(): string {
+    const generate = () => Array.from(this.referenced.values())
+      .sort()
+      .map(($ref) => this.generateSchemaFromRef($ref))
+
+    // Super lazy way of discovering sub-references for generation easily...
+    // could obviously be optimized but in most cases is plenty fast enough.
+    let previous = generate()
+    let next = generate()
+
+    while (previous.length != next.length) {
+      previous = next
+      next = generate()
+    }
+
+    const imports = new ImportBuilder()
+    this.importHelpers(imports)
+
+    return `
+
+    ${imports.toString()}
+
+    ${next.join("\n\n")}
+      `
+  }
+
+  private generateSchemaFromRef($ref: string): string {
+    const name = getNameFromRef({ $ref }, "s_")
+    const schemaObject = this.input.schema({ $ref })
+
+    return `
+  export const ${ name } = ${ this.fromModel(schemaObject, true) }
+  `
+  }
+
+  protected abstract importHelpers(importBuilder: ImportBuilder): void
 
   fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {
@@ -33,6 +86,11 @@ export abstract class AbstractSchemaBuilder {
   }
 
   fromModel(maybeModel: MaybeIRModel, required: boolean): string {
+
+    if (isRef(maybeModel)) {
+      return this.add(maybeModel)
+    }
+
     const model = this.input.schema(maybeModel)
 
     switch (model.type) {

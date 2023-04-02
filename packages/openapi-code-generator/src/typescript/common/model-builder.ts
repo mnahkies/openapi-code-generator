@@ -25,7 +25,7 @@ export class ModelBuilder {
   private add({ $ref }: Reference): string {
     this.referenced.add($ref)
 
-    const name = getNameFromRef({ $ref })
+    const name = getNameFromRef({ $ref }, "t_")
 
     if (this.imports) {
       this.imports.addSingle(name, this.filename)
@@ -54,7 +54,7 @@ export class ModelBuilder {
   }
 
   private generateModelFromRef($ref: string): string {
-    const name = getNameFromRef({ $ref })
+    const name = getNameFromRef({ $ref }, "t_")
     const schemaObject = this.input.schema({ $ref })
 
     // Arrays
@@ -145,7 +145,7 @@ export class ModelBuilder {
                 `"${name}"`,
                 isRequired ? "" : "?",
                 ":",
-                getNameFromRef(definition),
+                getNameFromRef(definition, "t_"),
                 ";",
               ].filter(Boolean).join(" ")
             }

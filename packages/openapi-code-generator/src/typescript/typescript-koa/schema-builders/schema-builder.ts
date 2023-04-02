@@ -7,23 +7,15 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 export type SchemaBuilder = AbstractSchemaBuilder
 export type SchemaBuilderType = "zod" | "joi"
 
-function createSchemaBuilder(schemaBuilderType: SchemaBuilderType, input: Input) {
+export function schemaBuilderFactory(schemaBuilderType: SchemaBuilderType, input: Input, importBuilder: ImportBuilder): AbstractSchemaBuilder {
   switch (schemaBuilderType) {
     case "joi": {
-      return new JoiBuilder("joi", input)
+      return new JoiBuilder("joi", "./schemas.ts", input, importBuilder)
     }
     case "zod": {
-      return new ZodBuilder("z", input)
+      return new ZodBuilder("z", "./schemas.ts", input, importBuilder)
     }
     default:
       throw new Error(`schemaBuilderType '${schemaBuilderType}' not recognized`)
   }
-}
-
-export function schemaBuilderFactory(schemaBuilderType: "zod" | "joi", input: Input, importBuilder: ImportBuilder): AbstractSchemaBuilder {
-  const schemaBuilder = createSchemaBuilder(schemaBuilderType, input)
-
-  schemaBuilder.importHelpers(importBuilder)
-
-  return schemaBuilder
 }

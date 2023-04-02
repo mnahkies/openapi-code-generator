@@ -30,10 +30,6 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
 }
 
 export class ServerBuilder {
-  private readonly imports: ImportBuilder
-  private readonly models: ModelBuilder
-  private readonly schemaBuilder: SchemaBuilder
-
   private readonly statements: string[] = []
   private readonly operationTypeMap: Record<string, string> = {}
 
@@ -41,11 +37,11 @@ export class ServerBuilder {
     public readonly filename: string,
     private readonly name: string,
     private readonly input: Input,
-    models: ModelBuilder,
+    private readonly imports: ImportBuilder,
+    public readonly models: ModelBuilder,
+    public readonly schemaBuilder: SchemaBuilder,
     private existingRegions: { [operationId: string]: string },
-    schemaBuilderType: "zod" | "joi" = "zod",
   ) {
-    this.imports = new ImportBuilder()
     // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports.from("@nahkies/typescript-koa-runtime/server")
       .add("startServer", "ServerConfig",
@@ -61,9 +57,6 @@ export class ServerBuilder {
       .add("Context")
 
     this.imports.addModule("KoaRouter", "@koa/router")
-
-    this.schemaBuilder = schemaBuilderFactory(schemaBuilderType, this.input, this.imports)
-    this.models = models.withImports(this.imports)
   }
 
   add(operation: IROperation): void {
@@ -210,8 +203,19 @@ function route(route: string): string {
 }
 
 export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {
-  const models = ModelBuilder.fromInput("./models.ts", input)
-  const server = new ServerBuilder("generated.ts", "ApiClient", input, models, loadExistingImplementations(await loadPreviousResult(dest, { filename: "index.ts" })))
+  const imports = new ImportBuilder()
+  const models = ModelBuilder.fromInput("./models.ts", input).withImports(imports)
+  const schemaBuilder = schemaBuilderFactory("zod", input, imports)
+
+  const server = new ServerBuilder(
+    "generated.ts",
+    "ApiClient",
+    input,
+    imports,
+    models,
+    schemaBuilder,
+    loadExistingImplementations(await loadPreviousResult(dest, { filename: "index.ts" }))
+  )
 
   input.allOperations()
     .map(it => server.add(it))
@@ -219,6 +223,7 @@ export async function generateTypescriptKoa({ dest, input }: { dest: string, inp
   await emitGenerationResult(dest, [
     models,
     server,
+    schemaBuilder,
   ])
 }
 

@@ -9,19 +9,23 @@ import {ImportBuilder} from "../../common/import-builder"
 export class ZodBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly zod = "z",
+    filename: string,
     input: Input,
+    imports: ImportBuilder,
   ) {
-    super(input)
-  }
+    super(filename, input, imports)
 
-  importHelpers(importBuilder: ImportBuilder) {
-    importBuilder.from("zod")
+    imports.from("zod")
       .add(this.zod)
 
-    importBuilder.from("@nahkies/typescript-koa-runtime/zod")
+    imports.from("@nahkies/typescript-koa-runtime/zod")
       .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
+  protected importHelpers(imports: ImportBuilder) {
+    imports.from("zod")
+      .add(this.zod)
+  }
 
   protected intersect(schemas: string[]): string {
     return schemas.filter(isDefined).reduce((acc, it) => {

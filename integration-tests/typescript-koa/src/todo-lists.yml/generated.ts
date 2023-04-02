@@ -11,6 +11,7 @@ import {
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
+import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
   Response,
@@ -132,24 +133,8 @@ export function bootstrap(
 
     ctx.body = responseValidationFactory(
       [
-        [
-          "200",
-          z.object({
-            id: z.coerce.string(),
-            name: z.coerce.string(),
-            totalItemCount: z.coerce.number(),
-            incompleteItemCount: z.coerce.number(),
-            created: z.coerce.string().datetime({ offset: true }),
-            updated: z.coerce.string().datetime({ offset: true }),
-          }),
-        ],
-        [
-          "4XX",
-          z.object({
-            message: z.coerce.string().optional(),
-            code: z.coerce.number().optional(),
-          }),
-        ],
+        ["200", s_TodoList],
+        ["4XX", s_Error],
       ],
       z.void()
     )(status, body)
@@ -159,7 +144,7 @@ export function bootstrap(
 
   const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
-  const updateTodoListByIdBodySchema = z.object({ name: z.coerce.string() })
+  const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -172,24 +157,8 @@ export function bootstrap(
 
     ctx.body = responseValidationFactory(
       [
-        [
-          "200",
-          z.object({
-            id: z.coerce.string(),
-            name: z.coerce.string(),
-            totalItemCount: z.coerce.number(),
-            incompleteItemCount: z.coerce.number(),
-            created: z.coerce.string().datetime({ offset: true }),
-            updated: z.coerce.string().datetime({ offset: true }),
-          }),
-        ],
-        [
-          "4XX",
-          z.object({
-            message: z.coerce.string().optional(),
-            code: z.coerce.number().optional(),
-          }),
-        ],
+        ["200", s_TodoList],
+        ["4XX", s_Error],
       ],
       z.void()
     )(status, body)
@@ -211,13 +180,7 @@ export function bootstrap(
     ctx.body = responseValidationFactory(
       [
         ["204", z.void()],
-        [
-          "4XX",
-          z.object({
-            message: z.coerce.string().optional(),
-            code: z.coerce.number().optional(),
-          }),
-        ],
+        ["4XX", s_Error],
       ],
       z.void()
     )(status, body)
