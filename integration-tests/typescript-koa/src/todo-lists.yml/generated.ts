@@ -14,18 +14,12 @@ import {
   ServerConfig,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { Context, Next } from "koa"
+import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
+import { Context } from "koa"
 import { z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
-
-type Params<Params, Query, Body> = { params: Params; query: Query; body: Body }
-
-interface ValidatedCtx<Params, Query, Body> extends Context {
-  state: { params: Params; query: Query; body: Body }
-}
 
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
@@ -70,103 +64,65 @@ export function bootstrap(
     status: z.enum(["incomplete", "complete"]).optional(),
   })
 
-  router.get(
-    "getTodoLists",
-    "/list",
-    async (
-      ctx: ValidatedCtx<void, t_GetTodoListsQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(getTodoListsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.getTodoLists(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("getTodoLists", "/list", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(getTodoListsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.getTodoLists(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
-  router.get(
-    "getTodoListById",
-    "/list/:listId",
-    async (
-      ctx: ValidatedCtx<t_GetTodoListByIdParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(getTodoListByIdParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.getTodoListById(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(getTodoListByIdParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.getTodoListById(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
   const updateTodoListByIdBodySchema = z.object({ name: z.coerce.string() })
 
-  router.put(
-    "updateTodoListById",
-    "/list/:listId",
-    async (
-      ctx: ValidatedCtx<
-        t_UpdateTodoListByIdParamSchema,
-        void,
-        t_UpdateTodoListByIdBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(updateTodoListByIdParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(updateTodoListByIdBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.updateTodoListById(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(updateTodoListByIdParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(updateTodoListByIdBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.updateTodoListById(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const deleteTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
-  router.delete(
-    "deleteTodoListById",
-    "/list/:listId",
-    async (
-      ctx: ValidatedCtx<t_DeleteTodoListByIdParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(deleteTodoListByIdParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.deleteTodoListById(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(deleteTodoListByIdParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.deleteTodoListById(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   return startServer({
     middleware: [],

@@ -1263,18 +1263,12 @@ import {
   ServerConfig,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { Context, Next } from "koa"
+import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
+import { Context } from "koa"
 import { z } from "zod"
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
-
-type Params<Params, Query, Body> = { params: Params; query: Query; body: Body }
-
-interface ValidatedCtx<Params, Query, Body> extends Context {
-  state: { params: Params; query: Query; body: Body }
-}
 
 export type MetaRoot = (
   params: Params<void, void, void>,
@@ -8406,42 +8400,34 @@ export function bootstrap(
   // ApiClient
   const router = new KoaRouter()
 
-  router.get(
-    "metaRoot",
-    "/",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.metaRoot(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("metaRoot", "/", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
 
-  router.get(
-    "appsGetAuthenticated",
-    "/app",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
+    const { status, body } = await implementation.metaRoot(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
-      const { status, body } = await implementation.appsGetAuthenticated(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("appsGetAuthenticated", "/app", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.appsGetAuthenticated(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const appsCreateFromManifestParamSchema = z.object({
     code: z.coerce.string(),
@@ -8450,10 +8436,7 @@ export function bootstrap(
   router.post(
     "appsCreateFromManifest",
     "/app-manifests/:code/conversions",
-    async (
-      ctx: ValidatedCtx<t_AppsCreateFromManifestParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsCreateFromManifestParamSchema,
@@ -8476,7 +8459,7 @@ export function bootstrap(
   router.get(
     "appsGetWebhookConfigForApp",
     "/app/hook/config",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -8503,10 +8486,7 @@ export function bootstrap(
   router.patch(
     "appsUpdateWebhookConfigForApp",
     "/app/hook/config",
-    async (
-      ctx: ValidatedCtx<void, void, t_AppsUpdateWebhookConfigForAppBodySchema>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -8533,10 +8513,7 @@ export function bootstrap(
   router.get(
     "appsListWebhookDeliveries",
     "/app/hook/deliveries",
-    async (
-      ctx: ValidatedCtx<void, t_AppsListWebhookDeliveriesQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -8563,10 +8540,7 @@ export function bootstrap(
   router.get(
     "appsGetWebhookDelivery",
     "/app/hook/deliveries/:deliveryId",
-    async (
-      ctx: ValidatedCtx<t_AppsGetWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetWebhookDeliveryParamSchema,
@@ -8593,10 +8567,7 @@ export function bootstrap(
   router.post(
     "appsRedeliverWebhookDelivery",
     "/app/hook/deliveries/:deliveryId/attempts",
-    async (
-      ctx: ValidatedCtx<t_AppsRedeliverWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsRedeliverWebhookDeliveryParamSchema,
@@ -8624,10 +8595,7 @@ export function bootstrap(
   router.get(
     "appsListInstallations",
     "/app/installations",
-    async (
-      ctx: ValidatedCtx<void, t_AppsListInstallationsQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(appsListInstallationsQuerySchema, ctx.query),
@@ -8651,10 +8619,7 @@ export function bootstrap(
   router.get(
     "appsGetInstallation",
     "/app/installations/:installationId",
-    async (
-      ctx: ValidatedCtx<t_AppsGetInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(appsGetInstallationParamSchema, ctx.params),
         query: undefined,
@@ -8678,10 +8643,7 @@ export function bootstrap(
   router.delete(
     "appsDeleteInstallation",
     "/app/installations/:installationId",
-    async (
-      ctx: ValidatedCtx<t_AppsDeleteInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsDeleteInstallationParamSchema,
@@ -8756,14 +8718,7 @@ export function bootstrap(
   router.post(
     "appsCreateInstallationAccessToken",
     "/app/installations/:installationId/access_tokens",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsCreateInstallationAccessTokenParamSchema,
-        void,
-        t_AppsCreateInstallationAccessTokenBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsCreateInstallationAccessTokenParamSchema,
@@ -8791,10 +8746,7 @@ export function bootstrap(
   router.put(
     "appsSuspendInstallation",
     "/app/installations/:installationId/suspended",
-    async (
-      ctx: ValidatedCtx<t_AppsSuspendInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsSuspendInstallationParamSchema,
@@ -8821,10 +8773,7 @@ export function bootstrap(
   router.delete(
     "appsUnsuspendInstallation",
     "/app/installations/:installationId/suspended",
-    async (
-      ctx: ValidatedCtx<t_AppsUnsuspendInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsUnsuspendInstallationParamSchema,
@@ -8855,14 +8804,7 @@ export function bootstrap(
   router.delete(
     "appsDeleteAuthorization",
     "/applications/:clientId/grant",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsDeleteAuthorizationParamSchema,
-        void,
-        t_AppsDeleteAuthorizationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsDeleteAuthorizationParamSchema,
@@ -8889,14 +8831,7 @@ export function bootstrap(
   router.post(
     "appsCheckToken",
     "/applications/:clientId/token",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsCheckTokenParamSchema,
-        void,
-        t_AppsCheckTokenBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(appsCheckTokenParamSchema, ctx.params),
         query: undefined,
@@ -8917,14 +8852,7 @@ export function bootstrap(
   router.patch(
     "appsResetToken",
     "/applications/:clientId/token",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsResetTokenParamSchema,
-        void,
-        t_AppsResetTokenBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(appsResetTokenParamSchema, ctx.params),
         query: undefined,
@@ -8947,14 +8875,7 @@ export function bootstrap(
   router.delete(
     "appsDeleteToken",
     "/applications/:clientId/token",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsDeleteTokenParamSchema,
-        void,
-        t_AppsDeleteTokenBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(appsDeleteTokenParamSchema, ctx.params),
         query: undefined,
@@ -9018,14 +8939,7 @@ export function bootstrap(
   router.post(
     "appsScopeToken",
     "/applications/:clientId/token/scoped",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsScopeTokenParamSchema,
-        void,
-        t_AppsScopeTokenBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(appsScopeTokenParamSchema, ctx.params),
         query: undefined,
@@ -9041,30 +8955,23 @@ export function bootstrap(
 
   const appsGetBySlugParamSchema = z.object({ app_slug: z.coerce.string() })
 
-  router.get(
-    "appsGetBySlug",
-    "/apps/:appSlug",
-    async (
-      ctx: ValidatedCtx<t_AppsGetBySlugParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(appsGetBySlugParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.appsGetBySlug(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("appsGetBySlug", "/apps/:appSlug", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(appsGetBySlugParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.appsGetBySlug(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   router.get(
     "codesOfConductGetAllCodesOfConduct",
     "/codes_of_conduct",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -9086,10 +8993,7 @@ export function bootstrap(
   router.get(
     "codesOfConductGetConductCode",
     "/codes_of_conduct/:key",
-    async (
-      ctx: ValidatedCtx<t_CodesOfConductGetConductCodeParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codesOfConductGetConductCodeParamSchema,
@@ -9107,22 +9011,18 @@ export function bootstrap(
     }
   )
 
-  router.get(
-    "emojisGet",
-    "/emojis",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.emojisGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("emojisGet", "/emojis", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.emojisGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema =
     z.object({ enterprise: z.coerce.string(), org_id: z.coerce.number() })
@@ -9130,14 +9030,7 @@ export function bootstrap(
   router.put(
     "enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise",
     "/enterprises/:enterprise/actions/permissions/organizations/:orgId",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
@@ -9171,14 +9064,7 @@ export function bootstrap(
   router.get(
     "enterpriseAdminListSelfHostedRunnerGroupsForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
-        t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
@@ -9219,14 +9105,7 @@ export function bootstrap(
   router.post(
     "enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
-        void,
-        t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
@@ -9259,14 +9138,7 @@ export function bootstrap(
   router.get(
     "enterpriseAdminGetSelfHostedRunnerGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
@@ -9297,14 +9169,7 @@ export function bootstrap(
   router.put(
     "enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/organizations/:orgId",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
@@ -9335,14 +9200,7 @@ export function bootstrap(
   router.delete(
     "enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise",
     "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
@@ -9369,14 +9227,7 @@ export function bootstrap(
   router.delete(
     "enterpriseAdminDeleteSelfHostedRunnerFromEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
@@ -9403,14 +9254,7 @@ export function bootstrap(
   router.get(
     "enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
@@ -9440,14 +9284,7 @@ export function bootstrap(
   router.post(
     "enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise",
     "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
-        void,
-        t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
@@ -9477,14 +9314,7 @@ export function bootstrap(
   router.get(
     "secretScanningGetSecurityAnalysisSettingsForEnterprise",
     "/enterprises/:enterprise/code_security_and_analysis",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
@@ -9526,14 +9356,7 @@ export function bootstrap(
   router.patch(
     "secretScanningPatchSecurityAnalysisSettingsForEnterprise",
     "/enterprises/:enterprise/code_security_and_analysis",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
-        void,
-        t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
@@ -9579,14 +9402,7 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForEnterprise",
     "/enterprises/:enterprise/dependabot/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListAlertsForEnterpriseParamSchema,
-        t_DependabotListAlertsForEnterpriseQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForEnterpriseParamSchema,
@@ -9625,14 +9441,7 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForEnterprise",
     "/enterprises/:enterprise/secret-scanning/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningListAlertsForEnterpriseParamSchema,
-        t_SecretScanningListAlertsForEnterpriseQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForEnterpriseParamSchema,
@@ -9667,14 +9476,7 @@ export function bootstrap(
   router.post(
     "secretScanningPostSecurityProductEnablementForEnterprise",
     "/enterprises/:enterprise/:securityProduct/:enablement",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
@@ -9700,48 +9502,34 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "activityListPublicEvents",
-    "/events",
-    async (
-      ctx: ValidatedCtx<void, t_ActivityListPublicEventsQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          activityListPublicEventsQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.activityListPublicEvents(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("activityListPublicEvents", "/events", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(activityListPublicEventsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
 
-  router.get(
-    "activityGetFeeds",
-    "/feeds",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
+    const { status, body } = await implementation.activityListPublicEvents(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
-      const { status, body } = await implementation.activityGetFeeds(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("activityGetFeeds", "/feeds", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.activityGetFeeds(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsListQuerySchema = z.object({
     since: z.coerce.string().datetime({ offset: true }).optional(),
@@ -9749,25 +9537,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "gistsList",
-    "/gists",
-    async (
-      ctx: ValidatedCtx<void, t_GistsListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(gistsListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsList", "/gists", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(gistsListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsCreateBodySchema = z.object({
     description: z.coerce.string().optional(),
@@ -9775,25 +9556,18 @@ export function bootstrap(
     public: z.union([z.coerce.boolean(), z.enum(["true", "false"])]),
   })
 
-  router.post(
-    "gistsCreate",
-    "/gists",
-    async (
-      ctx: ValidatedCtx<void, void, t_GistsCreateBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(gistsCreateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.gistsCreate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("gistsCreate", "/gists", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(gistsCreateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.gistsCreate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsListPublicQuerySchema = z.object({
     since: z.coerce.string().datetime({ offset: true }).optional(),
@@ -9801,25 +9575,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "gistsListPublic",
-    "/gists/public",
-    async (
-      ctx: ValidatedCtx<void, t_GistsListPublicQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(gistsListPublicQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsListPublic(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsListPublic", "/gists/public", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(gistsListPublicQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsListPublic(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsListStarredQuerySchema = z.object({
     since: z.coerce.string().datetime({ offset: true }).optional(),
@@ -9827,47 +9594,33 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "gistsListStarred",
-    "/gists/starred",
-    async (
-      ctx: ValidatedCtx<void, t_GistsListStarredQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(gistsListStarredQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsListStarred(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsListStarred", "/gists/starred", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(gistsListStarredQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsListStarred(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsGetParamSchema = z.object({ gist_id: z.coerce.string() })
 
-  router.get(
-    "gistsGet",
-    "/gists/:gistId",
-    async (
-      ctx: ValidatedCtx<t_GistsGetParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsGetParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsGet", "/gists/:gistId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsGetParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsUpdateParamSchema = z.object({ gist_id: z.coerce.string() })
 
@@ -9876,51 +9629,33 @@ export function bootstrap(
     files: z.object({}).optional(),
   })
 
-  router.patch(
-    "gistsUpdate",
-    "/gists/:gistId",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsUpdateParamSchema,
-        void,
-        t_GistsUpdateBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsUpdateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(gistsUpdateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.gistsUpdate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("gistsUpdate", "/gists/:gistId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsUpdateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(gistsUpdateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.gistsUpdate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsDeleteParamSchema = z.object({ gist_id: z.coerce.string() })
 
-  router.delete(
-    "gistsDelete",
-    "/gists/:gistId",
-    async (
-      ctx: ValidatedCtx<t_GistsDeleteParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsDeleteParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsDelete(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("gistsDelete", "/gists/:gistId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsDeleteParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsDelete(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsListCommentsParamSchema = z.object({ gist_id: z.coerce.string() })
 
@@ -9932,14 +9667,7 @@ export function bootstrap(
   router.get(
     "gistsListComments",
     "/gists/:gistId/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsListCommentsParamSchema,
-        t_GistsListCommentsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsListCommentsParamSchema, ctx.params),
         query: parseRequestInput(gistsListCommentsQuerySchema, ctx.query),
@@ -9963,14 +9691,7 @@ export function bootstrap(
   router.post(
     "gistsCreateComment",
     "/gists/:gistId/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsCreateCommentParamSchema,
-        void,
-        t_GistsCreateCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsCreateCommentParamSchema, ctx.params),
         query: undefined,
@@ -9995,10 +9716,7 @@ export function bootstrap(
   router.get(
     "gistsGetComment",
     "/gists/:gistId/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_GistsGetCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsGetCommentParamSchema, ctx.params),
         query: undefined,
@@ -10022,14 +9740,7 @@ export function bootstrap(
   router.patch(
     "gistsUpdateComment",
     "/gists/:gistId/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsUpdateCommentParamSchema,
-        void,
-        t_GistsUpdateCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsUpdateCommentParamSchema, ctx.params),
         query: undefined,
@@ -10054,10 +9765,7 @@ export function bootstrap(
   router.delete(
     "gistsDeleteComment",
     "/gists/:gistId/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_GistsDeleteCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsDeleteCommentParamSchema, ctx.params),
         query: undefined,
@@ -10084,14 +9792,7 @@ export function bootstrap(
   router.get(
     "gistsListCommits",
     "/gists/:gistId/commits",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsListCommitsParamSchema,
-        t_GistsListCommitsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsListCommitsParamSchema, ctx.params),
         query: parseRequestInput(gistsListCommitsQuerySchema, ctx.query),
@@ -10112,51 +9813,33 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "gistsListForks",
-    "/gists/:gistId/forks",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsListForksParamSchema,
-        t_GistsListForksQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsListForksParamSchema, ctx.params),
-        query: parseRequestInput(gistsListForksQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsListForks(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsListForks", "/gists/:gistId/forks", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsListForksParamSchema, ctx.params),
+      query: parseRequestInput(gistsListForksQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsListForks(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsForkParamSchema = z.object({ gist_id: z.coerce.string() })
 
-  router.post(
-    "gistsFork",
-    "/gists/:gistId/forks",
-    async (
-      ctx: ValidatedCtx<t_GistsForkParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsForkParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsFork(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("gistsFork", "/gists/:gistId/forks", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsForkParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsFork(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsCheckIsStarredParamSchema = z.object({
     gist_id: z.coerce.string(),
@@ -10165,10 +9848,7 @@ export function bootstrap(
   router.get(
     "gistsCheckIsStarred",
     "/gists/:gistId/star",
-    async (
-      ctx: ValidatedCtx<t_GistsCheckIsStarredParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsCheckIsStarredParamSchema, ctx.params),
         query: undefined,
@@ -10187,77 +9867,56 @@ export function bootstrap(
 
   const gistsStarParamSchema = z.object({ gist_id: z.coerce.string() })
 
-  router.put(
-    "gistsStar",
-    "/gists/:gistId/star",
-    async (
-      ctx: ValidatedCtx<t_GistsStarParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsStarParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsStar(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.put("gistsStar", "/gists/:gistId/star", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsStarParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsStar(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsUnstarParamSchema = z.object({ gist_id: z.coerce.string() })
 
-  router.delete(
-    "gistsUnstar",
-    "/gists/:gistId/star",
-    async (
-      ctx: ValidatedCtx<t_GistsUnstarParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsUnstarParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsUnstar(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("gistsUnstar", "/gists/:gistId/star", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsUnstarParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsUnstar(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const gistsGetRevisionParamSchema = z.object({
     gist_id: z.coerce.string(),
     sha: z.coerce.string(),
   })
 
-  router.get(
-    "gistsGetRevision",
-    "/gists/:gistId/:sha",
-    async (
-      ctx: ValidatedCtx<t_GistsGetRevisionParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(gistsGetRevisionParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.gistsGetRevision(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("gistsGetRevision", "/gists/:gistId/:sha", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(gistsGetRevisionParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.gistsGetRevision(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   router.get(
     "gitignoreGetAllTemplates",
     "/gitignore/templates",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -10279,10 +9938,7 @@ export function bootstrap(
   router.get(
     "gitignoreGetTemplate",
     "/gitignore/templates/:name",
-    async (
-      ctx: ValidatedCtx<t_GitignoreGetTemplateParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitignoreGetTemplateParamSchema, ctx.params),
         query: undefined,
@@ -10307,14 +9963,7 @@ export function bootstrap(
   router.get(
     "appsListReposAccessibleToInstallation",
     "/installation/repositories",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_AppsListReposAccessibleToInstallationQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -10335,7 +9984,7 @@ export function bootstrap(
   router.delete(
     "appsRevokeInstallationAccessToken",
     "/installation/token",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -10367,25 +10016,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "issuesList",
-    "/issues",
-    async (
-      ctx: ValidatedCtx<void, t_IssuesListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(issuesListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.issuesList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("issuesList", "/issues", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(issuesListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.issuesList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const licensesGetAllCommonlyUsedQuerySchema = z.object({
     featured: z.coerce.boolean().optional(),
@@ -10393,53 +10035,39 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "licensesGetAllCommonlyUsed",
-    "/licenses",
-    async (
-      ctx: ValidatedCtx<void, t_LicensesGetAllCommonlyUsedQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          licensesGetAllCommonlyUsedQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.licensesGetAllCommonlyUsed(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("licensesGetAllCommonlyUsed", "/licenses", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        licensesGetAllCommonlyUsedQuerySchema,
+        ctx.query
+      ),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.licensesGetAllCommonlyUsed(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const licensesGetParamSchema = z.object({ license: z.coerce.string() })
 
-  router.get(
-    "licensesGet",
-    "/licenses/:license",
-    async (
-      ctx: ValidatedCtx<t_LicensesGetParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(licensesGetParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.licensesGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("licensesGet", "/licenses/:license", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(licensesGetParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.licensesGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const markdownRenderBodySchema = z.object({
     text: z.coerce.string(),
@@ -10447,50 +10075,33 @@ export function bootstrap(
     context: z.coerce.string().optional(),
   })
 
-  router.post(
-    "markdownRender",
-    "/markdown",
-    async (
-      ctx: ValidatedCtx<void, void, t_MarkdownRenderBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(markdownRenderBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.markdownRender(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("markdownRender", "/markdown", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(markdownRenderBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.markdownRender(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const markdownRenderRawBodySchema = z.coerce.string().optional()
 
-  router.post(
-    "markdownRenderRaw",
-    "/markdown/raw",
-    async (
-      ctx: ValidatedCtx<void, void, t_MarkdownRenderRawBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(markdownRenderRawBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.markdownRenderRaw(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("markdownRenderRaw", "/markdown/raw", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(markdownRenderRawBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.markdownRenderRaw(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const appsGetSubscriptionPlanForAccountParamSchema = z.object({
     account_id: z.coerce.number(),
@@ -10499,14 +10110,7 @@ export function bootstrap(
   router.get(
     "appsGetSubscriptionPlanForAccount",
     "/marketplace_listing/accounts/:accountId",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsGetSubscriptionPlanForAccountParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountParamSchema,
@@ -10532,10 +10136,7 @@ export function bootstrap(
   router.get(
     "appsListPlans",
     "/marketplace_listing/plans",
-    async (
-      ctx: ValidatedCtx<void, t_AppsListPlansQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(appsListPlansQuerySchema, ctx.query),
@@ -10563,14 +10164,7 @@ export function bootstrap(
   router.get(
     "appsListAccountsForPlan",
     "/marketplace_listing/plans/:planId/accounts",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsListAccountsForPlanParamSchema,
-        t_AppsListAccountsForPlanQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsListAccountsForPlanParamSchema,
@@ -10597,14 +10191,7 @@ export function bootstrap(
   router.get(
     "appsGetSubscriptionPlanForAccountStubbed",
     "/marketplace_listing/stubbed/accounts/:accountId",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsGetSubscriptionPlanForAccountStubbedParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetSubscriptionPlanForAccountStubbedParamSchema,
@@ -10633,10 +10220,7 @@ export function bootstrap(
   router.get(
     "appsListPlansStubbed",
     "/marketplace_listing/stubbed/plans",
-    async (
-      ctx: ValidatedCtx<void, t_AppsListPlansStubbedQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(appsListPlansStubbedQuerySchema, ctx.query),
@@ -10667,14 +10251,7 @@ export function bootstrap(
   router.get(
     "appsListAccountsForPlanStubbed",
     "/marketplace_listing/stubbed/plans/:planId/accounts",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsListAccountsForPlanStubbedParamSchema,
-        t_AppsListAccountsForPlanStubbedQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsListAccountsForPlanStubbedParamSchema,
@@ -10695,22 +10272,18 @@ export function bootstrap(
     }
   )
 
-  router.get(
-    "metaGet",
-    "/meta",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.metaGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("metaGet", "/meta", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.metaGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const activityListPublicEventsForRepoNetworkParamSchema = z.object({
     owner: z.coerce.string(),
@@ -10725,14 +10298,7 @@ export function bootstrap(
   router.get(
     "activityListPublicEventsForRepoNetwork",
     "/networks/:owner/:repo/events",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListPublicEventsForRepoNetworkParamSchema,
-        t_ActivityListPublicEventsForRepoNetworkQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListPublicEventsForRepoNetworkParamSchema,
@@ -10765,14 +10331,7 @@ export function bootstrap(
   router.get(
     "activityListNotificationsForAuthenticatedUser",
     "/notifications",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_ActivityListNotificationsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -10803,14 +10362,7 @@ export function bootstrap(
   router.put(
     "activityMarkNotificationsAsRead",
     "/notifications",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_ActivityMarkNotificationsAsReadBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -10835,10 +10387,7 @@ export function bootstrap(
   router.get(
     "activityGetThread",
     "/notifications/threads/:threadId",
-    async (
-      ctx: ValidatedCtx<t_ActivityGetThreadParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(activityGetThreadParamSchema, ctx.params),
         query: undefined,
@@ -10862,10 +10411,7 @@ export function bootstrap(
   router.patch(
     "activityMarkThreadAsRead",
     "/notifications/threads/:threadId",
-    async (
-      ctx: ValidatedCtx<t_ActivityMarkThreadAsReadParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityMarkThreadAsReadParamSchema,
@@ -10892,14 +10438,7 @@ export function bootstrap(
   router.get(
     "activityGetThreadSubscriptionForAuthenticatedUser",
     "/notifications/threads/:threadId/subscription",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityGetThreadSubscriptionForAuthenticatedUserParamSchema,
@@ -10931,14 +10470,7 @@ export function bootstrap(
   router.put(
     "activitySetThreadSubscription",
     "/notifications/threads/:threadId/subscription",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivitySetThreadSubscriptionParamSchema,
-        void,
-        t_ActivitySetThreadSubscriptionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activitySetThreadSubscriptionParamSchema,
@@ -10966,14 +10498,7 @@ export function bootstrap(
   router.delete(
     "activityDeleteThreadSubscription",
     "/notifications/threads/:threadId/subscription",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityDeleteThreadSubscriptionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityDeleteThreadSubscriptionParamSchema,
@@ -10995,69 +10520,51 @@ export function bootstrap(
     s: z.coerce.string().optional(),
   })
 
-  router.get(
-    "metaGetOctocat",
-    "/octocat",
-    async (
-      ctx: ValidatedCtx<void, t_MetaGetOctocatQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(metaGetOctocatQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.metaGetOctocat(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("metaGetOctocat", "/octocat", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(metaGetOctocatQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.metaGetOctocat(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsListQuerySchema = z.object({
     since: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "orgsList",
-    "/organizations",
-    async (
-      ctx: ValidatedCtx<void, t_OrgsListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(orgsListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsList", "/organizations", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(orgsListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsGetParamSchema = z.object({ org: z.coerce.string() })
 
-  router.get(
-    "orgsGet",
-    "/orgs/:org",
-    async (ctx: ValidatedCtx<t_OrgsGetParamSchema, void, void>, next: Next) => {
-      const input = {
-        params: parseRequestInput(orgsGetParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsGet", "/orgs/:org", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsGetParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsUpdateParamSchema = z.object({ org: z.coerce.string() })
 
@@ -11113,25 +10620,18 @@ export function bootstrap(
     })
     .optional()
 
-  router.patch(
-    "orgsUpdate",
-    "/orgs/:org",
-    async (
-      ctx: ValidatedCtx<t_OrgsUpdateParamSchema, void, t_OrgsUpdateBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsUpdateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(orgsUpdateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.orgsUpdate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("orgsUpdate", "/orgs/:org", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsUpdateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(orgsUpdateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.orgsUpdate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const actionsGetActionsCacheUsageForOrgParamSchema = z.object({
     org: z.coerce.string(),
@@ -11140,14 +10640,7 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsageForOrg",
     "/orgs/:org/actions/cache/usage",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetActionsCacheUsageForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageForOrgParamSchema,
@@ -11177,14 +10670,7 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsageByRepoForOrg",
     "/orgs/:org/actions/cache/usage-by-repository",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
-        t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageByRepoForOrgParamSchema,
@@ -11212,14 +10698,7 @@ export function bootstrap(
   router.get(
     "oidcGetOidcCustomSubTemplateForOrg",
     "/orgs/:org/actions/oidc/customization/sub",
-    async (
-      ctx: ValidatedCtx<
-        t_OidcGetOidcCustomSubTemplateForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           oidcGetOidcCustomSubTemplateForOrgParamSchema,
@@ -11248,14 +10727,7 @@ export function bootstrap(
   router.put(
     "oidcUpdateOidcCustomSubTemplateForOrg",
     "/orgs/:org/actions/oidc/customization/sub",
-    async (
-      ctx: ValidatedCtx<
-        t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema,
-        void,
-        t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgParamSchema,
@@ -11283,14 +10755,7 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsPermissionsOrganization",
     "/orgs/:org/actions/permissions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetGithubActionsPermissionsOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsOrganizationParamSchema,
@@ -11323,14 +10788,7 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsPermissionsOrganization",
     "/orgs/:org/actions/permissions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
-        void,
-        t_ActionsSetGithubActionsPermissionsOrganizationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationParamSchema,
@@ -11366,14 +10824,7 @@ export function bootstrap(
   router.get(
     "actionsListSelectedRepositoriesEnabledGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-        t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
@@ -11406,14 +10857,7 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedRepositoriesEnabledGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-        void,
-        t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
@@ -11443,14 +10887,7 @@ export function bootstrap(
   router.put(
     "actionsEnableSelectedRepositoryGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -11477,14 +10914,7 @@ export function bootstrap(
   router.delete(
     "actionsDisableSelectedRepositoryGithubActionsOrganization",
     "/orgs/:org/actions/permissions/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -11512,14 +10942,7 @@ export function bootstrap(
   router.get(
     "actionsGetAllowedActionsOrganization",
     "/orgs/:org/actions/permissions/selected-actions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetAllowedActionsOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetAllowedActionsOrganizationParamSchema,
@@ -11552,14 +10975,7 @@ export function bootstrap(
   router.put(
     "actionsSetAllowedActionsOrganization",
     "/orgs/:org/actions/permissions/selected-actions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetAllowedActionsOrganizationParamSchema,
-        void,
-        t_ActionsSetAllowedActionsOrganizationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetAllowedActionsOrganizationParamSchema,
@@ -11586,14 +11002,7 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsDefaultWorkflowPermissionsOrganization",
     "/orgs/:org/actions/permissions/workflow",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
@@ -11628,14 +11037,7 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization",
     "/orgs/:org/actions/permissions/workflow",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
-        void,
-        t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema,
@@ -11671,14 +11073,7 @@ export function bootstrap(
   router.get(
     "actionsListRequiredWorkflows",
     "/orgs/:org/actions/required_workflows",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRequiredWorkflowsParamSchema,
-        t_ActionsListRequiredWorkflowsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRequiredWorkflowsParamSchema,
@@ -11713,14 +11108,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRequiredWorkflow",
     "/orgs/:org/actions/required_workflows",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRequiredWorkflowParamSchema,
-        void,
-        t_ActionsCreateRequiredWorkflowBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRequiredWorkflowParamSchema,
@@ -11749,10 +11137,7 @@ export function bootstrap(
   router.get(
     "actionsGetRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetRequiredWorkflowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetRequiredWorkflowParamSchema,
@@ -11787,14 +11172,7 @@ export function bootstrap(
   router.patch(
     "actionsUpdateRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsUpdateRequiredWorkflowParamSchema,
-        void,
-        t_ActionsUpdateRequiredWorkflowBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsUpdateRequiredWorkflowParamSchema,
@@ -11823,10 +11201,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteRequiredWorkflowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteRequiredWorkflowParamSchema,
@@ -11852,14 +11227,7 @@ export function bootstrap(
   router.get(
     "actionsListSelectedRepositoriesRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelectedRepositoriesRequiredWorkflowParamSchema,
@@ -11892,14 +11260,7 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposToRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetSelectedReposToRequiredWorkflowParamSchema,
-        void,
-        t_ActionsSetSelectedReposToRequiredWorkflowBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposToRequiredWorkflowParamSchema,
@@ -11932,14 +11293,7 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToRequiredWorkflowParamSchema,
@@ -11969,14 +11323,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromRequiredWorkflow",
     "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
@@ -12010,14 +11357,7 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnerGroupsForOrg",
     "/orgs/:org/actions/runner-groups",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
-        t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnerGroupsForOrgParamSchema,
@@ -12055,14 +11395,7 @@ export function bootstrap(
   router.post(
     "actionsCreateSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
-        void,
-        t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateSelfHostedRunnerGroupForOrgParamSchema,
@@ -12094,14 +11427,7 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerGroupForOrgParamSchema,
@@ -12135,14 +11461,7 @@ export function bootstrap(
   router.patch(
     "actionsUpdateSelfHostedRunnerGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
-        void,
-        t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
@@ -12174,14 +11493,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerGroupFromOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
@@ -12216,14 +11528,7 @@ export function bootstrap(
   router.get(
     "actionsListRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-        t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -12259,14 +11564,7 @@ export function bootstrap(
   router.put(
     "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-        void,
-        t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -12300,14 +11598,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
@@ -12341,14 +11632,7 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersInGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
-        t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnersInGroupForOrgParamSchema,
@@ -12384,14 +11668,7 @@ export function bootstrap(
   router.put(
     "actionsSetSelfHostedRunnersInGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
-        void,
-        t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetSelfHostedRunnersInGroupForOrgParamSchema,
@@ -12424,14 +11701,7 @@ export function bootstrap(
   router.put(
     "actionsAddSelfHostedRunnerToGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddSelfHostedRunnerToGroupForOrgParamSchema,
@@ -12458,14 +11728,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelfHostedRunnerFromGroupForOrg",
     "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
@@ -12498,14 +11761,7 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersForOrg",
     "/orgs/:org/actions/runners",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelfHostedRunnersForOrgParamSchema,
-        t_ActionsListSelfHostedRunnersForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForOrgParamSchema,
@@ -12533,14 +11789,7 @@ export function bootstrap(
   router.get(
     "actionsListRunnerApplicationsForOrg",
     "/orgs/:org/actions/runners/downloads",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRunnerApplicationsForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRunnerApplicationsForOrgParamSchema,
@@ -12565,14 +11814,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRegistrationTokenForOrg",
     "/orgs/:org/actions/runners/registration-token",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRegistrationTokenForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForOrgParamSchema,
@@ -12597,14 +11839,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRemoveTokenForOrg",
     "/orgs/:org/actions/runners/remove-token",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRemoveTokenForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRemoveTokenForOrgParamSchema,
@@ -12630,14 +11865,7 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetSelfHostedRunnerForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForOrgParamSchema,
@@ -12663,14 +11891,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerFromOrg",
     "/orgs/:org/actions/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromOrgParamSchema,
@@ -12696,14 +11917,7 @@ export function bootstrap(
   router.get(
     "actionsListLabelsForSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListLabelsForSelfHostedRunnerForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForOrgParamSchema,
@@ -12736,14 +11950,7 @@ export function bootstrap(
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
-        void,
-        t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
@@ -12779,14 +11986,7 @@ export function bootstrap(
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
-        void,
-        t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema,
@@ -12816,14 +12016,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema,
@@ -12854,14 +12047,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForOrg",
     "/orgs/:org/actions/runners/:runnerId/labels/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
@@ -12892,14 +12078,7 @@ export function bootstrap(
   router.get(
     "actionsListOrgSecrets",
     "/orgs/:org/actions/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListOrgSecretsParamSchema,
-        t_ActionsListOrgSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsListOrgSecretsParamSchema, ctx.params),
         query: parseRequestInput(actionsListOrgSecretsQuerySchema, ctx.query),
@@ -12921,10 +12100,7 @@ export function bootstrap(
   router.get(
     "actionsGetOrgPublicKey",
     "/orgs/:org/actions/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetOrgPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetOrgPublicKeyParamSchema,
@@ -12952,10 +12128,7 @@ export function bootstrap(
   router.get(
     "actionsGetOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetOrgSecretParamSchema, ctx.params),
         query: undefined,
@@ -12987,14 +12160,7 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateOrUpdateOrgSecretParamSchema,
-        void,
-        t_ActionsCreateOrUpdateOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateOrgSecretParamSchema,
@@ -13023,10 +12189,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteOrgSecret",
     "/orgs/:org/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteOrgSecretParamSchema,
@@ -13059,14 +12222,7 @@ export function bootstrap(
   router.get(
     "actionsListSelectedReposForOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelectedReposForOrgSecretParamSchema,
-        t_ActionsListSelectedReposForOrgSecretQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelectedReposForOrgSecretParamSchema,
@@ -13099,14 +12255,7 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposForOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetSelectedReposForOrgSecretParamSchema,
-        void,
-        t_ActionsSetSelectedReposForOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgSecretParamSchema,
@@ -13136,14 +12285,7 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddSelectedRepoToOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgSecretParamSchema,
@@ -13170,14 +12312,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/actions/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -13207,14 +12342,7 @@ export function bootstrap(
   router.get(
     "actionsListOrgVariables",
     "/orgs/:org/actions/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListOrgVariablesParamSchema,
-        t_ActionsListOrgVariablesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListOrgVariablesParamSchema,
@@ -13248,14 +12376,7 @@ export function bootstrap(
   router.post(
     "actionsCreateOrgVariable",
     "/orgs/:org/actions/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateOrgVariableParamSchema,
-        void,
-        t_ActionsCreateOrgVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateOrgVariableParamSchema,
@@ -13283,10 +12404,7 @@ export function bootstrap(
   router.get(
     "actionsGetOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetOrgVariableParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetOrgVariableParamSchema, ctx.params),
         query: undefined,
@@ -13318,14 +12436,7 @@ export function bootstrap(
   router.patch(
     "actionsUpdateOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsUpdateOrgVariableParamSchema,
-        void,
-        t_ActionsUpdateOrgVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsUpdateOrgVariableParamSchema,
@@ -13353,10 +12464,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteOrgVariable",
     "/orgs/:org/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteOrgVariableParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteOrgVariableParamSchema,
@@ -13389,14 +12497,7 @@ export function bootstrap(
   router.get(
     "actionsListSelectedReposForOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelectedReposForOrgVariableParamSchema,
-        t_ActionsListSelectedReposForOrgVariableQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelectedReposForOrgVariableParamSchema,
@@ -13429,14 +12530,7 @@ export function bootstrap(
   router.put(
     "actionsSetSelectedReposForOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetSelectedReposForOrgVariableParamSchema,
-        void,
-        t_ActionsSetSelectedReposForOrgVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetSelectedReposForOrgVariableParamSchema,
@@ -13466,14 +12560,7 @@ export function bootstrap(
   router.put(
     "actionsAddSelectedRepoToOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddSelectedRepoToOrgVariableParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddSelectedRepoToOrgVariableParamSchema,
@@ -13500,14 +12587,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveSelectedRepoFromOrgVariable",
     "/orgs/:org/actions/variables/:name/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveSelectedRepoFromOrgVariableParamSchema,
@@ -13535,32 +12615,21 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "orgsListBlockedUsers",
-    "/orgs/:org/blocks",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListBlockedUsersParamSchema,
-        t_OrgsListBlockedUsersQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsListBlockedUsersParamSchema, ctx.params),
-        query: parseRequestInput(orgsListBlockedUsersQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListBlockedUsers(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsListBlockedUsers", "/orgs/:org/blocks", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsListBlockedUsersParamSchema, ctx.params),
+      query: parseRequestInput(orgsListBlockedUsersQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsListBlockedUsers(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsCheckBlockedUserParamSchema = z.object({
     org: z.coerce.string(),
@@ -13570,10 +12639,7 @@ export function bootstrap(
   router.get(
     "orgsCheckBlockedUser",
     "/orgs/:org/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsCheckBlockedUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsCheckBlockedUserParamSchema, ctx.params),
         query: undefined,
@@ -13598,10 +12664,7 @@ export function bootstrap(
   router.put(
     "orgsBlockUser",
     "/orgs/:org/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsBlockUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsBlockUserParamSchema, ctx.params),
         query: undefined,
@@ -13623,10 +12686,7 @@ export function bootstrap(
   router.delete(
     "orgsUnblockUser",
     "/orgs/:org/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsUnblockUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsUnblockUserParamSchema, ctx.params),
         query: undefined,
@@ -13662,14 +12722,7 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertsForOrg",
     "/orgs/:org/code-scanning/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningListAlertsForOrgParamSchema,
-        t_CodeScanningListAlertsForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningListAlertsForOrgParamSchema,
@@ -13702,14 +12755,7 @@ export function bootstrap(
   router.get(
     "codespacesListInOrganization",
     "/orgs/:org/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListInOrganizationParamSchema,
-        t_CodespacesListInOrganizationQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListInOrganizationParamSchema,
@@ -13747,14 +12793,7 @@ export function bootstrap(
   router.put(
     "codespacesSetCodespacesBilling",
     "/orgs/:org/codespaces/billing",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesSetCodespacesBillingParamSchema,
-        void,
-        t_CodespacesSetCodespacesBillingBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesSetCodespacesBillingParamSchema,
@@ -13787,14 +12826,7 @@ export function bootstrap(
   router.get(
     "codespacesListOrgSecrets",
     "/orgs/:org/codespaces/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListOrgSecretsParamSchema,
-        t_CodespacesListOrgSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListOrgSecretsParamSchema,
@@ -13824,10 +12856,7 @@ export function bootstrap(
   router.get(
     "codespacesGetOrgPublicKey",
     "/orgs/:org/codespaces/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_CodespacesGetOrgPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetOrgPublicKeyParamSchema,
@@ -13855,10 +12884,7 @@ export function bootstrap(
   router.get(
     "codespacesGetOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_CodespacesGetOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetOrgSecretParamSchema,
@@ -13893,14 +12919,7 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCreateOrUpdateOrgSecretParamSchema,
-        void,
-        t_CodespacesCreateOrUpdateOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretParamSchema,
@@ -13929,10 +12948,7 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_CodespacesDeleteOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesDeleteOrgSecretParamSchema,
@@ -13965,14 +12981,7 @@ export function bootstrap(
   router.get(
     "codespacesListSelectedReposForOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListSelectedReposForOrgSecretParamSchema,
-        t_CodespacesListSelectedReposForOrgSecretQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListSelectedReposForOrgSecretParamSchema,
@@ -14005,14 +13014,7 @@ export function bootstrap(
   router.put(
     "codespacesSetSelectedReposForOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesSetSelectedReposForOrgSecretParamSchema,
-        void,
-        t_CodespacesSetSelectedReposForOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretParamSchema,
@@ -14042,14 +13044,7 @@ export function bootstrap(
   router.put(
     "codespacesAddSelectedRepoToOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesAddSelectedRepoToOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesAddSelectedRepoToOrgSecretParamSchema,
@@ -14076,14 +13071,7 @@ export function bootstrap(
   router.delete(
     "codespacesRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/codespaces/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -14126,14 +13114,7 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForOrg",
     "/orgs/:org/dependabot/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListAlertsForOrgParamSchema,
-        t_DependabotListAlertsForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForOrgParamSchema,
@@ -14168,14 +13149,7 @@ export function bootstrap(
   router.get(
     "dependabotListOrgSecrets",
     "/orgs/:org/dependabot/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListOrgSecretsParamSchema,
-        t_DependabotListOrgSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListOrgSecretsParamSchema,
@@ -14205,10 +13179,7 @@ export function bootstrap(
   router.get(
     "dependabotGetOrgPublicKey",
     "/orgs/:org/dependabot/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_DependabotGetOrgPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotGetOrgPublicKeyParamSchema,
@@ -14236,10 +13207,7 @@ export function bootstrap(
   router.get(
     "dependabotGetOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_DependabotGetOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotGetOrgSecretParamSchema,
@@ -14274,14 +13242,7 @@ export function bootstrap(
   router.put(
     "dependabotCreateOrUpdateOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotCreateOrUpdateOrgSecretParamSchema,
-        void,
-        t_DependabotCreateOrUpdateOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretParamSchema,
@@ -14310,10 +13271,7 @@ export function bootstrap(
   router.delete(
     "dependabotDeleteOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_DependabotDeleteOrgSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotDeleteOrgSecretParamSchema,
@@ -14346,14 +13304,7 @@ export function bootstrap(
   router.get(
     "dependabotListSelectedReposForOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListSelectedReposForOrgSecretParamSchema,
-        t_DependabotListSelectedReposForOrgSecretQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListSelectedReposForOrgSecretParamSchema,
@@ -14386,14 +13337,7 @@ export function bootstrap(
   router.put(
     "dependabotSetSelectedReposForOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotSetSelectedReposForOrgSecretParamSchema,
-        void,
-        t_DependabotSetSelectedReposForOrgSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretParamSchema,
@@ -14423,14 +13367,7 @@ export function bootstrap(
   router.put(
     "dependabotAddSelectedRepoToOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotAddSelectedRepoToOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotAddSelectedRepoToOrgSecretParamSchema,
@@ -14457,14 +13394,7 @@ export function bootstrap(
   router.delete(
     "dependabotRemoveSelectedRepoFromOrgSecret",
     "/orgs/:org/dependabot/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotRemoveSelectedRepoFromOrgSecretParamSchema,
@@ -14497,14 +13427,7 @@ export function bootstrap(
   router.get(
     "activityListPublicOrgEvents",
     "/orgs/:org/events",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListPublicOrgEventsParamSchema,
-        t_ActivityListPublicOrgEventsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListPublicOrgEventsParamSchema,
@@ -14539,14 +13462,7 @@ export function bootstrap(
   router.get(
     "orgsListFailedInvitations",
     "/orgs/:org/failed_invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListFailedInvitationsParamSchema,
-        t_OrgsListFailedInvitationsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListFailedInvitationsParamSchema,
@@ -14576,29 +13492,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "orgsListWebhooks",
-    "/orgs/:org/hooks",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListWebhooksParamSchema,
-        t_OrgsListWebhooksQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsListWebhooksParamSchema, ctx.params),
-        query: parseRequestInput(orgsListWebhooksQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListWebhooks(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsListWebhooks", "/orgs/:org/hooks", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsListWebhooksParamSchema, ctx.params),
+      query: parseRequestInput(orgsListWebhooksQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsListWebhooks(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsCreateWebhookParamSchema = z.object({ org: z.coerce.string() })
 
@@ -14616,32 +13521,18 @@ export function bootstrap(
     active: z.coerce.boolean().optional(),
   })
 
-  router.post(
-    "orgsCreateWebhook",
-    "/orgs/:org/hooks",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsCreateWebhookParamSchema,
-        void,
-        t_OrgsCreateWebhookBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsCreateWebhookParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.orgsCreateWebhook(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("orgsCreateWebhook", "/orgs/:org/hooks", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsCreateWebhookParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.orgsCreateWebhook(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsGetWebhookParamSchema = z.object({
     org: z.coerce.string(),
@@ -14651,10 +13542,7 @@ export function bootstrap(
   router.get(
     "orgsGetWebhook",
     "/orgs/:org/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<t_OrgsGetWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsGetWebhookParamSchema, ctx.params),
         query: undefined,
@@ -14692,14 +13580,7 @@ export function bootstrap(
   router.patch(
     "orgsUpdateWebhook",
     "/orgs/:org/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsUpdateWebhookParamSchema,
-        void,
-        t_OrgsUpdateWebhookBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsUpdateWebhookParamSchema, ctx.params),
         query: undefined,
@@ -14724,10 +13605,7 @@ export function bootstrap(
   router.delete(
     "orgsDeleteWebhook",
     "/orgs/:org/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<t_OrgsDeleteWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsDeleteWebhookParamSchema, ctx.params),
         query: undefined,
@@ -14752,10 +13630,7 @@ export function bootstrap(
   router.get(
     "orgsGetWebhookConfigForOrg",
     "/orgs/:org/hooks/:hookId/config",
-    async (
-      ctx: ValidatedCtx<t_OrgsGetWebhookConfigForOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsGetWebhookConfigForOrgParamSchema,
@@ -14792,14 +13667,7 @@ export function bootstrap(
   router.patch(
     "orgsUpdateWebhookConfigForOrg",
     "/orgs/:org/hooks/:hookId/config",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsUpdateWebhookConfigForOrgParamSchema,
-        void,
-        t_OrgsUpdateWebhookConfigForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsUpdateWebhookConfigForOrgParamSchema,
@@ -14834,14 +13702,7 @@ export function bootstrap(
   router.get(
     "orgsListWebhookDeliveries",
     "/orgs/:org/hooks/:hookId/deliveries",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListWebhookDeliveriesParamSchema,
-        t_OrgsListWebhookDeliveriesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListWebhookDeliveriesParamSchema,
@@ -14873,10 +13734,7 @@ export function bootstrap(
   router.get(
     "orgsGetWebhookDelivery",
     "/orgs/:org/hooks/:hookId/deliveries/:deliveryId",
-    async (
-      ctx: ValidatedCtx<t_OrgsGetWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsGetWebhookDeliveryParamSchema,
@@ -14905,10 +13763,7 @@ export function bootstrap(
   router.post(
     "orgsRedeliverWebhookDelivery",
     "/orgs/:org/hooks/:hookId/deliveries/:deliveryId/attempts",
-    async (
-      ctx: ValidatedCtx<t_OrgsRedeliverWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsRedeliverWebhookDeliveryParamSchema,
@@ -14934,10 +13789,7 @@ export function bootstrap(
   router.post(
     "orgsPingWebhook",
     "/orgs/:org/hooks/:hookId/pings",
-    async (
-      ctx: ValidatedCtx<t_OrgsPingWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsPingWebhookParamSchema, ctx.params),
         query: undefined,
@@ -14956,10 +13808,7 @@ export function bootstrap(
   router.get(
     "appsGetOrgInstallation",
     "/orgs/:org/installation",
-    async (
-      ctx: ValidatedCtx<t_AppsGetOrgInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetOrgInstallationParamSchema,
@@ -14991,14 +13840,7 @@ export function bootstrap(
   router.get(
     "orgsListAppInstallations",
     "/orgs/:org/installations",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListAppInstallationsParamSchema,
-        t_OrgsListAppInstallationsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListAppInstallationsParamSchema,
@@ -15028,14 +13870,7 @@ export function bootstrap(
   router.get(
     "interactionsGetRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsGetRestrictionsForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsGetRestrictionsForOrgParamSchema,
@@ -15071,14 +13906,7 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsSetRestrictionsForOrgParamSchema,
-        void,
-        t_InteractionsSetRestrictionsForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsSetRestrictionsForOrgParamSchema,
@@ -15106,14 +13934,7 @@ export function bootstrap(
   router.delete(
     "interactionsRemoveRestrictionsForOrg",
     "/orgs/:org/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsRemoveRestrictionsForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForOrgParamSchema,
@@ -15143,14 +13964,7 @@ export function bootstrap(
   router.get(
     "orgsListPendingInvitations",
     "/orgs/:org/invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListPendingInvitationsParamSchema,
-        t_OrgsListPendingInvitationsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListPendingInvitationsParamSchema,
@@ -15187,14 +14001,7 @@ export function bootstrap(
   router.post(
     "orgsCreateInvitation",
     "/orgs/:org/invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsCreateInvitationParamSchema,
-        void,
-        t_OrgsCreateInvitationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsCreateInvitationParamSchema, ctx.params),
         query: undefined,
@@ -15219,10 +14026,7 @@ export function bootstrap(
   router.delete(
     "orgsCancelInvitation",
     "/orgs/:org/invitations/:invitationId",
-    async (
-      ctx: ValidatedCtx<t_OrgsCancelInvitationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsCancelInvitationParamSchema, ctx.params),
         query: undefined,
@@ -15252,14 +14056,7 @@ export function bootstrap(
   router.get(
     "orgsListInvitationTeams",
     "/orgs/:org/invitations/:invitationId/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListInvitationTeamsParamSchema,
-        t_OrgsListInvitationTeamsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListInvitationTeamsParamSchema,
@@ -15294,29 +14091,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "issuesListForOrg",
-    "/orgs/:org/issues",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListForOrgParamSchema,
-        t_IssuesListForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(issuesListForOrgParamSchema, ctx.params),
-        query: parseRequestInput(issuesListForOrgQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.issuesListForOrg(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("issuesListForOrg", "/orgs/:org/issues", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(issuesListForOrgParamSchema, ctx.params),
+      query: parseRequestInput(issuesListForOrgQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.issuesListForOrg(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsListMembersParamSchema = z.object({ org: z.coerce.string() })
 
@@ -15327,29 +14113,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "orgsListMembers",
-    "/orgs/:org/members",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListMembersParamSchema,
-        t_OrgsListMembersQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsListMembersParamSchema, ctx.params),
-        query: parseRequestInput(orgsListMembersQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListMembers(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsListMembers", "/orgs/:org/members", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsListMembersParamSchema, ctx.params),
+      query: parseRequestInput(orgsListMembersQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsListMembers(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const orgsCheckMembershipForUserParamSchema = z.object({
     org: z.coerce.string(),
@@ -15359,10 +14134,7 @@ export function bootstrap(
   router.get(
     "orgsCheckMembershipForUser",
     "/orgs/:org/members/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsCheckMembershipForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsCheckMembershipForUserParamSchema,
@@ -15390,10 +14162,7 @@ export function bootstrap(
   router.delete(
     "orgsRemoveMember",
     "/orgs/:org/members/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsRemoveMemberParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsRemoveMemberParamSchema, ctx.params),
         query: undefined,
@@ -15420,14 +14189,7 @@ export function bootstrap(
   router.get(
     "codespacesGetCodespacesForUserInOrg",
     "/orgs/:org/members/:username/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesGetCodespacesForUserInOrgParamSchema,
-        t_CodespacesGetCodespacesForUserInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetCodespacesForUserInOrgParamSchema,
@@ -15457,14 +14219,7 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteFromOrganization",
     "/orgs/:org/members/:username/codespaces/:codespaceName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesDeleteFromOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesDeleteFromOrganizationParamSchema,
@@ -15491,10 +14246,7 @@ export function bootstrap(
   router.post(
     "codespacesStopInOrganization",
     "/orgs/:org/members/:username/codespaces/:codespaceName/stop",
-    async (
-      ctx: ValidatedCtx<t_CodespacesStopInOrganizationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesStopInOrganizationParamSchema,
@@ -15520,10 +14272,7 @@ export function bootstrap(
   router.get(
     "orgsGetMembershipForUser",
     "/orgs/:org/memberships/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsGetMembershipForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsGetMembershipForUserParamSchema,
@@ -15555,14 +14304,7 @@ export function bootstrap(
   router.put(
     "orgsSetMembershipForUser",
     "/orgs/:org/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsSetMembershipForUserParamSchema,
-        void,
-        t_OrgsSetMembershipForUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsSetMembershipForUserParamSchema,
@@ -15590,10 +14332,7 @@ export function bootstrap(
   router.delete(
     "orgsRemoveMembershipForUser",
     "/orgs/:org/memberships/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsRemoveMembershipForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsRemoveMembershipForUserParamSchema,
@@ -15624,14 +14363,7 @@ export function bootstrap(
   router.get(
     "migrationsListForOrg",
     "/orgs/:org/migrations",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsListForOrgParamSchema,
-        t_MigrationsListForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(migrationsListForOrgParamSchema, ctx.params),
         query: parseRequestInput(migrationsListForOrgQuerySchema, ctx.query),
@@ -15665,14 +14397,7 @@ export function bootstrap(
   router.post(
     "migrationsStartForOrg",
     "/orgs/:org/migrations",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsStartForOrgParamSchema,
-        void,
-        t_MigrationsStartForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(migrationsStartForOrgParamSchema, ctx.params),
         query: undefined,
@@ -15701,14 +14426,7 @@ export function bootstrap(
   router.get(
     "migrationsGetStatusForOrg",
     "/orgs/:org/migrations/:migrationId",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsGetStatusForOrgParamSchema,
-        t_MigrationsGetStatusForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetStatusForOrgParamSchema,
@@ -15739,14 +14457,7 @@ export function bootstrap(
   router.get(
     "migrationsDownloadArchiveForOrg",
     "/orgs/:org/migrations/:migrationId/archive",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsDownloadArchiveForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsDownloadArchiveForOrgParamSchema,
@@ -15772,10 +14483,7 @@ export function bootstrap(
   router.delete(
     "migrationsDeleteArchiveForOrg",
     "/orgs/:org/migrations/:migrationId/archive",
-    async (
-      ctx: ValidatedCtx<t_MigrationsDeleteArchiveForOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsDeleteArchiveForOrgParamSchema,
@@ -15802,10 +14510,7 @@ export function bootstrap(
   router.delete(
     "migrationsUnlockRepoForOrg",
     "/orgs/:org/migrations/:migrationId/repos/:repoName/lock",
-    async (
-      ctx: ValidatedCtx<t_MigrationsUnlockRepoForOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsUnlockRepoForOrgParamSchema,
@@ -15838,14 +14543,7 @@ export function bootstrap(
   router.get(
     "migrationsListReposForOrg",
     "/orgs/:org/migrations/:migrationId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsListReposForOrgParamSchema,
-        t_MigrationsListReposForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsListReposForOrgParamSchema,
@@ -15881,14 +14579,7 @@ export function bootstrap(
   router.get(
     "orgsListOutsideCollaborators",
     "/orgs/:org/outside_collaborators",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListOutsideCollaboratorsParamSchema,
-        t_OrgsListOutsideCollaboratorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListOutsideCollaboratorsParamSchema,
@@ -15921,14 +14612,7 @@ export function bootstrap(
   router.put(
     "orgsConvertMemberToOutsideCollaborator",
     "/orgs/:org/outside_collaborators/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsConvertMemberToOutsideCollaboratorParamSchema,
-        void,
-        t_OrgsConvertMemberToOutsideCollaboratorBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorParamSchema,
@@ -15957,10 +14641,7 @@ export function bootstrap(
   router.delete(
     "orgsRemoveOutsideCollaborator",
     "/orgs/:org/outside_collaborators/:username",
-    async (
-      ctx: ValidatedCtx<t_OrgsRemoveOutsideCollaboratorParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsRemoveOutsideCollaboratorParamSchema,
@@ -15997,14 +14678,7 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForOrganization",
     "/orgs/:org/packages",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesListPackagesForOrganizationParamSchema,
-        t_PackagesListPackagesForOrganizationQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesListPackagesForOrganizationParamSchema,
@@ -16041,14 +14715,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForOrganization",
     "/orgs/:org/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetPackageForOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageForOrganizationParamSchema,
@@ -16082,10 +14749,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForOrg",
     "/orgs/:org/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<t_PackagesDeletePackageForOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForOrgParamSchema,
@@ -16125,14 +14789,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForOrg",
     "/orgs/:org/packages/:packageType/:packageName/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageForOrgParamSchema,
-        t_PackagesRestorePackageForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForOrgParamSchema,
@@ -16179,14 +14836,7 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
-        t_PackagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema,
@@ -16227,14 +14877,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForOrganization",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetPackageVersionForOrganizationParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForOrganizationParamSchema,
@@ -16272,14 +14915,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesDeletePackageVersionForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForOrgParamSchema,
@@ -16314,14 +14950,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForOrg",
     "/orgs/:org/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageVersionForOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForOrgParamSchema,
@@ -16347,32 +14976,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "projectsListForOrg",
-    "/orgs/:org/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListForOrgParamSchema,
-        t_ProjectsListForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(projectsListForOrgParamSchema, ctx.params),
-        query: parseRequestInput(projectsListForOrgQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.projectsListForOrg(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("projectsListForOrg", "/orgs/:org/projects", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(projectsListForOrgParamSchema, ctx.params),
+      query: parseRequestInput(projectsListForOrgQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.projectsListForOrg(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const projectsCreateForOrgParamSchema = z.object({ org: z.coerce.string() })
 
@@ -16384,14 +14999,7 @@ export function bootstrap(
   router.post(
     "projectsCreateForOrg",
     "/orgs/:org/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsCreateForOrgParamSchema,
-        void,
-        t_ProjectsCreateForOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsCreateForOrgParamSchema, ctx.params),
         query: undefined,
@@ -16418,14 +15026,7 @@ export function bootstrap(
   router.get(
     "orgsListPublicMembers",
     "/orgs/:org/public_members",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListPublicMembersParamSchema,
-        t_OrgsListPublicMembersQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(orgsListPublicMembersParamSchema, ctx.params),
         query: parseRequestInput(orgsListPublicMembersQuerySchema, ctx.query),
@@ -16450,14 +15051,7 @@ export function bootstrap(
   router.get(
     "orgsCheckPublicMembershipForUser",
     "/orgs/:org/public_members/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsCheckPublicMembershipForUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsCheckPublicMembershipForUserParamSchema,
@@ -16483,14 +15077,7 @@ export function bootstrap(
   router.put(
     "orgsSetPublicMembershipForAuthenticatedUser",
     "/orgs/:org/public_members/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsSetPublicMembershipForAuthenticatedUserParamSchema,
@@ -16519,14 +15106,7 @@ export function bootstrap(
   router.delete(
     "orgsRemovePublicMembershipForAuthenticatedUser",
     "/orgs/:org/public_members/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsRemovePublicMembershipForAuthenticatedUserParamSchema,
@@ -16559,29 +15139,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "reposListForOrg",
-    "/orgs/:org/repos",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListForOrgParamSchema,
-        t_ReposListForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposListForOrgParamSchema, ctx.params),
-        query: parseRequestInput(reposListForOrgQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposListForOrg(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("reposListForOrg", "/orgs/:org/repos", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposListForOrgParamSchema, ctx.params),
+      query: parseRequestInput(reposListForOrgQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.reposListForOrg(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const reposCreateInOrgParamSchema = z.object({ org: z.coerce.string() })
 
@@ -16616,29 +15185,18 @@ export function bootstrap(
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
   })
 
-  router.post(
-    "reposCreateInOrg",
-    "/orgs/:org/repos",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateInOrgParamSchema,
-        void,
-        t_ReposCreateInOrgBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposCreateInOrgParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(reposCreateInOrgBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.reposCreateInOrg(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("reposCreateInOrg", "/orgs/:org/repos", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposCreateInOrgParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(reposCreateInOrgBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.reposCreateInOrg(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const secretScanningListAlertsForOrgParamSchema = z.object({
     org: z.coerce.string(),
@@ -16659,14 +15217,7 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForOrg",
     "/orgs/:org/secret-scanning/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningListAlertsForOrgParamSchema,
-        t_SecretScanningListAlertsForOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForOrgParamSchema,
@@ -16694,10 +15245,7 @@ export function bootstrap(
   router.get(
     "orgsListSecurityManagerTeams",
     "/orgs/:org/security-managers",
-    async (
-      ctx: ValidatedCtx<t_OrgsListSecurityManagerTeamsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsListSecurityManagerTeamsParamSchema,
@@ -16723,10 +15271,7 @@ export function bootstrap(
   router.put(
     "orgsAddSecurityManagerTeam",
     "/orgs/:org/security-managers/teams/:teamSlug",
-    async (
-      ctx: ValidatedCtx<t_OrgsAddSecurityManagerTeamParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsAddSecurityManagerTeamParamSchema,
@@ -16754,10 +15299,7 @@ export function bootstrap(
   router.delete(
     "orgsRemoveSecurityManagerTeam",
     "/orgs/:org/security-managers/teams/:teamSlug",
-    async (
-      ctx: ValidatedCtx<t_OrgsRemoveSecurityManagerTeamParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsRemoveSecurityManagerTeamParamSchema,
@@ -16782,14 +15324,7 @@ export function bootstrap(
   router.get(
     "billingGetGithubActionsBillingOrg",
     "/orgs/:org/settings/billing/actions",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetGithubActionsBillingOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetGithubActionsBillingOrgParamSchema,
@@ -16814,14 +15349,7 @@ export function bootstrap(
   router.get(
     "billingGetGithubPackagesBillingOrg",
     "/orgs/:org/settings/billing/packages",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetGithubPackagesBillingOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetGithubPackagesBillingOrgParamSchema,
@@ -16846,14 +15374,7 @@ export function bootstrap(
   router.get(
     "billingGetSharedStorageBillingOrg",
     "/orgs/:org/settings/billing/shared-storage",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetSharedStorageBillingOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetSharedStorageBillingOrgParamSchema,
@@ -16878,25 +15399,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "teamsList",
-    "/orgs/:org/teams",
-    async (
-      ctx: ValidatedCtx<t_TeamsListParamSchema, t_TeamsListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(teamsListParamSchema, ctx.params),
-        query: parseRequestInput(teamsListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.teamsList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("teamsList", "/orgs/:org/teams", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(teamsListParamSchema, ctx.params),
+      query: parseRequestInput(teamsListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.teamsList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsCreateParamSchema = z.object({ org: z.coerce.string() })
 
@@ -16910,29 +15424,18 @@ export function bootstrap(
     parent_team_id: z.coerce.number().optional(),
   })
 
-  router.post(
-    "teamsCreate",
-    "/orgs/:org/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCreateParamSchema,
-        void,
-        t_TeamsCreateBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(teamsCreateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(teamsCreateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.teamsCreate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("teamsCreate", "/orgs/:org/teams", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(teamsCreateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(teamsCreateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.teamsCreate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsGetByNameParamSchema = z.object({
     org: z.coerce.string(),
@@ -16942,10 +15445,7 @@ export function bootstrap(
   router.get(
     "teamsGetByName",
     "/orgs/:org/teams/:teamSlug",
-    async (
-      ctx: ValidatedCtx<t_TeamsGetByNameParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsGetByNameParamSchema, ctx.params),
         query: undefined,
@@ -16977,14 +15477,7 @@ export function bootstrap(
   router.patch(
     "teamsUpdateInOrg",
     "/orgs/:org/teams/:teamSlug",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateInOrgParamSchema,
-        void,
-        t_TeamsUpdateInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsUpdateInOrgParamSchema, ctx.params),
         query: undefined,
@@ -17006,10 +15499,7 @@ export function bootstrap(
   router.delete(
     "teamsDeleteInOrg",
     "/orgs/:org/teams/:teamSlug",
-    async (
-      ctx: ValidatedCtx<t_TeamsDeleteInOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsDeleteInOrgParamSchema, ctx.params),
         query: undefined,
@@ -17038,14 +15528,7 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionsInOrg",
     "/orgs/:org/teams/:teamSlug/discussions",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListDiscussionsInOrgParamSchema,
-        t_TeamsListDiscussionsInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListDiscussionsInOrgParamSchema,
@@ -17082,14 +15565,7 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCreateDiscussionInOrgParamSchema,
-        void,
-        t_TeamsCreateDiscussionInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionInOrgParamSchema,
@@ -17118,10 +15594,7 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<t_TeamsGetDiscussionInOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionInOrgParamSchema,
@@ -17157,14 +15630,7 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateDiscussionInOrgParamSchema,
-        void,
-        t_TeamsUpdateDiscussionInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionInOrgParamSchema,
@@ -17193,10 +15659,7 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<t_TeamsDeleteDiscussionInOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionInOrgParamSchema,
@@ -17231,14 +15694,7 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionCommentsInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListDiscussionCommentsInOrgParamSchema,
-        t_TeamsListDiscussionCommentsInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListDiscussionCommentsInOrgParamSchema,
@@ -17272,14 +15728,7 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCreateDiscussionCommentInOrgParamSchema,
-        void,
-        t_TeamsCreateDiscussionCommentInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionCommentInOrgParamSchema,
@@ -17310,14 +15759,7 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsGetDiscussionCommentInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionCommentInOrgParamSchema,
@@ -17349,14 +15791,7 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateDiscussionCommentInOrgParamSchema,
-        void,
-        t_TeamsUpdateDiscussionCommentInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgParamSchema,
@@ -17387,14 +15822,7 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsDeleteDiscussionCommentInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentInOrgParamSchema,
@@ -17439,14 +15867,7 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForTeamDiscussionCommentInOrgParamSchema,
-        t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentInOrgParamSchema,
@@ -17493,14 +15914,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionCommentInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema,
-        void,
-        t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgParamSchema,
@@ -17535,14 +15949,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForTeamDiscussionComment",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/comments/:commentNumber/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsDeleteForTeamDiscussionCommentParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionCommentParamSchema,
@@ -17586,14 +15993,7 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForTeamDiscussionInOrgParamSchema,
-        t_ReactionsListForTeamDiscussionInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionInOrgParamSchema,
@@ -17636,14 +16036,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionInOrg",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForTeamDiscussionInOrgParamSchema,
-        void,
-        t_ReactionsCreateForTeamDiscussionInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgParamSchema,
@@ -17674,14 +16067,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForTeamDiscussion",
     "/orgs/:org/teams/:teamSlug/discussions/:discussionNumber/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsDeleteForTeamDiscussionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForTeamDiscussionParamSchema,
@@ -17712,14 +16098,7 @@ export function bootstrap(
   router.get(
     "teamsListPendingInvitationsInOrg",
     "/orgs/:org/teams/:teamSlug/invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListPendingInvitationsInOrgParamSchema,
-        t_TeamsListPendingInvitationsInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListPendingInvitationsInOrgParamSchema,
@@ -17754,14 +16133,7 @@ export function bootstrap(
   router.get(
     "teamsListMembersInOrg",
     "/orgs/:org/teams/:teamSlug/members",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListMembersInOrgParamSchema,
-        t_TeamsListMembersInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsListMembersInOrgParamSchema, ctx.params),
         query: parseRequestInput(teamsListMembersInOrgQuerySchema, ctx.query),
@@ -17787,14 +16159,7 @@ export function bootstrap(
   router.get(
     "teamsGetMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsGetMembershipForUserInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetMembershipForUserInOrgParamSchema,
@@ -17825,14 +16190,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
-        void,
-        t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgParamSchema,
@@ -17862,14 +16220,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMembershipForUserInOrg",
     "/orgs/:org/teams/:teamSlug/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsRemoveMembershipForUserInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsRemoveMembershipForUserInOrgParamSchema,
@@ -17900,14 +16251,7 @@ export function bootstrap(
   router.get(
     "teamsListProjectsInOrg",
     "/orgs/:org/teams/:teamSlug/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListProjectsInOrgParamSchema,
-        t_TeamsListProjectsInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListProjectsInOrgParamSchema,
@@ -17936,14 +16280,7 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForProjectInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCheckPermissionsForProjectInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectInOrgParamSchema,
@@ -17974,14 +16311,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateProjectPermissionsInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema,
-        void,
-        t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgParamSchema,
@@ -18011,10 +16341,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveProjectInOrg",
     "/orgs/:org/teams/:teamSlug/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<t_TeamsRemoveProjectInOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsRemoveProjectInOrgParamSchema,
@@ -18047,14 +16374,7 @@ export function bootstrap(
   router.get(
     "teamsListReposInOrg",
     "/orgs/:org/teams/:teamSlug/repos",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListReposInOrgParamSchema,
-        t_TeamsListReposInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsListReposInOrgParamSchema, ctx.params),
         query: parseRequestInput(teamsListReposInOrgQuerySchema, ctx.query),
@@ -18081,14 +16401,7 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForRepoInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCheckPermissionsForRepoInOrgParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoInOrgParamSchema,
@@ -18120,14 +16433,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateRepoPermissionsInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema,
-        void,
-        t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgParamSchema,
@@ -18158,10 +16464,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveRepoInOrg",
     "/orgs/:org/teams/:teamSlug/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<t_TeamsRemoveRepoInOrgParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsRemoveRepoInOrgParamSchema, ctx.params),
         query: undefined,
@@ -18191,14 +16494,7 @@ export function bootstrap(
   router.get(
     "teamsListChildInOrg",
     "/orgs/:org/teams/:teamSlug/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListChildInOrgParamSchema,
-        t_TeamsListChildInOrgQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsListChildInOrgParamSchema, ctx.params),
         query: parseRequestInput(teamsListChildInOrgQuerySchema, ctx.query),
@@ -18231,14 +16527,7 @@ export function bootstrap(
   router.post(
     "orgsEnableOrDisableSecurityProductOnAllOrgRepos",
     "/orgs/:org/:securityProduct/:enablement",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
@@ -18264,10 +16553,7 @@ export function bootstrap(
   router.get(
     "projectsGetCard",
     "/projects/columns/cards/:cardId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsGetCardParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsGetCardParamSchema, ctx.params),
         query: undefined,
@@ -18293,14 +16579,7 @@ export function bootstrap(
   router.patch(
     "projectsUpdateCard",
     "/projects/columns/cards/:cardId",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsUpdateCardParamSchema,
-        void,
-        t_ProjectsUpdateCardBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsUpdateCardParamSchema, ctx.params),
         query: undefined,
@@ -18322,10 +16601,7 @@ export function bootstrap(
   router.delete(
     "projectsDeleteCard",
     "/projects/columns/cards/:cardId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsDeleteCardParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsDeleteCardParamSchema, ctx.params),
         query: undefined,
@@ -18352,14 +16628,7 @@ export function bootstrap(
   router.post(
     "projectsMoveCard",
     "/projects/columns/cards/:cardId/moves",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsMoveCardParamSchema,
-        void,
-        t_ProjectsMoveCardBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsMoveCardParamSchema, ctx.params),
         query: undefined,
@@ -18380,10 +16649,7 @@ export function bootstrap(
   router.get(
     "projectsGetColumn",
     "/projects/columns/:columnId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsGetColumnParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsGetColumnParamSchema, ctx.params),
         query: undefined,
@@ -18409,14 +16675,7 @@ export function bootstrap(
   router.patch(
     "projectsUpdateColumn",
     "/projects/columns/:columnId",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsUpdateColumnParamSchema,
-        void,
-        t_ProjectsUpdateColumnBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsUpdateColumnParamSchema, ctx.params),
         query: undefined,
@@ -18440,10 +16699,7 @@ export function bootstrap(
   router.delete(
     "projectsDeleteColumn",
     "/projects/columns/:columnId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsDeleteColumnParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsDeleteColumnParamSchema, ctx.params),
         query: undefined,
@@ -18473,14 +16729,7 @@ export function bootstrap(
   router.get(
     "projectsListCards",
     "/projects/columns/:columnId/cards",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListCardsParamSchema,
-        t_ProjectsListCardsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsListCardsParamSchema, ctx.params),
         query: parseRequestInput(projectsListCardsQuerySchema, ctx.query),
@@ -18512,14 +16761,7 @@ export function bootstrap(
   router.post(
     "projectsCreateCard",
     "/projects/columns/:columnId/cards",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsCreateCardParamSchema,
-        void,
-        t_ProjectsCreateCardBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsCreateCardParamSchema, ctx.params),
         query: undefined,
@@ -18545,14 +16787,7 @@ export function bootstrap(
   router.post(
     "projectsMoveColumn",
     "/projects/columns/:columnId/moves",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsMoveColumnParamSchema,
-        void,
-        t_ProjectsMoveColumnBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsMoveColumnParamSchema, ctx.params),
         query: undefined,
@@ -18571,25 +16806,18 @@ export function bootstrap(
 
   const projectsGetParamSchema = z.object({ project_id: z.coerce.number() })
 
-  router.get(
-    "projectsGet",
-    "/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsGetParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(projectsGetParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.projectsGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("projectsGet", "/projects/:projectId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(projectsGetParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.projectsGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const projectsUpdateParamSchema = z.object({ project_id: z.coerce.number() })
 
@@ -18605,51 +16833,33 @@ export function bootstrap(
     })
     .optional()
 
-  router.patch(
-    "projectsUpdate",
-    "/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsUpdateParamSchema,
-        void,
-        t_ProjectsUpdateBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(projectsUpdateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(projectsUpdateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.projectsUpdate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("projectsUpdate", "/projects/:projectId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(projectsUpdateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(projectsUpdateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.projectsUpdate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const projectsDeleteParamSchema = z.object({ project_id: z.coerce.number() })
 
-  router.delete(
-    "projectsDelete",
-    "/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<t_ProjectsDeleteParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(projectsDeleteParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.projectsDelete(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("projectsDelete", "/projects/:projectId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(projectsDeleteParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.projectsDelete(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const projectsListCollaboratorsParamSchema = z.object({
     project_id: z.coerce.number(),
@@ -18664,14 +16874,7 @@ export function bootstrap(
   router.get(
     "projectsListCollaborators",
     "/projects/:projectId/collaborators",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListCollaboratorsParamSchema,
-        t_ProjectsListCollaboratorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           projectsListCollaboratorsParamSchema,
@@ -18706,14 +16909,7 @@ export function bootstrap(
   router.put(
     "projectsAddCollaborator",
     "/projects/:projectId/collaborators/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsAddCollaboratorParamSchema,
-        void,
-        t_ProjectsAddCollaboratorBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           projectsAddCollaboratorParamSchema,
@@ -18741,10 +16937,7 @@ export function bootstrap(
   router.delete(
     "projectsRemoveCollaborator",
     "/projects/:projectId/collaborators/:username",
-    async (
-      ctx: ValidatedCtx<t_ProjectsRemoveCollaboratorParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           projectsRemoveCollaboratorParamSchema,
@@ -18772,10 +16965,7 @@ export function bootstrap(
   router.get(
     "projectsGetPermissionForUser",
     "/projects/:projectId/collaborators/:username/permission",
-    async (
-      ctx: ValidatedCtx<t_ProjectsGetPermissionForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           projectsGetPermissionForUserParamSchema,
@@ -18805,14 +16995,7 @@ export function bootstrap(
   router.get(
     "projectsListColumns",
     "/projects/:projectId/columns",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListColumnsParamSchema,
-        t_ProjectsListColumnsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsListColumnsParamSchema, ctx.params),
         query: parseRequestInput(projectsListColumnsQuerySchema, ctx.query),
@@ -18838,14 +17021,7 @@ export function bootstrap(
   router.post(
     "projectsCreateColumn",
     "/projects/:projectId/columns",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsCreateColumnParamSchema,
-        void,
-        t_ProjectsCreateColumnBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsCreateColumnParamSchema, ctx.params),
         query: undefined,
@@ -18862,22 +17038,18 @@ export function bootstrap(
     }
   )
 
-  router.get(
-    "rateLimitGet",
-    "/rate_limit",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.rateLimitGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("rateLimitGet", "/rate_limit", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.rateLimitGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const actionsListRepoRequiredWorkflowsParamSchema = z.object({
     org: z.coerce.string(),
@@ -18892,14 +17064,7 @@ export function bootstrap(
   router.get(
     "actionsListRepoRequiredWorkflows",
     "/repos/:org/:repo/actions/required_workflows",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRepoRequiredWorkflowsParamSchema,
-        t_ActionsListRepoRequiredWorkflowsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRepoRequiredWorkflowsParamSchema,
@@ -18929,14 +17094,7 @@ export function bootstrap(
   router.get(
     "actionsGetRepoRequiredWorkflow",
     "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetRepoRequiredWorkflowParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetRepoRequiredWorkflowParamSchema,
@@ -18963,14 +17121,7 @@ export function bootstrap(
   router.get(
     "actionsGetRepoRequiredWorkflowUsage",
     "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/timing",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetRepoRequiredWorkflowUsageParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetRepoRequiredWorkflowUsageParamSchema,
@@ -18993,25 +17144,18 @@ export function bootstrap(
     repo: z.coerce.string(),
   })
 
-  router.get(
-    "reposGet",
-    "/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<t_ReposGetParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposGetParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposGet(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("reposGet", "/repos/:owner/:repo", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposGetParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.reposGet(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const reposUpdateParamSchema = z.object({
     owner: z.coerce.string(),
@@ -19064,54 +17208,36 @@ export function bootstrap(
     })
     .optional()
 
-  router.patch(
-    "reposUpdate",
-    "/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateParamSchema,
-        void,
-        t_ReposUpdateBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposUpdateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(reposUpdateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.reposUpdate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("reposUpdate", "/repos/:owner/:repo", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposUpdateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(reposUpdateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.reposUpdate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const reposDeleteParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
   })
 
-  router.delete(
-    "reposDelete",
-    "/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposDeleteParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposDelete(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("reposDelete", "/repos/:owner/:repo", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposDeleteParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.reposDelete(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const actionsListArtifactsForRepoParamSchema = z.object({
     owner: z.coerce.string(),
@@ -19127,14 +17253,7 @@ export function bootstrap(
   router.get(
     "actionsListArtifactsForRepo",
     "/repos/:owner/:repo/actions/artifacts",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListArtifactsForRepoParamSchema,
-        t_ActionsListArtifactsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListArtifactsForRepoParamSchema,
@@ -19166,10 +17285,7 @@ export function bootstrap(
   router.get(
     "actionsGetArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetArtifactParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetArtifactParamSchema, ctx.params),
         query: undefined,
@@ -19195,10 +17311,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteArtifactParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsDeleteArtifactParamSchema, ctx.params),
         query: undefined,
@@ -19225,10 +17338,7 @@ export function bootstrap(
   router.get(
     "actionsDownloadArtifact",
     "/repos/:owner/:repo/actions/artifacts/:artifactId/:archiveFormat",
-    async (
-      ctx: ValidatedCtx<t_ActionsDownloadArtifactParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDownloadArtifactParamSchema,
@@ -19256,10 +17366,7 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheUsage",
     "/repos/:owner/:repo/actions/cache/usage",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetActionsCacheUsageParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheUsageParamSchema,
@@ -19298,14 +17405,7 @@ export function bootstrap(
   router.get(
     "actionsGetActionsCacheList",
     "/repos/:owner/:repo/actions/caches",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetActionsCacheListParamSchema,
-        t_ActionsGetActionsCacheListQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetActionsCacheListParamSchema,
@@ -19341,14 +17441,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteActionsCacheByKey",
     "/repos/:owner/:repo/actions/caches",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteActionsCacheByKeyParamSchema,
-        t_ActionsDeleteActionsCacheByKeyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteActionsCacheByKeyParamSchema,
@@ -19378,10 +17471,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteActionsCacheById",
     "/repos/:owner/:repo/actions/caches/:cacheId",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteActionsCacheByIdParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteActionsCacheByIdParamSchema,
@@ -19408,10 +17498,7 @@ export function bootstrap(
   router.get(
     "actionsGetJobForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetJobForWorkflowRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetJobForWorkflowRunParamSchema,
@@ -19440,14 +17527,7 @@ export function bootstrap(
   router.get(
     "actionsDownloadJobLogsForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId/logs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDownloadJobLogsForWorkflowRunParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDownloadJobLogsForWorkflowRunParamSchema,
@@ -19478,14 +17558,7 @@ export function bootstrap(
   router.post(
     "actionsReRunJobForWorkflowRun",
     "/repos/:owner/:repo/actions/jobs/:jobId/rerun",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsReRunJobForWorkflowRunParamSchema,
-        void,
-        t_ActionsReRunJobForWorkflowRunBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsReRunJobForWorkflowRunParamSchema,
@@ -19514,14 +17587,7 @@ export function bootstrap(
   router.get(
     "actionsGetCustomOidcSubClaimForRepo",
     "/repos/:owner/:repo/actions/oidc/customization/sub",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetCustomOidcSubClaimForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetCustomOidcSubClaimForRepoParamSchema,
@@ -19552,14 +17618,7 @@ export function bootstrap(
   router.put(
     "actionsSetCustomOidcSubClaimForRepo",
     "/repos/:owner/:repo/actions/oidc/customization/sub",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetCustomOidcSubClaimForRepoParamSchema,
-        void,
-        t_ActionsSetCustomOidcSubClaimForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoParamSchema,
@@ -19588,14 +17647,7 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetGithubActionsPermissionsRepositoryParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsPermissionsRepositoryParamSchema,
@@ -19629,14 +17681,7 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
-        void,
-        t_ActionsSetGithubActionsPermissionsRepositoryBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryParamSchema,
@@ -19668,14 +17713,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowAccessToRepository",
     "/repos/:owner/:repo/actions/permissions/access",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetWorkflowAccessToRepositoryParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowAccessToRepositoryParamSchema,
@@ -19705,14 +17743,7 @@ export function bootstrap(
   router.put(
     "actionsSetWorkflowAccessToRepository",
     "/repos/:owner/:repo/actions/permissions/access",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetWorkflowAccessToRepositoryParamSchema,
-        void,
-        t_ActionsSetWorkflowAccessToRepositoryBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryParamSchema,
@@ -19741,14 +17772,7 @@ export function bootstrap(
   router.get(
     "actionsGetAllowedActionsRepository",
     "/repos/:owner/:repo/actions/permissions/selected-actions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetAllowedActionsRepositoryParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetAllowedActionsRepositoryParamSchema,
@@ -19782,14 +17806,7 @@ export function bootstrap(
   router.put(
     "actionsSetAllowedActionsRepository",
     "/repos/:owner/:repo/actions/permissions/selected-actions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetAllowedActionsRepositoryParamSchema,
-        void,
-        t_ActionsSetAllowedActionsRepositoryBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetAllowedActionsRepositoryParamSchema,
@@ -19816,14 +17833,7 @@ export function bootstrap(
   router.get(
     "actionsGetGithubActionsDefaultWorkflowPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions/workflow",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
@@ -19856,14 +17866,7 @@ export function bootstrap(
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsRepository",
     "/repos/:owner/:repo/actions/permissions/workflow",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
-        void,
-        t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
@@ -19925,14 +17928,7 @@ export function bootstrap(
   router.get(
     "actionsListRequiredWorkflowRuns",
     "/repos/:owner/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRequiredWorkflowRunsParamSchema,
-        t_ActionsListRequiredWorkflowRunsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRequiredWorkflowRunsParamSchema,
@@ -19966,14 +17962,7 @@ export function bootstrap(
   router.get(
     "actionsListSelfHostedRunnersForRepo",
     "/repos/:owner/:repo/actions/runners",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListSelfHostedRunnersForRepoParamSchema,
-        t_ActionsListSelfHostedRunnersForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListSelfHostedRunnersForRepoParamSchema,
@@ -20002,14 +17991,7 @@ export function bootstrap(
   router.get(
     "actionsListRunnerApplicationsForRepo",
     "/repos/:owner/:repo/actions/runners/downloads",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRunnerApplicationsForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRunnerApplicationsForRepoParamSchema,
@@ -20035,14 +18017,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRegistrationTokenForRepo",
     "/repos/:owner/:repo/actions/runners/registration-token",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRegistrationTokenForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRegistrationTokenForRepoParamSchema,
@@ -20068,14 +18043,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRemoveTokenForRepo",
     "/repos/:owner/:repo/actions/runners/remove-token",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRemoveTokenForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRemoveTokenForRepoParamSchema,
@@ -20102,14 +18070,7 @@ export function bootstrap(
   router.get(
     "actionsGetSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetSelfHostedRunnerForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetSelfHostedRunnerForRepoParamSchema,
@@ -20136,14 +18097,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteSelfHostedRunnerFromRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteSelfHostedRunnerFromRepoParamSchema,
@@ -20170,14 +18124,7 @@ export function bootstrap(
   router.get(
     "actionsListLabelsForSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListLabelsForSelfHostedRunnerForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListLabelsForSelfHostedRunnerForRepoParamSchema,
@@ -20211,14 +18158,7 @@ export function bootstrap(
   router.post(
     "actionsAddCustomLabelsToSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
-        void,
-        t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
@@ -20255,14 +18195,7 @@ export function bootstrap(
   router.put(
     "actionsSetCustomLabelsForSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
-        void,
-        t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema,
@@ -20296,14 +18229,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
@@ -20335,14 +18261,7 @@ export function bootstrap(
   router.delete(
     "actionsRemoveCustomLabelFromSelfHostedRunnerForRepo",
     "/repos/:owner/:repo/actions/runners/:runnerId/labels/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
@@ -20400,14 +18319,7 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRunsForRepo",
     "/repos/:owner/:repo/actions/runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListWorkflowRunsForRepoParamSchema,
-        t_ActionsListWorkflowRunsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunsForRepoParamSchema,
@@ -20441,14 +18353,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetWorkflowRunParamSchema,
-        t_ActionsGetWorkflowRunQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetWorkflowRunParamSchema, ctx.params),
         query: parseRequestInput(actionsGetWorkflowRunQuerySchema, ctx.query),
@@ -20474,10 +18379,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteWorkflowRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteWorkflowRunParamSchema,
@@ -20506,10 +18408,7 @@ export function bootstrap(
   router.get(
     "actionsGetReviewsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/approvals",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetReviewsForRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetReviewsForRunParamSchema,
@@ -20538,10 +18437,7 @@ export function bootstrap(
   router.post(
     "actionsApproveWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/approve",
-    async (
-      ctx: ValidatedCtx<t_ActionsApproveWorkflowRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsApproveWorkflowRunParamSchema,
@@ -20575,14 +18471,7 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRunArtifacts",
     "/repos/:owner/:repo/actions/runs/:runId/artifacts",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListWorkflowRunArtifactsParamSchema,
-        t_ActionsListWorkflowRunArtifactsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunArtifactsParamSchema,
@@ -20617,14 +18506,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRunAttempt",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetWorkflowRunAttemptParamSchema,
-        t_ActionsGetWorkflowRunAttemptQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowRunAttemptParamSchema,
@@ -20660,14 +18542,7 @@ export function bootstrap(
   router.get(
     "actionsListJobsForWorkflowRunAttempt",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/jobs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListJobsForWorkflowRunAttemptParamSchema,
-        t_ActionsListJobsForWorkflowRunAttemptQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunAttemptParamSchema,
@@ -20698,14 +18573,7 @@ export function bootstrap(
   router.get(
     "actionsDownloadWorkflowRunAttemptLogs",
     "/repos/:owner/:repo/actions/runs/:runId/attempts/:attemptNumber/logs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDownloadWorkflowRunAttemptLogsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDownloadWorkflowRunAttemptLogsParamSchema,
@@ -20732,10 +18600,7 @@ export function bootstrap(
   router.post(
     "actionsCancelWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/cancel",
-    async (
-      ctx: ValidatedCtx<t_ActionsCancelWorkflowRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCancelWorkflowRunParamSchema,
@@ -20770,14 +18635,7 @@ export function bootstrap(
   router.get(
     "actionsListJobsForWorkflowRun",
     "/repos/:owner/:repo/actions/runs/:runId/jobs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListJobsForWorkflowRunParamSchema,
-        t_ActionsListJobsForWorkflowRunQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListJobsForWorkflowRunParamSchema,
@@ -20807,14 +18665,7 @@ export function bootstrap(
   router.get(
     "actionsDownloadWorkflowRunLogs",
     "/repos/:owner/:repo/actions/runs/:runId/logs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDownloadWorkflowRunLogsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDownloadWorkflowRunLogsParamSchema,
@@ -20841,10 +18692,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteWorkflowRunLogs",
     "/repos/:owner/:repo/actions/runs/:runId/logs",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteWorkflowRunLogsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteWorkflowRunLogsParamSchema,
@@ -20871,14 +18719,7 @@ export function bootstrap(
   router.get(
     "actionsGetPendingDeploymentsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetPendingDeploymentsForRunParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetPendingDeploymentsForRunParamSchema,
@@ -20911,14 +18752,7 @@ export function bootstrap(
   router.post(
     "actionsReviewPendingDeploymentsForRun",
     "/repos/:owner/:repo/actions/runs/:runId/pending_deployments",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsReviewPendingDeploymentsForRunParamSchema,
-        void,
-        t_ActionsReviewPendingDeploymentsForRunBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsReviewPendingDeploymentsForRunParamSchema,
@@ -20952,14 +18786,7 @@ export function bootstrap(
   router.post(
     "actionsReRunWorkflow",
     "/repos/:owner/:repo/actions/runs/:runId/rerun",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsReRunWorkflowParamSchema,
-        void,
-        t_ActionsReRunWorkflowBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsReRunWorkflowParamSchema, ctx.params),
         query: undefined,
@@ -20989,14 +18816,7 @@ export function bootstrap(
   router.post(
     "actionsReRunWorkflowFailedJobs",
     "/repos/:owner/:repo/actions/runs/:runId/rerun-failed-jobs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsReRunWorkflowFailedJobsParamSchema,
-        void,
-        t_ActionsReRunWorkflowFailedJobsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsReRunWorkflowFailedJobsParamSchema,
@@ -21026,10 +18846,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowRunUsage",
     "/repos/:owner/:repo/actions/runs/:runId/timing",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetWorkflowRunUsageParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowRunUsageParamSchema,
@@ -21062,14 +18879,7 @@ export function bootstrap(
   router.get(
     "actionsListRepoSecrets",
     "/repos/:owner/:repo/actions/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRepoSecretsParamSchema,
-        t_ActionsListRepoSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRepoSecretsParamSchema,
@@ -21097,10 +18907,7 @@ export function bootstrap(
   router.get(
     "actionsGetRepoPublicKey",
     "/repos/:owner/:repo/actions/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetRepoPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetRepoPublicKeyParamSchema,
@@ -21129,10 +18936,7 @@ export function bootstrap(
   router.get(
     "actionsGetRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetRepoSecretParamSchema, ctx.params),
         query: undefined,
@@ -21163,14 +18967,7 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateOrUpdateRepoSecretParamSchema,
-        void,
-        t_ActionsCreateOrUpdateRepoSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateRepoSecretParamSchema,
@@ -21200,10 +18997,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRepoSecret",
     "/repos/:owner/:repo/actions/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteRepoSecretParamSchema,
@@ -21236,14 +19030,7 @@ export function bootstrap(
   router.get(
     "actionsListRepoVariables",
     "/repos/:owner/:repo/actions/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRepoVariablesParamSchema,
-        t_ActionsListRepoVariablesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRepoVariablesParamSchema,
@@ -21279,14 +19066,7 @@ export function bootstrap(
   router.post(
     "actionsCreateRepoVariable",
     "/repos/:owner/:repo/actions/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateRepoVariableParamSchema,
-        void,
-        t_ActionsCreateRepoVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateRepoVariableParamSchema,
@@ -21315,10 +19095,7 @@ export function bootstrap(
   router.get(
     "actionsGetRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetRepoVariableParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetRepoVariableParamSchema,
@@ -21352,14 +19129,7 @@ export function bootstrap(
   router.patch(
     "actionsUpdateRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsUpdateRepoVariableParamSchema,
-        void,
-        t_ActionsUpdateRepoVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsUpdateRepoVariableParamSchema,
@@ -21388,10 +19158,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteRepoVariable",
     "/repos/:owner/:repo/actions/variables/:name",
-    async (
-      ctx: ValidatedCtx<t_ActionsDeleteRepoVariableParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteRepoVariableParamSchema,
@@ -21424,14 +19191,7 @@ export function bootstrap(
   router.get(
     "actionsListRepoWorkflows",
     "/repos/:owner/:repo/actions/workflows",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListRepoWorkflowsParamSchema,
-        t_ActionsListRepoWorkflowsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListRepoWorkflowsParamSchema,
@@ -21463,10 +19223,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetWorkflowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsGetWorkflowParamSchema, ctx.params),
         query: undefined,
@@ -21492,10 +19249,7 @@ export function bootstrap(
   router.put(
     "actionsDisableWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId/disable",
-    async (
-      ctx: ValidatedCtx<t_ActionsDisableWorkflowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDisableWorkflowParamSchema,
@@ -21529,14 +19283,7 @@ export function bootstrap(
   router.post(
     "actionsCreateWorkflowDispatch",
     "/repos/:owner/:repo/actions/workflows/:workflowId/dispatches",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateWorkflowDispatchParamSchema,
-        void,
-        t_ActionsCreateWorkflowDispatchBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateWorkflowDispatchParamSchema,
@@ -21566,10 +19313,7 @@ export function bootstrap(
   router.put(
     "actionsEnableWorkflow",
     "/repos/:owner/:repo/actions/workflows/:workflowId/enable",
-    async (
-      ctx: ValidatedCtx<t_ActionsEnableWorkflowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(actionsEnableWorkflowParamSchema, ctx.params),
         query: undefined,
@@ -21624,14 +19368,7 @@ export function bootstrap(
   router.get(
     "actionsListWorkflowRuns",
     "/repos/:owner/:repo/actions/workflows/:workflowId/runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListWorkflowRunsParamSchema,
-        t_ActionsListWorkflowRunsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListWorkflowRunsParamSchema,
@@ -21660,10 +19397,7 @@ export function bootstrap(
   router.get(
     "actionsGetWorkflowUsage",
     "/repos/:owner/:repo/actions/workflows/:workflowId/timing",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetWorkflowUsageParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetWorkflowUsageParamSchema,
@@ -21696,14 +19430,7 @@ export function bootstrap(
   router.get(
     "issuesListAssignees",
     "/repos/:owner/:repo/assignees",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListAssigneesParamSchema,
-        t_IssuesListAssigneesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesListAssigneesParamSchema, ctx.params),
         query: parseRequestInput(issuesListAssigneesQuerySchema, ctx.query),
@@ -21729,10 +19456,7 @@ export function bootstrap(
   router.get(
     "issuesCheckUserCanBeAssigned",
     "/repos/:owner/:repo/assignees/:assignee",
-    async (
-      ctx: ValidatedCtx<t_IssuesCheckUserCanBeAssignedParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedParamSchema,
@@ -21762,14 +19486,7 @@ export function bootstrap(
   router.get(
     "reposListAutolinks",
     "/repos/:owner/:repo/autolinks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListAutolinksParamSchema,
-        t_ReposListAutolinksQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListAutolinksParamSchema, ctx.params),
         query: parseRequestInput(reposListAutolinksQuerySchema, ctx.query),
@@ -21800,14 +19517,7 @@ export function bootstrap(
   router.post(
     "reposCreateAutolink",
     "/repos/:owner/:repo/autolinks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateAutolinkParamSchema,
-        void,
-        t_ReposCreateAutolinkBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateAutolinkParamSchema, ctx.params),
         query: undefined,
@@ -21833,10 +19543,7 @@ export function bootstrap(
   router.get(
     "reposGetAutolink",
     "/repos/:owner/:repo/autolinks/:autolinkId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetAutolinkParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetAutolinkParamSchema, ctx.params),
         query: undefined,
@@ -21859,10 +19566,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteAutolink",
     "/repos/:owner/:repo/autolinks/:autolinkId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteAutolinkParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteAutolinkParamSchema, ctx.params),
         query: undefined,
@@ -21887,14 +19591,7 @@ export function bootstrap(
   router.put(
     "reposEnableAutomatedSecurityFixes",
     "/repos/:owner/:repo/automated-security-fixes",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposEnableAutomatedSecurityFixesParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposEnableAutomatedSecurityFixesParamSchema,
@@ -21920,14 +19617,7 @@ export function bootstrap(
   router.delete(
     "reposDisableAutomatedSecurityFixes",
     "/repos/:owner/:repo/automated-security-fixes",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDisableAutomatedSecurityFixesParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDisableAutomatedSecurityFixesParamSchema,
@@ -21959,14 +19649,7 @@ export function bootstrap(
   router.get(
     "reposListBranches",
     "/repos/:owner/:repo/branches",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListBranchesParamSchema,
-        t_ReposListBranchesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListBranchesParamSchema, ctx.params),
         query: parseRequestInput(reposListBranchesQuerySchema, ctx.query),
@@ -21992,10 +19675,7 @@ export function bootstrap(
   router.get(
     "reposGetBranch",
     "/repos/:owner/:repo/branches/:branch",
-    async (
-      ctx: ValidatedCtx<t_ReposGetBranchParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetBranchParamSchema, ctx.params),
         query: undefined,
@@ -22018,10 +19698,7 @@ export function bootstrap(
   router.get(
     "reposGetBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    async (
-      ctx: ValidatedCtx<t_ReposGetBranchProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetBranchProtectionParamSchema,
@@ -22098,14 +19775,7 @@ export function bootstrap(
   router.put(
     "reposUpdateBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateBranchProtectionParamSchema,
-        void,
-        t_ReposUpdateBranchProtectionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateBranchProtectionParamSchema,
@@ -22137,10 +19807,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteBranchProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteBranchProtectionParamSchema,
@@ -22169,10 +19836,7 @@ export function bootstrap(
   router.get(
     "reposGetAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    async (
-      ctx: ValidatedCtx<t_ReposGetAdminBranchProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetAdminBranchProtectionParamSchema,
@@ -22199,10 +19863,7 @@ export function bootstrap(
   router.post(
     "reposSetAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    async (
-      ctx: ValidatedCtx<t_ReposSetAdminBranchProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposSetAdminBranchProtectionParamSchema,
@@ -22229,14 +19890,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteAdminBranchProtection",
     "/repos/:owner/:repo/branches/:branch/protection/enforce_admins",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeleteAdminBranchProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteAdminBranchProtectionParamSchema,
@@ -22263,14 +19917,7 @@ export function bootstrap(
   router.get(
     "reposGetPullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetPullRequestReviewProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetPullRequestReviewProtectionParamSchema,
@@ -22320,14 +19967,7 @@ export function bootstrap(
   router.patch(
     "reposUpdatePullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdatePullRequestReviewProtectionParamSchema,
-        void,
-        t_ReposUpdatePullRequestReviewProtectionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdatePullRequestReviewProtectionParamSchema,
@@ -22357,14 +19997,7 @@ export function bootstrap(
   router.delete(
     "reposDeletePullRequestReviewProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeletePullRequestReviewProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeletePullRequestReviewProtectionParamSchema,
@@ -22391,14 +20024,7 @@ export function bootstrap(
   router.get(
     "reposGetCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetCommitSignatureProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCommitSignatureProtectionParamSchema,
@@ -22425,14 +20051,7 @@ export function bootstrap(
   router.post(
     "reposCreateCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateCommitSignatureProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateCommitSignatureProtectionParamSchema,
@@ -22459,14 +20078,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteCommitSignatureProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_signatures",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeleteCommitSignatureProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteCommitSignatureProtectionParamSchema,
@@ -22493,14 +20105,7 @@ export function bootstrap(
   router.get(
     "reposGetStatusChecksProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetStatusChecksProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetStatusChecksProtectionParamSchema,
@@ -22542,14 +20147,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateStatusCheckProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateStatusCheckProtectionParamSchema,
-        void,
-        t_ReposUpdateStatusCheckProtectionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateStatusCheckProtectionParamSchema,
@@ -22579,14 +20177,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveStatusCheckProtection",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRemoveStatusCheckProtectionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveStatusCheckProtectionParamSchema,
@@ -22613,14 +20204,7 @@ export function bootstrap(
   router.get(
     "reposGetAllStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetAllStatusCheckContextsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetAllStatusCheckContextsParamSchema,
@@ -22652,14 +20236,7 @@ export function bootstrap(
   router.post(
     "reposAddStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAddStatusCheckContextsParamSchema,
-        void,
-        t_ReposAddStatusCheckContextsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposAddStatusCheckContextsParamSchema,
@@ -22696,14 +20273,7 @@ export function bootstrap(
   router.put(
     "reposSetStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposSetStatusCheckContextsParamSchema,
-        void,
-        t_ReposSetStatusCheckContextsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposSetStatusCheckContextsParamSchema,
@@ -22740,14 +20310,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveStatusCheckContexts",
     "/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRemoveStatusCheckContextsParamSchema,
-        void,
-        t_ReposRemoveStatusCheckContextsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveStatusCheckContextsParamSchema,
@@ -22777,10 +20340,7 @@ export function bootstrap(
   router.get(
     "reposGetAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-    async (
-      ctx: ValidatedCtx<t_ReposGetAccessRestrictionsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetAccessRestrictionsParamSchema,
@@ -22809,10 +20369,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteAccessRestrictionsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteAccessRestrictionsParamSchema,
@@ -22839,14 +20396,7 @@ export function bootstrap(
   router.get(
     "reposGetAppsWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetAppsWithAccessToProtectedBranchParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetAppsWithAccessToProtectedBranchParamSchema,
@@ -22878,14 +20428,7 @@ export function bootstrap(
   router.post(
     "reposAddAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAddAppAccessRestrictionsParamSchema,
-        void,
-        t_ReposAddAppAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposAddAppAccessRestrictionsParamSchema,
@@ -22920,14 +20463,7 @@ export function bootstrap(
   router.put(
     "reposSetAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposSetAppAccessRestrictionsParamSchema,
-        void,
-        t_ReposSetAppAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposSetAppAccessRestrictionsParamSchema,
@@ -22962,14 +20498,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveAppAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/apps",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRemoveAppAccessRestrictionsParamSchema,
-        void,
-        t_ReposRemoveAppAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveAppAccessRestrictionsParamSchema,
@@ -22999,14 +20528,7 @@ export function bootstrap(
   router.get(
     "reposGetTeamsWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetTeamsWithAccessToProtectedBranchParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetTeamsWithAccessToProtectedBranchParamSchema,
@@ -23041,14 +20563,7 @@ export function bootstrap(
   router.post(
     "reposAddTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAddTeamAccessRestrictionsParamSchema,
-        void,
-        t_ReposAddTeamAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposAddTeamAccessRestrictionsParamSchema,
@@ -23083,14 +20598,7 @@ export function bootstrap(
   router.put(
     "reposSetTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposSetTeamAccessRestrictionsParamSchema,
-        void,
-        t_ReposSetTeamAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposSetTeamAccessRestrictionsParamSchema,
@@ -23125,14 +20633,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveTeamAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRemoveTeamAccessRestrictionsParamSchema,
-        void,
-        t_ReposRemoveTeamAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveTeamAccessRestrictionsParamSchema,
@@ -23162,14 +20663,7 @@ export function bootstrap(
   router.get(
     "reposGetUsersWithAccessToProtectedBranch",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetUsersWithAccessToProtectedBranchParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetUsersWithAccessToProtectedBranchParamSchema,
@@ -23204,14 +20698,7 @@ export function bootstrap(
   router.post(
     "reposAddUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAddUserAccessRestrictionsParamSchema,
-        void,
-        t_ReposAddUserAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposAddUserAccessRestrictionsParamSchema,
@@ -23246,14 +20733,7 @@ export function bootstrap(
   router.put(
     "reposSetUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposSetUserAccessRestrictionsParamSchema,
-        void,
-        t_ReposSetUserAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposSetUserAccessRestrictionsParamSchema,
@@ -23288,14 +20768,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveUserAccessRestrictions",
     "/repos/:owner/:repo/branches/:branch/protection/restrictions/users",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRemoveUserAccessRestrictionsParamSchema,
-        void,
-        t_ReposRemoveUserAccessRestrictionsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveUserAccessRestrictionsParamSchema,
@@ -23327,14 +20800,7 @@ export function bootstrap(
   router.post(
     "reposRenameBranch",
     "/repos/:owner/:repo/branches/:branch/rename",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposRenameBranchParamSchema,
-        void,
-        t_ReposRenameBranchBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposRenameBranchParamSchema, ctx.params),
         query: undefined,
@@ -23364,14 +20830,7 @@ export function bootstrap(
   router.post(
     "checksCreate",
     "/repos/:owner/:repo/check-runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksCreateParamSchema,
-        void,
-        t_ChecksCreateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksCreateParamSchema, ctx.params),
         query: undefined,
@@ -23394,10 +20853,7 @@ export function bootstrap(
   router.get(
     "checksGet",
     "/repos/:owner/:repo/check-runs/:checkRunId",
-    async (
-      ctx: ValidatedCtx<t_ChecksGetParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksGetParamSchema, ctx.params),
         query: undefined,
@@ -23481,14 +20937,7 @@ export function bootstrap(
   router.patch(
     "checksUpdate",
     "/repos/:owner/:repo/check-runs/:checkRunId",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksUpdateParamSchema,
-        void,
-        t_ChecksUpdateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksUpdateParamSchema, ctx.params),
         query: undefined,
@@ -23516,14 +20965,7 @@ export function bootstrap(
   router.get(
     "checksListAnnotations",
     "/repos/:owner/:repo/check-runs/:checkRunId/annotations",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksListAnnotationsParamSchema,
-        t_ChecksListAnnotationsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksListAnnotationsParamSchema, ctx.params),
         query: parseRequestInput(checksListAnnotationsQuerySchema, ctx.query),
@@ -23549,10 +20991,7 @@ export function bootstrap(
   router.post(
     "checksRerequestRun",
     "/repos/:owner/:repo/check-runs/:checkRunId/rerequest",
-    async (
-      ctx: ValidatedCtx<t_ChecksRerequestRunParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksRerequestRunParamSchema, ctx.params),
         query: undefined,
@@ -23579,14 +21018,7 @@ export function bootstrap(
   router.post(
     "checksCreateSuite",
     "/repos/:owner/:repo/check-suites",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksCreateSuiteParamSchema,
-        void,
-        t_ChecksCreateSuiteBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksCreateSuiteParamSchema, ctx.params),
         query: undefined,
@@ -23619,14 +21051,7 @@ export function bootstrap(
   router.patch(
     "checksSetSuitesPreferences",
     "/repos/:owner/:repo/check-suites/preferences",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksSetSuitesPreferencesParamSchema,
-        void,
-        t_ChecksSetSuitesPreferencesBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           checksSetSuitesPreferencesParamSchema,
@@ -23655,10 +21080,7 @@ export function bootstrap(
   router.get(
     "checksGetSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId",
-    async (
-      ctx: ValidatedCtx<t_ChecksGetSuiteParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksGetSuiteParamSchema, ctx.params),
         query: undefined,
@@ -23689,14 +21111,7 @@ export function bootstrap(
   router.get(
     "checksListForSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId/check-runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksListForSuiteParamSchema,
-        t_ChecksListForSuiteQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksListForSuiteParamSchema, ctx.params),
         query: parseRequestInput(checksListForSuiteQuerySchema, ctx.query),
@@ -23722,10 +21137,7 @@ export function bootstrap(
   router.post(
     "checksRerequestSuite",
     "/repos/:owner/:repo/check-suites/:checkSuiteId/rerequest",
-    async (
-      ctx: ValidatedCtx<t_ChecksRerequestSuiteParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksRerequestSuiteParamSchema, ctx.params),
         query: undefined,
@@ -23764,14 +21176,7 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertsForRepo",
     "/repos/:owner/:repo/code-scanning/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningListAlertsForRepoParamSchema,
-        t_CodeScanningListAlertsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningListAlertsForRepoParamSchema,
@@ -23801,10 +21206,7 @@ export function bootstrap(
   router.get(
     "codeScanningGetAlert",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<t_CodeScanningGetAlertParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(codeScanningGetAlertParamSchema, ctx.params),
         query: undefined,
@@ -23838,14 +21240,7 @@ export function bootstrap(
   router.patch(
     "codeScanningUpdateAlert",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningUpdateAlertParamSchema,
-        void,
-        t_CodeScanningUpdateAlertBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningUpdateAlertParamSchema,
@@ -23880,14 +21275,7 @@ export function bootstrap(
   router.get(
     "codeScanningListAlertInstances",
     "/repos/:owner/:repo/code-scanning/alerts/:alertNumber/instances",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningListAlertInstancesParamSchema,
-        t_CodeScanningListAlertInstancesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningListAlertInstancesParamSchema,
@@ -23927,14 +21315,7 @@ export function bootstrap(
   router.get(
     "codeScanningListRecentAnalyses",
     "/repos/:owner/:repo/code-scanning/analyses",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningListRecentAnalysesParamSchema,
-        t_CodeScanningListRecentAnalysesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningListRecentAnalysesParamSchema,
@@ -23964,10 +21345,7 @@ export function bootstrap(
   router.get(
     "codeScanningGetAnalysis",
     "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
-    async (
-      ctx: ValidatedCtx<t_CodeScanningGetAnalysisParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningGetAnalysisParamSchema,
@@ -24000,14 +21378,7 @@ export function bootstrap(
   router.delete(
     "codeScanningDeleteAnalysis",
     "/repos/:owner/:repo/code-scanning/analyses/:analysisId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningDeleteAnalysisParamSchema,
-        t_CodeScanningDeleteAnalysisQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningDeleteAnalysisParamSchema,
@@ -24038,14 +21409,7 @@ export function bootstrap(
   router.get(
     "codeScanningListCodeqlDatabases",
     "/repos/:owner/:repo/code-scanning/codeql/databases",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningListCodeqlDatabasesParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningListCodeqlDatabasesParamSchema,
@@ -24072,10 +21436,7 @@ export function bootstrap(
   router.get(
     "codeScanningGetCodeqlDatabase",
     "/repos/:owner/:repo/code-scanning/codeql/databases/:language",
-    async (
-      ctx: ValidatedCtx<t_CodeScanningGetCodeqlDatabaseParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningGetCodeqlDatabaseParamSchema,
@@ -24111,14 +21472,7 @@ export function bootstrap(
   router.post(
     "codeScanningUploadSarif",
     "/repos/:owner/:repo/code-scanning/sarifs",
-    async (
-      ctx: ValidatedCtx<
-        t_CodeScanningUploadSarifParamSchema,
-        void,
-        t_CodeScanningUploadSarifBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codeScanningUploadSarifParamSchema,
@@ -24147,10 +21501,7 @@ export function bootstrap(
   router.get(
     "codeScanningGetSarif",
     "/repos/:owner/:repo/code-scanning/sarifs/:sarifId",
-    async (
-      ctx: ValidatedCtx<t_CodeScanningGetSarifParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(codeScanningGetSarifParamSchema, ctx.params),
         query: undefined,
@@ -24179,14 +21530,7 @@ export function bootstrap(
   router.get(
     "reposCodeownersErrors",
     "/repos/:owner/:repo/codeowners/errors",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCodeownersErrorsParamSchema,
-        t_ReposCodeownersErrorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCodeownersErrorsParamSchema, ctx.params),
         query: parseRequestInput(reposCodeownersErrorsQuerySchema, ctx.query),
@@ -24216,14 +21560,7 @@ export function bootstrap(
   router.get(
     "codespacesListInRepositoryForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListInRepositoryForAuthenticatedUserParamSchema,
-        t_CodespacesListInRepositoryForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListInRepositoryForAuthenticatedUserParamSchema,
@@ -24268,14 +21605,7 @@ export function bootstrap(
   router.post(
     "codespacesCreateWithRepoForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserParamSchema,
@@ -24311,14 +21641,7 @@ export function bootstrap(
   router.get(
     "codespacesListDevcontainersInRepositoryForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/devcontainers",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
-        t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema,
@@ -24355,14 +21678,7 @@ export function bootstrap(
   router.get(
     "codespacesRepoMachinesForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/machines",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesRepoMachinesForAuthenticatedUserParamSchema,
-        t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesRepoMachinesForAuthenticatedUserParamSchema,
@@ -24399,14 +21715,7 @@ export function bootstrap(
   router.get(
     "codespacesPreFlightWithRepoForAuthenticatedUser",
     "/repos/:owner/:repo/codespaces/new",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
-        t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesPreFlightWithRepoForAuthenticatedUserParamSchema,
@@ -24443,14 +21752,7 @@ export function bootstrap(
   router.get(
     "codespacesListRepoSecrets",
     "/repos/:owner/:repo/codespaces/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListRepoSecretsParamSchema,
-        t_CodespacesListRepoSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListRepoSecretsParamSchema,
@@ -24481,10 +21783,7 @@ export function bootstrap(
   router.get(
     "codespacesGetRepoPublicKey",
     "/repos/:owner/:repo/codespaces/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_CodespacesGetRepoPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetRepoPublicKeyParamSchema,
@@ -24513,10 +21812,7 @@ export function bootstrap(
   router.get(
     "codespacesGetRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_CodespacesGetRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetRepoSecretParamSchema,
@@ -24550,14 +21846,7 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCreateOrUpdateRepoSecretParamSchema,
-        void,
-        t_CodespacesCreateOrUpdateRepoSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretParamSchema,
@@ -24587,10 +21876,7 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteRepoSecret",
     "/repos/:owner/:repo/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_CodespacesDeleteRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesDeleteRepoSecretParamSchema,
@@ -24627,14 +21913,7 @@ export function bootstrap(
   router.get(
     "reposListCollaborators",
     "/repos/:owner/:repo/collaborators",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListCollaboratorsParamSchema,
-        t_ReposListCollaboratorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListCollaboratorsParamSchema,
@@ -24663,10 +21942,7 @@ export function bootstrap(
   router.get(
     "reposCheckCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    async (
-      ctx: ValidatedCtx<t_ReposCheckCollaboratorParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCheckCollaboratorParamSchema,
@@ -24699,14 +21975,7 @@ export function bootstrap(
   router.put(
     "reposAddCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAddCollaboratorParamSchema,
-        void,
-        t_ReposAddCollaboratorBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposAddCollaboratorParamSchema, ctx.params),
         query: undefined,
@@ -24732,10 +22001,7 @@ export function bootstrap(
   router.delete(
     "reposRemoveCollaborator",
     "/repos/:owner/:repo/collaborators/:username",
-    async (
-      ctx: ValidatedCtx<t_ReposRemoveCollaboratorParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRemoveCollaboratorParamSchema,
@@ -24764,14 +22030,7 @@ export function bootstrap(
   router.get(
     "reposGetCollaboratorPermissionLevel",
     "/repos/:owner/:repo/collaborators/:username/permission",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetCollaboratorPermissionLevelParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCollaboratorPermissionLevelParamSchema,
@@ -24802,14 +22061,7 @@ export function bootstrap(
   router.get(
     "reposListCommitCommentsForRepo",
     "/repos/:owner/:repo/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListCommitCommentsForRepoParamSchema,
-        t_ReposListCommitCommentsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListCommitCommentsForRepoParamSchema,
@@ -24839,10 +22091,7 @@ export function bootstrap(
   router.get(
     "reposGetCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetCommitCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetCommitCommentParamSchema, ctx.params),
         query: undefined,
@@ -24872,14 +22121,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateCommitCommentParamSchema,
-        void,
-        t_ReposUpdateCommitCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateCommitCommentParamSchema,
@@ -24908,10 +22150,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteCommitComment",
     "/repos/:owner/:repo/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteCommitCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteCommitCommentParamSchema,
@@ -24957,14 +22196,7 @@ export function bootstrap(
   router.get(
     "reactionsListForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForCommitCommentParamSchema,
-        t_ReactionsListForCommitCommentQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForCommitCommentParamSchema,
@@ -25007,14 +22239,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForCommitCommentParamSchema,
-        void,
-        t_ReactionsCreateForCommitCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForCommitCommentParamSchema,
@@ -25045,14 +22270,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForCommitComment",
     "/repos/:owner/:repo/comments/:commentId/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsDeleteForCommitCommentParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForCommitCommentParamSchema,
@@ -25088,14 +22306,7 @@ export function bootstrap(
   router.get(
     "reposListCommits",
     "/repos/:owner/:repo/commits",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListCommitsParamSchema,
-        t_ReposListCommitsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListCommitsParamSchema, ctx.params),
         query: parseRequestInput(reposListCommitsQuerySchema, ctx.query),
@@ -25118,14 +22329,7 @@ export function bootstrap(
   router.get(
     "reposListBranchesForHeadCommit",
     "/repos/:owner/:repo/commits/:commitSha/branches-where-head",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListBranchesForHeadCommitParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListBranchesForHeadCommitParamSchema,
@@ -25157,14 +22361,7 @@ export function bootstrap(
   router.get(
     "reposListCommentsForCommit",
     "/repos/:owner/:repo/commits/:commitSha/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListCommentsForCommitParamSchema,
-        t_ReposListCommentsForCommitQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListCommentsForCommitParamSchema,
@@ -25203,14 +22400,7 @@ export function bootstrap(
   router.post(
     "reposCreateCommitComment",
     "/repos/:owner/:repo/commits/:commitSha/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateCommitCommentParamSchema,
-        void,
-        t_ReposCreateCommitCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateCommitCommentParamSchema,
@@ -25244,14 +22434,7 @@ export function bootstrap(
   router.get(
     "reposListPullRequestsAssociatedWithCommit",
     "/repos/:owner/:repo/commits/:commitSha/pulls",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListPullRequestsAssociatedWithCommitParamSchema,
-        t_ReposListPullRequestsAssociatedWithCommitQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListPullRequestsAssociatedWithCommitParamSchema,
@@ -25289,14 +22472,7 @@ export function bootstrap(
   router.get(
     "reposGetCommit",
     "/repos/:owner/:repo/commits/:ref",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetCommitParamSchema,
-        t_ReposGetCommitQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetCommitParamSchema, ctx.params),
         query: parseRequestInput(reposGetCommitQuerySchema, ctx.query),
@@ -25328,14 +22504,7 @@ export function bootstrap(
   router.get(
     "checksListForRef",
     "/repos/:owner/:repo/commits/:ref/check-runs",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksListForRefParamSchema,
-        t_ChecksListForRefQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(checksListForRefParamSchema, ctx.params),
         query: parseRequestInput(checksListForRefQuerySchema, ctx.query),
@@ -25365,14 +22534,7 @@ export function bootstrap(
   router.get(
     "checksListSuitesForRef",
     "/repos/:owner/:repo/commits/:ref/check-suites",
-    async (
-      ctx: ValidatedCtx<
-        t_ChecksListSuitesForRefParamSchema,
-        t_ChecksListSuitesForRefQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           checksListSuitesForRefParamSchema,
@@ -25406,14 +22568,7 @@ export function bootstrap(
   router.get(
     "reposGetCombinedStatusForRef",
     "/repos/:owner/:repo/commits/:ref/status",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetCombinedStatusForRefParamSchema,
-        t_ReposGetCombinedStatusForRefQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCombinedStatusForRefParamSchema,
@@ -25448,14 +22603,7 @@ export function bootstrap(
   router.get(
     "reposListCommitStatusesForRef",
     "/repos/:owner/:repo/commits/:ref/statuses",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListCommitStatusesForRefParamSchema,
-        t_ReposListCommitStatusesForRefQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListCommitStatusesForRefParamSchema,
@@ -25484,14 +22632,7 @@ export function bootstrap(
   router.get(
     "reposGetCommunityProfileMetrics",
     "/repos/:owner/:repo/community/profile",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetCommunityProfileMetricsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCommunityProfileMetricsParamSchema,
@@ -25523,14 +22664,7 @@ export function bootstrap(
   router.get(
     "reposCompareCommits",
     "/repos/:owner/:repo/compare/:basehead",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCompareCommitsParamSchema,
-        t_ReposCompareCommitsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCompareCommitsParamSchema, ctx.params),
         query: parseRequestInput(reposCompareCommitsQuerySchema, ctx.query),
@@ -25560,14 +22694,7 @@ export function bootstrap(
   router.get(
     "reposGetContent",
     "/repos/:owner/:repo/contents/:path",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetContentParamSchema,
-        t_ReposGetContentQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetContentParamSchema, ctx.params),
         query: parseRequestInput(reposGetContentQuerySchema, ctx.query),
@@ -25611,14 +22738,7 @@ export function bootstrap(
   router.put(
     "reposCreateOrUpdateFileContents",
     "/repos/:owner/:repo/contents/:path",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateOrUpdateFileContentsParamSchema,
-        void,
-        t_ReposCreateOrUpdateFileContentsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateOrUpdateFileContentsParamSchema,
@@ -25666,14 +22786,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteFile",
     "/repos/:owner/:repo/contents/:path",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeleteFileParamSchema,
-        void,
-        t_ReposDeleteFileBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteFileParamSchema, ctx.params),
         query: undefined,
@@ -25701,14 +22814,7 @@ export function bootstrap(
   router.get(
     "reposListContributors",
     "/repos/:owner/:repo/contributors",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListContributorsParamSchema,
-        t_ReposListContributorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListContributorsParamSchema, ctx.params),
         query: parseRequestInput(reposListContributorsQuerySchema, ctx.query),
@@ -25750,14 +22856,7 @@ export function bootstrap(
   router.get(
     "dependabotListAlertsForRepo",
     "/repos/:owner/:repo/dependabot/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListAlertsForRepoParamSchema,
-        t_DependabotListAlertsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListAlertsForRepoParamSchema,
@@ -25789,10 +22888,7 @@ export function bootstrap(
   router.get(
     "dependabotGetAlert",
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<t_DependabotGetAlertParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(dependabotGetAlertParamSchema, ctx.params),
         query: undefined,
@@ -25832,14 +22928,7 @@ export function bootstrap(
   router.patch(
     "dependabotUpdateAlert",
     "/repos/:owner/:repo/dependabot/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotUpdateAlertParamSchema,
-        void,
-        t_DependabotUpdateAlertBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(dependabotUpdateAlertParamSchema, ctx.params),
         query: undefined,
@@ -25869,14 +22958,7 @@ export function bootstrap(
   router.get(
     "dependabotListRepoSecrets",
     "/repos/:owner/:repo/dependabot/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotListRepoSecretsParamSchema,
-        t_DependabotListRepoSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotListRepoSecretsParamSchema,
@@ -25907,10 +22989,7 @@ export function bootstrap(
   router.get(
     "dependabotGetRepoPublicKey",
     "/repos/:owner/:repo/dependabot/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<t_DependabotGetRepoPublicKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotGetRepoPublicKeyParamSchema,
@@ -25939,10 +23018,7 @@ export function bootstrap(
   router.get(
     "dependabotGetRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_DependabotGetRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotGetRepoSecretParamSchema,
@@ -25976,14 +23052,7 @@ export function bootstrap(
   router.put(
     "dependabotCreateOrUpdateRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_DependabotCreateOrUpdateRepoSecretParamSchema,
-        void,
-        t_DependabotCreateOrUpdateRepoSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretParamSchema,
@@ -26013,10 +23082,7 @@ export function bootstrap(
   router.delete(
     "dependabotDeleteRepoSecret",
     "/repos/:owner/:repo/dependabot/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_DependabotDeleteRepoSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependabotDeleteRepoSecretParamSchema,
@@ -26049,14 +23115,7 @@ export function bootstrap(
   router.get(
     "dependencyGraphDiffRange",
     "/repos/:owner/:repo/dependency-graph/compare/:basehead",
-    async (
-      ctx: ValidatedCtx<
-        t_DependencyGraphDiffRangeParamSchema,
-        t_DependencyGraphDiffRangeQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependencyGraphDiffRangeParamSchema,
@@ -26106,14 +23165,7 @@ export function bootstrap(
   router.post(
     "dependencyGraphCreateRepositorySnapshot",
     "/repos/:owner/:repo/dependency-graph/snapshots",
-    async (
-      ctx: ValidatedCtx<
-        t_DependencyGraphCreateRepositorySnapshotParamSchema,
-        void,
-        t_DependencyGraphCreateRepositorySnapshotBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotParamSchema,
@@ -26151,14 +23203,7 @@ export function bootstrap(
   router.get(
     "reposListDeployments",
     "/repos/:owner/:repo/deployments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListDeploymentsParamSchema,
-        t_ReposListDeploymentsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListDeploymentsParamSchema, ctx.params),
         query: parseRequestInput(reposListDeploymentsQuerySchema, ctx.query),
@@ -26195,14 +23240,7 @@ export function bootstrap(
   router.post(
     "reposCreateDeployment",
     "/repos/:owner/:repo/deployments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateDeploymentParamSchema,
-        void,
-        t_ReposCreateDeploymentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateDeploymentParamSchema, ctx.params),
         query: undefined,
@@ -26228,10 +23266,7 @@ export function bootstrap(
   router.get(
     "reposGetDeployment",
     "/repos/:owner/:repo/deployments/:deploymentId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetDeploymentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetDeploymentParamSchema, ctx.params),
         query: undefined,
@@ -26257,10 +23292,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeployment",
     "/repos/:owner/:repo/deployments/:deploymentId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteDeploymentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteDeploymentParamSchema, ctx.params),
         query: undefined,
@@ -26291,14 +23323,7 @@ export function bootstrap(
   router.get(
     "reposListDeploymentStatuses",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListDeploymentStatusesParamSchema,
-        t_ReposListDeploymentStatusesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListDeploymentStatusesParamSchema,
@@ -26348,14 +23373,7 @@ export function bootstrap(
   router.post(
     "reposCreateDeploymentStatus",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateDeploymentStatusParamSchema,
-        void,
-        t_ReposCreateDeploymentStatusBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateDeploymentStatusParamSchema,
@@ -26388,10 +23406,7 @@ export function bootstrap(
   router.get(
     "reposGetDeploymentStatus",
     "/repos/:owner/:repo/deployments/:deploymentId/statuses/:statusId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetDeploymentStatusParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetDeploymentStatusParamSchema,
@@ -26424,14 +23439,7 @@ export function bootstrap(
   router.post(
     "reposCreateDispatchEvent",
     "/repos/:owner/:repo/dispatches",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateDispatchEventParamSchema,
-        void,
-        t_ReposCreateDispatchEventBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateDispatchEventParamSchema,
@@ -26464,14 +23472,7 @@ export function bootstrap(
   router.get(
     "reposGetAllEnvironments",
     "/repos/:owner/:repo/environments",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetAllEnvironmentsParamSchema,
-        t_ReposGetAllEnvironmentsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetAllEnvironmentsParamSchema,
@@ -26500,10 +23501,7 @@ export function bootstrap(
   router.get(
     "reposGetEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    async (
-      ctx: ValidatedCtx<t_ReposGetEnvironmentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetEnvironmentParamSchema, ctx.params),
         query: undefined,
@@ -26549,14 +23547,7 @@ export function bootstrap(
   router.put(
     "reposCreateOrUpdateEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateOrUpdateEnvironmentParamSchema,
-        void,
-        t_ReposCreateOrUpdateEnvironmentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateOrUpdateEnvironmentParamSchema,
@@ -26586,10 +23577,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteAnEnvironment",
     "/repos/:owner/:repo/environments/:environmentName",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteAnEnvironmentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteAnEnvironmentParamSchema,
@@ -26623,14 +23611,7 @@ export function bootstrap(
   router.get(
     "reposListDeploymentBranchPolicies",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListDeploymentBranchPoliciesParamSchema,
-        t_ReposListDeploymentBranchPoliciesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListDeploymentBranchPoliciesParamSchema,
@@ -26664,14 +23645,7 @@ export function bootstrap(
   router.post(
     "reposCreateDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateDeploymentBranchPolicyParamSchema,
-        void,
-        t_ReposCreateDeploymentBranchPolicyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateDeploymentBranchPolicyParamSchema,
@@ -26702,14 +23676,7 @@ export function bootstrap(
   router.get(
     "reposGetDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetDeploymentBranchPolicyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetDeploymentBranchPolicyParamSchema,
@@ -26741,14 +23708,7 @@ export function bootstrap(
   router.put(
     "reposUpdateDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateDeploymentBranchPolicyParamSchema,
-        void,
-        t_ReposUpdateDeploymentBranchPolicyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateDeploymentBranchPolicyParamSchema,
@@ -26779,14 +23739,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeploymentBranchPolicy",
     "/repos/:owner/:repo/environments/:environmentName/deployment-branch-policies/:branchPolicyId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeleteDeploymentBranchPolicyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteDeploymentBranchPolicyParamSchema,
@@ -26817,14 +23770,7 @@ export function bootstrap(
   router.get(
     "activityListRepoEvents",
     "/repos/:owner/:repo/events",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListRepoEventsParamSchema,
-        t_ActivityListRepoEventsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListRepoEventsParamSchema,
@@ -26858,14 +23804,7 @@ export function bootstrap(
   router.get(
     "reposListForks",
     "/repos/:owner/:repo/forks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListForksParamSchema,
-        t_ReposListForksQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListForksParamSchema, ctx.params),
         query: parseRequestInput(reposListForksQuerySchema, ctx.query),
@@ -26895,14 +23834,7 @@ export function bootstrap(
   router.post(
     "reposCreateFork",
     "/repos/:owner/:repo/forks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateForkParamSchema,
-        void,
-        t_ReposCreateForkBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateForkParamSchema, ctx.params),
         query: undefined,
@@ -26929,14 +23861,7 @@ export function bootstrap(
   router.post(
     "gitCreateBlob",
     "/repos/:owner/:repo/git/blobs",
-    async (
-      ctx: ValidatedCtx<
-        t_GitCreateBlobParamSchema,
-        void,
-        t_GitCreateBlobBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitCreateBlobParamSchema, ctx.params),
         query: undefined,
@@ -26959,10 +23884,7 @@ export function bootstrap(
   router.get(
     "gitGetBlob",
     "/repos/:owner/:repo/git/blobs/:fileSha",
-    async (
-      ctx: ValidatedCtx<t_GitGetBlobParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitGetBlobParamSchema, ctx.params),
         query: undefined,
@@ -27005,14 +23927,7 @@ export function bootstrap(
   router.post(
     "gitCreateCommit",
     "/repos/:owner/:repo/git/commits",
-    async (
-      ctx: ValidatedCtx<
-        t_GitCreateCommitParamSchema,
-        void,
-        t_GitCreateCommitBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitCreateCommitParamSchema, ctx.params),
         query: undefined,
@@ -27035,10 +23950,7 @@ export function bootstrap(
   router.get(
     "gitGetCommit",
     "/repos/:owner/:repo/git/commits/:commitSha",
-    async (
-      ctx: ValidatedCtx<t_GitGetCommitParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitGetCommitParamSchema, ctx.params),
         query: undefined,
@@ -27061,10 +23973,7 @@ export function bootstrap(
   router.get(
     "gitListMatchingRefs",
     "/repos/:owner/:repo/git/matching-refs/:ref",
-    async (
-      ctx: ValidatedCtx<t_GitListMatchingRefsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitListMatchingRefsParamSchema, ctx.params),
         query: undefined,
@@ -27090,10 +23999,7 @@ export function bootstrap(
   router.get(
     "gitGetRef",
     "/repos/:owner/:repo/git/ref/:ref",
-    async (
-      ctx: ValidatedCtx<t_GitGetRefParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitGetRefParamSchema, ctx.params),
         query: undefined,
@@ -27121,14 +24027,7 @@ export function bootstrap(
   router.post(
     "gitCreateRef",
     "/repos/:owner/:repo/git/refs",
-    async (
-      ctx: ValidatedCtx<
-        t_GitCreateRefParamSchema,
-        void,
-        t_GitCreateRefBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitCreateRefParamSchema, ctx.params),
         query: undefined,
@@ -27156,14 +24055,7 @@ export function bootstrap(
   router.patch(
     "gitUpdateRef",
     "/repos/:owner/:repo/git/refs/:ref",
-    async (
-      ctx: ValidatedCtx<
-        t_GitUpdateRefParamSchema,
-        void,
-        t_GitUpdateRefBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitUpdateRefParamSchema, ctx.params),
         query: undefined,
@@ -27186,10 +24078,7 @@ export function bootstrap(
   router.delete(
     "gitDeleteRef",
     "/repos/:owner/:repo/git/refs/:ref",
-    async (
-      ctx: ValidatedCtx<t_GitDeleteRefParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitDeleteRefParamSchema, ctx.params),
         query: undefined,
@@ -27225,14 +24114,7 @@ export function bootstrap(
   router.post(
     "gitCreateTag",
     "/repos/:owner/:repo/git/tags",
-    async (
-      ctx: ValidatedCtx<
-        t_GitCreateTagParamSchema,
-        void,
-        t_GitCreateTagBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitCreateTagParamSchema, ctx.params),
         query: undefined,
@@ -27255,10 +24137,7 @@ export function bootstrap(
   router.get(
     "gitGetTag",
     "/repos/:owner/:repo/git/tags/:tagSha",
-    async (
-      ctx: ValidatedCtx<t_GitGetTagParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitGetTagParamSchema, ctx.params),
         query: undefined,
@@ -27295,14 +24174,7 @@ export function bootstrap(
   router.post(
     "gitCreateTree",
     "/repos/:owner/:repo/git/trees",
-    async (
-      ctx: ValidatedCtx<
-        t_GitCreateTreeParamSchema,
-        void,
-        t_GitCreateTreeBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitCreateTreeParamSchema, ctx.params),
         query: undefined,
@@ -27329,10 +24201,7 @@ export function bootstrap(
   router.get(
     "gitGetTree",
     "/repos/:owner/:repo/git/trees/:treeSha",
-    async (
-      ctx: ValidatedCtx<t_GitGetTreeParamSchema, t_GitGetTreeQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gitGetTreeParamSchema, ctx.params),
         query: parseRequestInput(gitGetTreeQuerySchema, ctx.query),
@@ -27359,14 +24228,7 @@ export function bootstrap(
   router.get(
     "reposListWebhooks",
     "/repos/:owner/:repo/hooks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListWebhooksParamSchema,
-        t_ReposListWebhooksQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListWebhooksParamSchema, ctx.params),
         query: parseRequestInput(reposListWebhooksQuerySchema, ctx.query),
@@ -27409,14 +24271,7 @@ export function bootstrap(
   router.post(
     "reposCreateWebhook",
     "/repos/:owner/:repo/hooks",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateWebhookParamSchema,
-        void,
-        t_ReposCreateWebhookBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27442,10 +24297,7 @@ export function bootstrap(
   router.get(
     "reposGetWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27485,14 +24337,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateWebhookParamSchema,
-        void,
-        t_ReposUpdateWebhookBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposUpdateWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27518,10 +24363,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteWebhook",
     "/repos/:owner/:repo/hooks/:hookId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27547,10 +24389,7 @@ export function bootstrap(
   router.get(
     "reposGetWebhookConfigForRepo",
     "/repos/:owner/:repo/hooks/:hookId/config",
-    async (
-      ctx: ValidatedCtx<t_ReposGetWebhookConfigForRepoParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetWebhookConfigForRepoParamSchema,
@@ -27586,14 +24425,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateWebhookConfigForRepo",
     "/repos/:owner/:repo/hooks/:hookId/config",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateWebhookConfigForRepoParamSchema,
-        void,
-        t_ReposUpdateWebhookConfigForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateWebhookConfigForRepoParamSchema,
@@ -27629,14 +24461,7 @@ export function bootstrap(
   router.get(
     "reposListWebhookDeliveries",
     "/repos/:owner/:repo/hooks/:hookId/deliveries",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListWebhookDeliveriesParamSchema,
-        t_ReposListWebhookDeliveriesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListWebhookDeliveriesParamSchema,
@@ -27669,10 +24494,7 @@ export function bootstrap(
   router.get(
     "reposGetWebhookDelivery",
     "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetWebhookDeliveryParamSchema,
@@ -27702,10 +24524,7 @@ export function bootstrap(
   router.post(
     "reposRedeliverWebhookDelivery",
     "/repos/:owner/:repo/hooks/:hookId/deliveries/:deliveryId/attempts",
-    async (
-      ctx: ValidatedCtx<t_ReposRedeliverWebhookDeliveryParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRedeliverWebhookDeliveryParamSchema,
@@ -27732,10 +24551,7 @@ export function bootstrap(
   router.post(
     "reposPingWebhook",
     "/repos/:owner/:repo/hooks/:hookId/pings",
-    async (
-      ctx: ValidatedCtx<t_ReposPingWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposPingWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27758,10 +24574,7 @@ export function bootstrap(
   router.post(
     "reposTestPushWebhook",
     "/repos/:owner/:repo/hooks/:hookId/tests",
-    async (
-      ctx: ValidatedCtx<t_ReposTestPushWebhookParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposTestPushWebhookParamSchema, ctx.params),
         query: undefined,
@@ -27786,10 +24599,7 @@ export function bootstrap(
   router.get(
     "migrationsGetImportStatus",
     "/repos/:owner/:repo/import",
-    async (
-      ctx: ValidatedCtx<t_MigrationsGetImportStatusParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetImportStatusParamSchema,
@@ -27825,14 +24635,7 @@ export function bootstrap(
   router.put(
     "migrationsStartImport",
     "/repos/:owner/:repo/import",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsStartImportParamSchema,
-        void,
-        t_MigrationsStartImportBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(migrationsStartImportParamSchema, ctx.params),
         query: undefined,
@@ -27866,14 +24669,7 @@ export function bootstrap(
   router.patch(
     "migrationsUpdateImport",
     "/repos/:owner/:repo/import",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsUpdateImportParamSchema,
-        void,
-        t_MigrationsUpdateImportBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsUpdateImportParamSchema,
@@ -27901,10 +24697,7 @@ export function bootstrap(
   router.delete(
     "migrationsCancelImport",
     "/repos/:owner/:repo/import",
-    async (
-      ctx: ValidatedCtx<t_MigrationsCancelImportParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsCancelImportParamSchema,
@@ -27936,14 +24729,7 @@ export function bootstrap(
   router.get(
     "migrationsGetCommitAuthors",
     "/repos/:owner/:repo/import/authors",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsGetCommitAuthorsParamSchema,
-        t_MigrationsGetCommitAuthorsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetCommitAuthorsParamSchema,
@@ -27982,14 +24768,7 @@ export function bootstrap(
   router.patch(
     "migrationsMapCommitAuthor",
     "/repos/:owner/:repo/import/authors/:authorId",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsMapCommitAuthorParamSchema,
-        void,
-        t_MigrationsMapCommitAuthorBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsMapCommitAuthorParamSchema,
@@ -28017,10 +24796,7 @@ export function bootstrap(
   router.get(
     "migrationsGetLargeFiles",
     "/repos/:owner/:repo/import/large_files",
-    async (
-      ctx: ValidatedCtx<t_MigrationsGetLargeFilesParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetLargeFilesParamSchema,
@@ -28052,14 +24828,7 @@ export function bootstrap(
   router.patch(
     "migrationsSetLfsPreference",
     "/repos/:owner/:repo/import/lfs",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsSetLfsPreferenceParamSchema,
-        void,
-        t_MigrationsSetLfsPreferenceBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsSetLfsPreferenceParamSchema,
@@ -28087,10 +24856,7 @@ export function bootstrap(
   router.get(
     "appsGetRepoInstallation",
     "/repos/:owner/:repo/installation",
-    async (
-      ctx: ValidatedCtx<t_AppsGetRepoInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetRepoInstallationParamSchema,
@@ -28118,14 +24884,7 @@ export function bootstrap(
   router.get(
     "interactionsGetRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsGetRestrictionsForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsGetRestrictionsForRepoParamSchema,
@@ -28162,14 +24921,7 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsSetRestrictionsForRepoParamSchema,
-        void,
-        t_InteractionsSetRestrictionsForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsSetRestrictionsForRepoParamSchema,
@@ -28198,14 +24950,7 @@ export function bootstrap(
   router.delete(
     "interactionsRemoveRestrictionsForRepo",
     "/repos/:owner/:repo/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        t_InteractionsRemoveRestrictionsForRepoParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           interactionsRemoveRestrictionsForRepoParamSchema,
@@ -28236,14 +24981,7 @@ export function bootstrap(
   router.get(
     "reposListInvitations",
     "/repos/:owner/:repo/invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListInvitationsParamSchema,
-        t_ReposListInvitationsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListInvitationsParamSchema, ctx.params),
         query: parseRequestInput(reposListInvitationsQuerySchema, ctx.query),
@@ -28277,14 +25015,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateInvitation",
     "/repos/:owner/:repo/invitations/:invitationId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateInvitationParamSchema,
-        void,
-        t_ReposUpdateInvitationBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposUpdateInvitationParamSchema, ctx.params),
         query: undefined,
@@ -28310,10 +25041,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteInvitation",
     "/repos/:owner/:repo/invitations/:invitationId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteInvitationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteInvitationParamSchema, ctx.params),
         query: undefined,
@@ -28352,14 +25080,7 @@ export function bootstrap(
   router.get(
     "issuesListForRepo",
     "/repos/:owner/:repo/issues",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListForRepoParamSchema,
-        t_IssuesListForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesListForRepoParamSchema, ctx.params),
         query: parseRequestInput(issuesListForRepoQuerySchema, ctx.query),
@@ -28405,14 +25126,7 @@ export function bootstrap(
   router.post(
     "issuesCreate",
     "/repos/:owner/:repo/issues",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesCreateParamSchema,
-        void,
-        t_IssuesCreateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesCreateParamSchema, ctx.params),
         query: undefined,
@@ -28442,14 +25156,7 @@ export function bootstrap(
   router.get(
     "issuesListCommentsForRepo",
     "/repos/:owner/:repo/issues/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListCommentsForRepoParamSchema,
-        t_IssuesListCommentsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListCommentsForRepoParamSchema,
@@ -28481,10 +25188,7 @@ export function bootstrap(
   router.get(
     "issuesGetComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_IssuesGetCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesGetCommentParamSchema, ctx.params),
         query: undefined,
@@ -28509,14 +25213,7 @@ export function bootstrap(
   router.patch(
     "issuesUpdateComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesUpdateCommentParamSchema,
-        void,
-        t_IssuesUpdateCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesUpdateCommentParamSchema, ctx.params),
         query: undefined,
@@ -28542,10 +25239,7 @@ export function bootstrap(
   router.delete(
     "issuesDeleteComment",
     "/repos/:owner/:repo/issues/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_IssuesDeleteCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesDeleteCommentParamSchema, ctx.params),
         query: undefined,
@@ -28588,14 +25282,7 @@ export function bootstrap(
   router.get(
     "reactionsListForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForIssueCommentParamSchema,
-        t_ReactionsListForIssueCommentQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForIssueCommentParamSchema,
@@ -28638,14 +25325,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForIssueCommentParamSchema,
-        void,
-        t_ReactionsCreateForIssueCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForIssueCommentParamSchema,
@@ -28676,14 +25356,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForIssueComment",
     "/repos/:owner/:repo/issues/comments/:commentId/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsDeleteForIssueCommentParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForIssueCommentParamSchema,
@@ -28714,14 +25387,7 @@ export function bootstrap(
   router.get(
     "issuesListEventsForRepo",
     "/repos/:owner/:repo/issues/events",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListEventsForRepoParamSchema,
-        t_IssuesListEventsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListEventsForRepoParamSchema,
@@ -28750,10 +25416,7 @@ export function bootstrap(
   router.get(
     "issuesGetEvent",
     "/repos/:owner/:repo/issues/events/:eventId",
-    async (
-      ctx: ValidatedCtx<t_IssuesGetEventParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesGetEventParamSchema, ctx.params),
         query: undefined,
@@ -28776,10 +25439,7 @@ export function bootstrap(
   router.get(
     "issuesGet",
     "/repos/:owner/:repo/issues/:issueNumber",
-    async (
-      ctx: ValidatedCtx<t_IssuesGetParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesGetParamSchema, ctx.params),
         query: undefined,
@@ -28827,14 +25487,7 @@ export function bootstrap(
   router.patch(
     "issuesUpdate",
     "/repos/:owner/:repo/issues/:issueNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesUpdateParamSchema,
-        void,
-        t_IssuesUpdateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesUpdateParamSchema, ctx.params),
         query: undefined,
@@ -28861,14 +25514,7 @@ export function bootstrap(
   router.post(
     "issuesAddAssignees",
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesAddAssigneesParamSchema,
-        void,
-        t_IssuesAddAssigneesBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesAddAssigneesParamSchema, ctx.params),
         query: undefined,
@@ -28898,14 +25544,7 @@ export function bootstrap(
   router.delete(
     "issuesRemoveAssignees",
     "/repos/:owner/:repo/issues/:issueNumber/assignees",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesRemoveAssigneesParamSchema,
-        void,
-        t_IssuesRemoveAssigneesBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesRemoveAssigneesParamSchema, ctx.params),
         query: undefined,
@@ -28932,14 +25571,7 @@ export function bootstrap(
   router.get(
     "issuesCheckUserCanBeAssignedToIssue",
     "/repos/:owner/:repo/issues/:issueNumber/assignees/:assignee",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesCheckUserCanBeAssignedToIssueParamSchema,
@@ -28972,14 +25604,7 @@ export function bootstrap(
   router.get(
     "issuesListComments",
     "/repos/:owner/:repo/issues/:issueNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListCommentsParamSchema,
-        t_IssuesListCommentsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesListCommentsParamSchema, ctx.params),
         query: parseRequestInput(issuesListCommentsQuerySchema, ctx.query),
@@ -29007,14 +25632,7 @@ export function bootstrap(
   router.post(
     "issuesCreateComment",
     "/repos/:owner/:repo/issues/:issueNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesCreateCommentParamSchema,
-        void,
-        t_IssuesCreateCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesCreateCommentParamSchema, ctx.params),
         query: undefined,
@@ -29045,14 +25663,7 @@ export function bootstrap(
   router.get(
     "issuesListEvents",
     "/repos/:owner/:repo/issues/:issueNumber/events",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListEventsParamSchema,
-        t_IssuesListEventsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesListEventsParamSchema, ctx.params),
         query: parseRequestInput(issuesListEventsQuerySchema, ctx.query),
@@ -29080,14 +25691,7 @@ export function bootstrap(
   router.get(
     "issuesListLabelsOnIssue",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListLabelsOnIssueParamSchema,
-        t_IssuesListLabelsOnIssueQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListLabelsOnIssueParamSchema,
@@ -29126,14 +25730,7 @@ export function bootstrap(
   router.post(
     "issuesAddLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesAddLabelsParamSchema,
-        void,
-        t_IssuesAddLabelsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesAddLabelsParamSchema, ctx.params),
         query: undefined,
@@ -29166,14 +25763,7 @@ export function bootstrap(
   router.put(
     "issuesSetLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesSetLabelsParamSchema,
-        void,
-        t_IssuesSetLabelsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesSetLabelsParamSchema, ctx.params),
         query: undefined,
@@ -29196,10 +25786,7 @@ export function bootstrap(
   router.delete(
     "issuesRemoveAllLabels",
     "/repos/:owner/:repo/issues/:issueNumber/labels",
-    async (
-      ctx: ValidatedCtx<t_IssuesRemoveAllLabelsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesRemoveAllLabelsParamSchema, ctx.params),
         query: undefined,
@@ -29226,10 +25813,7 @@ export function bootstrap(
   router.delete(
     "issuesRemoveLabel",
     "/repos/:owner/:repo/issues/:issueNumber/labels/:name",
-    async (
-      ctx: ValidatedCtx<t_IssuesRemoveLabelParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesRemoveLabelParamSchema, ctx.params),
         query: undefined,
@@ -29263,10 +25847,7 @@ export function bootstrap(
   router.put(
     "issuesLock",
     "/repos/:owner/:repo/issues/:issueNumber/lock",
-    async (
-      ctx: ValidatedCtx<t_IssuesLockParamSchema, void, t_IssuesLockBodySchema>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesLockParamSchema, ctx.params),
         query: undefined,
@@ -29289,10 +25870,7 @@ export function bootstrap(
   router.delete(
     "issuesUnlock",
     "/repos/:owner/:repo/issues/:issueNumber/lock",
-    async (
-      ctx: ValidatedCtx<t_IssuesUnlockParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesUnlockParamSchema, ctx.params),
         query: undefined,
@@ -29332,14 +25910,7 @@ export function bootstrap(
   router.get(
     "reactionsListForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForIssueParamSchema,
-        t_ReactionsListForIssueQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reactionsListForIssueParamSchema, ctx.params),
         query: parseRequestInput(reactionsListForIssueQuerySchema, ctx.query),
@@ -29378,14 +25949,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForIssueParamSchema,
-        void,
-        t_ReactionsCreateForIssueBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForIssueParamSchema,
@@ -29415,10 +25979,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForIssue",
     "/repos/:owner/:repo/issues/:issueNumber/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<t_ReactionsDeleteForIssueParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForIssueParamSchema,
@@ -29452,14 +26013,7 @@ export function bootstrap(
   router.get(
     "issuesListEventsForTimeline",
     "/repos/:owner/:repo/issues/:issueNumber/timeline",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListEventsForTimelineParamSchema,
-        t_IssuesListEventsForTimelineQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListEventsForTimelineParamSchema,
@@ -29495,14 +26049,7 @@ export function bootstrap(
   router.get(
     "reposListDeployKeys",
     "/repos/:owner/:repo/keys",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListDeployKeysParamSchema,
-        t_ReposListDeployKeysQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListDeployKeysParamSchema, ctx.params),
         query: parseRequestInput(reposListDeployKeysQuerySchema, ctx.query),
@@ -29533,14 +26080,7 @@ export function bootstrap(
   router.post(
     "reposCreateDeployKey",
     "/repos/:owner/:repo/keys",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateDeployKeyParamSchema,
-        void,
-        t_ReposCreateDeployKeyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateDeployKeyParamSchema, ctx.params),
         query: undefined,
@@ -29566,10 +26106,7 @@ export function bootstrap(
   router.get(
     "reposGetDeployKey",
     "/repos/:owner/:repo/keys/:keyId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetDeployKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetDeployKeyParamSchema, ctx.params),
         query: undefined,
@@ -29595,10 +26132,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteDeployKey",
     "/repos/:owner/:repo/keys/:keyId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteDeployKeyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteDeployKeyParamSchema, ctx.params),
         query: undefined,
@@ -29628,14 +26162,7 @@ export function bootstrap(
   router.get(
     "issuesListLabelsForRepo",
     "/repos/:owner/:repo/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListLabelsForRepoParamSchema,
-        t_IssuesListLabelsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListLabelsForRepoParamSchema,
@@ -29669,14 +26196,7 @@ export function bootstrap(
   router.post(
     "issuesCreateLabel",
     "/repos/:owner/:repo/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesCreateLabelParamSchema,
-        void,
-        t_IssuesCreateLabelBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesCreateLabelParamSchema, ctx.params),
         query: undefined,
@@ -29702,10 +26222,7 @@ export function bootstrap(
   router.get(
     "issuesGetLabel",
     "/repos/:owner/:repo/labels/:name",
-    async (
-      ctx: ValidatedCtx<t_IssuesGetLabelParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesGetLabelParamSchema, ctx.params),
         query: undefined,
@@ -29736,14 +26253,7 @@ export function bootstrap(
   router.patch(
     "issuesUpdateLabel",
     "/repos/:owner/:repo/labels/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesUpdateLabelParamSchema,
-        void,
-        t_IssuesUpdateLabelBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesUpdateLabelParamSchema, ctx.params),
         query: undefined,
@@ -29769,10 +26279,7 @@ export function bootstrap(
   router.delete(
     "issuesDeleteLabel",
     "/repos/:owner/:repo/labels/:name",
-    async (
-      ctx: ValidatedCtx<t_IssuesDeleteLabelParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesDeleteLabelParamSchema, ctx.params),
         query: undefined,
@@ -29797,10 +26304,7 @@ export function bootstrap(
   router.get(
     "reposListLanguages",
     "/repos/:owner/:repo/languages",
-    async (
-      ctx: ValidatedCtx<t_ReposListLanguagesParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListLanguagesParamSchema, ctx.params),
         query: undefined,
@@ -29825,10 +26329,7 @@ export function bootstrap(
   router.put(
     "reposEnableLfsForRepo",
     "/repos/:owner/:repo/lfs",
-    async (
-      ctx: ValidatedCtx<t_ReposEnableLfsForRepoParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposEnableLfsForRepoParamSchema, ctx.params),
         query: undefined,
@@ -29853,10 +26354,7 @@ export function bootstrap(
   router.delete(
     "reposDisableLfsForRepo",
     "/repos/:owner/:repo/lfs",
-    async (
-      ctx: ValidatedCtx<t_ReposDisableLfsForRepoParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDisableLfsForRepoParamSchema,
@@ -29884,10 +26382,7 @@ export function bootstrap(
   router.get(
     "licensesGetForRepo",
     "/repos/:owner/:repo/license",
-    async (
-      ctx: ValidatedCtx<t_LicensesGetForRepoParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(licensesGetForRepoParamSchema, ctx.params),
         query: undefined,
@@ -29914,14 +26409,7 @@ export function bootstrap(
   router.post(
     "reposMergeUpstream",
     "/repos/:owner/:repo/merge-upstream",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposMergeUpstreamParamSchema,
-        void,
-        t_ReposMergeUpstreamBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposMergeUpstreamParamSchema, ctx.params),
         query: undefined,
@@ -29949,25 +26437,18 @@ export function bootstrap(
     commit_message: z.coerce.string().optional(),
   })
 
-  router.post(
-    "reposMerge",
-    "/repos/:owner/:repo/merges",
-    async (
-      ctx: ValidatedCtx<t_ReposMergeParamSchema, void, t_ReposMergeBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposMergeParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(reposMergeBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.reposMerge(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("reposMerge", "/repos/:owner/:repo/merges", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposMergeParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(reposMergeBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.reposMerge(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const issuesListMilestonesParamSchema = z.object({
     owner: z.coerce.string(),
@@ -29985,14 +26466,7 @@ export function bootstrap(
   router.get(
     "issuesListMilestones",
     "/repos/:owner/:repo/milestones",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListMilestonesParamSchema,
-        t_IssuesListMilestonesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesListMilestonesParamSchema, ctx.params),
         query: parseRequestInput(issuesListMilestonesQuerySchema, ctx.query),
@@ -30024,14 +26498,7 @@ export function bootstrap(
   router.post(
     "issuesCreateMilestone",
     "/repos/:owner/:repo/milestones",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesCreateMilestoneParamSchema,
-        void,
-        t_IssuesCreateMilestoneBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesCreateMilestoneParamSchema, ctx.params),
         query: undefined,
@@ -30057,10 +26524,7 @@ export function bootstrap(
   router.get(
     "issuesGetMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    async (
-      ctx: ValidatedCtx<t_IssuesGetMilestoneParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesGetMilestoneParamSchema, ctx.params),
         query: undefined,
@@ -30095,14 +26559,7 @@ export function bootstrap(
   router.patch(
     "issuesUpdateMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesUpdateMilestoneParamSchema,
-        void,
-        t_IssuesUpdateMilestoneBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesUpdateMilestoneParamSchema, ctx.params),
         query: undefined,
@@ -30128,10 +26585,7 @@ export function bootstrap(
   router.delete(
     "issuesDeleteMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber",
-    async (
-      ctx: ValidatedCtx<t_IssuesDeleteMilestoneParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(issuesDeleteMilestoneParamSchema, ctx.params),
         query: undefined,
@@ -30162,14 +26616,7 @@ export function bootstrap(
   router.get(
     "issuesListLabelsForMilestone",
     "/repos/:owner/:repo/milestones/:milestoneNumber/labels",
-    async (
-      ctx: ValidatedCtx<
-        t_IssuesListLabelsForMilestoneParamSchema,
-        t_IssuesListLabelsForMilestoneQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           issuesListLabelsForMilestoneParamSchema,
@@ -30208,14 +26655,7 @@ export function bootstrap(
   router.get(
     "activityListRepoNotificationsForAuthenticatedUser",
     "/repos/:owner/:repo/notifications",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListRepoNotificationsForAuthenticatedUserParamSchema,
-        t_ActivityListRepoNotificationsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListRepoNotificationsForAuthenticatedUserParamSchema,
@@ -30253,14 +26693,7 @@ export function bootstrap(
   router.put(
     "activityMarkRepoNotificationsAsRead",
     "/repos/:owner/:repo/notifications",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityMarkRepoNotificationsAsReadParamSchema,
-        void,
-        t_ActivityMarkRepoNotificationsAsReadBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityMarkRepoNotificationsAsReadParamSchema,
@@ -30289,10 +26722,7 @@ export function bootstrap(
   router.get(
     "reposGetPages",
     "/repos/:owner/:repo/pages",
-    async (
-      ctx: ValidatedCtx<t_ReposGetPagesParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetPagesParamSchema, ctx.params),
         query: undefined,
@@ -30324,14 +26754,7 @@ export function bootstrap(
   router.post(
     "reposCreatePagesSite",
     "/repos/:owner/:repo/pages",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreatePagesSiteParamSchema,
-        void,
-        t_ReposCreatePagesSiteBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreatePagesSiteParamSchema, ctx.params),
         query: undefined,
@@ -30363,14 +26786,7 @@ export function bootstrap(
   router.put(
     "reposUpdateInformationAboutPagesSite",
     "/repos/:owner/:repo/pages",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateInformationAboutPagesSiteParamSchema,
-        void,
-        t_ReposUpdateInformationAboutPagesSiteBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateInformationAboutPagesSiteParamSchema,
@@ -30399,10 +26815,7 @@ export function bootstrap(
   router.delete(
     "reposDeletePagesSite",
     "/repos/:owner/:repo/pages",
-    async (
-      ctx: ValidatedCtx<t_ReposDeletePagesSiteParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeletePagesSiteParamSchema, ctx.params),
         query: undefined,
@@ -30432,14 +26845,7 @@ export function bootstrap(
   router.get(
     "reposListPagesBuilds",
     "/repos/:owner/:repo/pages/builds",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListPagesBuildsParamSchema,
-        t_ReposListPagesBuildsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListPagesBuildsParamSchema, ctx.params),
         query: parseRequestInput(reposListPagesBuildsQuerySchema, ctx.query),
@@ -30464,10 +26870,7 @@ export function bootstrap(
   router.post(
     "reposRequestPagesBuild",
     "/repos/:owner/:repo/pages/builds",
-    async (
-      ctx: ValidatedCtx<t_ReposRequestPagesBuildParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposRequestPagesBuildParamSchema,
@@ -30495,10 +26898,7 @@ export function bootstrap(
   router.get(
     "reposGetLatestPagesBuild",
     "/repos/:owner/:repo/pages/builds/latest",
-    async (
-      ctx: ValidatedCtx<t_ReposGetLatestPagesBuildParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetLatestPagesBuildParamSchema,
@@ -30527,10 +26927,7 @@ export function bootstrap(
   router.get(
     "reposGetPagesBuild",
     "/repos/:owner/:repo/pages/builds/:buildId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetPagesBuildParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetPagesBuildParamSchema, ctx.params),
         query: undefined,
@@ -30562,14 +26959,7 @@ export function bootstrap(
   router.post(
     "reposCreatePagesDeployment",
     "/repos/:owner/:repo/pages/deployment",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreatePagesDeploymentParamSchema,
-        void,
-        t_ReposCreatePagesDeploymentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreatePagesDeploymentParamSchema,
@@ -30597,10 +26987,7 @@ export function bootstrap(
   router.get(
     "reposGetPagesHealthCheck",
     "/repos/:owner/:repo/pages/health",
-    async (
-      ctx: ValidatedCtx<t_ReposGetPagesHealthCheckParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetPagesHealthCheckParamSchema,
@@ -30634,14 +27021,7 @@ export function bootstrap(
   router.get(
     "projectsListForRepo",
     "/repos/:owner/:repo/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListForRepoParamSchema,
-        t_ProjectsListForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsListForRepoParamSchema, ctx.params),
         query: parseRequestInput(projectsListForRepoQuerySchema, ctx.query),
@@ -30671,14 +27051,7 @@ export function bootstrap(
   router.post(
     "projectsCreateForRepo",
     "/repos/:owner/:repo/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsCreateForRepoParamSchema,
-        void,
-        t_ProjectsCreateForRepoBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsCreateForRepoParamSchema, ctx.params),
         query: undefined,
@@ -30712,25 +27085,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "pullsList",
-    "/repos/:owner/:repo/pulls",
-    async (
-      ctx: ValidatedCtx<t_PullsListParamSchema, t_PullsListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(pullsListParamSchema, ctx.params),
-        query: parseRequestInput(pullsListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.pullsList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("pullsList", "/repos/:owner/:repo/pulls", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(pullsListParamSchema, ctx.params),
+      query: parseRequestInput(pullsListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.pullsList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const pullsCreateParamSchema = z.object({
     owner: z.coerce.string(),
@@ -30747,29 +27113,18 @@ export function bootstrap(
     issue: z.coerce.number().optional(),
   })
 
-  router.post(
-    "pullsCreate",
-    "/repos/:owner/:repo/pulls",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsCreateParamSchema,
-        void,
-        t_PullsCreateBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(pullsCreateParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(pullsCreateBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.pullsCreate(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.post("pullsCreate", "/repos/:owner/:repo/pulls", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(pullsCreateParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(pullsCreateBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.pullsCreate(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const pullsListReviewCommentsForRepoParamSchema = z.object({
     owner: z.coerce.string(),
@@ -30787,14 +27142,7 @@ export function bootstrap(
   router.get(
     "pullsListReviewCommentsForRepo",
     "/repos/:owner/:repo/pulls/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListReviewCommentsForRepoParamSchema,
-        t_PullsListReviewCommentsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsListReviewCommentsForRepoParamSchema,
@@ -30824,10 +27172,7 @@ export function bootstrap(
   router.get(
     "pullsGetReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_PullsGetReviewCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsGetReviewCommentParamSchema, ctx.params),
         query: undefined,
@@ -30857,14 +27202,7 @@ export function bootstrap(
   router.patch(
     "pullsUpdateReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsUpdateReviewCommentParamSchema,
-        void,
-        t_PullsUpdateReviewCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsUpdateReviewCommentParamSchema,
@@ -30893,10 +27231,7 @@ export function bootstrap(
   router.delete(
     "pullsDeleteReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId",
-    async (
-      ctx: ValidatedCtx<t_PullsDeleteReviewCommentParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsDeleteReviewCommentParamSchema,
@@ -30942,14 +27277,7 @@ export function bootstrap(
   router.get(
     "reactionsListForPullRequestReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForPullRequestReviewCommentParamSchema,
-        t_ReactionsListForPullRequestReviewCommentQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForPullRequestReviewCommentParamSchema,
@@ -30995,14 +27323,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForPullRequestReviewComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForPullRequestReviewCommentParamSchema,
-        void,
-        t_ReactionsCreateForPullRequestReviewCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentParamSchema,
@@ -31036,14 +27357,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForPullRequestComment",
     "/repos/:owner/:repo/pulls/comments/:commentId/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsDeleteForPullRequestCommentParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForPullRequestCommentParamSchema,
@@ -31070,10 +27384,7 @@ export function bootstrap(
   router.get(
     "pullsGet",
     "/repos/:owner/:repo/pulls/:pullNumber",
-    async (
-      ctx: ValidatedCtx<t_PullsGetParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsGetParamSchema, ctx.params),
         query: undefined,
@@ -31106,14 +27417,7 @@ export function bootstrap(
   router.patch(
     "pullsUpdate",
     "/repos/:owner/:repo/pulls/:pullNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsUpdateParamSchema,
-        void,
-        t_PullsUpdateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsUpdateParamSchema, ctx.params),
         query: undefined,
@@ -31148,14 +27452,7 @@ export function bootstrap(
   router.post(
     "codespacesCreateWithPrForAuthenticatedUser",
     "/repos/:owner/:repo/pulls/:pullNumber/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesCreateWithPrForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserParamSchema,
@@ -31196,14 +27493,7 @@ export function bootstrap(
   router.get(
     "pullsListReviewComments",
     "/repos/:owner/:repo/pulls/:pullNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListReviewCommentsParamSchema,
-        t_PullsListReviewCommentsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsListReviewCommentsParamSchema,
@@ -31244,14 +27534,7 @@ export function bootstrap(
   router.post(
     "pullsCreateReviewComment",
     "/repos/:owner/:repo/pulls/:pullNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsCreateReviewCommentParamSchema,
-        void,
-        t_PullsCreateReviewCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsCreateReviewCommentParamSchema,
@@ -31285,14 +27568,7 @@ export function bootstrap(
   router.post(
     "pullsCreateReplyForReviewComment",
     "/repos/:owner/:repo/pulls/:pullNumber/comments/:commentId/replies",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsCreateReplyForReviewCommentParamSchema,
-        void,
-        t_PullsCreateReplyForReviewCommentBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsCreateReplyForReviewCommentParamSchema,
@@ -31327,14 +27603,7 @@ export function bootstrap(
   router.get(
     "pullsListCommits",
     "/repos/:owner/:repo/pulls/:pullNumber/commits",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListCommitsParamSchema,
-        t_PullsListCommitsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsListCommitsParamSchema, ctx.params),
         query: parseRequestInput(pullsListCommitsQuerySchema, ctx.query),
@@ -31362,14 +27631,7 @@ export function bootstrap(
   router.get(
     "pullsListFiles",
     "/repos/:owner/:repo/pulls/:pullNumber/files",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListFilesParamSchema,
-        t_PullsListFilesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsListFilesParamSchema, ctx.params),
         query: parseRequestInput(pullsListFilesQuerySchema, ctx.query),
@@ -31392,10 +27654,7 @@ export function bootstrap(
   router.get(
     "pullsCheckIfMerged",
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
-    async (
-      ctx: ValidatedCtx<t_PullsCheckIfMergedParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsCheckIfMergedParamSchema, ctx.params),
         query: undefined,
@@ -31430,10 +27689,7 @@ export function bootstrap(
   router.put(
     "pullsMerge",
     "/repos/:owner/:repo/pulls/:pullNumber/merge",
-    async (
-      ctx: ValidatedCtx<t_PullsMergeParamSchema, void, t_PullsMergeBodySchema>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsMergeParamSchema, ctx.params),
         query: undefined,
@@ -31456,10 +27712,7 @@ export function bootstrap(
   router.get(
     "pullsListRequestedReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    async (
-      ctx: ValidatedCtx<t_PullsListRequestedReviewersParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsListRequestedReviewersParamSchema,
@@ -31495,14 +27748,7 @@ export function bootstrap(
   router.post(
     "pullsRequestReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsRequestReviewersParamSchema,
-        void,
-        t_PullsRequestReviewersBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsRequestReviewersParamSchema, ctx.params),
         query: undefined,
@@ -31533,14 +27779,7 @@ export function bootstrap(
   router.delete(
     "pullsRemoveRequestedReviewers",
     "/repos/:owner/:repo/pulls/:pullNumber/requested_reviewers",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsRemoveRequestedReviewersParamSchema,
-        void,
-        t_PullsRemoveRequestedReviewersBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsRemoveRequestedReviewersParamSchema,
@@ -31575,14 +27814,7 @@ export function bootstrap(
   router.get(
     "pullsListReviews",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListReviewsParamSchema,
-        t_PullsListReviewsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsListReviewsParamSchema, ctx.params),
         query: parseRequestInput(pullsListReviewsQuerySchema, ctx.query),
@@ -31626,14 +27858,7 @@ export function bootstrap(
   router.post(
     "pullsCreateReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsCreateReviewParamSchema,
-        void,
-        t_PullsCreateReviewBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsCreateReviewParamSchema, ctx.params),
         query: undefined,
@@ -31660,10 +27885,7 @@ export function bootstrap(
   router.get(
     "pullsGetReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    async (
-      ctx: ValidatedCtx<t_PullsGetReviewParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsGetReviewParamSchema, ctx.params),
         query: undefined,
@@ -31689,14 +27911,7 @@ export function bootstrap(
   router.put(
     "pullsUpdateReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsUpdateReviewParamSchema,
-        void,
-        t_PullsUpdateReviewBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsUpdateReviewParamSchema, ctx.params),
         query: undefined,
@@ -31723,10 +27938,7 @@ export function bootstrap(
   router.delete(
     "pullsDeletePendingReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId",
-    async (
-      ctx: ValidatedCtx<t_PullsDeletePendingReviewParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsDeletePendingReviewParamSchema,
@@ -31761,14 +27973,7 @@ export function bootstrap(
   router.get(
     "pullsListCommentsForReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsListCommentsForReviewParamSchema,
-        t_PullsListCommentsForReviewQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           pullsListCommentsForReviewParamSchema,
@@ -31806,14 +28011,7 @@ export function bootstrap(
   router.put(
     "pullsDismissReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/dismissals",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsDismissReviewParamSchema,
-        void,
-        t_PullsDismissReviewBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsDismissReviewParamSchema, ctx.params),
         query: undefined,
@@ -31845,14 +28043,7 @@ export function bootstrap(
   router.post(
     "pullsSubmitReview",
     "/repos/:owner/:repo/pulls/:pullNumber/reviews/:reviewId/events",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsSubmitReviewParamSchema,
-        void,
-        t_PullsSubmitReviewBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsSubmitReviewParamSchema, ctx.params),
         query: undefined,
@@ -31882,14 +28073,7 @@ export function bootstrap(
   router.put(
     "pullsUpdateBranch",
     "/repos/:owner/:repo/pulls/:pullNumber/update-branch",
-    async (
-      ctx: ValidatedCtx<
-        t_PullsUpdateBranchParamSchema,
-        void,
-        t_PullsUpdateBranchBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(pullsUpdateBranchParamSchema, ctx.params),
         query: undefined,
@@ -31918,14 +28102,7 @@ export function bootstrap(
   router.get(
     "reposGetReadme",
     "/repos/:owner/:repo/readme",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetReadmeParamSchema,
-        t_ReposGetReadmeQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetReadmeParamSchema, ctx.params),
         query: parseRequestInput(reposGetReadmeQuerySchema, ctx.query),
@@ -31952,14 +28129,7 @@ export function bootstrap(
   router.get(
     "reposGetReadmeInDirectory",
     "/repos/:owner/:repo/readme/:dir",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetReadmeInDirectoryParamSchema,
-        t_ReposGetReadmeInDirectoryQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetReadmeInDirectoryParamSchema,
@@ -31995,14 +28165,7 @@ export function bootstrap(
   router.get(
     "reposListReleases",
     "/repos/:owner/:repo/releases",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListReleasesParamSchema,
-        t_ReposListReleasesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListReleasesParamSchema, ctx.params),
         query: parseRequestInput(reposListReleasesQuerySchema, ctx.query),
@@ -32039,14 +28202,7 @@ export function bootstrap(
   router.post(
     "reposCreateRelease",
     "/repos/:owner/:repo/releases",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateReleaseParamSchema,
-        void,
-        t_ReposCreateReleaseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposCreateReleaseParamSchema, ctx.params),
         query: undefined,
@@ -32072,10 +28228,7 @@ export function bootstrap(
   router.get(
     "reposGetReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetReleaseAssetParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetReleaseAssetParamSchema, ctx.params),
         query: undefined,
@@ -32109,14 +28262,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateReleaseAssetParamSchema,
-        void,
-        t_ReposUpdateReleaseAssetBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUpdateReleaseAssetParamSchema,
@@ -32145,10 +28291,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteReleaseAsset",
     "/repos/:owner/:repo/releases/assets/:assetId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteReleaseAssetParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteReleaseAssetParamSchema,
@@ -32183,14 +28326,7 @@ export function bootstrap(
   router.post(
     "reposGenerateReleaseNotes",
     "/repos/:owner/:repo/releases/generate-notes",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGenerateReleaseNotesParamSchema,
-        void,
-        t_ReposGenerateReleaseNotesBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGenerateReleaseNotesParamSchema,
@@ -32218,10 +28354,7 @@ export function bootstrap(
   router.get(
     "reposGetLatestRelease",
     "/repos/:owner/:repo/releases/latest",
-    async (
-      ctx: ValidatedCtx<t_ReposGetLatestReleaseParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetLatestReleaseParamSchema, ctx.params),
         query: undefined,
@@ -32247,10 +28380,7 @@ export function bootstrap(
   router.get(
     "reposGetReleaseByTag",
     "/repos/:owner/:repo/releases/tags/:tag",
-    async (
-      ctx: ValidatedCtx<t_ReposGetReleaseByTagParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetReleaseByTagParamSchema, ctx.params),
         query: undefined,
@@ -32276,10 +28406,7 @@ export function bootstrap(
   router.get(
     "reposGetRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    async (
-      ctx: ValidatedCtx<t_ReposGetReleaseParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetReleaseParamSchema, ctx.params),
         query: undefined,
@@ -32315,14 +28442,7 @@ export function bootstrap(
   router.patch(
     "reposUpdateRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUpdateReleaseParamSchema,
-        void,
-        t_ReposUpdateReleaseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposUpdateReleaseParamSchema, ctx.params),
         query: undefined,
@@ -32348,10 +28468,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteRelease",
     "/repos/:owner/:repo/releases/:releaseId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteReleaseParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposDeleteReleaseParamSchema, ctx.params),
         query: undefined,
@@ -32382,14 +28499,7 @@ export function bootstrap(
   router.get(
     "reposListReleaseAssets",
     "/repos/:owner/:repo/releases/:releaseId/assets",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListReleaseAssetsParamSchema,
-        t_ReposListReleaseAssetsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListReleaseAssetsParamSchema,
@@ -32425,14 +28535,7 @@ export function bootstrap(
   router.post(
     "reposUploadReleaseAsset",
     "/repos/:owner/:repo/releases/:releaseId/assets",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposUploadReleaseAssetParamSchema,
-        t_ReposUploadReleaseAssetQuerySchema,
-        t_ReposUploadReleaseAssetBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposUploadReleaseAssetParamSchema,
@@ -32469,14 +28572,7 @@ export function bootstrap(
   router.get(
     "reactionsListForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForReleaseParamSchema,
-        t_ReactionsListForReleaseQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForReleaseParamSchema,
@@ -32509,14 +28605,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForReleaseParamSchema,
-        void,
-        t_ReactionsCreateForReleaseBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForReleaseParamSchema,
@@ -32546,10 +28635,7 @@ export function bootstrap(
   router.delete(
     "reactionsDeleteForRelease",
     "/repos/:owner/:repo/releases/:releaseId/reactions/:reactionId",
-    async (
-      ctx: ValidatedCtx<t_ReactionsDeleteForReleaseParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsDeleteForReleaseParamSchema,
@@ -32589,14 +28675,7 @@ export function bootstrap(
   router.get(
     "secretScanningListAlertsForRepo",
     "/repos/:owner/:repo/secret-scanning/alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningListAlertsForRepoParamSchema,
-        t_SecretScanningListAlertsForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningListAlertsForRepoParamSchema,
@@ -32626,10 +28705,7 @@ export function bootstrap(
   router.get(
     "secretScanningGetAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<t_SecretScanningGetAlertParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningGetAlertParamSchema,
@@ -32666,14 +28742,7 @@ export function bootstrap(
   router.patch(
     "secretScanningUpdateAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningUpdateAlertParamSchema,
-        void,
-        t_SecretScanningUpdateAlertBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningUpdateAlertParamSchema,
@@ -32707,14 +28776,7 @@ export function bootstrap(
   router.get(
     "secretScanningListLocationsForAlert",
     "/repos/:owner/:repo/secret-scanning/alerts/:alertNumber/locations",
-    async (
-      ctx: ValidatedCtx<
-        t_SecretScanningListLocationsForAlertParamSchema,
-        t_SecretScanningListLocationsForAlertQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           secretScanningListLocationsForAlertParamSchema,
@@ -32748,14 +28810,7 @@ export function bootstrap(
   router.get(
     "activityListStargazersForRepo",
     "/repos/:owner/:repo/stargazers",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListStargazersForRepoParamSchema,
-        t_ActivityListStargazersForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListStargazersForRepoParamSchema,
@@ -32784,10 +28839,7 @@ export function bootstrap(
   router.get(
     "reposGetCodeFrequencyStats",
     "/repos/:owner/:repo/stats/code_frequency",
-    async (
-      ctx: ValidatedCtx<t_ReposGetCodeFrequencyStatsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCodeFrequencyStatsParamSchema,
@@ -32815,10 +28867,7 @@ export function bootstrap(
   router.get(
     "reposGetCommitActivityStats",
     "/repos/:owner/:repo/stats/commit_activity",
-    async (
-      ctx: ValidatedCtx<t_ReposGetCommitActivityStatsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetCommitActivityStatsParamSchema,
@@ -32846,10 +28895,7 @@ export function bootstrap(
   router.get(
     "reposGetContributorsStats",
     "/repos/:owner/:repo/stats/contributors",
-    async (
-      ctx: ValidatedCtx<t_ReposGetContributorsStatsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetContributorsStatsParamSchema,
@@ -32877,10 +28923,7 @@ export function bootstrap(
   router.get(
     "reposGetParticipationStats",
     "/repos/:owner/:repo/stats/participation",
-    async (
-      ctx: ValidatedCtx<t_ReposGetParticipationStatsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetParticipationStatsParamSchema,
@@ -32908,10 +28951,7 @@ export function bootstrap(
   router.get(
     "reposGetPunchCardStats",
     "/repos/:owner/:repo/stats/punch_card",
-    async (
-      ctx: ValidatedCtx<t_ReposGetPunchCardStatsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposGetPunchCardStatsParamSchema,
@@ -32947,14 +28987,7 @@ export function bootstrap(
   router.post(
     "reposCreateCommitStatus",
     "/repos/:owner/:repo/statuses/:sha",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateCommitStatusParamSchema,
-        void,
-        t_ReposCreateCommitStatusBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateCommitStatusParamSchema,
@@ -32987,14 +29020,7 @@ export function bootstrap(
   router.get(
     "activityListWatchersForRepo",
     "/repos/:owner/:repo/subscribers",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListWatchersForRepoParamSchema,
-        t_ActivityListWatchersForRepoQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListWatchersForRepoParamSchema,
@@ -33025,10 +29051,7 @@ export function bootstrap(
   router.get(
     "activityGetRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    async (
-      ctx: ValidatedCtx<t_ActivityGetRepoSubscriptionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityGetRepoSubscriptionParamSchema,
@@ -33063,14 +29086,7 @@ export function bootstrap(
   router.put(
     "activitySetRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivitySetRepoSubscriptionParamSchema,
-        void,
-        t_ActivitySetRepoSubscriptionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activitySetRepoSubscriptionParamSchema,
@@ -33101,14 +29117,7 @@ export function bootstrap(
   router.delete(
     "activityDeleteRepoSubscription",
     "/repos/:owner/:repo/subscription",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityDeleteRepoSubscriptionParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityDeleteRepoSubscriptionParamSchema,
@@ -33136,29 +29145,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "reposListTags",
-    "/repos/:owner/:repo/tags",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListTagsParamSchema,
-        t_ReposListTagsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(reposListTagsParamSchema, ctx.params),
-        query: parseRequestInput(reposListTagsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposListTags(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("reposListTags", "/repos/:owner/:repo/tags", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(reposListTagsParamSchema, ctx.params),
+      query: parseRequestInput(reposListTagsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.reposListTags(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const reposListTagProtectionParamSchema = z.object({
     owner: z.coerce.string(),
@@ -33168,10 +29166,7 @@ export function bootstrap(
   router.get(
     "reposListTagProtection",
     "/repos/:owner/:repo/tags/protection",
-    async (
-      ctx: ValidatedCtx<t_ReposListTagProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposListTagProtectionParamSchema,
@@ -33203,14 +29198,7 @@ export function bootstrap(
   router.post(
     "reposCreateTagProtection",
     "/repos/:owner/:repo/tags/protection",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateTagProtectionParamSchema,
-        void,
-        t_ReposCreateTagProtectionBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateTagProtectionParamSchema,
@@ -33239,10 +29227,7 @@ export function bootstrap(
   router.delete(
     "reposDeleteTagProtection",
     "/repos/:owner/:repo/tags/protection/:tagProtectionId",
-    async (
-      ctx: ValidatedCtx<t_ReposDeleteTagProtectionParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeleteTagProtectionParamSchema,
@@ -33271,10 +29256,7 @@ export function bootstrap(
   router.get(
     "reposDownloadTarballArchive",
     "/repos/:owner/:repo/tarball/:ref",
-    async (
-      ctx: ValidatedCtx<t_ReposDownloadTarballArchiveParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDownloadTarballArchiveParamSchema,
@@ -33307,14 +29289,7 @@ export function bootstrap(
   router.get(
     "reposListTeams",
     "/repos/:owner/:repo/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListTeamsParamSchema,
-        t_ReposListTeamsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListTeamsParamSchema, ctx.params),
         query: parseRequestInput(reposListTeamsQuerySchema, ctx.query),
@@ -33341,14 +29316,7 @@ export function bootstrap(
   router.get(
     "reposGetAllTopics",
     "/repos/:owner/:repo/topics",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetAllTopicsParamSchema,
-        t_ReposGetAllTopicsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetAllTopicsParamSchema, ctx.params),
         query: parseRequestInput(reposGetAllTopicsQuerySchema, ctx.query),
@@ -33377,14 +29345,7 @@ export function bootstrap(
   router.put(
     "reposReplaceAllTopics",
     "/repos/:owner/:repo/topics",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposReplaceAllTopicsParamSchema,
-        void,
-        t_ReposReplaceAllTopicsBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposReplaceAllTopicsParamSchema, ctx.params),
         query: undefined,
@@ -33413,14 +29374,7 @@ export function bootstrap(
   router.get(
     "reposGetClones",
     "/repos/:owner/:repo/traffic/clones",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetClonesParamSchema,
-        t_ReposGetClonesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetClonesParamSchema, ctx.params),
         query: parseRequestInput(reposGetClonesQuerySchema, ctx.query),
@@ -33442,10 +29396,7 @@ export function bootstrap(
   router.get(
     "reposGetTopPaths",
     "/repos/:owner/:repo/traffic/popular/paths",
-    async (
-      ctx: ValidatedCtx<t_ReposGetTopPathsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetTopPathsParamSchema, ctx.params),
         query: undefined,
@@ -33467,10 +29418,7 @@ export function bootstrap(
   router.get(
     "reposGetTopReferrers",
     "/repos/:owner/:repo/traffic/popular/referrers",
-    async (
-      ctx: ValidatedCtx<t_ReposGetTopReferrersParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetTopReferrersParamSchema, ctx.params),
         query: undefined,
@@ -33499,14 +29447,7 @@ export function bootstrap(
   router.get(
     "reposGetViews",
     "/repos/:owner/:repo/traffic/views",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposGetViewsParamSchema,
-        t_ReposGetViewsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetViewsParamSchema, ctx.params),
         query: parseRequestInput(reposGetViewsQuerySchema, ctx.query),
@@ -33534,14 +29475,7 @@ export function bootstrap(
   router.post(
     "reposTransfer",
     "/repos/:owner/:repo/transfer",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposTransferParamSchema,
-        void,
-        t_ReposTransferBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposTransferParamSchema, ctx.params),
         query: undefined,
@@ -33563,10 +29497,7 @@ export function bootstrap(
   router.get(
     "reposCheckVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    async (
-      ctx: ValidatedCtx<t_ReposCheckVulnerabilityAlertsParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCheckVulnerabilityAlertsParamSchema,
@@ -33592,14 +29523,7 @@ export function bootstrap(
   router.put(
     "reposEnableVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposEnableVulnerabilityAlertsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposEnableVulnerabilityAlertsParamSchema,
@@ -33625,14 +29549,7 @@ export function bootstrap(
   router.delete(
     "reposDisableVulnerabilityAlerts",
     "/repos/:owner/:repo/vulnerability-alerts",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDisableVulnerabilityAlertsParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDisableVulnerabilityAlertsParamSchema,
@@ -33659,10 +29576,7 @@ export function bootstrap(
   router.get(
     "reposDownloadZipballArchive",
     "/repos/:owner/:repo/zipball/:ref",
-    async (
-      ctx: ValidatedCtx<t_ReposDownloadZipballArchiveParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDownloadZipballArchiveParamSchema,
@@ -33698,14 +29612,7 @@ export function bootstrap(
   router.post(
     "reposCreateUsingTemplate",
     "/repos/:templateOwner/:templateRepo/generate",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposCreateUsingTemplateParamSchema,
-        void,
-        t_ReposCreateUsingTemplateBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposCreateUsingTemplateParamSchema,
@@ -33729,25 +29636,18 @@ export function bootstrap(
     since: z.coerce.number().optional(),
   })
 
-  router.get(
-    "reposListPublic",
-    "/repositories",
-    async (
-      ctx: ValidatedCtx<void, t_ReposListPublicQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(reposListPublicQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposListPublic(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("reposListPublic", "/repositories", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(reposListPublicQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.reposListPublic(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const actionsListEnvironmentSecretsParamSchema = z.object({
     repository_id: z.coerce.number(),
@@ -33762,14 +29662,7 @@ export function bootstrap(
   router.get(
     "actionsListEnvironmentSecrets",
     "/repositories/:repositoryId/environments/:environmentName/secrets",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListEnvironmentSecretsParamSchema,
-        t_ActionsListEnvironmentSecretsQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListEnvironmentSecretsParamSchema,
@@ -33798,14 +29691,7 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentPublicKey",
     "/repositories/:repositoryId/environments/:environmentName/secrets/public-key",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsGetEnvironmentPublicKeyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentPublicKeyParamSchema,
@@ -33832,10 +29718,7 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetEnvironmentSecretParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentSecretParamSchema,
@@ -33869,14 +29752,7 @@ export function bootstrap(
   router.put(
     "actionsCreateOrUpdateEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
-        void,
-        t_ActionsCreateOrUpdateEnvironmentSecretBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretParamSchema,
@@ -33906,14 +29782,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteEnvironmentSecret",
     "/repositories/:repositoryId/environments/:environmentName/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteEnvironmentSecretParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteEnvironmentSecretParamSchema,
@@ -33944,14 +29813,7 @@ export function bootstrap(
   router.get(
     "actionsListEnvironmentVariables",
     "/repositories/:repositoryId/environments/:environmentName/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsListEnvironmentVariablesParamSchema,
-        t_ActionsListEnvironmentVariablesQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsListEnvironmentVariablesParamSchema,
@@ -33985,14 +29847,7 @@ export function bootstrap(
   router.post(
     "actionsCreateEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsCreateEnvironmentVariableParamSchema,
-        void,
-        t_ActionsCreateEnvironmentVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsCreateEnvironmentVariableParamSchema,
@@ -34022,10 +29877,7 @@ export function bootstrap(
   router.get(
     "actionsGetEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    async (
-      ctx: ValidatedCtx<t_ActionsGetEnvironmentVariableParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsGetEnvironmentVariableParamSchema,
@@ -34057,14 +29909,7 @@ export function bootstrap(
   router.patch(
     "actionsUpdateEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsUpdateEnvironmentVariableParamSchema,
-        void,
-        t_ActionsUpdateEnvironmentVariableBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsUpdateEnvironmentVariableParamSchema,
@@ -34094,14 +29939,7 @@ export function bootstrap(
   router.delete(
     "actionsDeleteEnvironmentVariable",
     "/repositories/:repositoryId/environments/:environmentName/variables/:name",
-    async (
-      ctx: ValidatedCtx<
-        t_ActionsDeleteEnvironmentVariableParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           actionsDeleteEnvironmentVariableParamSchema,
@@ -34127,25 +29965,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchCode",
-    "/search/code",
-    async (
-      ctx: ValidatedCtx<void, t_SearchCodeQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchCodeQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchCode(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchCode", "/search/code", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchCodeQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchCode(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const searchCommitsQuerySchema = z.object({
     q: z.coerce.string(),
@@ -34155,25 +29986,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchCommits",
-    "/search/commits",
-    async (
-      ctx: ValidatedCtx<void, t_SearchCommitsQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchCommitsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchCommits(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchCommits", "/search/commits", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchCommitsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchCommits(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const searchIssuesAndPullRequestsQuerySchema = z.object({
     q: z.coerce.string(),
@@ -34200,10 +30024,7 @@ export function bootstrap(
   router.get(
     "searchIssuesAndPullRequests",
     "/search/issues",
-    async (
-      ctx: ValidatedCtx<void, t_SearchIssuesAndPullRequestsQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -34232,25 +30053,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchLabels",
-    "/search/labels",
-    async (
-      ctx: ValidatedCtx<void, t_SearchLabelsQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchLabelsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchLabels(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchLabels", "/search/labels", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchLabelsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchLabels(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const searchReposQuerySchema = z.object({
     q: z.coerce.string(),
@@ -34262,25 +30076,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchRepos",
-    "/search/repositories",
-    async (
-      ctx: ValidatedCtx<void, t_SearchReposQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchReposQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchRepos(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchRepos", "/search/repositories", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchReposQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchRepos(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const searchTopicsQuerySchema = z.object({
     q: z.coerce.string(),
@@ -34288,25 +30095,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchTopics",
-    "/search/topics",
-    async (
-      ctx: ValidatedCtx<void, t_SearchTopicsQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchTopicsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchTopics(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchTopics", "/search/topics", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchTopicsQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchTopics(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const searchUsersQuerySchema = z.object({
     q: z.coerce.string(),
@@ -34316,47 +30116,33 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "searchUsers",
-    "/search/users",
-    async (
-      ctx: ValidatedCtx<void, t_SearchUsersQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(searchUsersQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.searchUsers(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("searchUsers", "/search/users", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(searchUsersQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.searchUsers(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsGetLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
-  router.get(
-    "teamsGetLegacy",
-    "/teams/:teamId",
-    async (
-      ctx: ValidatedCtx<t_TeamsGetLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(teamsGetLegacyParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.teamsGetLegacy(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("teamsGetLegacy", "/teams/:teamId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(teamsGetLegacyParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.teamsGetLegacy(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsUpdateLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
@@ -34368,57 +30154,33 @@ export function bootstrap(
     parent_team_id: z.coerce.number().optional(),
   })
 
-  router.patch(
-    "teamsUpdateLegacy",
-    "/teams/:teamId",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateLegacyParamSchema,
-        void,
-        t_TeamsUpdateLegacyBodySchema
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(teamsUpdateLegacyParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.teamsUpdateLegacy(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("teamsUpdateLegacy", "/teams/:teamId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(teamsUpdateLegacyParamSchema, ctx.params),
+      query: undefined,
+      body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.teamsUpdateLegacy(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsDeleteLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
-  router.delete(
-    "teamsDeleteLegacy",
-    "/teams/:teamId",
-    async (
-      ctx: ValidatedCtx<t_TeamsDeleteLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(teamsDeleteLegacyParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.teamsDeleteLegacy(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("teamsDeleteLegacy", "/teams/:teamId", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(teamsDeleteLegacyParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.teamsDeleteLegacy(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const teamsListDiscussionsLegacyParamSchema = z.object({
     team_id: z.coerce.number(),
@@ -34433,14 +30195,7 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionsLegacy",
     "/teams/:teamId/discussions",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListDiscussionsLegacyParamSchema,
-        t_TeamsListDiscussionsLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListDiscussionsLegacyParamSchema,
@@ -34476,14 +30231,7 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionLegacy",
     "/teams/:teamId/discussions",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCreateDiscussionLegacyParamSchema,
-        void,
-        t_TeamsCreateDiscussionLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionLegacyParamSchema,
@@ -34514,10 +30262,7 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<t_TeamsGetDiscussionLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionLegacyParamSchema,
@@ -34552,14 +30297,7 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateDiscussionLegacyParamSchema,
-        void,
-        t_TeamsUpdateDiscussionLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionLegacyParamSchema,
@@ -34590,10 +30328,7 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber",
-    async (
-      ctx: ValidatedCtx<t_TeamsDeleteDiscussionLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionLegacyParamSchema,
@@ -34627,14 +30362,7 @@ export function bootstrap(
   router.get(
     "teamsListDiscussionCommentsLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListDiscussionCommentsLegacyParamSchema,
-        t_TeamsListDiscussionCommentsLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListDiscussionCommentsLegacyParamSchema,
@@ -34667,14 +30395,7 @@ export function bootstrap(
   router.post(
     "teamsCreateDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCreateDiscussionCommentLegacyParamSchema,
-        void,
-        t_TeamsCreateDiscussionCommentLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCreateDiscussionCommentLegacyParamSchema,
@@ -34704,14 +30425,7 @@ export function bootstrap(
   router.get(
     "teamsGetDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsGetDiscussionCommentLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetDiscussionCommentLegacyParamSchema,
@@ -34742,14 +30456,7 @@ export function bootstrap(
   router.patch(
     "teamsUpdateDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsUpdateDiscussionCommentLegacyParamSchema,
-        void,
-        t_TeamsUpdateDiscussionCommentLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyParamSchema,
@@ -34779,14 +30486,7 @@ export function bootstrap(
   router.delete(
     "teamsDeleteDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsDeleteDiscussionCommentLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsDeleteDiscussionCommentLegacyParamSchema,
@@ -34830,14 +30530,7 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForTeamDiscussionCommentLegacyParamSchema,
-        t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionCommentLegacyParamSchema,
@@ -34883,14 +30576,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionCommentLegacy",
     "/teams/:teamId/discussions/:discussionNumber/comments/:commentNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema,
-        void,
-        t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyParamSchema,
@@ -34939,14 +30625,7 @@ export function bootstrap(
   router.get(
     "reactionsListForTeamDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsListForTeamDiscussionLegacyParamSchema,
-        t_ReactionsListForTeamDiscussionLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsListForTeamDiscussionLegacyParamSchema,
@@ -34988,14 +30667,7 @@ export function bootstrap(
   router.post(
     "reactionsCreateForTeamDiscussionLegacy",
     "/teams/:teamId/discussions/:discussionNumber/reactions",
-    async (
-      ctx: ValidatedCtx<
-        t_ReactionsCreateForTeamDiscussionLegacyParamSchema,
-        void,
-        t_ReactionsCreateForTeamDiscussionLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyParamSchema,
@@ -35028,14 +30700,7 @@ export function bootstrap(
   router.get(
     "teamsListPendingInvitationsLegacy",
     "/teams/:teamId/invitations",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListPendingInvitationsLegacyParamSchema,
-        t_TeamsListPendingInvitationsLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListPendingInvitationsLegacyParamSchema,
@@ -35069,14 +30734,7 @@ export function bootstrap(
   router.get(
     "teamsListMembersLegacy",
     "/teams/:teamId/members",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListMembersLegacyParamSchema,
-        t_TeamsListMembersLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListMembersLegacyParamSchema,
@@ -35104,10 +30762,7 @@ export function bootstrap(
   router.get(
     "teamsGetMemberLegacy",
     "/teams/:teamId/members/:username",
-    async (
-      ctx: ValidatedCtx<t_TeamsGetMemberLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsGetMemberLegacyParamSchema, ctx.params),
         query: undefined,
@@ -35132,10 +30787,7 @@ export function bootstrap(
   router.put(
     "teamsAddMemberLegacy",
     "/teams/:teamId/members/:username",
-    async (
-      ctx: ValidatedCtx<t_TeamsAddMemberLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsAddMemberLegacyParamSchema, ctx.params),
         query: undefined,
@@ -35160,10 +30812,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMemberLegacy",
     "/teams/:teamId/members/:username",
-    async (
-      ctx: ValidatedCtx<t_TeamsRemoveMemberLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsRemoveMemberLegacyParamSchema,
@@ -35191,14 +30840,7 @@ export function bootstrap(
   router.get(
     "teamsGetMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsGetMembershipForUserLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsGetMembershipForUserLegacyParamSchema,
@@ -35228,14 +30870,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema,
-        void,
-        t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyParamSchema,
@@ -35264,14 +30899,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveMembershipForUserLegacy",
     "/teams/:teamId/memberships/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsRemoveMembershipForUserLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsRemoveMembershipForUserLegacyParamSchema,
@@ -35301,14 +30929,7 @@ export function bootstrap(
   router.get(
     "teamsListProjectsLegacy",
     "/teams/:teamId/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListProjectsLegacyParamSchema,
-        t_TeamsListProjectsLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsListProjectsLegacyParamSchema,
@@ -35336,14 +30957,7 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForProjectLegacy",
     "/teams/:teamId/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCheckPermissionsForProjectLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForProjectLegacyParamSchema,
@@ -35373,14 +30987,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateProjectPermissionsLegacy",
     "/teams/:teamId/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema,
-        void,
-        t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyParamSchema,
@@ -35412,10 +31019,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveProjectLegacy",
     "/teams/:teamId/projects/:projectId",
-    async (
-      ctx: ValidatedCtx<t_TeamsRemoveProjectLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsRemoveProjectLegacyParamSchema,
@@ -35447,14 +31051,7 @@ export function bootstrap(
   router.get(
     "teamsListReposLegacy",
     "/teams/:teamId/repos",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListReposLegacyParamSchema,
-        t_TeamsListReposLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsListReposLegacyParamSchema, ctx.params),
         query: parseRequestInput(teamsListReposLegacyQuerySchema, ctx.query),
@@ -35480,14 +31077,7 @@ export function bootstrap(
   router.get(
     "teamsCheckPermissionsForRepoLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsCheckPermissionsForRepoLegacyParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsCheckPermissionsForRepoLegacyParamSchema,
@@ -35518,14 +31108,7 @@ export function bootstrap(
   router.put(
     "teamsAddOrUpdateRepoPermissionsLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema,
-        void,
-        t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyParamSchema,
@@ -35555,10 +31138,7 @@ export function bootstrap(
   router.delete(
     "teamsRemoveRepoLegacy",
     "/teams/:teamId/repos/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<t_TeamsRemoveRepoLegacyParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsRemoveRepoLegacyParamSchema, ctx.params),
         query: undefined,
@@ -35587,14 +31167,7 @@ export function bootstrap(
   router.get(
     "teamsListChildLegacy",
     "/teams/:teamId/teams",
-    async (
-      ctx: ValidatedCtx<
-        t_TeamsListChildLegacyParamSchema,
-        t_TeamsListChildLegacyQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(teamsListChildLegacyParamSchema, ctx.params),
         query: parseRequestInput(teamsListChildLegacyQuerySchema, ctx.query),
@@ -35611,25 +31184,21 @@ export function bootstrap(
     }
   )
 
-  router.get(
-    "usersGetAuthenticated",
-    "/user",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersGetAuthenticated(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("usersGetAuthenticated", "/user", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersGetAuthenticated(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const usersUpdateAuthenticatedBodySchema = z
     .object({
@@ -35644,28 +31213,21 @@ export function bootstrap(
     })
     .optional()
 
-  router.patch(
-    "usersUpdateAuthenticated",
-    "/user",
-    async (
-      ctx: ValidatedCtx<void, void, t_UsersUpdateAuthenticatedBodySchema>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: parseRequestInput(usersUpdateAuthenticatedBodySchema, ctx.body),
-      }
-
-      const { status, body } = await implementation.usersUpdateAuthenticated(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.patch("usersUpdateAuthenticated", "/user", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(usersUpdateAuthenticatedBodySchema, ctx.body),
     }
-  )
+
+    const { status, body } = await implementation.usersUpdateAuthenticated(
+      input,
+      ctx
+    )
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const usersListBlockedByAuthenticatedUserQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -35675,14 +31237,7 @@ export function bootstrap(
   router.get(
     "usersListBlockedByAuthenticatedUser",
     "/user/blocks",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListBlockedByAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -35705,10 +31260,7 @@ export function bootstrap(
   router.get(
     "usersCheckBlocked",
     "/user/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersCheckBlockedParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(usersCheckBlockedParamSchema, ctx.params),
         query: undefined,
@@ -35727,47 +31279,33 @@ export function bootstrap(
 
   const usersBlockParamSchema = z.object({ username: z.coerce.string() })
 
-  router.put(
-    "usersBlock",
-    "/user/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersBlockParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(usersBlockParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersBlock(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.put("usersBlock", "/user/blocks/:username", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(usersBlockParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersBlock(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const usersUnblockParamSchema = z.object({ username: z.coerce.string() })
 
-  router.delete(
-    "usersUnblock",
-    "/user/blocks/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersUnblockParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(usersUnblockParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersUnblock(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.delete("usersUnblock", "/user/blocks/:username", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(usersUnblockParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersUnblock(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const codespacesListForAuthenticatedUserQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
@@ -35778,14 +31316,7 @@ export function bootstrap(
   router.get(
     "codespacesListForAuthenticatedUser",
     "/user/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_CodespacesListForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -35833,14 +31364,7 @@ export function bootstrap(
   router.post(
     "codespacesCreateForAuthenticatedUser",
     "/user/codespaces",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_CodespacesCreateForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -35866,14 +31390,7 @@ export function bootstrap(
   router.get(
     "codespacesListSecretsForAuthenticatedUser",
     "/user/codespaces/secrets",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_CodespacesListSecretsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -35897,7 +31414,7 @@ export function bootstrap(
   router.get(
     "codespacesGetPublicKeyForAuthenticatedUser",
     "/user/codespaces/secrets/public-key",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -35922,14 +31439,7 @@ export function bootstrap(
   router.get(
     "codespacesGetSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesGetSecretForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetSecretForAuthenticatedUserParamSchema,
@@ -35961,14 +31471,7 @@ export function bootstrap(
   router.put(
     "codespacesCreateOrUpdateSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema,
@@ -35999,14 +31502,7 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesDeleteSecretForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesDeleteSecretForAuthenticatedUserParamSchema,
@@ -36033,14 +31529,7 @@ export function bootstrap(
   router.get(
     "codespacesListRepositoriesForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesListRepositoriesForSecretForAuthenticatedUserParamSchema,
@@ -36070,14 +31559,7 @@ export function bootstrap(
   router.put(
     "codespacesSetRepositoriesForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
@@ -36110,14 +31592,7 @@ export function bootstrap(
   router.put(
     "codespacesAddRepositoryForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
@@ -36147,14 +31622,7 @@ export function bootstrap(
   router.delete(
     "codespacesRemoveRepositoryForSecretForAuthenticatedUser",
     "/user/codespaces/secrets/:secretName/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema,
@@ -36182,14 +31650,7 @@ export function bootstrap(
   router.get(
     "codespacesGetForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesGetForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetForAuthenticatedUserParamSchema,
@@ -36222,14 +31683,7 @@ export function bootstrap(
   router.patch(
     "codespacesUpdateForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesUpdateForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesUpdateForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesUpdateForAuthenticatedUserParamSchema,
@@ -36257,14 +31711,7 @@ export function bootstrap(
   router.delete(
     "codespacesDeleteForAuthenticatedUser",
     "/user/codespaces/:codespaceName",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesDeleteForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesDeleteForAuthenticatedUserParamSchema,
@@ -36289,14 +31736,7 @@ export function bootstrap(
   router.post(
     "codespacesExportForAuthenticatedUser",
     "/user/codespaces/:codespaceName/exports",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesExportForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesExportForAuthenticatedUserParamSchema,
@@ -36322,14 +31762,7 @@ export function bootstrap(
   router.get(
     "codespacesGetExportDetailsForAuthenticatedUser",
     "/user/codespaces/:codespaceName/exports/:exportId",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesGetExportDetailsForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesGetExportDetailsForAuthenticatedUserParamSchema,
@@ -36357,14 +31790,7 @@ export function bootstrap(
   router.get(
     "codespacesCodespaceMachinesForAuthenticatedUser",
     "/user/codespaces/:codespaceName/machines",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesCodespaceMachinesForAuthenticatedUserParamSchema,
@@ -36397,14 +31823,7 @@ export function bootstrap(
   router.post(
     "codespacesPublishForAuthenticatedUser",
     "/user/codespaces/:codespaceName/publish",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesPublishForAuthenticatedUserParamSchema,
-        void,
-        t_CodespacesPublishForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesPublishForAuthenticatedUserParamSchema,
@@ -36432,14 +31851,7 @@ export function bootstrap(
   router.post(
     "codespacesStartForAuthenticatedUser",
     "/user/codespaces/:codespaceName/start",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesStartForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesStartForAuthenticatedUserParamSchema,
@@ -36464,14 +31876,7 @@ export function bootstrap(
   router.post(
     "codespacesStopForAuthenticatedUser",
     "/user/codespaces/:codespaceName/stop",
-    async (
-      ctx: ValidatedCtx<
-        t_CodespacesStopForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           codespacesStopForAuthenticatedUserParamSchema,
@@ -36496,14 +31901,7 @@ export function bootstrap(
   router.patch(
     "usersSetPrimaryEmailVisibilityForAuthenticatedUser",
     "/user/email/visibility",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -36532,14 +31930,7 @@ export function bootstrap(
   router.get(
     "usersListEmailsForAuthenticatedUser",
     "/user/emails",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListEmailsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36566,14 +31957,7 @@ export function bootstrap(
   router.post(
     "usersAddEmailForAuthenticatedUser",
     "/user/emails",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersAddEmailForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -36600,14 +31984,7 @@ export function bootstrap(
   router.delete(
     "usersDeleteEmailForAuthenticatedUser",
     "/user/emails",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersDeleteEmailForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -36633,14 +32010,7 @@ export function bootstrap(
   router.get(
     "usersListFollowersForAuthenticatedUser",
     "/user/followers",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListFollowersForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36666,14 +32036,7 @@ export function bootstrap(
   router.get(
     "usersListFollowedByAuthenticatedUser",
     "/user/following",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListFollowedByAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36698,14 +32061,7 @@ export function bootstrap(
   router.get(
     "usersCheckPersonIsFollowedByAuthenticated",
     "/user/following/:username",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersCheckPersonIsFollowedByAuthenticatedParamSchema,
@@ -36728,35 +32084,25 @@ export function bootstrap(
 
   const usersFollowParamSchema = z.object({ username: z.coerce.string() })
 
-  router.put(
-    "usersFollow",
-    "/user/following/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersFollowParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(usersFollowParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersFollow(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.put("usersFollow", "/user/following/:username", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(usersFollowParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersFollow(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const usersUnfollowParamSchema = z.object({ username: z.coerce.string() })
 
   router.delete(
     "usersUnfollow",
     "/user/following/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersUnfollowParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(usersUnfollowParamSchema, ctx.params),
         query: undefined,
@@ -36778,14 +32124,7 @@ export function bootstrap(
   router.get(
     "usersListGpgKeysForAuthenticatedUser",
     "/user/gpg_keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListGpgKeysForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36811,14 +32150,7 @@ export function bootstrap(
   router.post(
     "usersCreateGpgKeyForAuthenticatedUser",
     "/user/gpg_keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersCreateGpgKeyForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -36843,14 +32175,7 @@ export function bootstrap(
   router.get(
     "usersGetGpgKeyForAuthenticatedUser",
     "/user/gpg_keys/:gpgKeyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersGetGpgKeyForAuthenticatedUserParamSchema,
@@ -36875,14 +32200,7 @@ export function bootstrap(
   router.delete(
     "usersDeleteGpgKeyForAuthenticatedUser",
     "/user/gpg_keys/:gpgKeyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersDeleteGpgKeyForAuthenticatedUserParamSchema,
@@ -36908,14 +32226,7 @@ export function bootstrap(
   router.get(
     "appsListInstallationsForAuthenticatedUser",
     "/user/installations",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_AppsListInstallationsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -36948,14 +32259,7 @@ export function bootstrap(
   router.get(
     "appsListInstallationReposForAuthenticatedUser",
     "/user/installations/:installationId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsListInstallationReposForAuthenticatedUserParamSchema,
-        t_AppsListInstallationReposForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsListInstallationReposForAuthenticatedUserParamSchema,
@@ -36987,14 +32291,7 @@ export function bootstrap(
   router.put(
     "appsAddRepoToInstallationForAuthenticatedUser",
     "/user/installations/:installationId/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsAddRepoToInstallationForAuthenticatedUserParamSchema,
@@ -37024,14 +32321,7 @@ export function bootstrap(
   router.delete(
     "appsRemoveRepoFromInstallationForAuthenticatedUser",
     "/user/installations/:installationId/repositories/:repositoryId",
-    async (
-      ctx: ValidatedCtx<
-        t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsRemoveRepoFromInstallationForAuthenticatedUserParamSchema,
@@ -37055,7 +32345,7 @@ export function bootstrap(
   router.get(
     "interactionsGetRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37087,14 +32377,7 @@ export function bootstrap(
   router.put(
     "interactionsSetRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37118,7 +32401,7 @@ export function bootstrap(
   router.delete(
     "interactionsRemoveRestrictionsForAuthenticatedUser",
     "/user/interaction-limits",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37152,14 +32435,7 @@ export function bootstrap(
   router.get(
     "issuesListForAuthenticatedUser",
     "/user/issues",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_IssuesListForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37185,14 +32461,7 @@ export function bootstrap(
   router.get(
     "usersListPublicSshKeysForAuthenticatedUser",
     "/user/keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListPublicSshKeysForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37221,14 +32490,7 @@ export function bootstrap(
   router.post(
     "usersCreatePublicSshKeyForAuthenticatedUser",
     "/user/keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37256,14 +32518,7 @@ export function bootstrap(
   router.get(
     "usersGetPublicSshKeyForAuthenticatedUser",
     "/user/keys/:keyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersGetPublicSshKeyForAuthenticatedUserParamSchema,
@@ -37291,14 +32546,7 @@ export function bootstrap(
   router.delete(
     "usersDeletePublicSshKeyForAuthenticatedUser",
     "/user/keys/:keyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersDeletePublicSshKeyForAuthenticatedUserParamSchema,
@@ -37327,14 +32575,7 @@ export function bootstrap(
   router.get(
     "appsListSubscriptionsForAuthenticatedUser",
     "/user/marketplace_purchases",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_AppsListSubscriptionsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37363,14 +32604,7 @@ export function bootstrap(
   router.get(
     "appsListSubscriptionsForAuthenticatedUserStubbed",
     "/user/marketplace_purchases/stubbed",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37400,14 +32634,7 @@ export function bootstrap(
   router.get(
     "orgsListMembershipsForAuthenticatedUser",
     "/user/memberships/orgs",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_OrgsListMembershipsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37432,14 +32659,7 @@ export function bootstrap(
   router.get(
     "orgsGetMembershipForAuthenticatedUser",
     "/user/memberships/orgs/:org",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsGetMembershipForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsGetMembershipForAuthenticatedUserParamSchema,
@@ -37468,14 +32688,7 @@ export function bootstrap(
   router.patch(
     "orgsUpdateMembershipForAuthenticatedUser",
     "/user/memberships/orgs/:org",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
-        void,
-        t_OrgsUpdateMembershipForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserParamSchema,
@@ -37507,14 +32720,7 @@ export function bootstrap(
   router.get(
     "migrationsListForAuthenticatedUser",
     "/user/migrations",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_MigrationsListForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37547,14 +32753,7 @@ export function bootstrap(
   router.post(
     "migrationsStartForAuthenticatedUser",
     "/user/migrations",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_MigrationsStartForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -37583,14 +32782,7 @@ export function bootstrap(
   router.get(
     "migrationsGetStatusForAuthenticatedUser",
     "/user/migrations/:migrationId",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsGetStatusForAuthenticatedUserParamSchema,
-        t_MigrationsGetStatusForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetStatusForAuthenticatedUserParamSchema,
@@ -37618,14 +32810,7 @@ export function bootstrap(
   router.get(
     "migrationsGetArchiveForAuthenticatedUser",
     "/user/migrations/:migrationId/archive",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsGetArchiveForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsGetArchiveForAuthenticatedUserParamSchema,
@@ -37653,14 +32838,7 @@ export function bootstrap(
   router.delete(
     "migrationsDeleteArchiveForAuthenticatedUser",
     "/user/migrations/:migrationId/archive",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsDeleteArchiveForAuthenticatedUserParamSchema,
@@ -37689,14 +32867,7 @@ export function bootstrap(
   router.delete(
     "migrationsUnlockRepoForAuthenticatedUser",
     "/user/migrations/:migrationId/repos/:repoName/lock",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsUnlockRepoForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsUnlockRepoForAuthenticatedUserParamSchema,
@@ -37729,14 +32900,7 @@ export function bootstrap(
   router.get(
     "migrationsListReposForAuthenticatedUser",
     "/user/migrations/:migrationId/repositories",
-    async (
-      ctx: ValidatedCtx<
-        t_MigrationsListReposForAuthenticatedUserParamSchema,
-        t_MigrationsListReposForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           migrationsListReposForAuthenticatedUserParamSchema,
@@ -37765,10 +32929,7 @@ export function bootstrap(
   router.get(
     "orgsListForAuthenticatedUser",
     "/user/orgs",
-    async (
-      ctx: ValidatedCtx<void, t_OrgsListForAuthenticatedUserQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37801,14 +32962,7 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForAuthenticatedUser",
     "/user/packages",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_PackagesListPackagesForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -37844,14 +32998,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetPackageForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageForAuthenticatedUserParamSchema,
@@ -37884,14 +33031,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesDeletePackageForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForAuthenticatedUserParamSchema,
@@ -37931,14 +33071,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageForAuthenticatedUserParamSchema,
-        t_PackagesRestorePackageForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForAuthenticatedUserParamSchema,
@@ -37985,14 +33118,7 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
-        t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema,
@@ -38032,14 +33158,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetPackageVersionForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForAuthenticatedUserParamSchema,
@@ -38076,14 +33195,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesDeletePackageVersionForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForAuthenticatedUserParamSchema,
@@ -38122,14 +33234,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForAuthenticatedUser",
     "/user/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageVersionForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForAuthenticatedUserParamSchema,
@@ -38158,14 +33263,7 @@ export function bootstrap(
   router.post(
     "projectsCreateForAuthenticatedUser",
     "/user/projects",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_ProjectsCreateForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -38191,14 +33289,7 @@ export function bootstrap(
   router.get(
     "usersListPublicEmailsForAuthenticatedUser",
     "/user/public_emails",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListPublicEmailsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38234,10 +33325,7 @@ export function bootstrap(
   router.get(
     "reposListForAuthenticatedUser",
     "/user/repos",
-    async (
-      ctx: ValidatedCtx<void, t_ReposListForAuthenticatedUserQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38288,14 +33376,7 @@ export function bootstrap(
   router.post(
     "reposCreateForAuthenticatedUser",
     "/user/repos",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_ReposCreateForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -38321,14 +33402,7 @@ export function bootstrap(
   router.get(
     "reposListInvitationsForAuthenticatedUser",
     "/user/repository_invitations",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_ReposListInvitationsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38356,14 +33430,7 @@ export function bootstrap(
   router.patch(
     "reposAcceptInvitationForAuthenticatedUser",
     "/user/repository_invitations/:invitationId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposAcceptInvitationForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposAcceptInvitationForAuthenticatedUserParamSchema,
@@ -38391,14 +33458,7 @@ export function bootstrap(
   router.delete(
     "reposDeclineInvitationForAuthenticatedUser",
     "/user/repository_invitations/:invitationId",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposDeclineInvitationForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           reposDeclineInvitationForAuthenticatedUserParamSchema,
@@ -38427,14 +33487,7 @@ export function bootstrap(
   router.get(
     "usersListSshSigningKeysForAuthenticatedUser",
     "/user/ssh_signing_keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38463,14 +33516,7 @@ export function bootstrap(
   router.post(
     "usersCreateSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        void,
-        t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
@@ -38498,14 +33544,7 @@ export function bootstrap(
   router.get(
     "usersGetSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys/:sshSigningKeyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersGetSshSigningKeyForAuthenticatedUserParamSchema,
@@ -38533,14 +33572,7 @@ export function bootstrap(
   router.delete(
     "usersDeleteSshSigningKeyForAuthenticatedUser",
     "/user/ssh_signing_keys/:sshSigningKeyId",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
@@ -38571,14 +33603,7 @@ export function bootstrap(
   router.get(
     "activityListReposStarredByAuthenticatedUser",
     "/user/starred",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_ActivityListReposStarredByAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38607,14 +33632,7 @@ export function bootstrap(
   router.get(
     "activityCheckRepoIsStarredByAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityCheckRepoIsStarredByAuthenticatedUserParamSchema,
@@ -38643,14 +33661,7 @@ export function bootstrap(
   router.put(
     "activityStarRepoForAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityStarRepoForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityStarRepoForAuthenticatedUserParamSchema,
@@ -38676,14 +33687,7 @@ export function bootstrap(
   router.delete(
     "activityUnstarRepoForAuthenticatedUser",
     "/user/starred/:owner/:repo",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityUnstarRepoForAuthenticatedUserParamSchema,
@@ -38709,14 +33713,7 @@ export function bootstrap(
   router.get(
     "activityListWatchedReposForAuthenticatedUser",
     "/user/subscriptions",
-    async (
-      ctx: ValidatedCtx<
-        void,
-        t_ActivityListWatchedReposForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38745,10 +33742,7 @@ export function bootstrap(
   router.get(
     "teamsListForAuthenticatedUser",
     "/user/teams",
-    async (
-      ctx: ValidatedCtx<void, t_TeamsListForAuthenticatedUserQuerySchema, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: undefined,
         query: parseRequestInput(
@@ -38771,52 +33765,35 @@ export function bootstrap(
     per_page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "usersList",
-    "/users",
-    async (
-      ctx: ValidatedCtx<void, t_UsersListQuerySchema, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(usersListQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersList(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("usersList", "/users", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(usersListQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersList(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const usersGetByUsernameParamSchema = z.object({
     username: z.coerce.string(),
   })
 
-  router.get(
-    "usersGetByUsername",
-    "/users/:username",
-    async (
-      ctx: ValidatedCtx<t_UsersGetByUsernameParamSchema, void, void>,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(usersGetByUsernameParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.usersGetByUsername(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("usersGetByUsername", "/users/:username", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(usersGetByUsernameParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.usersGetByUsername(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const activityListEventsForAuthenticatedUserParamSchema = z.object({
     username: z.coerce.string(),
@@ -38830,14 +33807,7 @@ export function bootstrap(
   router.get(
     "activityListEventsForAuthenticatedUser",
     "/users/:username/events",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListEventsForAuthenticatedUserParamSchema,
-        t_ActivityListEventsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListEventsForAuthenticatedUserParamSchema,
@@ -38871,14 +33841,7 @@ export function bootstrap(
   router.get(
     "activityListOrgEventsForAuthenticatedUser",
     "/users/:username/events/orgs/:org",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListOrgEventsForAuthenticatedUserParamSchema,
-        t_ActivityListOrgEventsForAuthenticatedUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListOrgEventsForAuthenticatedUserParamSchema,
@@ -38914,14 +33877,7 @@ export function bootstrap(
   router.get(
     "activityListPublicEventsForUser",
     "/users/:username/events/public",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListPublicEventsForUserParamSchema,
-        t_ActivityListPublicEventsForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListPublicEventsForUserParamSchema,
@@ -38954,14 +33910,7 @@ export function bootstrap(
   router.get(
     "usersListFollowersForUser",
     "/users/:username/followers",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersListFollowersForUserParamSchema,
-        t_UsersListFollowersForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersListFollowersForUserParamSchema,
@@ -38996,14 +33945,7 @@ export function bootstrap(
   router.get(
     "usersListFollowingForUser",
     "/users/:username/following",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersListFollowingForUserParamSchema,
-        t_UsersListFollowingForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersListFollowingForUserParamSchema,
@@ -39034,10 +33976,7 @@ export function bootstrap(
   router.get(
     "usersCheckFollowingForUser",
     "/users/:username/following/:targetUser",
-    async (
-      ctx: ValidatedCtx<t_UsersCheckFollowingForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersCheckFollowingForUserParamSchema,
@@ -39068,14 +34007,7 @@ export function bootstrap(
   router.get(
     "gistsListForUser",
     "/users/:username/gists",
-    async (
-      ctx: ValidatedCtx<
-        t_GistsListForUserParamSchema,
-        t_GistsListForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(gistsListForUserParamSchema, ctx.params),
         query: parseRequestInput(gistsListForUserQuerySchema, ctx.query),
@@ -39101,14 +34033,7 @@ export function bootstrap(
   router.get(
     "usersListGpgKeysForUser",
     "/users/:username/gpg_keys",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersListGpgKeysForUserParamSchema,
-        t_UsersListGpgKeysForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersListGpgKeysForUserParamSchema,
@@ -39142,14 +34067,7 @@ export function bootstrap(
   router.get(
     "usersGetContextForUser",
     "/users/:username/hovercard",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersGetContextForUserParamSchema,
-        t_UsersGetContextForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersGetContextForUserParamSchema,
@@ -39176,10 +34094,7 @@ export function bootstrap(
   router.get(
     "appsGetUserInstallation",
     "/users/:username/installation",
-    async (
-      ctx: ValidatedCtx<t_AppsGetUserInstallationParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           appsGetUserInstallationParamSchema,
@@ -39211,14 +34126,7 @@ export function bootstrap(
   router.get(
     "usersListPublicKeysForUser",
     "/users/:username/keys",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersListPublicKeysForUserParamSchema,
-        t_UsersListPublicKeysForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersListPublicKeysForUserParamSchema,
@@ -39248,29 +34156,18 @@ export function bootstrap(
     page: z.coerce.number().optional(),
   })
 
-  router.get(
-    "orgsListForUser",
-    "/users/:username/orgs",
-    async (
-      ctx: ValidatedCtx<
-        t_OrgsListForUserParamSchema,
-        t_OrgsListForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
-      const input = {
-        params: parseRequestInput(orgsListForUserParamSchema, ctx.params),
-        query: parseRequestInput(orgsListForUserQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListForUser(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("orgsListForUser", "/users/:username/orgs", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsListForUserParamSchema, ctx.params),
+      query: parseRequestInput(orgsListForUserQuerySchema, ctx.query),
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.orgsListForUser(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   const packagesListPackagesForUserParamSchema = z.object({
     username: z.coerce.string(),
@@ -39291,14 +34188,7 @@ export function bootstrap(
   router.get(
     "packagesListPackagesForUser",
     "/users/:username/packages",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesListPackagesForUserParamSchema,
-        t_PackagesListPackagesForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesListPackagesForUserParamSchema,
@@ -39337,10 +34227,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageForUser",
     "/users/:username/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<t_PackagesGetPackageForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageForUserParamSchema,
@@ -39376,10 +34263,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageForUser",
     "/users/:username/packages/:packageType/:packageName",
-    async (
-      ctx: ValidatedCtx<t_PackagesDeletePackageForUserParamSchema, void, void>,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageForUserParamSchema,
@@ -39417,14 +34301,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageForUser",
     "/users/:username/packages/:packageType/:packageName/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageForUserParamSchema,
-        t_PackagesRestorePackageForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageForUserParamSchema,
@@ -39462,14 +34339,7 @@ export function bootstrap(
   router.get(
     "packagesGetAllPackageVersionsForPackageOwnedByUser",
     "/users/:username/packages/:packageType/:packageName/versions",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetAllPackageVersionsForPackageOwnedByUserParamSchema,
@@ -39507,14 +34377,7 @@ export function bootstrap(
   router.get(
     "packagesGetPackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesGetPackageVersionForUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesGetPackageVersionForUserParamSchema,
@@ -39549,14 +34412,7 @@ export function bootstrap(
   router.delete(
     "packagesDeletePackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesDeletePackageVersionForUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesDeletePackageVersionForUserParamSchema,
@@ -39591,14 +34447,7 @@ export function bootstrap(
   router.post(
     "packagesRestorePackageVersionForUser",
     "/users/:username/packages/:packageType/:packageName/versions/:packageVersionId/restore",
-    async (
-      ctx: ValidatedCtx<
-        t_PackagesRestorePackageVersionForUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           packagesRestorePackageVersionForUserParamSchema,
@@ -39629,14 +34478,7 @@ export function bootstrap(
   router.get(
     "projectsListForUser",
     "/users/:username/projects",
-    async (
-      ctx: ValidatedCtx<
-        t_ProjectsListForUserParamSchema,
-        t_ProjectsListForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(projectsListForUserParamSchema, ctx.params),
         query: parseRequestInput(projectsListForUserQuerySchema, ctx.query),
@@ -39665,14 +34507,7 @@ export function bootstrap(
   router.get(
     "activityListReceivedEventsForUser",
     "/users/:username/received_events",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListReceivedEventsForUserParamSchema,
-        t_ActivityListReceivedEventsForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListReceivedEventsForUserParamSchema,
@@ -39705,14 +34540,7 @@ export function bootstrap(
   router.get(
     "activityListReceivedPublicEventsForUser",
     "/users/:username/received_events/public",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListReceivedPublicEventsForUserParamSchema,
-        t_ActivityListReceivedPublicEventsForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListReceivedPublicEventsForUserParamSchema,
@@ -39746,14 +34574,7 @@ export function bootstrap(
   router.get(
     "reposListForUser",
     "/users/:username/repos",
-    async (
-      ctx: ValidatedCtx<
-        t_ReposListForUserParamSchema,
-        t_ReposListForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposListForUserParamSchema, ctx.params),
         query: parseRequestInput(reposListForUserQuerySchema, ctx.query),
@@ -39774,14 +34595,7 @@ export function bootstrap(
   router.get(
     "billingGetGithubActionsBillingUser",
     "/users/:username/settings/billing/actions",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetGithubActionsBillingUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetGithubActionsBillingUserParamSchema,
@@ -39806,14 +34620,7 @@ export function bootstrap(
   router.get(
     "billingGetGithubPackagesBillingUser",
     "/users/:username/settings/billing/packages",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetGithubPackagesBillingUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetGithubPackagesBillingUserParamSchema,
@@ -39838,14 +34645,7 @@ export function bootstrap(
   router.get(
     "billingGetSharedStorageBillingUser",
     "/users/:username/settings/billing/shared-storage",
-    async (
-      ctx: ValidatedCtx<
-        t_BillingGetSharedStorageBillingUserParamSchema,
-        void,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           billingGetSharedStorageBillingUserParamSchema,
@@ -39875,14 +34675,7 @@ export function bootstrap(
   router.get(
     "usersListSshSigningKeysForUser",
     "/users/:username/ssh_signing_keys",
-    async (
-      ctx: ValidatedCtx<
-        t_UsersListSshSigningKeysForUserParamSchema,
-        t_UsersListSshSigningKeysForUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           usersListSshSigningKeysForUserParamSchema,
@@ -39917,14 +34710,7 @@ export function bootstrap(
   router.get(
     "activityListReposStarredByUser",
     "/users/:username/starred",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListReposStarredByUserParamSchema,
-        t_ActivityListReposStarredByUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListReposStarredByUserParamSchema,
@@ -39957,14 +34743,7 @@ export function bootstrap(
   router.get(
     "activityListReposWatchedByUser",
     "/users/:username/subscriptions",
-    async (
-      ctx: ValidatedCtx<
-        t_ActivityListReposWatchedByUserParamSchema,
-        t_ActivityListReposWatchedByUserQuerySchema,
-        void
-      >,
-      next: Next
-    ) => {
+    async (ctx, next) => {
       const input = {
         params: parseRequestInput(
           activityListReposWatchedByUserParamSchema,
@@ -39985,42 +34764,31 @@ export function bootstrap(
     }
   )
 
-  router.get(
-    "metaGetAllVersions",
-    "/versions",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.metaGetAllVersions(
-        input,
-        ctx
-      )
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("metaGetAllVersions", "/versions", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
 
-  router.get(
-    "metaGetZen",
-    "/zen",
-    async (ctx: ValidatedCtx<void, void, void>, next: Next) => {
-      const input = {
-        params: undefined,
-        query: undefined,
-        body: undefined,
-      }
+    const { status, body } = await implementation.metaGetAllVersions(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
-      const { status, body } = await implementation.metaGetZen(input, ctx)
-      ctx.status = status
-      ctx.body = body
-      return next()
+  router.get("metaGetZen", "/zen", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
     }
-  )
+
+    const { status, body } = await implementation.metaGetZen(input, ctx)
+    ctx.status = status
+    ctx.body = body
+    return next()
+  })
 
   return startServer({
     middleware: [],
