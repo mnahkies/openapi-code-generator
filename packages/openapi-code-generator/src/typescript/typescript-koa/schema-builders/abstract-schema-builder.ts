@@ -48,6 +48,10 @@ export abstract class AbstractSchemaBuilder {
         ], required)
       case "object":
 
+        if (model.allOf.length) {
+          return this.intersect(model.allOf.map(it => this.fromModel(it, true)))
+        }
+
         if (model.oneOf.length) {
           return this.union(model.oneOf.map(it => this.fromModel(it, true)))
         }
@@ -63,7 +67,9 @@ export abstract class AbstractSchemaBuilder {
     }
   }
 
-  protected abstract union(maybeModels: string[]): string
+  protected abstract intersect(schemas: string[]): string
+
+  protected abstract union(schemas: string[]): string
 
   protected abstract object(keys: Record<string, string>, required: boolean): string
 

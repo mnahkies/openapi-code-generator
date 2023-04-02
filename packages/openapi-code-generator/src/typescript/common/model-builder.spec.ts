@@ -62,4 +62,18 @@ describe("typescript/common/model-builder", () => {
        | string)"
     `)
   })
+
+  it("can build a type for a allOf correctly", async () => {
+    const builder = ModelBuilder.fromInput("models.ts", input)
+
+    const actual = builder.schemaObjectToType(
+      input.schema({ $ref: `${file}#/components/schemas/AllOf` })
+    )
+
+    expect(actual).toMatchInlineSnapshot(`
+      "(t_Base & {
+      "id" : number ;
+      })"
+    `)
+  })
 })
