@@ -24,12 +24,9 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
 
   protected intersect(schemas: string[]): string {
-    return [
-      this.zod,
-      `intersection([\n${
-        schemas.map(it => it + ",").join("\n")
-      }\n])`
-    ].filter(isDefined).join(".")
+    return schemas.filter(isDefined).reduce((acc, it) => {
+      return `${acc}\n.merge(${it})`
+    })
   }
 
   protected union(schemas: string[]): string {
