@@ -3,10 +3,10 @@ import {
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
-import {SchemaBuilder} from "./schema-builder"
+import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../../common/import-builder"
 
-export class ZodBuilder extends SchemaBuilder {
+export class ZodBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly zod = "z",
     input: Input,
@@ -15,8 +15,11 @@ export class ZodBuilder extends SchemaBuilder {
   }
 
   importHelpers(importBuilder: ImportBuilder) {
+    importBuilder.from("zod")
+      .add(this.zod)
+
     importBuilder.from("@nahkies/typescript-koa-runtime/zod")
-      .add("parseRequestInput")
+      .add("parseRequestInput", "Params")
   }
 
   protected union(maybeModels: string[]): string {

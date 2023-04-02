@@ -5,10 +5,8 @@ import { ImportBuilder } from "../common/import-builder"
 import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
 import { ModelBuilder } from "../common/model-builder"
 import { isDefined, titleCase } from "../../core/utils"
-import { JoiBuilder } from "./schema-builders/joi-schema-builder"
-import { SchemaBuilder } from "./schema-builders/schema-builder"
-import { ZodBuilder } from "./schema-builders/zod-schema-builder"
 import {logger} from "../../core/logger"
+import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -49,27 +47,15 @@ export class ServerBuilder {
   ) {
     this.imports = new ImportBuilder()
     // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
-    this.imports.addSingle("startServer", "@nahkies/typescript-koa-runtime/server")
-    this.imports.addSingle("ServerConfig", "@nahkies/typescript-koa-runtime/server")
+    this.imports.from("@nahkies/typescript-koa-runtime/server")
+      .add("startServer", "ServerConfig")
 
-    this.imports.addSingle("Context", "koa")
-    this.imports.addSingle("Next", "koa")
+    this.imports.from("koa")
+      .add("Context")
+
     this.imports.addModule("KoaRouter", "@koa/router")
 
-    switch (schemaBuilderType) {
-      case "joi": {
-        this.imports.addModule("joi", "@hapi/joi")
-        this.schemaBuilder = new JoiBuilder("joi", this.input)
-        break
-      }
-      case "zod": {
-        this.imports.addSingle("z", "zod")
-        this.schemaBuilder = new ZodBuilder("z", this.input)
-        break
-      }
-    }
-
-    this.schemaBuilder.importHelpers(this.imports)
+    this.schemaBuilder = schemaBuilderFactory(schemaBuilderType, this.input, this.imports)
     this.models = models.withImports(this.imports)
   }
 
@@ -123,7 +109,7 @@ export class ServerBuilder {
 
     this.statements.push([
       `router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }',`,
-      `async (ctx: ValidatedCtx<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType }>, next: Next) => {
+      `async (ctx, next) => {
 
        const input = {
         params: ${paramSchema ? `parseRequestInput(${ operation.operationId }ParamSchema, ctx.params)` : "undefined"},
@@ -176,13 +162,6 @@ ${ imports.toString() }
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
-
-type Params<Params, Query, Body> = {params: Params, query: Query, body: Body}
-
-interface ValidatedCtx<Params, Query, Body> extends Context {
-  state: { params: Params, query: Query, body: Body }
-}
-
 ${Object.values(this.operationTypeMap).join("\n\n")}
 
 export type Implementation = {
