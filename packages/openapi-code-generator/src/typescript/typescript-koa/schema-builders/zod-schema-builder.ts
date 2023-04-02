@@ -16,7 +16,7 @@ export class ZodBuilder extends SchemaBuilder {
 
   importHelpers(importBuilder: ImportBuilder) {
     importBuilder.from("@nahkies/typescript-koa-runtime/zod")
-      .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
+      .add("parseRequestInput")
   }
 
   protected union(maybeModels: string[]): string {

@@ -8,11 +8,11 @@ export type t_AddPetBodySchema = {
 }
 
 export type t_DeletePetParamSchema = {
-  id?: number
+  id: number
 }
 
 export type t_FindPetByIdParamSchema = {
-  id?: number
+  id: number
 }
 
 export type t_FindPetsQuerySchema = {
