@@ -7,15 +7,15 @@ describe("zod-schema-builder", () => {
     const {input, file} = await unitTestInput()
     const schema = input.schema({$ref: `${file}#components/schemas/OneOf`})
 
-    const builder = new ZodBuilder("zod", input)
+    const builder = new ZodBuilder("z", input)
 
     const actual = builder.fromModel(schema, true)
 
     expect(actual).toMatchInlineSnapshot(`
-      "zod.union([
-      zod.object({"strs": zod.array(zod.coerce.string())}),
-      zod.array(zod.coerce.string()),
-      zod.coerce.string(),
+      "z.union([
+      z.object({"strs": z.array(z.coerce.string())}),
+      z.array(z.coerce.string()),
+      z.coerce.string(),
       ])"
     `)
   })
@@ -24,15 +24,13 @@ describe("zod-schema-builder", () => {
     const {input, file} = await unitTestInput()
     const schema = input.schema({$ref: `${file}#components/schemas/AllOf`})
 
-    const builder = new ZodBuilder("zod", input)
+    const builder = new ZodBuilder("z", input)
 
     const actual = builder.fromModel(schema, true)
 
     expect(actual).toMatchInlineSnapshot(`
-      "zod.intersection([
-      zod.object({"name": zod.coerce.string(),"breed": zod.coerce.string().optional()}),
-      zod.object({"id": zod.coerce.number()}),
-      ])"
+      "z.object({"name": z.coerce.string(),"breed": z.coerce.string().optional()})
+      .merge(z.object({"id": z.coerce.number()}))"
     `)
   })
 })
