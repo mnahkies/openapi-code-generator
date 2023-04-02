@@ -1,46 +1,30 @@
-import type {Schema} from "@hapi/joi"
-import type { Context, Middleware, Next } from "koa"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type koaBody from "koa-body"
+import type {Schema as JoiSchema} from "@hapi/joi"
 
-export function paramValidationFactory<Type>(schema: Schema): Middleware<{ params: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.params, { stripUnknown: true })
+// Note: joi types don't appear to have an equivalent of z.infer,
+//       hence any seems about as good as we can do here.
+export function parseRequestInput<Schema extends JoiSchema>(
+  schema: Schema,
+  input: unknown
+): any;
+export function parseRequestInput(
+  schema: undefined,
+  input: unknown
+): undefined;
+export function parseRequestInput<Schema extends JoiSchema>(
+  schema: Schema | undefined,
+  input: unknown
+): any {
 
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.params = result.value
-
-    return next()
+  if (!schema) {
+    return undefined
   }
-}
 
-export function queryValidationFactory<Type>(schema: Schema): Middleware<{ query: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.query, { stripUnknown: true })
+  const result = schema.validate(input, {stripUnknown: true})
 
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.query = result.value
-
-    return next()
+  if (result.error) {
+    // TODO: improve error
+    throw new Error("validation error")
   }
-}
 
-export function bodyValidationFactory<Type>(schema: Schema): Middleware<{ body: Type }> {
-  return async function (ctx: Context, next: Next) {
-    const result = schema.validate(ctx.request.body, { stripUnknown: true })
-
-    if (result.error) {
-      throw new Error("validation error")
-    }
-
-    ctx.state.body = result.value
-
-    return next()
-  }
+  return result.value
 }

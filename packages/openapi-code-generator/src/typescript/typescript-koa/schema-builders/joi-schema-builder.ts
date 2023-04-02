@@ -23,7 +23,7 @@ export class JoiBuilder extends SchemaBuilder {
 
   importHelpers(importBuilder: ImportBuilder) {
     importBuilder.from("@nahkies/typescript-koa-runtime/joi")
-      .add("queryValidationFactory", "paramValidationFactory", "bodyValidationFactory")
+      .add("parseRequestInput")
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
