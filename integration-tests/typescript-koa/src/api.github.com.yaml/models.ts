@@ -136,8 +136,8 @@ export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema = {
 }
 
 export type t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema = {
-  org?: string
-  runner_id?: number
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = {
@@ -145,45 +145,45 @@ export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema = {
 }
 
 export type t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema = {
-  owner?: string
-  repo?: string
-  runner_id?: number
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsAddSelectedRepoToOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_ActionsAddSelectedRepoToOrgVariableParamSchema = {
-  name?: string
-  org?: string
-  repository_id?: number
+  name: string
+  org: string
+  repository_id: number
 }
 
 export type t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema = {
-  org?: string
-  repository_id?: number
-  required_workflow_id?: number
+  org: string
+  repository_id: number
+  required_workflow_id: number
 }
 
 export type t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
-  runner_id?: number
+  org: string
+  runner_group_id: number
+  runner_id: number
 }
 
 export type t_ActionsApproveWorkflowRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsCancelWorkflowRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsCreateEnvironmentVariableBodySchema = {
@@ -192,8 +192,8 @@ export type t_ActionsCreateEnvironmentVariableBodySchema = {
 }
 
 export type t_ActionsCreateEnvironmentVariableParamSchema = {
-  environment_name?: string
-  repository_id?: number
+  environment_name: string
+  repository_id: number
 }
 
 export type t_ActionsCreateOrUpdateEnvironmentSecretBodySchema = {
@@ -202,9 +202,9 @@ export type t_ActionsCreateOrUpdateEnvironmentSecretBodySchema = {
 }
 
 export type t_ActionsCreateOrUpdateEnvironmentSecretParamSchema = {
-  environment_name?: string
-  repository_id?: number
-  secret_name?: string
+  environment_name: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_ActionsCreateOrUpdateOrgSecretBodySchema = {
@@ -215,8 +215,8 @@ export type t_ActionsCreateOrUpdateOrgSecretBodySchema = {
 }
 
 export type t_ActionsCreateOrUpdateOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_ActionsCreateOrUpdateRepoSecretBodySchema = {
@@ -225,9 +225,9 @@ export type t_ActionsCreateOrUpdateRepoSecretBodySchema = {
 }
 
 export type t_ActionsCreateOrUpdateRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_ActionsCreateOrgVariableBodySchema = {
@@ -238,25 +238,25 @@ export type t_ActionsCreateOrgVariableBodySchema = {
 }
 
 export type t_ActionsCreateOrgVariableParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsCreateRegistrationTokenForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsCreateRegistrationTokenForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsCreateRemoveTokenForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsCreateRemoveTokenForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsCreateRepoVariableBodySchema = {
@@ -265,8 +265,8 @@ export type t_ActionsCreateRepoVariableBodySchema = {
 }
 
 export type t_ActionsCreateRepoVariableParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsCreateRequiredWorkflowBodySchema = {
@@ -277,7 +277,7 @@ export type t_ActionsCreateRequiredWorkflowBodySchema = {
 }
 
 export type t_ActionsCreateRequiredWorkflowParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema = {
@@ -291,7 +291,7 @@ export type t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema = {
 }
 
 export type t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsCreateWorkflowDispatchBodySchema = {
@@ -302,153 +302,153 @@ export type t_ActionsCreateWorkflowDispatchBodySchema = {
 }
 
 export type t_ActionsCreateWorkflowDispatchParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsDeleteActionsCacheByIdParamSchema = {
-  cache_id?: number
-  owner?: string
-  repo?: string
+  cache_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDeleteActionsCacheByKeyParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDeleteActionsCacheByKeyQuerySchema = {
-  key?: string
+  key: string
   ref?: t_code_scanning_ref
 }
 
 export type t_ActionsDeleteArtifactParamSchema = {
-  artifact_id?: number
-  owner?: string
-  repo?: string
+  artifact_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDeleteEnvironmentSecretParamSchema = {
-  environment_name?: string
-  repository_id?: number
-  secret_name?: string
+  environment_name: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_ActionsDeleteEnvironmentVariableParamSchema = {
-  environment_name?: string
-  name?: string
-  repository_id?: number
+  environment_name: string
+  name: string
+  repository_id: number
 }
 
 export type t_ActionsDeleteOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_ActionsDeleteOrgVariableParamSchema = {
-  name?: string
-  org?: string
+  name: string
+  org: string
 }
 
 export type t_ActionsDeleteRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_ActionsDeleteRepoVariableParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDeleteRequiredWorkflowParamSchema = {
-  org?: string
-  required_workflow_id?: number
+  org: string
+  required_workflow_id: number
 }
 
 export type t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema = {
-  org?: string
-  runner_id?: number
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema = {
-  owner?: string
-  repo?: string
-  runner_id?: number
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsDeleteWorkflowRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsDeleteWorkflowRunLogsParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema =
   {
-    org?: string
-    repository_id?: number
+    org: string
+    repository_id: number
   }
 
 export type t_ActionsDisableWorkflowParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsDownloadArtifactParamSchema = {
-  archive_format?: string
-  artifact_id?: number
-  owner?: string
-  repo?: string
+  archive_format: string
+  artifact_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDownloadJobLogsForWorkflowRunParamSchema = {
-  job_id?: number
-  owner?: string
-  repo?: string
+  job_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsDownloadWorkflowRunAttemptLogsParamSchema = {
-  attempt_number?: number
-  owner?: string
-  repo?: string
-  run_id?: number
+  attempt_number: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsDownloadWorkflowRunLogsParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema =
   {
-    org?: string
-    repository_id?: number
+    org: string
+    repository_id: number
   }
 
 export type t_ActionsEnableWorkflowParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsGetActionsCacheListParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetActionsCacheListQuerySchema = {
@@ -461,12 +461,12 @@ export type t_ActionsGetActionsCacheListQuerySchema = {
 }
 
 export type t_ActionsGetActionsCacheUsageParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema = {
@@ -475,163 +475,163 @@ export type t_ActionsGetActionsCacheUsageByRepoForOrgQuerySchema = {
 }
 
 export type t_ActionsGetActionsCacheUsageForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsGetAllowedActionsOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsGetAllowedActionsRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetArtifactParamSchema = {
-  artifact_id?: number
-  owner?: string
-  repo?: string
+  artifact_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetCustomOidcSubClaimForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetEnvironmentPublicKeyParamSchema = {
-  environment_name?: string
-  repository_id?: number
+  environment_name: string
+  repository_id: number
 }
 
 export type t_ActionsGetEnvironmentSecretParamSchema = {
-  environment_name?: string
-  repository_id?: number
-  secret_name?: string
+  environment_name: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_ActionsGetEnvironmentVariableParamSchema = {
-  environment_name?: string
-  name?: string
-  repository_id?: number
+  environment_name: string
+  name: string
+  repository_id: number
 }
 
 export type t_ActionsGetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
   {
-    org?: string
+    org: string
   }
 
 export type t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
   {
-    owner?: string
-    repo?: string
+    owner: string
+    repo: string
   }
 
 export type t_ActionsGetGithubActionsPermissionsOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsGetGithubActionsPermissionsRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetJobForWorkflowRunParamSchema = {
-  job_id?: number
-  owner?: string
-  repo?: string
+  job_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetOrgPublicKeyParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsGetOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_ActionsGetOrgVariableParamSchema = {
-  name?: string
-  org?: string
+  name: string
+  org: string
 }
 
 export type t_ActionsGetPendingDeploymentsForRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsGetRepoPublicKeyParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetRepoRequiredWorkflowParamSchema = {
-  org?: string
-  repo?: string
-  required_workflow_id_for_repo?: number
+  org: string
+  repo: string
+  required_workflow_id_for_repo: number
 }
 
 export type t_ActionsGetRepoRequiredWorkflowUsageParamSchema = {
-  org?: string
-  repo?: string
-  required_workflow_id_for_repo?: number
+  org: string
+  repo: string
+  required_workflow_id_for_repo: number
 }
 
 export type t_ActionsGetRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_ActionsGetRepoVariableParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetRequiredWorkflowParamSchema = {
-  org?: string
-  required_workflow_id?: number
+  org: string
+  required_workflow_id: number
 }
 
 export type t_ActionsGetReviewsForRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsGetSelfHostedRunnerForOrgParamSchema = {
-  org?: string
-  runner_id?: number
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsGetSelfHostedRunnerForRepoParamSchema = {
-  owner?: string
-  repo?: string
-  runner_id?: number
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsGetWorkflowParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsGetWorkflowAccessToRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsGetWorkflowRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsGetWorkflowRunQuerySchema = {
@@ -639,10 +639,10 @@ export type t_ActionsGetWorkflowRunQuerySchema = {
 }
 
 export type t_ActionsGetWorkflowRunAttemptParamSchema = {
-  attempt_number?: number
-  owner?: string
-  repo?: string
-  run_id?: number
+  attempt_number: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsGetWorkflowRunAttemptQuerySchema = {
@@ -650,20 +650,20 @@ export type t_ActionsGetWorkflowRunAttemptQuerySchema = {
 }
 
 export type t_ActionsGetWorkflowRunUsageParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsGetWorkflowUsageParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsListArtifactsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListArtifactsForRepoQuerySchema = {
@@ -673,8 +673,8 @@ export type t_ActionsListArtifactsForRepoQuerySchema = {
 }
 
 export type t_ActionsListEnvironmentSecretsParamSchema = {
-  environment_name?: string
-  repository_id?: number
+  environment_name: string
+  repository_id: number
 }
 
 export type t_ActionsListEnvironmentSecretsQuerySchema = {
@@ -683,8 +683,8 @@ export type t_ActionsListEnvironmentSecretsQuerySchema = {
 }
 
 export type t_ActionsListEnvironmentVariablesParamSchema = {
-  environment_name?: string
-  repository_id?: number
+  environment_name: string
+  repository_id: number
 }
 
 export type t_ActionsListEnvironmentVariablesQuerySchema = {
@@ -693,9 +693,9 @@ export type t_ActionsListEnvironmentVariablesQuerySchema = {
 }
 
 export type t_ActionsListJobsForWorkflowRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsListJobsForWorkflowRunQuerySchema = {
@@ -705,10 +705,10 @@ export type t_ActionsListJobsForWorkflowRunQuerySchema = {
 }
 
 export type t_ActionsListJobsForWorkflowRunAttemptParamSchema = {
-  attempt_number?: number
-  owner?: string
-  repo?: string
-  run_id?: number
+  attempt_number: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsListJobsForWorkflowRunAttemptQuerySchema = {
@@ -717,18 +717,18 @@ export type t_ActionsListJobsForWorkflowRunAttemptQuerySchema = {
 }
 
 export type t_ActionsListLabelsForSelfHostedRunnerForOrgParamSchema = {
-  org?: string
-  runner_id?: number
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsListLabelsForSelfHostedRunnerForRepoParamSchema = {
-  owner?: string
-  repo?: string
-  runner_id?: number
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsListOrgSecretsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListOrgSecretsQuerySchema = {
@@ -737,7 +737,7 @@ export type t_ActionsListOrgSecretsQuerySchema = {
 }
 
 export type t_ActionsListOrgVariablesParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListOrgVariablesQuerySchema = {
@@ -746,8 +746,8 @@ export type t_ActionsListOrgVariablesQuerySchema = {
 }
 
 export type t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = {
@@ -756,8 +756,8 @@ export type t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = {
 }
 
 export type t_ActionsListRepoRequiredWorkflowsParamSchema = {
-  org?: string
-  repo?: string
+  org: string
+  repo: string
 }
 
 export type t_ActionsListRepoRequiredWorkflowsQuerySchema = {
@@ -766,8 +766,8 @@ export type t_ActionsListRepoRequiredWorkflowsQuerySchema = {
 }
 
 export type t_ActionsListRepoSecretsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListRepoSecretsQuerySchema = {
@@ -776,8 +776,8 @@ export type t_ActionsListRepoSecretsQuerySchema = {
 }
 
 export type t_ActionsListRepoVariablesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListRepoVariablesQuerySchema = {
@@ -786,8 +786,8 @@ export type t_ActionsListRepoVariablesQuerySchema = {
 }
 
 export type t_ActionsListRepoWorkflowsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListRepoWorkflowsQuerySchema = {
@@ -796,9 +796,9 @@ export type t_ActionsListRepoWorkflowsQuerySchema = {
 }
 
 export type t_ActionsListRequiredWorkflowRunsParamSchema = {
-  owner?: string
-  repo?: string
-  required_workflow_id_for_repo?: number
+  owner: string
+  repo: string
+  required_workflow_id_for_repo: number
 }
 
 export type t_ActionsListRequiredWorkflowRunsQuerySchema = {
@@ -828,7 +828,7 @@ export type t_ActionsListRequiredWorkflowRunsQuerySchema = {
 }
 
 export type t_ActionsListRequiredWorkflowsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListRequiredWorkflowsQuerySchema = {
@@ -837,17 +837,17 @@ export type t_ActionsListRequiredWorkflowsQuerySchema = {
 }
 
 export type t_ActionsListRunnerApplicationsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListRunnerApplicationsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_ActionsListSelectedReposForOrgSecretQuerySchema = {
@@ -856,8 +856,8 @@ export type t_ActionsListSelectedReposForOrgSecretQuerySchema = {
 }
 
 export type t_ActionsListSelectedReposForOrgVariableParamSchema = {
-  name?: string
-  org?: string
+  name: string
+  org: string
 }
 
 export type t_ActionsListSelectedReposForOrgVariableQuerySchema = {
@@ -867,7 +867,7 @@ export type t_ActionsListSelectedReposForOrgVariableQuerySchema = {
 
 export type t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
   {
-    org?: string
+    org: string
   }
 
 export type t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema =
@@ -877,12 +877,12 @@ export type t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQue
   }
 
 export type t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema = {
-  org?: string
-  required_workflow_id?: number
+  org: string
+  required_workflow_id: number
 }
 
 export type t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema = {
@@ -892,7 +892,7 @@ export type t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema = {
 }
 
 export type t_ActionsListSelfHostedRunnersForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsListSelfHostedRunnersForOrgQuerySchema = {
@@ -901,8 +901,8 @@ export type t_ActionsListSelfHostedRunnersForOrgQuerySchema = {
 }
 
 export type t_ActionsListSelfHostedRunnersForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListSelfHostedRunnersForRepoQuerySchema = {
@@ -911,8 +911,8 @@ export type t_ActionsListSelfHostedRunnersForRepoQuerySchema = {
 }
 
 export type t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema = {
@@ -921,9 +921,9 @@ export type t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema = {
 }
 
 export type t_ActionsListWorkflowRunArtifactsParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsListWorkflowRunArtifactsQuerySchema = {
@@ -932,9 +932,9 @@ export type t_ActionsListWorkflowRunArtifactsQuerySchema = {
 }
 
 export type t_ActionsListWorkflowRunsParamSchema = {
-  owner?: string
-  repo?: string
-  workflow_id?: number | string
+  owner: string
+  repo: string
+  workflow_id: number | string
 }
 
 export type t_ActionsListWorkflowRunsQuerySchema = {
@@ -964,8 +964,8 @@ export type t_ActionsListWorkflowRunsQuerySchema = {
 }
 
 export type t_ActionsListWorkflowRunsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsListWorkflowRunsForRepoQuerySchema = {
@@ -999,9 +999,9 @@ export type t_ActionsReRunJobForWorkflowRunBodySchema = {
 }
 
 export type t_ActionsReRunJobForWorkflowRunParamSchema = {
-  job_id?: number
-  owner?: string
-  repo?: string
+  job_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ActionsReRunWorkflowBodySchema = {
@@ -1009,9 +1009,9 @@ export type t_ActionsReRunWorkflowBodySchema = {
 }
 
 export type t_ActionsReRunWorkflowParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsReRunWorkflowFailedJobsBodySchema = {
@@ -1019,65 +1019,65 @@ export type t_ActionsReRunWorkflowFailedJobsBodySchema = {
 }
 
 export type t_ActionsReRunWorkflowFailedJobsParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrgParamSchema =
   {
-    org?: string
-    runner_id?: number
+    org: string
+    runner_id: number
   }
 
 export type t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema =
   {
-    owner?: string
-    repo?: string
-    runner_id?: number
+    owner: string
+    repo: string
+    runner_id: number
   }
 
 export type t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema = {
-  name?: string
-  org?: string
-  runner_id?: number
+  name: string
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
-  runner_id?: number
+  name: string
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org?: string
-  repository_id?: number
-  runner_group_id?: number
+  org: string
+  repository_id: number
+  runner_group_id: number
 }
 
 export type t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema = {
-  name?: string
-  org?: string
-  repository_id?: number
+  name: string
+  org: string
+  repository_id: number
 }
 
 export type t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = {
-  org?: string
-  repository_id?: number
-  required_workflow_id?: number
+  org: string
+  repository_id: number
+  required_workflow_id: number
 }
 
 export type t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
-  runner_id?: number
+  org: string
+  runner_group_id: number
+  runner_id: number
 }
 
 export type t_ActionsReviewPendingDeploymentsForRunBodySchema = {
@@ -1087,9 +1087,9 @@ export type t_ActionsReviewPendingDeploymentsForRunBodySchema = {
 }
 
 export type t_ActionsReviewPendingDeploymentsForRunParamSchema = {
-  owner?: string
-  repo?: string
-  run_id?: number
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsSetAllowedActionsOrganizationBodySchema = {
@@ -1099,7 +1099,7 @@ export type t_ActionsSetAllowedActionsOrganizationBodySchema = {
 }
 
 export type t_ActionsSetAllowedActionsOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsSetAllowedActionsRepositoryBodySchema = {
@@ -1109,8 +1109,8 @@ export type t_ActionsSetAllowedActionsRepositoryBodySchema = {
 }
 
 export type t_ActionsSetAllowedActionsRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = {
@@ -1118,8 +1118,8 @@ export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema = {
 }
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForOrgParamSchema = {
-  org?: string
-  runner_id?: number
+  org: string
+  runner_id: number
 }
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = {
@@ -1127,9 +1127,9 @@ export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema = {
 }
 
 export type t_ActionsSetCustomLabelsForSelfHostedRunnerForRepoParamSchema = {
-  owner?: string
-  repo?: string
-  runner_id?: number
+  owner: string
+  repo: string
+  runner_id: number
 }
 
 export type t_ActionsSetCustomOidcSubClaimForRepoBodySchema = {
@@ -1138,8 +1138,8 @@ export type t_ActionsSetCustomOidcSubClaimForRepoBodySchema = {
 }
 
 export type t_ActionsSetCustomOidcSubClaimForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema =
@@ -1150,7 +1150,7 @@ export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodyS
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationParamSchema =
   {
-    org?: string
+    org: string
   }
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema =
@@ -1161,8 +1161,8 @@ export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySch
 
 export type t_ActionsSetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema =
   {
-    owner?: string
-    repo?: string
+    owner: string
+    repo: string
   }
 
 export type t_ActionsSetGithubActionsPermissionsOrganizationBodySchema = {
@@ -1171,7 +1171,7 @@ export type t_ActionsSetGithubActionsPermissionsOrganizationBodySchema = {
 }
 
 export type t_ActionsSetGithubActionsPermissionsOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActionsSetGithubActionsPermissionsRepositoryBodySchema = {
@@ -1180,8 +1180,8 @@ export type t_ActionsSetGithubActionsPermissionsRepositoryBodySchema = {
 }
 
 export type t_ActionsSetGithubActionsPermissionsRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = {
@@ -1189,8 +1189,8 @@ export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = {
 }
 
 export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsSetSelectedReposForOrgSecretBodySchema = {
@@ -1198,8 +1198,8 @@ export type t_ActionsSetSelectedReposForOrgSecretBodySchema = {
 }
 
 export type t_ActionsSetSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_ActionsSetSelectedReposForOrgVariableBodySchema = {
@@ -1207,8 +1207,8 @@ export type t_ActionsSetSelectedReposForOrgVariableBodySchema = {
 }
 
 export type t_ActionsSetSelectedReposForOrgVariableParamSchema = {
-  name?: string
-  org?: string
+  name: string
+  org: string
 }
 
 export type t_ActionsSetSelectedReposToRequiredWorkflowBodySchema = {
@@ -1216,8 +1216,8 @@ export type t_ActionsSetSelectedReposToRequiredWorkflowBodySchema = {
 }
 
 export type t_ActionsSetSelectedReposToRequiredWorkflowParamSchema = {
-  org?: string
-  required_workflow_id?: number
+  org: string
+  required_workflow_id: number
 }
 
 export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema =
@@ -1227,7 +1227,7 @@ export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBody
 
 export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema =
   {
-    org?: string
+    org: string
   }
 
 export type t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema = {
@@ -1235,8 +1235,8 @@ export type t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema = {
 }
 
 export type t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActionsSetWorkflowAccessToRepositoryBodySchema = {
@@ -1244,8 +1244,8 @@ export type t_ActionsSetWorkflowAccessToRepositoryBodySchema = {
 }
 
 export type t_ActionsSetWorkflowAccessToRepositoryParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsUpdateEnvironmentVariableBodySchema = {
@@ -1254,9 +1254,9 @@ export type t_ActionsUpdateEnvironmentVariableBodySchema = {
 }
 
 export type t_ActionsUpdateEnvironmentVariableParamSchema = {
-  environment_name?: string
-  name?: string
-  repository_id?: number
+  environment_name: string
+  name: string
+  repository_id: number
 }
 
 export type t_ActionsUpdateOrgVariableBodySchema = {
@@ -1267,8 +1267,8 @@ export type t_ActionsUpdateOrgVariableBodySchema = {
 }
 
 export type t_ActionsUpdateOrgVariableParamSchema = {
-  name?: string
-  org?: string
+  name: string
+  org: string
 }
 
 export type t_ActionsUpdateRepoVariableBodySchema = {
@@ -1277,9 +1277,9 @@ export type t_ActionsUpdateRepoVariableBodySchema = {
 }
 
 export type t_ActionsUpdateRepoVariableParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_ActionsUpdateRequiredWorkflowBodySchema = {
@@ -1290,8 +1290,8 @@ export type t_ActionsUpdateRequiredWorkflowBodySchema = {
 }
 
 export type t_ActionsUpdateRequiredWorkflowParamSchema = {
-  org?: string
-  required_workflow_id?: number
+  org: string
+  required_workflow_id: number
 }
 
 export type t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema = {
@@ -1303,39 +1303,39 @@ export type t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema = {
 }
 
 export type t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema = {
-  org?: string
-  runner_group_id?: number
+  org: string
+  runner_group_id: number
 }
 
 export type t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityDeleteRepoSubscriptionParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityDeleteThreadSubscriptionParamSchema = {
-  thread_id?: number
+  thread_id: number
 }
 
 export type t_ActivityGetRepoSubscriptionParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityGetThreadParamSchema = {
-  thread_id?: number
+  thread_id: number
 }
 
 export type t_ActivityGetThreadSubscriptionForAuthenticatedUserParamSchema = {
-  thread_id?: number
+  thread_id: number
 }
 
 export type t_ActivityListEventsForAuthenticatedUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListEventsForAuthenticatedUserQuerySchema = {
@@ -1353,8 +1353,8 @@ export type t_ActivityListNotificationsForAuthenticatedUserQuerySchema = {
 }
 
 export type t_ActivityListOrgEventsForAuthenticatedUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_ActivityListOrgEventsForAuthenticatedUserQuerySchema = {
@@ -1368,8 +1368,8 @@ export type t_ActivityListPublicEventsQuerySchema = {
 }
 
 export type t_ActivityListPublicEventsForRepoNetworkParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityListPublicEventsForRepoNetworkQuerySchema = {
@@ -1378,7 +1378,7 @@ export type t_ActivityListPublicEventsForRepoNetworkQuerySchema = {
 }
 
 export type t_ActivityListPublicEventsForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListPublicEventsForUserQuerySchema = {
@@ -1387,7 +1387,7 @@ export type t_ActivityListPublicEventsForUserQuerySchema = {
 }
 
 export type t_ActivityListPublicOrgEventsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ActivityListPublicOrgEventsQuerySchema = {
@@ -1396,7 +1396,7 @@ export type t_ActivityListPublicOrgEventsQuerySchema = {
 }
 
 export type t_ActivityListReceivedEventsForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListReceivedEventsForUserQuerySchema = {
@@ -1405,7 +1405,7 @@ export type t_ActivityListReceivedEventsForUserQuerySchema = {
 }
 
 export type t_ActivityListReceivedPublicEventsForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListReceivedPublicEventsForUserQuerySchema = {
@@ -1414,8 +1414,8 @@ export type t_ActivityListReceivedPublicEventsForUserQuerySchema = {
 }
 
 export type t_ActivityListRepoEventsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityListRepoEventsQuerySchema = {
@@ -1424,8 +1424,8 @@ export type t_ActivityListRepoEventsQuerySchema = {
 }
 
 export type t_ActivityListRepoNotificationsForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityListRepoNotificationsForAuthenticatedUserQuerySchema = {
@@ -1445,7 +1445,7 @@ export type t_ActivityListReposStarredByAuthenticatedUserQuerySchema = {
 }
 
 export type t_ActivityListReposStarredByUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListReposStarredByUserQuerySchema = {
@@ -1456,7 +1456,7 @@ export type t_ActivityListReposStarredByUserQuerySchema = {
 }
 
 export type t_ActivityListReposWatchedByUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ActivityListReposWatchedByUserQuerySchema = {
@@ -1465,8 +1465,8 @@ export type t_ActivityListReposWatchedByUserQuerySchema = {
 }
 
 export type t_ActivityListStargazersForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityListStargazersForRepoQuerySchema = {
@@ -1480,8 +1480,8 @@ export type t_ActivityListWatchedReposForAuthenticatedUserQuerySchema = {
 }
 
 export type t_ActivityListWatchersForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityListWatchersForRepoQuerySchema = {
@@ -1499,12 +1499,12 @@ export type t_ActivityMarkRepoNotificationsAsReadBodySchema = {
 }
 
 export type t_ActivityMarkRepoNotificationsAsReadParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityMarkThreadAsReadParamSchema = {
-  thread_id?: number
+  thread_id: number
 }
 
 export type t_ActivitySetRepoSubscriptionBodySchema = {
@@ -1513,8 +1513,8 @@ export type t_ActivitySetRepoSubscriptionBodySchema = {
 }
 
 export type t_ActivitySetRepoSubscriptionParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivitySetThreadSubscriptionBodySchema = {
@@ -1522,22 +1522,22 @@ export type t_ActivitySetThreadSubscriptionBodySchema = {
 }
 
 export type t_ActivitySetThreadSubscriptionParamSchema = {
-  thread_id?: number
+  thread_id: number
 }
 
 export type t_ActivityStarRepoForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ActivityUnstarRepoForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema = {
-  installation_id?: number
-  repository_id?: number
+  installation_id: number
+  repository_id: number
 }
 
 export type t_AppsCheckTokenBodySchema = {
@@ -1545,11 +1545,11 @@ export type t_AppsCheckTokenBodySchema = {
 }
 
 export type t_AppsCheckTokenParamSchema = {
-  client_id?: string
+  client_id: string
 }
 
 export type t_AppsCreateFromManifestParamSchema = {
-  code?: string
+  code: string
 }
 
 export type t_AppsCreateInstallationAccessTokenBodySchema = {
@@ -1559,7 +1559,7 @@ export type t_AppsCreateInstallationAccessTokenBodySchema = {
 }
 
 export type t_AppsCreateInstallationAccessTokenParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsDeleteAuthorizationBodySchema = {
@@ -1567,11 +1567,11 @@ export type t_AppsDeleteAuthorizationBodySchema = {
 }
 
 export type t_AppsDeleteAuthorizationParamSchema = {
-  client_id?: string
+  client_id: string
 }
 
 export type t_AppsDeleteInstallationParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsDeleteTokenBodySchema = {
@@ -1579,44 +1579,44 @@ export type t_AppsDeleteTokenBodySchema = {
 }
 
 export type t_AppsDeleteTokenParamSchema = {
-  client_id?: string
+  client_id: string
 }
 
 export type t_AppsGetBySlugParamSchema = {
-  app_slug?: string
+  app_slug: string
 }
 
 export type t_AppsGetInstallationParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsGetOrgInstallationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_AppsGetRepoInstallationParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_AppsGetSubscriptionPlanForAccountParamSchema = {
-  account_id?: number
+  account_id: number
 }
 
 export type t_AppsGetSubscriptionPlanForAccountStubbedParamSchema = {
-  account_id?: number
+  account_id: number
 }
 
 export type t_AppsGetUserInstallationParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_AppsGetWebhookDeliveryParamSchema = {
-  delivery_id?: number
+  delivery_id: number
 }
 
 export type t_AppsListAccountsForPlanParamSchema = {
-  plan_id?: number
+  plan_id: number
 }
 
 export type t_AppsListAccountsForPlanQuerySchema = {
@@ -1627,7 +1627,7 @@ export type t_AppsListAccountsForPlanQuerySchema = {
 }
 
 export type t_AppsListAccountsForPlanStubbedParamSchema = {
-  plan_id?: number
+  plan_id: number
 }
 
 export type t_AppsListAccountsForPlanStubbedQuerySchema = {
@@ -1638,7 +1638,7 @@ export type t_AppsListAccountsForPlanStubbedQuerySchema = {
 }
 
 export type t_AppsListInstallationReposForAuthenticatedUserParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsListInstallationReposForAuthenticatedUserQuerySchema = {
@@ -1690,12 +1690,12 @@ export type t_AppsListWebhookDeliveriesQuerySchema = {
 }
 
 export type t_AppsRedeliverWebhookDeliveryParamSchema = {
-  delivery_id?: number
+  delivery_id: number
 }
 
 export type t_AppsRemoveRepoFromInstallationForAuthenticatedUserParamSchema = {
-  installation_id?: number
-  repository_id?: number
+  installation_id: number
+  repository_id: number
 }
 
 export type t_AppsResetTokenBodySchema = {
@@ -1703,7 +1703,7 @@ export type t_AppsResetTokenBodySchema = {
 }
 
 export type t_AppsResetTokenParamSchema = {
-  client_id?: string
+  client_id: string
 }
 
 export type t_AppsScopeTokenBodySchema = {
@@ -1716,15 +1716,15 @@ export type t_AppsScopeTokenBodySchema = {
 }
 
 export type t_AppsScopeTokenParamSchema = {
-  client_id?: string
+  client_id: string
 }
 
 export type t_AppsSuspendInstallationParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsUnsuspendInstallationParamSchema = {
-  installation_id?: number
+  installation_id: number
 }
 
 export type t_AppsUpdateWebhookConfigForAppBodySchema = {
@@ -1735,27 +1735,27 @@ export type t_AppsUpdateWebhookConfigForAppBodySchema = {
 }
 
 export type t_BillingGetGithubActionsBillingOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_BillingGetGithubActionsBillingUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_BillingGetGithubPackagesBillingOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_BillingGetGithubPackagesBillingUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_BillingGetSharedStorageBillingOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_BillingGetSharedStorageBillingUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ChecksCreateBodySchema =
@@ -1773,8 +1773,8 @@ export type t_ChecksCreateBodySchema =
     }
 
 export type t_ChecksCreateParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ChecksCreateSuiteBodySchema = {
@@ -1782,26 +1782,26 @@ export type t_ChecksCreateSuiteBodySchema = {
 }
 
 export type t_ChecksCreateSuiteParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ChecksGetParamSchema = {
-  check_run_id?: number
-  owner?: string
-  repo?: string
+  check_run_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksGetSuiteParamSchema = {
-  check_suite_id?: number
-  owner?: string
-  repo?: string
+  check_suite_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksListAnnotationsParamSchema = {
-  check_run_id?: number
-  owner?: string
-  repo?: string
+  check_run_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksListAnnotationsQuerySchema = {
@@ -1810,9 +1810,9 @@ export type t_ChecksListAnnotationsQuerySchema = {
 }
 
 export type t_ChecksListForRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ChecksListForRefQuerySchema = {
@@ -1825,9 +1825,9 @@ export type t_ChecksListForRefQuerySchema = {
 }
 
 export type t_ChecksListForSuiteParamSchema = {
-  check_suite_id?: number
-  owner?: string
-  repo?: string
+  check_suite_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksListForSuiteQuerySchema = {
@@ -1839,9 +1839,9 @@ export type t_ChecksListForSuiteQuerySchema = {
 }
 
 export type t_ChecksListSuitesForRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ChecksListSuitesForRefQuerySchema = {
@@ -1852,15 +1852,15 @@ export type t_ChecksListSuitesForRefQuerySchema = {
 }
 
 export type t_ChecksRerequestRunParamSchema = {
-  check_run_id?: number
-  owner?: string
-  repo?: string
+  check_run_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksRerequestSuiteParamSchema = {
-  check_suite_id?: number
-  owner?: string
-  repo?: string
+  check_suite_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ChecksSetSuitesPreferencesBodySchema = {
@@ -1871,8 +1871,8 @@ export type t_ChecksSetSuitesPreferencesBodySchema = {
 }
 
 export type t_ChecksSetSuitesPreferencesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ChecksUpdateBodySchema = {
@@ -1920,15 +1920,15 @@ export type t_ChecksUpdateBodySchema = {
 }
 
 export type t_ChecksUpdateParamSchema = {
-  check_run_id?: number
-  owner?: string
-  repo?: string
+  check_run_id: number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningDeleteAnalysisParamSchema = {
-  analysis_id?: number
-  owner?: string
-  repo?: string
+  analysis_id: number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningDeleteAnalysisQuerySchema = {
@@ -1936,33 +1936,33 @@ export type t_CodeScanningDeleteAnalysisQuerySchema = {
 }
 
 export type t_CodeScanningGetAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningGetAnalysisParamSchema = {
-  analysis_id?: number
-  owner?: string
-  repo?: string
+  analysis_id: number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningGetCodeqlDatabaseParamSchema = {
-  language?: string
-  owner?: string
-  repo?: string
+  language: string
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningGetSarifParamSchema = {
-  owner?: string
-  repo?: string
-  sarif_id?: string
+  owner: string
+  repo: string
+  sarif_id: string
 }
 
 export type t_CodeScanningListAlertInstancesParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningListAlertInstancesQuerySchema = {
@@ -1972,7 +1972,7 @@ export type t_CodeScanningListAlertInstancesQuerySchema = {
 }
 
 export type t_CodeScanningListAlertsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_CodeScanningListAlertsForOrgQuerySchema = {
@@ -1989,8 +1989,8 @@ export type t_CodeScanningListAlertsForOrgQuerySchema = {
 }
 
 export type t_CodeScanningListAlertsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningListAlertsForRepoQuerySchema = {
@@ -2006,13 +2006,13 @@ export type t_CodeScanningListAlertsForRepoQuerySchema = {
 }
 
 export type t_CodeScanningListCodeqlDatabasesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningListRecentAnalysesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningListRecentAnalysesQuerySchema = {
@@ -2033,9 +2033,9 @@ export type t_CodeScanningUpdateAlertBodySchema = {
 }
 
 export type t_CodeScanningUpdateAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningUploadSarifBodySchema = {
@@ -2049,28 +2049,28 @@ export type t_CodeScanningUploadSarifBodySchema = {
 }
 
 export type t_CodeScanningUploadSarifParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodesOfConductGetConductCodeParamSchema = {
-  key?: string
+  key: string
 }
 
 export type t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema =
   {
-    repository_id?: number
-    secret_name?: string
+    repository_id: number
+    secret_name: string
   }
 
 export type t_CodespacesAddSelectedRepoToOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_CodespacesCodespaceMachinesForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesCreateForAuthenticatedUserBodySchema =
@@ -2107,8 +2107,8 @@ export type t_CodespacesCreateOrUpdateOrgSecretBodySchema = {
 }
 
 export type t_CodespacesCreateOrUpdateOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_CodespacesCreateOrUpdateRepoSecretBodySchema = {
@@ -2117,9 +2117,9 @@ export type t_CodespacesCreateOrUpdateRepoSecretBodySchema = {
 }
 
 export type t_CodespacesCreateOrUpdateRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = {
@@ -2129,7 +2129,7 @@ export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = {
 }
 
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = {
-  secret_name?: string
+  secret_name: string
 }
 
 export type t_CodespacesCreateWithPrForAuthenticatedUserBodySchema = {
@@ -2145,9 +2145,9 @@ export type t_CodespacesCreateWithPrForAuthenticatedUserBodySchema = {
 }
 
 export type t_CodespacesCreateWithPrForAuthenticatedUserParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema = {
@@ -2164,42 +2164,42 @@ export type t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema = {
 }
 
 export type t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesDeleteForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesDeleteFromOrganizationParamSchema = {
-  codespace_name?: string
-  org?: string
-  username?: string
+  codespace_name: string
+  org: string
+  username: string
 }
 
 export type t_CodespacesDeleteOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_CodespacesDeleteRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_CodespacesDeleteSecretForAuthenticatedUserParamSchema = {
-  secret_name?: string
+  secret_name: string
 }
 
 export type t_CodespacesExportForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesGetCodespacesForUserInOrgParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_CodespacesGetCodespacesForUserInOrgQuerySchema = {
@@ -2208,42 +2208,42 @@ export type t_CodespacesGetCodespacesForUserInOrgQuerySchema = {
 }
 
 export type t_CodespacesGetExportDetailsForAuthenticatedUserParamSchema = {
-  codespace_name?: string
-  export_id?: string
+  codespace_name: string
+  export_id: string
 }
 
 export type t_CodespacesGetForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesGetOrgPublicKeyParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_CodespacesGetOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_CodespacesGetRepoPublicKeyParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesGetRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_CodespacesGetSecretForAuthenticatedUserParamSchema = {
-  secret_name?: string
+  secret_name: string
 }
 
 export type t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserParamSchema =
   {
-    owner?: string
-    repo?: string
+    owner: string
+    repo: string
   }
 
 export type t_CodespacesListDevcontainersInRepositoryForAuthenticatedUserQuerySchema =
@@ -2259,7 +2259,7 @@ export type t_CodespacesListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_CodespacesListInOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_CodespacesListInOrganizationQuerySchema = {
@@ -2268,8 +2268,8 @@ export type t_CodespacesListInOrganizationQuerySchema = {
 }
 
 export type t_CodespacesListInRepositoryForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesListInRepositoryForAuthenticatedUserQuerySchema = {
@@ -2278,7 +2278,7 @@ export type t_CodespacesListInRepositoryForAuthenticatedUserQuerySchema = {
 }
 
 export type t_CodespacesListOrgSecretsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_CodespacesListOrgSecretsQuerySchema = {
@@ -2287,8 +2287,8 @@ export type t_CodespacesListOrgSecretsQuerySchema = {
 }
 
 export type t_CodespacesListRepoSecretsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesListRepoSecretsQuerySchema = {
@@ -2298,7 +2298,7 @@ export type t_CodespacesListRepoSecretsQuerySchema = {
 
 export type t_CodespacesListRepositoriesForSecretForAuthenticatedUserParamSchema =
   {
-    secret_name?: string
+    secret_name: string
   }
 
 export type t_CodespacesListSecretsForAuthenticatedUserQuerySchema = {
@@ -2307,8 +2307,8 @@ export type t_CodespacesListSecretsForAuthenticatedUserQuerySchema = {
 }
 
 export type t_CodespacesListSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_CodespacesListSelectedReposForOrgSecretQuerySchema = {
@@ -2317,8 +2317,8 @@ export type t_CodespacesListSelectedReposForOrgSecretQuerySchema = {
 }
 
 export type t_CodespacesPreFlightWithRepoForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesPreFlightWithRepoForAuthenticatedUserQuerySchema = {
@@ -2332,24 +2332,24 @@ export type t_CodespacesPublishForAuthenticatedUserBodySchema = {
 }
 
 export type t_CodespacesPublishForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesRemoveRepositoryForSecretForAuthenticatedUserParamSchema =
   {
-    repository_id?: number
-    secret_name?: string
+    repository_id: number
+    secret_name: string
   }
 
 export type t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_CodespacesRepoMachinesForAuthenticatedUserParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema = {
@@ -2367,7 +2367,7 @@ export type t_CodespacesSetCodespacesBillingBodySchema = {
 }
 
 export type t_CodespacesSetCodespacesBillingParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
@@ -2377,7 +2377,7 @@ export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema =
 
 export type t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema =
   {
-    secret_name?: string
+    secret_name: string
   }
 
 export type t_CodespacesSetSelectedReposForOrgSecretBodySchema = {
@@ -2385,22 +2385,22 @@ export type t_CodespacesSetSelectedReposForOrgSecretBodySchema = {
 }
 
 export type t_CodespacesSetSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_CodespacesStartForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesStopForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_CodespacesStopInOrganizationParamSchema = {
-  codespace_name?: string
-  org?: string
-  username?: string
+  codespace_name: string
+  org: string
+  username: string
 }
 
 export type t_CodespacesUpdateForAuthenticatedUserBodySchema = {
@@ -2410,13 +2410,13 @@ export type t_CodespacesUpdateForAuthenticatedUserBodySchema = {
 }
 
 export type t_CodespacesUpdateForAuthenticatedUserParamSchema = {
-  codespace_name?: string
+  codespace_name: string
 }
 
 export type t_DependabotAddSelectedRepoToOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_DependabotCreateOrUpdateOrgSecretBodySchema = {
@@ -2427,8 +2427,8 @@ export type t_DependabotCreateOrUpdateOrgSecretBodySchema = {
 }
 
 export type t_DependabotCreateOrUpdateOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_DependabotCreateOrUpdateRepoSecretBodySchema = {
@@ -2437,50 +2437,50 @@ export type t_DependabotCreateOrUpdateRepoSecretBodySchema = {
 }
 
 export type t_DependabotCreateOrUpdateRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_DependabotDeleteOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_DependabotDeleteRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_DependabotGetAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_DependabotGetOrgPublicKeyParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_DependabotGetOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_DependabotGetRepoPublicKeyParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_DependabotGetRepoSecretParamSchema = {
-  owner?: string
-  repo?: string
-  secret_name?: string
+  owner: string
+  repo: string
+  secret_name: string
 }
 
 export type t_DependabotListAlertsForEnterpriseParamSchema = {
-  enterprise?: string
+  enterprise: string
 }
 
 export type t_DependabotListAlertsForEnterpriseQuerySchema = {
@@ -2499,7 +2499,7 @@ export type t_DependabotListAlertsForEnterpriseQuerySchema = {
 }
 
 export type t_DependabotListAlertsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_DependabotListAlertsForOrgQuerySchema = {
@@ -2518,8 +2518,8 @@ export type t_DependabotListAlertsForOrgQuerySchema = {
 }
 
 export type t_DependabotListAlertsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_DependabotListAlertsForRepoQuerySchema = {
@@ -2540,7 +2540,7 @@ export type t_DependabotListAlertsForRepoQuerySchema = {
 }
 
 export type t_DependabotListOrgSecretsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_DependabotListOrgSecretsQuerySchema = {
@@ -2549,8 +2549,8 @@ export type t_DependabotListOrgSecretsQuerySchema = {
 }
 
 export type t_DependabotListRepoSecretsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_DependabotListRepoSecretsQuerySchema = {
@@ -2559,8 +2559,8 @@ export type t_DependabotListRepoSecretsQuerySchema = {
 }
 
 export type t_DependabotListSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_DependabotListSelectedReposForOrgSecretQuerySchema = {
@@ -2569,9 +2569,9 @@ export type t_DependabotListSelectedReposForOrgSecretQuerySchema = {
 }
 
 export type t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema = {
-  org?: string
-  repository_id?: number
-  secret_name?: string
+  org: string
+  repository_id: number
+  secret_name: string
 }
 
 export type t_DependabotSetSelectedReposForOrgSecretBodySchema = {
@@ -2579,8 +2579,8 @@ export type t_DependabotSetSelectedReposForOrgSecretBodySchema = {
 }
 
 export type t_DependabotSetSelectedReposForOrgSecretParamSchema = {
-  org?: string
-  secret_name?: string
+  org: string
+  secret_name: string
 }
 
 export type t_DependabotUpdateAlertBodySchema = {
@@ -2595,9 +2595,9 @@ export type t_DependabotUpdateAlertBodySchema = {
 }
 
 export type t_DependabotUpdateAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_DependencyGraphCreateRepositorySnapshotBodySchema = {
@@ -2622,14 +2622,14 @@ export type t_DependencyGraphCreateRepositorySnapshotBodySchema = {
 }
 
 export type t_DependencyGraphCreateRepositorySnapshotParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_DependencyGraphDiffRangeParamSchema = {
-  basehead?: string
-  owner?: string
-  repo?: string
+  basehead: string
+  owner: string
+  repo: string
 }
 
 export type t_DependencyGraphDiffRangeQuerySchema = {
@@ -2643,15 +2643,15 @@ export type t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodyS
 
 export type t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema =
   {
-    enterprise?: string
-    runner_id?: number
+    enterprise: string
+    runner_id: number
   }
 
 export type t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema =
   {
-    enterprise?: string
-    org_id?: number
-    runner_group_id?: number
+    enterprise: string
+    org_id: number
+    runner_group_id: number
   }
 
 export type t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema =
@@ -2667,35 +2667,35 @@ export type t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema 
 
 export type t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema =
   {
-    enterprise?: string
+    enterprise: string
   }
 
 export type t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema = {
-  enterprise?: string
-  runner_id?: number
+  enterprise: string
+  runner_id: number
 }
 
 export type t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema =
   {
-    enterprise?: string
-    org_id?: number
+    enterprise: string
+    org_id: number
   }
 
 export type t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema =
   {
-    enterprise?: string
-    runner_group_id?: number
+    enterprise: string
+    runner_group_id: number
   }
 
 export type t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema =
   {
-    enterprise?: string
-    runner_id?: number
+    enterprise: string
+    runner_id: number
   }
 
 export type t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema =
   {
-    enterprise?: string
+    enterprise: string
   }
 
 export type t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema =
@@ -2707,13 +2707,13 @@ export type t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema 
 
 export type t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema =
   {
-    enterprise?: string
-    runner_group_id?: number
-    runner_id?: number
+    enterprise: string
+    runner_group_id: number
+    runner_id: number
   }
 
 export type t_GistsCheckIsStarredParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsCreateBodySchema = {
@@ -2729,34 +2729,34 @@ export type t_GistsCreateCommentBodySchema = {
 }
 
 export type t_GistsCreateCommentParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsDeleteParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsDeleteCommentParamSchema = {
-  comment_id?: number
-  gist_id?: string
+  comment_id: number
+  gist_id: string
 }
 
 export type t_GistsForkParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsGetParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsGetCommentParamSchema = {
-  comment_id?: number
-  gist_id?: string
+  comment_id: number
+  gist_id: string
 }
 
 export type t_GistsGetRevisionParamSchema = {
-  gist_id?: string
-  sha?: string
+  gist_id: string
+  sha: string
 }
 
 export type t_GistsListQuerySchema = {
@@ -2766,7 +2766,7 @@ export type t_GistsListQuerySchema = {
 }
 
 export type t_GistsListCommentsParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsListCommentsQuerySchema = {
@@ -2775,7 +2775,7 @@ export type t_GistsListCommentsQuerySchema = {
 }
 
 export type t_GistsListCommitsParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsListCommitsQuerySchema = {
@@ -2784,7 +2784,7 @@ export type t_GistsListCommitsQuerySchema = {
 }
 
 export type t_GistsListForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_GistsListForUserQuerySchema = {
@@ -2794,7 +2794,7 @@ export type t_GistsListForUserQuerySchema = {
 }
 
 export type t_GistsListForksParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsListForksQuerySchema = {
@@ -2815,11 +2815,11 @@ export type t_GistsListStarredQuerySchema = {
 }
 
 export type t_GistsStarParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsUnstarParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsUpdateBodySchema = {
@@ -2830,7 +2830,7 @@ export type t_GistsUpdateBodySchema = {
 }
 
 export type t_GistsUpdateParamSchema = {
-  gist_id?: string
+  gist_id: string
 }
 
 export type t_GistsUpdateCommentBodySchema = {
@@ -2838,8 +2838,8 @@ export type t_GistsUpdateCommentBodySchema = {
 }
 
 export type t_GistsUpdateCommentParamSchema = {
-  comment_id?: number
-  gist_id?: string
+  comment_id: number
+  gist_id: string
 }
 
 export type t_GitCreateBlobBodySchema = {
@@ -2848,8 +2848,8 @@ export type t_GitCreateBlobBodySchema = {
 }
 
 export type t_GitCreateBlobParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_GitCreateCommitBodySchema = {
@@ -2870,8 +2870,8 @@ export type t_GitCreateCommitBodySchema = {
 }
 
 export type t_GitCreateCommitParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_GitCreateRefBodySchema = {
@@ -2881,8 +2881,8 @@ export type t_GitCreateRefBodySchema = {
 }
 
 export type t_GitCreateRefParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_GitCreateTagBodySchema = {
@@ -2898,8 +2898,8 @@ export type t_GitCreateTagBodySchema = {
 }
 
 export type t_GitCreateTagParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_GitCreateTreeBodySchema = {
@@ -2914,44 +2914,44 @@ export type t_GitCreateTreeBodySchema = {
 }
 
 export type t_GitCreateTreeParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_GitDeleteRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_GitGetBlobParamSchema = {
-  file_sha?: string
-  owner?: string
-  repo?: string
+  file_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_GitGetCommitParamSchema = {
-  commit_sha?: string
-  owner?: string
-  repo?: string
+  commit_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_GitGetRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_GitGetTagParamSchema = {
-  owner?: string
-  repo?: string
-  tag_sha?: string
+  owner: string
+  repo: string
+  tag_sha: string
 }
 
 export type t_GitGetTreeParamSchema = {
-  owner?: string
-  repo?: string
-  tree_sha?: string
+  owner: string
+  repo: string
+  tree_sha: string
 }
 
 export type t_GitGetTreeQuerySchema = {
@@ -2959,9 +2959,9 @@ export type t_GitGetTreeQuerySchema = {
 }
 
 export type t_GitListMatchingRefsParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_GitUpdateRefBodySchema = {
@@ -2970,31 +2970,31 @@ export type t_GitUpdateRefBodySchema = {
 }
 
 export type t_GitUpdateRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_GitignoreGetTemplateParamSchema = {
-  name?: string
+  name: string
 }
 
 export type t_InteractionsGetRestrictionsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_InteractionsGetRestrictionsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_InteractionsRemoveRestrictionsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_InteractionsRemoveRestrictionsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_InteractionsSetRestrictionsForAuthenticatedUserBodySchema = {
@@ -3008,7 +3008,7 @@ export type t_InteractionsSetRestrictionsForOrgBodySchema = {
 }
 
 export type t_InteractionsSetRestrictionsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_InteractionsSetRestrictionsForRepoBodySchema = {
@@ -3017,8 +3017,8 @@ export type t_InteractionsSetRestrictionsForRepoBodySchema = {
 }
 
 export type t_InteractionsSetRestrictionsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesAddAssigneesBodySchema = {
@@ -3026,9 +3026,9 @@ export type t_IssuesAddAssigneesBodySchema = {
 }
 
 export type t_IssuesAddAssigneesParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesAddLabelsBodySchema =
@@ -3047,22 +3047,22 @@ export type t_IssuesAddLabelsBodySchema =
   | string
 
 export type t_IssuesAddLabelsParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCheckUserCanBeAssignedParamSchema = {
-  assignee?: string
-  owner?: string
-  repo?: string
+  assignee: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCheckUserCanBeAssignedToIssueParamSchema = {
-  assignee?: string
-  issue_number?: number
-  owner?: string
-  repo?: string
+  assignee: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCreateBodySchema = {
@@ -3083,8 +3083,8 @@ export type t_IssuesCreateBodySchema = {
 }
 
 export type t_IssuesCreateParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCreateCommentBodySchema = {
@@ -3092,9 +3092,9 @@ export type t_IssuesCreateCommentBodySchema = {
 }
 
 export type t_IssuesCreateCommentParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCreateLabelBodySchema = {
@@ -3104,8 +3104,8 @@ export type t_IssuesCreateLabelBodySchema = {
 }
 
 export type t_IssuesCreateLabelParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesCreateMilestoneBodySchema = {
@@ -3116,56 +3116,56 @@ export type t_IssuesCreateMilestoneBodySchema = {
 }
 
 export type t_IssuesCreateMilestoneParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesDeleteCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesDeleteLabelParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesDeleteMilestoneParamSchema = {
-  milestone_number?: number
-  owner?: string
-  repo?: string
+  milestone_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesGetParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesGetCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesGetEventParamSchema = {
-  event_id?: number
-  owner?: string
-  repo?: string
+  event_id: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesGetLabelParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesGetMilestoneParamSchema = {
-  milestone_number?: number
-  owner?: string
-  repo?: string
+  milestone_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListQuerySchema = {
@@ -3184,8 +3184,8 @@ export type t_IssuesListQuerySchema = {
 }
 
 export type t_IssuesListAssigneesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListAssigneesQuerySchema = {
@@ -3194,9 +3194,9 @@ export type t_IssuesListAssigneesQuerySchema = {
 }
 
 export type t_IssuesListCommentsParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListCommentsQuerySchema = {
@@ -3206,8 +3206,8 @@ export type t_IssuesListCommentsQuerySchema = {
 }
 
 export type t_IssuesListCommentsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListCommentsForRepoQuerySchema = {
@@ -3219,9 +3219,9 @@ export type t_IssuesListCommentsForRepoQuerySchema = {
 }
 
 export type t_IssuesListEventsParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListEventsQuerySchema = {
@@ -3230,8 +3230,8 @@ export type t_IssuesListEventsQuerySchema = {
 }
 
 export type t_IssuesListEventsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListEventsForRepoQuerySchema = {
@@ -3240,9 +3240,9 @@ export type t_IssuesListEventsForRepoQuerySchema = {
 }
 
 export type t_IssuesListEventsForTimelineParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListEventsForTimelineQuerySchema = {
@@ -3262,7 +3262,7 @@ export type t_IssuesListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_IssuesListForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_IssuesListForOrgQuerySchema = {
@@ -3277,8 +3277,8 @@ export type t_IssuesListForOrgQuerySchema = {
 }
 
 export type t_IssuesListForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListForRepoQuerySchema = {
@@ -3296,9 +3296,9 @@ export type t_IssuesListForRepoQuerySchema = {
 }
 
 export type t_IssuesListLabelsForMilestoneParamSchema = {
-  milestone_number?: number
-  owner?: string
-  repo?: string
+  milestone_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListLabelsForMilestoneQuerySchema = {
@@ -3307,8 +3307,8 @@ export type t_IssuesListLabelsForMilestoneQuerySchema = {
 }
 
 export type t_IssuesListLabelsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListLabelsForRepoQuerySchema = {
@@ -3317,9 +3317,9 @@ export type t_IssuesListLabelsForRepoQuerySchema = {
 }
 
 export type t_IssuesListLabelsOnIssueParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListLabelsOnIssueQuerySchema = {
@@ -3328,8 +3328,8 @@ export type t_IssuesListLabelsOnIssueQuerySchema = {
 }
 
 export type t_IssuesListMilestonesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesListMilestonesQuerySchema = {
@@ -3345,15 +3345,15 @@ export type t_IssuesLockBodySchema = {
 }
 
 export type t_IssuesLockParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesRemoveAllLabelsParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesRemoveAssigneesBodySchema = {
@@ -3361,16 +3361,16 @@ export type t_IssuesRemoveAssigneesBodySchema = {
 }
 
 export type t_IssuesRemoveAssigneesParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesRemoveLabelParamSchema = {
-  issue_number?: number
-  name?: string
-  owner?: string
-  repo?: string
+  issue_number: number
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesSetLabelsBodySchema =
@@ -3389,15 +3389,15 @@ export type t_IssuesSetLabelsBodySchema =
   | string
 
 export type t_IssuesSetLabelsParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesUnlockParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesUpdateBodySchema = {
@@ -3420,9 +3420,9 @@ export type t_IssuesUpdateBodySchema = {
 }
 
 export type t_IssuesUpdateParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesUpdateCommentBodySchema = {
@@ -3430,9 +3430,9 @@ export type t_IssuesUpdateCommentBodySchema = {
 }
 
 export type t_IssuesUpdateCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_IssuesUpdateLabelBodySchema = {
@@ -3442,9 +3442,9 @@ export type t_IssuesUpdateLabelBodySchema = {
 }
 
 export type t_IssuesUpdateLabelParamSchema = {
-  name?: string
-  owner?: string
-  repo?: string
+  name: string
+  owner: string
+  repo: string
 }
 
 export type t_IssuesUpdateMilestoneBodySchema = {
@@ -3455,13 +3455,13 @@ export type t_IssuesUpdateMilestoneBodySchema = {
 }
 
 export type t_IssuesUpdateMilestoneParamSchema = {
-  milestone_number?: number
-  owner?: string
-  repo?: string
+  milestone_number: number
+  owner: string
+  repo: string
 }
 
 export type t_LicensesGetParamSchema = {
-  license?: string
+  license: string
 }
 
 export type t_LicensesGetAllCommonlyUsedQuerySchema = {
@@ -3471,8 +3471,8 @@ export type t_LicensesGetAllCommonlyUsedQuerySchema = {
 }
 
 export type t_LicensesGetForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MarkdownRenderBodySchema = {
@@ -3488,31 +3488,31 @@ export type t_MetaGetOctocatQuerySchema = {
 }
 
 export type t_MigrationsCancelImportParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsDeleteArchiveForAuthenticatedUserParamSchema = {
-  migration_id?: number
+  migration_id: number
 }
 
 export type t_MigrationsDeleteArchiveForOrgParamSchema = {
-  migration_id?: number
-  org?: string
+  migration_id: number
+  org: string
 }
 
 export type t_MigrationsDownloadArchiveForOrgParamSchema = {
-  migration_id?: number
-  org?: string
+  migration_id: number
+  org: string
 }
 
 export type t_MigrationsGetArchiveForAuthenticatedUserParamSchema = {
-  migration_id?: number
+  migration_id: number
 }
 
 export type t_MigrationsGetCommitAuthorsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsGetCommitAuthorsQuerySchema = {
@@ -3520,17 +3520,17 @@ export type t_MigrationsGetCommitAuthorsQuerySchema = {
 }
 
 export type t_MigrationsGetImportStatusParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsGetLargeFilesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsGetStatusForAuthenticatedUserParamSchema = {
-  migration_id?: number
+  migration_id: number
 }
 
 export type t_MigrationsGetStatusForAuthenticatedUserQuerySchema = {
@@ -3538,8 +3538,8 @@ export type t_MigrationsGetStatusForAuthenticatedUserQuerySchema = {
 }
 
 export type t_MigrationsGetStatusForOrgParamSchema = {
-  migration_id?: number
-  org?: string
+  migration_id: number
+  org: string
 }
 
 export type t_MigrationsGetStatusForOrgQuerySchema = {
@@ -3552,7 +3552,7 @@ export type t_MigrationsListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_MigrationsListForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_MigrationsListForOrgQuerySchema = {
@@ -3562,7 +3562,7 @@ export type t_MigrationsListForOrgQuerySchema = {
 }
 
 export type t_MigrationsListReposForAuthenticatedUserParamSchema = {
-  migration_id?: number
+  migration_id: number
 }
 
 export type t_MigrationsListReposForAuthenticatedUserQuerySchema = {
@@ -3571,8 +3571,8 @@ export type t_MigrationsListReposForAuthenticatedUserQuerySchema = {
 }
 
 export type t_MigrationsListReposForOrgParamSchema = {
-  migration_id?: number
-  org?: string
+  migration_id: number
+  org: string
 }
 
 export type t_MigrationsListReposForOrgQuerySchema = {
@@ -3586,9 +3586,9 @@ export type t_MigrationsMapCommitAuthorBodySchema = {
 }
 
 export type t_MigrationsMapCommitAuthorParamSchema = {
-  author_id?: number
-  owner?: string
-  repo?: string
+  author_id: number
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsSetLfsPreferenceBodySchema = {
@@ -3596,8 +3596,8 @@ export type t_MigrationsSetLfsPreferenceBodySchema = {
 }
 
 export type t_MigrationsSetLfsPreferenceParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsStartForAuthenticatedUserBodySchema = {
@@ -3625,7 +3625,7 @@ export type t_MigrationsStartForOrgBodySchema = {
 }
 
 export type t_MigrationsStartForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_MigrationsStartImportBodySchema = {
@@ -3637,19 +3637,19 @@ export type t_MigrationsStartImportBodySchema = {
 }
 
 export type t_MigrationsStartImportParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_MigrationsUnlockRepoForAuthenticatedUserParamSchema = {
-  migration_id?: number
-  repo_name?: string
+  migration_id: number
+  repo_name: string
 }
 
 export type t_MigrationsUnlockRepoForOrgParamSchema = {
-  migration_id?: number
-  org?: string
-  repo_name?: string
+  migration_id: number
+  org: string
+  repo_name: string
 }
 
 export type t_MigrationsUpdateImportBodySchema = {
@@ -3660,12 +3660,12 @@ export type t_MigrationsUpdateImportBodySchema = {
 }
 
 export type t_MigrationsUpdateImportParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_OidcGetOidcCustomSubTemplateForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema = {
@@ -3673,37 +3673,37 @@ export type t_OidcUpdateOidcCustomSubTemplateForOrgBodySchema = {
 }
 
 export type t_OidcUpdateOidcCustomSubTemplateForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsAddSecurityManagerTeamParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_OrgsBlockUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsCancelInvitationParamSchema = {
-  invitation_id?: number
-  org?: string
+  invitation_id: number
+  org: string
 }
 
 export type t_OrgsCheckBlockedUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsCheckMembershipForUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsCheckPublicMembershipForUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsConvertMemberToOutsideCollaboratorBodySchema = {
@@ -3711,8 +3711,8 @@ export type t_OrgsConvertMemberToOutsideCollaboratorBodySchema = {
 }
 
 export type t_OrgsConvertMemberToOutsideCollaboratorParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsCreateInvitationBodySchema = {
@@ -3723,7 +3723,7 @@ export type t_OrgsCreateInvitationBodySchema = {
 }
 
 export type t_OrgsCreateInvitationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsCreateWebhookBodySchema = {
@@ -3741,18 +3741,18 @@ export type t_OrgsCreateWebhookBodySchema = {
 }
 
 export type t_OrgsCreateWebhookParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsDeleteWebhookParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = {
-  enablement?: "enable_all" | "disable_all"
-  org?: string
-  security_product?:
+  enablement: "enable_all" | "disable_all"
+  org: string
+  security_product:
     | "dependency_graph"
     | "dependabot_alerts"
     | "dependabot_security_updates"
@@ -3762,32 +3762,32 @@ export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = {
 }
 
 export type t_OrgsGetParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsGetMembershipForAuthenticatedUserParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsGetMembershipForUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsGetWebhookParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsGetWebhookConfigForOrgParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsGetWebhookDeliveryParamSchema = {
-  delivery_id?: number
-  hook_id?: number
-  org?: string
+  delivery_id: number
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsListQuerySchema = {
@@ -3796,7 +3796,7 @@ export type t_OrgsListQuerySchema = {
 }
 
 export type t_OrgsListAppInstallationsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListAppInstallationsQuerySchema = {
@@ -3805,7 +3805,7 @@ export type t_OrgsListAppInstallationsQuerySchema = {
 }
 
 export type t_OrgsListBlockedUsersParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListBlockedUsersQuerySchema = {
@@ -3814,7 +3814,7 @@ export type t_OrgsListBlockedUsersQuerySchema = {
 }
 
 export type t_OrgsListFailedInvitationsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListFailedInvitationsQuerySchema = {
@@ -3828,7 +3828,7 @@ export type t_OrgsListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_OrgsListForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_OrgsListForUserQuerySchema = {
@@ -3837,8 +3837,8 @@ export type t_OrgsListForUserQuerySchema = {
 }
 
 export type t_OrgsListInvitationTeamsParamSchema = {
-  invitation_id?: number
-  org?: string
+  invitation_id: number
+  org: string
 }
 
 export type t_OrgsListInvitationTeamsQuerySchema = {
@@ -3847,7 +3847,7 @@ export type t_OrgsListInvitationTeamsQuerySchema = {
 }
 
 export type t_OrgsListMembersParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListMembersQuerySchema = {
@@ -3864,7 +3864,7 @@ export type t_OrgsListMembershipsForAuthenticatedUserQuerySchema = {
 }
 
 export type t_OrgsListOutsideCollaboratorsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListOutsideCollaboratorsQuerySchema = {
@@ -3874,7 +3874,7 @@ export type t_OrgsListOutsideCollaboratorsQuerySchema = {
 }
 
 export type t_OrgsListPendingInvitationsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListPendingInvitationsQuerySchema = {
@@ -3883,7 +3883,7 @@ export type t_OrgsListPendingInvitationsQuerySchema = {
 }
 
 export type t_OrgsListPublicMembersParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListPublicMembersQuerySchema = {
@@ -3892,12 +3892,12 @@ export type t_OrgsListPublicMembersQuerySchema = {
 }
 
 export type t_OrgsListSecurityManagerTeamsParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListWebhookDeliveriesParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsListWebhookDeliveriesQuerySchema = {
@@ -3907,7 +3907,7 @@ export type t_OrgsListWebhookDeliveriesQuerySchema = {
 }
 
 export type t_OrgsListWebhooksParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsListWebhooksQuerySchema = {
@@ -3916,39 +3916,39 @@ export type t_OrgsListWebhooksQuerySchema = {
 }
 
 export type t_OrgsPingWebhookParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsRedeliverWebhookDeliveryParamSchema = {
-  delivery_id?: number
-  hook_id?: number
-  org?: string
+  delivery_id: number
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsRemoveMemberParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsRemoveMembershipForUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsRemoveOutsideCollaboratorParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsRemoveSecurityManagerTeamParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_OrgsSetMembershipForUserBodySchema = {
@@ -3956,18 +3956,18 @@ export type t_OrgsSetMembershipForUserBodySchema = {
 }
 
 export type t_OrgsSetMembershipForUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsUnblockUserParamSchema = {
-  org?: string
-  username?: string
+  org: string
+  username: string
 }
 
 export type t_OrgsUpdateBodySchema = {
@@ -4003,7 +4003,7 @@ export type t_OrgsUpdateBodySchema = {
 }
 
 export type t_OrgsUpdateParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsUpdateMembershipForAuthenticatedUserBodySchema = {
@@ -4011,7 +4011,7 @@ export type t_OrgsUpdateMembershipForAuthenticatedUserBodySchema = {
 }
 
 export type t_OrgsUpdateMembershipForAuthenticatedUserParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_OrgsUpdateWebhookBodySchema = {
@@ -4027,8 +4027,8 @@ export type t_OrgsUpdateWebhookBodySchema = {
 }
 
 export type t_OrgsUpdateWebhookParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_OrgsUpdateWebhookConfigForOrgBodySchema = {
@@ -4039,51 +4039,51 @@ export type t_OrgsUpdateWebhookConfigForOrgBodySchema = {
 }
 
 export type t_OrgsUpdateWebhookConfigForOrgParamSchema = {
-  hook_id?: number
-  org?: string
+  hook_id: number
+  org: string
 }
 
 export type t_PackagesDeletePackageForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesDeletePackageForOrgParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesDeletePackageForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  username: string
 }
 
 export type t_PackagesDeletePackageVersionForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesDeletePackageVersionForOrgParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesDeletePackageVersionForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
+  username: string
 }
 
 export type t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema =
   {
-    package_name?: string
-    package_type?:
+    package_name: string
+    package_type:
       | "npm"
       | "maven"
       | "rubygems"
@@ -4100,9 +4100,9 @@ export type t_PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQue
   }
 
 export type t_PackagesGetAllPackageVersionsForPackageOwnedByOrgParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = {
@@ -4112,74 +4112,74 @@ export type t_PackagesGetAllPackageVersionsForPackageOwnedByOrgQuerySchema = {
 }
 
 export type t_PackagesGetAllPackageVersionsForPackageOwnedByUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  username: string
 }
 
 export type t_PackagesGetPackageForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesGetPackageForOrganizationParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesGetPackageForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  username: string
 }
 
 export type t_PackagesGetPackageVersionForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesGetPackageVersionForOrganizationParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesGetPackageVersionForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
+  username: string
 }
 
 export type t_PackagesListPackagesForAuthenticatedUserQuerySchema = {
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
   visibility?: "public" | "private" | "internal"
 }
 
 export type t_PackagesListPackagesForOrganizationParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_PackagesListPackagesForOrganizationQuerySchema = {
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
   visibility?: "public" | "private" | "internal"
 }
 
 export type t_PackagesListPackagesForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_PackagesListPackagesForUserQuerySchema = {
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
   visibility?: "public" | "private" | "internal"
 }
 
 export type t_PackagesRestorePackageForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesRestorePackageForAuthenticatedUserQuerySchema = {
@@ -4187,9 +4187,9 @@ export type t_PackagesRestorePackageForAuthenticatedUserQuerySchema = {
 }
 
 export type t_PackagesRestorePackageForOrgParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
 }
 
 export type t_PackagesRestorePackageForOrgQuerySchema = {
@@ -4197,9 +4197,9 @@ export type t_PackagesRestorePackageForOrgQuerySchema = {
 }
 
 export type t_PackagesRestorePackageForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  username: string
 }
 
 export type t_PackagesRestorePackageForUserQuerySchema = {
@@ -4207,23 +4207,23 @@ export type t_PackagesRestorePackageForUserQuerySchema = {
 }
 
 export type t_PackagesRestorePackageVersionForAuthenticatedUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesRestorePackageVersionForOrgParamSchema = {
-  org?: string
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
+  org: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
 }
 
 export type t_PackagesRestorePackageVersionForUserParamSchema = {
-  package_name?: string
-  package_type?: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-  package_version_id?: number
-  username?: string
+  package_name: string
+  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_version_id: number
+  username: string
 }
 
 export type t_ProjectsAddCollaboratorBodySchema = {
@@ -4231,8 +4231,8 @@ export type t_ProjectsAddCollaboratorBodySchema = {
 }
 
 export type t_ProjectsAddCollaboratorParamSchema = {
-  project_id?: number
-  username?: string
+  project_id: number
+  username: string
 }
 
 export type t_ProjectsCreateCardBodySchema =
@@ -4245,7 +4245,7 @@ export type t_ProjectsCreateCardBodySchema =
     }
 
 export type t_ProjectsCreateCardParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_ProjectsCreateColumnBodySchema = {
@@ -4253,7 +4253,7 @@ export type t_ProjectsCreateColumnBodySchema = {
 }
 
 export type t_ProjectsCreateColumnParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsCreateForAuthenticatedUserBodySchema = {
@@ -4267,7 +4267,7 @@ export type t_ProjectsCreateForOrgBodySchema = {
 }
 
 export type t_ProjectsCreateForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ProjectsCreateForRepoBodySchema = {
@@ -4276,41 +4276,41 @@ export type t_ProjectsCreateForRepoBodySchema = {
 }
 
 export type t_ProjectsCreateForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ProjectsDeleteParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsDeleteCardParamSchema = {
-  card_id?: number
+  card_id: number
 }
 
 export type t_ProjectsDeleteColumnParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_ProjectsGetParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsGetCardParamSchema = {
-  card_id?: number
+  card_id: number
 }
 
 export type t_ProjectsGetColumnParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_ProjectsGetPermissionForUserParamSchema = {
-  project_id?: number
-  username?: string
+  project_id: number
+  username: string
 }
 
 export type t_ProjectsListCardsParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_ProjectsListCardsQuerySchema = {
@@ -4320,7 +4320,7 @@ export type t_ProjectsListCardsQuerySchema = {
 }
 
 export type t_ProjectsListCollaboratorsParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsListCollaboratorsQuerySchema = {
@@ -4330,7 +4330,7 @@ export type t_ProjectsListCollaboratorsQuerySchema = {
 }
 
 export type t_ProjectsListColumnsParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsListColumnsQuerySchema = {
@@ -4339,7 +4339,7 @@ export type t_ProjectsListColumnsQuerySchema = {
 }
 
 export type t_ProjectsListForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ProjectsListForOrgQuerySchema = {
@@ -4349,8 +4349,8 @@ export type t_ProjectsListForOrgQuerySchema = {
 }
 
 export type t_ProjectsListForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ProjectsListForRepoQuerySchema = {
@@ -4360,7 +4360,7 @@ export type t_ProjectsListForRepoQuerySchema = {
 }
 
 export type t_ProjectsListForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ProjectsListForUserQuerySchema = {
@@ -4375,7 +4375,7 @@ export type t_ProjectsMoveCardBodySchema = {
 }
 
 export type t_ProjectsMoveCardParamSchema = {
-  card_id?: number
+  card_id: number
 }
 
 export type t_ProjectsMoveColumnBodySchema = {
@@ -4383,12 +4383,12 @@ export type t_ProjectsMoveColumnBodySchema = {
 }
 
 export type t_ProjectsMoveColumnParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_ProjectsRemoveCollaboratorParamSchema = {
-  project_id?: number
-  username?: string
+  project_id: number
+  username: string
 }
 
 export type t_ProjectsUpdateBodySchema = {
@@ -4400,7 +4400,7 @@ export type t_ProjectsUpdateBodySchema = {
 }
 
 export type t_ProjectsUpdateParamSchema = {
-  project_id?: number
+  project_id: number
 }
 
 export type t_ProjectsUpdateCardBodySchema = {
@@ -4409,7 +4409,7 @@ export type t_ProjectsUpdateCardBodySchema = {
 }
 
 export type t_ProjectsUpdateCardParamSchema = {
-  card_id?: number
+  card_id: number
 }
 
 export type t_ProjectsUpdateColumnBodySchema = {
@@ -4417,13 +4417,13 @@ export type t_ProjectsUpdateColumnBodySchema = {
 }
 
 export type t_ProjectsUpdateColumnParamSchema = {
-  column_id?: number
+  column_id: number
 }
 
 export type t_PullsCheckIfMergedParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsCreateBodySchema = {
@@ -4437,8 +4437,8 @@ export type t_PullsCreateBodySchema = {
 }
 
 export type t_PullsCreateParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_PullsCreateReplyForReviewCommentBodySchema = {
@@ -4446,10 +4446,10 @@ export type t_PullsCreateReplyForReviewCommentBodySchema = {
 }
 
 export type t_PullsCreateReplyForReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  pull_number?: number
-  repo?: string
+  comment_id: number
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsCreateReviewBodySchema = {
@@ -4468,9 +4468,9 @@ export type t_PullsCreateReviewBodySchema = {
 }
 
 export type t_PullsCreateReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsCreateReviewCommentBodySchema = {
@@ -4486,22 +4486,22 @@ export type t_PullsCreateReviewCommentBodySchema = {
 }
 
 export type t_PullsCreateReviewCommentParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsDeletePendingReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsDeleteReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_PullsDismissReviewBodySchema = {
@@ -4510,34 +4510,34 @@ export type t_PullsDismissReviewBodySchema = {
 }
 
 export type t_PullsDismissReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsGetParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsGetReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsGetReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_PullsListParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_PullsListQuerySchema = {
@@ -4551,10 +4551,10 @@ export type t_PullsListQuerySchema = {
 }
 
 export type t_PullsListCommentsForReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsListCommentsForReviewQuerySchema = {
@@ -4563,9 +4563,9 @@ export type t_PullsListCommentsForReviewQuerySchema = {
 }
 
 export type t_PullsListCommitsParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsListCommitsQuerySchema = {
@@ -4574,9 +4574,9 @@ export type t_PullsListCommitsQuerySchema = {
 }
 
 export type t_PullsListFilesParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsListFilesQuerySchema = {
@@ -4585,15 +4585,15 @@ export type t_PullsListFilesQuerySchema = {
 }
 
 export type t_PullsListRequestedReviewersParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsListReviewCommentsParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsListReviewCommentsQuerySchema = {
@@ -4605,8 +4605,8 @@ export type t_PullsListReviewCommentsQuerySchema = {
 }
 
 export type t_PullsListReviewCommentsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_PullsListReviewCommentsForRepoQuerySchema = {
@@ -4618,9 +4618,9 @@ export type t_PullsListReviewCommentsForRepoQuerySchema = {
 }
 
 export type t_PullsListReviewsParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsListReviewsQuerySchema = {
@@ -4636,9 +4636,9 @@ export type t_PullsMergeBodySchema = {
 }
 
 export type t_PullsMergeParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsRemoveRequestedReviewersBodySchema = {
@@ -4647,9 +4647,9 @@ export type t_PullsRemoveRequestedReviewersBodySchema = {
 }
 
 export type t_PullsRemoveRequestedReviewersParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsRequestReviewersBodySchema = {
@@ -4658,9 +4658,9 @@ export type t_PullsRequestReviewersBodySchema = {
 }
 
 export type t_PullsRequestReviewersParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsSubmitReviewBodySchema = {
@@ -4669,10 +4669,10 @@ export type t_PullsSubmitReviewBodySchema = {
 }
 
 export type t_PullsSubmitReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsUpdateBodySchema = {
@@ -4684,9 +4684,9 @@ export type t_PullsUpdateBodySchema = {
 }
 
 export type t_PullsUpdateParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsUpdateBranchBodySchema = {
@@ -4694,9 +4694,9 @@ export type t_PullsUpdateBranchBodySchema = {
 }
 
 export type t_PullsUpdateBranchParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
+  owner: string
+  pull_number: number
+  repo: string
 }
 
 export type t_PullsUpdateReviewBodySchema = {
@@ -4704,10 +4704,10 @@ export type t_PullsUpdateReviewBodySchema = {
 }
 
 export type t_PullsUpdateReviewParamSchema = {
-  owner?: string
-  pull_number?: number
-  repo?: string
-  review_id?: number
+  owner: string
+  pull_number: number
+  repo: string
+  review_id: number
 }
 
 export type t_PullsUpdateReviewCommentBodySchema = {
@@ -4715,9 +4715,9 @@ export type t_PullsUpdateReviewCommentBodySchema = {
 }
 
 export type t_PullsUpdateReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsCreateForCommitCommentBodySchema = {
@@ -4733,9 +4733,9 @@ export type t_ReactionsCreateForCommitCommentBodySchema = {
 }
 
 export type t_ReactionsCreateForCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsCreateForIssueBodySchema = {
@@ -4751,9 +4751,9 @@ export type t_ReactionsCreateForIssueBodySchema = {
 }
 
 export type t_ReactionsCreateForIssueParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsCreateForIssueCommentBodySchema = {
@@ -4769,9 +4769,9 @@ export type t_ReactionsCreateForIssueCommentBodySchema = {
 }
 
 export type t_ReactionsCreateForIssueCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsCreateForPullRequestReviewCommentBodySchema = {
@@ -4787,9 +4787,9 @@ export type t_ReactionsCreateForPullRequestReviewCommentBodySchema = {
 }
 
 export type t_ReactionsCreateForPullRequestReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsCreateForReleaseBodySchema = {
@@ -4797,9 +4797,9 @@ export type t_ReactionsCreateForReleaseBodySchema = {
 }
 
 export type t_ReactionsCreateForReleaseParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema = {
@@ -4815,10 +4815,10 @@ export type t_ReactionsCreateForTeamDiscussionCommentInOrgBodySchema = {
 }
 
 export type t_ReactionsCreateForTeamDiscussionCommentInOrgParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema = {
@@ -4834,9 +4834,9 @@ export type t_ReactionsCreateForTeamDiscussionCommentLegacyBodySchema = {
 }
 
 export type t_ReactionsCreateForTeamDiscussionCommentLegacyParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  team_id?: number
+  comment_number: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_ReactionsCreateForTeamDiscussionInOrgBodySchema = {
@@ -4852,9 +4852,9 @@ export type t_ReactionsCreateForTeamDiscussionInOrgBodySchema = {
 }
 
 export type t_ReactionsCreateForTeamDiscussionInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_ReactionsCreateForTeamDiscussionLegacyBodySchema = {
@@ -4870,64 +4870,64 @@ export type t_ReactionsCreateForTeamDiscussionLegacyBodySchema = {
 }
 
 export type t_ReactionsCreateForTeamDiscussionLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_ReactionsDeleteForCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  reaction_id?: number
-  repo?: string
+  comment_id: number
+  owner: string
+  reaction_id: number
+  repo: string
 }
 
 export type t_ReactionsDeleteForIssueParamSchema = {
-  issue_number?: number
-  owner?: string
-  reaction_id?: number
-  repo?: string
+  issue_number: number
+  owner: string
+  reaction_id: number
+  repo: string
 }
 
 export type t_ReactionsDeleteForIssueCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  reaction_id?: number
-  repo?: string
+  comment_id: number
+  owner: string
+  reaction_id: number
+  repo: string
 }
 
 export type t_ReactionsDeleteForPullRequestCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  reaction_id?: number
-  repo?: string
+  comment_id: number
+  owner: string
+  reaction_id: number
+  repo: string
 }
 
 export type t_ReactionsDeleteForReleaseParamSchema = {
-  owner?: string
-  reaction_id?: number
-  release_id?: number
-  repo?: string
+  owner: string
+  reaction_id: number
+  release_id: number
+  repo: string
 }
 
 export type t_ReactionsDeleteForTeamDiscussionParamSchema = {
-  discussion_number?: number
-  org?: string
-  reaction_id?: number
-  team_slug?: string
+  discussion_number: number
+  org: string
+  reaction_id: number
+  team_slug: string
 }
 
 export type t_ReactionsDeleteForTeamDiscussionCommentParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  reaction_id?: number
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  reaction_id: number
+  team_slug: string
 }
 
 export type t_ReactionsListForCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsListForCommitCommentQuerySchema = {
@@ -4945,9 +4945,9 @@ export type t_ReactionsListForCommitCommentQuerySchema = {
 }
 
 export type t_ReactionsListForIssueParamSchema = {
-  issue_number?: number
-  owner?: string
-  repo?: string
+  issue_number: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsListForIssueQuerySchema = {
@@ -4965,9 +4965,9 @@ export type t_ReactionsListForIssueQuerySchema = {
 }
 
 export type t_ReactionsListForIssueCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsListForIssueCommentQuerySchema = {
@@ -4985,9 +4985,9 @@ export type t_ReactionsListForIssueCommentQuerySchema = {
 }
 
 export type t_ReactionsListForPullRequestReviewCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReactionsListForPullRequestReviewCommentQuerySchema = {
@@ -5005,9 +5005,9 @@ export type t_ReactionsListForPullRequestReviewCommentQuerySchema = {
 }
 
 export type t_ReactionsListForReleaseParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReactionsListForReleaseQuerySchema = {
@@ -5017,10 +5017,10 @@ export type t_ReactionsListForReleaseQuerySchema = {
 }
 
 export type t_ReactionsListForTeamDiscussionCommentInOrgParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema = {
@@ -5038,9 +5038,9 @@ export type t_ReactionsListForTeamDiscussionCommentInOrgQuerySchema = {
 }
 
 export type t_ReactionsListForTeamDiscussionCommentLegacyParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  team_id?: number
+  comment_number: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema = {
@@ -5058,9 +5058,9 @@ export type t_ReactionsListForTeamDiscussionCommentLegacyQuerySchema = {
 }
 
 export type t_ReactionsListForTeamDiscussionInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_ReactionsListForTeamDiscussionInOrgQuerySchema = {
@@ -5078,8 +5078,8 @@ export type t_ReactionsListForTeamDiscussionInOrgQuerySchema = {
 }
 
 export type t_ReactionsListForTeamDiscussionLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_ReactionsListForTeamDiscussionLegacyQuerySchema = {
@@ -5097,7 +5097,7 @@ export type t_ReactionsListForTeamDiscussionLegacyQuerySchema = {
 }
 
 export type t_ReposAcceptInvitationForAuthenticatedUserParamSchema = {
-  invitation_id?: number
+  invitation_id: number
 }
 
 export type t_ReposAddAppAccessRestrictionsBodySchema =
@@ -5107,9 +5107,9 @@ export type t_ReposAddAppAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposAddAppAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposAddCollaboratorBodySchema = {
@@ -5117,9 +5117,9 @@ export type t_ReposAddCollaboratorBodySchema = {
 }
 
 export type t_ReposAddCollaboratorParamSchema = {
-  owner?: string
-  repo?: string
-  username?: string
+  owner: string
+  repo: string
+  username: string
 }
 
 export type t_ReposAddStatusCheckContextsBodySchema =
@@ -5129,9 +5129,9 @@ export type t_ReposAddStatusCheckContextsBodySchema =
   | string[]
 
 export type t_ReposAddStatusCheckContextsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposAddTeamAccessRestrictionsBodySchema =
@@ -5141,9 +5141,9 @@ export type t_ReposAddTeamAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposAddTeamAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposAddUserAccessRestrictionsBodySchema =
@@ -5153,25 +5153,25 @@ export type t_ReposAddUserAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposAddUserAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCheckCollaboratorParamSchema = {
-  owner?: string
-  repo?: string
-  username?: string
+  owner: string
+  repo: string
+  username: string
 }
 
 export type t_ReposCheckVulnerabilityAlertsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCodeownersErrorsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCodeownersErrorsQuerySchema = {
@@ -5179,9 +5179,9 @@ export type t_ReposCodeownersErrorsQuerySchema = {
 }
 
 export type t_ReposCompareCommitsParamSchema = {
-  basehead?: string
-  owner?: string
-  repo?: string
+  basehead: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCompareCommitsQuerySchema = {
@@ -5196,8 +5196,8 @@ export type t_ReposCreateAutolinkBodySchema = {
 }
 
 export type t_ReposCreateAutolinkParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateCommitCommentBodySchema = {
@@ -5208,15 +5208,15 @@ export type t_ReposCreateCommitCommentBodySchema = {
 }
 
 export type t_ReposCreateCommitCommentParamSchema = {
-  commit_sha?: string
-  owner?: string
-  repo?: string
+  commit_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateCommitSignatureProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateCommitStatusBodySchema = {
@@ -5227,9 +5227,9 @@ export type t_ReposCreateCommitStatusBodySchema = {
 }
 
 export type t_ReposCreateCommitStatusParamSchema = {
-  owner?: string
-  repo?: string
-  sha?: string
+  owner: string
+  repo: string
+  sha: string
 }
 
 export type t_ReposCreateDeployKeyBodySchema = {
@@ -5239,8 +5239,8 @@ export type t_ReposCreateDeployKeyBodySchema = {
 }
 
 export type t_ReposCreateDeployKeyParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateDeploymentBodySchema = {
@@ -5260,8 +5260,8 @@ export type t_ReposCreateDeploymentBodySchema = {
 }
 
 export type t_ReposCreateDeploymentParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateDeploymentBranchPolicyBodySchema = {
@@ -5269,9 +5269,9 @@ export type t_ReposCreateDeploymentBranchPolicyBodySchema = {
 }
 
 export type t_ReposCreateDeploymentBranchPolicyParamSchema = {
-  environment_name?: string
-  owner?: string
-  repo?: string
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateDeploymentStatusBodySchema = {
@@ -5292,9 +5292,9 @@ export type t_ReposCreateDeploymentStatusBodySchema = {
 }
 
 export type t_ReposCreateDeploymentStatusParamSchema = {
-  deployment_id?: number
-  owner?: string
-  repo?: string
+  deployment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateDispatchEventBodySchema = {
@@ -5305,8 +5305,8 @@ export type t_ReposCreateDispatchEventBodySchema = {
 }
 
 export type t_ReposCreateDispatchEventParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateForAuthenticatedUserBodySchema = {
@@ -5342,8 +5342,8 @@ export type t_ReposCreateForkBodySchema = {
 }
 
 export type t_ReposCreateForkParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateInOrgBodySchema = {
@@ -5374,7 +5374,7 @@ export type t_ReposCreateInOrgBodySchema = {
 }
 
 export type t_ReposCreateInOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ReposCreateOrUpdateEnvironmentBodySchema = {
@@ -5389,9 +5389,9 @@ export type t_ReposCreateOrUpdateEnvironmentBodySchema = {
 }
 
 export type t_ReposCreateOrUpdateEnvironmentParamSchema = {
-  environment_name?: string
-  owner?: string
-  repo?: string
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateOrUpdateFileContentsBodySchema = {
@@ -5412,9 +5412,9 @@ export type t_ReposCreateOrUpdateFileContentsBodySchema = {
 }
 
 export type t_ReposCreateOrUpdateFileContentsParamSchema = {
-  owner?: string
-  path?: string
-  repo?: string
+  owner: string
+  path: string
+  repo: string
 }
 
 export type t_ReposCreatePagesDeploymentBodySchema = {
@@ -5425,8 +5425,8 @@ export type t_ReposCreatePagesDeploymentBodySchema = {
 }
 
 export type t_ReposCreatePagesDeploymentParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreatePagesSiteBodySchema = {
@@ -5438,8 +5438,8 @@ export type t_ReposCreatePagesSiteBodySchema = {
 }
 
 export type t_ReposCreatePagesSiteParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateReleaseBodySchema = {
@@ -5455,8 +5455,8 @@ export type t_ReposCreateReleaseBodySchema = {
 }
 
 export type t_ReposCreateReleaseParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateTagProtectionBodySchema = {
@@ -5464,8 +5464,8 @@ export type t_ReposCreateTagProtectionBodySchema = {
 }
 
 export type t_ReposCreateTagProtectionParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposCreateUsingTemplateBodySchema = {
@@ -5477,8 +5477,8 @@ export type t_ReposCreateUsingTemplateBodySchema = {
 }
 
 export type t_ReposCreateUsingTemplateParamSchema = {
-  template_owner?: string
-  template_repo?: string
+  template_owner: string
+  template_repo: string
 }
 
 export type t_ReposCreateWebhookBodySchema = {
@@ -5496,78 +5496,78 @@ export type t_ReposCreateWebhookBodySchema = {
 }
 
 export type t_ReposCreateWebhookParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeclineInvitationForAuthenticatedUserParamSchema = {
-  invitation_id?: number
+  invitation_id: number
 }
 
 export type t_ReposDeleteParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteAdminBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteAnEnvironmentParamSchema = {
-  environment_name?: string
-  owner?: string
-  repo?: string
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteAutolinkParamSchema = {
-  autolink_id?: number
-  owner?: string
-  repo?: string
+  autolink_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteCommitSignatureProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteDeployKeyParamSchema = {
-  key_id?: number
-  owner?: string
-  repo?: string
+  key_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteDeploymentParamSchema = {
-  deployment_id?: number
-  owner?: string
-  repo?: string
+  deployment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteDeploymentBranchPolicyParamSchema = {
-  branch_policy_id?: number
-  environment_name?: string
-  owner?: string
-  repo?: string
+  branch_policy_id: number
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteFileBodySchema = {
@@ -5585,92 +5585,92 @@ export type t_ReposDeleteFileBodySchema = {
 }
 
 export type t_ReposDeleteFileParamSchema = {
-  owner?: string
-  path?: string
-  repo?: string
+  owner: string
+  path: string
+  repo: string
 }
 
 export type t_ReposDeleteInvitationParamSchema = {
-  invitation_id?: number
-  owner?: string
-  repo?: string
+  invitation_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeletePagesSiteParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeletePullRequestReviewProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteReleaseParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReposDeleteReleaseAssetParamSchema = {
-  asset_id?: number
-  owner?: string
-  repo?: string
+  asset_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDeleteTagProtectionParamSchema = {
-  owner?: string
-  repo?: string
-  tag_protection_id?: number
+  owner: string
+  repo: string
+  tag_protection_id: number
 }
 
 export type t_ReposDeleteWebhookParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposDisableAutomatedSecurityFixesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDisableLfsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDisableVulnerabilityAlertsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposDownloadTarballArchiveParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ReposDownloadZipballArchiveParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ReposEnableAutomatedSecurityFixesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposEnableLfsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposEnableVulnerabilityAlertsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGenerateReleaseNotesBodySchema = {
@@ -5681,30 +5681,30 @@ export type t_ReposGenerateReleaseNotesBodySchema = {
 }
 
 export type t_ReposGenerateReleaseNotesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAdminBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAllEnvironmentsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAllEnvironmentsQuerySchema = {
@@ -5713,14 +5713,14 @@ export type t_ReposGetAllEnvironmentsQuerySchema = {
 }
 
 export type t_ReposGetAllStatusCheckContextsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAllTopicsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAllTopicsQuerySchema = {
@@ -5729,32 +5729,32 @@ export type t_ReposGetAllTopicsQuerySchema = {
 }
 
 export type t_ReposGetAppsWithAccessToProtectedBranchParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetAutolinkParamSchema = {
-  autolink_id?: number
-  owner?: string
-  repo?: string
+  autolink_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetBranchParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetClonesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetClonesQuerySchema = {
@@ -5762,20 +5762,20 @@ export type t_ReposGetClonesQuerySchema = {
 }
 
 export type t_ReposGetCodeFrequencyStatsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetCollaboratorPermissionLevelParamSchema = {
-  owner?: string
-  repo?: string
-  username?: string
+  owner: string
+  repo: string
+  username: string
 }
 
 export type t_ReposGetCombinedStatusForRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ReposGetCombinedStatusForRefQuerySchema = {
@@ -5784,9 +5784,9 @@ export type t_ReposGetCombinedStatusForRefQuerySchema = {
 }
 
 export type t_ReposGetCommitParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ReposGetCommitQuerySchema = {
@@ -5795,31 +5795,31 @@ export type t_ReposGetCommitQuerySchema = {
 }
 
 export type t_ReposGetCommitActivityStatsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetCommitSignatureProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetCommunityProfileMetricsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetContentParamSchema = {
-  owner?: string
-  path?: string
-  repo?: string
+  owner: string
+  path: string
+  repo: string
 }
 
 export type t_ReposGetContentQuerySchema = {
@@ -5827,87 +5827,87 @@ export type t_ReposGetContentQuerySchema = {
 }
 
 export type t_ReposGetContributorsStatsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetDeployKeyParamSchema = {
-  key_id?: number
-  owner?: string
-  repo?: string
+  key_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetDeploymentParamSchema = {
-  deployment_id?: number
-  owner?: string
-  repo?: string
+  deployment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetDeploymentBranchPolicyParamSchema = {
-  branch_policy_id?: number
-  environment_name?: string
-  owner?: string
-  repo?: string
+  branch_policy_id: number
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetDeploymentStatusParamSchema = {
-  deployment_id?: number
-  owner?: string
-  repo?: string
-  status_id?: number
+  deployment_id: number
+  owner: string
+  repo: string
+  status_id: number
 }
 
 export type t_ReposGetEnvironmentParamSchema = {
-  environment_name?: string
-  owner?: string
-  repo?: string
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetLatestPagesBuildParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetLatestReleaseParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetPagesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetPagesBuildParamSchema = {
-  build_id?: number
-  owner?: string
-  repo?: string
+  build_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetPagesHealthCheckParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetParticipationStatsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetPullRequestReviewProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetPunchCardStatsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetReadmeParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetReadmeQuerySchema = {
@@ -5915,9 +5915,9 @@ export type t_ReposGetReadmeQuerySchema = {
 }
 
 export type t_ReposGetReadmeInDirectoryParamSchema = {
-  dir?: string
-  owner?: string
-  repo?: string
+  dir: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetReadmeInDirectoryQuerySchema = {
@@ -5925,54 +5925,54 @@ export type t_ReposGetReadmeInDirectoryQuerySchema = {
 }
 
 export type t_ReposGetReleaseParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReposGetReleaseAssetParamSchema = {
-  asset_id?: number
-  owner?: string
-  repo?: string
+  asset_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetReleaseByTagParamSchema = {
-  owner?: string
-  repo?: string
-  tag?: string
+  owner: string
+  repo: string
+  tag: string
 }
 
 export type t_ReposGetStatusChecksProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetTeamsWithAccessToProtectedBranchParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetTopPathsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetTopReferrersParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetUsersWithAccessToProtectedBranchParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetViewsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetViewsQuerySchema = {
@@ -5980,27 +5980,27 @@ export type t_ReposGetViewsQuerySchema = {
 }
 
 export type t_ReposGetWebhookParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetWebhookConfigForRepoParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposGetWebhookDeliveryParamSchema = {
-  delivery_id?: number
-  hook_id?: number
-  owner?: string
-  repo?: string
+  delivery_id: number
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposListAutolinksParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListAutolinksQuerySchema = {
@@ -6008,8 +6008,8 @@ export type t_ReposListAutolinksQuerySchema = {
 }
 
 export type t_ReposListBranchesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListBranchesQuerySchema = {
@@ -6019,14 +6019,14 @@ export type t_ReposListBranchesQuerySchema = {
 }
 
 export type t_ReposListBranchesForHeadCommitParamSchema = {
-  commit_sha?: string
-  owner?: string
-  repo?: string
+  commit_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListCollaboratorsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListCollaboratorsQuerySchema = {
@@ -6037,9 +6037,9 @@ export type t_ReposListCollaboratorsQuerySchema = {
 }
 
 export type t_ReposListCommentsForCommitParamSchema = {
-  commit_sha?: string
-  owner?: string
-  repo?: string
+  commit_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListCommentsForCommitQuerySchema = {
@@ -6048,8 +6048,8 @@ export type t_ReposListCommentsForCommitQuerySchema = {
 }
 
 export type t_ReposListCommitCommentsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListCommitCommentsForRepoQuerySchema = {
@@ -6058,9 +6058,9 @@ export type t_ReposListCommitCommentsForRepoQuerySchema = {
 }
 
 export type t_ReposListCommitStatusesForRefParamSchema = {
-  owner?: string
-  ref?: string
-  repo?: string
+  owner: string
+  ref: string
+  repo: string
 }
 
 export type t_ReposListCommitStatusesForRefQuerySchema = {
@@ -6069,8 +6069,8 @@ export type t_ReposListCommitStatusesForRefQuerySchema = {
 }
 
 export type t_ReposListCommitsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListCommitsQuerySchema = {
@@ -6084,8 +6084,8 @@ export type t_ReposListCommitsQuerySchema = {
 }
 
 export type t_ReposListContributorsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListContributorsQuerySchema = {
@@ -6095,8 +6095,8 @@ export type t_ReposListContributorsQuerySchema = {
 }
 
 export type t_ReposListDeployKeysParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListDeployKeysQuerySchema = {
@@ -6105,9 +6105,9 @@ export type t_ReposListDeployKeysQuerySchema = {
 }
 
 export type t_ReposListDeploymentBranchPoliciesParamSchema = {
-  environment_name?: string
-  owner?: string
-  repo?: string
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListDeploymentBranchPoliciesQuerySchema = {
@@ -6116,9 +6116,9 @@ export type t_ReposListDeploymentBranchPoliciesQuerySchema = {
 }
 
 export type t_ReposListDeploymentStatusesParamSchema = {
-  deployment_id?: number
-  owner?: string
-  repo?: string
+  deployment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposListDeploymentStatusesQuerySchema = {
@@ -6127,8 +6127,8 @@ export type t_ReposListDeploymentStatusesQuerySchema = {
 }
 
 export type t_ReposListDeploymentsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListDeploymentsQuerySchema = {
@@ -6153,7 +6153,7 @@ export type t_ReposListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_ReposListForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_ReposListForOrgQuerySchema = {
@@ -6165,7 +6165,7 @@ export type t_ReposListForOrgQuerySchema = {
 }
 
 export type t_ReposListForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_ReposListForUserQuerySchema = {
@@ -6177,8 +6177,8 @@ export type t_ReposListForUserQuerySchema = {
 }
 
 export type t_ReposListForksParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListForksQuerySchema = {
@@ -6188,8 +6188,8 @@ export type t_ReposListForksQuerySchema = {
 }
 
 export type t_ReposListInvitationsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListInvitationsQuerySchema = {
@@ -6203,13 +6203,13 @@ export type t_ReposListInvitationsForAuthenticatedUserQuerySchema = {
 }
 
 export type t_ReposListLanguagesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListPagesBuildsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListPagesBuildsQuerySchema = {
@@ -6222,9 +6222,9 @@ export type t_ReposListPublicQuerySchema = {
 }
 
 export type t_ReposListPullRequestsAssociatedWithCommitParamSchema = {
-  commit_sha?: string
-  owner?: string
-  repo?: string
+  commit_sha: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListPullRequestsAssociatedWithCommitQuerySchema = {
@@ -6233,9 +6233,9 @@ export type t_ReposListPullRequestsAssociatedWithCommitQuerySchema = {
 }
 
 export type t_ReposListReleaseAssetsParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReposListReleaseAssetsQuerySchema = {
@@ -6244,8 +6244,8 @@ export type t_ReposListReleaseAssetsQuerySchema = {
 }
 
 export type t_ReposListReleasesParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListReleasesQuerySchema = {
@@ -6254,13 +6254,13 @@ export type t_ReposListReleasesQuerySchema = {
 }
 
 export type t_ReposListTagProtectionParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListTagsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListTagsQuerySchema = {
@@ -6269,8 +6269,8 @@ export type t_ReposListTagsQuerySchema = {
 }
 
 export type t_ReposListTeamsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListTeamsQuerySchema = {
@@ -6279,9 +6279,9 @@ export type t_ReposListTeamsQuerySchema = {
 }
 
 export type t_ReposListWebhookDeliveriesParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposListWebhookDeliveriesQuerySchema = {
@@ -6291,8 +6291,8 @@ export type t_ReposListWebhookDeliveriesQuerySchema = {
 }
 
 export type t_ReposListWebhooksParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposListWebhooksQuerySchema = {
@@ -6307,8 +6307,8 @@ export type t_ReposMergeBodySchema = {
 }
 
 export type t_ReposMergeParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposMergeUpstreamBodySchema = {
@@ -6316,21 +6316,21 @@ export type t_ReposMergeUpstreamBodySchema = {
 }
 
 export type t_ReposMergeUpstreamParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposPingWebhookParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposRedeliverWebhookDeliveryParamSchema = {
-  delivery_id?: number
-  hook_id?: number
-  owner?: string
-  repo?: string
+  delivery_id: number
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposRemoveAppAccessRestrictionsBodySchema =
@@ -6340,15 +6340,15 @@ export type t_ReposRemoveAppAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposRemoveAppAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRemoveCollaboratorParamSchema = {
-  owner?: string
-  repo?: string
-  username?: string
+  owner: string
+  repo: string
+  username: string
 }
 
 export type t_ReposRemoveStatusCheckContextsBodySchema =
@@ -6358,15 +6358,15 @@ export type t_ReposRemoveStatusCheckContextsBodySchema =
   | string[]
 
 export type t_ReposRemoveStatusCheckContextsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRemoveStatusCheckProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRemoveTeamAccessRestrictionsBodySchema =
@@ -6376,9 +6376,9 @@ export type t_ReposRemoveTeamAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposRemoveTeamAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRemoveUserAccessRestrictionsBodySchema =
@@ -6388,9 +6388,9 @@ export type t_ReposRemoveUserAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposRemoveUserAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRenameBranchBodySchema = {
@@ -6398,9 +6398,9 @@ export type t_ReposRenameBranchBodySchema = {
 }
 
 export type t_ReposRenameBranchParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposReplaceAllTopicsBodySchema = {
@@ -6408,19 +6408,19 @@ export type t_ReposReplaceAllTopicsBodySchema = {
 }
 
 export type t_ReposReplaceAllTopicsParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposRequestPagesBuildParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposSetAdminBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposSetAppAccessRestrictionsBodySchema =
@@ -6430,9 +6430,9 @@ export type t_ReposSetAppAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposSetAppAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposSetStatusCheckContextsBodySchema =
@@ -6442,9 +6442,9 @@ export type t_ReposSetStatusCheckContextsBodySchema =
   | string[]
 
 export type t_ReposSetStatusCheckContextsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposSetTeamAccessRestrictionsBodySchema =
@@ -6454,9 +6454,9 @@ export type t_ReposSetTeamAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposSetTeamAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposSetUserAccessRestrictionsBodySchema =
@@ -6466,15 +6466,15 @@ export type t_ReposSetUserAccessRestrictionsBodySchema =
   | string[]
 
 export type t_ReposSetUserAccessRestrictionsParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposTestPushWebhookParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposTransferBodySchema = {
@@ -6484,8 +6484,8 @@ export type t_ReposTransferBodySchema = {
 }
 
 export type t_ReposTransferParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateBodySchema = {
@@ -6527,8 +6527,8 @@ export type t_ReposUpdateBodySchema = {
 }
 
 export type t_ReposUpdateParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateBranchProtectionBodySchema = {
@@ -6572,9 +6572,9 @@ export type t_ReposUpdateBranchProtectionBodySchema = {
 }
 
 export type t_ReposUpdateBranchProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateCommitCommentBodySchema = {
@@ -6582,9 +6582,9 @@ export type t_ReposUpdateCommitCommentBodySchema = {
 }
 
 export type t_ReposUpdateCommitCommentParamSchema = {
-  comment_id?: number
-  owner?: string
-  repo?: string
+  comment_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateDeploymentBranchPolicyBodySchema = {
@@ -6592,10 +6592,10 @@ export type t_ReposUpdateDeploymentBranchPolicyBodySchema = {
 }
 
 export type t_ReposUpdateDeploymentBranchPolicyParamSchema = {
-  branch_policy_id?: number
-  environment_name?: string
-  owner?: string
-  repo?: string
+  branch_policy_id: number
+  environment_name: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateInformationAboutPagesSiteBodySchema = {
@@ -6608,8 +6608,8 @@ export type t_ReposUpdateInformationAboutPagesSiteBodySchema = {
 }
 
 export type t_ReposUpdateInformationAboutPagesSiteParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateInvitationBodySchema = {
@@ -6617,9 +6617,9 @@ export type t_ReposUpdateInvitationBodySchema = {
 }
 
 export type t_ReposUpdateInvitationParamSchema = {
-  invitation_id?: number
-  owner?: string
-  repo?: string
+  invitation_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdatePullRequestReviewProtectionBodySchema = {
@@ -6640,9 +6640,9 @@ export type t_ReposUpdatePullRequestReviewProtectionBodySchema = {
 }
 
 export type t_ReposUpdatePullRequestReviewProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateReleaseBodySchema = {
@@ -6657,9 +6657,9 @@ export type t_ReposUpdateReleaseBodySchema = {
 }
 
 export type t_ReposUpdateReleaseParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReposUpdateReleaseAssetBodySchema = {
@@ -6669,9 +6669,9 @@ export type t_ReposUpdateReleaseAssetBodySchema = {
 }
 
 export type t_ReposUpdateReleaseAssetParamSchema = {
-  asset_id?: number
-  owner?: string
-  repo?: string
+  asset_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateStatusCheckProtectionBodySchema = {
@@ -6684,9 +6684,9 @@ export type t_ReposUpdateStatusCheckProtectionBodySchema = {
 }
 
 export type t_ReposUpdateStatusCheckProtectionParamSchema = {
-  branch?: string
-  owner?: string
-  repo?: string
+  branch: string
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateWebhookBodySchema = {
@@ -6705,9 +6705,9 @@ export type t_ReposUpdateWebhookBodySchema = {
 }
 
 export type t_ReposUpdateWebhookParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposUpdateWebhookConfigForRepoBodySchema = {
@@ -6718,29 +6718,29 @@ export type t_ReposUpdateWebhookConfigForRepoBodySchema = {
 }
 
 export type t_ReposUpdateWebhookConfigForRepoParamSchema = {
-  hook_id?: number
-  owner?: string
-  repo?: string
+  hook_id: number
+  owner: string
+  repo: string
 }
 
 export type t_ReposUploadReleaseAssetBodySchema = string
 
 export type t_ReposUploadReleaseAssetParamSchema = {
-  owner?: string
-  release_id?: number
-  repo?: string
+  owner: string
+  release_id: number
+  repo: string
 }
 
 export type t_ReposUploadReleaseAssetQuerySchema = {
   label?: string
-  name?: string
+  name: string
 }
 
 export type t_SearchCodeQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
+  q: string
   sort?: "indexed"
 }
 
@@ -6748,7 +6748,7 @@ export type t_SearchCommitsQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
+  q: string
   sort?: "author-date" | "committer-date"
 }
 
@@ -6756,7 +6756,7 @@ export type t_SearchIssuesAndPullRequestsQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
+  q: string
   sort?:
     | "comments"
     | "reactions"
@@ -6775,8 +6775,8 @@ export type t_SearchLabelsQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
-  repository_id?: number
+  q: string
+  repository_id: number
   sort?: "created" | "updated"
 }
 
@@ -6784,37 +6784,37 @@ export type t_SearchReposQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
+  q: string
   sort?: "stars" | "forks" | "help-wanted-issues" | "updated"
 }
 
 export type t_SearchTopicsQuerySchema = {
   page?: number
   per_page?: number
-  q?: string
+  q: string
 }
 
 export type t_SearchUsersQuerySchema = {
   order?: "desc" | "asc"
   page?: number
   per_page?: number
-  q?: string
+  q: string
   sort?: "followers" | "repositories" | "joined"
 }
 
 export type t_SecretScanningGetAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema =
   {
-    enterprise?: string
+    enterprise: string
   }
 
 export type t_SecretScanningListAlertsForEnterpriseParamSchema = {
-  enterprise?: string
+  enterprise: string
 }
 
 export type t_SecretScanningListAlertsForEnterpriseQuerySchema = {
@@ -6829,7 +6829,7 @@ export type t_SecretScanningListAlertsForEnterpriseQuerySchema = {
 }
 
 export type t_SecretScanningListAlertsForOrgParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_SecretScanningListAlertsForOrgQuerySchema = {
@@ -6845,8 +6845,8 @@ export type t_SecretScanningListAlertsForOrgQuerySchema = {
 }
 
 export type t_SecretScanningListAlertsForRepoParamSchema = {
-  owner?: string
-  repo?: string
+  owner: string
+  repo: string
 }
 
 export type t_SecretScanningListAlertsForRepoQuerySchema = {
@@ -6862,9 +6862,9 @@ export type t_SecretScanningListAlertsForRepoQuerySchema = {
 }
 
 export type t_SecretScanningListLocationsForAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_SecretScanningListLocationsForAlertQuerySchema = {
@@ -6882,14 +6882,14 @@ export type t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
 
 export type t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema =
   {
-    enterprise?: string
+    enterprise: string
   }
 
 export type t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema =
   {
-    enablement?: "enable_all" | "disable_all"
-    enterprise?: string
-    security_product?:
+    enablement: "enable_all" | "disable_all"
+    enterprise: string
+    security_product:
       | "advanced_security"
       | "secret_scanning"
       | "secret_scanning_push_protection"
@@ -6902,14 +6902,14 @@ export type t_SecretScanningUpdateAlertBodySchema = {
 }
 
 export type t_SecretScanningUpdateAlertParamSchema = {
-  alert_number?: t_alert_number
-  owner?: string
-  repo?: string
+  alert_number: t_alert_number
+  owner: string
+  repo: string
 }
 
 export type t_TeamsAddMemberLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema = {
@@ -6917,9 +6917,9 @@ export type t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema = {
-  org?: string
-  team_slug?: string
-  username?: string
+  org: string
+  team_slug: string
+  username: string
 }
 
 export type t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema = {
@@ -6927,8 +6927,8 @@ export type t_TeamsAddOrUpdateMembershipForUserLegacyBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateMembershipForUserLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema = {
@@ -6936,9 +6936,9 @@ export type t_TeamsAddOrUpdateProjectPermissionsInOrgBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateProjectPermissionsInOrgParamSchema = {
-  org?: string
-  project_id?: number
-  team_slug?: string
+  org: string
+  project_id: number
+  team_slug: string
 }
 
 export type t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema = {
@@ -6946,8 +6946,8 @@ export type t_TeamsAddOrUpdateProjectPermissionsLegacyBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateProjectPermissionsLegacyParamSchema = {
-  project_id?: number
-  team_id?: number
+  project_id: number
+  team_id: number
 }
 
 export type t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema = {
@@ -6955,10 +6955,10 @@ export type t_TeamsAddOrUpdateRepoPermissionsInOrgBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateRepoPermissionsInOrgParamSchema = {
-  org?: string
-  owner?: string
-  repo?: string
-  team_slug?: string
+  org: string
+  owner: string
+  repo: string
+  team_slug: string
 }
 
 export type t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema = {
@@ -6966,33 +6966,33 @@ export type t_TeamsAddOrUpdateRepoPermissionsLegacyBodySchema = {
 }
 
 export type t_TeamsAddOrUpdateRepoPermissionsLegacyParamSchema = {
-  owner?: string
-  repo?: string
-  team_id?: number
+  owner: string
+  repo: string
+  team_id: number
 }
 
 export type t_TeamsCheckPermissionsForProjectInOrgParamSchema = {
-  org?: string
-  project_id?: number
-  team_slug?: string
+  org: string
+  project_id: number
+  team_slug: string
 }
 
 export type t_TeamsCheckPermissionsForProjectLegacyParamSchema = {
-  project_id?: number
-  team_id?: number
+  project_id: number
+  team_id: number
 }
 
 export type t_TeamsCheckPermissionsForRepoInOrgParamSchema = {
-  org?: string
-  owner?: string
-  repo?: string
-  team_slug?: string
+  org: string
+  owner: string
+  repo: string
+  team_slug: string
 }
 
 export type t_TeamsCheckPermissionsForRepoLegacyParamSchema = {
-  owner?: string
-  repo?: string
-  team_id?: number
+  owner: string
+  repo: string
+  team_id: number
 }
 
 export type t_TeamsCreateBodySchema = {
@@ -7006,7 +7006,7 @@ export type t_TeamsCreateBodySchema = {
 }
 
 export type t_TeamsCreateParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_TeamsCreateDiscussionCommentInOrgBodySchema = {
@@ -7014,9 +7014,9 @@ export type t_TeamsCreateDiscussionCommentInOrgBodySchema = {
 }
 
 export type t_TeamsCreateDiscussionCommentInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsCreateDiscussionCommentLegacyBodySchema = {
@@ -7024,8 +7024,8 @@ export type t_TeamsCreateDiscussionCommentLegacyBodySchema = {
 }
 
 export type t_TeamsCreateDiscussionCommentLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsCreateDiscussionInOrgBodySchema = {
@@ -7035,8 +7035,8 @@ export type t_TeamsCreateDiscussionInOrgBodySchema = {
 }
 
 export type t_TeamsCreateDiscussionInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsCreateDiscussionLegacyBodySchema = {
@@ -7046,93 +7046,93 @@ export type t_TeamsCreateDiscussionLegacyBodySchema = {
 }
 
 export type t_TeamsCreateDiscussionLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsDeleteDiscussionCommentInOrgParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsDeleteDiscussionCommentLegacyParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  team_id?: number
+  comment_number: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsDeleteDiscussionInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsDeleteDiscussionLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsDeleteInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsDeleteLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsGetByNameParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsGetDiscussionCommentInOrgParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsGetDiscussionCommentLegacyParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  team_id?: number
+  comment_number: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsGetDiscussionInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsGetDiscussionLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsGetLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsGetMemberLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsGetMembershipForUserInOrgParamSchema = {
-  org?: string
-  team_slug?: string
-  username?: string
+  org: string
+  team_slug: string
+  username: string
 }
 
 export type t_TeamsGetMembershipForUserLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsListParamSchema = {
-  org?: string
+  org: string
 }
 
 export type t_TeamsListQuerySchema = {
@@ -7141,8 +7141,8 @@ export type t_TeamsListQuerySchema = {
 }
 
 export type t_TeamsListChildInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListChildInOrgQuerySchema = {
@@ -7151,7 +7151,7 @@ export type t_TeamsListChildInOrgQuerySchema = {
 }
 
 export type t_TeamsListChildLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListChildLegacyQuerySchema = {
@@ -7160,9 +7160,9 @@ export type t_TeamsListChildLegacyQuerySchema = {
 }
 
 export type t_TeamsListDiscussionCommentsInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListDiscussionCommentsInOrgQuerySchema = {
@@ -7172,8 +7172,8 @@ export type t_TeamsListDiscussionCommentsInOrgQuerySchema = {
 }
 
 export type t_TeamsListDiscussionCommentsLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsListDiscussionCommentsLegacyQuerySchema = {
@@ -7183,8 +7183,8 @@ export type t_TeamsListDiscussionCommentsLegacyQuerySchema = {
 }
 
 export type t_TeamsListDiscussionsInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListDiscussionsInOrgQuerySchema = {
@@ -7195,7 +7195,7 @@ export type t_TeamsListDiscussionsInOrgQuerySchema = {
 }
 
 export type t_TeamsListDiscussionsLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListDiscussionsLegacyQuerySchema = {
@@ -7210,8 +7210,8 @@ export type t_TeamsListForAuthenticatedUserQuerySchema = {
 }
 
 export type t_TeamsListMembersInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListMembersInOrgQuerySchema = {
@@ -7221,7 +7221,7 @@ export type t_TeamsListMembersInOrgQuerySchema = {
 }
 
 export type t_TeamsListMembersLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListMembersLegacyQuerySchema = {
@@ -7231,8 +7231,8 @@ export type t_TeamsListMembersLegacyQuerySchema = {
 }
 
 export type t_TeamsListPendingInvitationsInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListPendingInvitationsInOrgQuerySchema = {
@@ -7241,7 +7241,7 @@ export type t_TeamsListPendingInvitationsInOrgQuerySchema = {
 }
 
 export type t_TeamsListPendingInvitationsLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListPendingInvitationsLegacyQuerySchema = {
@@ -7250,8 +7250,8 @@ export type t_TeamsListPendingInvitationsLegacyQuerySchema = {
 }
 
 export type t_TeamsListProjectsInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListProjectsInOrgQuerySchema = {
@@ -7260,7 +7260,7 @@ export type t_TeamsListProjectsInOrgQuerySchema = {
 }
 
 export type t_TeamsListProjectsLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListProjectsLegacyQuerySchema = {
@@ -7269,8 +7269,8 @@ export type t_TeamsListProjectsLegacyQuerySchema = {
 }
 
 export type t_TeamsListReposInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsListReposInOrgQuerySchema = {
@@ -7279,7 +7279,7 @@ export type t_TeamsListReposInOrgQuerySchema = {
 }
 
 export type t_TeamsListReposLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_TeamsListReposLegacyQuerySchema = {
@@ -7288,43 +7288,43 @@ export type t_TeamsListReposLegacyQuerySchema = {
 }
 
 export type t_TeamsRemoveMemberLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsRemoveMembershipForUserInOrgParamSchema = {
-  org?: string
-  team_slug?: string
-  username?: string
+  org: string
+  team_slug: string
+  username: string
 }
 
 export type t_TeamsRemoveMembershipForUserLegacyParamSchema = {
-  team_id?: number
-  username?: string
+  team_id: number
+  username: string
 }
 
 export type t_TeamsRemoveProjectInOrgParamSchema = {
-  org?: string
-  project_id?: number
-  team_slug?: string
+  org: string
+  project_id: number
+  team_slug: string
 }
 
 export type t_TeamsRemoveProjectLegacyParamSchema = {
-  project_id?: number
-  team_id?: number
+  project_id: number
+  team_id: number
 }
 
 export type t_TeamsRemoveRepoInOrgParamSchema = {
-  org?: string
-  owner?: string
-  repo?: string
-  team_slug?: string
+  org: string
+  owner: string
+  repo: string
+  team_slug: string
 }
 
 export type t_TeamsRemoveRepoLegacyParamSchema = {
-  owner?: string
-  repo?: string
-  team_id?: number
+  owner: string
+  repo: string
+  team_id: number
 }
 
 export type t_TeamsUpdateDiscussionCommentInOrgBodySchema = {
@@ -7332,10 +7332,10 @@ export type t_TeamsUpdateDiscussionCommentInOrgBodySchema = {
 }
 
 export type t_TeamsUpdateDiscussionCommentInOrgParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  comment_number: number
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsUpdateDiscussionCommentLegacyBodySchema = {
@@ -7343,9 +7343,9 @@ export type t_TeamsUpdateDiscussionCommentLegacyBodySchema = {
 }
 
 export type t_TeamsUpdateDiscussionCommentLegacyParamSchema = {
-  comment_number?: number
-  discussion_number?: number
-  team_id?: number
+  comment_number: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsUpdateDiscussionInOrgBodySchema = {
@@ -7354,9 +7354,9 @@ export type t_TeamsUpdateDiscussionInOrgBodySchema = {
 }
 
 export type t_TeamsUpdateDiscussionInOrgParamSchema = {
-  discussion_number?: number
-  org?: string
-  team_slug?: string
+  discussion_number: number
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsUpdateDiscussionLegacyBodySchema = {
@@ -7365,8 +7365,8 @@ export type t_TeamsUpdateDiscussionLegacyBodySchema = {
 }
 
 export type t_TeamsUpdateDiscussionLegacyParamSchema = {
-  discussion_number?: number
-  team_id?: number
+  discussion_number: number
+  team_id: number
 }
 
 export type t_TeamsUpdateInOrgBodySchema = {
@@ -7378,8 +7378,8 @@ export type t_TeamsUpdateInOrgBodySchema = {
 }
 
 export type t_TeamsUpdateInOrgParamSchema = {
-  org?: string
-  team_slug?: string
+  org: string
+  team_slug: string
 }
 
 export type t_TeamsUpdateLegacyBodySchema = {
@@ -7391,7 +7391,7 @@ export type t_TeamsUpdateLegacyBodySchema = {
 }
 
 export type t_TeamsUpdateLegacyParamSchema = {
-  team_id?: number
+  team_id: number
 }
 
 export type t_UsersAddEmailForAuthenticatedUserBodySchema =
@@ -7402,20 +7402,20 @@ export type t_UsersAddEmailForAuthenticatedUserBodySchema =
   | string
 
 export type t_UsersBlockParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersCheckBlockedParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersCheckFollowingForUserParamSchema = {
-  target_user?: string
-  username?: string
+  target_user: string
+  username: string
 }
 
 export type t_UsersCheckPersonIsFollowedByAuthenticatedParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersCreateGpgKeyForAuthenticatedUserBodySchema = {
@@ -7441,27 +7441,27 @@ export type t_UsersDeleteEmailForAuthenticatedUserBodySchema =
   | string
 
 export type t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema = {
-  gpg_key_id?: number
+  gpg_key_id: number
 }
 
 export type t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema = {
-  key_id?: number
+  key_id: number
 }
 
 export type t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema = {
-  ssh_signing_key_id?: number
+  ssh_signing_key_id: number
 }
 
 export type t_UsersFollowParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersGetByUsernameParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersGetContextForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersGetContextForUserQuerySchema = {
@@ -7470,15 +7470,15 @@ export type t_UsersGetContextForUserQuerySchema = {
 }
 
 export type t_UsersGetGpgKeyForAuthenticatedUserParamSchema = {
-  gpg_key_id?: number
+  gpg_key_id: number
 }
 
 export type t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema = {
-  key_id?: number
+  key_id: number
 }
 
 export type t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema = {
-  ssh_signing_key_id?: number
+  ssh_signing_key_id: number
 }
 
 export type t_UsersListQuerySchema = {
@@ -7507,7 +7507,7 @@ export type t_UsersListFollowersForAuthenticatedUserQuerySchema = {
 }
 
 export type t_UsersListFollowersForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersListFollowersForUserQuerySchema = {
@@ -7516,7 +7516,7 @@ export type t_UsersListFollowersForUserQuerySchema = {
 }
 
 export type t_UsersListFollowingForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersListFollowingForUserQuerySchema = {
@@ -7530,7 +7530,7 @@ export type t_UsersListGpgKeysForAuthenticatedUserQuerySchema = {
 }
 
 export type t_UsersListGpgKeysForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersListGpgKeysForUserQuerySchema = {
@@ -7544,7 +7544,7 @@ export type t_UsersListPublicEmailsForAuthenticatedUserQuerySchema = {
 }
 
 export type t_UsersListPublicKeysForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersListPublicKeysForUserQuerySchema = {
@@ -7563,7 +7563,7 @@ export type t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema = {
 }
 
 export type t_UsersListSshSigningKeysForUserParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersListSshSigningKeysForUserQuerySchema = {
@@ -7576,11 +7576,11 @@ export type t_UsersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema = {
 }
 
 export type t_UsersUnblockParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersUnfollowParamSchema = {
-  username?: string
+  username: string
 }
 
 export type t_UsersUpdateAuthenticatedBodySchema = {

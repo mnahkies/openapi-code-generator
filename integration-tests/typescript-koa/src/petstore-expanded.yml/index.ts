@@ -4,8 +4,8 @@ const notImplemented = async () => {
   return { status: 501, body: { error: 'not implemented' } }
 }
 
-const findPetById: FindPetById = async (params, ctx) => {
-  switch (params.params.id) {
+const findPetById: FindPetById = async ({params}, ctx) => {
+  switch (params.id) {
     case 1:
       return {
         status: 200,

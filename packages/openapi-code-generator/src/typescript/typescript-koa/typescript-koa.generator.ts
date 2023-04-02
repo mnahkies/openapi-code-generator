@@ -13,8 +13,22 @@ import {logger} from "../../core/logger"
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
     acc.properties[parameter.name] = parameter.schema
+
+    if (parameter.required) {
+      acc.required.push(parameter.name)
+    }
+
     return acc
-  }, { type: "object", properties: {} } as IRModelObject)
+  }, {
+    type: "object",
+    properties: {},
+    required: [],
+    oneOf: [],
+    allOf: [],
+    additionalProperties: false,
+    nullable: false,
+    readOnly: false
+  } as IRModelObject)
 }
 
 export class ServerBuilder {

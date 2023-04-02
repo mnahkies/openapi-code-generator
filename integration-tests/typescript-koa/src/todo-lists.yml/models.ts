@@ -3,11 +3,11 @@
 /* eslint:disable */
 
 export type t_DeleteTodoListByIdParamSchema = {
-  listId?: string
+  listId: string
 }
 
 export type t_GetTodoListByIdParamSchema = {
-  listId?: string
+  listId: string
 }
 
 export type t_GetTodoListsQuerySchema = {
@@ -20,5 +20,5 @@ export type t_UpdateTodoListByIdBodySchema = {
 }
 
 export type t_UpdateTodoListByIdParamSchema = {
-  listId?: string
+  listId: string
 }
