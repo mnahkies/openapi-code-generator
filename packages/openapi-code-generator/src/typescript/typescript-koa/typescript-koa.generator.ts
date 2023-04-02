@@ -44,7 +44,9 @@ export class ServerBuilder {
   ) {
     // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports.from("@nahkies/typescript-koa-runtime/server")
-      .add("startServer", "ServerConfig",
+      .add(
+        "startServer",
+        "ServerConfig",
         "Response",
         "StatusCode2xx",
         "StatusCode3xx",

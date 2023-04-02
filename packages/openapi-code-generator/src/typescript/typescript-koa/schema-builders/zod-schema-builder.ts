@@ -6,6 +6,9 @@ import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../../common/import-builder"
 
+// TODO: coerce is cool for input where everything starts as strings,
+//       but for output we probably don't want that as its more likely
+//       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
 export class ZodBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly zod = "z",
