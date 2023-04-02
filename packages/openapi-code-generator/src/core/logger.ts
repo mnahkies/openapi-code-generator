@@ -21,15 +21,15 @@ export class Logger {
   }
 
   readonly info = (message: string, meta?: LoggerMeta): void => {
-    console.log(this.format("info", message, meta))
+    process.stderr.write(this.format("info", message, meta) + "\n")
   }
 
   readonly warn = (message: string, meta?: LoggerMeta): void => {
-    console.warn(this.format("warn", message, meta, Color.FgYellow))
+    process.stderr.write(this.format("warn", message, meta, Color.FgYellow) + "\n")
   }
 
   readonly error = (message: string, meta?: LoggerMeta): void => {
-    console.error(this.format("error", message, meta, Color.FgRed))
+    process.stderr.write(this.format("error", message, meta, Color.FgRed) + "\n")
   }
 
   readonly time = (description: string): void => {
