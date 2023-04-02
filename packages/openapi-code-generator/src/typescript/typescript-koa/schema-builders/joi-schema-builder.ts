@@ -1,7 +1,7 @@
 import {Input} from "../../../core/input"
 import {IRModelString} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
-import {SchemaBuilder} from "./schema-builder"
+import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../../common/import-builder"
 
 enum JoiFn {
@@ -13,7 +13,7 @@ enum JoiFn {
   Required = "required()"
 }
 
-export class JoiBuilder extends SchemaBuilder {
+export class JoiBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly joi = "joi",
     input: Input,
@@ -22,8 +22,10 @@ export class JoiBuilder extends SchemaBuilder {
   }
 
   importHelpers(importBuilder: ImportBuilder) {
+    importBuilder.addModule(this.joi, "@hapi/joi")
+
     importBuilder.from("@nahkies/typescript-koa-runtime/joi")
-      .add("parseRequestInput")
+      .add("parseRequestInput", "Params")
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

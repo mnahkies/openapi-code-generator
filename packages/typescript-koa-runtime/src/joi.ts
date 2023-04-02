@@ -1,5 +1,7 @@
 import type {Schema as JoiSchema} from "@hapi/joi"
 
+export type Params<Params, Query, Body> = { params: Params, query: Query, body: Body }
+
 // Note: joi types don't appear to have an equivalent of z.infer,
 //       hence any seems about as good as we can do here.
 export function parseRequestInput<Schema extends JoiSchema>(
