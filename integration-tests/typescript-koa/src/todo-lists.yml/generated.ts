@@ -4,17 +4,30 @@
 
 import {
   t_DeleteTodoListByIdParamSchema,
+  t_Error,
   t_GetTodoListByIdParamSchema,
   t_GetTodoListsQuerySchema,
+  t_TodoList,
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
+import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  Response,
   ServerConfig,
+  StatusCode,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
+import {
+  Params,
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-koa-runtime/zod"
 import { Context } from "koa"
 import { z } from "zod"
 
@@ -24,12 +37,16 @@ import { z } from "zod"
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_TodoList[]>>
 
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<200, t_TodoList>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type UpdateTodoListById = (
   params: Params<
@@ -38,12 +55,20 @@ export type UpdateTodoListById = (
     t_UpdateTodoListByIdBodySchema
   >,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<200, t_TodoList>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<
+  | Response<204, void>
+  | Response<StatusCode4xx, t_Error>
+  | Response<StatusCode, void>
+>
 
 export type Implementation = {
   getTodoLists: GetTodoLists
@@ -64,6 +89,25 @@ export function bootstrap(
     status: z.enum(["incomplete", "complete"]).optional(),
   })
 
+  const getTodoListsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.array(
+          z.object({
+            id: z.coerce.string(),
+            name: z.coerce.string(),
+            totalItemCount: z.coerce.number(),
+            incompleteItemCount: z.coerce.number(),
+            created: z.coerce.string().datetime({ offset: true }),
+            updated: z.coerce.string().datetime({ offset: true }),
+          })
+        ),
+      ],
+    ],
+    undefined
+  )
+
   router.get("getTodoLists", "/list", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -72,12 +116,21 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.getTodoLists(input, ctx)
+
+    ctx.body = getTodoListsResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
   const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+
+  const getTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", s_TodoList],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -87,14 +140,23 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.getTodoListById(input, ctx)
+
+    ctx.body = getTodoListByIdResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
   const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
-  const updateTodoListByIdBodySchema = z.object({ name: z.coerce.string() })
+  const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
+
+  const updateTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", s_TodoList],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -104,12 +166,21 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.updateTodoListById(input, ctx)
+
+    ctx.body = updateTodoListByIdResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
   const deleteTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+
+  const deleteTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -119,8 +190,9 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.deleteTodoListById(input, ctx)
+
+    ctx.body = deleteTodoListByIdResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 

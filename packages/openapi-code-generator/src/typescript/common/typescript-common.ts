@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { isDefined } from "../../core/utils"
+import {isDefined} from "../../core/utils"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
 
@@ -60,26 +60,29 @@ export function routeToTemplateString(route: string, paramName = "p"): string {
     }, route)
 }
 
-export function buildMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
+export function buildMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `${ name }(${ params(it.parameters) }): ${ it.returnType };`).join("\n") }
-  ${ name }(${ params(parameters) }): ${ returnType }
+  ${overloads.map(it => `${name}(${params(it.parameters)}): ${it.returnType};`).join("\n")}
+  ${name}(${params(parameters)}): ${returnType}
   {
-    ${ body }
+    ${body}
   }`
 }
 
-export function asyncMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
+export function asyncMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `async ${ name }(${ params(it.parameters) }): Promise<${ it.returnType }>;`).join("\n") }
-  async ${ name }(${ params(parameters) }): Promise<${ returnType }>
+  ${overloads.map(it => `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`).join("\n")}
+  async ${name}(${params(parameters)}): Promise<${returnType}>
   {
-    ${ body }
+    ${body}
   }`
 }
 
-export function requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
-  const { requestBody } = operation
+export function requestBodyAsParameter(operation: IROperation): {
+  requestBodyParameter?: IRParameter,
+  requestBodyContentType?: string
+} {
+  const {requestBody} = operation
 
   if (!requestBody) {
     return {}
@@ -105,13 +108,33 @@ export function requestBodyAsParameter(operation: IROperation): { requestBodyPar
   return {}
 }
 
+export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | undefined)[]) {
+  const result = []
+
+  const definedParts = parts.filter(isDefined).sort((a, b) => a.condition && !b.condition ? -1 : 1)
+
+  for (const {condition, body} of definedParts) {
+    if (result.length === 0 && condition) {
+      result.push(`if(${condition}) { ${body} }`)
+    } else if (condition) {
+      result.push(`else if(${condition}) { ${body} }`)
+    } else if (result.length > 0) {
+      result.push(`else { ${body} }`)
+    } else {
+      result.push(body)
+    }
+  }
+
+  return result.join("\n")
+}
+
 // TODO do we need to quote names sometimes here?
 function params(parameters: (MethodParameterDefinition | undefined)[], quoteNames = false): string {
   return parameters
     .filter(isDefined)
     .map((param) => {
-      const name = quoteNames ? `"${ param.name }"` : param.name
-      return `${ name }${ param.required === false ? "?" : "" }: ${ (param.type) }`
+      const name = quoteNames ? `"${param.name}"` : param.name
+      return `${name}${param.required === false ? "?" : ""}: ${(param.type)}`
     })
     .join(",")
 }

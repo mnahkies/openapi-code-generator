@@ -1,8 +1,8 @@
-import Ajv2020, { ValidateFunction } from "ajv/dist/2020"
+import Ajv2020, {ValidateFunction} from "ajv/dist/2020"
 import addFormats from "ajv-formats"
-import { promptContinue } from "./cli-utils"
+import {promptContinue} from "./cli-utils"
 import openapi3Specification = require("./openapi-3-specification.json")
-import { logger } from "./logger"
+import {logger} from "./logger"
 
 export class OpenapiValidator {
 
@@ -19,16 +19,16 @@ export class OpenapiValidator {
     const isValid = this.validationFunction(schema)
 
     if (!isValid) {
-      logger.warn(`Found errors validating '${ filename }'.`)
+      logger.warn(`Found errors validating '${filename}'.`)
       logger.warn("Note errors may cascade, and should be investigated top to bottom. Errors:\n")
 
       this.validationFunction.errors?.forEach(err => {
-        logger.warn(`-> ${ err.message } at path '${ err.instancePath }'`, err.params)
+        logger.warn(`-> ${err.message} at path '${err.instancePath}'`, err.params)
       })
 
       logger.warn("")
 
-      await promptContinue(`Found errors validating '${ filename }', continue?`, "yes")
+      await promptContinue(`Found errors validating '${filename}', continue?`, "yes")
     }
   }
 

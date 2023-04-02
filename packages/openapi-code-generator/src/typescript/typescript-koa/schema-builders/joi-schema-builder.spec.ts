@@ -1,12 +1,13 @@
 import {describe, it, expect} from "@jest/globals"
 import {JoiBuilder} from "./joi-schema-builder"
+import {ImportBuilder} from "../../common/import-builder"
 
 describe("joi-schema-builder", () => {
-  const builder = new JoiBuilder("joi", {
+  const builder = new JoiBuilder("joi", "schemas.ts", {
     schema(it: unknown) {
       return it
     },
-  } as any)
+  } as any, new ImportBuilder())
 
   describe("for a string", () => {
 

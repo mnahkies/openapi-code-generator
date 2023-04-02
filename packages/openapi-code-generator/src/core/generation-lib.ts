@@ -1,4 +1,4 @@
-import { OpenapiDocument, Schema } from "./openapi-types"
+import {OpenapiDocument, Schema} from "./openapi-types"
 
 export class VirtualDefinition {
   constructor(readonly key: string) {
@@ -8,10 +8,10 @@ export class VirtualDefinition {
     openapi: "3.0.3",
     servers: [],
     info: {
-      title: `Code Generation Utilities (${ this.key })`,
+      title: `Code Generation Utilities (${this.key})`,
       description: "Definitions internal to code generation",
       version: "0.0.1",
-      contact: { email: "" },
+      contact: {email: ""},
     },
     tags: [],
     paths: {},
@@ -36,7 +36,7 @@ export class GenerationLib extends VirtualDefinition {
     })
   }
 
-  readonly UnknownObject$Ref = `${ this.key }#/components/schemas/UnknownObject`
+  readonly UnknownObject$Ref = `${this.key}#/components/schemas/UnknownObject`
 }
 
 export const generationLib = new GenerationLib()

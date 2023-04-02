@@ -2,6 +2,20 @@
 /* tslint:disable */
 /* eslint:disable */
 
+export type t_Error = {
+  code?: number
+  message?: string
+}
+
+export type t_TodoList = {
+  created: string
+  id: string
+  incompleteItemCount: number
+  name: string
+  totalItemCount: number
+  updated: string
+}
+
 export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }

@@ -6,22 +6,29 @@ import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../../common/import-builder"
 
+// TODO: coerce is cool for input where everything starts as strings,
+//       but for output we probably don't want that as its more likely
+//       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
 export class ZodBuilder extends AbstractSchemaBuilder {
   constructor(
     private readonly zod = "z",
+    filename: string,
     input: Input,
+    imports: ImportBuilder,
   ) {
-    super(input)
-  }
+    super(filename, input, imports)
 
-  importHelpers(importBuilder: ImportBuilder) {
-    importBuilder.from("zod")
+    imports.from("zod")
       .add(this.zod)
 
-    importBuilder.from("@nahkies/typescript-koa-runtime/zod")
-      .add("parseRequestInput", "Params")
+    imports.from("@nahkies/typescript-koa-runtime/zod")
+      .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
+  protected importHelpers(imports: ImportBuilder) {
+    imports.from("zod")
+      .add(this.zod)
+  }
 
   protected intersect(schemas: string[]): string {
     return schemas.filter(isDefined).reduce((acc, it) => {
@@ -94,6 +101,20 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       // TODO: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
       required ? undefined : "optional()",
+    ].filter(isDefined).join(".")
+  }
+
+  public any(): string {
+    return [
+      this.zod,
+      "any()"
+    ].filter(isDefined).join(".")
+  }
+
+  public void(): string {
+    return [
+      this.zod,
+      "void()"
     ].filter(isDefined).join(".")
   }
 

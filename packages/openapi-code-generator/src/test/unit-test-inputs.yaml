@@ -26,13 +26,13 @@ components:
           type: string
 
     ObjectWithRefs:
-        required:
-          - requiredObject
-        properties:
-          optionalObject:
-            $ref: '#/components/schemas/SimpleObject'
-          requiredObject:
-            $ref: '#/components/schemas/SimpleObject'
+      required:
+        - requiredObject
+      properties:
+        optionalObject:
+          $ref: '#/components/schemas/SimpleObject'
+        requiredObject:
+          $ref: '#/components/schemas/SimpleObject'
 
     OneOf:
       oneOf:

@@ -1,7 +1,7 @@
-import { describe, beforeAll, it, expect } from "@jest/globals"
-import { unitTestInput } from "../../test/input.test-utils"
-import { Input } from "../../core/input"
-import { ModelBuilder } from "./model-builder"
+import {describe, beforeAll, it, expect} from "@jest/globals"
+import {unitTestInput} from "../../test/input.test-utils"
+import {Input} from "../../core/input"
+import {ModelBuilder} from "./model-builder"
 
 describe("typescript/common/model-builder", () => {
   let input: Input
@@ -18,7 +18,7 @@ describe("typescript/common/model-builder", () => {
     const builder = ModelBuilder.fromInput("models.ts", input)
 
     const actual = builder.schemaObjectToType(
-      input.schema({ $ref: `${file}#/components/schemas/SimpleObject` })
+      input.schema({$ref: `${file}#/components/schemas/SimpleObject`})
     )
 
     expect(actual).toMatchInlineSnapshot(`
@@ -36,7 +36,7 @@ describe("typescript/common/model-builder", () => {
     const builder = ModelBuilder.fromInput("models.ts", input)
 
     const actual = builder.schemaObjectToType(
-      input.schema({ $ref: `${file}#/components/schemas/ObjectWithRefs` })
+      input.schema({$ref: `${file}#/components/schemas/ObjectWithRefs`})
     )
 
     expect(actual).toMatchInlineSnapshot(`
@@ -51,7 +51,7 @@ describe("typescript/common/model-builder", () => {
     const builder = ModelBuilder.fromInput("models.ts", input)
 
     const actual = builder.schemaObjectToType(
-      input.schema({ $ref: `${file}#/components/schemas/OneOf` })
+      input.schema({$ref: `${file}#/components/schemas/OneOf`})
     )
 
     expect(actual).toMatchInlineSnapshot(`
@@ -67,7 +67,7 @@ describe("typescript/common/model-builder", () => {
     const builder = ModelBuilder.fromInput("models.ts", input)
 
     const actual = builder.schemaObjectToType(
-      input.schema({ $ref: `${file}#/components/schemas/AllOf` })
+      input.schema({$ref: `${file}#/components/schemas/AllOf`})
     )
 
     expect(actual).toMatchInlineSnapshot(`

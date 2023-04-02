@@ -5,15 +5,29 @@
 import {
   t_AddPetBodySchema,
   t_DeletePetParamSchema,
+  t_Error,
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
+  t_NewPet,
+  t_Pet,
 } from "./models"
+import { s_Error, s_NewPet, s_Pet } from "./schemas"
 import KoaRouter from "@koa/router"
 import {
+  Response,
   ServerConfig,
+  StatusCode,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
+import {
+  Params,
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-koa-runtime/zod"
 import { Context } from "koa"
 import { z } from "zod"
 
@@ -23,22 +37,22 @@ import { z } from "zod"
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>>
 
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>>
 
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void>,
   ctx: Context
-) => Promise<{ status: number; body: any }>
+) => Promise<Response<204, void> | Response<StatusCode, t_Error>>
 
 export type Implementation = {
   findPets: FindPets
@@ -59,6 +73,11 @@ export function bootstrap(
     limit: z.coerce.number().optional(),
   })
 
+  const findPetsResponseValidator = responseValidationFactory(
+    [["200", z.array(s_NewPet.merge(z.object({ id: z.coerce.number() })))]],
+    s_Error
+  )
+
   router.get("findPets", "/pets", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -67,15 +86,18 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.findPets(input, ctx)
+
+    ctx.body = findPetsResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
-  const addPetBodySchema = z.object({
-    name: z.coerce.string(),
-    tag: z.coerce.string().optional(),
-  })
+  const addPetBodySchema = s_NewPet
+
+  const addPetResponseValidator = responseValidationFactory(
+    [["200", s_Pet]],
+    s_Error
+  )
 
   router.post("addPet", "/pets", async (ctx, next) => {
     const input = {
@@ -85,12 +107,18 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.addPet(input, ctx)
+
+    ctx.body = addPetResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
   const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
+
+  const findPetByIdResponseValidator = responseValidationFactory(
+    [["200", s_Pet]],
+    s_Error
+  )
 
   router.get("findPetById", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -100,12 +128,18 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.findPetById(input, ctx)
+
+    ctx.body = findPetByIdResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 
   const deletePetParamSchema = z.object({ id: z.coerce.number() })
+
+  const deletePetResponseValidator = responseValidationFactory(
+    [["204", z.void()]],
+    s_Error
+  )
 
   router.delete("deletePet", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -115,8 +149,9 @@ export function bootstrap(
     }
 
     const { status, body } = await implementation.deletePet(input, ctx)
+
+    ctx.body = deletePetResponseValidator(status, body)
     ctx.status = status
-    ctx.body = body
     return next()
   })
 

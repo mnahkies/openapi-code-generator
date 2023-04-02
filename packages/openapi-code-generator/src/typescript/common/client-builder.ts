@@ -1,7 +1,7 @@
-import { IROperation } from "../../core/openapi-types-normalized"
-import { ImportBuilder } from "./import-builder"
-import { ModelBuilder } from "./model-builder"
-import { ClientOperationBuilder } from "./client-operation-builder"
+import {IROperation} from "../../core/openapi-types-normalized"
+import {ImportBuilder} from "./import-builder"
+import {ModelBuilder} from "./model-builder"
+import {ClientOperationBuilder} from "./client-operation-builder"
 
 export abstract class TypescriptClientBuilder {
   private readonly imports: ImportBuilder
@@ -32,9 +32,9 @@ export abstract class TypescriptClientBuilder {
 
   toString(): string {
     return `
-    ${ this.imports.toString() }
+    ${this.imports.toString()}
 
-    ${ this.buildClient(this.name, this.operations) }
+    ${this.buildClient(this.name, this.operations)}
     `
   }
 }
