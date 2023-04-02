@@ -29,6 +29,12 @@ export class JoiBuilder extends AbstractSchemaBuilder {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected intersect(schemas: string[]): string {
+    // TODO: implement
+    throw new Error("Method not implemented.")
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected union(schemas: string[]): string {
     // TODO: implement
     throw new Error("Method not implemented.")

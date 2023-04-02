@@ -20,4 +20,19 @@ describe("zod-schema-builder", () => {
     `)
   })
 
+  it("supports allOf", async () => {
+    const {input, file} = await unitTestInput()
+    const schema = input.schema({$ref: `${file}#components/schemas/AllOf`})
+
+    const builder = new ZodBuilder("zod", input)
+
+    const actual = builder.fromModel(schema, true)
+
+    expect(actual).toMatchInlineSnapshot(`
+      "zod.intersection([
+      zod.object({"name": zod.coerce.string(),"breed": zod.coerce.string().optional()}),
+      zod.object({"id": zod.coerce.number()}),
+      ])"
+    `)
+  })
 })

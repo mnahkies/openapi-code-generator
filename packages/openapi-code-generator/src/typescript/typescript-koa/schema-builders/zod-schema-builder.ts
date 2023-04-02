@@ -22,11 +22,21 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       .add("parseRequestInput", "Params")
   }
 
-  protected union(maybeModels: string[]): string {
+
+  protected intersect(schemas: string[]): string {
+    return [
+      this.zod,
+      `intersection([\n${
+        schemas.map(it => it + ",").join("\n")
+      }\n])`
+    ].filter(isDefined).join(".")
+  }
+
+  protected union(schemas: string[]): string {
     return [
       this.zod,
       `union([\n${
-        maybeModels.map(it => it + ",").join("\n")
+        schemas.map(it => it + ",").join("\n")
       }\n])`
     ].filter(isDefined).join(".")
   }
