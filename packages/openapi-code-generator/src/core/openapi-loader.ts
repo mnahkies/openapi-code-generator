@@ -119,8 +119,11 @@ export class OpenapiLoader {
     }
 
     const [loadedFrom, definition] = await loadFile(file)
+    await this.loadFileContent(loadedFrom, definition)
+  }
 
-    await this.validator.validate(file, definition)
+  private async loadFileContent(loadedFrom: string, definition: any){
+    await this.validator.validate(loadedFrom, definition)
 
     this.library.set(loadedFrom, definition)
     await this.normalizeRefs(loadedFrom, definition)
@@ -165,6 +168,14 @@ export class OpenapiLoader {
     function pathFromRef($ref: string) {
       return $ref.split("#")[0]
     }
+  }
+
+  static async createFromLiteral(value: object, validator: OpenapiValidator): Promise<OpenapiLoader>{
+    const loader = new OpenapiLoader("input.yaml", validator)
+
+    await loader.loadFileContent("input.yaml", value)
+
+    return loader
   }
 
   static async create(entryPoint: string, validator: OpenapiValidator): Promise<OpenapiLoader> {
