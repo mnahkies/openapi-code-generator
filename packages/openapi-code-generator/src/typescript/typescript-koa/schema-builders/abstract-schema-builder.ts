@@ -44,12 +44,7 @@ export abstract class AbstractSchemaBuilder {
     const imports = new ImportBuilder()
     this.importHelpers(imports)
 
-    return `
-
-    ${imports.toString()}
-
-    ${next.join("\n\n")}
-      `
+    return `${imports.toString()}\n${next.join("\n\n")}`
   }
 
   private generateSchemaFromRef($ref: string): string {
