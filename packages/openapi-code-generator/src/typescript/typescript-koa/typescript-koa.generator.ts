@@ -1,10 +1,10 @@
 import _ from "lodash"
-import { Input } from "../../core/input"
-import { IRModelObject, IROperation, IRParameter } from "../../core/openapi-types-normalized"
-import { ImportBuilder } from "../common/import-builder"
-import { emitGenerationResult, loadPreviousResult } from "../common/output-utils"
-import { ModelBuilder } from "../common/model-builder"
-import { isDefined, titleCase } from "../../core/utils"
+import {Input} from "../../core/input"
+import {IRModelObject, IROperation, IRParameter} from "../../core/openapi-types-normalized"
+import {ImportBuilder} from "../common/import-builder"
+import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
+import {ModelBuilder} from "../common/model-builder"
+import {isDefined, titleCase} from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
 import {requestBodyAsParameter} from "../common/typescript-common"
 
@@ -73,31 +73,31 @@ export class ServerBuilder {
     const querySchema = queryParams.length ? schemaBuilder.fromParameters(queryParams) : undefined
     let queryParamsType = "void"
 
-    const { requestBodyParameter } = requestBodyAsParameter(operation)
+    const {requestBodyParameter} = requestBodyAsParameter(operation)
     const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
     const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
     let bodyParamsType = "void"
 
     if (paramSchema) {
-      const name = `${ operation.operationId }ParamSchema`
-      pathParamsType = models.schemaObjectToType({ $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams)) })
-      this.statements.push(`const ${ name } = ${ paramSchema.toString() }`)
+      const name = `${operation.operationId}ParamSchema`
+      pathParamsType = models.schemaObjectToType({$ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(pathParams))})
+      this.statements.push(`const ${name} = ${paramSchema.toString()}`)
     }
 
     if (querySchema) {
-      const name = `${ operation.operationId }QuerySchema`
+      const name = `${operation.operationId}QuerySchema`
       queryParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), reduceParamsToOpenApiSchema(queryParams)),
       })
-      this.statements.push(`const ${ name } = ${ querySchema.toString() }`)
+      this.statements.push(`const ${name} = ${querySchema.toString()}`)
     }
 
     if (bodyParamSchema && requestBodyParameter) {
-      const name = `${ operation.operationId }BodySchema`
+      const name = `${operation.operationId}BodySchema`
       bodyParamsType = models.schemaObjectToType({
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)),
       })
-      this.statements.push(`const ${ name } = ${ bodyParamSchema }`)
+      this.statements.push(`const ${name} = ${bodyParamSchema}`)
     }
 
     const statusStringToType = (status: string) => {
@@ -112,7 +112,7 @@ export class ServerBuilder {
     const responseSchemas = Object.entries(operation.responses ?? {}).reduce((acc, [status, response]) => {
       const content = Object.values(response.content ?? {}).pop()
 
-      if(status === "default"){
+      if (status === "default") {
         acc.defaultResponse = {
           schema: content ? schemaBuilder.fromModel(content.schema, true) : schemaBuilder.void(),
           type: content ? models.schemaObjectToType(content.schema) : "void",
@@ -127,36 +127,40 @@ export class ServerBuilder {
       }
 
       return acc
-    }, {specific: [], defaultResponse: undefined} as {specific: {statusString: string, statusType: string, schema: string, type: string}[], defaultResponse?: {
+    }, {specific: [], defaultResponse: undefined} as {
+      specific: { statusString: string, statusType: string, schema: string, type: string }[], defaultResponse?: {
         type: string, schema: string
-      }})
+      }
+    })
 
     this.operationTypeMap[operation.operationId] = `
         export type ${titleCase(operation.operationId)} = (
-            params: Params<${ pathParamsType }, ${ queryParamsType }, ${ bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined") }>,
+            params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
             ctx: Context
         ) => Promise<
         ${[
       ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
       responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
-      ].filter(isDefined).join(" | ")}
+    ].filter(isDefined).join(" | ")}
         >
 `
     this.statements.push([
-      `router.${ operation.method.toLowerCase() }('${ operation.operationId }','${ route(operation.route) }',`,
+      `const ${operation.operationId}ResponseValidator = responseValidationFactory([${
+        responseSchemas.specific.map(it => `["${it.statusString}", ${it.schema}]`)}
+      ], ${responseSchemas.defaultResponse?.schema})`,
+      "",
+      `router.${operation.method.toLowerCase()}('${operation.operationId}','${route(operation.route)}',`,
       `async (ctx, next) => {
 
        const input = {
-        params: ${paramSchema ? `parseRequestInput(${ operation.operationId }ParamSchema, ctx.params)` : "undefined"},
-        query: ${querySchema ? `parseRequestInput(${ operation.operationId }QuerySchema, ctx.query)` : "undefined"},
-        body: ${bodyParamSchema ? `parseRequestInput(${ operation.operationId }BodySchema, ctx.body)` : "undefined"},
+        params: ${paramSchema ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params)` : "undefined"},
+        query: ${querySchema ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query)` : "undefined"},
+        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.body)` : "undefined"},
        }
 
         const {status, body} = await implementation.${operation.operationId}(input, ctx)
 
-        ctx.body = responseValidationFactory([${
-          responseSchemas.specific.map(it => `["${it.statusString}", ${it.schema}]`)}
-        ], ${responseSchemas.defaultResponse?.schema})(status, body)
+        ctx.body = ${operation.operationId}ResponseValidator(status, body)
         ctx.status = status
         return next();
       })`,
@@ -169,7 +173,7 @@ export class ServerBuilder {
     const imports = this.imports
 
     return `
-${ imports.toString() }
+${imports.toString()}
 
 //region safe-edit-region-header
 //endregion safe-edit-region-header
@@ -180,10 +184,10 @@ export type Implementation = {
 }
 
 export function bootstrap(implementation: Implementation, config: Omit<ServerConfig, "router">){
-  // ${ clientName }
+  // ${clientName}
   const router = new KoaRouter()
 
-  ${ routes.join("\n\n") }
+  ${routes.join("\n\n")}
 
   return startServer({
     middleware: [],
@@ -204,7 +208,7 @@ function route(route: string): string {
     }, route)
 }
 
-export async function generateTypescriptKoa({ dest, input }: { dest: string, input: Input }): Promise<void> {
+export async function generateTypescriptKoa({dest, input}: { dest: string, input: Input }): Promise<void> {
   const imports = new ImportBuilder()
   const models = ModelBuilder.fromInput("./models.ts", input).withImports(imports)
   const schemaBuilder = schemaBuilderFactory("zod", input, imports)
@@ -216,7 +220,7 @@ export async function generateTypescriptKoa({ dest, input }: { dest: string, inp
     imports,
     models,
     schemaBuilder,
-    loadExistingImplementations(await loadPreviousResult(dest, { filename: "index.ts" }))
+    loadExistingImplementations(await loadPreviousResult(dest, {filename: "index.ts"}))
   )
 
   input.allOperations()

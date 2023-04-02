@@ -73,6 +73,11 @@ export function bootstrap(
     limit: z.coerce.number().optional(),
   })
 
+  const findPetsResponseValidator = responseValidationFactory(
+    [["200", z.array(s_NewPet.merge(z.object({ id: z.coerce.number() })))]],
+    s_Error
+  )
+
   router.get("findPets", "/pets", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -82,15 +87,17 @@ export function bootstrap(
 
     const { status, body } = await implementation.findPets(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [["200", z.array(s_NewPet.merge(z.object({ id: z.coerce.number() })))]],
-      s_Error
-    )(status, body)
+    ctx.body = findPetsResponseValidator(status, body)
     ctx.status = status
     return next()
   })
 
   const addPetBodySchema = s_NewPet
+
+  const addPetResponseValidator = responseValidationFactory(
+    [["200", s_Pet]],
+    s_Error
+  )
 
   router.post("addPet", "/pets", async (ctx, next) => {
     const input = {
@@ -101,15 +108,17 @@ export function bootstrap(
 
     const { status, body } = await implementation.addPet(input, ctx)
 
-    ctx.body = responseValidationFactory([["200", s_Pet]], s_Error)(
-      status,
-      body
-    )
+    ctx.body = addPetResponseValidator(status, body)
     ctx.status = status
     return next()
   })
 
   const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
+
+  const findPetByIdResponseValidator = responseValidationFactory(
+    [["200", s_Pet]],
+    s_Error
+  )
 
   router.get("findPetById", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -120,15 +129,17 @@ export function bootstrap(
 
     const { status, body } = await implementation.findPetById(input, ctx)
 
-    ctx.body = responseValidationFactory([["200", s_Pet]], s_Error)(
-      status,
-      body
-    )
+    ctx.body = findPetByIdResponseValidator(status, body)
     ctx.status = status
     return next()
   })
 
   const deletePetParamSchema = z.object({ id: z.coerce.number() })
+
+  const deletePetResponseValidator = responseValidationFactory(
+    [["204", z.void()]],
+    s_Error
+  )
 
   router.delete("deletePet", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -139,10 +150,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.deletePet(input, ctx)
 
-    ctx.body = responseValidationFactory([["204", z.void()]], s_Error)(
-      status,
-      body
-    )
+    ctx.body = deletePetResponseValidator(status, body)
     ctx.status = status
     return next()
   })

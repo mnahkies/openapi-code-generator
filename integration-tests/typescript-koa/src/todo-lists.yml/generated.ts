@@ -89,6 +89,25 @@ export function bootstrap(
     status: z.enum(["incomplete", "complete"]).optional(),
   })
 
+  const getTodoListsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.array(
+          z.object({
+            id: z.coerce.string(),
+            name: z.coerce.string(),
+            totalItemCount: z.coerce.number(),
+            incompleteItemCount: z.coerce.number(),
+            created: z.coerce.string().datetime({ offset: true }),
+            updated: z.coerce.string().datetime({ offset: true }),
+          })
+        ),
+      ],
+    ],
+    undefined
+  )
+
   router.get("getTodoLists", "/list", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -98,29 +117,20 @@ export function bootstrap(
 
     const { status, body } = await implementation.getTodoLists(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        [
-          "200",
-          z.array(
-            z.object({
-              id: z.coerce.string(),
-              name: z.coerce.string(),
-              totalItemCount: z.coerce.number(),
-              incompleteItemCount: z.coerce.number(),
-              created: z.coerce.string().datetime({ offset: true }),
-              updated: z.coerce.string().datetime({ offset: true }),
-            })
-          ),
-        ],
-      ],
-      undefined
-    )(status, body)
+    ctx.body = getTodoListsResponseValidator(status, body)
     ctx.status = status
     return next()
   })
 
   const getTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+
+  const getTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", s_TodoList],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.get("getTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -131,13 +141,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.getTodoListById(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        ["200", s_TodoList],
-        ["4XX", s_Error],
-      ],
-      z.void()
-    )(status, body)
+    ctx.body = getTodoListByIdResponseValidator(status, body)
     ctx.status = status
     return next()
   })
@@ -145,6 +149,14 @@ export function bootstrap(
   const updateTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
 
   const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
+
+  const updateTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", s_TodoList],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.put("updateTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -155,18 +167,20 @@ export function bootstrap(
 
     const { status, body } = await implementation.updateTodoListById(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        ["200", s_TodoList],
-        ["4XX", s_Error],
-      ],
-      z.void()
-    )(status, body)
+    ctx.body = updateTodoListByIdResponseValidator(status, body)
     ctx.status = status
     return next()
   })
 
   const deleteTodoListByIdParamSchema = z.object({ listId: z.coerce.string() })
+
+  const deleteTodoListByIdResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["4XX", s_Error],
+    ],
+    z.void()
+  )
 
   router.delete("deleteTodoListById", "/list/:listId", async (ctx, next) => {
     const input = {
@@ -177,13 +191,7 @@ export function bootstrap(
 
     const { status, body } = await implementation.deleteTodoListById(input, ctx)
 
-    ctx.body = responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["4XX", s_Error],
-      ],
-      z.void()
-    )(status, body)
+    ctx.body = deleteTodoListByIdResponseValidator(status, body)
     ctx.status = status
     return next()
   })
