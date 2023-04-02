@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { isDefined } from "../../core/utils"
+import {isDefined} from "../../core/utils"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
 
@@ -60,25 +60,28 @@ export function routeToTemplateString(route: string, paramName = "p"): string {
     }, route)
 }
 
-export function buildMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
+export function buildMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `${ name }(${ params(it.parameters) }): ${ it.returnType };`).join("\n") }
-  ${ name }(${ params(parameters) }): ${ returnType }
+  ${overloads.map(it => `${name}(${params(it.parameters)}): ${it.returnType};`).join("\n")}
+  ${name}(${params(parameters)}): ${returnType}
   {
-    ${ body }
+    ${body}
   }`
 }
 
-export function asyncMethod({ name, parameters, returnType, overloads = [], body }: MethodDefinition): string {
+export function asyncMethod({name, parameters, returnType, overloads = [], body}: MethodDefinition): string {
   return `
-  ${ overloads.map(it => `async ${ name }(${ params(it.parameters) }): Promise<${ it.returnType }>;`).join("\n") }
-  async ${ name }(${ params(parameters) }): Promise<${ returnType }>
+  ${overloads.map(it => `async ${name}(${params(it.parameters)}): Promise<${it.returnType}>;`).join("\n")}
+  async ${name}(${params(parameters)}): Promise<${returnType}>
   {
-    ${ body }
+    ${body}
   }`
 }
 
-export function requestBodyAsParameter(operation: IROperation): { requestBodyParameter?: IRParameter, requestBodyContentType?: string } {
+export function requestBodyAsParameter(operation: IROperation): {
+  requestBodyParameter?: IRParameter,
+  requestBodyContentType?: string
+} {
   const {requestBody} = operation
 
   if (!requestBody) {
@@ -108,15 +111,15 @@ export function requestBodyAsParameter(operation: IROperation): { requestBodyPar
 export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | undefined)[]) {
   const result = []
 
-  const definedParts = parts.filter(isDefined).sort((a,b) => a.condition && !b.condition ? -1 : 1)
+  const definedParts = parts.filter(isDefined).sort((a, b) => a.condition && !b.condition ? -1 : 1)
 
   for (const {condition, body} of definedParts) {
     if (result.length === 0 && condition) {
-      result.push(`if(${ condition }) { ${ body } }`)
+      result.push(`if(${condition}) { ${body} }`)
     } else if (condition) {
-      result.push(`else if(${ condition }) { ${ body } }`)
-    } else if(result.length > 0) {
-      result.push(`else { ${ body } }`)
+      result.push(`else if(${condition}) { ${body} }`)
+    } else if (result.length > 0) {
+      result.push(`else { ${body} }`)
     } else {
       result.push(body)
     }
@@ -130,8 +133,8 @@ function params(parameters: (MethodParameterDefinition | undefined)[], quoteName
   return parameters
     .filter(isDefined)
     .map((param) => {
-      const name = quoteNames ? `"${ param.name }"` : param.name
-      return `${ name }${ param.required === false ? "?" : "" }: ${ (param.type) }`
+      const name = quoteNames ? `"${param.name}"` : param.name
+      return `${name}${param.required === false ? "?" : ""}: ${(param.type)}`
     })
     .join(",")
 }

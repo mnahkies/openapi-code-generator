@@ -35,7 +35,7 @@ export class Logger {
   readonly time = (description: string): void => {
     const now = process.hrtime.bigint()
     this.endTime()
-    this.info(`begin '${ description }'`)
+    this.info(`begin '${description}'`)
 
     this.times.push([description, now])
   }
@@ -44,7 +44,7 @@ export class Logger {
     const last = this.times[this.times.length - 1]
     if (last?.length < 3) {
       last.push(now)
-      this.info(`complete '${ last[0] }'`, {
+      this.info(`complete '${last[0]}'`, {
         elapsed: diff(last[1], last[2]),
       })
     }
@@ -58,15 +58,15 @@ export class Logger {
 
       const ms = diff(startTime, endTime || now)
 
-      result[`${ i } - ${ description }`] = `${ ms } ms, ${ Math.round(ms / total * 100) }%`
+      result[`${i} - ${description}`] = `${ms} ms, ${Math.round(ms / total * 100)}%`
 
       return result
-    }, { total: `${ total } ms` } as Record<string, string>)
+    }, {total: `${total} ms`} as Record<string, string>)
   }
 }
 
 function defaultFormat(level: string, message: string, meta?: LoggerMeta, color = Color.Reset) {
-  return `${ color }[${ level }]${ Color.Reset } ${ message } ${ meta ? util.inspect(meta) : "" }`
+  return `${color}[${level}]${Color.Reset} ${message} ${meta ? util.inspect(meta) : ""}`
 }
 
 function diff(start: bigint, end: bigint) {

@@ -35,6 +35,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     // TODO: implement
     throw new Error("Method not implemented.")
   }
+
   public void(): string {
     // TODO: implement
     throw new Error("Method not implemented.")

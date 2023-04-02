@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import prettier from "prettier"
-import { logger } from "../../core/logger"
+import {logger} from "../../core/logger"
 
 export type CompilationUnit = { filename: string, toString: () => string }
 
@@ -50,14 +50,14 @@ async function formatOutput(raw: string): Promise<string> {
       arrowParens: "always",
       parser: "typescript",
     })
-  } catch (err){
+  } catch (err) {
     logger.error("failed to prettier", {err})
     return raw
   }
 }
 
 async function writeOutput(folder: string, filename: string, data: string) {
-  fs.mkdirSync(folder, { recursive: true })
+  fs.mkdirSync(folder, {recursive: true})
   fs.writeFileSync(path.join(folder, filename), data, {
     encoding: "utf-8",
   })

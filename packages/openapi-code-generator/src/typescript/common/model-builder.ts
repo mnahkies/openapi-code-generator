@@ -1,8 +1,8 @@
-import { IRModelArray, MaybeIRModel } from "../../core/openapi-types-normalized"
-import { Input } from "../../core/input"
-import { Reference } from "../../core/openapi-types"
-import { getNameFromRef, isRef } from "../../core/openapi-utils"
-import { ImportBuilder } from "./import-builder"
+import {IRModelArray, MaybeIRModel} from "../../core/openapi-types-normalized"
+import {Input} from "../../core/input"
+import {Reference} from "../../core/openapi-types"
+import {getNameFromRef, isRef} from "../../core/openapi-utils"
+import {ImportBuilder} from "./import-builder"
 
 export class ModelBuilder {
 
@@ -22,10 +22,10 @@ export class ModelBuilder {
     )
   }
 
-  private add({ $ref }: Reference): string {
+  private add({$ref}: Reference): string {
     this.referenced.add($ref)
 
-    const name = getNameFromRef({ $ref }, "t_")
+    const name = getNameFromRef({$ref}, "t_")
 
     if (this.imports) {
       this.imports.addSingle(name, this.filename)
@@ -54,26 +54,26 @@ export class ModelBuilder {
   }
 
   private generateModelFromRef($ref: string): string {
-    const name = getNameFromRef({ $ref }, "t_")
-    const schemaObject = this.input.schema({ $ref })
+    const name = getNameFromRef({$ref}, "t_")
+    const schemaObject = this.input.schema({$ref})
 
     // Arrays
     if (schemaObject.type === "array") {
       return `
-    export type ${ name } = ${ this.itemsToType(schemaObject.items) }[];
+    export type ${name} = ${this.itemsToType(schemaObject.items)}[];
     `
     }
 
     // Objects
     if (schemaObject.type === "object" || schemaObject.type === undefined) {
       return `
-    export type ${ name } = ${ this.schemaObjectToType(schemaObject) }
+    export type ${name} = ${this.schemaObjectToType(schemaObject)}
     `
     }
 
     // Primitives
     return `
-  export type ${ name } = ${ this.schemaObjectToType(schemaObject) }
+  export type ${name} = ${this.schemaObjectToType(schemaObject)}
   `
   }
 
@@ -85,10 +85,10 @@ export class ModelBuilder {
 
     // todo unofficial extension to openapi3 - items doesn't normally accept an array.
     if (Array.isArray(items)) {
-      return `( ${ items.map(this.schemaObjectToType).join(" | ") } )`
+      return `( ${items.map(this.schemaObjectToType).join(" | ")} )`
     }
 
-    return `${ this.schemaObjectToType(items) }`
+    return `${this.schemaObjectToType(items)}`
 
   }
 
@@ -99,16 +99,16 @@ export class ModelBuilder {
     }
 
     if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      return `(${ schemaObject.allOf.map(this.schemaObjectToType).join(" & ") })`
+      return `(${schemaObject.allOf.map(this.schemaObjectToType).join(" & ")})`
     }
 
-    if(schemaObject.type === "object" && schemaObject.oneOf.length){
-      return `(${ schemaObject.oneOf.map(this.schemaObjectToType).join("\n | ") })`
+    if (schemaObject.type === "object" && schemaObject.oneOf.length) {
+      return `(${schemaObject.oneOf.map(this.schemaObjectToType).join("\n | ")})`
     }
 
     switch (schemaObject.type) {
       case "array": {
-        return `${ this.itemsToType(schemaObject.items) }[]`
+        return `${this.itemsToType(schemaObject.items)}[]`
       }
       case "boolean": {
         return "boolean"
@@ -116,7 +116,7 @@ export class ModelBuilder {
       case "string": {
         if (schemaObject.enum) {
           return schemaObject.enum
-            .map(it => `"${ it }"`)
+            .map(it => `"${it}"`)
             .join(" | ")
         }
 
@@ -126,7 +126,7 @@ export class ModelBuilder {
         // todo support bigint as string
         if (Array.isArray(schemaObject.enum)) {
           return schemaObject.enum
-            .map(it => `${ it }`)
+            .map(it => `${it}`)
             .join(" | ")
         }
 
@@ -177,7 +177,7 @@ export class ModelBuilder {
         ].filter(Boolean).join("\n")
       }
       default: {
-        throw new Error(`unsupported type '${ JSON.stringify(schemaObject, undefined, 2) }'`)
+        throw new Error(`unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`)
       }
     }
   }

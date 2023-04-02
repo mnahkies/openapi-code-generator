@@ -1,4 +1,4 @@
-import { ImportBuilder } from "../common/import-builder"
+import {ImportBuilder} from "../common/import-builder"
 
 
 export class AngularModuleBuilder {
@@ -57,23 +57,23 @@ export class AngularModuleBuilder {
   toString(): string {
     const name = this.name
     return `
-${ this.tsImports.toString() }
+${this.tsImports.toString()}
 
 @NgModule({
   imports: [
-    ${ this.sorted(this.ngImports).join(",\n") }
+    ${this.sorted(this.ngImports).join(",\n")}
   ],
   declarations: [
-    ${ this.sorted(this.ngDeclarations).join(",\n") }
+    ${this.sorted(this.ngDeclarations).join(",\n")}
   ],
   exports: [
-    ${ this.sorted(this.ngExports).join(",\n") }
+    ${this.sorted(this.ngExports).join(",\n")}
   ],
   providers: [
-    ${ this.sorted(this.ngProviders).join(",\n") }
+    ${this.sorted(this.ngProviders).join(",\n")}
   ],
 })
-export class ${ name }Module {}
+export class ${name}Module {}
 `
   }
 }

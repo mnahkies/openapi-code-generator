@@ -8,9 +8,9 @@ import {
   Responses,
   Schema,
 } from "./openapi-types"
-import { OpenapiLoader } from "./openapi-loader"
-import { generationLib } from "./generation-lib"
-import { isHttpMethod } from "./utils"
+import {OpenapiLoader} from "./openapi-loader"
+import {generationLib} from "./generation-lib"
+import {isHttpMethod} from "./utils"
 import {
   IRModel,
   IRModelArray, IRModelBase, IRModelBoolean, IRModelNumeric, IRModelObject,
@@ -20,8 +20,8 @@ import {
   IRRequestBody, IRResponse,
   MaybeIRModel,
 } from "./openapi-types-normalized"
-import { isRef } from "./openapi-utils"
-import { logger } from "./logger"
+import {isRef} from "./openapi-utils"
+import {logger} from "./logger"
 
 export class Input {
   constructor(
@@ -226,7 +226,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
       if (!items) {
         logger.warn("array object missing items property", schemaObject)
-        items = { $ref: generationLib.UnknownObject$Ref }
+        items = {$ref: generationLib.UnknownObject$Ref}
       }
 
       return type<IRModelArray>({
@@ -263,7 +263,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         type: schemaObject.type,
       })
     default:
-      throw new Error(`unsupported type '${ schemaObject.type }'`)
+      throw new Error(`unsupported type '${schemaObject.type}'`)
   }
 
   function type<T>(it: T) {

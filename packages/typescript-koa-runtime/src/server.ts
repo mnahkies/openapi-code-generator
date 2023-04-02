@@ -15,14 +15,14 @@ type IntRange<F extends number, T extends number> = F extends T ?
     never :
     Exclude<Enumerate<T>, Enumerate<F>> | T
 
-export type StatusCode1xx = IntRange<100,199> // `1${number}${number}`
-export type StatusCode2xx = IntRange<200,299> // `2${number}${number}`
-export type StatusCode3xx = IntRange<300,399> // `3${number}${number}`
-export type StatusCode4xx = IntRange<400,499> // `4${number}${number}`
-export type StatusCode5xx = IntRange<500,599> // `5${number}${number}`
+export type StatusCode1xx = IntRange<100, 199> // `1${number}${number}`
+export type StatusCode2xx = IntRange<200, 299> // `2${number}${number}`
+export type StatusCode3xx = IntRange<300, 399> // `3${number}${number}`
+export type StatusCode4xx = IntRange<400, 499> // `4${number}${number}`
+export type StatusCode5xx = IntRange<500, 599> // `5${number}${number}`
 export type StatusCode = StatusCode1xx | StatusCode2xx | StatusCode3xx | StatusCode4xx | StatusCode5xx
 
-export type Response<Status extends StatusCode, Type> = {status: Status, body: Type}
+export type Response<Status extends StatusCode, Type> = { status: Status, body: Type }
 
 export type ServerConfig = {
   middleware?: Middleware[]

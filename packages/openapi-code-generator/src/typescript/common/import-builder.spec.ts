@@ -1,5 +1,5 @@
-import { describe, it, expect } from "@jest/globals"
-import { ImportBuilder } from "./import-builder"
+import {describe, it, expect} from "@jest/globals"
+import {ImportBuilder} from "./import-builder"
 
 describe("typescript/common/import-builder", () => {
 

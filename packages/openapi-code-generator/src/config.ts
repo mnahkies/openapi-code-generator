@@ -1,5 +1,5 @@
 import convict from "convict"
-import { OpenapiGenerator, templates } from "./templates"
+import {OpenapiGenerator, templates} from "./templates"
 
 const convictConfig = convict({
   input: {
@@ -38,7 +38,7 @@ export class Config {
     const template = convictConfig.get("template")
 
     if (!Reflect.has(templates, template)) {
-      throw new Error(`template named '${ template }' is not supported`)
+      throw new Error(`template named '${template}' is not supported`)
     }
 
     return templates[template]

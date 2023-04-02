@@ -1,8 +1,8 @@
 import _ from "lodash"
-import { IROperation, IRParameter, MaybeIRModel } from "../../core/openapi-types-normalized"
-import { isDefined } from "../../core/utils"
-import { generationLib } from "../../core/generation-lib"
-import { ModelBuilder } from "./model-builder"
+import {IROperation, IRParameter, MaybeIRModel} from "../../core/openapi-types-normalized"
+import {isDefined} from "../../core/utils"
+import {generationLib} from "../../core/generation-lib"
+import {ModelBuilder} from "./model-builder"
 import {combineParams, MethodParameterDefinition, requestBodyAsParameter} from "./typescript-common"
 
 export class ClientOperationBuilder {
@@ -25,14 +25,14 @@ export class ClientOperationBuilder {
   }
 
   methodParameter(): MethodParameterDefinition | undefined {
-    const { parameters } = this.operation
-    const { requestBodyParameter } = this.requestBodyAsParameter()
+    const {parameters} = this.operation
+    const {requestBodyParameter} = this.requestBodyAsParameter()
 
     return combineParams(
       [...parameters, requestBodyParameter]
         .filter(isDefined)
         .map(it => ({
-          name: `${ _.camelCase(it.name) }`,
+          name: `${_.camelCase(it.name)}`,
           type: this.models.schemaObjectToType(it.schema),
           required: it.required,
         })),
@@ -44,7 +44,7 @@ export class ClientOperationBuilder {
   }
 
   queryString(): string {
-    const { parameters } = this.operation
+    const {parameters} = this.operation
 
     return parameters.filter(it => it.in === "query")
       .map(it => "'" + it.name + "': " + this.paramName(it.name))
@@ -52,21 +52,21 @@ export class ClientOperationBuilder {
   }
 
   headers(): string {
-    const { parameters } = this.operation
+    const {parameters} = this.operation
 
     return parameters.filter(it => it.in === "header")
-      .map(it => `'${ it.name }': ${ this.paramName(it.name) }`)
+      .map(it => `'${it.name}': ${this.paramName(it.name)}`)
       .join(",\n")
   }
 
   hasHeader(name: string): boolean {
-    const { parameters } = this.operation
+    const {parameters} = this.operation
 
     return parameters
       .find(it => it.in === "header" && it.name.toLowerCase() === name.toLowerCase()) !== null
   }
 
-  returnType(): {statusType: string, responseType: string}[] {
+  returnType(): { statusType: string, responseType: string }[] {
     const models = this.models
 
     return this.responsesToArray()
@@ -80,14 +80,14 @@ export class ClientOperationBuilder {
   }
 
   paramName(name: string): string {
-    return `p['${ _.camelCase(name) }']`
+    return `p['${_.camelCase(name)}']`
   }
 
   private responsesToArray(): { status: string, definition: null | MaybeIRModel }[] {
-    const { responses } = this.operation
+    const {responses} = this.operation
 
     if (!responses) {
-      return [{ status: "number", definition: { $ref: generationLib.UnknownObject$Ref } }]
+      return [{status: "number", definition: {$ref: generationLib.UnknownObject$Ref}}]
     }
 
     return Object.entries(responses)
@@ -96,10 +96,10 @@ export class ClientOperationBuilder {
         const responseContent = Object.values(response?.content || {}).pop()
 
         if (!responseContent) {
-          return { status, definition: null }
+          return {status, definition: null}
         }
 
-        return { status, definition: responseContent.schema }
+        return {status, definition: responseContent.schema}
       })
   }
 

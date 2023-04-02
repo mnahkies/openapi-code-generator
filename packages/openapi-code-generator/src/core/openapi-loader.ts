@@ -1,10 +1,10 @@
 import path from "path"
 import util from "util"
 
-import { isRemote, loadFile } from "./file-loader"
+import {isRemote, loadFile} from "./file-loader"
 
-import { generationLib, VirtualDefinition } from "./generation-lib"
-import { OpenapiValidator } from "./openapi-validator"
+import {generationLib, VirtualDefinition} from "./generation-lib"
+import {OpenapiValidator} from "./openapi-validator"
 import {
   OpenapiDocument,
   Operation,
@@ -15,7 +15,7 @@ import {
   Response,
   Schema,
 } from "./openapi-types"
-import { isRef } from "./openapi-utils"
+import {isRef} from "./openapi-utils"
 
 export class OpenapiLoader {
 
@@ -36,7 +36,7 @@ export class OpenapiLoader {
     this.library.set(context, def.definition)
     def.addSchema(name, schema)
 
-    return `${ context }#/components/schemas/${ name }`
+    return `${context}#/components/schemas/${name}`
   }
 
   get entryPoint(): OpenapiDocument {
@@ -70,13 +70,13 @@ export class OpenapiLoader {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 
-  private $ref<T>({ $ref }: Reference): T {
+  private $ref<T>({$ref}: Reference): T {
     const [key, objPath] = $ref.split("#")
 
     const obj = this.library.get(key)
 
     if (!obj) {
-      throw new Error(`could not load $ref, key not loaded. $ref: '${ $ref }'`)
+      throw new Error(`could not load $ref, key not loaded. $ref: '${$ref}'`)
     }
 
     if (!objPath) {
@@ -94,7 +94,7 @@ export class OpenapiLoader {
       result = result[segment]
 
       if (!result) {
-        throw new Error(`could not load $ref, path not found. $ref: '${ $ref }'`)
+        throw new Error(`could not load $ref, path not found. $ref: '${$ref}'`)
       }
     }
 
@@ -122,7 +122,7 @@ export class OpenapiLoader {
     await this.loadFileContent(loadedFrom, definition)
   }
 
-  private async loadFileContent(loadedFrom: string, definition: any){
+  private async loadFileContent(loadedFrom: string, definition: any) {
     await this.validator.validate(loadedFrom, definition)
 
     this.library.set(loadedFrom, definition)
@@ -149,7 +149,7 @@ export class OpenapiLoader {
       let [file, objPath] = $ref.split("#")
 
       if (file === "") {
-        return objPath ? `${ loadedFrom }#${ objPath }` : `${ loadedFrom }`
+        return objPath ? `${loadedFrom}#${objPath}` : `${loadedFrom}`
       }
 
       if (isRemote(file)) {
@@ -162,7 +162,7 @@ export class OpenapiLoader {
 
       file = path.resolve(path.dirname(loadedFrom), file)
 
-      return objPath ? `${ file }#${ objPath }` : file
+      return objPath ? `${file}#${objPath}` : file
     }
 
     function pathFromRef($ref: string) {
@@ -170,7 +170,7 @@ export class OpenapiLoader {
     }
   }
 
-  static async createFromLiteral(value: object, validator: OpenapiValidator): Promise<OpenapiLoader>{
+  static async createFromLiteral(value: object, validator: OpenapiValidator): Promise<OpenapiLoader> {
     const loader = new OpenapiLoader("input.yaml", validator)
 
     await loader.loadFileContent("input.yaml", value)
@@ -189,14 +189,14 @@ export class OpenapiLoader {
 
   toJSON(): Record<string, unknown> {
     return Array.from(this.library.keys()).reduce((acc, key) => {
-      const { title, version } = this.library.get(key)?.info ?? {}
-      acc[prettyKey(key)] = { title, version }
+      const {title, version} = this.library.get(key)?.info ?? {}
+      acc[prettyKey(key)] = {title, version}
       return acc
     }, {} as any)
   }
 
   toString(): string {
-    return `loaded ${ this.library.size } files: ${ Array.from(this.library.keys()).map(prettyKey).join(", ") }`
+    return `loaded ${this.library.size} files: ${Array.from(this.library.keys()).map(prettyKey).join(", ")}`
   }
 
   [util.inspect.custom](): Record<string, unknown> {

@@ -51,13 +51,13 @@ export class ImportBuilder {
           .sort()
           .join(", ")
 
-        return `import ${ [
+        return `import ${[
           this.importAll[from] ? this.importAll[from] : "",
-          individualImports.length > 0 ? `{${ individualImports }}` : "",
+          individualImports.length > 0 ? `{${individualImports}}` : "",
         ]
           .filter(it => it.length)
           .join(", ")
-        } from '${ from }'`
+        } from '${from}'`
       })
       .join("\n")
   }

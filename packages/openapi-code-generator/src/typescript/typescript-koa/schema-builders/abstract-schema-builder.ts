@@ -48,11 +48,11 @@ export abstract class AbstractSchemaBuilder {
   }
 
   private generateSchemaFromRef($ref: string): string {
-    const name = getNameFromRef({ $ref }, "s_")
-    const schemaObject = this.input.schema({ $ref })
+    const name = getNameFromRef({$ref}, "s_")
+    const schemaObject = this.input.schema({$ref})
 
     return `
-  export const ${ name } = ${ this.fromModel(schemaObject, true) }
+  export const ${name} = ${this.fromModel(schemaObject, true)}
   `
   }
 
