@@ -59,6 +59,7 @@ export class ServerBuilder {
       .add("Context")
 
     this.imports.addModule("KoaRouter", "@koa/router")
+    this.imports.addModule("koaBody", "koa-body")
   }
 
   add(operation: IROperation): void {
@@ -155,7 +156,7 @@ export class ServerBuilder {
        const input = {
         params: ${paramSchema ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params)` : "undefined"},
         query: ${querySchema ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query)` : "undefined"},
-        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.body)` : "undefined"},
+        body: ${bodyParamSchema ? `parseRequestInput(${operation.operationId}BodySchema, ctx.request.body)` : "undefined"},
        }
 
         const {status, body} = await implementation.${operation.operationId}(input, ctx)
