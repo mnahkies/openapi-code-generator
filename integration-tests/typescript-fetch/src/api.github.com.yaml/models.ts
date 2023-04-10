@@ -101,7 +101,7 @@ export type t_actions_variable = {
 }
 
 export type t_actions_workflow_access_to_repository = {
-  access_level: "none" | "user" | "organization" | "enterprise"
+  access_level: "none" | "user" | "organization"
 }
 
 export type t_actor = {
@@ -166,6 +166,8 @@ export type t_app_permissions = {
   organization_custom_roles?: "read" | "write"
   organization_hooks?: "read" | "write"
   organization_packages?: "read" | "write"
+  organization_personal_access_token_requests?: "read" | "write"
+  organization_personal_access_tokens?: "read" | "write"
   organization_plan?: "read"
   organization_projects?: "read" | "write" | "admin"
   organization_secrets?: "read" | "write"
@@ -174,7 +176,6 @@ export type t_app_permissions = {
   packages?: "read" | "write"
   pages?: "read" | "write"
   pull_requests?: "read" | "write"
-  repository_announcement_banners?: "read" | "write"
   repository_hooks?: "read" | "write"
   repository_projects?: "read" | "write" | "admin"
   secret_scanning_alerts?: "read" | "write"
@@ -398,6 +399,7 @@ export type t_branch_restriction_policy = {
     members_url?: string
     name?: string
     node_id?: string
+    notification_setting?: string
     parent?: string | null
     permission?: string
     privacy?: string
@@ -743,6 +745,23 @@ export type t_code_scanning_codeql_database = {
   updated_at: string
   uploader: t_simple_user
   url: string
+}
+
+export type t_code_scanning_default_setup = {
+  languages?: "javascript" | "python" | "ruby"[]
+  query_suite?: "default" | "extended"
+  state?: "configured" | "not-configured"
+  updated_at?: string | null
+}
+
+export type t_code_scanning_default_setup_update = {
+  query_suite?: "default" | "extended"
+  state: "configured" | "not-configured"
+}
+
+export type t_code_scanning_default_setup_update_response = {
+  run_id?: number
+  run_url?: string
 }
 
 export type t_code_scanning_organization_alert_items = {
@@ -1386,6 +1405,36 @@ export type t_dependency_graph_diff = {
   }[]
 }[]
 
+export type t_dependency_graph_spdx_sbom = {
+  sbom: {
+    SPDXID: string
+    creationInfo: {
+      created: string
+      creators: string[]
+    }
+    dataLicense: string
+    documentDescribes: string[]
+    documentNamespace: string
+    name: string
+    packages: {
+      SPDXID?: string
+      downloadLocation?: string
+      externalRefs?: {
+        referenceCategory: string
+        referenceLocator: string
+        referenceType: string
+      }[]
+      filesAnalyzed?: boolean
+      licenseConcluded?: string
+      licenseDeclared?: string
+      name?: string
+      supplier?: string
+      versionInfo?: string
+    }[]
+    spdxVersion: string
+  }
+}
+
 export type t_deploy_key = {
   added_by?: string | null
   created_at: string
@@ -1516,13 +1565,6 @@ export type t_empty_object = {
 
 export type t_enabled_repositories = "all" | "none" | "selected"
 
-export type t_enterprise_security_analysis_settings = {
-  advanced_security_enabled_for_new_repositories: boolean
-  secret_scanning_enabled_for_new_repositories: boolean
-  secret_scanning_push_protection_custom_link?: string | null
-  secret_scanning_push_protection_enabled_for_new_repositories: boolean
-}
-
 export type t_environment = {
   created_at: string
   deployment_branch_policy?: t_deployment_branch_policy_settings
@@ -1548,7 +1590,7 @@ export type t_environment_approvals = {
     updated_at?: string
     url?: string
   }[]
-  state: "approved" | "rejected"
+  state: "approved" | "rejected" | "pending"
   user: t_simple_user
 }
 
@@ -2176,6 +2218,16 @@ export type t_integration = {
   webhook_secret?: string | null
 }
 
+export type t_integration_installation_request = {
+  account: {
+    [key: string]: unknown
+  }
+  created_at: string
+  id: number
+  node_id?: string
+  requester: t_simple_user
+}
+
 export type t_interaction_expiry =
   | "one_day"
   | "three_days"
@@ -2393,6 +2445,7 @@ export type t_job = {
     | "timed_out"
     | "action_required"
     | null
+  created_at: string
   head_branch: string | null
   head_sha: string
   html_url: string | null
@@ -2581,9 +2634,7 @@ export type t_metadata = {
 export type t_migration = {
   archive_url?: string
   created_at: string
-  exclude?: {
-    [key: string]: unknown
-  }[]
+  exclude?: string[]
   exclude_attachments: boolean
   exclude_git_data: boolean
   exclude_metadata: boolean
@@ -3272,6 +3323,7 @@ export type t_nullable_team_simple = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   permission: string
   privacy?: string
   repositories_url: string
@@ -3422,6 +3474,51 @@ export type t_organization_invitation = {
   node_id: string
   role: string
   team_count: number
+}
+
+export type t_organization_programmatic_access_grant = {
+  access_granted_at: string
+  id: number
+  owner: t_simple_user
+  permissions: {
+    organization?: {
+      [key: string]: unknown
+    }
+    other?: {
+      [key: string]: unknown
+    }
+    repository?: {
+      [key: string]: unknown
+    }
+  }
+  repositories_url: string
+  repository_selection: "none" | "all" | "subset"
+  token_expired: boolean
+  token_expires_at: string | null
+  token_last_used_at: string | null
+}
+
+export type t_organization_programmatic_access_grant_request = {
+  created_at: string
+  id: number
+  owner: t_simple_user
+  permissions: {
+    organization?: {
+      [key: string]: unknown
+    }
+    other?: {
+      [key: string]: unknown
+    }
+    repository?: {
+      [key: string]: unknown
+    }
+  }
+  reason: string | null
+  repositories_url: string
+  repository_selection: "none" | "all" | "subset"
+  token_expired: boolean
+  token_expires_at: string | null
+  token_last_used_at: string | null
 }
 
 export type t_organization_secret_scanning_alert = {
@@ -4340,16 +4437,17 @@ export type t_pull_request_review_comment = {
   node_id: string
   original_commit_id: string
   original_line?: number
-  original_position: number
+  original_position?: number
   original_start_line?: number | null
   path: string
-  position: number
+  position?: number
   pull_request_review_id: number | null
   pull_request_url: string
   reactions?: t_reaction_rollup
   side?: "LEFT" | "RIGHT"
   start_line?: number | null
   start_side?: "LEFT" | "RIGHT" | null
+  subject_type?: "line" | "file"
   updated_at: string
   url: string
   user: t_simple_user
@@ -4877,6 +4975,141 @@ export type t_repository = {
   web_commit_signoff_required?: boolean
 }
 
+export type t_repository_advisory = {
+  readonly author: t_simple_user | null
+  readonly closed_at: string | null
+  readonly created_at: string | null
+  credits:
+    | {
+        login?: string
+        type?: t_repository_advisory_credit_types
+      }[]
+    | null
+  readonly credits_detailed: t_repository_advisory_credit[] | null
+  cve_id: string | null
+  cvss: {
+    readonly score: number | null
+    vector_string: string | null
+  } | null | null
+  cwe_ids: string[] | null
+  readonly cwes:
+    | {
+        cwe_id: string
+        readonly name: string
+      }[]
+    | null
+  description: string | null
+  readonly ghsa_id: string
+  readonly html_url: string
+  readonly identifiers: {
+    type: "CVE" | "GHSA"
+    value: string
+  }[]
+  readonly published_at: string | null
+  readonly publisher: t_simple_user | null
+  severity: "critical" | "high" | "medium" | "low" | null
+  state: "published" | "closed" | "withdrawn" | "draft" | "triage"
+  readonly submission: {
+    readonly accepted: boolean
+  } | null | null
+  summary: string
+  readonly updated_at: string | null
+  url: string
+  vulnerabilities: t_repository_advisory_vulnerability[] | null
+  readonly withdrawn_at: string | null
+}
+
+export type t_repository_advisory_create = {
+  credits?:
+    | {
+        login: string
+        type: t_repository_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  summary: string
+  vulnerabilities: {
+    package: {
+      ecosystem: t_repository_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
+}
+
+export type t_repository_advisory_credit = {
+  state: "accepted" | "declined" | "pending"
+  type: t_repository_advisory_credit_types
+  user: t_simple_user
+}
+
+export type t_repository_advisory_credit_types =
+  | "analyst"
+  | "finder"
+  | "reporter"
+  | "coordinator"
+  | "remediation_developer"
+  | "remediation_reviewer"
+  | "remediation_verifier"
+  | "tool"
+  | "sponsor"
+  | "other"
+
+export type t_repository_advisory_ecosystems =
+  | "rubygems"
+  | "npm"
+  | "pip"
+  | "maven"
+  | "nuget"
+  | "composer"
+  | "go"
+  | "rust"
+  | "erlang"
+  | "actions"
+  | "pub"
+  | "other"
+
+export type t_repository_advisory_update = {
+  credits?:
+    | {
+        login: string
+        type: t_repository_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description?: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  state?: "published" | "closed" | "draft"
+  summary?: string
+  vulnerabilities?: {
+    package: {
+      ecosystem: t_repository_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
+}
+
+export type t_repository_advisory_vulnerability = {
+  package: {
+    ecosystem: t_repository_advisory_ecosystems
+    name: string | null
+  } | null | null
+  patched_versions: string | null
+  vulnerable_functions: string[] | null
+  vulnerable_version_range: string | null
+}
+
 export type t_repository_collaborator_permission = {
   permission: string
   role_name: string
@@ -5007,34 +5240,6 @@ export type t_runner_application = {
   temp_download_token?: string
 }
 
-export type t_runner_groups_enterprise = {
-  allows_public_repositories: boolean
-  default: boolean
-  id: number
-  name: string
-  restricted_to_workflows?: boolean
-  runners_url: string
-  selected_organizations_url?: string
-  selected_workflows?: string[]
-  visibility: string
-  workflow_restrictions_read_only?: boolean
-}
-
-export type t_runner_groups_org = {
-  allows_public_repositories: boolean
-  default: boolean
-  id: number
-  inherited: boolean
-  inherited_allows_public_repositories?: boolean
-  name: string
-  restricted_to_workflows?: boolean
-  runners_url: string
-  selected_repositories_url?: string
-  selected_workflows?: string[]
-  visibility: string
-  workflow_restrictions_read_only?: boolean
-}
-
 export type t_runner_label = {
   id?: number
   name: string
@@ -5082,7 +5287,6 @@ export type t_secret_scanning_alert = {
 }
 
 export type t_secret_scanning_alert_resolution =
-  | "null"
   | "false_positive"
   | "wont_fix"
   | "revoked"
@@ -5285,6 +5489,11 @@ export type t_snapshot = {
   version: number
 }
 
+export type t_social_account = {
+  provider: string
+  url: string
+}
+
 export type t_ssh_signing_key = {
   created_at: string
   id: number
@@ -5348,6 +5557,7 @@ export type t_team = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   parent: t_nullable_team_simple
   permission: string
   permissions?: {
@@ -5410,6 +5620,7 @@ export type t_team_full = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: "notifications_enabled" | "notifications_disabled"
   organization: t_team_organization
   parent?: t_nullable_team_simple
   permission: string
@@ -5614,6 +5825,7 @@ export type t_team_simple = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   permission: string
   privacy?: string
   repositories_url: string

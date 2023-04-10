@@ -54,6 +54,9 @@ import {
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
   t_code_scanning_codeql_database,
+  t_code_scanning_default_setup,
+  t_code_scanning_default_setup_update,
+  t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_sarifs_receipt,
@@ -89,6 +92,7 @@ import {
   t_dependabot_public_key,
   t_dependabot_secret,
   t_dependency_graph_diff,
+  t_dependency_graph_spdx_sbom,
   t_deploy_key,
   t_deployment,
   t_deployment_branch_policy,
@@ -100,7 +104,6 @@ import {
   t_email,
   t_empty_object,
   t_enabled_repositories,
-  t_enterprise_security_analysis_settings,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -124,6 +127,7 @@ import {
   t_installation,
   t_installation_token,
   t_integration,
+  t_integration_installation_request,
   t_interaction_limit,
   t_interaction_limit_response,
   t_issue,
@@ -155,6 +159,8 @@ import {
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
+  t_organization_programmatic_access_grant,
+  t_organization_programmatic_access_grant_request,
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_package,
@@ -194,6 +200,9 @@ import {
   t_repo_required_workflow,
   t_repo_search_result_item,
   t_repository,
+  t_repository_advisory,
+  t_repository_advisory_create,
+  t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_subscription,
@@ -202,8 +211,6 @@ import {
   t_root,
   t_runner,
   t_runner_application,
-  t_runner_groups_enterprise,
-  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_secret_scanning_alert,
@@ -216,6 +223,7 @@ import {
   t_short_branch,
   t_simple_user,
   t_snapshot,
+  t_social_account,
   t_ssh_signing_key,
   t_starred_repository,
   t_status,
@@ -387,6 +395,24 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
     const res = await fetch(url, { method: "POST" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async appsListInstallationRequestsForAuthenticatedApp(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
+    | Response<200, t_integration_installation_request[]>
+    | Response<304, void>
+    | Response<401, t_basic_error>
+  > {
+    const url = this.basePath + `/app/installation-requests`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -633,216 +659,6 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise(p: {
-    enterprise: string
-    orgId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/permissions/organizations/${p["orgId"]}`
-
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminListSelfHostedRunnerGroupsForEnterprise(p: {
-    enterprise: string
-    perPage?: number
-    page?: number
-    visibleToOrganization?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        runner_groups: t_runner_groups_enterprise[]
-        total_count: number
-      }
-    >
-  > {
-    const url =
-      this.basePath + `/enterprises/${p["enterprise"]}/actions/runner-groups`
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      visible_to_organization: p["visibleToOrganization"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise(p: {
-    enterprise: string
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      runners?: number[]
-      selected_organization_ids?: number[]
-      selected_workflows?: string[]
-      visibility?: "selected" | "all"
-    }
-  }): Promise<Response<201, t_runner_groups_enterprise>> {
-    const url =
-      this.basePath + `/enterprises/${p["enterprise"]}/actions/runner-groups`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminGetSelfHostedRunnerGroupForEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-  }): Promise<Response<200, t_runner_groups_enterprise>> {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-    orgId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/organizations/${p["orgId"]}`
-
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-    runnerId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminDeleteSelfHostedRunnerFromEnterprise(p: {
-    enterprise: string
-    runnerId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise(p: {
-    enterprise: string
-    runnerId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise(p: {
-    enterprise: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async secretScanningGetSecurityAnalysisSettingsForEnterprise(p: {
-    enterprise: string
-  }): Promise<
-    | Response<200, t_enterprise_security_analysis_settings>
-    | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/code_security_and_analysis`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async secretScanningPatchSecurityAnalysisSettingsForEnterprise(p: {
-    enterprise: string
-    requestBody?: {
-      advanced_security_enabled_for_new_repositories?: boolean
-      secret_scanning_enabled_for_new_repositories?: boolean
-      secret_scanning_push_protection_custom_link?: string | null
-      secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-    }
-  }): Promise<
-    Response<204, void> | Response<404, t_basic_error> | Response<422, void>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/code_security_and_analysis`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
   async dependabotListAlertsForEnterprise(p: {
     enterprise: string
     state?: string
@@ -921,26 +737,6 @@ export class ApiClient extends AbstractFetchClient {
       after: p["after"],
     })
     const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async secretScanningPostSecurityProductEnablementForEnterprise(p: {
-    enterprise: string
-    securityProduct:
-      | "advanced_security"
-      | "secret_scanning"
-      | "secret_scanning_push_protection"
-    enablement: "enable_all" | "disable_all"
-  }): Promise<
-    Response<204, void> | Response<404, t_basic_error> | Response<422, void>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/${p["securityProduct"]}/${p["enablement"]}`
-
-    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1846,6 +1642,230 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async orgsListPatGrantRequests(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Promise<
+    | Response<200, t_organization_programmatic_access_grant_request[]>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-token-requests`
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsReviewPatGrantRequestsInBulk(p: {
+    org: string
+    requestBody: {
+      action: "approve" | "deny"
+      pat_request_ids?: number[]
+      reason?: string | null
+    }
+  }): Promise<
+    | Response<
+        202,
+        {
+          [key: string]: unknown
+        }
+      >
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-token-requests`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsReviewPatGrantRequest(p: {
+    org: string
+    patRequestId: number
+    requestBody: {
+      action: "approve" | "deny"
+      reason?: string | null
+    }
+  }): Promise<
+    | Response<204, void>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsListPatGrantRequestRepositories(p: {
+    org: string
+    patRequestId: number
+    perPage?: number
+    page?: number
+  }): Promise<
+    | Response<200, t_minimal_repository[]>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsListPatGrants(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Promise<
+    | Response<200, t_organization_programmatic_access_grant[]>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/personal-access-tokens`
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsUpdatePatAccesses(p: {
+    org: string
+    requestBody: {
+      action: "revoke"
+      pat_ids: number[]
+    }
+  }): Promise<
+    | Response<
+        202,
+        {
+          [key: string]: unknown
+        }
+      >
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/personal-access-tokens`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsUpdatePatAccess(p: {
+    org: string
+    patId: number
+    requestBody: {
+      action: "revoke"
+    }
+  }): Promise<
+    | Response<204, void>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsListPatGrantRepositories(p: {
+    org: string
+    patId: number
+    perPage?: number
+    page?: number
+  }): Promise<
+    | Response<200, t_minimal_repository[]>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async orgsGet(p: {
     org: string
   }): Promise<
@@ -1901,6 +1921,24 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
     const res = await fetch(url, { method: "PATCH", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async orgsDelete(p: { org: string }): Promise<
+    | Response<
+        202,
+        {
+          [key: string]: unknown
+        }
+      >
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}`
+
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2102,7 +2140,7 @@ export class ApiClient extends AbstractFetchClient {
   async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
-  }): Promise<Response<204, void> | Response<409, void>> {
+  }): Promise<Response<204, void>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -2270,232 +2308,6 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListSelfHostedRunnerGroupsForOrg(p: {
-    org: string
-    perPage?: number
-    page?: number
-    visibleToRepository?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        runner_groups: t_runner_groups_org[]
-        total_count: number
-      }
-    >
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
-    const query = this._query({
-      per_page: p["perPage"],
-      page: p["page"],
-      visible_to_repository: p["visibleToRepository"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsCreateSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      runners?: number[]
-      selected_repository_ids?: number[]
-      selected_workflows?: string[]
-      visibility?: "selected" | "all" | "private"
-    }
-  }): Promise<Response<201, t_runner_groups_org>> {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-  }): Promise<Response<200, t_runner_groups_org>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsUpdateSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      selected_workflows?: string[]
-      visibility?: "selected" | "all" | "private"
-    }
-  }): Promise<Response<200, t_runner_groups_org>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDeleteSelfHostedRunnerGroupFromOrg(p: {
-    org: string
-    runnerGroupId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    page?: number
-    perPage?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        repositories: t_minimal_repository[]
-        total_count: number
-      }
-    >
-  > {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    repositoryId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListSelfHostedRunnersInGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        runners: t_runner[]
-        total_count: number
-      }
-    >
-  > {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetSelfHostedRunnersInGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      runners: number[]
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsAddSelfHostedRunnerToGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    runnerId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
-
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsRemoveSelfHostedRunnerFromGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    runnerId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
 
     const res = await fetch(url, { method: "DELETE" })
 
@@ -3164,6 +2976,52 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async codespacesSetCodespacesBillingUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Promise<
+    | Response<204, void>
+    | Response<304, void>
+    | Response<400, void>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async codespacesDeleteCodespacesBillingUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Promise<
+    | Response<204, void>
+    | Response<304, void>
+    | Response<400, void>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "DELETE", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async codespacesListOrgSecrets(p: {
     org: string
     perPage?: number
@@ -3527,6 +3385,21 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async packagesListDockerMigrationConflictingPackagesForOrganization(p: {
+    org: string
+  }): Promise<
+    | Response<200, t_package[]>
+    | Response<401, t_basic_error>
+    | Response<403, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/docker/conflicts`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async activityListPublicOrgEvents(p: {
     org: string
     perPage?: number
@@ -3838,11 +3711,23 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     perPage?: number
     page?: number
+    role?:
+      | "all"
+      | "admin"
+      | "direct_member"
+      | "billing_manager"
+      | "hiring_manager"
+    invitationSource?: "all" | "member" | "scim"
   }): Promise<
     Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      role: p["role"],
+      invitation_source: p["invitationSource"],
+    })
     const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
@@ -4301,8 +4186,11 @@ export class ApiClient extends AbstractFetchClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     org: string
     visibility?: "public" | "private" | "internal"
+    page?: number
+    perPage?: number
   }): Promise<
     | Response<200, t_package[]>
+    | Response<400, void>
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
@@ -4310,6 +4198,8 @@ export class ApiClient extends AbstractFetchClient {
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
     const res = await fetch(url + query, { method: "GET" })
 
@@ -4750,6 +4640,7 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       maintainers?: string[]
       name: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number
       permission?: "pull" | "push"
       privacy?: "secret" | "closed"
@@ -4787,6 +4678,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       description?: string
       name?: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number | null
       permission?: "pull" | "push" | "admin"
       privacy?: "secret" | "closed"
@@ -5400,6 +5292,7 @@ export class ApiClient extends AbstractFetchClient {
       | "dependabot_alerts"
       | "dependabot_security_updates"
       | "advanced_security"
+      | "code_scanning_default_setup"
       | "secret_scanning"
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
@@ -6126,7 +6019,7 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     perPage?: number
     page?: number
-    ref?: t_code_scanning_ref
+    ref?: string
     key?: string
     sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
     direction?: "asc" | "desc"
@@ -6151,7 +6044,7 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
     key: string
-    ref?: t_code_scanning_ref
+    ref?: string
   }): Promise<Response<200, t_actions_cache_list>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
@@ -6247,7 +6140,10 @@ export class ApiClient extends AbstractFetchClient {
   async actionsSetCustomOidcSubClaimForRepo(p: {
     owner: string
     repo: string
-    requestBody: t_oidc_custom_sub_repo
+    requestBody: {
+      include_claim_keys?: string[]
+      use_default: boolean
+    }
   }): Promise<
     | Response<201, t_empty_object>
     | Response<400, t_scim_error>
@@ -6260,6 +6156,54 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
     const res = await fetch(url, { method: "PUT", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async actionsListRepoOrganizationSecrets(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    page?: number
+  }): Promise<
+    Response<
+      200,
+      {
+        secrets: t_actions_secret[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async actionsListRepoOrganizationVariables(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    page?: number
+  }): Promise<
+    Response<
+      200,
+      {
+        total_count: number
+        variables: t_actions_variable[]
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6407,6 +6351,7 @@ export class ApiClient extends AbstractFetchClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -6690,6 +6635,7 @@ export class ApiClient extends AbstractFetchClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -7335,6 +7281,7 @@ export class ApiClient extends AbstractFetchClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -8783,6 +8730,62 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async codeScanningGetDefaultSetup(p: {
+    owner: string
+    repo: string
+  }): Promise<
+    | Response<200, t_code_scanning_default_setup>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async codeScanningUpdateDefaultSetup(p: {
+    owner: string
+    repo: string
+    requestBody: t_code_scanning_default_setup_update
+  }): Promise<
+    | Response<200, t_empty_object>
+    | Response<202, t_code_scanning_default_setup_update_response>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<409, t_basic_error>
+    | Response<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "PATCH", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async codeScanningUploadSarif(p: {
     owner: string
     repo: string
@@ -8937,6 +8940,7 @@ export class ApiClient extends AbstractFetchClient {
         200,
         {
           devcontainers: {
+            display_name?: string
             name?: string
             path: string
           }[]
@@ -9346,6 +9350,7 @@ export class ApiClient extends AbstractFetchClient {
     sha?: string
     path?: string
     author?: string
+    committer?: string
     since?: string
     until?: string
     perPage?: number
@@ -9362,6 +9367,7 @@ export class ApiClient extends AbstractFetchClient {
       sha: p["sha"],
       path: p["path"],
       author: p["author"],
+      committer: p["committer"],
       since: p["since"],
       until: p["until"],
       per_page: p["perPage"],
@@ -9957,6 +9963,23 @@ export class ApiClient extends AbstractFetchClient {
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
     const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async dependencyGraphExportSbom(p: {
+    owner: string
+    repo: string
+  }): Promise<
+    | Response<200, t_dependency_graph_spdx_sbom>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
+
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12598,6 +12621,7 @@ export class ApiClient extends AbstractFetchClient {
       body?: string
       draft?: boolean
       head: string
+      head_repo?: string
       issue?: number
       maintainer_can_modify?: boolean
       title?: string
@@ -12904,6 +12928,7 @@ export class ApiClient extends AbstractFetchClient {
       side?: "LEFT" | "RIGHT"
       start_line?: number
       start_side?: "LEFT" | "RIGHT" | "side"
+      subject_type?: "LINE" | "FILE"
     }
   }): Promise<
     | Response<201, t_pull_request_review_comment>
@@ -13586,7 +13611,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
-    const headers = this._headers({ "Content-Type": "*/*" })
+    const headers = this._headers({
+      "Content-Type": "application/octet-stream",
+    })
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
     const res = await fetch(url + query, { method: "POST", headers, body })
@@ -13783,6 +13810,97 @@ export class ApiClient extends AbstractFetchClient {
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
     const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async securityAdvisoriesListRepositoryAdvisories(p: {
+    owner: string
+    repo: string
+    direction?: "asc" | "desc"
+    sort?: "created" | "updated" | "published"
+    before?: string
+    after?: string
+    perPage?: number
+    state?: "triage" | "draft" | "published" | "closed"
+  }): Promise<
+    | Response<200, t_repository_advisory[]>
+    | Response<400, t_scim_error>
+    | Response<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
+    const query = this._query({
+      direction: p["direction"],
+      sort: p["sort"],
+      before: p["before"],
+      after: p["after"],
+      per_page: p["perPage"],
+      state: p["state"],
+    })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async securityAdvisoriesCreateRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    requestBody: t_repository_advisory_create
+  }): Promise<
+    | Response<201, t_repository_advisory>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async securityAdvisoriesGetRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    ghsaId: string
+  }): Promise<
+    | Response<200, t_repository_advisory>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async securityAdvisoriesUpdateRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    ghsaId: string
+    requestBody: t_repository_advisory_update
+  }): Promise<
+    | Response<200, t_repository_advisory>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14114,7 +14232,7 @@ export class ApiClient extends AbstractFetchClient {
   async reposGetClones(p: {
     owner: string
     repo: string
-    per?: "" | "day" | "week"
+    per?: "day" | "week"
   }): Promise<Response<200, t_clone_traffic> | Response<403, t_basic_error>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
@@ -14159,7 +14277,7 @@ export class ApiClient extends AbstractFetchClient {
   async reposGetViews(p: {
     owner: string
     repo: string
-    per?: "" | "day" | "week"
+    per?: "day" | "week"
   }): Promise<Response<200, t_view_traffic> | Response<403, t_basic_error>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
@@ -14428,8 +14546,8 @@ export class ApiClient extends AbstractFetchClient {
 
   async actionsUpdateEnvironmentVariable(p: {
     repositoryId: number
-    environmentName: string
     name: string
+    environmentName: string
     requestBody: {
       name?: string
       value?: string
@@ -14448,8 +14566,8 @@ export class ApiClient extends AbstractFetchClient {
 
   async actionsDeleteEnvironmentVariable(p: {
     repositoryId: number
-    environmentName: string
     name: string
+    environmentName: string
   }): Promise<Response<204, void>> {
     const url =
       this.basePath +
@@ -15584,7 +15702,9 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       encrypted_value?: string
       key_id: string
-      selected_repository_ids?: string[]
+      selected_repository_ids?: {
+        [key: string]: unknown
+      }[]
     }
   }): Promise<
     | Response<201, t_empty_object>
@@ -15875,6 +15995,17 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/stop`
 
     const res = await fetch(url, { method: "POST" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(): Promise<
+    Response<200, t_package[]>
+  > {
+    const url = this.basePath + `/user/docker/conflicts`
+
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16637,11 +16768,15 @@ export class ApiClient extends AbstractFetchClient {
   async packagesListPackagesForAuthenticatedUser(p: {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
-  }): Promise<Response<200, t_package[]>> {
+    page?: number
+    perPage?: number
+  }): Promise<Response<200, t_package[]> | Response<400, void>> {
     const url = this.basePath + `/user/packages`
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
     const res = await fetch(url + query, { method: "GET" })
 
@@ -16959,6 +17094,68 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async usersListSocialAccountsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
+    | Response<200, t_social_account[]>
+    | Response<304, void>
+    | Response<401, t_basic_error>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+  > {
+    const url = this.basePath + `/user/social_accounts`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async usersAddSocialAccountForAuthenticatedUser(p: {
+    requestBody: {
+      account_urls: string[]
+    }
+  }): Promise<
+    | Response<201, t_social_account[]>
+    | Response<304, void>
+    | Response<401, t_basic_error>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+  > {
+    const url = this.basePath + `/user/social_accounts`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async usersDeleteSocialAccountForAuthenticatedUser(p: {
+    requestBody: {
+      account_urls: string[]
+    }
+  }): Promise<
+    | Response<204, void>
+    | Response<304, void>
+    | Response<401, t_basic_error>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+  > {
+    const url = this.basePath + `/user/social_accounts`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "DELETE", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async usersListSshSigningKeysForAuthenticatedUser(
     p: {
       perPage?: number
@@ -17180,6 +17377,21 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async packagesListDockerMigrationConflictingPackagesForUser(p: {
+    username: string
+  }): Promise<
+    | Response<200, t_package[]>
+    | Response<401, t_basic_error>
+    | Response<403, t_basic_error>
+  > {
+    const url = this.basePath + `/users/${p["username"]}/docker/conflicts`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async activityListEventsForAuthenticatedUser(p: {
     username: string
     perPage?: number
@@ -17354,8 +17566,11 @@ export class ApiClient extends AbstractFetchClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
     username: string
+    page?: number
+    perPage?: number
   }): Promise<
     | Response<200, t_package[]>
+    | Response<400, void>
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
@@ -17363,6 +17578,8 @@ export class ApiClient extends AbstractFetchClient {
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
     const res = await fetch(url + query, { method: "GET" })
 
@@ -17601,6 +17818,19 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
 
     const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async usersListSocialAccountsForUser(p: {
+    username: string
+    perPage?: number
+    page?: number
+  }): Promise<Response<200, t_social_account[]>> {
+    const url = this.basePath + `/users/${p["username"]}/social_accounts`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }

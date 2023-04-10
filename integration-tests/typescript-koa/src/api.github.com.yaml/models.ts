@@ -96,7 +96,7 @@ export type t_actions_variable = {
 }
 
 export type t_actions_workflow_access_to_repository = {
-  access_level: "none" | "user" | "organization" | "enterprise"
+  access_level: "none" | "user" | "organization"
 }
 
 export type t_actor = {
@@ -161,6 +161,8 @@ export type t_app_permissions = {
   organization_custom_roles?: "read" | "write"
   organization_hooks?: "read" | "write"
   organization_packages?: "read" | "write"
+  organization_personal_access_token_requests?: "read" | "write"
+  organization_personal_access_tokens?: "read" | "write"
   organization_plan?: "read"
   organization_projects?: "read" | "write" | "admin"
   organization_secrets?: "read" | "write"
@@ -169,7 +171,6 @@ export type t_app_permissions = {
   packages?: "read" | "write"
   pages?: "read" | "write"
   pull_requests?: "read" | "write"
-  repository_announcement_banners?: "read" | "write"
   repository_hooks?: "read" | "write"
   repository_projects?: "read" | "write" | "admin"
   secret_scanning_alerts?: "read" | "write"
@@ -393,6 +394,7 @@ export type t_branch_restriction_policy = {
     members_url?: string
     name?: string
     node_id?: string
+    notification_setting?: string
     parent?: string | null
     permission?: string
     privacy?: string
@@ -738,6 +740,18 @@ export type t_code_scanning_codeql_database = {
   updated_at: string
   uploader: t_simple_user
   url: string
+}
+
+export type t_code_scanning_default_setup = {
+  languages?: "javascript" | "python" | "ruby"[]
+  query_suite?: "default" | "extended"
+  state?: "configured" | "not-configured"
+  updated_at?: string | null
+}
+
+export type t_code_scanning_default_setup_update_response = {
+  run_id?: number
+  run_url?: string
 }
 
 export type t_code_scanning_organization_alert_items = {
@@ -1381,6 +1395,36 @@ export type t_dependency_graph_diff = {
   }[]
 }[]
 
+export type t_dependency_graph_spdx_sbom = {
+  sbom: {
+    SPDXID: string
+    creationInfo: {
+      created: string
+      creators: string[]
+    }
+    dataLicense: string
+    documentDescribes: string[]
+    documentNamespace: string
+    name: string
+    packages: {
+      SPDXID?: string
+      downloadLocation?: string
+      externalRefs?: {
+        referenceCategory: string
+        referenceLocator: string
+        referenceType: string
+      }[]
+      filesAnalyzed?: boolean
+      licenseConcluded?: string
+      licenseDeclared?: string
+      name?: string
+      supplier?: string
+      versionInfo?: string
+    }[]
+    spdxVersion: string
+  }
+}
+
 export type t_deploy_key = {
   added_by?: string | null
   created_at: string
@@ -1507,13 +1551,6 @@ export type t_empty_object = {
 
 export type t_enabled_repositories = "all" | "none" | "selected"
 
-export type t_enterprise_security_analysis_settings = {
-  advanced_security_enabled_for_new_repositories: boolean
-  secret_scanning_enabled_for_new_repositories: boolean
-  secret_scanning_push_protection_custom_link?: string | null
-  secret_scanning_push_protection_enabled_for_new_repositories: boolean
-}
-
 export type t_environment = {
   created_at: string
   deployment_branch_policy?: t_deployment_branch_policy_settings
@@ -1539,7 +1576,7 @@ export type t_environment_approvals = {
     updated_at?: string
     url?: string
   }[]
-  state: "approved" | "rejected"
+  state: "approved" | "rejected" | "pending"
   user: t_simple_user
 }
 
@@ -2167,6 +2204,16 @@ export type t_integration = {
   webhook_secret?: string | null
 }
 
+export type t_integration_installation_request = {
+  account: {
+    [key: string]: unknown
+  }
+  created_at: string
+  id: number
+  node_id?: string
+  requester: t_simple_user
+}
+
 export type t_interaction_expiry =
   | "one_day"
   | "three_days"
@@ -2379,6 +2426,7 @@ export type t_job = {
     | "timed_out"
     | "action_required"
     | null
+  created_at: string
   head_branch: string | null
   head_sha: string
   html_url: string | null
@@ -2567,9 +2615,7 @@ export type t_metadata = {
 export type t_migration = {
   archive_url?: string
   created_at: string
-  exclude?: {
-    [key: string]: unknown
-  }[]
+  exclude?: string[]
   exclude_attachments: boolean
   exclude_git_data: boolean
   exclude_metadata: boolean
@@ -3258,6 +3304,7 @@ export type t_nullable_team_simple = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   permission: string
   privacy?: string
   repositories_url: string
@@ -3408,6 +3455,51 @@ export type t_organization_invitation = {
   node_id: string
   role: string
   team_count: number
+}
+
+export type t_organization_programmatic_access_grant = {
+  access_granted_at: string
+  id: number
+  owner: t_simple_user
+  permissions: {
+    organization?: {
+      [key: string]: unknown
+    }
+    other?: {
+      [key: string]: unknown
+    }
+    repository?: {
+      [key: string]: unknown
+    }
+  }
+  repositories_url: string
+  repository_selection: "none" | "all" | "subset"
+  token_expired: boolean
+  token_expires_at: string | null
+  token_last_used_at: string | null
+}
+
+export type t_organization_programmatic_access_grant_request = {
+  created_at: string
+  id: number
+  owner: t_simple_user
+  permissions: {
+    organization?: {
+      [key: string]: unknown
+    }
+    other?: {
+      [key: string]: unknown
+    }
+    repository?: {
+      [key: string]: unknown
+    }
+  }
+  reason: string | null
+  repositories_url: string
+  repository_selection: "none" | "all" | "subset"
+  token_expired: boolean
+  token_expires_at: string | null
+  token_last_used_at: string | null
 }
 
 export type t_organization_secret_scanning_alert = {
@@ -4326,16 +4418,17 @@ export type t_pull_request_review_comment = {
   node_id: string
   original_commit_id: string
   original_line?: number
-  original_position: number
+  original_position?: number
   original_start_line?: number | null
   path: string
-  position: number
+  position?: number
   pull_request_review_id: number | null
   pull_request_url: string
   reactions?: t_reaction_rollup
   side?: "LEFT" | "RIGHT"
   start_line?: number | null
   start_side?: "LEFT" | "RIGHT" | null
+  subject_type?: "line" | "file"
   updated_at: string
   url: string
   user: t_simple_user
@@ -4863,6 +4956,92 @@ export type t_repository = {
   web_commit_signoff_required?: boolean
 }
 
+export type t_repository_advisory = {
+  readonly author: t_simple_user | null
+  readonly closed_at: string | null
+  readonly created_at: string | null
+  credits:
+    | {
+        login?: string
+        type?: t_repository_advisory_credit_types
+      }[]
+    | null
+  readonly credits_detailed: t_repository_advisory_credit[] | null
+  cve_id: string | null
+  cvss: {
+    readonly score: number | null
+    vector_string: string | null
+  } | null | null
+  cwe_ids: string[] | null
+  readonly cwes:
+    | {
+        cwe_id: string
+        readonly name: string
+      }[]
+    | null
+  description: string | null
+  readonly ghsa_id: string
+  readonly html_url: string
+  readonly identifiers: {
+    type: "CVE" | "GHSA"
+    value: string
+  }[]
+  readonly published_at: string | null
+  readonly publisher: t_simple_user | null
+  severity: "critical" | "high" | "medium" | "low" | null
+  state: "published" | "closed" | "withdrawn" | "draft" | "triage"
+  readonly submission: {
+    readonly accepted: boolean
+  } | null | null
+  summary: string
+  readonly updated_at: string | null
+  url: string
+  vulnerabilities: t_repository_advisory_vulnerability[] | null
+  readonly withdrawn_at: string | null
+}
+
+export type t_repository_advisory_credit = {
+  state: "accepted" | "declined" | "pending"
+  type: t_repository_advisory_credit_types
+  user: t_simple_user
+}
+
+export type t_repository_advisory_credit_types =
+  | "analyst"
+  | "finder"
+  | "reporter"
+  | "coordinator"
+  | "remediation_developer"
+  | "remediation_reviewer"
+  | "remediation_verifier"
+  | "tool"
+  | "sponsor"
+  | "other"
+
+export type t_repository_advisory_ecosystems =
+  | "rubygems"
+  | "npm"
+  | "pip"
+  | "maven"
+  | "nuget"
+  | "composer"
+  | "go"
+  | "rust"
+  | "erlang"
+  | "actions"
+  | "pub"
+  | "other"
+
+export type t_repository_advisory_vulnerability = {
+  package: {
+    ecosystem: t_repository_advisory_ecosystems
+    name: string | null
+  } | null | null
+  patched_versions: string | null
+  vulnerable_functions: string[] | null
+  vulnerable_version_range: string | null
+}
+
 export type t_repository_collaborator_permission = {
   permission: string
   role_name: string
@@ -4993,34 +5172,6 @@ export type t_runner_application = {
   temp_download_token?: string
 }
 
-export type t_runner_groups_enterprise = {
-  allows_public_repositories: boolean
-  default: boolean
-  id: number
-  name: string
-  restricted_to_workflows?: boolean
-  runners_url: string
-  selected_organizations_url?: string
-  selected_workflows?: string[]
-  visibility: string
-  workflow_restrictions_read_only?: boolean
-}
-
-export type t_runner_groups_org = {
-  allows_public_repositories: boolean
-  default: boolean
-  id: number
-  inherited: boolean
-  inherited_allows_public_repositories?: boolean
-  name: string
-  restricted_to_workflows?: boolean
-  runners_url: string
-  selected_repositories_url?: string
-  selected_workflows?: string[]
-  visibility: string
-  workflow_restrictions_read_only?: boolean
-}
-
 export type t_runner_label = {
   id?: number
   name: string
@@ -5068,7 +5219,6 @@ export type t_secret_scanning_alert = {
 }
 
 export type t_secret_scanning_alert_resolution =
-  | "null"
   | "false_positive"
   | "wont_fix"
   | "revoked"
@@ -5250,6 +5400,11 @@ export type t_simple_user = {
   url: string
 }
 
+export type t_social_account = {
+  provider: string
+  url: string
+}
+
 export type t_ssh_signing_key = {
   created_at: string
   id: number
@@ -5313,6 +5468,7 @@ export type t_team = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   parent: t_nullable_team_simple
   permission: string
   permissions?: {
@@ -5375,6 +5531,7 @@ export type t_team_full = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: "notifications_enabled" | "notifications_disabled"
   organization: t_team_organization
   parent?: t_nullable_team_simple
   permission: string
@@ -5579,6 +5736,7 @@ export type t_team_simple = {
   members_url: string
   name: string
   node_id: string
+  notification_setting?: string
   permission: string
   privacy?: string
   repositories_url: string
@@ -5900,12 +6058,6 @@ export type t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema = {
   required_workflow_id: number
 }
 
-export type t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
-  runner_id: number
-}
-
 export type t_ActionsApproveWorkflowRunParamSchema = {
   owner: string
   repo: string
@@ -6012,20 +6164,6 @@ export type t_ActionsCreateRequiredWorkflowParamSchema = {
   org: string
 }
 
-export type t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema = {
-  allows_public_repositories?: boolean
-  name: string
-  restricted_to_workflows?: boolean
-  runners?: number[]
-  selected_repository_ids?: number[]
-  selected_workflows?: string[]
-  visibility?: "selected" | "all" | "private"
-}
-
-export type t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema = {
-  org: string
-}
-
 export type t_ActionsCreateWorkflowDispatchBodySchema = {
   inputs?: {
     [key: string]: unknown
@@ -6052,7 +6190,7 @@ export type t_ActionsDeleteActionsCacheByKeyParamSchema = {
 
 export type t_ActionsDeleteActionsCacheByKeyQuerySchema = {
   key: string
-  ref?: t_code_scanning_ref
+  ref?: string
 }
 
 export type t_ActionsDeleteArtifactParamSchema = {
@@ -6109,11 +6247,6 @@ export type t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema = {
   owner: string
   repo: string
   runner_id: number
-}
-
-export type t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = {
-  org: string
-  runner_group_id: number
 }
 
 export type t_ActionsDeleteWorkflowRunParamSchema = {
@@ -6188,7 +6321,7 @@ export type t_ActionsGetActionsCacheListQuerySchema = {
   key?: string
   page?: number
   per_page?: number
-  ref?: t_code_scanning_ref
+  ref?: string
   sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
 }
 
@@ -6344,11 +6477,6 @@ export type t_ActionsGetSelfHostedRunnerForRepoParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
-}
-
 export type t_ActionsGetWorkflowParamSchema = {
   owner: string
   repo: string
@@ -6477,12 +6605,22 @@ export type t_ActionsListOrgVariablesQuerySchema = {
   per_page?: number
 }
 
-export type t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org: string
-  runner_group_id: number
+export type t_ActionsListRepoOrganizationSecretsParamSchema = {
+  owner: string
+  repo: string
 }
 
-export type t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = {
+export type t_ActionsListRepoOrganizationSecretsQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ActionsListRepoOrganizationVariablesParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_ActionsListRepoOrganizationVariablesQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -6557,6 +6695,7 @@ export type t_ActionsListRequiredWorkflowRunsQuerySchema = {
     | "queued"
     | "requested"
     | "waiting"
+    | "pending"
 }
 
 export type t_ActionsListRequiredWorkflowsParamSchema = {
@@ -6613,16 +6752,6 @@ export type t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema = {
   required_workflow_id: number
 }
 
-export type t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema = {
-  org: string
-}
-
-export type t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema = {
-  page?: number
-  per_page?: number
-  visible_to_repository?: string
-}
-
 export type t_ActionsListSelfHostedRunnersForOrgParamSchema = {
   org: string
 }
@@ -6638,16 +6767,6 @@ export type t_ActionsListSelfHostedRunnersForRepoParamSchema = {
 }
 
 export type t_ActionsListSelfHostedRunnersForRepoQuerySchema = {
-  page?: number
-  per_page?: number
-}
-
-export type t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
-}
-
-export type t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -6693,6 +6812,7 @@ export type t_ActionsListWorkflowRunsQuerySchema = {
     | "queued"
     | "requested"
     | "waiting"
+    | "pending"
 }
 
 export type t_ActionsListWorkflowRunsForRepoParamSchema = {
@@ -6724,6 +6844,7 @@ export type t_ActionsListWorkflowRunsForRepoQuerySchema = {
     | "queued"
     | "requested"
     | "waiting"
+    | "pending"
 }
 
 export type t_ActionsReRunJobForWorkflowRunBodySchema = {
@@ -6782,12 +6903,6 @@ export type t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema = {
   runner_id: number
 }
 
-export type t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org: string
-  repository_id: number
-  runner_group_id: number
-}
-
 export type t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema = {
   org: string
   repository_id: number
@@ -6804,12 +6919,6 @@ export type t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = {
   org: string
   repository_id: number
   required_workflow_id: number
-}
-
-export type t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
-  runner_id: number
 }
 
 export type t_ActionsReviewPendingDeploymentsForRunBodySchema = {
@@ -6916,15 +7025,6 @@ export type t_ActionsSetGithubActionsPermissionsRepositoryParamSchema = {
   repo: string
 }
 
-export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = {
-  selected_repository_ids: number[]
-}
-
-export type t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = {
-  org: string
-  runner_group_id: number
-}
-
 export type t_ActionsSetSelectedReposForOrgSecretBodySchema = {
   selected_repository_ids: number[]
 }
@@ -6962,17 +7062,8 @@ export type t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationPara
     org: string
   }
 
-export type t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema = {
-  runners: number[]
-}
-
-export type t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
-}
-
 export type t_ActionsSetWorkflowAccessToRepositoryBodySchema = {
-  access_level: "none" | "user" | "organization" | "enterprise"
+  access_level: "none" | "user" | "organization"
 }
 
 export type t_ActionsSetWorkflowAccessToRepositoryParamSchema = {
@@ -7024,19 +7115,6 @@ export type t_ActionsUpdateRequiredWorkflowBodySchema = {
 export type t_ActionsUpdateRequiredWorkflowParamSchema = {
   org: string
   required_workflow_id: number
-}
-
-export type t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema = {
-  allows_public_repositories?: boolean
-  name: string
-  restricted_to_workflows?: boolean
-  selected_workflows?: string[]
-  visibility?: "selected" | "all" | "private"
-}
-
-export type t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema = {
-  org: string
-  runner_group_id: number
 }
 
 export type t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema = {
@@ -7378,6 +7456,11 @@ export type t_AppsListInstallationReposForAuthenticatedUserQuerySchema = {
   per_page?: number
 }
 
+export type t_AppsListInstallationRequestsForAuthenticatedAppQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
 export type t_AppsListInstallationsQuerySchema = {
   outdated?: string
   page?: number
@@ -7685,6 +7768,11 @@ export type t_CodeScanningGetCodeqlDatabaseParamSchema = {
   repo: string
 }
 
+export type t_CodeScanningGetDefaultSetupParamSchema = {
+  owner: string
+  repo: string
+}
+
 export type t_CodeScanningGetSarifParamSchema = {
   owner: string
   repo: string
@@ -7766,6 +7854,16 @@ export type t_CodeScanningUpdateAlertBodySchema = {
 
 export type t_CodeScanningUpdateAlertParamSchema = {
   alert_number: t_alert_number
+  owner: string
+  repo: string
+}
+
+export type t_CodeScanningUpdateDefaultSetupBodySchema = {
+  query_suite?: "default" | "extended"
+  state: "configured" | "not-configured"
+}
+
+export type t_CodeScanningUpdateDefaultSetupParamSchema = {
   owner: string
   repo: string
 }
@@ -7857,7 +7955,9 @@ export type t_CodespacesCreateOrUpdateRepoSecretParamSchema = {
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = {
   encrypted_value?: string
   key_id: string
-  selected_repository_ids?: string[]
+  selected_repository_ids?: {
+    [key: string]: unknown
+  }[]
 }
 
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = {
@@ -7898,6 +7998,14 @@ export type t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema = {
 export type t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema = {
   owner: string
   repo: string
+}
+
+export type t_CodespacesDeleteCodespacesBillingUsersBodySchema = {
+  selected_usernames: string[]
+}
+
+export type t_CodespacesDeleteCodespacesBillingUsersParamSchema = {
+  org: string
 }
 
 export type t_CodespacesDeleteForAuthenticatedUserParamSchema = {
@@ -8099,6 +8207,14 @@ export type t_CodespacesSetCodespacesBillingBodySchema = {
 }
 
 export type t_CodespacesSetCodespacesBillingParamSchema = {
+  org: string
+}
+
+export type t_CodespacesSetCodespacesBillingUsersBodySchema = {
+  selected_usernames: string[]
+}
+
+export type t_CodespacesSetCodespacesBillingUsersParamSchema = {
   org: string
 }
 
@@ -8368,81 +8484,10 @@ export type t_DependencyGraphDiffRangeQuerySchema = {
   name?: string
 }
 
-export type t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema =
-  {
-    labels: string[]
-  }
-
-export type t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema =
-  {
-    enterprise: string
-    runner_id: number
-  }
-
-export type t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema =
-  {
-    enterprise: string
-    org_id: number
-    runner_group_id: number
-  }
-
-export type t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema =
-  {
-    allows_public_repositories?: boolean
-    name: string
-    restricted_to_workflows?: boolean
-    runners?: number[]
-    selected_organization_ids?: number[]
-    selected_workflows?: string[]
-    visibility?: "selected" | "all"
-  }
-
-export type t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema =
-  {
-    enterprise: string
-  }
-
-export type t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema = {
-  enterprise: string
-  runner_id: number
+export type t_DependencyGraphExportSbomParamSchema = {
+  owner: string
+  repo: string
 }
-
-export type t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema =
-  {
-    enterprise: string
-    org_id: number
-  }
-
-export type t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema =
-  {
-    enterprise: string
-    runner_group_id: number
-  }
-
-export type t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema =
-  {
-    enterprise: string
-    runner_id: number
-  }
-
-export type t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema =
-  {
-    enterprise: string
-  }
-
-export type t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema =
-  {
-    page?: number
-    per_page?: number
-    visible_to_organization?: string
-  }
-
-export type t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema =
-  {
-    enterprise: string
-    runner_group_id: number
-    runner_id: number
-  }
 
 export type t_GistsCheckIsStarredParamSchema = {
   gist_id: string
@@ -9476,6 +9521,10 @@ export type t_OrgsCreateWebhookParamSchema = {
   org: string
 }
 
+export type t_OrgsDeleteParamSchema = {
+  org: string
+}
+
 export type t_OrgsDeleteWebhookParamSchema = {
   hook_id: number
   org: string
@@ -9489,6 +9538,7 @@ export type t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema = {
     | "dependabot_alerts"
     | "dependabot_security_updates"
     | "advanced_security"
+    | "code_scanning_default_setup"
     | "secret_scanning"
     | "secret_scanning_push_protection"
 }
@@ -9605,13 +9655,72 @@ export type t_OrgsListOutsideCollaboratorsQuerySchema = {
   per_page?: number
 }
 
+export type t_OrgsListPatGrantRepositoriesParamSchema = {
+  org: string
+  pat_id: number
+}
+
+export type t_OrgsListPatGrantRepositoriesQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_OrgsListPatGrantRequestRepositoriesParamSchema = {
+  org: string
+  pat_request_id: number
+}
+
+export type t_OrgsListPatGrantRequestRepositoriesQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_OrgsListPatGrantRequestsParamSchema = {
+  org: string
+}
+
+export type t_OrgsListPatGrantRequestsQuerySchema = {
+  direction?: "asc" | "desc"
+  last_used_after?: string
+  last_used_before?: string
+  owner?: string[]
+  page?: number
+  per_page?: number
+  permission?: string
+  repository?: string
+  sort?: "created_at"
+}
+
+export type t_OrgsListPatGrantsParamSchema = {
+  org: string
+}
+
+export type t_OrgsListPatGrantsQuerySchema = {
+  direction?: "asc" | "desc"
+  last_used_after?: string
+  last_used_before?: string
+  owner?: string[]
+  page?: number
+  per_page?: number
+  permission?: string
+  repository?: string
+  sort?: "created_at"
+}
+
 export type t_OrgsListPendingInvitationsParamSchema = {
   org: string
 }
 
 export type t_OrgsListPendingInvitationsQuerySchema = {
+  invitation_source?: "all" | "member" | "scim"
   page?: number
   per_page?: number
+  role?:
+    | "all"
+    | "admin"
+    | "direct_member"
+    | "billing_manager"
+    | "hiring_manager"
 }
 
 export type t_OrgsListPublicMembersParamSchema = {
@@ -9683,6 +9792,26 @@ export type t_OrgsRemoveSecurityManagerTeamParamSchema = {
   team_slug: string
 }
 
+export type t_OrgsReviewPatGrantRequestBodySchema = {
+  action: "approve" | "deny"
+  reason?: string | null
+}
+
+export type t_OrgsReviewPatGrantRequestParamSchema = {
+  org: string
+  pat_request_id: number
+}
+
+export type t_OrgsReviewPatGrantRequestsInBulkBodySchema = {
+  action: "approve" | "deny"
+  pat_request_ids?: number[]
+  reason?: string | null
+}
+
+export type t_OrgsReviewPatGrantRequestsInBulkParamSchema = {
+  org: string
+}
+
 export type t_OrgsSetMembershipForUserBodySchema = {
   role?: "admin" | "member"
 }
@@ -9743,6 +9872,24 @@ export type t_OrgsUpdateMembershipForAuthenticatedUserBodySchema = {
 }
 
 export type t_OrgsUpdateMembershipForAuthenticatedUserParamSchema = {
+  org: string
+}
+
+export type t_OrgsUpdatePatAccessBodySchema = {
+  action: "revoke"
+}
+
+export type t_OrgsUpdatePatAccessParamSchema = {
+  org: string
+  pat_id: number
+}
+
+export type t_OrgsUpdatePatAccessesBodySchema = {
+  action: "revoke"
+  pat_ids: number[]
+}
+
+export type t_OrgsUpdatePatAccessesParamSchema = {
   org: string
 }
 
@@ -9886,8 +10033,20 @@ export type t_PackagesGetPackageVersionForUserParamSchema = {
   username: string
 }
 
+export type t_PackagesListDockerMigrationConflictingPackagesForOrganizationParamSchema =
+  {
+    org: string
+  }
+
+export type t_PackagesListDockerMigrationConflictingPackagesForUserParamSchema =
+  {
+    username: string
+  }
+
 export type t_PackagesListPackagesForAuthenticatedUserQuerySchema = {
   package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  page?: number
+  per_page?: number
   visibility?: "public" | "private" | "internal"
 }
 
@@ -9897,6 +10056,8 @@ export type t_PackagesListPackagesForOrganizationParamSchema = {
 
 export type t_PackagesListPackagesForOrganizationQuerySchema = {
   package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  page?: number
+  per_page?: number
   visibility?: "public" | "private" | "internal"
 }
 
@@ -9906,6 +10067,8 @@ export type t_PackagesListPackagesForUserParamSchema = {
 
 export type t_PackagesListPackagesForUserQuerySchema = {
   package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  page?: number
+  per_page?: number
   visibility?: "public" | "private" | "internal"
 }
 
@@ -10163,6 +10326,7 @@ export type t_PullsCreateBodySchema = {
   body?: string
   draft?: boolean
   head: string
+  head_repo?: string
   issue?: number
   maintainer_can_modify?: boolean
   title?: string
@@ -10215,6 +10379,7 @@ export type t_PullsCreateReviewCommentBodySchema = {
   side?: "LEFT" | "RIGHT"
   start_line?: number
   start_side?: "LEFT" | "RIGHT" | "side"
+  subject_type?: "LINE" | "FILE"
 }
 
 export type t_PullsCreateReviewCommentParamSchema = {
@@ -11490,7 +11655,7 @@ export type t_ReposGetClonesParamSchema = {
 }
 
 export type t_ReposGetClonesQuerySchema = {
-  per?: "" | "day" | "week"
+  per?: "day" | "week"
 }
 
 export type t_ReposGetCodeFrequencyStatsParamSchema = {
@@ -11708,7 +11873,7 @@ export type t_ReposGetViewsParamSchema = {
 }
 
 export type t_ReposGetViewsQuerySchema = {
-  per?: "" | "day" | "week"
+  per?: "day" | "week"
 }
 
 export type t_ReposGetWebhookParamSchema = {
@@ -11807,6 +11972,7 @@ export type t_ReposListCommitsParamSchema = {
 
 export type t_ReposListCommitsQuerySchema = {
   author?: string
+  committer?: string
   page?: number
   path?: string
   per_page?: number
@@ -12540,11 +12706,6 @@ export type t_SecretScanningGetAlertParamSchema = {
   repo: string
 }
 
-export type t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema =
-  {
-    enterprise: string
-  }
-
 export type t_SecretScanningListAlertsForEnterpriseParamSchema = {
   enterprise: string
 }
@@ -12604,29 +12765,6 @@ export type t_SecretScanningListLocationsForAlertQuerySchema = {
   per_page?: number
 }
 
-export type t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema =
-  {
-    advanced_security_enabled_for_new_repositories?: boolean
-    secret_scanning_enabled_for_new_repositories?: boolean
-    secret_scanning_push_protection_custom_link?: string | null
-    secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-  }
-
-export type t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema =
-  {
-    enterprise: string
-  }
-
-export type t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema =
-  {
-    enablement: "enable_all" | "disable_all"
-    enterprise: string
-    security_product:
-      | "advanced_security"
-      | "secret_scanning"
-      | "secret_scanning_push_protection"
-  }
-
 export type t_SecretScanningUpdateAlertBodySchema = {
   resolution?: t_secret_scanning_alert_resolution
   resolution_comment?: t_secret_scanning_alert_resolution_comment
@@ -12635,6 +12773,86 @@ export type t_SecretScanningUpdateAlertBodySchema = {
 
 export type t_SecretScanningUpdateAlertParamSchema = {
   alert_number: t_alert_number
+  owner: string
+  repo: string
+}
+
+export type t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema = {
+  credits?:
+    | {
+        login: string
+        type: t_repository_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  summary: string
+  vulnerabilities: {
+    package: {
+      ecosystem: t_repository_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
+}
+
+export type t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema = {
+  ghsa_id: string
+  owner: string
+  repo: string
+}
+
+export type t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema = {
+  after?: string
+  before?: string
+  direction?: "asc" | "desc"
+  per_page?: number
+  sort?: "created" | "updated" | "published"
+  state?: "triage" | "draft" | "published" | "closed"
+}
+
+export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema = {
+  credits?:
+    | {
+        login: string
+        type: t_repository_advisory_credit_types
+      }[]
+    | null
+  cve_id?: string | null
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description?: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  state?: "published" | "closed" | "draft"
+  summary?: string
+  vulnerabilities?: {
+    package: {
+      ecosystem: t_repository_advisory_ecosystems
+      name?: string | null
+    }
+    patched_versions?: string | null
+    vulnerable_functions?: string[] | null
+    vulnerable_version_range?: string | null
+  }[]
+}
+
+export type t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema = {
+  ghsa_id: string
   owner: string
   repo: string
 }
@@ -12731,6 +12949,7 @@ export type t_TeamsCreateBodySchema = {
   description?: string
   maintainers?: string[]
   name: string
+  notification_setting?: "notifications_enabled" | "notifications_disabled"
   parent_team_id?: number
   permission?: "pull" | "push"
   privacy?: "secret" | "closed"
@@ -13104,6 +13323,7 @@ export type t_TeamsUpdateDiscussionLegacyParamSchema = {
 export type t_TeamsUpdateInOrgBodySchema = {
   description?: string
   name?: string
+  notification_setting?: "notifications_enabled" | "notifications_disabled"
   parent_team_id?: number | null
   permission?: "pull" | "push" | "admin"
   privacy?: "secret" | "closed"
@@ -13132,6 +13352,10 @@ export type t_UsersAddEmailForAuthenticatedUserBodySchema =
     }
   | string[]
   | string
+
+export type t_UsersAddSocialAccountForAuthenticatedUserBodySchema = {
+  account_urls: string[]
+}
 
 export type t_UsersBlockParamSchema = {
   username: string
@@ -13178,6 +13402,10 @@ export type t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema = {
 
 export type t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema = {
   key_id: number
+}
+
+export type t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema = {
+  account_urls: string[]
 }
 
 export type t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema = {
@@ -13285,6 +13513,20 @@ export type t_UsersListPublicKeysForUserQuerySchema = {
 }
 
 export type t_UsersListPublicSshKeysForAuthenticatedUserQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_UsersListSocialAccountsForAuthenticatedUserQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_UsersListSocialAccountsForUserParamSchema = {
+  username: string
+}
+
+export type t_UsersListSocialAccountsForUserQuerySchema = {
   page?: number
   per_page?: number
 }

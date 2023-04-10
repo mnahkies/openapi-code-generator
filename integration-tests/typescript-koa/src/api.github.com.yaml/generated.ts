@@ -10,7 +10,6 @@ import {
   t_ActionsAddSelectedRepoToOrgSecretParamSchema,
   t_ActionsAddSelectedRepoToOrgVariableParamSchema,
   t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema,
-  t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
   t_ActionsApproveWorkflowRunParamSchema,
   t_ActionsCancelWorkflowRunParamSchema,
   t_ActionsCreateEnvironmentVariableBodySchema,
@@ -31,8 +30,6 @@ import {
   t_ActionsCreateRepoVariableParamSchema,
   t_ActionsCreateRequiredWorkflowBodySchema,
   t_ActionsCreateRequiredWorkflowParamSchema,
-  t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema,
-  t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
   t_ActionsCreateWorkflowDispatchBodySchema,
   t_ActionsCreateWorkflowDispatchParamSchema,
   t_ActionsDeleteActionsCacheByIdParamSchema,
@@ -48,7 +45,6 @@ import {
   t_ActionsDeleteRequiredWorkflowParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
-  t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
   t_ActionsDeleteWorkflowRunLogsParamSchema,
   t_ActionsDeleteWorkflowRunParamSchema,
   t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -90,7 +86,6 @@ import {
   t_ActionsGetReviewsForRunParamSchema,
   t_ActionsGetSelfHostedRunnerForOrgParamSchema,
   t_ActionsGetSelfHostedRunnerForRepoParamSchema,
-  t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
   t_ActionsGetWorkflowAccessToRepositoryParamSchema,
   t_ActionsGetWorkflowParamSchema,
   t_ActionsGetWorkflowRunAttemptParamSchema,
@@ -115,8 +110,10 @@ import {
   t_ActionsListOrgSecretsQuerySchema,
   t_ActionsListOrgVariablesParamSchema,
   t_ActionsListOrgVariablesQuerySchema,
-  t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-  t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
+  t_ActionsListRepoOrganizationSecretsParamSchema,
+  t_ActionsListRepoOrganizationSecretsQuerySchema,
+  t_ActionsListRepoOrganizationVariablesParamSchema,
+  t_ActionsListRepoOrganizationVariablesQuerySchema,
   t_ActionsListRepoRequiredWorkflowsParamSchema,
   t_ActionsListRepoRequiredWorkflowsQuerySchema,
   t_ActionsListRepoSecretsParamSchema,
@@ -138,14 +135,10 @@ import {
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
   t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema,
-  t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
-  t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForOrgParamSchema,
   t_ActionsListSelfHostedRunnersForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForRepoParamSchema,
   t_ActionsListSelfHostedRunnersForRepoQuerySchema,
-  t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
-  t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema,
   t_ActionsListWorkflowRunArtifactsParamSchema,
   t_ActionsListWorkflowRunArtifactsQuerySchema,
   t_ActionsListWorkflowRunsForRepoParamSchema,
@@ -162,11 +155,9 @@ import {
   t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
   t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
   t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
-  t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
   t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
-  t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
   t_ActionsReviewPendingDeploymentsForRunBodySchema,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
   t_ActionsSetAllowedActionsOrganizationBodySchema,
@@ -187,8 +178,6 @@ import {
   t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
   t_ActionsSetGithubActionsPermissionsRepositoryBodySchema,
   t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
-  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
-  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsSetSelectedReposForOrgSecretBodySchema,
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
   t_ActionsSetSelectedReposForOrgVariableBodySchema,
@@ -197,8 +186,6 @@ import {
   t_ActionsSetSelectedReposToRequiredWorkflowParamSchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
-  t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema,
-  t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
   t_ActionsSetWorkflowAccessToRepositoryBodySchema,
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
   t_ActionsUpdateEnvironmentVariableBodySchema,
@@ -209,8 +196,6 @@ import {
   t_ActionsUpdateRepoVariableParamSchema,
   t_ActionsUpdateRequiredWorkflowBodySchema,
   t_ActionsUpdateRequiredWorkflowParamSchema,
-  t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
-  t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
   t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
   t_ActivityDeleteRepoSubscriptionParamSchema,
   t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -282,6 +267,7 @@ import {
   t_AppsListAccountsForPlanStubbedQuerySchema,
   t_AppsListInstallationReposForAuthenticatedUserParamSchema,
   t_AppsListInstallationReposForAuthenticatedUserQuerySchema,
+  t_AppsListInstallationRequestsForAuthenticatedAppQuerySchema,
   t_AppsListInstallationsForAuthenticatedUserQuerySchema,
   t_AppsListInstallationsQuerySchema,
   t_AppsListPlansQuerySchema,
@@ -330,6 +316,7 @@ import {
   t_CodeScanningGetAlertParamSchema,
   t_CodeScanningGetAnalysisParamSchema,
   t_CodeScanningGetCodeqlDatabaseParamSchema,
+  t_CodeScanningGetDefaultSetupParamSchema,
   t_CodeScanningGetSarifParamSchema,
   t_CodeScanningListAlertInstancesParamSchema,
   t_CodeScanningListAlertInstancesQuerySchema,
@@ -342,6 +329,8 @@ import {
   t_CodeScanningListRecentAnalysesQuerySchema,
   t_CodeScanningUpdateAlertBodySchema,
   t_CodeScanningUpdateAlertParamSchema,
+  t_CodeScanningUpdateDefaultSetupBodySchema,
+  t_CodeScanningUpdateDefaultSetupParamSchema,
   t_CodeScanningUploadSarifBodySchema,
   t_CodeScanningUploadSarifParamSchema,
   t_CodesOfConductGetConductCodeParamSchema,
@@ -359,6 +348,8 @@ import {
   t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
   t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema,
   t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
+  t_CodespacesDeleteCodespacesBillingUsersBodySchema,
+  t_CodespacesDeleteCodespacesBillingUsersParamSchema,
   t_CodespacesDeleteForAuthenticatedUserParamSchema,
   t_CodespacesDeleteFromOrganizationParamSchema,
   t_CodespacesDeleteOrgSecretParamSchema,
@@ -399,6 +390,8 @@ import {
   t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
   t_CodespacesSetCodespacesBillingBodySchema,
   t_CodespacesSetCodespacesBillingParamSchema,
+  t_CodespacesSetCodespacesBillingUsersBodySchema,
+  t_CodespacesSetCodespacesBillingUsersParamSchema,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
   t_CodespacesSetSelectedReposForOrgSecretBodySchema,
@@ -441,18 +434,7 @@ import {
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
   t_DependencyGraphDiffRangeParamSchema,
   t_DependencyGraphDiffRangeQuerySchema,
-  t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema,
-  t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
-  t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
-  t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema,
-  t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
-  t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
-  t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
-  t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
-  t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
-  t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
-  t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema,
-  t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
+  t_DependencyGraphExportSbomParamSchema,
   t_GistsCheckIsStarredParamSchema,
   t_GistsCreateBodySchema,
   t_GistsCreateCommentBodySchema,
@@ -629,6 +611,7 @@ import {
   t_OrgsCreateInvitationParamSchema,
   t_OrgsCreateWebhookBodySchema,
   t_OrgsCreateWebhookParamSchema,
+  t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
@@ -653,6 +636,14 @@ import {
   t_OrgsListMembershipsForAuthenticatedUserQuerySchema,
   t_OrgsListOutsideCollaboratorsParamSchema,
   t_OrgsListOutsideCollaboratorsQuerySchema,
+  t_OrgsListPatGrantRepositoriesParamSchema,
+  t_OrgsListPatGrantRepositoriesQuerySchema,
+  t_OrgsListPatGrantRequestRepositoriesParamSchema,
+  t_OrgsListPatGrantRequestRepositoriesQuerySchema,
+  t_OrgsListPatGrantRequestsParamSchema,
+  t_OrgsListPatGrantRequestsQuerySchema,
+  t_OrgsListPatGrantsParamSchema,
+  t_OrgsListPatGrantsQuerySchema,
   t_OrgsListPendingInvitationsParamSchema,
   t_OrgsListPendingInvitationsQuerySchema,
   t_OrgsListPublicMembersParamSchema,
@@ -670,6 +661,10 @@ import {
   t_OrgsRemoveOutsideCollaboratorParamSchema,
   t_OrgsRemovePublicMembershipForAuthenticatedUserParamSchema,
   t_OrgsRemoveSecurityManagerTeamParamSchema,
+  t_OrgsReviewPatGrantRequestBodySchema,
+  t_OrgsReviewPatGrantRequestParamSchema,
+  t_OrgsReviewPatGrantRequestsInBulkBodySchema,
+  t_OrgsReviewPatGrantRequestsInBulkParamSchema,
   t_OrgsSetMembershipForUserBodySchema,
   t_OrgsSetMembershipForUserParamSchema,
   t_OrgsSetPublicMembershipForAuthenticatedUserParamSchema,
@@ -678,6 +673,10 @@ import {
   t_OrgsUpdateMembershipForAuthenticatedUserBodySchema,
   t_OrgsUpdateMembershipForAuthenticatedUserParamSchema,
   t_OrgsUpdateParamSchema,
+  t_OrgsUpdatePatAccessBodySchema,
+  t_OrgsUpdatePatAccessParamSchema,
+  t_OrgsUpdatePatAccessesBodySchema,
+  t_OrgsUpdatePatAccessesParamSchema,
   t_OrgsUpdateWebhookBodySchema,
   t_OrgsUpdateWebhookConfigForOrgBodySchema,
   t_OrgsUpdateWebhookConfigForOrgParamSchema,
@@ -699,6 +698,8 @@ import {
   t_PackagesGetPackageVersionForAuthenticatedUserParamSchema,
   t_PackagesGetPackageVersionForOrganizationParamSchema,
   t_PackagesGetPackageVersionForUserParamSchema,
+  t_PackagesListDockerMigrationConflictingPackagesForOrganizationParamSchema,
+  t_PackagesListDockerMigrationConflictingPackagesForUserParamSchema,
   t_PackagesListPackagesForAuthenticatedUserQuerySchema,
   t_PackagesListPackagesForOrganizationParamSchema,
   t_PackagesListPackagesForOrganizationQuerySchema,
@@ -1109,7 +1110,6 @@ import {
   t_SearchTopicsQuerySchema,
   t_SearchUsersQuerySchema,
   t_SecretScanningGetAlertParamSchema,
-  t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
   t_SecretScanningListAlertsForEnterpriseParamSchema,
   t_SecretScanningListAlertsForEnterpriseQuerySchema,
   t_SecretScanningListAlertsForOrgParamSchema,
@@ -1118,11 +1118,15 @@ import {
   t_SecretScanningListAlertsForRepoQuerySchema,
   t_SecretScanningListLocationsForAlertParamSchema,
   t_SecretScanningListLocationsForAlertQuerySchema,
-  t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema,
-  t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
-  t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
   t_SecretScanningUpdateAlertBodySchema,
   t_SecretScanningUpdateAlertParamSchema,
+  t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+  t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema,
+  t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
+  t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
+  t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
   t_TeamsAddMemberLegacyParamSchema,
   t_TeamsAddOrUpdateMembershipForUserInOrgBodySchema,
   t_TeamsAddOrUpdateMembershipForUserInOrgParamSchema,
@@ -1216,6 +1220,7 @@ import {
   t_TeamsUpdateLegacyBodySchema,
   t_TeamsUpdateLegacyParamSchema,
   t_UsersAddEmailForAuthenticatedUserBodySchema,
+  t_UsersAddSocialAccountForAuthenticatedUserBodySchema,
   t_UsersBlockParamSchema,
   t_UsersCheckBlockedParamSchema,
   t_UsersCheckFollowingForUserParamSchema,
@@ -1226,6 +1231,7 @@ import {
   t_UsersDeleteEmailForAuthenticatedUserBodySchema,
   t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
   t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
+  t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema,
   t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
   t_UsersFollowParamSchema,
   t_UsersGetByUsernameParamSchema,
@@ -1250,6 +1256,9 @@ import {
   t_UsersListPublicKeysForUserQuerySchema,
   t_UsersListPublicSshKeysForAuthenticatedUserQuerySchema,
   t_UsersListQuerySchema,
+  t_UsersListSocialAccountsForAuthenticatedUserQuerySchema,
+  t_UsersListSocialAccountsForUserParamSchema,
+  t_UsersListSocialAccountsForUserQuerySchema,
   t_UsersListSshSigningKeysForAuthenticatedUserQuerySchema,
   t_UsersListSshSigningKeysForUserParamSchema,
   t_UsersListSshSigningKeysForUserQuerySchema,
@@ -1332,6 +1341,8 @@ import {
   t_code_scanning_analysis_tool_version,
   t_code_scanning_analysis_url,
   t_code_scanning_codeql_database,
+  t_code_scanning_default_setup,
+  t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_sarifs_receipt,
@@ -1370,6 +1381,7 @@ import {
   t_dependabot_public_key,
   t_dependabot_secret,
   t_dependency_graph_diff,
+  t_dependency_graph_spdx_sbom,
   t_deploy_key,
   t_deployment,
   t_deployment_branch_policy,
@@ -1381,7 +1393,6 @@ import {
   t_email,
   t_empty_object,
   t_enabled_repositories,
-  t_enterprise_security_analysis_settings,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -1407,6 +1418,7 @@ import {
   t_installation,
   t_installation_token,
   t_integration,
+  t_integration_installation_request,
   t_interaction_expiry,
   t_interaction_group,
   t_interaction_limit_response,
@@ -1464,6 +1476,8 @@ import {
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
+  t_organization_programmatic_access_grant,
+  t_organization_programmatic_access_grant_request,
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_package,
@@ -1510,6 +1524,11 @@ import {
   t_repo_required_workflow,
   t_repo_search_result_item,
   t_repository,
+  t_repository_advisory,
+  t_repository_advisory_credit,
+  t_repository_advisory_credit_types,
+  t_repository_advisory_ecosystems,
+  t_repository_advisory_vulnerability,
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_subscription,
@@ -1518,8 +1537,6 @@ import {
   t_root,
   t_runner,
   t_runner_application,
-  t_runner_groups_enterprise,
-  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_search_result_text_matches,
@@ -1541,6 +1558,7 @@ import {
   t_simple_commit_status,
   t_simple_repository,
   t_simple_user,
+  t_social_account,
   t_ssh_signing_key,
   t_starred_repository,
   t_status,
@@ -1631,6 +1649,9 @@ import {
   s_code_scanning_analysis_tool_guid,
   s_code_scanning_analysis_tool_name,
   s_code_scanning_codeql_database,
+  s_code_scanning_default_setup,
+  s_code_scanning_default_setup_update,
+  s_code_scanning_default_setup_update_response,
   s_code_scanning_organization_alert_items,
   s_code_scanning_ref,
   s_code_scanning_sarifs_receipt,
@@ -1666,6 +1687,7 @@ import {
   s_dependabot_public_key,
   s_dependabot_secret,
   s_dependency_graph_diff,
+  s_dependency_graph_spdx_sbom,
   s_deploy_key,
   s_deployment,
   s_deployment_branch_policy,
@@ -1677,7 +1699,6 @@ import {
   s_email,
   s_empty_object,
   s_enabled_repositories,
-  s_enterprise_security_analysis_settings,
   s_environment,
   s_environment_approvals,
   s_event,
@@ -1701,6 +1722,7 @@ import {
   s_installation,
   s_installation_token,
   s_integration,
+  s_integration_installation_request,
   s_interaction_limit,
   s_interaction_limit_response,
   s_issue,
@@ -1732,6 +1754,8 @@ import {
   s_organization_dependabot_secret,
   s_organization_full,
   s_organization_invitation,
+  s_organization_programmatic_access_grant,
+  s_organization_programmatic_access_grant_request,
   s_organization_secret_scanning_alert,
   s_organization_simple,
   s_package,
@@ -1771,6 +1795,9 @@ import {
   s_repo_required_workflow,
   s_repo_search_result_item,
   s_repository,
+  s_repository_advisory,
+  s_repository_advisory_create,
+  s_repository_advisory_update,
   s_repository_collaborator_permission,
   s_repository_invitation,
   s_repository_subscription,
@@ -1779,8 +1806,6 @@ import {
   s_root,
   s_runner,
   s_runner_application,
-  s_runner_groups_enterprise,
-  s_runner_groups_org,
   s_runner_label,
   s_scim_error,
   s_secret_scanning_alert,
@@ -1793,6 +1818,7 @@ import {
   s_short_branch,
   s_simple_user,
   s_snapshot,
+  s_social_account,
   s_ssh_signing_key,
   s_starred_repository,
   s_status,
@@ -1921,6 +1947,19 @@ export type AppsRedeliverWebhookDelivery = (
   | Response<422, t_validation_error>
 >
 
+export type AppsListInstallationRequestsForAuthenticatedApp = (
+  params: Params<
+    void,
+    t_AppsListInstallationRequestsForAuthenticatedAppQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_integration_installation_request[]>
+  | Response<304, void>
+  | Response<401, t_basic_error>
+>
+
 export type AppsListInstallations = (
   params: Params<void, t_AppsListInstallationsQuerySchema, void>,
   ctx: Context
@@ -2040,138 +2079,6 @@ export type EmojisGet = (
   | Response<304, void>
 >
 
-export type EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise = (
-  params: Params<
-    t_EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type EnterpriseAdminListSelfHostedRunnerGroupsForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
-    t_EnterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  Response<
-    200,
-    {
-      runner_groups: t_runner_groups_enterprise[]
-      total_count: number
-    }
-  >
->
-
-export type EnterpriseAdminCreateSelfHostedRunnerGroupForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
-    void,
-    t_EnterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema
-  >,
-  ctx: Context
-) => Promise<Response<201, t_runner_groups_enterprise>>
-
-export type EnterpriseAdminGetSelfHostedRunnerGroupForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<200, t_runner_groups_enterprise>>
-
-export type EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise = (
-  params: Params<
-    t_EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type EnterpriseAdminDeleteSelfHostedRunnerFromEnterprise = (
-  params: Params<
-    t_EnterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type EnterpriseAdminListLabelsForSelfHostedRunnerForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  | Response<
-      200,
-      {
-        labels: t_runner_label[]
-        total_count: number
-      }
-    >
-  | Response<404, t_basic_error>
->
-
-export type EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise = (
-  params: Params<
-    t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
-    void,
-    t_EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema
-  >,
-  ctx: Context
-) => Promise<
-  | Response<
-      200,
-      {
-        labels: t_runner_label[]
-        total_count: number
-      }
-    >
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error_simple>
->
-
-export type SecretScanningGetSecurityAnalysisSettingsForEnterprise = (
-  params: Params<
-    t_SecretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  | Response<200, t_enterprise_security_analysis_settings>
-  | Response<404, t_basic_error>
->
-
-export type SecretScanningPatchSecurityAnalysisSettingsForEnterprise = (
-  params: Params<
-    t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
-    void,
-    | t_SecretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema
-    | undefined
-  >,
-  ctx: Context
-) => Promise<
-  Response<204, void> | Response<404, t_basic_error> | Response<422, void>
->
-
 export type DependabotListAlertsForEnterprise = (
   params: Params<
     t_DependabotListAlertsForEnterpriseParamSchema,
@@ -2205,17 +2112,6 @@ export type SecretScanningListAlertsForEnterprise = (
         message?: string
       }
     >
->
-
-export type SecretScanningPostSecurityProductEnablementForEnterprise = (
-  params: Params<
-    t_SecretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  Response<204, void> | Response<404, t_basic_error> | Response<422, void>
 >
 
 export type ActivityListPublicEvents = (
@@ -2726,6 +2622,134 @@ export type OrgsList = (
   ctx: Context
 ) => Promise<Response<200, t_organization_simple[]> | Response<304, void>>
 
+export type OrgsListPatGrantRequests = (
+  params: Params<
+    t_OrgsListPatGrantRequestsParamSchema,
+    t_OrgsListPatGrantRequestsQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_organization_programmatic_access_grant_request[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsReviewPatGrantRequestsInBulk = (
+  params: Params<
+    t_OrgsReviewPatGrantRequestsInBulkParamSchema,
+    void,
+    t_OrgsReviewPatGrantRequestsInBulkBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<
+      202,
+      {
+        [key: string]: unknown
+      }
+    >
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsReviewPatGrantRequest = (
+  params: Params<
+    t_OrgsReviewPatGrantRequestParamSchema,
+    void,
+    t_OrgsReviewPatGrantRequestBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrantRequestRepositories = (
+  params: Params<
+    t_OrgsListPatGrantRequestRepositoriesParamSchema,
+    t_OrgsListPatGrantRequestRepositoriesQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_minimal_repository[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrants = (
+  params: Params<
+    t_OrgsListPatGrantsParamSchema,
+    t_OrgsListPatGrantsQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_organization_programmatic_access_grant[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsUpdatePatAccesses = (
+  params: Params<
+    t_OrgsUpdatePatAccessesParamSchema,
+    void,
+    t_OrgsUpdatePatAccessesBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<
+      202,
+      {
+        [key: string]: unknown
+      }
+    >
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsUpdatePatAccess = (
+  params: Params<
+    t_OrgsUpdatePatAccessParamSchema,
+    void,
+    t_OrgsUpdatePatAccessBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrantRepositories = (
+  params: Params<
+    t_OrgsListPatGrantRepositoriesParamSchema,
+    t_OrgsListPatGrantRepositoriesQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_minimal_repository[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type OrgsGet = (
   params: Params<t_OrgsGetParamSchema, void, void>,
   ctx: Context
@@ -2742,6 +2766,20 @@ export type OrgsUpdate = (
   | Response<200, t_organization_full>
   | Response<409, t_basic_error>
   | Response<422, t_validation_error | t_validation_error_simple>
+>
+
+export type OrgsDelete = (
+  params: Params<t_OrgsDeleteParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<
+      202,
+      {
+        [key: string]: unknown
+      }
+    >
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
 >
 
 export type ActionsGetActionsCacheUsageForOrg = (
@@ -2877,7 +2915,7 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
     | undefined
   >,
   ctx: Context
-) => Promise<Response<204, void> | Response<409, void>>
+) => Promise<Response<204, void>>
 
 export type ActionsListRequiredWorkflows = (
   params: Params<
@@ -2972,138 +3010,6 @@ export type ActionsRemoveSelectedRepoFromRequiredWorkflow = (
   >,
   ctx: Context
 ) => Promise<Response<204, void> | Response<404, void> | Response<422, void>>
-
-export type ActionsListSelfHostedRunnerGroupsForOrg = (
-  params: Params<
-    t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
-    t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  Response<
-    200,
-    {
-      runner_groups: t_runner_groups_org[]
-      total_count: number
-    }
-  >
->
-
-export type ActionsCreateSelfHostedRunnerGroupForOrg = (
-  params: Params<
-    t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
-    void,
-    t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema
-  >,
-  ctx: Context
-) => Promise<Response<201, t_runner_groups_org>>
-
-export type ActionsGetSelfHostedRunnerGroupForOrg = (
-  params: Params<
-    t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<200, t_runner_groups_org>>
-
-export type ActionsUpdateSelfHostedRunnerGroupForOrg = (
-  params: Params<
-    t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
-    void,
-    t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema
-  >,
-  ctx: Context
-) => Promise<Response<200, t_runner_groups_org>>
-
-export type ActionsDeleteSelfHostedRunnerGroupFromOrg = (
-  params: Params<
-    t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type ActionsListRepoAccessToSelfHostedRunnerGroupInOrg = (
-  params: Params<
-    t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-    t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  Response<
-    200,
-    {
-      repositories: t_minimal_repository[]
-      total_count: number
-    }
-  >
->
-
-export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg = (
-  params: Params<
-    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-    void,
-    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg = (
-  params: Params<
-    t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type ActionsListSelfHostedRunnersInGroupForOrg = (
-  params: Params<
-    t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
-    t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema,
-    void
-  >,
-  ctx: Context
-) => Promise<
-  Response<
-    200,
-    {
-      runners: t_runner[]
-      total_count: number
-    }
-  >
->
-
-export type ActionsSetSelfHostedRunnersInGroupForOrg = (
-  params: Params<
-    t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
-    void,
-    t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type ActionsAddSelfHostedRunnerToGroupForOrg = (
-  params: Params<
-    t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
-
-export type ActionsRemoveSelfHostedRunnerFromGroupForOrg = (
-  params: Params<
-    t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
-    void,
-    void
-  >,
-  ctx: Context
-) => Promise<Response<204, void>>
 
 export type ActionsListSelfHostedRunnersForOrg = (
   params: Params<
@@ -3489,6 +3395,38 @@ export type CodespacesSetCodespacesBilling = (
   | Response<500, t_basic_error>
 >
 
+export type CodespacesSetCodespacesBillingUsers = (
+  params: Params<
+    t_CodespacesSetCodespacesBillingUsersParamSchema,
+    void,
+    t_CodespacesSetCodespacesBillingUsersBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<304, void>
+  | Response<400, void>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type CodespacesDeleteCodespacesBillingUsers = (
+  params: Params<
+    t_CodespacesDeleteCodespacesBillingUsersParamSchema,
+    void,
+    t_CodespacesDeleteCodespacesBillingUsersBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<304, void>
+  | Response<400, void>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
 export type CodespacesListOrgSecrets = (
   params: Params<
     t_CodespacesListOrgSecretsParamSchema,
@@ -3684,6 +3622,19 @@ export type DependabotRemoveSelectedRepoFromOrgSecret = (
   >,
   ctx: Context
 ) => Promise<Response<204, void> | Response<409, void>>
+
+export type PackagesListDockerMigrationConflictingPackagesForOrganization = (
+  params: Params<
+    t_PackagesListDockerMigrationConflictingPackagesForOrganizationParamSchema,
+    void,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_package[]>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+>
 
 export type ActivityListPublicOrgEvents = (
   params: Params<
@@ -4116,6 +4067,7 @@ export type PackagesListPackagesForOrganization = (
   ctx: Context
 ) => Promise<
   | Response<200, t_package[]>
+  | Response<400, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
 >
@@ -5113,6 +5065,40 @@ export type ActionsSetCustomOidcSubClaimForRepo = (
   | Response<400, t_scim_error>
   | Response<404, t_basic_error>
   | Response<422, t_validation_error_simple>
+>
+
+export type ActionsListRepoOrganizationSecrets = (
+  params: Params<
+    t_ActionsListRepoOrganizationSecretsParamSchema,
+    t_ActionsListRepoOrganizationSecretsQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  Response<
+    200,
+    {
+      secrets: t_actions_secret[]
+      total_count: number
+    }
+  >
+>
+
+export type ActionsListRepoOrganizationVariables = (
+  params: Params<
+    t_ActionsListRepoOrganizationVariablesParamSchema,
+    t_ActionsListRepoOrganizationVariablesQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  Response<
+    200,
+    {
+      total_count: number
+      variables: t_actions_variable[]
+    }
+  >
 >
 
 export type ActionsGetGithubActionsPermissionsRepository = (
@@ -6280,6 +6266,46 @@ export type CodeScanningGetCodeqlDatabase = (
     >
 >
 
+export type CodeScanningGetDefaultSetup = (
+  params: Params<t_CodeScanningGetDefaultSetupParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<200, t_code_scanning_default_setup>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type CodeScanningUpdateDefaultSetup = (
+  params: Params<
+    t_CodeScanningUpdateDefaultSetupParamSchema,
+    void,
+    t_CodeScanningUpdateDefaultSetupBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_empty_object>
+  | Response<202, t_code_scanning_default_setup_update_response>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<409, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
 export type CodeScanningUploadSarif = (
   params: Params<
     t_CodeScanningUploadSarifParamSchema,
@@ -6386,6 +6412,7 @@ export type CodespacesListDevcontainersInRepositoryForAuthenticatedUser = (
       200,
       {
         devcontainers: {
+          display_name?: string
           name?: string
           path: string
         }[]
@@ -6899,6 +6926,15 @@ export type DependencyGraphDiffRange = (
   ctx: Context
 ) => Promise<
   | Response<200, t_dependency_graph_diff>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type DependencyGraphExportSbom = (
+  params: Params<t_DependencyGraphExportSbomParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<200, t_dependency_graph_spdx_sbom>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
 >
@@ -8719,6 +8755,60 @@ export type SecretScanningListLocationsForAlert = (
     >
 >
 
+export type SecurityAdvisoriesListRepositoryAdvisories = (
+  params: Params<
+    t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema,
+    t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_advisory[]>
+  | Response<400, t_scim_error>
+  | Response<404, t_basic_error>
+>
+
+export type SecurityAdvisoriesCreateRepositoryAdvisory = (
+  params: Params<
+    t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
+    void,
+    t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<201, t_repository_advisory>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
+export type SecurityAdvisoriesGetRepositoryAdvisory = (
+  params: Params<
+    t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
+    void,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_advisory>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
+  params: Params<
+    t_SecurityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
+    void,
+    t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_advisory>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
 export type ActivityListStargazersForRepo = (
   params: Params<
     t_ActivityListStargazersForRepoParamSchema,
@@ -9853,6 +9943,12 @@ export type CodespacesStopForAuthenticatedUser = (
   | Response<500, t_basic_error>
 >
 
+export type PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser =
+  (
+    params: Params<void, void, void>,
+    ctx: Context
+  ) => Promise<Response<200, t_package[]>>
+
 export type UsersSetPrimaryEmailVisibilityForAuthenticatedUser = (
   params: Params<
     void,
@@ -10363,7 +10459,7 @@ export type PackagesListPackagesForAuthenticatedUser = (
     void
   >,
   ctx: Context
-) => Promise<Response<200, t_package[]>>
+) => Promise<Response<200, t_package[]> | Response<400, void>>
 
 export type PackagesGetPackageForAuthenticatedUser = (
   params: Params<
@@ -10548,6 +10644,53 @@ export type ReposDeclineInvitationForAuthenticatedUser = (
   | Response<409, t_basic_error>
 >
 
+export type UsersListSocialAccountsForAuthenticatedUser = (
+  params: Params<
+    void,
+    t_UsersListSocialAccountsForAuthenticatedUserQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_social_account[]>
+  | Response<304, void>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type UsersAddSocialAccountForAuthenticatedUser = (
+  params: Params<
+    void,
+    void,
+    t_UsersAddSocialAccountForAuthenticatedUserBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<201, t_social_account[]>
+  | Response<304, void>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
+export type UsersDeleteSocialAccountForAuthenticatedUser = (
+  params: Params<
+    void,
+    void,
+    t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<304, void>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
 export type UsersListSshSigningKeysForAuthenticatedUser = (
   params: Params<
     void,
@@ -10700,6 +10843,19 @@ export type UsersGetByUsername = (
   Response<200, t_private_user | t_public_user> | Response<404, t_basic_error>
 >
 
+export type PackagesListDockerMigrationConflictingPackagesForUser = (
+  params: Params<
+    t_PackagesListDockerMigrationConflictingPackagesForUserParamSchema,
+    void,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_package[]>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+>
+
 export type ActivityListEventsForAuthenticatedUser = (
   params: Params<
     t_ActivityListEventsForAuthenticatedUserParamSchema,
@@ -10813,6 +10969,7 @@ export type PackagesListPackagesForUser = (
   ctx: Context
 ) => Promise<
   | Response<200, t_package[]>
+  | Response<400, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
 >
@@ -10936,6 +11093,15 @@ export type BillingGetSharedStorageBillingUser = (
   ctx: Context
 ) => Promise<Response<200, t_combined_billing_usage>>
 
+export type UsersListSocialAccountsForUser = (
+  params: Params<
+    t_UsersListSocialAccountsForUserParamSchema,
+    t_UsersListSocialAccountsForUserQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<Response<200, t_social_account[]>>
+
 export type UsersListSshSigningKeysForUser = (
   params: Params<
     t_UsersListSshSigningKeysForUserParamSchema,
@@ -10989,6 +11155,7 @@ export type Implementation = {
   appsListWebhookDeliveries: AppsListWebhookDeliveries
   appsGetWebhookDelivery: AppsGetWebhookDelivery
   appsRedeliverWebhookDelivery: AppsRedeliverWebhookDelivery
+  appsListInstallationRequestsForAuthenticatedApp: AppsListInstallationRequestsForAuthenticatedApp
   appsListInstallations: AppsListInstallations
   appsGetInstallation: AppsGetInstallation
   appsDeleteInstallation: AppsDeleteInstallation
@@ -11004,20 +11171,8 @@ export type Implementation = {
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   emojisGet: EmojisGet
-  enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise: EnterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise
-  enterpriseAdminListSelfHostedRunnerGroupsForEnterprise: EnterpriseAdminListSelfHostedRunnerGroupsForEnterprise
-  enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise: EnterpriseAdminCreateSelfHostedRunnerGroupForEnterprise
-  enterpriseAdminGetSelfHostedRunnerGroupForEnterprise: EnterpriseAdminGetSelfHostedRunnerGroupForEnterprise
-  enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise: EnterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise
-  enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise: EnterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise
-  enterpriseAdminDeleteSelfHostedRunnerFromEnterprise: EnterpriseAdminDeleteSelfHostedRunnerFromEnterprise
-  enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise: EnterpriseAdminListLabelsForSelfHostedRunnerForEnterprise
-  enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise: EnterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise
-  secretScanningGetSecurityAnalysisSettingsForEnterprise: SecretScanningGetSecurityAnalysisSettingsForEnterprise
-  secretScanningPatchSecurityAnalysisSettingsForEnterprise: SecretScanningPatchSecurityAnalysisSettingsForEnterprise
   dependabotListAlertsForEnterprise: DependabotListAlertsForEnterprise
   secretScanningListAlertsForEnterprise: SecretScanningListAlertsForEnterprise
-  secretScanningPostSecurityProductEnablementForEnterprise: SecretScanningPostSecurityProductEnablementForEnterprise
   activityListPublicEvents: ActivityListPublicEvents
   activityGetFeeds: ActivityGetFeeds
   gistsList: GistsList
@@ -11065,8 +11220,17 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
+  orgsListPatGrantRequests: OrgsListPatGrantRequests
+  orgsReviewPatGrantRequestsInBulk: OrgsReviewPatGrantRequestsInBulk
+  orgsReviewPatGrantRequest: OrgsReviewPatGrantRequest
+  orgsListPatGrantRequestRepositories: OrgsListPatGrantRequestRepositories
+  orgsListPatGrants: OrgsListPatGrants
+  orgsUpdatePatAccesses: OrgsUpdatePatAccesses
+  orgsUpdatePatAccess: OrgsUpdatePatAccess
+  orgsListPatGrantRepositories: OrgsListPatGrantRepositories
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
+  orgsDelete: OrgsDelete
   actionsGetActionsCacheUsageForOrg: ActionsGetActionsCacheUsageForOrg
   actionsGetActionsCacheUsageByRepoForOrg: ActionsGetActionsCacheUsageByRepoForOrg
   oidcGetOidcCustomSubTemplateForOrg: OidcGetOidcCustomSubTemplateForOrg
@@ -11090,18 +11254,6 @@ export type Implementation = {
   actionsSetSelectedReposToRequiredWorkflow: ActionsSetSelectedReposToRequiredWorkflow
   actionsAddSelectedRepoToRequiredWorkflow: ActionsAddSelectedRepoToRequiredWorkflow
   actionsRemoveSelectedRepoFromRequiredWorkflow: ActionsRemoveSelectedRepoFromRequiredWorkflow
-  actionsListSelfHostedRunnerGroupsForOrg: ActionsListSelfHostedRunnerGroupsForOrg
-  actionsCreateSelfHostedRunnerGroupForOrg: ActionsCreateSelfHostedRunnerGroupForOrg
-  actionsGetSelfHostedRunnerGroupForOrg: ActionsGetSelfHostedRunnerGroupForOrg
-  actionsUpdateSelfHostedRunnerGroupForOrg: ActionsUpdateSelfHostedRunnerGroupForOrg
-  actionsDeleteSelfHostedRunnerGroupFromOrg: ActionsDeleteSelfHostedRunnerGroupFromOrg
-  actionsListRepoAccessToSelfHostedRunnerGroupInOrg: ActionsListRepoAccessToSelfHostedRunnerGroupInOrg
-  actionsSetRepoAccessToSelfHostedRunnerGroupInOrg: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg
-  actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg: ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg
-  actionsListSelfHostedRunnersInGroupForOrg: ActionsListSelfHostedRunnersInGroupForOrg
-  actionsSetSelfHostedRunnersInGroupForOrg: ActionsSetSelfHostedRunnersInGroupForOrg
-  actionsAddSelfHostedRunnerToGroupForOrg: ActionsAddSelfHostedRunnerToGroupForOrg
-  actionsRemoveSelfHostedRunnerFromGroupForOrg: ActionsRemoveSelfHostedRunnerFromGroupForOrg
   actionsListSelfHostedRunnersForOrg: ActionsListSelfHostedRunnersForOrg
   actionsListRunnerApplicationsForOrg: ActionsListRunnerApplicationsForOrg
   actionsCreateRegistrationTokenForOrg: ActionsCreateRegistrationTokenForOrg
@@ -11138,6 +11290,8 @@ export type Implementation = {
   codeScanningListAlertsForOrg: CodeScanningListAlertsForOrg
   codespacesListInOrganization: CodespacesListInOrganization
   codespacesSetCodespacesBilling: CodespacesSetCodespacesBilling
+  codespacesSetCodespacesBillingUsers: CodespacesSetCodespacesBillingUsers
+  codespacesDeleteCodespacesBillingUsers: CodespacesDeleteCodespacesBillingUsers
   codespacesListOrgSecrets: CodespacesListOrgSecrets
   codespacesGetOrgPublicKey: CodespacesGetOrgPublicKey
   codespacesGetOrgSecret: CodespacesGetOrgSecret
@@ -11157,6 +11311,7 @@ export type Implementation = {
   dependabotSetSelectedReposForOrgSecret: DependabotSetSelectedReposForOrgSecret
   dependabotAddSelectedRepoToOrgSecret: DependabotAddSelectedRepoToOrgSecret
   dependabotRemoveSelectedRepoFromOrgSecret: DependabotRemoveSelectedRepoFromOrgSecret
+  packagesListDockerMigrationConflictingPackagesForOrganization: PackagesListDockerMigrationConflictingPackagesForOrganization
   activityListPublicOrgEvents: ActivityListPublicOrgEvents
   orgsListFailedInvitations: OrgsListFailedInvitations
   orgsListWebhooks: OrgsListWebhooks
@@ -11297,6 +11452,8 @@ export type Implementation = {
   actionsReRunJobForWorkflowRun: ActionsReRunJobForWorkflowRun
   actionsGetCustomOidcSubClaimForRepo: ActionsGetCustomOidcSubClaimForRepo
   actionsSetCustomOidcSubClaimForRepo: ActionsSetCustomOidcSubClaimForRepo
+  actionsListRepoOrganizationSecrets: ActionsListRepoOrganizationSecrets
+  actionsListRepoOrganizationVariables: ActionsListRepoOrganizationVariables
   actionsGetGithubActionsPermissionsRepository: ActionsGetGithubActionsPermissionsRepository
   actionsSetGithubActionsPermissionsRepository: ActionsSetGithubActionsPermissionsRepository
   actionsGetWorkflowAccessToRepository: ActionsGetWorkflowAccessToRepository
@@ -11415,6 +11572,8 @@ export type Implementation = {
   codeScanningDeleteAnalysis: CodeScanningDeleteAnalysis
   codeScanningListCodeqlDatabases: CodeScanningListCodeqlDatabases
   codeScanningGetCodeqlDatabase: CodeScanningGetCodeqlDatabase
+  codeScanningGetDefaultSetup: CodeScanningGetDefaultSetup
+  codeScanningUpdateDefaultSetup: CodeScanningUpdateDefaultSetup
   codeScanningUploadSarif: CodeScanningUploadSarif
   codeScanningGetSarif: CodeScanningGetSarif
   reposCodeownersErrors: ReposCodeownersErrors
@@ -11465,6 +11624,7 @@ export type Implementation = {
   dependabotCreateOrUpdateRepoSecret: DependabotCreateOrUpdateRepoSecret
   dependabotDeleteRepoSecret: DependabotDeleteRepoSecret
   dependencyGraphDiffRange: DependencyGraphDiffRange
+  dependencyGraphExportSbom: DependencyGraphExportSbom
   dependencyGraphCreateRepositorySnapshot: DependencyGraphCreateRepositorySnapshot
   reposListDeployments: ReposListDeployments
   reposCreateDeployment: ReposCreateDeployment
@@ -11644,6 +11804,10 @@ export type Implementation = {
   secretScanningGetAlert: SecretScanningGetAlert
   secretScanningUpdateAlert: SecretScanningUpdateAlert
   secretScanningListLocationsForAlert: SecretScanningListLocationsForAlert
+  securityAdvisoriesListRepositoryAdvisories: SecurityAdvisoriesListRepositoryAdvisories
+  securityAdvisoriesCreateRepositoryAdvisory: SecurityAdvisoriesCreateRepositoryAdvisory
+  securityAdvisoriesGetRepositoryAdvisory: SecurityAdvisoriesGetRepositoryAdvisory
+  securityAdvisoriesUpdateRepositoryAdvisory: SecurityAdvisoriesUpdateRepositoryAdvisory
   activityListStargazersForRepo: ActivityListStargazersForRepo
   reposGetCodeFrequencyStats: ReposGetCodeFrequencyStats
   reposGetCommitActivityStats: ReposGetCommitActivityStats
@@ -11751,6 +11915,7 @@ export type Implementation = {
   codespacesPublishForAuthenticatedUser: CodespacesPublishForAuthenticatedUser
   codespacesStartForAuthenticatedUser: CodespacesStartForAuthenticatedUser
   codespacesStopForAuthenticatedUser: CodespacesStopForAuthenticatedUser
+  packagesListDockerMigrationConflictingPackagesForAuthenticatedUser: PackagesListDockerMigrationConflictingPackagesForAuthenticatedUser
   usersSetPrimaryEmailVisibilityForAuthenticatedUser: UsersSetPrimaryEmailVisibilityForAuthenticatedUser
   usersListEmailsForAuthenticatedUser: UsersListEmailsForAuthenticatedUser
   usersAddEmailForAuthenticatedUser: UsersAddEmailForAuthenticatedUser
@@ -11804,6 +11969,9 @@ export type Implementation = {
   reposListInvitationsForAuthenticatedUser: ReposListInvitationsForAuthenticatedUser
   reposAcceptInvitationForAuthenticatedUser: ReposAcceptInvitationForAuthenticatedUser
   reposDeclineInvitationForAuthenticatedUser: ReposDeclineInvitationForAuthenticatedUser
+  usersListSocialAccountsForAuthenticatedUser: UsersListSocialAccountsForAuthenticatedUser
+  usersAddSocialAccountForAuthenticatedUser: UsersAddSocialAccountForAuthenticatedUser
+  usersDeleteSocialAccountForAuthenticatedUser: UsersDeleteSocialAccountForAuthenticatedUser
   usersListSshSigningKeysForAuthenticatedUser: UsersListSshSigningKeysForAuthenticatedUser
   usersCreateSshSigningKeyForAuthenticatedUser: UsersCreateSshSigningKeyForAuthenticatedUser
   usersGetSshSigningKeyForAuthenticatedUser: UsersGetSshSigningKeyForAuthenticatedUser
@@ -11816,6 +11984,7 @@ export type Implementation = {
   teamsListForAuthenticatedUser: TeamsListForAuthenticatedUser
   usersList: UsersList
   usersGetByUsername: UsersGetByUsername
+  packagesListDockerMigrationConflictingPackagesForUser: PackagesListDockerMigrationConflictingPackagesForUser
   activityListEventsForAuthenticatedUser: ActivityListEventsForAuthenticatedUser
   activityListOrgEventsForAuthenticatedUser: ActivityListOrgEventsForAuthenticatedUser
   activityListPublicEventsForUser: ActivityListPublicEventsForUser
@@ -11843,6 +12012,7 @@ export type Implementation = {
   billingGetGithubActionsBillingUser: BillingGetGithubActionsBillingUser
   billingGetGithubPackagesBillingUser: BillingGetGithubPackagesBillingUser
   billingGetSharedStorageBillingUser: BillingGetSharedStorageBillingUser
+  usersListSocialAccountsForUser: UsersListSocialAccountsForUser
   usersListSshSigningKeysForUser: UsersListSshSigningKeysForUser
   activityListReposStarredByUser: ActivityListReposStarredByUser
   activityListReposWatchedByUser: ActivityListReposWatchedByUser
@@ -12110,6 +12280,50 @@ export function bootstrap(
         await implementation.appsRedeliverWebhookDelivery(input, ctx)
 
       ctx.body = appsRedeliverWebhookDeliveryResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const appsListInstallationRequestsForAuthenticatedAppQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const appsListInstallationRequestsForAuthenticatedAppResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_integration_installation_request)],
+        ["304", z.void()],
+        ["401", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "appsListInstallationRequestsForAuthenticatedApp",
+    "/app/installation-requests",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          appsListInstallationRequestsForAuthenticatedAppQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.appsListInstallationRequestsForAuthenticatedApp(
+          input,
+          ctx
+        )
+
+      ctx.body =
+        appsListInstallationRequestsForAuthenticatedAppResponseValidator(
+          status,
+          body
+        )
       ctx.status = status
       return next()
     }
@@ -12631,502 +12845,6 @@ export function bootstrap(
     return next()
   })
 
-  const enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string(), org_id: z.coerce.number() })
-
-  const enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise",
-    "/enterprises/:enterprise/actions/permissions/organizations/:orgId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminEnableSelectedOrganizationGithubActionsEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string() })
-
-  const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema =
-    z.object({
-      per_page: z.coerce.number().optional(),
-      page: z.coerce.number().optional(),
-      visible_to_organization: z.coerce.string().optional(),
-    })
-
-  const enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            runner_groups: z.array(s_runner_groups_enterprise),
-          }),
-        ],
-      ],
-      undefined
-    )
-
-  router.get(
-    "enterpriseAdminListSelfHostedRunnerGroupsForEnterprise",
-    "/enterprises/:enterprise/actions/runner-groups",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: parseRequestInput(
-          enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminListSelfHostedRunnerGroupsForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminListSelfHostedRunnerGroupsForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string() })
-
-  const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema =
-    z.object({
-      name: z.coerce.string(),
-      visibility: z.enum(["selected", "all"]).optional(),
-      selected_organization_ids: z.array(z.coerce.number()).optional(),
-      runners: z.array(z.coerce.number()).optional(),
-      allows_public_repositories: z.coerce.boolean().optional(),
-      restricted_to_workflows: z.coerce.boolean().optional(),
-      selected_workflows: z.array(z.coerce.string()).optional(),
-    })
-
-  const enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseResponseValidator =
-    responseValidationFactory([["201", s_runner_groups_enterprise]], undefined)
-
-  router.post(
-    "enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise",
-    "/enterprises/:enterprise/actions/runner-groups",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema =
-    z.object({
-      enterprise: z.coerce.string(),
-      runner_group_id: z.coerce.number(),
-    })
-
-  const enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseResponseValidator =
-    responseValidationFactory([["200", s_runner_groups_enterprise]], undefined)
-
-  router.get(
-    "enterpriseAdminGetSelfHostedRunnerGroupForEnterprise",
-    "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminGetSelfHostedRunnerGroupForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminGetSelfHostedRunnerGroupForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema =
-    z.object({
-      enterprise: z.coerce.string(),
-      runner_group_id: z.coerce.number(),
-      org_id: z.coerce.number(),
-    })
-
-  const enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise",
-    "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/organizations/:orgId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema =
-    z.object({
-      enterprise: z.coerce.string(),
-      runner_group_id: z.coerce.number(),
-      runner_id: z.coerce.number(),
-    })
-
-  const enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise",
-    "/enterprises/:enterprise/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
-
-  const enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "enterpriseAdminDeleteSelfHostedRunnerFromEnterprise",
-    "/enterprises/:enterprise/actions/runners/:runnerId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminDeleteSelfHostedRunnerFromEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminDeleteSelfHostedRunnerFromEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
-
-  const enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            labels: z.array(s_runner_label),
-          }),
-        ],
-        ["404", s_basic_error],
-      ],
-      undefined
-    )
-
-  router.get(
-    "enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise",
-    "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminListLabelsForSelfHostedRunnerForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string(), runner_id: z.coerce.number() })
-
-  const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema =
-    z.object({ labels: z.array(z.coerce.string()) })
-
-  const enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            labels: z.array(s_runner_label),
-          }),
-        ],
-        ["404", s_basic_error],
-        ["422", s_validation_error_simple],
-      ],
-      undefined
-    )
-
-  router.post(
-    "enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise",
-    "/enterprises/:enterprise/actions/runners/:runnerId/labels",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string() })
-
-  const secretScanningGetSecurityAnalysisSettingsForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_enterprise_security_analysis_settings],
-        ["404", s_basic_error],
-      ],
-      undefined
-    )
-
-  router.get(
-    "secretScanningGetSecurityAnalysisSettingsForEnterprise",
-    "/enterprises/:enterprise/code_security_and_analysis",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          secretScanningGetSecurityAnalysisSettingsForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.secretScanningGetSecurityAnalysisSettingsForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        secretScanningGetSecurityAnalysisSettingsForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema =
-    z.object({ enterprise: z.coerce.string() })
-
-  const secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema = z
-    .object({
-      advanced_security_enabled_for_new_repositories: z.coerce
-        .boolean()
-        .optional(),
-      secret_scanning_enabled_for_new_repositories: z.coerce
-        .boolean()
-        .optional(),
-      secret_scanning_push_protection_enabled_for_new_repositories: z.coerce
-        .boolean()
-        .optional(),
-      secret_scanning_push_protection_custom_link: z.coerce
-        .string()
-        .optional()
-        .nullable(),
-    })
-    .optional()
-
-  const secretScanningPatchSecurityAnalysisSettingsForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["404", s_basic_error],
-        ["422", z.void()],
-      ],
-      undefined
-    )
-
-  router.patch(
-    "secretScanningPatchSecurityAnalysisSettingsForEnterprise",
-    "/enterprises/:enterprise/code_security_and_analysis",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          secretScanningPatchSecurityAnalysisSettingsForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.secretScanningPatchSecurityAnalysisSettingsForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        secretScanningPatchSecurityAnalysisSettingsForEnterpriseResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
   const dependabotListAlertsForEnterpriseParamSchema = z.object({
     enterprise: z.coerce.string(),
   })
@@ -13241,56 +12959,6 @@ export function bootstrap(
         status,
         body
       )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const secretScanningPostSecurityProductEnablementForEnterpriseParamSchema =
-    z.object({
-      enterprise: z.coerce.string(),
-      security_product: z.enum([
-        "advanced_security",
-        "secret_scanning",
-        "secret_scanning_push_protection",
-      ]),
-      enablement: z.enum(["enable_all", "disable_all"]),
-    })
-
-  const secretScanningPostSecurityProductEnablementForEnterpriseResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["404", s_basic_error],
-        ["422", z.void()],
-      ],
-      undefined
-    )
-
-  router.post(
-    "secretScanningPostSecurityProductEnablementForEnterprise",
-    "/enterprises/:enterprise/:securityProduct/:enablement",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          secretScanningPostSecurityProductEnablementForEnterpriseParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.secretScanningPostSecurityProductEnablementForEnterprise(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        secretScanningPostSecurityProductEnablementForEnterpriseResponseValidator(
-          status,
-          body
-        )
       ctx.status = status
       return next()
     }
@@ -14903,6 +14571,380 @@ export function bootstrap(
     return next()
   })
 
+  const orgsListPatGrantRequestsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const orgsListPatGrantRequestsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+    sort: z.enum(["created_at"]).optional(),
+    direction: z.enum(["asc", "desc"]).optional(),
+    owner: z.array(z.coerce.string()).optional(),
+    repository: z.coerce.string().optional(),
+    permission: z.coerce.string().optional(),
+    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
+    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+  })
+
+  const orgsListPatGrantRequestsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_organization_programmatic_access_grant_request)],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "orgsListPatGrantRequests",
+    "/organizations/:org/personal-access-token-requests",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRequestsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRequestsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListPatGrantRequests(
+        input,
+        ctx
+      )
+
+      ctx.body = orgsListPatGrantRequestsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsReviewPatGrantRequestsInBulkParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
+    pat_request_ids: z.array(z.coerce.number()).optional(),
+    action: z.enum(["approve", "deny"]),
+    reason: z.coerce.string().optional().nullable(),
+  })
+
+  const orgsReviewPatGrantRequestsInBulkResponseValidator =
+    responseValidationFactory(
+      [
+        ["202", z.object({})],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.post(
+    "orgsReviewPatGrantRequestsInBulk",
+    "/organizations/:org/personal-access-token-requests",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsReviewPatGrantRequestsInBulkParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsReviewPatGrantRequestsInBulkBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.orgsReviewPatGrantRequestsInBulk(input, ctx)
+
+      ctx.body = orgsReviewPatGrantRequestsInBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsReviewPatGrantRequestParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_request_id: z.coerce.number(),
+  })
+
+  const orgsReviewPatGrantRequestBodySchema = z.object({
+    action: z.enum(["approve", "deny"]),
+    reason: z.coerce.string().optional().nullable(),
+  })
+
+  const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.post(
+    "orgsReviewPatGrantRequest",
+    "/organizations/:org/personal-access-token-requests/:patRequestId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsReviewPatGrantRequestParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsReviewPatGrantRequestBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.orgsReviewPatGrantRequest(
+        input,
+        ctx
+      )
+
+      ctx.body = orgsReviewPatGrantRequestResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsListPatGrantRequestRepositoriesParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_request_id: z.coerce.number(),
+  })
+
+  const orgsListPatGrantRequestRepositoriesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const orgsListPatGrantRequestRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_minimal_repository)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "orgsListPatGrantRequestRepositories",
+    "/organizations/:org/personal-access-token-requests/:patRequestId/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRequestRepositoriesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRequestRepositoriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.orgsListPatGrantRequestRepositories(input, ctx)
+
+      ctx.body = orgsListPatGrantRequestRepositoriesResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsListPatGrantsParamSchema = z.object({ org: z.coerce.string() })
+
+  const orgsListPatGrantsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+    sort: z.enum(["created_at"]).optional(),
+    direction: z.enum(["asc", "desc"]).optional(),
+    owner: z.array(z.coerce.string()).optional(),
+    repository: z.coerce.string().optional(),
+    permission: z.coerce.string().optional(),
+    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
+    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+  })
+
+  const orgsListPatGrantsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_organization_programmatic_access_grant)],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "orgsListPatGrants",
+    "/organizations/:org/personal-access-tokens",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsListPatGrantsParamSchema, ctx.params),
+        query: parseRequestInput(orgsListPatGrantsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListPatGrants(
+        input,
+        ctx
+      )
+
+      ctx.body = orgsListPatGrantsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsUpdatePatAccessesParamSchema = z.object({ org: z.coerce.string() })
+
+  const orgsUpdatePatAccessesBodySchema = z.object({
+    action: z.enum(["revoke"]),
+    pat_ids: z.array(z.coerce.number()),
+  })
+
+  const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
+    [
+      ["202", z.object({})],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.post(
+    "orgsUpdatePatAccesses",
+    "/organizations/:org/personal-access-tokens",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsUpdatePatAccessesParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdatePatAccessesBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.orgsUpdatePatAccesses(
+        input,
+        ctx
+      )
+
+      ctx.body = orgsUpdatePatAccessesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsUpdatePatAccessParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_id: z.coerce.number(),
+  })
+
+  const orgsUpdatePatAccessBodySchema = z.object({ action: z.enum(["revoke"]) })
+
+  const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.post(
+    "orgsUpdatePatAccess",
+    "/organizations/:org/personal-access-tokens/:patId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsUpdatePatAccessParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdatePatAccessBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.orgsUpdatePatAccess(
+        input,
+        ctx
+      )
+
+      ctx.body = orgsUpdatePatAccessResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const orgsListPatGrantRepositoriesParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_id: z.coerce.number(),
+  })
+
+  const orgsListPatGrantRepositoriesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const orgsListPatGrantRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_minimal_repository)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "orgsListPatGrantRepositories",
+    "/organizations/:org/personal-access-tokens/:patId/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRepositoriesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRepositoriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.orgsListPatGrantRepositories(input, ctx)
+
+      ctx.body = orgsListPatGrantRepositoriesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
   const orgsGetParamSchema = z.object({ org: z.coerce.string() })
 
   const orgsGetResponseValidator = responseValidationFactory(
@@ -15000,6 +15042,31 @@ export function bootstrap(
     const { status, body } = await implementation.orgsUpdate(input, ctx)
 
     ctx.body = orgsUpdateResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const orgsDeleteParamSchema = z.object({ org: z.coerce.string() })
+
+  const orgsDeleteResponseValidator = responseValidationFactory(
+    [
+      ["202", z.object({})],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.delete("orgsDelete", "/orgs/:org", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(orgsDeleteParamSchema, ctx.params),
+      query: undefined,
+      body: undefined,
+    }
+
+    const { status, body } = await implementation.orgsDelete(input, ctx)
+
+    ctx.body = orgsDeleteResponseValidator(status, body)
     ctx.status = status
     return next()
   })
@@ -15531,13 +15598,7 @@ export function bootstrap(
     s_actions_set_default_workflow_permissions
 
   const actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["409", z.void()],
-      ],
-      undefined
-    )
+    responseValidationFactory([["204", z.void()]], undefined)
 
   router.put(
     "actionsSetGithubActionsDefaultWorkflowPermissionsOrganization",
@@ -15946,531 +16007,6 @@ export function bootstrap(
         )
 
       ctx.body = actionsRemoveSelectedRepoFromRequiredWorkflowResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsListSelfHostedRunnerGroupsForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const actionsListSelfHostedRunnerGroupsForOrgQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    visible_to_repository: z.coerce.string().optional(),
-  })
-
-  const actionsListSelfHostedRunnerGroupsForOrgResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            runner_groups: z.array(s_runner_groups_org),
-          }),
-        ],
-      ],
-      undefined
-    )
-
-  router.get(
-    "actionsListSelfHostedRunnerGroupsForOrg",
-    "/orgs/:org/actions/runner-groups",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListSelfHostedRunnerGroupsForOrgParamSchema,
-          ctx.params
-        ),
-        query: parseRequestInput(
-          actionsListSelfHostedRunnerGroupsForOrgQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListSelfHostedRunnerGroupsForOrg(input, ctx)
-
-      ctx.body = actionsListSelfHostedRunnerGroupsForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsCreateSelfHostedRunnerGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
-    name: z.coerce.string(),
-    visibility: z.enum(["selected", "all", "private"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-    runners: z.array(z.coerce.number()).optional(),
-    allows_public_repositories: z.coerce.boolean().optional(),
-    restricted_to_workflows: z.coerce.boolean().optional(),
-    selected_workflows: z.array(z.coerce.string()).optional(),
-  })
-
-  const actionsCreateSelfHostedRunnerGroupForOrgResponseValidator =
-    responseValidationFactory([["201", s_runner_groups_org]], undefined)
-
-  router.post(
-    "actionsCreateSelfHostedRunnerGroupForOrg",
-    "/orgs/:org/actions/runner-groups",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsCreateSelfHostedRunnerGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsCreateSelfHostedRunnerGroupForOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsCreateSelfHostedRunnerGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsGetSelfHostedRunnerGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsGetSelfHostedRunnerGroupForOrgResponseValidator =
-    responseValidationFactory([["200", s_runner_groups_org]], undefined)
-
-  router.get(
-    "actionsGetSelfHostedRunnerGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsGetSelfHostedRunnerGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsGetSelfHostedRunnerGroupForOrg(input, ctx)
-
-      ctx.body = actionsGetSelfHostedRunnerGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsUpdateSelfHostedRunnerGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = z.object({
-    name: z.coerce.string(),
-    visibility: z.enum(["selected", "all", "private"]).optional(),
-    allows_public_repositories: z.coerce.boolean().optional(),
-    restricted_to_workflows: z.coerce.boolean().optional(),
-    selected_workflows: z.array(z.coerce.string()).optional(),
-  })
-
-  const actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator =
-    responseValidationFactory([["200", s_runner_groups_org]], undefined)
-
-  router.patch(
-    "actionsUpdateSelfHostedRunnerGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsUpdateSelfHostedRunnerGroupForOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsDeleteSelfHostedRunnerGroupFromOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "actionsDeleteSelfHostedRunnerGroupFromOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsDeleteSelfHostedRunnerGroupFromOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsDeleteSelfHostedRunnerGroupFromOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object(
-    { org: z.coerce.string(), runner_group_id: z.coerce.number() }
-  )
-
-  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = z.object(
-    {
-      page: z.coerce.number().optional(),
-      per_page: z.coerce.number().optional(),
-    }
-  )
-
-  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            repositories: z.array(s_minimal_repository),
-          }),
-        ],
-      ],
-      undefined
-    )
-
-  router.get(
-    "actionsListRepoAccessToSelfHostedRunnerGroupInOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-          ctx.params
-        ),
-        query: parseRequestInput(
-          actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        actionsListRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
-
-  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema =
-    z.object({
-      org: z.coerce.string(),
-      runner_group_id: z.coerce.number(),
-      repository_id: z.coerce.number(),
-    })
-
-  const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/repositories/:repositoryId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
-          input,
-          ctx
-        )
-
-      ctx.body =
-        actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
-          status,
-          body
-        )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsListSelfHostedRunnersInGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsListSelfHostedRunnersInGroupForOrgQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-  })
-
-  const actionsListSelfHostedRunnersInGroupForOrgResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            runners: z.array(s_runner),
-          }),
-        ],
-      ],
-      undefined
-    )
-
-  router.get(
-    "actionsListSelfHostedRunnersInGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListSelfHostedRunnersInGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: parseRequestInput(
-          actionsListSelfHostedRunnersInGroupForOrgQuerySchema,
-          ctx.query
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListSelfHostedRunnersInGroupForOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsListSelfHostedRunnersInGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsSetSelfHostedRunnersInGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-  })
-
-  const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = z.object({
-    runners: z.array(z.coerce.number()),
-  })
-
-  const actionsSetSelfHostedRunnersInGroupForOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "actionsSetSelfHostedRunnersInGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/runners",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsSetSelfHostedRunnersInGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
-          ctx.request.body
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsSetSelfHostedRunnersInGroupForOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsSetSelfHostedRunnersInGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsAddSelfHostedRunnerToGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-    runner_id: z.coerce.number(),
-  })
-
-  const actionsAddSelfHostedRunnerToGroupForOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "actionsAddSelfHostedRunnerToGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsAddSelfHostedRunnerToGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsAddSelfHostedRunnerToGroupForOrg(input, ctx)
-
-      ctx.body = actionsAddSelfHostedRunnerToGroupForOrgResponseValidator(
-        status,
-        body
-      )
-      ctx.status = status
-      return next()
-    }
-  )
-
-  const actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = z.object({
-    org: z.coerce.string(),
-    runner_group_id: z.coerce.number(),
-    runner_id: z.coerce.number(),
-  })
-
-  const actionsRemoveSelfHostedRunnerFromGroupForOrgResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "actionsRemoveSelfHostedRunnerFromGroupForOrg",
-    "/orgs/:org/actions/runner-groups/:runnerGroupId/runners/:runnerId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
-          ctx.params
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsRemoveSelfHostedRunnerFromGroupForOrg(
-          input,
-          ctx
-        )
-
-      ctx.body = actionsRemoveSelfHostedRunnerFromGroupForOrgResponseValidator(
         status,
         body
       )
@@ -17971,6 +17507,104 @@ export function bootstrap(
     }
   )
 
+  const codespacesSetCodespacesBillingUsersParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const codespacesSetCodespacesBillingUsersBodySchema = z.object({
+    selected_usernames: z.array(z.coerce.string()),
+  })
+
+  const codespacesSetCodespacesBillingUsersResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.void()],
+        ["304", z.void()],
+        ["400", z.void()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.post(
+    "codespacesSetCodespacesBillingUsers",
+    "/orgs/:org/codespaces/billing/selected_users",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesSetCodespacesBillingUsersParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesSetCodespacesBillingUsersBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.codespacesSetCodespacesBillingUsers(input, ctx)
+
+      ctx.body = codespacesSetCodespacesBillingUsersResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const codespacesDeleteCodespacesBillingUsersParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const codespacesDeleteCodespacesBillingUsersBodySchema = z.object({
+    selected_usernames: z.array(z.coerce.string()),
+  })
+
+  const codespacesDeleteCodespacesBillingUsersResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.void()],
+        ["304", z.void()],
+        ["400", z.void()],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.delete(
+    "codespacesDeleteCodespacesBillingUsers",
+    "/orgs/:org/codespaces/billing/selected_users",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codespacesDeleteCodespacesBillingUsersParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codespacesDeleteCodespacesBillingUsersBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.codespacesDeleteCodespacesBillingUsers(input, ctx)
+
+      ctx.body = codespacesDeleteCodespacesBillingUsersResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const codespacesListOrgSecretsParamSchema = z.object({
     org: z.coerce.string(),
   })
@@ -18794,6 +18428,48 @@ export function bootstrap(
     }
   )
 
+  const packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema =
+    z.object({ org: z.coerce.string() })
+
+  const packagesListDockerMigrationConflictingPackagesForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_package)],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "packagesListDockerMigrationConflictingPackagesForOrganization",
+    "/orgs/:org/docker/conflicts",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          packagesListDockerMigrationConflictingPackagesForOrganizationParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.packagesListDockerMigrationConflictingPackagesForOrganization(
+          input,
+          ctx
+        )
+
+      ctx.body =
+        packagesListDockerMigrationConflictingPackagesForOrganizationResponseValidator(
+          status,
+          body
+        )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const activityListPublicOrgEventsParamSchema = z.object({
     org: z.coerce.string(),
   })
@@ -19486,6 +19162,16 @@ export function bootstrap(
   const orgsListPendingInvitationsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
+    role: z
+      .enum([
+        "all",
+        "admin",
+        "direct_member",
+        "billing_manager",
+        "hiring_manager",
+      ])
+      .optional(),
+    invitation_source: z.enum(["all", "member", "scim"]).optional(),
   })
 
   const orgsListPendingInvitationsResponseValidator = responseValidationFactory(
@@ -20464,12 +20150,15 @@ export function bootstrap(
       "container",
     ]),
     visibility: z.enum(["public", "private", "internal"]).optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
   })
 
   const packagesListPackagesForOrganizationResponseValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_package)],
+        ["400", z.void()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -21452,6 +21141,9 @@ export function bootstrap(
     maintainers: z.array(z.coerce.string()).optional(),
     repo_names: z.array(z.coerce.string()).optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
+    notification_setting: z
+      .enum(["notifications_enabled", "notifications_disabled"])
+      .optional(),
     permission: z.enum(["pull", "push"]).optional(),
     parent_team_id: z.coerce.number().optional(),
   })
@@ -21520,6 +21212,9 @@ export function bootstrap(
       name: z.coerce.string().optional(),
       description: z.coerce.string().optional(),
       privacy: z.enum(["secret", "closed"]).optional(),
+      notification_setting: z
+        .enum(["notifications_enabled", "notifications_disabled"])
+        .optional(),
       permission: z.enum(["pull", "push", "admin"]).optional(),
       parent_team_id: z.coerce.number().optional().nullable(),
     })
@@ -22840,6 +22535,7 @@ export function bootstrap(
       "dependabot_alerts",
       "dependabot_security_updates",
       "advanced_security",
+      "code_scanning_default_setup",
       "secret_scanning",
       "secret_scanning_push_protection",
     ]),
@@ -24174,7 +23870,7 @@ export function bootstrap(
   const actionsGetActionsCacheListQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
-    ref: s_code_scanning_ref,
+    ref: z.coerce.string().optional(),
     key: z.coerce.string().optional(),
     sort: z
       .enum(["created_at", "last_accessed_at", "size_in_bytes"])
@@ -24221,7 +23917,7 @@ export function bootstrap(
 
   const actionsDeleteActionsCacheByKeyQuerySchema = z.object({
     key: z.coerce.string(),
-    ref: s_code_scanning_ref,
+    ref: z.coerce.string().optional(),
   })
 
   const actionsDeleteActionsCacheByKeyResponseValidator =
@@ -24440,7 +24136,10 @@ export function bootstrap(
     repo: z.coerce.string(),
   })
 
-  const actionsSetCustomOidcSubClaimForRepoBodySchema = s_oidc_custom_sub_repo
+  const actionsSetCustomOidcSubClaimForRepoBodySchema = z.object({
+    use_default: z.coerce.boolean(),
+    include_claim_keys: z.array(z.coerce.string()).optional(),
+  })
 
   const actionsSetCustomOidcSubClaimForRepoResponseValidator =
     responseValidationFactory(
@@ -24473,6 +24172,110 @@ export function bootstrap(
         await implementation.actionsSetCustomOidcSubClaimForRepo(input, ctx)
 
       ctx.body = actionsSetCustomOidcSubClaimForRepoResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const actionsListRepoOrganizationSecretsParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const actionsListRepoOrganizationSecretsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const actionsListRepoOrganizationSecretsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            secrets: z.array(s_actions_secret),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.get(
+    "actionsListRepoOrganizationSecrets",
+    "/repos/:owner/:repo/actions/organization-secrets",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoOrganizationSecretsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoOrganizationSecretsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.actionsListRepoOrganizationSecrets(input, ctx)
+
+      ctx.body = actionsListRepoOrganizationSecretsResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const actionsListRepoOrganizationVariablesParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const actionsListRepoOrganizationVariablesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const actionsListRepoOrganizationVariablesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            variables: z.array(s_actions_variable),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.get(
+    "actionsListRepoOrganizationVariables",
+    "/repos/:owner/:repo/actions/organization-variables",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoOrganizationVariablesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          actionsListRepoOrganizationVariablesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.actionsListRepoOrganizationVariables(input, ctx)
+
+      ctx.body = actionsListRepoOrganizationVariablesResponseValidator(
         status,
         body
       )
@@ -24820,6 +24623,7 @@ export function bootstrap(
         "queued",
         "requested",
         "waiting",
+        "pending",
       ])
       .optional(),
     per_page: z.coerce.number().optional(),
@@ -25381,6 +25185,7 @@ export function bootstrap(
         "queued",
         "requested",
         "waiting",
+        "pending",
       ])
       .optional(),
     per_page: z.coerce.number().optional(),
@@ -26711,6 +26516,7 @@ export function bootstrap(
         "queued",
         "requested",
         "waiting",
+        "pending",
       ])
       .optional(),
     per_page: z.coerce.number().optional(),
@@ -29531,6 +29337,106 @@ export function bootstrap(
     }
   )
 
+  const codeScanningGetDefaultSetupParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const codeScanningGetDefaultSetupResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_scanning_default_setup],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.coerce.string().optional(),
+            message: z.coerce.string().optional(),
+            documentation_url: z.coerce.string().optional(),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.get(
+    "codeScanningGetDefaultSetup",
+    "/repos/:owner/:repo/code-scanning/default-setup",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningGetDefaultSetupParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.codeScanningGetDefaultSetup(
+        input,
+        ctx
+      )
+
+      ctx.body = codeScanningGetDefaultSetupResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const codeScanningUpdateDefaultSetupParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const codeScanningUpdateDefaultSetupBodySchema =
+    s_code_scanning_default_setup_update
+
+  const codeScanningUpdateDefaultSetupResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_empty_object],
+        ["202", s_code_scanning_default_setup_update_response],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.coerce.string().optional(),
+            message: z.coerce.string().optional(),
+            documentation_url: z.coerce.string().optional(),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.patch(
+    "codeScanningUpdateDefaultSetup",
+    "/repos/:owner/:repo/code-scanning/default-setup",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningUpdateDefaultSetupParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeScanningUpdateDefaultSetupBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.codeScanningUpdateDefaultSetup(input, ctx)
+
+      ctx.body = codeScanningUpdateDefaultSetupResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
   const codeScanningUploadSarifParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -29826,6 +29732,7 @@ export function bootstrap(
               z.object({
                 path: z.coerce.string(),
                 name: z.coerce.string().optional(),
+                display_name: z.coerce.string().optional(),
               })
             ),
           }),
@@ -30708,6 +30615,7 @@ export function bootstrap(
     sha: z.coerce.string().optional(),
     path: z.coerce.string().optional(),
     author: z.coerce.string().optional(),
+    committer: z.coerce.string().optional(),
     since: z.coerce.string().datetime({ offset: true }).optional(),
     until: z.coerce.string().datetime({ offset: true }).optional(),
     per_page: z.coerce.number().optional(),
@@ -31842,6 +31750,44 @@ export function bootstrap(
       )
 
       ctx.body = dependencyGraphDiffRangeResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const dependencyGraphExportSbomParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const dependencyGraphExportSbomResponseValidator = responseValidationFactory(
+    [
+      ["200", s_dependency_graph_spdx_sbom],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "dependencyGraphExportSbom",
+    "/repos/:owner/:repo/dependency-graph/sbom",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          dependencyGraphExportSbomParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.dependencyGraphExportSbom(
+        input,
+        ctx
+      )
+
+      ctx.body = dependencyGraphExportSbomResponseValidator(status, body)
       ctx.status = status
       return next()
     }
@@ -37056,6 +37002,7 @@ export function bootstrap(
   const pullsCreateBodySchema = z.object({
     title: z.coerce.string().optional(),
     head: z.coerce.string(),
+    head_repo: z.coerce.string().optional(),
     base: z.coerce.string(),
     body: z.coerce.string().optional(),
     maintainer_can_modify: z.coerce.boolean().optional(),
@@ -37618,6 +37565,7 @@ export function bootstrap(
     start_line: z.coerce.number().optional(),
     start_side: z.enum(["LEFT", "RIGHT", "side"]).optional(),
     in_reply_to: z.coerce.number().optional(),
+    subject_type: z.enum(["LINE", "FILE"]).optional(),
   })
 
   const pullsCreateReviewCommentResponseValidator = responseValidationFactory(
@@ -39327,6 +39275,203 @@ export function bootstrap(
     }
   )
 
+  const securityAdvisoriesListRepositoryAdvisoriesParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const securityAdvisoriesListRepositoryAdvisoriesQuerySchema = z.object({
+    direction: z.enum(["asc", "desc"]).optional(),
+    sort: z.enum(["created", "updated", "published"]).optional(),
+    before: z.coerce.string().optional(),
+    after: z.coerce.string().optional(),
+    per_page: z.coerce.number().optional(),
+    state: z.enum(["triage", "draft", "published", "closed"]).optional(),
+  })
+
+  const securityAdvisoriesListRepositoryAdvisoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_repository_advisory)],
+        ["400", s_scim_error],
+        ["404", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "securityAdvisoriesListRepositoryAdvisories",
+    "/repos/:owner/:repo/security-advisories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesListRepositoryAdvisoriesParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          securityAdvisoriesListRepositoryAdvisoriesQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesListRepositoryAdvisories(
+          input,
+          ctx
+        )
+
+      ctx.body = securityAdvisoriesListRepositoryAdvisoriesResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const securityAdvisoriesCreateRepositoryAdvisoryParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const securityAdvisoriesCreateRepositoryAdvisoryBodySchema =
+    s_repository_advisory_create
+
+  const securityAdvisoriesCreateRepositoryAdvisoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_repository_advisory],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined
+    )
+
+  router.post(
+    "securityAdvisoriesCreateRepositoryAdvisory",
+    "/repos/:owner/:repo/security-advisories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesCreateRepositoryAdvisoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          securityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesCreateRepositoryAdvisory(
+          input,
+          ctx
+        )
+
+      ctx.body = securityAdvisoriesCreateRepositoryAdvisoryResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const securityAdvisoriesGetRepositoryAdvisoryParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    ghsa_id: z.coerce.string(),
+  })
+
+  const securityAdvisoriesGetRepositoryAdvisoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_repository_advisory],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "securityAdvisoriesGetRepositoryAdvisory",
+    "/repos/:owner/:repo/security-advisories/:ghsaId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesGetRepositoryAdvisoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesGetRepositoryAdvisory(input, ctx)
+
+      ctx.body = securityAdvisoriesGetRepositoryAdvisoryResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const securityAdvisoriesUpdateRepositoryAdvisoryParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    ghsa_id: z.coerce.string(),
+  })
+
+  const securityAdvisoriesUpdateRepositoryAdvisoryBodySchema =
+    s_repository_advisory_update
+
+  const securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_repository_advisory],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined
+    )
+
+  router.patch(
+    "securityAdvisoriesUpdateRepositoryAdvisory",
+    "/repos/:owner/:repo/security-advisories/:ghsaId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesUpdateRepositoryAdvisoryParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          securityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesUpdateRepositoryAdvisory(
+          input,
+          ctx
+        )
+
+      ctx.body = securityAdvisoriesUpdateRepositoryAdvisoryResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const activityListStargazersForRepoParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -40060,7 +40205,7 @@ export function bootstrap(
   })
 
   const reposGetClonesQuerySchema = z.object({
-    per: z.enum(["", "day", "week"]).optional(),
+    per: z.enum(["day", "week"]).optional(),
   })
 
   const reposGetClonesResponseValidator = responseValidationFactory(
@@ -40160,7 +40305,7 @@ export function bootstrap(
   })
 
   const reposGetViewsQuerySchema = z.object({
-    per: z.enum(["", "day", "week"]).optional(),
+    per: z.enum(["day", "week"]).optional(),
   })
 
   const reposGetViewsResponseValidator = responseValidationFactory(
@@ -40735,8 +40880,8 @@ export function bootstrap(
 
   const actionsUpdateEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
     name: z.coerce.string(),
+    environment_name: z.coerce.string(),
   })
 
   const actionsUpdateEnvironmentVariableBodySchema = z.object({
@@ -40774,8 +40919,8 @@ export function bootstrap(
 
   const actionsDeleteEnvironmentVariableParamSchema = z.object({
     repository_id: z.coerce.number(),
-    environment_name: z.coerce.string(),
     name: z.coerce.string(),
+    environment_name: z.coerce.string(),
   })
 
   const actionsDeleteEnvironmentVariableResponseValidator =
@@ -42937,7 +43082,7 @@ export function bootstrap(
     {
       encrypted_value: z.coerce.string().optional(),
       key_id: z.coerce.string(),
-      selected_repository_ids: z.array(z.coerce.string()).optional(),
+      selected_repository_ids: z.array(z.object({})).optional(),
     }
   )
 
@@ -43615,6 +43760,35 @@ export function bootstrap(
         status,
         body
       )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const packagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponseValidator =
+    responseValidationFactory([["200", z.array(s_package)]], undefined)
+
+  router.get(
+    "packagesListDockerMigrationConflictingPackagesForAuthenticatedUser",
+    "/user/docker/conflicts",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
+          input,
+          ctx
+        )
+
+      ctx.body =
+        packagesListDockerMigrationConflictingPackagesForAuthenticatedUserResponseValidator(
+          status,
+          body
+        )
       ctx.status = status
       return next()
     }
@@ -45259,10 +45433,18 @@ export function bootstrap(
       "container",
     ]),
     visibility: z.enum(["public", "private", "internal"]).optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
   })
 
   const packagesListPackagesForAuthenticatedUserResponseValidator =
-    responseValidationFactory([["200", z.array(s_package)]], undefined)
+    responseValidationFactory(
+      [
+        ["200", z.array(s_package)],
+        ["400", z.void()],
+      ],
+      undefined
+    )
 
   router.get(
     "packagesListPackagesForAuthenticatedUser",
@@ -45988,6 +46170,141 @@ export function bootstrap(
     }
   )
 
+  const usersListSocialAccountsForAuthenticatedUserQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const usersListSocialAccountsForAuthenticatedUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_social_account)],
+        ["304", z.void()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "usersListSocialAccountsForAuthenticatedUser",
+    "/user/social_accounts",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          usersListSocialAccountsForAuthenticatedUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.usersListSocialAccountsForAuthenticatedUser(
+          input,
+          ctx
+        )
+
+      ctx.body = usersListSocialAccountsForAuthenticatedUserResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const usersAddSocialAccountForAuthenticatedUserBodySchema = z.object({
+    account_urls: z.array(z.coerce.string()),
+  })
+
+  const usersAddSocialAccountForAuthenticatedUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", z.array(s_social_account)],
+        ["304", z.void()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined
+    )
+
+  router.post(
+    "usersAddSocialAccountForAuthenticatedUser",
+    "/user/social_accounts",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersAddSocialAccountForAuthenticatedUserBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.usersAddSocialAccountForAuthenticatedUser(
+          input,
+          ctx
+        )
+
+      ctx.body = usersAddSocialAccountForAuthenticatedUserResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const usersDeleteSocialAccountForAuthenticatedUserBodySchema = z.object({
+    account_urls: z.array(z.coerce.string()),
+  })
+
+  const usersDeleteSocialAccountForAuthenticatedUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.void()],
+        ["304", z.void()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined
+    )
+
+  router.delete(
+    "usersDeleteSocialAccountForAuthenticatedUser",
+    "/user/social_accounts",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          usersDeleteSocialAccountForAuthenticatedUserBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.usersDeleteSocialAccountForAuthenticatedUser(
+          input,
+          ctx
+        )
+
+      ctx.body = usersDeleteSocialAccountForAuthenticatedUserResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const usersListSshSigningKeysForAuthenticatedUserQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
@@ -46477,6 +46794,48 @@ export function bootstrap(
     return next()
   })
 
+  const packagesListDockerMigrationConflictingPackagesForUserParamSchema =
+    z.object({ username: z.coerce.string() })
+
+  const packagesListDockerMigrationConflictingPackagesForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_package)],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined
+    )
+
+  router.get(
+    "packagesListDockerMigrationConflictingPackagesForUser",
+    "/users/:username/docker/conflicts",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          packagesListDockerMigrationConflictingPackagesForUserParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.packagesListDockerMigrationConflictingPackagesForUser(
+          input,
+          ctx
+        )
+
+      ctx.body =
+        packagesListDockerMigrationConflictingPackagesForUserResponseValidator(
+          status,
+          body
+        )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const activityListEventsForAuthenticatedUserParamSchema = z.object({
     username: z.coerce.string(),
   })
@@ -46947,12 +47306,15 @@ export function bootstrap(
       "container",
     ]),
     visibility: z.enum(["public", "private", "internal"]).optional(),
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
   })
 
   const packagesListPackagesForUserResponseValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_package)],
+        ["400", z.void()],
         ["401", s_basic_error],
         ["403", s_basic_error],
       ],
@@ -47563,6 +47925,43 @@ export function bootstrap(
         status,
         body
       )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const usersListSocialAccountsForUserParamSchema = z.object({
+    username: z.coerce.string(),
+  })
+
+  const usersListSocialAccountsForUserQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const usersListSocialAccountsForUserResponseValidator =
+    responseValidationFactory([["200", z.array(s_social_account)]], undefined)
+
+  router.get(
+    "usersListSocialAccountsForUser",
+    "/users/:username/social_accounts",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersListSocialAccountsForUserParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          usersListSocialAccountsForUserQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.usersListSocialAccountsForUser(input, ctx)
+
+      ctx.body = usersListSocialAccountsForUserResponseValidator(status, body)
       ctx.status = status
       return next()
     }
