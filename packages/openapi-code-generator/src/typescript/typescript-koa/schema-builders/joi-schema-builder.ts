@@ -53,6 +53,13 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     throw new Error("Method not implemented.")
   }
 
+  protected nullable(schema: string): string {
+    return [
+      schema,
+      "allow(null)",
+    ].join(".")
+  }
+
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.joi,

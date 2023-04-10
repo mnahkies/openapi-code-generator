@@ -13,7 +13,7 @@ describe("joi-schema-builder", () => {
 
     it("handles an optional value", () => {
       const actual = builder
-        .fromModel({type: "string", nullable: true, readOnly: false}, false)
+        .fromModel({type: "string", nullable: false, readOnly: false}, false)
 
       const expected = "joi.string()"
       expect(actual).toBe(expected)
@@ -21,7 +21,7 @@ describe("joi-schema-builder", () => {
 
     it("handles a required value", () => {
       const actual = builder
-        .fromModel({type: "string", nullable: true, readOnly: false}, true)
+        .fromModel({type: "string", nullable: false, readOnly: false}, true)
 
       const expected = "joi.string().required()"
       expect(actual).toBe(expected)
@@ -32,7 +32,7 @@ describe("joi-schema-builder", () => {
 
     it("handles an optional value", () => {
       const actual = builder
-        .fromModel({type: "number", nullable: true, readOnly: false}, false)
+        .fromModel({type: "number", nullable: false, readOnly: false}, false)
 
       const expected = "joi.number()"
       expect(actual).toBe(expected)
@@ -40,7 +40,7 @@ describe("joi-schema-builder", () => {
 
     it("handles a required value", () => {
       const actual = builder
-        .fromModel({type: "number", nullable: true, readOnly: false}, true)
+        .fromModel({type: "number", nullable: false, readOnly: false}, true)
 
       const expected = "joi.number().required()"
       expect(actual).toBe(expected)

@@ -88,36 +88,47 @@ export abstract class AbstractSchemaBuilder {
 
     const model = this.input.schema(maybeModel)
 
+    let result: string
+
     switch (model.type) {
       case "string":
-        return this.string(model, required)
+        result = this.string(model, required)
+        break
       case "number":
-        return this.number(required)
+        result = this.number(required)
+        break
       case "boolean":
-        return this.boolean(required)
+        result = this.boolean(required)
+        break
       case "array":
-        return this.array([
+        result = this.array([
           this.fromModel(this.input.schema(model.items), true),
         ], required)
+        break
       case "object":
 
         if (model.allOf.length) {
-          return this.intersect(model.allOf.map(it => this.fromModel(it, true)))
+          result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
+        } else if (model.oneOf.length) {
+          result = this.union(model.oneOf.map(it => this.fromModel(it, true)))
+        } else {
+          result = this.object(
+            Object.fromEntries(
+              Object.entries(model.properties)
+                .map(([key, value]) => {
+                  return [key, this.fromModel(this.input.schema(value), model.required.includes(key))]
+                }),
+            ), required,
+          )
         }
-
-        if (model.oneOf.length) {
-          return this.union(model.oneOf.map(it => this.fromModel(it, true)))
-        }
-
-        return this.object(
-          Object.fromEntries(
-            Object.entries(model.properties)
-              .map(([key, value]) => {
-                return [key, this.fromModel(this.input.schema(value), model.required.includes(key))]
-              }),
-          ), required,
-        )
+        break
     }
+
+    if (model.nullable) {
+      return this.nullable(result)
+    }
+
+    return result
   }
 
   public abstract any(): string
@@ -127,6 +138,8 @@ export abstract class AbstractSchemaBuilder {
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
+
+  protected abstract nullable(schema: string): string
 
   protected abstract object(keys: Record<string, string>, required: boolean): string
 

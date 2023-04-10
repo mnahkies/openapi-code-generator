@@ -1,4 +1,4 @@
-openapi: "3.1.0"
+openapi: "3.0.0"
 info:
   title: unit-test-inputs
   version: '0.0.1'
@@ -11,6 +11,7 @@ components:
         - num
         - date
         - datetime
+        - required_nullable
       properties:
         str:
           type: string
@@ -24,7 +25,17 @@ components:
           format: date-time
         optional_str:
           type: string
-
+        required_nullable:
+          type: string
+          nullable: true
+    NamedNullableStringEnum:
+      type: string
+      nullable: true
+      enum:
+        - ''
+        - one
+        - two
+        - three
     ObjectWithRefs:
       required:
         - requiredObject
