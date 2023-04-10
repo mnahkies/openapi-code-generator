@@ -29,6 +29,7 @@ import {
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
 import { Context } from "koa"
+import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -162,7 +163,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(updateTodoListByIdParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(updateTodoListByIdBodySchema, ctx.body),
+      body: parseRequestInput(updateTodoListByIdBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.updateTodoListById(input, ctx)

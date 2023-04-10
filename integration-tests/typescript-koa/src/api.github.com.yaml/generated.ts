@@ -1775,6 +1775,7 @@ import {
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
 import { Context } from "koa"
+import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -11919,7 +11920,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           appsUpdateWebhookConfigForAppBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -12333,7 +12334,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           appsCreateInstallationAccessTokenBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -12447,7 +12448,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(appsDeleteAuthorizationBodySchema, ctx.body),
+        body: parseRequestInput(
+          appsDeleteAuthorizationBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.appsDeleteAuthorization(
@@ -12481,7 +12485,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(appsCheckTokenParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(appsCheckTokenBodySchema, ctx.body),
+        body: parseRequestInput(appsCheckTokenBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.appsCheckToken(input, ctx)
@@ -12511,7 +12515,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(appsResetTokenParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(appsResetTokenBodySchema, ctx.body),
+        body: parseRequestInput(appsResetTokenBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.appsResetToken(input, ctx)
@@ -12543,7 +12547,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(appsDeleteTokenParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(appsDeleteTokenBodySchema, ctx.body),
+        body: parseRequestInput(appsDeleteTokenBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.appsDeleteToken(input, ctx)
@@ -12619,7 +12623,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(appsScopeTokenParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(appsScopeTokenBodySchema, ctx.body),
+        body: parseRequestInput(appsScopeTokenBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.appsScopeToken(input, ctx)
@@ -12888,7 +12892,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           enterpriseAdminCreateSelfHostedRunnerGroupForEnterpriseBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -13152,7 +13156,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterpriseBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -13253,7 +13257,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           secretScanningPatchSecurityAnalysisSettingsForEnterpriseBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -14690,7 +14694,7 @@ export function bootstrap(
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(gistsCreateBodySchema, ctx.body),
+      body: parseRequestInput(gistsCreateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.gistsCreate(input, ctx)
@@ -14963,7 +14967,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(gistsUpdateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(gistsUpdateBodySchema, ctx.body),
+      body: parseRequestInput(gistsUpdateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.gistsUpdate(input, ctx)
@@ -15103,7 +15107,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gistsCreateCommentParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gistsCreateCommentBodySchema, ctx.body),
+        body: parseRequestInput(gistsCreateCommentBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gistsCreateComment(
@@ -15185,7 +15189,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gistsUpdateCommentParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gistsUpdateCommentBodySchema, ctx.body),
+        body: parseRequestInput(gistsUpdateCommentBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gistsUpdateComment(
@@ -16845,7 +16849,7 @@ export function bootstrap(
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(markdownRenderBodySchema, ctx.body),
+      body: parseRequestInput(markdownRenderBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.markdownRender(input, ctx)
@@ -16869,7 +16873,7 @@ export function bootstrap(
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(markdownRenderRawBodySchema, ctx.body),
+      body: parseRequestInput(markdownRenderRawBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.markdownRenderRaw(input, ctx)
@@ -18355,7 +18359,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           activityMarkNotificationsAsReadBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -18515,7 +18519,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           activitySetThreadSubscriptionBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -18724,7 +18728,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(orgsUpdateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(orgsUpdateBodySchema, ctx.body),
+      body: parseRequestInput(orgsUpdateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.orgsUpdate(input, ctx)
@@ -18886,7 +18890,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           oidcUpdateOidcCustomSubTemplateForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -18965,7 +18969,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsOrganizationBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -19361,7 +19365,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -19504,7 +19508,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsOrganizationBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -19585,7 +19589,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsOrganizationBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -19859,7 +19863,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateRequiredWorkflowBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -19939,7 +19943,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsUpdateRequiredWorkflowBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -20355,7 +20359,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposToRequiredWorkflowBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -20560,7 +20564,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -20640,7 +20644,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -20939,7 +20943,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -21092,7 +21096,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -21518,7 +21522,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -21581,7 +21585,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -21856,7 +21860,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -22142,7 +22146,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -22319,7 +22323,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(actionsCreateOrgVariableBodySchema, ctx.body),
+        body: parseRequestInput(
+          actionsCreateOrgVariableBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.actionsCreateOrgVariable(
@@ -22391,7 +22398,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(actionsUpdateOrgVariableBodySchema, ctx.body),
+        body: parseRequestInput(
+          actionsUpdateOrgVariableBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.actionsUpdateOrgVariable(
@@ -22685,7 +22695,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetSelectedReposForOrgVariableBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -23542,7 +23552,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesSetCodespacesBillingBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -23714,7 +23724,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -24014,7 +24024,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesSetSelectedReposForOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -24505,7 +24515,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -24794,7 +24804,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           dependabotSetSelectedReposForOrgSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -25846,7 +25856,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(orgsCreateWebhookParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.body),
+      body: parseRequestInput(orgsCreateWebhookBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.orgsCreateWebhook(input, ctx)
@@ -25924,7 +25934,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(orgsUpdateWebhookParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(orgsUpdateWebhookBodySchema, ctx.body),
+        body: parseRequestInput(orgsUpdateWebhookBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.orgsUpdateWebhook(
@@ -26035,7 +26045,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsUpdateWebhookConfigForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -26452,7 +26462,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -26611,7 +26621,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(orgsCreateInvitationParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(orgsCreateInvitationBodySchema, ctx.body),
+        body: parseRequestInput(
+          orgsCreateInvitationBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.orgsCreateInvitation(
@@ -27970,7 +27983,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(orgsSetMembershipForUserBodySchema, ctx.body),
+        body: parseRequestInput(
+          orgsSetMembershipForUserBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.orgsSetMembershipForUser(
@@ -28435,7 +28451,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(migrationsStartForOrgParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(migrationsStartForOrgBodySchema, ctx.body),
+        body: parseRequestInput(
+          migrationsStartForOrgBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.migrationsStartForOrg(
@@ -28907,7 +28926,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsConvertMemberToOutsideCollaboratorBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -29721,7 +29740,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsCreateForOrgParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsCreateForOrgBodySchema, ctx.body),
+        body: parseRequestInput(
+          projectsCreateForOrgBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.projectsCreateForOrg(
@@ -30148,7 +30170,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(reposCreateInOrgParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(reposCreateInOrgBodySchema, ctx.body),
+      body: parseRequestInput(reposCreateInOrgBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.reposCreateInOrg(input, ctx)
@@ -30688,7 +30710,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(teamsCreateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(teamsCreateBodySchema, ctx.body),
+      body: parseRequestInput(teamsCreateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.teamsCreate(input, ctx)
@@ -30762,7 +30784,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(teamsUpdateInOrgParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(teamsUpdateInOrgBodySchema, ctx.body),
+        body: parseRequestInput(teamsUpdateInOrgBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.teamsUpdateInOrg(input, ctx)
@@ -30932,7 +30954,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(teamsCreateDiscussionInOrgBodySchema, ctx.body),
+        body: parseRequestInput(
+          teamsCreateDiscussionInOrgBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.teamsCreateDiscussionInOrg(
@@ -31009,7 +31034,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(teamsUpdateDiscussionInOrgBodySchema, ctx.body),
+        body: parseRequestInput(
+          teamsUpdateDiscussionInOrgBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.teamsUpdateDiscussionInOrg(
@@ -31182,7 +31210,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -31256,7 +31284,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -31453,7 +31481,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -31649,7 +31677,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -31915,7 +31943,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -32137,7 +32165,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -32451,7 +32479,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsInOrgBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -32688,7 +32716,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsUpdateCardParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsUpdateCardBodySchema, ctx.body),
+        body: parseRequestInput(projectsUpdateCardBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.projectsUpdateCard(
@@ -32800,7 +32828,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsMoveCardParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsMoveCardBodySchema, ctx.body),
+        body: parseRequestInput(projectsMoveCardBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.projectsMoveCard(input, ctx)
@@ -32870,7 +32898,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsUpdateColumnParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsUpdateColumnBodySchema, ctx.body),
+        body: parseRequestInput(
+          projectsUpdateColumnBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.projectsUpdateColumn(
@@ -33047,7 +33078,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsCreateCardParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsCreateCardBodySchema, ctx.body),
+        body: parseRequestInput(projectsCreateCardBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.projectsCreateCard(
@@ -33085,7 +33116,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsMoveColumnParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsMoveColumnBodySchema, ctx.body),
+        body: parseRequestInput(projectsMoveColumnBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.projectsMoveColumn(
@@ -33163,7 +33194,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(projectsUpdateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(projectsUpdateBodySchema, ctx.body),
+      body: parseRequestInput(projectsUpdateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.projectsUpdate(input, ctx)
@@ -33315,7 +33346,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(projectsAddCollaboratorBodySchema, ctx.body),
+        body: parseRequestInput(
+          projectsAddCollaboratorBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.projectsAddCollaborator(
@@ -33488,7 +33522,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsCreateColumnParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsCreateColumnBodySchema, ctx.body),
+        body: parseRequestInput(
+          projectsCreateColumnBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.projectsCreateColumn(
@@ -33922,7 +33959,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(reposUpdateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(reposUpdateBodySchema, ctx.body),
+      body: parseRequestInput(reposUpdateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.reposUpdate(input, ctx)
@@ -34394,7 +34431,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsReRunJobForWorkflowRunBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -34477,7 +34514,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomOidcSubClaimForRepoBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -34557,7 +34594,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsPermissionsRepositoryBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -34635,7 +34672,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetWorkflowAccessToRepositoryBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -34706,7 +34743,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetAllowedActionsRepositoryBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -34787,7 +34824,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetGithubActionsDefaultWorkflowPermissionsRepositoryBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -35685,7 +35722,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -35749,7 +35786,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsSetCustomLabelsForSelfHostedRunnerForRepoBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -37258,7 +37295,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsReviewPendingDeploymentsForRunBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -37296,7 +37333,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(actionsReRunWorkflowParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(actionsReRunWorkflowBodySchema, ctx.body),
+        body: parseRequestInput(
+          actionsReRunWorkflowBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.actionsReRunWorkflow(
@@ -37335,7 +37375,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsReRunWorkflowFailedJobsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -37534,7 +37574,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateRepoSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -37664,7 +37704,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(actionsCreateRepoVariableBodySchema, ctx.body),
+        body: parseRequestInput(
+          actionsCreateRepoVariableBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.actionsCreateRepoVariable(
@@ -37739,7 +37782,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(actionsUpdateRepoVariableBodySchema, ctx.body),
+        body: parseRequestInput(
+          actionsUpdateRepoVariableBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.actionsUpdateRepoVariable(
@@ -37954,7 +38000,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateWorkflowDispatchBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -38739,7 +38785,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateAutolinkParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateAutolinkBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateAutolinkBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateAutolink(
@@ -39504,7 +39553,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateBranchProtectionBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -39750,7 +39799,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdatePullRequestReviewProtectionBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40006,7 +40055,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateStatusCheckProtectionBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40121,7 +40170,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposAddStatusCheckContextsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40169,7 +40218,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposSetStatusCheckContextsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40217,7 +40266,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposRemoveStatusCheckContextsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40473,7 +40522,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposAddAppAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40569,7 +40618,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposSetAppAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40665,7 +40714,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposRemoveAppAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40833,7 +40882,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposAddTeamAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -40918,7 +40967,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposSetTeamAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -41003,7 +41052,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposRemoveTeamAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -41148,7 +41197,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposAddUserAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -41220,7 +41269,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposSetUserAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -41292,7 +41341,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposRemoveUserAccessRestrictionsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -41333,7 +41382,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposRenameBranchParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposRenameBranchBodySchema, ctx.body),
+        body: parseRequestInput(reposRenameBranchBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposRenameBranch(
@@ -41369,7 +41418,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(checksCreateParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(checksCreateBodySchema, ctx.body),
+        body: parseRequestInput(checksCreateBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.checksCreate(input, ctx)
@@ -41488,7 +41537,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(checksUpdateParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(checksUpdateBodySchema, ctx.body),
+        body: parseRequestInput(checksUpdateBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.checksUpdate(input, ctx)
@@ -41613,7 +41662,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(checksCreateSuiteParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(checksCreateSuiteBodySchema, ctx.body),
+        body: parseRequestInput(checksCreateSuiteBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.checksCreateSuite(
@@ -41655,7 +41704,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(checksSetSuitesPreferencesBodySchema, ctx.body),
+        body: parseRequestInput(
+          checksSetSuitesPreferencesBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.checksSetSuitesPreferences(
@@ -42184,7 +42236,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(codeScanningUpdateAlertBodySchema, ctx.body),
+        body: parseRequestInput(
+          codeScanningUpdateAlertBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.codeScanningUpdateAlert(
@@ -42642,7 +42697,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(codeScanningUploadSarifBodySchema, ctx.body),
+        body: parseRequestInput(
+          codeScanningUploadSarifBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.codeScanningUploadSarif(
@@ -43139,7 +43197,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithRepoForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -43538,7 +43596,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateRepoSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -43736,7 +43794,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposAddCollaboratorParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposAddCollaboratorBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposAddCollaboratorBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposAddCollaborator(
@@ -43995,7 +44056,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposUpdateCommitCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposUpdateCommitCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposUpdateCommitComment(
@@ -44187,7 +44251,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForCommitCommentBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -44589,7 +44653,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreateCommitCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateCommitCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateCommitComment(
@@ -46470,7 +46537,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateFileContentsBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -46532,7 +46599,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposDeleteFileParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposDeleteFileBodySchema, ctx.body),
+        body: parseRequestInput(reposDeleteFileBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposDeleteFile(input, ctx)
@@ -46856,7 +46923,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(dependabotUpdateAlertParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(dependabotUpdateAlertBodySchema, ctx.body),
+        body: parseRequestInput(
+          dependabotUpdateAlertBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.dependabotUpdateAlert(
@@ -47027,7 +47097,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           dependabotCreateOrUpdateRepoSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -47159,7 +47229,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           dependencyGraphCreateRepositorySnapshotBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -47345,7 +47415,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateDeploymentParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateDeploymentBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateDeploymentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateDeployment(
@@ -47621,7 +47694,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentStatusBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -47703,7 +47776,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreateDispatchEventBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateDispatchEventBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateDispatchEvent(
@@ -47862,7 +47938,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateOrUpdateEnvironmentBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -48000,7 +48076,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateDeploymentBranchPolicyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -48073,7 +48149,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateDeploymentBranchPolicyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -49119,7 +49195,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateForkParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateForkBodySchema, ctx.body),
+        body: parseRequestInput(reposCreateForkBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposCreateFork(input, ctx)
@@ -49158,7 +49234,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitCreateBlobParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitCreateBlobBodySchema, ctx.body),
+        body: parseRequestInput(gitCreateBlobBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitCreateBlob(input, ctx)
@@ -49245,7 +49321,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitCreateCommitParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitCreateCommitBodySchema, ctx.body),
+        body: parseRequestInput(gitCreateCommitBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitCreateCommit(input, ctx)
@@ -49394,7 +49470,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitCreateRefParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitCreateRefBodySchema, ctx.body),
+        body: parseRequestInput(gitCreateRefBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitCreateRef(input, ctx)
@@ -49431,7 +49507,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitUpdateRefParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitUpdateRefBodySchema, ctx.body),
+        body: parseRequestInput(gitUpdateRefBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitUpdateRef(input, ctx)
@@ -49508,7 +49584,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitCreateTagParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitCreateTagBodySchema, ctx.body),
+        body: parseRequestInput(gitCreateTagBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitCreateTag(input, ctx)
@@ -49588,7 +49664,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(gitCreateTreeParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(gitCreateTreeBodySchema, ctx.body),
+        body: parseRequestInput(gitCreateTreeBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.gitCreateTree(input, ctx)
@@ -49749,7 +49825,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateWebhookParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateWebhookBodySchema, ctx.body),
+        body: parseRequestInput(reposCreateWebhookBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposCreateWebhook(
@@ -49834,7 +49910,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposUpdateWebhookParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposUpdateWebhookBodySchema, ctx.body),
+        body: parseRequestInput(reposUpdateWebhookBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposUpdateWebhook(
@@ -49944,7 +50020,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateWebhookConfigForRepoBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -50236,7 +50312,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(migrationsStartImportParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(migrationsStartImportBodySchema, ctx.body),
+        body: parseRequestInput(
+          migrationsStartImportBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.migrationsStartImport(
@@ -50282,7 +50361,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(migrationsUpdateImportBodySchema, ctx.body),
+        body: parseRequestInput(
+          migrationsUpdateImportBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.migrationsUpdateImport(
@@ -50424,7 +50506,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(migrationsMapCommitAuthorBodySchema, ctx.body),
+        body: parseRequestInput(
+          migrationsMapCommitAuthorBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.migrationsMapCommitAuthor(
@@ -50513,7 +50598,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(migrationsSetLfsPreferenceBodySchema, ctx.body),
+        body: parseRequestInput(
+          migrationsSetLfsPreferenceBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.migrationsSetLfsPreference(
@@ -50626,7 +50714,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForRepoBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -50972,7 +51060,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposUpdateInvitationParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposUpdateInvitationBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposUpdateInvitationBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposUpdateInvitation(
@@ -51689,7 +51780,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesCreateParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesCreateBodySchema, ctx.body),
+        body: parseRequestInput(issuesCreateBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesCreate(input, ctx)
@@ -51916,7 +52007,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesUpdateCommentParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesUpdateCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          issuesUpdateCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.issuesUpdateComment(
@@ -52102,7 +52196,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForIssueCommentBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -53146,7 +53240,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesUpdateParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesUpdateBodySchema, ctx.body),
+        body: parseRequestInput(issuesUpdateBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesUpdate(input, ctx)
@@ -53179,7 +53273,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesAddAssigneesParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesAddAssigneesBodySchema, ctx.body),
+        body: parseRequestInput(issuesAddAssigneesBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesAddAssignees(
@@ -53215,7 +53309,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesRemoveAssigneesParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesRemoveAssigneesBodySchema, ctx.body),
+        body: parseRequestInput(
+          issuesRemoveAssigneesBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.issuesRemoveAssignees(
@@ -53450,7 +53547,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesCreateCommentParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesCreateCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          issuesCreateCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.issuesCreateComment(
@@ -53606,7 +53706,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesAddLabelsParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesAddLabelsBodySchema, ctx.body),
+        body: parseRequestInput(issuesAddLabelsBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesAddLabels(input, ctx)
@@ -53664,7 +53764,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesSetLabelsParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesSetLabelsBodySchema, ctx.body),
+        body: parseRequestInput(issuesSetLabelsBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesSetLabels(input, ctx)
@@ -53795,7 +53895,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesLockParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesLockBodySchema, ctx.body),
+        body: parseRequestInput(issuesLockBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesLock(input, ctx)
@@ -53972,7 +54072,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reactionsCreateForIssueBodySchema, ctx.body),
+        body: parseRequestInput(
+          reactionsCreateForIssueBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reactionsCreateForIssue(
@@ -54149,7 +54252,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateDeployKeyParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateDeployKeyBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateDeployKeyBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateDeployKey(
@@ -54312,7 +54418,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesCreateLabelParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesCreateLabelBodySchema, ctx.body),
+        body: parseRequestInput(issuesCreateLabelBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesCreateLabel(
@@ -54384,7 +54490,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesUpdateLabelParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesUpdateLabelBodySchema, ctx.body),
+        body: parseRequestInput(issuesUpdateLabelBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.issuesUpdateLabel(
@@ -54583,7 +54689,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposMergeUpstreamParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposMergeUpstreamBodySchema, ctx.body),
+        body: parseRequestInput(reposMergeUpstreamBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposMergeUpstream(
@@ -54624,7 +54730,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(reposMergeParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(reposMergeBodySchema, ctx.body),
+      body: parseRequestInput(reposMergeBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.reposMerge(input, ctx)
@@ -54748,7 +54854,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesCreateMilestoneParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesCreateMilestoneBodySchema, ctx.body),
+        body: parseRequestInput(
+          issuesCreateMilestoneBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.issuesCreateMilestone(
@@ -54824,7 +54933,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(issuesUpdateMilestoneParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(issuesUpdateMilestoneBodySchema, ctx.body),
+        body: parseRequestInput(
+          issuesUpdateMilestoneBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.issuesUpdateMilestone(
@@ -55204,7 +55316,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           activityMarkRepoNotificationsAsReadBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -55282,7 +55394,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreatePagesSiteParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreatePagesSiteBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreatePagesSiteBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreatePagesSite(
@@ -55331,7 +55446,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposUpdateInformationAboutPagesSiteBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -55589,7 +55704,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreatePagesDeploymentBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreatePagesDeploymentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreatePagesDeployment(
@@ -55761,7 +55879,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(projectsCreateForRepoParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(projectsCreateForRepoBodySchema, ctx.body),
+        body: parseRequestInput(
+          projectsCreateForRepoBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.projectsCreateForRepo(
@@ -56766,7 +56887,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(pullsCreateParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(pullsCreateBodySchema, ctx.body),
+      body: parseRequestInput(pullsCreateBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.pullsCreate(input, ctx)
@@ -56964,7 +57085,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(pullsUpdateReviewCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          pullsUpdateReviewCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.pullsUpdateReviewComment(
@@ -57162,7 +57286,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForPullRequestReviewCommentBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -57290,7 +57414,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsUpdateParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsUpdateBodySchema, ctx.body),
+        body: parseRequestInput(pullsUpdateBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsUpdate(input, ctx)
@@ -57351,7 +57475,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateWithPrForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -57534,7 +57658,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(pullsCreateReviewCommentBodySchema, ctx.body),
+        body: parseRequestInput(
+          pullsCreateReviewCommentBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.pullsCreateReviewComment(
@@ -57580,7 +57707,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           pullsCreateReplyForReviewCommentBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -57904,7 +58031,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsMergeParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsMergeBodySchema, ctx.body),
+        body: parseRequestInput(pullsMergeBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsMerge(input, ctx)
@@ -57980,7 +58107,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsRequestReviewersParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsRequestReviewersBodySchema, ctx.body),
+        body: parseRequestInput(
+          pullsRequestReviewersBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.pullsRequestReviewers(
@@ -58026,7 +58156,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           pullsRemoveRequestedReviewersBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -58174,7 +58304,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsCreateReviewParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsCreateReviewBodySchema, ctx.body),
+        body: parseRequestInput(pullsCreateReviewBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsCreateReview(
@@ -58245,7 +58375,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsUpdateReviewParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsUpdateReviewBodySchema, ctx.body),
+        body: parseRequestInput(pullsUpdateReviewBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsUpdateReview(
@@ -58456,7 +58586,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsDismissReviewParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsDismissReviewBodySchema, ctx.body),
+        body: parseRequestInput(pullsDismissReviewBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsDismissReview(
@@ -58499,7 +58629,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsSubmitReviewParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsSubmitReviewBodySchema, ctx.body),
+        body: parseRequestInput(pullsSubmitReviewBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsSubmitReview(
@@ -58545,7 +58675,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(pullsUpdateBranchParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(pullsUpdateBranchBodySchema, ctx.body),
+        body: parseRequestInput(pullsUpdateBranchBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.pullsUpdateBranch(
@@ -58815,7 +58945,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposCreateReleaseParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposCreateReleaseBodySchema, ctx.body),
+        body: parseRequestInput(reposCreateReleaseBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposCreateRelease(
@@ -58894,7 +59024,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposUpdateReleaseAssetBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposUpdateReleaseAssetBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposUpdateReleaseAsset(
@@ -58973,7 +59106,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposGenerateReleaseNotesBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposGenerateReleaseNotesBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposGenerateReleaseNotes(
@@ -59119,7 +59255,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposUpdateReleaseParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposUpdateReleaseBodySchema, ctx.body),
+        body: parseRequestInput(reposUpdateReleaseBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposUpdateRelease(
@@ -59279,7 +59415,10 @@ export function bootstrap(
           ctx.params
         ),
         query: parseRequestInput(reposUploadReleaseAssetQuerySchema, ctx.query),
-        body: parseRequestInput(reposUploadReleaseAssetBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposUploadReleaseAssetBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposUploadReleaseAsset(
@@ -59410,7 +59549,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reactionsCreateForReleaseBodySchema, ctx.body),
+        body: parseRequestInput(
+          reactionsCreateForReleaseBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reactionsCreateForRelease(
@@ -59699,7 +59841,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(secretScanningUpdateAlertBodySchema, ctx.body),
+        body: parseRequestInput(
+          secretScanningUpdateAlertBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.secretScanningUpdateAlert(
@@ -60095,7 +60240,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreateCommitStatusBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateCommitStatusBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateCommitStatus(
@@ -60247,7 +60395,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           activitySetRepoSubscriptionBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -60414,7 +60562,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreateTagProtectionBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateTagProtectionBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateTagProtection(
@@ -60639,7 +60790,10 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposReplaceAllTopicsParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposReplaceAllTopicsBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposReplaceAllTopicsBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposReplaceAllTopics(
@@ -60830,7 +60984,7 @@ export function bootstrap(
       const input = {
         params: parseRequestInput(reposTransferParamSchema, ctx.params),
         query: undefined,
-        body: parseRequestInput(reposTransferBodySchema, ctx.body),
+        body: parseRequestInput(reposTransferBodySchema, ctx.request.body),
       }
 
       const { status, body } = await implementation.reposTransfer(input, ctx)
@@ -60998,7 +61152,10 @@ export function bootstrap(
           ctx.params
         ),
         query: undefined,
-        body: parseRequestInput(reposCreateUsingTemplateBodySchema, ctx.body),
+        body: parseRequestInput(
+          reposCreateUsingTemplateBodySchema,
+          ctx.request.body
+        ),
       }
 
       const { status, body } = await implementation.reposCreateUsingTemplate(
@@ -61346,7 +61503,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateOrUpdateEnvironmentSecretBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -61474,7 +61631,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsCreateEnvironmentVariableBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -61544,7 +61701,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           actionsUpdateEnvironmentVariableBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -63268,7 +63425,7 @@ export function bootstrap(
     const input = {
       params: parseRequestInput(teamsUpdateLegacyParamSchema, ctx.params),
       query: undefined,
-      body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.body),
+      body: parseRequestInput(teamsUpdateLegacyBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.teamsUpdateLegacy(input, ctx)
@@ -63431,7 +63588,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -63507,7 +63664,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -63679,7 +63836,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsCreateDiscussionCommentLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -63751,7 +63908,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsUpdateDiscussionCommentLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -63939,7 +64096,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionCommentLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -64091,7 +64248,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reactionsCreateForTeamDiscussionLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -64436,7 +64593,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateMembershipForUserLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -64657,7 +64814,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateProjectPermissionsLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -64982,7 +65139,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           teamsAddOrUpdateRepoPermissionsLegacyBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -65166,7 +65323,10 @@ export function bootstrap(
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(usersUpdateAuthenticatedBodySchema, ctx.body),
+      body: parseRequestInput(
+        usersUpdateAuthenticatedBodySchema,
+        ctx.request.body
+      ),
     }
 
     const { status, body } = await implementation.usersUpdateAuthenticated(
@@ -65733,7 +65893,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -65901,7 +66061,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66199,7 +66359,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66390,7 +66550,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesUpdateForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66628,7 +66788,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           codespacesPublishForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66766,7 +66926,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersSetPrimaryEmailVisibilityForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66876,7 +67036,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersAddEmailForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -66920,7 +67080,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersDeleteEmailForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -67286,7 +67446,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreateGpgKeyForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -68034,7 +68194,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           interactionsSetRestrictionsForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -68782,7 +68942,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreatePublicSshKeyForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -69218,7 +69378,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           orgsUpdateMembershipForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -69657,7 +69817,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           migrationsStartForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -70807,7 +70967,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           projectsCreateForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -71278,7 +71438,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           reposCreateForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 
@@ -71733,7 +71893,7 @@ export function bootstrap(
         query: undefined,
         body: parseRequestInput(
           usersCreateSshSigningKeyForAuthenticatedUserBodySchema,
-          ctx.body
+          ctx.request.body
         ),
       }
 

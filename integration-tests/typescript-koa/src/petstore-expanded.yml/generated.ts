@@ -29,6 +29,7 @@ import {
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
 import { Context } from "koa"
+import koaBody from "koa-body"
 import { z } from "zod"
 
 //region safe-edit-region-header
@@ -103,7 +104,7 @@ export function bootstrap(
     const input = {
       params: undefined,
       query: undefined,
-      body: parseRequestInput(addPetBodySchema, ctx.body),
+      body: parseRequestInput(addPetBodySchema, ctx.request.body),
     }
 
     const { status, body } = await implementation.addPet(input, ctx)
