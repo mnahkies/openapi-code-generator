@@ -45,6 +45,13 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     ].filter(isDefined).join(".")
   }
 
+  protected nullable(schema: string): string {
+    return [
+      schema,
+      "nullable()"
+    ].filter(isDefined).join(".")
+  }
+
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.zod,

@@ -115,9 +115,9 @@ export type t_actor = {
 
 export type t_alert_created_at = string
 
-export type t_alert_dismissed_at = string
+export type t_alert_dismissed_at = string | null
 
-export type t_alert_fixed_at = string
+export type t_alert_fixed_at = string | null
 
 export type t_alert_html_url = string
 
@@ -204,7 +204,7 @@ export type t_artifact = {
     head_sha?: string
     id?: number
     repository_id?: number
-  } | null
+  } | null | null
 }
 
 export type t_authentication_token = {
@@ -255,7 +255,7 @@ export type t_auto_merge = {
   commit_title: string
   enabled_by: t_simple_user
   merge_method: "merge" | "squash" | "rebase"
-}
+} | null
 
 export type t_autolink = {
   id: number
@@ -470,7 +470,7 @@ export type t_check_run = {
   app: t_nullable_integration
   check_suite: {
     id: number
-  } | null
+  } | null | null
   completed_at: string | null
   conclusion:
     | "success"
@@ -591,14 +591,16 @@ export type t_code_scanning_alert_classification =
   | "generated"
   | "test"
   | "library"
+  | null
 
-export type t_code_scanning_alert_dismissed_comment = string
+export type t_code_scanning_alert_dismissed_comment = string | null
 
 export type t_code_scanning_alert_dismissed_reason =
   | "null"
   | "false positive"
   | "won't fix"
   | "used in tests"
+  | null
 
 export type t_code_scanning_alert_environment = string
 
@@ -723,11 +725,11 @@ export type t_code_scanning_analysis_tool = {
   version?: t_code_scanning_analysis_tool_version
 }
 
-export type t_code_scanning_analysis_tool_guid = string
+export type t_code_scanning_analysis_tool_guid = string | null
 
 export type t_code_scanning_analysis_tool_name = string
 
-export type t_code_scanning_analysis_tool_version = string
+export type t_code_scanning_analysis_tool_version = string | null
 
 export type t_code_scanning_analysis_url = string
 
@@ -1321,7 +1323,7 @@ export type t_dependabot_alert_security_advisory = {
 export type t_dependabot_alert_security_vulnerability = {
   readonly first_patched_version: {
     readonly identifier: string
-  } | null
+  } | null | null
   package: t_dependabot_alert_package
   readonly severity: "low" | "medium" | "high" | "critical"
   readonly vulnerable_version_range: string
@@ -1434,7 +1436,7 @@ export type t_deployment_branch_policy_name_pattern = {
 export type t_deployment_branch_policy_settings = {
   custom_branch_policies: boolean
   protected_branches: boolean
-}
+} | null
 
 export type t_deployment_reviewer_type = "User" | "Team"
 
@@ -1650,7 +1652,7 @@ export type t_file_commit = {
     size?: number
     type?: string
     url?: string
-  } | null
+  } | null | null
 }
 
 export type t_full_repository = {
@@ -1835,7 +1837,7 @@ export type t_gist_simple = {
     updated_at: string
     url: string
     user: t_nullable_simple_user
-  } | null
+  } | null | null
   forks?:
     | {
         created_at?: string
@@ -2022,15 +2024,15 @@ export type t_hook_delivery = {
   request: {
     headers: {
       [key: string]: unknown
-    } | null
+    } | null | null
     payload: {
       [key: string]: unknown
-    } | null
+    } | null | null
   }
   response: {
     headers: {
       [key: string]: unknown
-    } | null
+    } | null | null
     payload: string | null
   }
   status: string
@@ -2115,7 +2117,7 @@ export type t_installation = {
   access_tokens_url: string
   account: {
     [key: string]: unknown
-  } | null
+  } | null | null
   app_id: number
   app_slug: string
   contact_email?: string | null
@@ -2550,7 +2552,7 @@ export type t_marketplace_purchase = {
     is_installed?: boolean
     plan?: t_marketplace_listing_plan
     unit_count?: number | null
-  } | null
+  } | null | null
   marketplace_purchase: {
     billing_cycle?: string
     free_trial_ends_on?: string | null
@@ -2674,7 +2676,7 @@ export type t_minimal_repository = {
     node_id?: string
     spdx_id?: string
     url?: string
-  } | null
+  } | null | null
   merges_url: string
   milestones_url: string
   mirror_url?: string | null
@@ -2720,14 +2722,14 @@ export type t_minimal_repository = {
   web_commit_signoff_required?: boolean
 }
 
-export type t_nullable_alert_updated_at = string
+export type t_nullable_alert_updated_at = string | null
 
 export type t_nullable_code_of_conduct_simple = {
   html_url: string | null
   key: string
   name: string
   url: string
-}
+} | null
 
 export type t_nullable_codespace_machine = {
   cpus: number
@@ -2737,7 +2739,7 @@ export type t_nullable_codespace_machine = {
   operating_system: string
   prebuild_availability: "none" | "ready" | "in_progress" | null
   storage_in_bytes: number
-}
+} | null
 
 export type t_nullable_collaborator = {
   avatar_url: string
@@ -2768,18 +2770,18 @@ export type t_nullable_collaborator = {
   subscriptions_url: string
   type: string
   url: string
-}
+} | null
 
 export type t_nullable_community_health_file = {
   html_url: string
   url: string
-}
+} | null
 
 export type t_nullable_git_user = {
   date?: string
   email?: string
   name?: string
-}
+} | null
 
 export type t_nullable_integration = {
   client_id?: string
@@ -2806,7 +2808,7 @@ export type t_nullable_integration = {
   slug?: string
   updated_at: string
   webhook_secret?: string | null
-}
+} | null
 
 export type t_nullable_issue = {
   active_lock_reason?: string | null
@@ -2860,7 +2862,7 @@ export type t_nullable_issue = {
   updated_at: string
   url: string
   user: t_nullable_simple_user
-}
+} | null
 
 export type t_nullable_license_simple = {
   html_url?: string
@@ -2869,7 +2871,7 @@ export type t_nullable_license_simple = {
   node_id: string
   spdx_id: string | null
   url: string | null
-}
+} | null
 
 export type t_nullable_milestone = {
   closed_at: string | null
@@ -2888,7 +2890,7 @@ export type t_nullable_milestone = {
   title: string
   updated_at: string
   url: string
-}
+} | null
 
 export type t_nullable_minimal_repository = {
   allow_forking?: boolean
@@ -2946,7 +2948,7 @@ export type t_nullable_minimal_repository = {
     node_id?: string
     spdx_id?: string
     url?: string
-  } | null
+  } | null | null
   merges_url: string
   milestones_url: string
   mirror_url?: string | null
@@ -2990,7 +2992,7 @@ export type t_nullable_minimal_repository = {
   watchers?: number
   watchers_count?: number
   web_commit_signoff_required?: boolean
-}
+} | null
 
 export type t_nullable_repository = {
   allow_auto_merge?: boolean
@@ -3201,7 +3203,7 @@ export type t_nullable_repository = {
     use_squash_pr_title_as_default?: boolean
     visibility?: string
     watchers_count?: number
-  } | null
+  } | null | null
   topics?: string[]
   trees_url: string
   updated_at: string | null
@@ -3211,7 +3213,7 @@ export type t_nullable_repository = {
   watchers: number
   watchers_count: number
   web_commit_signoff_required?: boolean
-}
+} | null
 
 export type t_nullable_scoped_installation = {
   account: t_simple_user
@@ -3221,22 +3223,22 @@ export type t_nullable_scoped_installation = {
   repository_selection: "all" | "selected"
   single_file_name: string | null
   single_file_paths?: string[]
-}
+} | null
 
 export type t_nullable_simple_commit = {
   author: {
     email: string
     name: string
-  } | null
+  } | null | null
   committer: {
     email: string
     name: string
-  } | null
+  } | null | null
   id: string
   message: string
   timestamp: string
   tree_id: string
-}
+} | null
 
 export type t_nullable_simple_user = {
   avatar_url: string
@@ -3260,7 +3262,7 @@ export type t_nullable_simple_user = {
   subscriptions_url: string
   type: string
   url: string
-}
+} | null
 
 export type t_nullable_team_simple = {
   description: string | null
@@ -3275,7 +3277,7 @@ export type t_nullable_team_simple = {
   repositories_url: string
   slug: string
   url: string
-}
+} | null
 
 export type t_oidc_custom_sub = {
   include_claim_keys: string[]
@@ -3575,7 +3577,7 @@ export type t_pages_health_check = {
     responds_to_https?: boolean
     should_be_a_record?: boolean | null
     uri?: string
-  } | null
+  } | null | null
   domain?: {
     caa_error?: string | null
     dns_resolves?: boolean
@@ -4138,7 +4140,7 @@ export type t_pull_request = {
         node_id: string
         spdx_id: string | null
         url: string | null
-      } | null
+      } | null | null
       master_branch?: string
       merges_url: string
       milestones_url: string
@@ -4198,7 +4200,7 @@ export type t_pull_request = {
       watchers: number
       watchers_count: number
       web_commit_signoff_required?: boolean
-    } | null
+    } | null | null
     sha: string
     user: {
       avatar_url: string
@@ -4863,7 +4865,7 @@ export type t_repository = {
     use_squash_pr_title_as_default?: boolean
     visibility?: string
     watchers_count?: number
-  } | null
+  } | null | null
   topics?: string[]
   trees_url: string
   updated_at: string | null
@@ -5085,8 +5087,9 @@ export type t_secret_scanning_alert_resolution =
   | "wont_fix"
   | "revoked"
   | "used_in_tests"
+  | null
 
-export type t_secret_scanning_alert_resolution_comment = string
+export type t_secret_scanning_alert_resolution_comment = string | null
 
 export type t_secret_scanning_alert_state = "open" | "resolved"
 
@@ -5133,7 +5136,7 @@ export type t_security_and_analysis = {
   secret_scanning_push_protection?: {
     status?: "enabled" | "disabled"
   }
-}
+} | null
 
 export type t_selected_actions = {
   github_owned_allowed?: boolean
@@ -5163,11 +5166,11 @@ export type t_simple_commit = {
   author: {
     email: string
     name: string
-  } | null
+  } | null | null
   committer: {
     email: string
     name: string
-  } | null
+  } | null | null
   id: string
   message: string
   timestamp: string
@@ -5752,7 +5755,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: string | number | string[]
+    value?: string | null | number | string[]
   }[]
   message: string
 }

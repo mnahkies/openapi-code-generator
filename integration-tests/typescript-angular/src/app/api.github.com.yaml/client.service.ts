@@ -1430,7 +1430,7 @@ export class ApiClient {
       files?: {
         [key: string]: unknown
       }
-    }
+    } | null
   }): Observable<t_gist_simple | t_basic_error | t_validation_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -7163,7 +7163,7 @@ export class ApiClient {
     projectId: number
     requestBody?: {
       permission?: "read" | "write" | "admin"
-    }
+    } | null
   }): Observable<void | {
     documentation_url?: string
     message?: string
@@ -7799,7 +7799,7 @@ export class ApiClient {
     username: string
     requestBody?: {
       permission?: "read" | "write" | "admin"
-    }
+    } | null
   }): Observable<
     | void
     | void
@@ -8089,7 +8089,7 @@ export class ApiClient {
         secret_scanning_push_protection?: {
           status?: string
         }
-      } | null
+      } | null | null
       squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
       squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
       use_squash_pr_title_as_default?: boolean
@@ -8404,7 +8404,7 @@ export class ApiClient {
     jobId: number
     requestBody?: {
       enable_debug_logging?: boolean
-    }
+    } | null
   }): Observable<t_empty_object | t_basic_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -9445,7 +9445,7 @@ export class ApiClient {
     runId: number
     requestBody?: {
       enable_debug_logging?: boolean
-    }
+    } | null
   }): Observable<t_empty_object> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -9473,7 +9473,7 @@ export class ApiClient {
     runId: number
     requestBody?: {
       enable_debug_logging?: boolean
-    }
+    } | null
   }): Observable<t_empty_object> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -10270,7 +10270,7 @@ export class ApiClient {
         require_code_owner_reviews?: boolean
         require_last_push_approval?: boolean
         required_approving_review_count?: number
-      } | null
+      } | null | null
       required_status_checks: {
         checks?: {
           app_id?: number
@@ -10278,12 +10278,12 @@ export class ApiClient {
         }[]
         contexts: string[]
         strict: boolean
-      } | null
+      } | null | null
       restrictions: {
         apps?: string[]
         teams: string[]
         users: string[]
-      } | null
+      } | null | null
     }
   }): Observable<
     | t_protected_branch
@@ -11735,7 +11735,7 @@ export class ApiClient {
     owner: string
     repo: string
     analysisId: number
-    confirmDelete?: string
+    confirmDelete?: string | null
   }): Observable<
     | t_code_scanning_analysis_deletion
     | t_scim_error
@@ -11974,7 +11974,7 @@ export class ApiClient {
       ref?: string
       retention_period_minutes?: number
       working_directory?: string
-    }
+    } | null
   }): Observable<
     | t_codespace
     | t_codespace
@@ -13384,7 +13384,7 @@ export class ApiClient {
     sha?: string
     ref?: string
     task?: string
-    environment?: string
+    environment?: string | null
     perPage?: number
     page?: number
   }): Observable<t_deployment[]> {
@@ -13684,7 +13684,7 @@ export class ApiClient {
           }[]
         | null
       wait_timer?: t_wait_timer
-    }
+    } | null
   }): Observable<t_environment | t_basic_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -13916,7 +13916,7 @@ export class ApiClient {
       default_branch_only?: boolean
       name?: string
       organization?: string
-    }
+    } | null
   }): Observable<
     | t_full_repository
     | t_scim_error
@@ -14341,7 +14341,7 @@ export class ApiClient {
       }
       events?: string[]
       name?: string
-    }
+    } | null
   }): Observable<t_hook | t_basic_error | t_basic_error | t_validation_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -14692,7 +14692,7 @@ export class ApiClient {
       vcs?: "subversion" | "tfvc" | "git" | "mercurial"
       vcs_password?: string
       vcs_username?: string
-    }
+    } | null
   }): Observable<t_import | t_basic_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -15767,7 +15767,7 @@ export class ApiClient {
     issueNumber: number
     requestBody?: {
       lock_reason?: "off-topic" | "too heated" | "resolved" | "spam"
-    }
+    } | null
   }): Observable<
     void | t_basic_error | t_basic_error | t_basic_error | t_validation_error
   > {
@@ -16553,7 +16553,7 @@ export class ApiClient {
         branch: string
         path?: "/" | "/docs"
       }
-    }
+    } | null
   }): Observable<t_page | t_basic_error | t_validation_error> {
     const headers: Record<string, string | undefined> = {
       "Content-Type": "application/json",
@@ -17186,7 +17186,7 @@ export class ApiClient {
       multi_repo_permissions_opt_out?: boolean
       retention_period_minutes?: number
       working_directory?: string
-    }
+    } | null
   }): Observable<
     | t_codespace
     | t_codespace
@@ -17411,7 +17411,7 @@ export class ApiClient {
       commit_title?: string
       merge_method?: "merge" | "squash" | "rebase"
       sha?: string
-    }
+    } | null
   }): Observable<
     | t_pull_request_merge_result
     | t_basic_error
@@ -17771,7 +17771,7 @@ export class ApiClient {
     pullNumber: number
     requestBody?: {
       expected_head_sha?: string
-    }
+    } | null
   }): Observable<
     | {
         message?: string

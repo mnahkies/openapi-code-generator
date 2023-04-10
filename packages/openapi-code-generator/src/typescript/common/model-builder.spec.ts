@@ -1,79 +1,162 @@
-import {describe, beforeAll, it, expect} from "@jest/globals"
+import {describe, it, expect} from "@jest/globals"
 import {unitTestInput} from "../../test/input.test-utils"
-import {Input} from "../../core/input"
 import {ModelBuilder} from "./model-builder"
+import {ImportBuilder} from "./import-builder"
+import {formatOutput} from "./output-utils"
 
 describe("typescript/common/model-builder", () => {
-  let input: Input
-  let file: string
-
-  beforeAll(async () => {
-    const result = await unitTestInput()
-
-    input = result.input
-    file = result.file
-  })
-
   it("can build a type for a simple object correctly", async () => {
-    const builder = ModelBuilder.fromInput("models.ts", input)
-
-    const actual = builder.schemaObjectToType(
-      input.schema({$ref: `${file}#/components/schemas/SimpleObject`})
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/SimpleObject"
     )
 
-    expect(actual).toMatchInlineSnapshot(`
-      "{
-      "date" : string ;
-      "datetime" : string ;
-      "num" : number ;
-      "optional_str" ? : string ;
-      "str" : string ;
-      }"
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_SimpleObject
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_SimpleObject = {
+        date: string
+        datetime: string
+        num: number
+        optional_str?: string
+        required_nullable: string | null
+        str: string
+      }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_SimpleObject } from "models"
+      "
     `)
   })
 
   it("can build a type for an object that references other objects correctly", async () => {
-    const builder = ModelBuilder.fromInput("models.ts", input)
-
-    const actual = builder.schemaObjectToType(
-      input.schema({$ref: `${file}#/components/schemas/ObjectWithRefs`})
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/ObjectWithRefs"
     )
 
-    expect(actual).toMatchInlineSnapshot(`
-      "{
-      "optionalObject" ? : t_SimpleObject ;
-      "requiredObject" : t_SimpleObject ;
-      }"
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_ObjectWithRefs
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_SimpleObject = {
+        date: string
+        datetime: string
+        num: number
+        optional_str?: string
+        required_nullable: string | null
+        str: string
+      }
+
+      export type t_ObjectWithRefs = {
+        optionalObject?: t_SimpleObject
+        requiredObject: t_SimpleObject
+      }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_ObjectWithRefs, t_SimpleObject } from "models"
+      "
+    `)
+  })
+
+  it("can build a type for a named nullable string enum", async () => {
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/NamedNullableStringEnum"
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_NamedNullableStringEnum
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_NamedNullableStringEnum } from "models"
+      "
     `)
   })
 
   it("can build a type for a oneOf correctly", async () => {
-    const builder = ModelBuilder.fromInput("models.ts", input)
-
-    const actual = builder.schemaObjectToType(
-      input.schema({$ref: `${file}#/components/schemas/OneOf`})
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/OneOf"
     )
 
-    expect(actual).toMatchInlineSnapshot(`
-      "({
-      "strs" : string[] ;
-      }
-       | string[]
-       | string)"
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_OneOf
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_OneOf =
+        | {
+            strs: string[]
+          }
+        | string[]
+        | string
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_OneOf } from "models"
+      "
     `)
   })
 
   it("can build a type for a allOf correctly", async () => {
-    const builder = ModelBuilder.fromInput("models.ts", input)
-
-    const actual = builder.schemaObjectToType(
-      input.schema({$ref: `${file}#/components/schemas/AllOf`})
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/AllOf"
     )
 
-    expect(actual).toMatchInlineSnapshot(`
-      "(t_Base & {
-      "id" : number ;
-      })"
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_AllOf
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_Base = {
+        breed?: string
+        name: string
+      }
+
+      export type t_AllOf = t_Base & {
+        id: number
+      }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_AllOf, t_Base } from "models"
+      "
     `)
   })
+
+  async function getActual(path: string) {
+    const {input, file} = await unitTestInput()
+    const schema = {$ref: `${file}#${path}`}
+
+    const imports = new ImportBuilder()
+
+    const builder = ModelBuilder.fromInput("models.ts", input).withImports(
+      imports
+    )
+
+    const type = builder.schemaObjectToType(schema)
+
+    return {
+      type: await formatOutput(`const x: ${type}`),
+      schemas: await formatOutput(builder.toString()),
+      imports: await formatOutput(imports.toString()),
+    }
+  }
 })

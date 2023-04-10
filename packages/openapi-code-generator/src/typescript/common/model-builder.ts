@@ -114,13 +114,14 @@ export class ModelBuilder {
         return "boolean"
       }
       case "string": {
-        if (schemaObject.enum) {
-          return schemaObject.enum
-            .map(it => `"${it}"`)
-            .join(" | ")
+        const result = (schemaObject.enum?.filter(it => typeof it === "string")
+          .map(it => `"${it}"`) ?? ["string"])
+
+        if (schemaObject.nullable) {
+          result.push("null")
         }
 
-        return "string"
+        return result.join(" | ")
       }
       case "number": {
         // todo support bigint as string
@@ -160,7 +161,7 @@ export class ModelBuilder {
               isRequired ? "" : "?",
               ":",
               type,
-              isNullable ? "| null" : "",
+              isNullable && definition.type !== "string" ? "| null" : "",
               ";",
             ].filter(Boolean).join(" ")
           })
@@ -173,7 +174,9 @@ export class ModelBuilder {
           "{",
           ...members,
           additionalProperties,
-          "}"
+          "}",
+          // TODO: this gives a ugly but harmless double `null` on the type in some cases
+          schemaObject.nullable ? "| null" : "",
         ].filter(Boolean).join("\n")
       }
       default: {

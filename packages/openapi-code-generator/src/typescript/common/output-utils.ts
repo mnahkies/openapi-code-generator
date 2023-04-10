@@ -43,7 +43,7 @@ export async function emitGenerationResult(dest: string, units: CompilationUnit[
   }
 }
 
-async function formatOutput(raw: string): Promise<string> {
+export async function formatOutput(raw: string): Promise<string> {
   try {
     return prettier.format(raw, {
       semi: false,
