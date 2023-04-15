@@ -21,10 +21,12 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  async findPets(p: {
-    tags?: string[]
-    limit?: number
-  }): Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>> {
+  async findPets(
+    p: {
+      tags?: string[]
+      limit?: number
+    } = {}
+  ): Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
     const res = await fetch(url + query, { method: "GET" })

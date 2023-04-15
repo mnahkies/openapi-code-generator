@@ -51,10 +51,12 @@ export class ApiClient {
     return result
   }
 
-  getTodoLists(p: {
-    created?: string
-    status?: "incomplete" | "complete"
-  }): Observable<t_TodoList[]> {
+  getTodoLists(
+    p: {
+      created?: string
+      status?: "incomplete" | "complete"
+    } = {}
+  ): Observable<t_TodoList[]> {
     const params = this._queryParams({
       created: p["created"],
       status: p["status"],

@@ -3,7 +3,7 @@ import {isDefined} from "../../core/utils"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
 
-export type MethodParameterDefinition = { name: string, type: string, required?: boolean }
+export type MethodParameterDefinition = { name: string, type: string, required?: boolean, default?: string }
 
 export type MethodDefinition = {
   name: string
@@ -21,6 +21,8 @@ export function combineParams(parameters: MethodParameterDefinition[], name = "p
     return undefined
   }
 
+  const required = parameters.some(it => it.required)
+
   return {
     name,
     type: `{
@@ -28,6 +30,8 @@ export function combineParams(parameters: MethodParameterDefinition[], name = "p
       params(parameters)
     }
     }`,
+    required: true, // avoid "TS1015: Parameter cannot have question mark and initializer."
+    default: !required ? "{}" : undefined,
   }
 }
 
@@ -146,7 +150,7 @@ function params(parameters: (MethodParameterDefinition | undefined)[], quoteName
     .filter(isDefined)
     .map((param) => {
       const name = quoteNames ? `"${param.name}"` : param.name
-      return `${name}${param.required === false ? "?" : ""}: ${(param.type)}`
+      return `${name}${param.required === false ? "?" : ""}: ${(param.type)} ${param.default ? `= ${param.default}` : ""}`
     })
     .join(",")
 }

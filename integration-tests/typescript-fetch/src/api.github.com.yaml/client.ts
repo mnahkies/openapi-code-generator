@@ -335,11 +335,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListWebhookDeliveries(p: {
-    perPage?: number
-    cursor?: string
-    redelivery?: boolean
-  }): Promise<
+  async appsListWebhookDeliveries(
+    p: {
+      perPage?: number
+      cursor?: string
+      redelivery?: boolean
+    } = {}
+  ): Promise<
     | Response<200, t_hook_delivery_item[]>
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
@@ -390,12 +392,14 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListInstallations(p: {
-    perPage?: number
-    page?: number
-    since?: string
-    outdated?: string
-  }): Promise<Response<200, t_installation[]>> {
+  async appsListInstallations(
+    p: {
+      perPage?: number
+      page?: number
+      since?: string
+      outdated?: string
+    } = {}
+  ): Promise<Response<200, t_installation[]>> {
     const url = this.basePath + `/app/installations`
     const query = this._query({
       per_page: p["perPage"],
@@ -942,10 +946,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async activityListPublicEvents(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async activityListPublicEvents(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_event[]>
     | Response<304, void>
     | Response<403, t_basic_error>
@@ -975,11 +981,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async gistsList(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
+  async gistsList(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_base_gist[]>
     | Response<304, void>
     | Response<403, t_basic_error>
@@ -1020,11 +1028,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async gistsListPublic(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
+  async gistsListPublic(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_base_gist[]>
     | Response<304, void>
     | Response<403, t_basic_error>
@@ -1042,11 +1052,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async gistsListStarred(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
+  async gistsListStarred(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_base_gist[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -1369,10 +1381,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListReposAccessibleToInstallation(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListReposAccessibleToInstallation(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<
         200,
         {
@@ -1402,26 +1416,28 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async issuesList(p: {
-    filter?:
-      | "assigned"
-      | "created"
-      | "mentioned"
-      | "subscribed"
-      | "repos"
-      | "all"
-    state?: "open" | "closed" | "all"
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    collab?: boolean
-    orgs?: boolean
-    owned?: boolean
-    pulls?: boolean
-    perPage?: number
-    page?: number
-  }): Promise<
+  async issuesList(
+    p: {
+      filter?:
+        | "assigned"
+        | "created"
+        | "mentioned"
+        | "subscribed"
+        | "repos"
+        | "all"
+      state?: "open" | "closed" | "all"
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      collab?: boolean
+      orgs?: boolean
+      owned?: boolean
+      pulls?: boolean
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_issue[]>
     | Response<304, void>
     | Response<404, t_basic_error>
@@ -1448,11 +1464,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async licensesGetAllCommonlyUsed(p: {
-    featured?: boolean
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_license_simple[]> | Response<304, void>> {
+  async licensesGetAllCommonlyUsed(
+    p: {
+      featured?: boolean
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<Response<200, t_license_simple[]> | Response<304, void>> {
     const url = this.basePath + `/licenses`
     const query = this._query({
       featured: p["featured"],
@@ -1497,9 +1515,11 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async markdownRenderRaw(p: {
-    requestBody?: string
-  }): Promise<Response<200, string> | Response<304, void>> {
+  async markdownRenderRaw(
+    p: {
+      requestBody?: string
+    } = {}
+  ): Promise<Response<200, string> | Response<304, void>> {
     const url = this.basePath + `/markdown/raw`
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
@@ -1525,10 +1545,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListPlans(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListPlans(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_marketplace_listing_plan[]>
     | Response<401, t_basic_error>
     | Response<404, t_basic_error>
@@ -1583,10 +1605,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListPlansStubbed(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListPlansStubbed(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     Response<200, t_marketplace_listing_plan[]> | Response<401, t_basic_error>
   > {
     const url = this.basePath + `/marketplace_listing/stubbed/plans`
@@ -1652,14 +1676,16 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async activityListNotificationsForAuthenticatedUser(p: {
-    all?: boolean
-    participating?: boolean
-    since?: string
-    before?: string
-    page?: number
-    perPage?: number
-  }): Promise<
+  async activityListNotificationsForAuthenticatedUser(
+    p: {
+      all?: boolean
+      participating?: boolean
+      since?: string
+      before?: string
+      page?: number
+      perPage?: number
+    } = {}
+  ): Promise<
     | Response<200, t_thread[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -1681,12 +1707,14 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async activityMarkNotificationsAsRead(p: {
-    requestBody?: {
-      last_read_at?: string
-      read?: boolean
-    }
-  }): Promise<
+  async activityMarkNotificationsAsRead(
+    p: {
+      requestBody?: {
+        last_read_at?: string
+        read?: boolean
+      }
+    } = {}
+  ): Promise<
     | Response<
         202,
         {
@@ -1791,7 +1819,11 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async metaGetOctocat(p: { s?: string }): Promise<Response<200, string>> {
+  async metaGetOctocat(
+    p: {
+      s?: string
+    } = {}
+  ): Promise<Response<200, string>> {
     const url = this.basePath + `/octocat`
     const query = this._query({ s: p["s"] })
     const res = await fetch(url + query, { method: "GET" })
@@ -1800,10 +1832,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async orgsList(p: {
-    since?: number
-    perPage?: number
-  }): Promise<Response<200, t_organization_simple[]> | Response<304, void>> {
+  async orgsList(
+    p: {
+      since?: number
+      perPage?: number
+    } = {}
+  ): Promise<Response<200, t_organization_simple[]> | Response<304, void>> {
     const url = this.basePath + `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
     const res = await fetch(url + query, { method: "GET" })
@@ -14229,9 +14263,11 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposListPublic(p: {
-    since?: number
-  }): Promise<
+  async reposListPublic(
+    p: {
+      since?: number
+    } = {}
+  ): Promise<
     | Response<200, t_minimal_repository[]>
     | Response<304, void>
     | Response<422, t_validation_error>
@@ -15315,18 +15351,20 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersUpdateAuthenticated(p: {
-    requestBody?: {
-      bio?: string
-      blog?: string
-      company?: string
-      email?: string
-      hireable?: boolean
-      location?: string
-      name?: string
-      twitter_username?: string | null
-    }
-  }): Promise<
+  async usersUpdateAuthenticated(
+    p: {
+      requestBody?: {
+        bio?: string
+        blog?: string
+        company?: string
+        email?: string
+        hireable?: boolean
+        location?: string
+        name?: string
+        twitter_username?: string | null
+      }
+    } = {}
+  ): Promise<
     | Response<200, t_private_user>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -15343,10 +15381,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListBlockedByAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListBlockedByAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_simple_user[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -15413,11 +15453,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async codespacesListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-    repositoryId?: number
-  }): Promise<
+  async codespacesListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+      repositoryId?: number
+    } = {}
+  ): Promise<
     | Response<
         200,
         {
@@ -15493,10 +15535,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async codespacesListSecretsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async codespacesListSecretsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     Response<
       200,
       {
@@ -15857,10 +15901,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListEmailsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListEmailsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_email[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -15875,14 +15921,16 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersAddEmailForAuthenticatedUser(p: {
-    requestBody?:
-      | {
-          emails: string[]
-        }
-      | string[]
-      | string
-  }): Promise<
+  async usersAddEmailForAuthenticatedUser(
+    p: {
+      requestBody?:
+        | {
+            emails: string[]
+          }
+        | string[]
+        | string
+    } = {}
+  ): Promise<
     | Response<201, t_email[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -15923,10 +15971,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListFollowersForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListFollowersForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_simple_user[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -15940,10 +15990,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListFollowedByAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListFollowedByAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_simple_user[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16008,10 +16060,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListGpgKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListGpgKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_gpg_key[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16083,10 +16137,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListInstallationsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListInstallationsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<
         200,
         {
@@ -16213,22 +16269,24 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async issuesListForAuthenticatedUser(p: {
-    filter?:
-      | "assigned"
-      | "created"
-      | "mentioned"
-      | "subscribed"
-      | "repos"
-      | "all"
-    state?: "open" | "closed" | "all"
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
+  async issuesListForAuthenticatedUser(
+    p: {
+      filter?:
+        | "assigned"
+        | "created"
+        | "mentioned"
+        | "subscribed"
+        | "repos"
+        | "all"
+      state?: "open" | "closed" | "all"
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_issue[]>
     | Response<304, void>
     | Response<404, t_basic_error>
@@ -16250,10 +16308,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListPublicSshKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListPublicSshKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_key[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16324,10 +16384,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListSubscriptionsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListSubscriptionsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_user_marketplace_purchase[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16341,10 +16403,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsListSubscriptionsForAuthenticatedUserStubbed(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async appsListSubscriptionsForAuthenticatedUserStubbed(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_user_marketplace_purchase[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16357,11 +16421,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async orgsListMembershipsForAuthenticatedUser(p: {
-    state?: "active" | "pending"
-    perPage?: number
-    page?: number
-  }): Promise<
+  async orgsListMembershipsForAuthenticatedUser(
+    p: {
+      state?: "active" | "pending"
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_org_membership[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16415,10 +16481,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async migrationsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async migrationsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_migration[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16547,10 +16615,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async orgsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async orgsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_organization_simple[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16732,10 +16802,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListPublicEmailsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListPublicEmailsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_email[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16750,17 +16822,19 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposListForAuthenticatedUser(p: {
-    visibility?: "all" | "public" | "private"
-    affiliation?: string
-    type?: "all" | "owner" | "public" | "private" | "member"
-    sort?: "created" | "updated" | "pushed" | "full_name"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-    since?: string
-    before?: string
-  }): Promise<
+  async reposListForAuthenticatedUser(
+    p: {
+      visibility?: "all" | "public" | "private"
+      affiliation?: string
+      type?: "all" | "owner" | "public" | "private" | "member"
+      sort?: "created" | "updated" | "pushed" | "full_name"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+      since?: string
+      before?: string
+    } = {}
+  ): Promise<
     | Response<200, t_repository[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16829,10 +16903,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposListInvitationsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async reposListInvitationsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_repository_invitation[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16883,10 +16959,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersListSshSigningKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async usersListSshSigningKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_ssh_signing_key[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -16957,12 +17035,14 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async activityListReposStarredByAuthenticatedUser(p: {
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<
+  async activityListReposStarredByAuthenticatedUser(
+    p: {
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_starred_repository[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -17035,10 +17115,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async activityListWatchedReposForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async activityListWatchedReposForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_minimal_repository[]>
     | Response<304, void>
     | Response<401, t_basic_error>
@@ -17052,10 +17134,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async teamsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Promise<
+  async teamsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Promise<
     | Response<200, t_team_full[]>
     | Response<304, void>
     | Response<403, t_basic_error>
@@ -17069,10 +17153,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async usersList(p: {
-    since?: number
-    perPage?: number
-  }): Promise<Response<200, t_simple_user[]> | Response<304, void>> {
+  async usersList(
+    p: {
+      since?: number
+      perPage?: number
+    } = {}
+  ): Promise<Response<200, t_simple_user[]> | Response<304, void>> {
     const url = this.basePath + `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
     const res = await fetch(url + query, { method: "GET" })
