@@ -3,7 +3,7 @@ import {IROperation, IRParameter, MaybeIRModel} from "../../core/openapi-types-n
 import {isDefined} from "../../core/utils"
 import {generationLib} from "../../core/generation-lib"
 import {ModelBuilder} from "./model-builder"
-import {combineParams, MethodParameterDefinition, requestBodyAsParameter} from "./typescript-common"
+import {combineParams, MethodParameterDefinition, requestBodyAsParameter, statusStringToType} from "./typescript-common"
 
 export class ClientOperationBuilder {
   constructor(
@@ -54,9 +54,21 @@ export class ClientOperationBuilder {
   headers(): string {
     const {parameters} = this.operation
 
-    return parameters.filter(it => it.in === "header")
+    const paramHeaders = parameters.filter(it => it.in === "header")
       .map(it => `'${it.name}': ${this.paramName(it.name)}`)
-      .join(",\n")
+
+    const hasAcceptHeader = this.hasHeader("Accept")
+
+    const {requestBodyContentType} = this.requestBodyAsParameter()
+
+    const result = [
+      hasAcceptHeader ? undefined : "'Accept': 'application/json'",
+      requestBodyContentType ? `'Content-Type': '${requestBodyContentType}'` : undefined,
+    ]
+      .concat(paramHeaders)
+      .filter(isDefined)
+
+    return result.length ? `{${result.join(",\n")}}` : ""
   }
 
   hasHeader(name: string): boolean {
@@ -71,11 +83,10 @@ export class ClientOperationBuilder {
 
     return this.responsesToArray()
       .map(it => {
-        // Note: status can be a number, or "default", "5XX", etc
-        //       and we can't represent 5XX easily as a specific type
-        const statusType = /^\d+$/.test(it.status) ? it.status : "number"
-        const responseType = it.definition ? models.schemaObjectToType(it.definition) : "void"
-        return {statusType, responseType}
+        return {
+          statusType: statusStringToType(it.status),
+          responseType: it.definition ? models.schemaObjectToType(it.definition) : "void"
+        }
       })
   }
 

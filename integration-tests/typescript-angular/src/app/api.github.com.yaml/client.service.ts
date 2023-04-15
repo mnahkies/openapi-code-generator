@@ -274,7 +274,7 @@ export class ApiClient {
     private readonly config: ApiClientConfig
   ) {}
 
-  private headers(
+  private _headers(
     headers: Record<string, string | undefined>
   ): Record<string, string> {
     return Object.fromEntries(
@@ -284,7 +284,7 @@ export class ApiClient {
     )
   }
 
-  private queryParams(
+  private _queryParams(
     queryParams: Record<
       string,
       boolean | number | string | string[] | undefined | null
@@ -300,28 +300,14 @@ export class ApiClient {
   }
 
   metaRoot(): Observable<t_root> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>("GET", this.config.basePath + `/`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
       observe: "body",
       reportProgress: false,
     })
   }
 
   appsGetAuthenticated(): Observable<t_integration> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>("GET", this.config.basePath + `/app`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
       observe: "body",
       reportProgress: false,
     })
@@ -338,17 +324,10 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/app-manifests/${p["code"]}/conversions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -356,17 +335,10 @@ export class ApiClient {
   }
 
   appsGetWebhookConfigForApp(): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/hook/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -381,19 +353,15 @@ export class ApiClient {
       url?: t_webhook_config_url
     }
   }): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/app/hook/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -405,21 +373,17 @@ export class ApiClient {
     cursor?: string
     redelivery?: boolean
   }): Observable<t_hook_delivery_item[] | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/hook/deliveries`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -429,17 +393,10 @@ export class ApiClient {
   appsGetWebhookDelivery(p: {
     deliveryId: number
   }): Observable<t_hook_delivery | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -453,17 +410,10 @@ export class ApiClient {
     | t_scim_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -476,22 +426,18 @@ export class ApiClient {
     since?: string
     outdated?: string
   }): Observable<t_installation[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       since: p["since"],
       outdated: p["outdated"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/installations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -501,17 +447,10 @@ export class ApiClient {
   appsGetInstallation(p: {
     installationId: number
   }): Observable<t_installation | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -521,17 +460,10 @@ export class ApiClient {
   appsDeleteInstallation(p: {
     installationId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -552,20 +484,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/app/installations/${p["installationId"]}/access_tokens`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -575,18 +503,11 @@ export class ApiClient {
   appsSuspendInstallation(p: {
     installationId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -596,18 +517,11 @@ export class ApiClient {
   appsUnsuspendInstallation(p: {
     installationId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -620,19 +534,15 @@ export class ApiClient {
       access_token: string
     }
   }): Observable<void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/applications/${p["clientId"]}/grant`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -645,19 +555,15 @@ export class ApiClient {
       access_token: string
     }
   }): Observable<t_authorization | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -670,19 +576,15 @@ export class ApiClient {
       access_token: string
     }
   }): Observable<t_authorization | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -695,19 +597,15 @@ export class ApiClient {
       access_token: string
     }
   }): Observable<void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/applications/${p["clientId"]}/token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -731,19 +629,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/applications/${p["clientId"]}/token/scoped`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -753,17 +647,10 @@ export class ApiClient {
   appsGetBySlug(p: {
     appSlug: string
   }): Observable<t_integration | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/apps/${p["appSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -771,17 +658,10 @@ export class ApiClient {
   }
 
   codesOfConductGetAllCodesOfConduct(): Observable<t_code_of_conduct[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/codes_of_conduct`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -791,17 +671,10 @@ export class ApiClient {
   codesOfConductGetConductCode(p: {
     key: string
   }): Observable<t_code_of_conduct | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/codes_of_conduct/${p["key"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -811,17 +684,10 @@ export class ApiClient {
   emojisGet(): Observable<{
     [key: string]: unknown
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/emojis`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -832,18 +698,11 @@ export class ApiClient {
     enterprise: string
     orgId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/permissions/organizations/${p["orgId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -859,22 +718,18 @@ export class ApiClient {
     runner_groups: t_runner_groups_enterprise[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       visible_to_organization: p["visibleToOrganization"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runner-groups`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -893,20 +748,16 @@ export class ApiClient {
       visibility?: "selected" | "all"
     }
   }): Observable<t_runner_groups_enterprise> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runner-groups`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -917,18 +768,11 @@ export class ApiClient {
     enterprise: string
     runnerGroupId: number
   }): Observable<t_runner_groups_enterprise> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -940,18 +784,11 @@ export class ApiClient {
     runnerGroupId: number
     orgId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/organizations/${p["orgId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -963,18 +800,11 @@ export class ApiClient {
     runnerGroupId: number
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -985,18 +815,11 @@ export class ApiClient {
     enterprise: string
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1013,18 +836,11 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1045,20 +861,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1068,18 +880,11 @@ export class ApiClient {
   secretScanningGetSecurityAnalysisSettingsForEnterprise(p: {
     enterprise: string
   }): Observable<t_enterprise_security_analysis_settings | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/code_security_and_analysis`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1095,20 +900,16 @@ export class ApiClient {
       secret_scanning_push_protection_enabled_for_new_repositories?: boolean
     }
   }): Observable<void | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/code_security_and_analysis`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1136,9 +937,7 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
       ecosystem: p["ecosystem"],
@@ -1151,16 +950,14 @@ export class ApiClient {
       first: p["first"],
       last: p["last"],
       per_page: p["perPage"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/dependabot/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1186,9 +983,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -1197,16 +992,14 @@ export class ApiClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1221,18 +1014,11 @@ export class ApiClient {
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
   }): Observable<void | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/${p["securityProduct"]}/${p["enablement"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1249,17 +1035,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1267,17 +1052,10 @@ export class ApiClient {
   }
 
   activityGetFeeds(): Observable<t_feed> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/feeds`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1289,21 +1067,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_base_gist[] | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1321,19 +1095,15 @@ export class ApiClient {
   }): Observable<
     t_gist_simple | void | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/gists`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1345,21 +1115,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_base_gist[] | void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/public`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1371,21 +1137,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_base_gist[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/starred`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1406,17 +1168,10 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1432,19 +1187,15 @@ export class ApiClient {
       }
     } | null
   }): Observable<t_gist_simple | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/gists/${p["gistId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1454,17 +1205,10 @@ export class ApiClient {
   gistsDelete(p: {
     gistId: string
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1476,17 +1220,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_gist_comment[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1499,19 +1242,15 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_gist_comment | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/gists/${p["gistId"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1532,17 +1271,10 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1556,19 +1288,15 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_gist_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1579,17 +1307,10 @@ export class ApiClient {
     gistId: string
     commentId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1601,17 +1322,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_gist_commit[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/commits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1623,17 +1343,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_gist_simple[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/forks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1645,17 +1364,10 @@ export class ApiClient {
   }): Observable<
     t_base_gist | void | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/gists/${p["gistId"]}/forks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1670,17 +1382,10 @@ export class ApiClient {
         [key: string]: unknown
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1690,17 +1395,10 @@ export class ApiClient {
   gistsStar(p: {
     gistId: string
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1710,17 +1408,10 @@ export class ApiClient {
   gistsUnstar(p: {
     gistId: string
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1733,17 +1424,10 @@ export class ApiClient {
   }): Observable<
     t_gist_simple | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/${p["sha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1751,17 +1435,10 @@ export class ApiClient {
   }
 
   gitignoreGetAllTemplates(): Observable<string[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gitignore/templates`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1771,17 +1448,10 @@ export class ApiClient {
   gitignoreGetTemplate(p: {
     name: string
   }): Observable<t_gitignore_template | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gitignore/templates/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1801,17 +1471,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/installation/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1819,17 +1488,10 @@ export class ApiClient {
   }
 
   appsRevokeInstallationAccessToken(): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/installation/token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1856,9 +1518,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue[] | void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -1871,15 +1531,13 @@ export class ApiClient {
       pulls: p["pulls"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1891,21 +1549,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_license_simple[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       featured: p["featured"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/licenses`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -1915,17 +1569,10 @@ export class ApiClient {
   licensesGet(p: {
     license: string
   }): Observable<t_license | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/licenses/${p["license"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -1939,19 +1586,15 @@ export class ApiClient {
       text: string
     }
   }): Observable<string | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/markdown`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1959,19 +1602,15 @@ export class ApiClient {
   }
 
   markdownRenderRaw(p: { requestBody?: string }): Observable<string | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "text/plain",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "text/plain" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/markdown/raw`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -1981,17 +1620,10 @@ export class ApiClient {
   appsGetSubscriptionPlanForAccount(p: {
     accountId: number
   }): Observable<t_marketplace_purchase | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/marketplace_listing/accounts/${p["accountId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2002,17 +1634,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_marketplace_listing_plan[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/marketplace_listing/plans`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2031,23 +1662,19 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/marketplace_listing/plans/${p["planId"]}/accounts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2057,18 +1684,11 @@ export class ApiClient {
   appsGetSubscriptionPlanForAccountStubbed(p: {
     accountId: number
   }): Observable<t_marketplace_purchase | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/marketplace_listing/stubbed/accounts/${p["accountId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2079,17 +1699,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_marketplace_listing_plan[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/marketplace_listing/stubbed/plans`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2103,23 +1722,19 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_marketplace_purchase[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2127,14 +1742,7 @@ export class ApiClient {
   }
 
   metaGet(): Observable<t_api_overview | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>("GET", this.config.basePath + `/meta`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
       observe: "body",
       reportProgress: false,
     })
@@ -2148,17 +1756,16 @@ export class ApiClient {
   }): Observable<
     t_event[] | t_basic_error | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2175,24 +1782,20 @@ export class ApiClient {
   }): Observable<
     t_thread[] | void | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       all: p["all"],
       participating: p["participating"],
       since: p["since"],
       before: p["before"],
       page: p["page"],
       per_page: p["perPage"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/notifications`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2213,19 +1816,15 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/notifications`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2235,17 +1834,10 @@ export class ApiClient {
   activityGetThread(p: {
     threadId: number
   }): Observable<t_thread | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2255,17 +1847,10 @@ export class ApiClient {
   activityMarkThreadAsRead(p: {
     threadId: number
   }): Observable<void | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2275,18 +1860,11 @@ export class ApiClient {
   activityGetThreadSubscriptionForAuthenticatedUser(p: {
     threadId: number
   }): Observable<t_thread_subscription | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2299,20 +1877,16 @@ export class ApiClient {
       ignored?: boolean
     }
   }): Observable<t_thread_subscription | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2322,18 +1896,11 @@ export class ApiClient {
   activityDeleteThreadSubscription(p: {
     threadId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2341,17 +1908,13 @@ export class ApiClient {
   }
 
   metaGetOctocat(p: { s?: string }): Observable<string> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { s: p["s"] }
+    const params = this._queryParams({ s: p["s"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/octocat`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2362,17 +1925,16 @@ export class ApiClient {
     since?: number
     perPage?: number
   }): Observable<t_organization_simple[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { since: p["since"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/organizations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2380,17 +1942,10 @@ export class ApiClient {
   }
 
   orgsGet(p: { org: string }): Observable<t_organization_full | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2435,19 +1990,15 @@ export class ApiClient {
     | t_basic_error
     | (t_validation_error | t_validation_error_simple)
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/orgs/${p["org"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2457,17 +2008,10 @@ export class ApiClient {
   actionsGetActionsCacheUsageForOrg(p: {
     org: string
   }): Observable<t_actions_cache_usage_org_enterprise> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/cache/usage`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2482,18 +2026,17 @@ export class ApiClient {
     repository_cache_usages: t_actions_cache_usage_by_repository[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/cache/usage-by-repository`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2503,17 +2046,10 @@ export class ApiClient {
   oidcGetOidcCustomSubTemplateForOrg(p: {
     org: string
   }): Observable<t_oidc_custom_sub> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2524,19 +2060,15 @@ export class ApiClient {
     org: string
     requestBody: t_oidc_custom_sub
   }): Observable<t_empty_object | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2546,17 +2078,10 @@ export class ApiClient {
   actionsGetGithubActionsPermissionsOrganization(p: {
     org: string
   }): Observable<t_actions_organization_permissions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2570,19 +2095,15 @@ export class ApiClient {
       enabled_repositories: t_enabled_repositories
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2597,18 +2118,17 @@ export class ApiClient {
     repositories: t_repository[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2621,20 +2141,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2645,18 +2161,11 @@ export class ApiClient {
     org: string
     repositoryId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2667,18 +2176,11 @@ export class ApiClient {
     org: string
     repositoryId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2688,18 +2190,11 @@ export class ApiClient {
   actionsGetAllowedActionsOrganization(p: {
     org: string
   }): Observable<t_selected_actions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/selected-actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2710,20 +2205,16 @@ export class ApiClient {
     org: string
     requestBody?: t_selected_actions
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/selected-actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2733,17 +2224,10 @@ export class ApiClient {
   actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
   }): Observable<t_actions_get_default_workflow_permissions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2754,19 +2238,15 @@ export class ApiClient {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2781,17 +2261,16 @@ export class ApiClient {
     required_workflows: t_required_workflow[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/required_workflows`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -2807,19 +2286,15 @@ export class ApiClient {
       workflow_file_path: string
     }
   }): Observable<t_required_workflow | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/actions/required_workflows`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2830,18 +2305,11 @@ export class ApiClient {
     org: string
     requiredWorkflowId: number
   }): Observable<t_required_workflow> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2858,20 +2326,16 @@ export class ApiClient {
       workflow_file_path?: string
     }
   }): Observable<t_required_workflow | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2882,18 +2346,11 @@ export class ApiClient {
     org: string
     requiredWorkflowId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2907,18 +2364,11 @@ export class ApiClient {
     repositories: t_repository[]
     total_count: number
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2932,20 +2382,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -2957,18 +2403,11 @@ export class ApiClient {
     requiredWorkflowId: number
     repositoryId: number
   }): Observable<void | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -2980,18 +2419,11 @@ export class ApiClient {
     requiredWorkflowId: number
     repositoryId: number
   }): Observable<void | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3007,21 +2439,17 @@ export class ApiClient {
     runner_groups: t_runner_groups_org[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       visible_to_repository: p["visibleToRepository"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3040,19 +2468,15 @@ export class ApiClient {
       visibility?: "selected" | "all" | "private"
     }
   }): Observable<t_runner_groups_org> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3063,18 +2487,11 @@ export class ApiClient {
     org: string
     runnerGroupId: number
   }): Observable<t_runner_groups_org> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3092,20 +2509,16 @@ export class ApiClient {
       visibility?: "selected" | "all" | "private"
     }
   }): Observable<t_runner_groups_org> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3116,18 +2529,11 @@ export class ApiClient {
     org: string
     runnerGroupId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3143,18 +2549,17 @@ export class ApiClient {
     repositories: t_minimal_repository[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3168,20 +2573,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3193,18 +2594,11 @@ export class ApiClient {
     runnerGroupId: number
     repositoryId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3220,18 +2614,17 @@ export class ApiClient {
     runners: t_runner[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3245,20 +2638,16 @@ export class ApiClient {
       runners: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3270,18 +2659,11 @@ export class ApiClient {
     runnerGroupId: number
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3293,18 +2675,11 @@ export class ApiClient {
     runnerGroupId: number
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3319,17 +2694,16 @@ export class ApiClient {
     runners: t_runner[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3339,17 +2713,10 @@ export class ApiClient {
   actionsListRunnerApplicationsForOrg(p: {
     org: string
   }): Observable<t_runner_application[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/downloads`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3359,18 +2726,11 @@ export class ApiClient {
   actionsCreateRegistrationTokenForOrg(p: {
     org: string
   }): Observable<t_authentication_token> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/registration-token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3380,17 +2740,10 @@ export class ApiClient {
   actionsCreateRemoveTokenForOrg(p: {
     org: string
   }): Observable<t_authentication_token> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3401,18 +2754,11 @@ export class ApiClient {
     org: string
     runnerId: number
   }): Observable<t_runner> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3423,18 +2769,11 @@ export class ApiClient {
     org: string
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3451,18 +2790,11 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3483,20 +2815,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3517,20 +2845,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3547,18 +2871,11 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3577,18 +2894,11 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3603,17 +2913,16 @@ export class ApiClient {
     secrets: t_organization_actions_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3621,17 +2930,10 @@ export class ApiClient {
   }
 
   actionsGetOrgPublicKey(p: { org: string }): Observable<t_actions_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3642,18 +2944,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<t_organization_actions_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3670,20 +2965,16 @@ export class ApiClient {
       visibility: "all" | "private" | "selected"
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3694,18 +2985,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3721,18 +3005,17 @@ export class ApiClient {
     repositories: t_minimal_repository[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3746,20 +3029,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3771,18 +3050,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3794,18 +3066,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3820,17 +3085,16 @@ export class ApiClient {
     total_count: number
     variables: t_organization_actions_variable[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3846,19 +3110,15 @@ export class ApiClient {
       visibility: "all" | "private" | "selected"
     }
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3869,17 +3129,10 @@ export class ApiClient {
     org: string
     name: string
   }): Observable<t_organization_actions_variable> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3896,19 +3149,15 @@ export class ApiClient {
       visibility?: "all" | "private" | "selected"
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3916,17 +3165,10 @@ export class ApiClient {
   }
 
   actionsDeleteOrgVariable(p: { org: string; name: string }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -3942,18 +3184,17 @@ export class ApiClient {
     repositories: t_minimal_repository[]
     total_count: number
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -3967,20 +3208,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -3992,18 +3229,11 @@ export class ApiClient {
     name: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4015,18 +3245,11 @@ export class ApiClient {
     name: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4038,17 +3261,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/blocks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4059,17 +3281,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4080,17 +3295,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4098,17 +3306,10 @@ export class ApiClient {
   }
 
   orgsUnblockUser(p: { org: string; username: string }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4136,9 +3337,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       before: p["before"],
@@ -4149,15 +3348,13 @@ export class ApiClient {
       state: p["state"],
       sort: p["sort"],
       severity: p["severity"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/code-scanning/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4179,17 +3376,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4209,19 +3405,15 @@ export class ApiClient {
   }): Observable<
     void | void | void | t_basic_error | t_validation_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/codespaces/billing`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4236,17 +3428,16 @@ export class ApiClient {
     secrets: t_codespaces_org_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/codespaces/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4256,17 +3447,10 @@ export class ApiClient {
   codespacesGetOrgPublicKey(p: {
     org: string
   }): Observable<t_codespaces_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4277,18 +3461,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<t_codespaces_org_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4305,20 +3482,16 @@ export class ApiClient {
       visibility: "all" | "private" | "selected"
     }
   }): Observable<t_empty_object | void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4329,18 +3502,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4359,18 +3525,17 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4384,20 +3549,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4409,18 +3570,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | t_basic_error | void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4432,18 +3586,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | t_basic_error | void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4472,9 +3619,7 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
       ecosystem: p["ecosystem"],
@@ -4487,15 +3632,13 @@ export class ApiClient {
       first: p["first"],
       last: p["last"],
       per_page: p["perPage"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/dependabot/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4510,17 +3653,16 @@ export class ApiClient {
     secrets: t_organization_dependabot_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/dependabot/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4530,17 +3672,10 @@ export class ApiClient {
   dependabotGetOrgPublicKey(p: {
     org: string
   }): Observable<t_dependabot_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4551,18 +3686,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<t_organization_dependabot_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4579,20 +3707,16 @@ export class ApiClient {
       visibility: "all" | "private" | "selected"
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4603,18 +3727,11 @@ export class ApiClient {
     org: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4630,18 +3747,17 @@ export class ApiClient {
     repositories: t_minimal_repository[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4655,20 +3771,16 @@ export class ApiClient {
       selected_repository_ids: number[]
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4680,18 +3792,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4703,18 +3808,11 @@ export class ApiClient {
     secretName: string
     repositoryId: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4726,17 +3824,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4748,17 +3845,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_organization_invitation[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/failed_invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4770,17 +3866,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_org_hook[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/hooks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4803,19 +3898,15 @@ export class ApiClient {
       name: string
     }
   }): Observable<t_org_hook | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/hooks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4826,17 +3917,10 @@ export class ApiClient {
     org: string
     hookId: number
   }): Observable<t_org_hook | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4858,19 +3942,15 @@ export class ApiClient {
       name?: string
     }
   }): Observable<t_org_hook | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4881,17 +3961,10 @@ export class ApiClient {
     org: string
     hookId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4902,17 +3975,10 @@ export class ApiClient {
     org: string
     hookId: number
   }): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -4929,19 +3995,15 @@ export class ApiClient {
       url?: t_webhook_config_url
     }
   }): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -4955,22 +4017,18 @@ export class ApiClient {
     cursor?: string
     redelivery?: boolean
   }): Observable<t_hook_delivery_item[] | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -4982,18 +4040,11 @@ export class ApiClient {
     hookId: number
     deliveryId: number
   }): Observable<t_hook_delivery | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5011,18 +4062,11 @@ export class ApiClient {
     | t_scim_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5033,17 +4077,10 @@ export class ApiClient {
     org: string
     hookId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5051,17 +4088,10 @@ export class ApiClient {
   }
 
   appsGetOrgInstallation(p: { org: string }): Observable<t_installation> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/installation`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5076,17 +4106,16 @@ export class ApiClient {
     installations: t_installation[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/installations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5096,17 +4125,10 @@ export class ApiClient {
   interactionsGetRestrictionsForOrg(p: { org: string }): Observable<{
     [key: string]: unknown
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5117,19 +4139,15 @@ export class ApiClient {
     org: string
     requestBody: t_interaction_limit
   }): Observable<t_interaction_limit_response | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -5137,17 +4155,10 @@ export class ApiClient {
   }
 
   interactionsRemoveRestrictionsForOrg(p: { org: string }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5159,17 +4170,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_organization_invitation[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5187,19 +4197,15 @@ export class ApiClient {
   }): Observable<
     t_organization_invitation | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -5210,18 +4216,11 @@ export class ApiClient {
     org: string
     invitationId: number
   }): Observable<void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/invitations/${p["invitationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5234,18 +4233,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5269,9 +4267,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -5280,15 +4276,13 @@ export class ApiClient {
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5302,22 +4296,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/members`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5328,17 +4318,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5349,17 +4332,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5382,18 +4358,17 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5414,18 +4389,11 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5444,18 +4412,11 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5466,17 +4427,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<t_org_membership | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5490,19 +4444,15 @@ export class ApiClient {
       role?: "admin" | "member"
     }
   }): Observable<t_org_membership | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -5513,17 +4463,10 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5536,21 +4479,17 @@ export class ApiClient {
     page?: number
     exclude?: "repositories"[]
   }): Observable<t_migration[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       exclude: p["exclude"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/migrations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5571,19 +4510,15 @@ export class ApiClient {
       repositories: string[]
     }
   }): Observable<t_migration | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/migrations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -5595,17 +4530,13 @@ export class ApiClient {
     migrationId: number
     exclude?: "repositories"[]
   }): Observable<t_migration | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { exclude: p["exclude"] }
+    const params = this._queryParams({ exclude: p["exclude"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5616,18 +4547,11 @@ export class ApiClient {
     org: string
     migrationId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5638,18 +4562,11 @@ export class ApiClient {
     org: string
     migrationId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5661,18 +4578,11 @@ export class ApiClient {
     migrationId: number
     repoName: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5685,18 +4595,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5709,21 +4618,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/outside_collaborators`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5744,20 +4649,16 @@ export class ApiClient {
     | void
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -5771,18 +4672,11 @@ export class ApiClient {
     documentation_url?: string
     message?: string
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5794,20 +4688,16 @@ export class ApiClient {
     org: string
     visibility?: "public" | "private" | "internal"
   }): Observable<t_package[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/packages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5819,18 +4709,11 @@ export class ApiClient {
     packageName: string
     org: string
   }): Observable<t_package> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5842,18 +4725,11 @@ export class ApiClient {
     packageName: string
     org: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5866,18 +4742,14 @@ export class ApiClient {
     org: string
     token?: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { token: p["token"] }
+    const params = this._queryParams({ token: p["token"] })
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5894,22 +4766,18 @@ export class ApiClient {
   }): Observable<
     t_package_version[] | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -5922,18 +4790,11 @@ export class ApiClient {
     org: string
     packageVersionId: number
   }): Observable<t_package_version> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5946,18 +4807,11 @@ export class ApiClient {
     org: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5970,18 +4824,11 @@ export class ApiClient {
     org: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -5994,21 +4841,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_project[] | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6029,19 +4872,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6053,17 +4892,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/public_members`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6074,18 +4912,11 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6096,18 +4927,11 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6118,18 +4942,11 @@ export class ApiClient {
     org: string
     username: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6144,23 +4961,19 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6196,19 +5009,15 @@ export class ApiClient {
       visibility?: "public" | "private"
     }
   }): Observable<t_repository | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6235,9 +5044,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -6247,15 +5054,13 @@ export class ApiClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6265,17 +5070,10 @@ export class ApiClient {
   orgsListSecurityManagerTeams(p: {
     org: string
   }): Observable<t_team_simple[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/security-managers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6286,18 +5084,11 @@ export class ApiClient {
     org: string
     teamSlug: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6308,18 +5099,11 @@ export class ApiClient {
     org: string
     teamSlug: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6329,17 +5113,10 @@ export class ApiClient {
   billingGetGithubActionsBillingOrg(p: {
     org: string
   }): Observable<t_actions_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/settings/billing/actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6349,17 +5126,10 @@ export class ApiClient {
   billingGetGithubPackagesBillingOrg(p: {
     org: string
   }): Observable<t_packages_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/settings/billing/packages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6369,18 +5139,11 @@ export class ApiClient {
   billingGetSharedStorageBillingOrg(p: {
     org: string
   }): Observable<t_combined_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6392,17 +5155,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6421,19 +5183,15 @@ export class ApiClient {
       repo_names?: string[]
     }
   }): Observable<t_team_full | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6444,17 +5202,10 @@ export class ApiClient {
     org: string
     teamSlug: string
   }): Observable<t_team_full | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6478,19 +5229,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6498,17 +5245,10 @@ export class ApiClient {
   }
 
   teamsDeleteInOrg(p: { org: string; teamSlug: string }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6523,23 +5263,19 @@ export class ApiClient {
     page?: number
     pinned?: string
   }): Observable<t_team_discussion[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
       pinned: p["pinned"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6555,20 +5291,16 @@ export class ApiClient {
       title: string
     }
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6580,18 +5312,11 @@ export class ApiClient {
     teamSlug: string
     discussionNumber: number
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6607,20 +5332,16 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6632,18 +5353,11 @@ export class ApiClient {
     teamSlug: string
     discussionNumber: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6658,22 +5372,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_discussion_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6688,20 +5398,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6714,18 +5420,11 @@ export class ApiClient {
     discussionNumber: number
     commentNumber: number
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6741,20 +5440,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6767,18 +5462,11 @@ export class ApiClient {
     discussionNumber: number
     commentNumber: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6802,22 +5490,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6841,20 +5525,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6868,18 +5548,11 @@ export class ApiClient {
     commentNumber: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6902,22 +5575,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -6940,20 +5609,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -6966,18 +5631,11 @@ export class ApiClient {
     discussionNumber: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -6990,18 +5648,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_organization_invitation[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7015,21 +5672,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7041,18 +5694,11 @@ export class ApiClient {
     teamSlug: string
     username: string
   }): Observable<t_team_membership | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7067,20 +5713,16 @@ export class ApiClient {
       role?: "member" | "maintainer"
     }
   }): Observable<t_team_membership | void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7092,18 +5734,11 @@ export class ApiClient {
     teamSlug: string
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7116,18 +5751,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_project[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7139,18 +5773,11 @@ export class ApiClient {
     teamSlug: string
     projectId: number
   }): Observable<t_team_project | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7168,20 +5795,16 @@ export class ApiClient {
     documentation_url?: string
     message?: string
   }> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7193,18 +5816,11 @@ export class ApiClient {
     teamSlug: string
     projectId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7217,17 +5833,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7240,18 +5855,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_team_repository | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7267,20 +5875,16 @@ export class ApiClient {
       permission?: string
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7293,18 +5897,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7317,17 +5914,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7345,18 +5941,11 @@ export class ApiClient {
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7368,17 +5957,10 @@ export class ApiClient {
   }): Observable<
     t_project_card | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7399,19 +5981,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7429,17 +6007,10 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7479,19 +6050,15 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}/moves`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7503,17 +6070,10 @@ export class ApiClient {
   }): Observable<
     t_project_column | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7526,19 +6086,15 @@ export class ApiClient {
       name: string
     }
   }): Observable<t_project_column | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7548,17 +6104,10 @@ export class ApiClient {
   projectsDeleteColumn(p: {
     columnId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7571,21 +6120,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_project_card[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       archived_state: p["archivedState"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/columns/${p["columnId"]}/cards`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7618,19 +6163,15 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/projects/columns/${p["columnId"]}/cards`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7651,19 +6192,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/projects/columns/${p["columnId"]}/moves`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7673,17 +6210,10 @@ export class ApiClient {
   projectsGet(p: {
     projectId: number
   }): Observable<t_project | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7712,19 +6242,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7743,17 +6269,10 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7773,21 +6292,17 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       affiliation: p["affiliation"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/${p["projectId"]}/collaborators`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7808,20 +6323,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7839,18 +6350,11 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7868,18 +6372,11 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7891,17 +6388,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_project_column[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/${p["projectId"]}/columns`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7920,19 +6416,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/projects/${p["projectId"]}/columns`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -7940,17 +6432,10 @@ export class ApiClient {
   }
 
   rateLimitGet(): Observable<t_rate_limit_overview | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/rate_limit`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -7969,18 +6454,17 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7992,18 +6476,11 @@ export class ApiClient {
     repo: string
     requiredWorkflowIdForRepo: number
   }): Observable<t_repo_required_workflow | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8015,18 +6492,11 @@ export class ApiClient {
     repo: string
     requiredWorkflowIdForRepo: number
   }): Observable<t_workflow_usage | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/timing`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8039,17 +6509,10 @@ export class ApiClient {
   }): Observable<
     t_full_repository | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8103,19 +6566,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8131,17 +6590,10 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8158,22 +6610,18 @@ export class ApiClient {
     artifacts: t_artifact[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -8185,18 +6633,11 @@ export class ApiClient {
     repo: string
     artifactId: number
   }): Observable<t_artifact> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8208,18 +6649,11 @@ export class ApiClient {
     repo: string
     artifactId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8232,18 +6666,11 @@ export class ApiClient {
     artifactId: number
     archiveFormat: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8254,18 +6681,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_actions_cache_usage_by_repository> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8282,24 +6702,20 @@ export class ApiClient {
     sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
     direction?: "asc" | "desc"
   }): Observable<t_actions_cache_list> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       ref: p["ref"],
       key: p["key"],
       sort: p["sort"],
       direction: p["direction"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -8312,17 +6728,13 @@ export class ApiClient {
     key: string
     ref?: t_code_scanning_ref
   }): Observable<t_actions_cache_list> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { key: p["key"], ref: p["ref"] }
+    const params = this._queryParams({ key: p["key"], ref: p["ref"] })
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -8334,18 +6746,11 @@ export class ApiClient {
     repo: string
     cacheId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8357,18 +6762,11 @@ export class ApiClient {
     repo: string
     jobId: number
   }): Observable<t_job> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8380,18 +6778,11 @@ export class ApiClient {
     repo: string
     jobId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8406,20 +6797,16 @@ export class ApiClient {
       enable_debug_logging?: boolean
     } | null
   }): Observable<t_empty_object | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8430,18 +6817,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_oidc_custom_sub_repo | t_scim_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8455,20 +6835,16 @@ export class ApiClient {
   }): Observable<
     t_empty_object | t_scim_error | t_basic_error | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8479,18 +6855,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_actions_repository_permissions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8505,20 +6874,16 @@ export class ApiClient {
       enabled: t_actions_enabled
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8529,18 +6894,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_actions_workflow_access_to_repository> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8552,20 +6910,16 @@ export class ApiClient {
     repo: string
     requestBody: t_actions_workflow_access_to_repository
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8576,18 +6930,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_selected_actions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8599,20 +6946,16 @@ export class ApiClient {
     repo: string
     requestBody?: t_selected_actions
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8623,18 +6966,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_actions_get_default_workflow_permissions> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8646,20 +6982,16 @@ export class ApiClient {
     repo: string
     requestBody: t_actions_set_default_workflow_permissions
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8697,9 +7029,7 @@ export class ApiClient {
     total_count: number
     workflow_runs: t_workflow_run[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       actor: p["actor"],
       branch: p["branch"],
       event: p["event"],
@@ -8710,16 +7040,14 @@ export class ApiClient {
       exclude_pull_requests: p["excludePullRequests"],
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -8735,18 +7063,17 @@ export class ApiClient {
     runners: t_runner[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -8757,18 +7084,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_runner_application[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8779,18 +7099,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_authentication_token> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8801,18 +7114,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_authentication_token> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8824,18 +7130,11 @@ export class ApiClient {
     repo: string
     runnerId: number
   }): Observable<t_runner> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8847,18 +7146,11 @@ export class ApiClient {
     repo: string
     runnerId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8876,18 +7168,11 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -8909,20 +7194,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8944,20 +7225,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -8975,18 +7252,11 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9006,18 +7276,11 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9054,9 +7317,7 @@ export class ApiClient {
     total_count: number
     workflow_runs: t_workflow_run[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       actor: p["actor"],
       branch: p["branch"],
       event: p["event"],
@@ -9067,15 +7328,13 @@ export class ApiClient {
       exclude_pull_requests: p["excludePullRequests"],
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9088,18 +7347,16 @@ export class ApiClient {
     runId: number
     excludePullRequests?: boolean
   }): Observable<t_workflow_run> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { exclude_pull_requests: p["excludePullRequests"] }
+    const params = this._queryParams({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9111,18 +7368,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9134,18 +7384,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<t_environment_approvals[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9157,18 +7400,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<t_empty_object | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9185,18 +7421,17 @@ export class ApiClient {
     artifacts: t_artifact[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9210,18 +7445,16 @@ export class ApiClient {
     attemptNumber: number
     excludePullRequests?: boolean
   }): Observable<t_workflow_run> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { exclude_pull_requests: p["excludePullRequests"] }
+    const params = this._queryParams({
+      exclude_pull_requests: p["excludePullRequests"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9242,18 +7475,17 @@ export class ApiClient {
       }
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9266,18 +7498,11 @@ export class ApiClient {
     runId: number
     attemptNumber: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9289,18 +7514,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<t_empty_object | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9318,22 +7536,18 @@ export class ApiClient {
     jobs: t_job[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/jobs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9345,18 +7559,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9368,18 +7575,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9391,18 +7591,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<t_pending_deployment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9419,20 +7612,16 @@ export class ApiClient {
       state: "approved" | "rejected"
     }
   }): Observable<t_deployment[]> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9447,20 +7636,16 @@ export class ApiClient {
       enable_debug_logging?: boolean
     } | null
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9475,20 +7660,16 @@ export class ApiClient {
       enable_debug_logging?: boolean
     } | null
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9500,18 +7681,11 @@ export class ApiClient {
     repo: string
     runId: number
   }): Observable<t_workflow_run_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9527,18 +7701,17 @@ export class ApiClient {
     secrets: t_actions_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9549,18 +7722,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_actions_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9572,18 +7738,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<t_actions_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9599,20 +7758,16 @@ export class ApiClient {
       key_id?: string
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9624,18 +7779,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9651,18 +7799,17 @@ export class ApiClient {
     total_count: number
     variables: t_actions_variable[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9677,20 +7824,16 @@ export class ApiClient {
       value: string
     }
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9702,18 +7845,11 @@ export class ApiClient {
     repo: string
     name: string
   }): Observable<t_actions_variable> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9729,20 +7865,16 @@ export class ApiClient {
       value?: string
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9754,18 +7886,11 @@ export class ApiClient {
     repo: string
     name: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9781,18 +7906,17 @@ export class ApiClient {
     total_count: number
     workflows: t_workflow[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9804,18 +7928,11 @@ export class ApiClient {
     repo: string
     workflowId: number | string
   }): Observable<t_workflow> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9827,18 +7944,11 @@ export class ApiClient {
     repo: string
     workflowId: number | string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9856,20 +7966,16 @@ export class ApiClient {
       ref: string
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -9881,18 +7987,11 @@ export class ApiClient {
     repo: string
     workflowId: number | string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9930,9 +8029,7 @@ export class ApiClient {
     total_count: number
     workflow_runs: t_workflow_run[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       actor: p["actor"],
       branch: p["branch"],
       event: p["event"],
@@ -9943,16 +8040,14 @@ export class ApiClient {
       exclude_pull_requests: p["excludePullRequests"],
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -9964,18 +8059,11 @@ export class ApiClient {
     repo: string
     workflowId: number | string
   }): Observable<t_workflow_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -9988,17 +8076,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -10010,18 +8097,11 @@ export class ApiClient {
     repo: string
     assignee: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10033,17 +8113,13 @@ export class ApiClient {
     repo: string
     page?: number
   }): Observable<t_autolink[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"] }
+    const params = this._queryParams({ page: p["page"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -10059,19 +8135,15 @@ export class ApiClient {
       url_template: string
     }
   }): Observable<t_autolink | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10083,18 +8155,11 @@ export class ApiClient {
     repo: string
     autolinkId: number
   }): Observable<t_autolink | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10106,18 +8171,11 @@ export class ApiClient {
     repo: string
     autolinkId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10128,18 +8186,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10150,18 +8201,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10175,21 +8219,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_short_branch[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       protected: p["protected"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -10201,18 +8241,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_branch_with_protection | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10224,18 +8257,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_branch_protection | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10291,20 +8317,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10316,18 +8338,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10339,18 +8354,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_protected_branch_admin_enforced> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10362,18 +8370,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_protected_branch_admin_enforced> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10385,18 +8386,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10408,18 +8402,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_protected_branch_pull_request_review> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10447,20 +8434,16 @@ export class ApiClient {
       required_approving_review_count?: number
     }
   }): Observable<t_protected_branch_pull_request_review | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10472,18 +8455,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10495,18 +8471,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_protected_branch_admin_enforced | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10518,18 +8487,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_protected_branch_admin_enforced | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10541,18 +8503,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10564,18 +8519,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_status_check_policy | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10595,20 +8543,16 @@ export class ApiClient {
       strict?: boolean
     }
   }): Observable<t_status_check_policy | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10620,18 +8564,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10643,18 +8580,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<string[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10673,20 +8603,16 @@ export class ApiClient {
   }): Observable<
     string[] | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10703,20 +8629,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<string[] | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10733,20 +8655,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<string[] | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10758,18 +8676,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_branch_restriction_policy | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10781,18 +8692,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10804,18 +8708,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_integration[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10832,20 +8729,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_integration[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10862,20 +8755,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_integration[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10892,20 +8781,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_integration[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10917,18 +8802,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_team[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -10945,20 +8823,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_team[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -10975,20 +8849,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_team[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11005,20 +8875,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_team[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11030,18 +8896,11 @@ export class ApiClient {
     repo: string
     branch: string
   }): Observable<t_simple_user[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11058,20 +8917,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_simple_user[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11088,20 +8943,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_simple_user[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11118,20 +8969,16 @@ export class ApiClient {
         }
       | string[]
   }): Observable<t_simple_user[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11151,20 +8998,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11188,19 +9031,15 @@ export class ApiClient {
           [key: string]: unknown
         }
   }): Observable<t_check_run> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11212,18 +9051,11 @@ export class ApiClient {
     repo: string
     checkRunId: number
   }): Observable<t_check_run> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11278,20 +9110,16 @@ export class ApiClient {
       status?: "queued" | "in_progress" | "completed"
     }
   }): Observable<t_check_run> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11305,18 +9133,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_check_annotation[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11330,18 +9157,11 @@ export class ApiClient {
   }): Observable<
     t_empty_object | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11355,19 +9175,15 @@ export class ApiClient {
       head_sha: string
     }
   }): Observable<t_check_suite | t_check_suite> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11384,20 +9200,16 @@ export class ApiClient {
       }[]
     }
   }): Observable<t_check_suite_preference> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11409,18 +9221,11 @@ export class ApiClient {
     repo: string
     checkSuiteId: number
   }): Observable<t_check_suite> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11440,24 +9245,20 @@ export class ApiClient {
     check_runs: t_check_run[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       check_name: p["checkName"],
       status: p["status"],
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/check-runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11469,18 +9270,11 @@ export class ApiClient {
     repo: string
     checkSuiteId: number
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11510,9 +9304,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       page: p["page"],
@@ -11522,16 +9314,14 @@ export class ApiClient {
       sort: p["sort"],
       state: p["state"],
       severity: p["severity"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11553,18 +9343,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11590,20 +9373,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11627,22 +9406,18 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11670,9 +9445,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
       page: p["page"],
@@ -11681,16 +9454,14 @@ export class ApiClient {
       sarif_id: p["sarifId"],
       direction: p["direction"],
       sort: p["sort"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11713,18 +9484,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11747,18 +9511,14 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { confirm_delete: p["confirmDelete"] }
+    const params = this._queryParams({ confirm_delete: p["confirmDelete"] })
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11778,18 +9538,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11811,18 +9564,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11853,20 +9599,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11887,18 +9629,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -11910,18 +9645,14 @@ export class ApiClient {
     repo: string
     ref?: string
   }): Observable<t_codeowners_errors | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { ref: p["ref"] }
+    const params = this._queryParams({ ref: p["ref"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11943,17 +9674,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -11988,19 +9718,15 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12026,18 +9752,17 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12060,21 +9785,17 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       location: p["location"],
       client_ip: p["clientIp"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12098,17 +9819,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { ref: p["ref"], client_ip: p["clientIp"] }
+    const params = this._queryParams({
+      ref: p["ref"],
+      client_ip: p["clientIp"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12124,18 +9844,17 @@ export class ApiClient {
     secrets: t_repo_codespaces_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12146,18 +9865,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_codespaces_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12169,18 +9881,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<t_repo_codespaces_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12196,20 +9901,16 @@ export class ApiClient {
       key_id?: string
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12221,18 +9922,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12247,22 +9941,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_collaborator[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       affiliation: p["affiliation"],
       permission: p["permission"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12274,18 +9964,11 @@ export class ApiClient {
     repo: string
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12302,20 +9985,16 @@ export class ApiClient {
   }): Observable<
     t_repository_invitation | void | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12327,18 +10006,11 @@ export class ApiClient {
     repo: string
     username: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12350,18 +10022,11 @@ export class ApiClient {
     repo: string
     username: string
   }): Observable<t_repository_collaborator_permission | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12374,17 +10039,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_commit_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12396,18 +10060,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<t_commit_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12422,20 +10079,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_commit_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12447,18 +10100,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12481,22 +10127,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12519,20 +10161,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12545,18 +10183,11 @@ export class ApiClient {
     commentId: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12576,9 +10207,7 @@ export class ApiClient {
   }): Observable<
     t_commit[] | t_scim_error | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sha: p["sha"],
       path: p["path"],
       author: p["author"],
@@ -12586,15 +10215,13 @@ export class ApiClient {
       until: p["until"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12606,18 +10233,11 @@ export class ApiClient {
     repo: string
     commitSha: string
   }): Observable<t_branch_short[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12631,18 +10251,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_commit_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12660,20 +10279,16 @@ export class ApiClient {
       position?: number
     }
   }): Observable<t_commit_comment | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -12687,18 +10302,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_pull_request_simple[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12722,18 +10336,17 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12754,25 +10367,21 @@ export class ApiClient {
     check_runs: t_check_run[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       check_name: p["checkName"],
       status: p["status"],
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
       app_id: p["appId"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-runs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12791,23 +10400,19 @@ export class ApiClient {
     check_suites: t_check_suite[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       app_id: p["appId"],
       check_name: p["checkName"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-suites`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12821,18 +10426,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_combined_commit_status | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12846,18 +10450,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_status[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12868,18 +10471,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_community_profile> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/community/profile`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -12902,18 +10498,17 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12936,18 +10531,14 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { ref: p["ref"] }
+    const params = this._queryParams({ ref: p["ref"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -12981,20 +10572,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13029,20 +10616,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13056,21 +10639,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_contributor[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       anon: p["anon"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/contributors`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13102,9 +10681,7 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
       ecosystem: p["ecosystem"],
@@ -13119,16 +10696,14 @@ export class ApiClient {
       after: p["after"],
       first: p["first"],
       last: p["last"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13140,18 +10715,11 @@ export class ApiClient {
     repo: string
     alertNumber: t_alert_number
   }): Observable<t_dependabot_alert | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13180,20 +10748,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13209,18 +10773,17 @@ export class ApiClient {
     secrets: t_dependabot_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13231,18 +10794,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_dependabot_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13254,18 +10810,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<t_dependabot_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13281,20 +10830,16 @@ export class ApiClient {
       key_id?: string
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13306,18 +10851,11 @@ export class ApiClient {
     repo: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13330,18 +10868,14 @@ export class ApiClient {
     basehead: string
     name?: string
   }): Observable<t_dependency_graph_diff | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { name: p["name"] }
+    const params = this._queryParams({ name: p["name"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13358,20 +10892,16 @@ export class ApiClient {
     message: string
     result: string
   }> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13388,24 +10918,20 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_deployment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sha: p["sha"],
       ref: p["ref"],
       task: p["task"],
       environment: p["environment"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13438,19 +10964,15 @@ export class ApiClient {
     | void
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13462,18 +10984,11 @@ export class ApiClient {
     repo: string
     deploymentId: number
   }): Observable<t_deployment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13485,18 +11000,11 @@ export class ApiClient {
     repo: string
     deploymentId: number
   }): Observable<void | t_basic_error | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13510,18 +11018,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_deployment_status[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13549,20 +11056,16 @@ export class ApiClient {
       target_url?: string
     }
   }): Observable<t_deployment_status | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13575,18 +11078,11 @@ export class ApiClient {
     deploymentId: number
     statusId: number
   }): Observable<t_deployment_status | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13603,19 +11099,15 @@ export class ApiClient {
       event_type: string
     }
   }): Observable<void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13631,17 +11123,16 @@ export class ApiClient {
     environments?: t_environment[]
     total_count?: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13653,18 +11144,11 @@ export class ApiClient {
     repo: string
     environmentName: string
   }): Observable<t_environment> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13686,20 +11170,16 @@ export class ApiClient {
       wait_timer?: t_wait_timer
     } | null
   }): Observable<t_environment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13711,18 +11191,11 @@ export class ApiClient {
     repo: string
     environmentName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13739,18 +11212,17 @@ export class ApiClient {
     branch_policies: t_deployment_branch_policy[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13763,20 +11235,16 @@ export class ApiClient {
     environmentName: string
     requestBody: t_deployment_branch_policy_name_pattern
   }): Observable<t_deployment_branch_policy | void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13789,18 +11257,11 @@ export class ApiClient {
     environmentName: string
     branchPolicyId: number
   }): Observable<t_deployment_branch_policy> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13814,20 +11275,16 @@ export class ApiClient {
     branchPolicyId: number
     requestBody: t_deployment_branch_policy_name_pattern
   }): Observable<t_deployment_branch_policy> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13840,18 +11297,11 @@ export class ApiClient {
     environmentName: string
     branchPolicyId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -13864,17 +11314,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13888,21 +11337,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[] | t_scim_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -13924,19 +11369,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13957,19 +11398,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -13981,18 +11418,11 @@ export class ApiClient {
     repo: string
     fileSha: string
   }): Observable<t_blob | t_basic_error | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14019,19 +11449,15 @@ export class ApiClient {
       tree: string
     }
   }): Observable<t_git_commit | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14043,18 +11469,11 @@ export class ApiClient {
     repo: string
     commitSha: string
   }): Observable<t_git_commit | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14066,18 +11485,11 @@ export class ApiClient {
     repo: string
     ref: string
   }): Observable<t_git_ref[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14089,18 +11501,11 @@ export class ApiClient {
     repo: string
     ref: string
   }): Observable<t_git_ref | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14116,19 +11521,15 @@ export class ApiClient {
       sha: string
     }
   }): Observable<t_git_ref | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14144,20 +11545,16 @@ export class ApiClient {
       sha: string
     }
   }): Observable<t_git_ref | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14169,18 +11566,11 @@ export class ApiClient {
     repo: string
     ref: string
   }): Observable<void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14202,19 +11592,15 @@ export class ApiClient {
       type: "commit" | "tree" | "blob"
     }
   }): Observable<t_git_tag | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14226,18 +11612,11 @@ export class ApiClient {
     repo: string
     tagSha: string
   }): Observable<t_git_tag | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14260,19 +11639,15 @@ export class ApiClient {
   }): Observable<
     t_git_tree | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14285,18 +11660,14 @@ export class ApiClient {
     treeSha: string
     recursive?: string
   }): Observable<t_git_tree | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { recursive: p["recursive"] }
+    const params = this._queryParams({ recursive: p["recursive"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -14309,17 +11680,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_hook[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -14343,19 +11713,15 @@ export class ApiClient {
       name?: string
     } | null
   }): Observable<t_hook | t_basic_error | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14367,18 +11733,11 @@ export class ApiClient {
     repo: string
     hookId: number
   }): Observable<t_hook | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14404,20 +11763,16 @@ export class ApiClient {
       remove_events?: string[]
     }
   }): Observable<t_hook | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14429,18 +11784,11 @@ export class ApiClient {
     repo: string
     hookId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14452,18 +11800,11 @@ export class ApiClient {
     repo: string
     hookId: number
   }): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14481,20 +11822,16 @@ export class ApiClient {
       url?: t_webhook_config_url
     }
   }): Observable<t_webhook_config> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14509,22 +11846,18 @@ export class ApiClient {
     cursor?: string
     redelivery?: boolean
   }): Observable<t_hook_delivery_item[] | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -14537,18 +11870,11 @@ export class ApiClient {
     hookId: number
     deliveryId: number
   }): Observable<t_hook_delivery | t_scim_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14567,18 +11893,11 @@ export class ApiClient {
     | t_scim_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14590,18 +11909,11 @@ export class ApiClient {
     repo: string
     hookId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14613,18 +11925,11 @@ export class ApiClient {
     repo: string
     hookId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14635,17 +11940,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_import | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14665,19 +11963,15 @@ export class ApiClient {
   }): Observable<
     t_import | t_basic_error | t_validation_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14694,19 +11988,15 @@ export class ApiClient {
       vcs_username?: string
     } | null
   }): Observable<t_import | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14717,17 +12007,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14739,17 +12022,13 @@ export class ApiClient {
     repo: string
     since?: number
   }): Observable<t_porter_author[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { since: p["since"] }
+    const params = this._queryParams({ since: p["since"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -14767,20 +12046,16 @@ export class ApiClient {
   }): Observable<
     t_porter_author | t_basic_error | t_validation_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14791,18 +12066,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_porter_large_file[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/large_files`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14816,19 +12084,15 @@ export class ApiClient {
       use_lfs: "opt_in" | "opt_out"
     }
   }): Observable<t_import | t_validation_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14839,17 +12103,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_installation | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14862,18 +12119,11 @@ export class ApiClient {
   }): Observable<{
     [key: string]: unknown
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14885,20 +12135,16 @@ export class ApiClient {
     repo: string
     requestBody: t_interaction_limit
   }): Observable<t_interaction_limit_response | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14909,18 +12155,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -14933,17 +12172,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_repository_invitation[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -14958,20 +12196,16 @@ export class ApiClient {
       permissions?: "read" | "write" | "maintain" | "triage" | "admin"
     }
   }): Observable<t_repository_invitation> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -14983,18 +12217,11 @@ export class ApiClient {
     repo: string
     invitationId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15018,9 +12245,7 @@ export class ApiClient {
   }): Observable<
     t_issue[] | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       milestone: p["milestone"],
       state: p["state"],
       assignee: p["assignee"],
@@ -15032,15 +12257,13 @@ export class ApiClient {
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15078,19 +12301,15 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15106,24 +12325,20 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue_comment[] | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15135,18 +12350,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<t_issue_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15161,20 +12369,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_issue_comment | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15186,18 +12390,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15220,22 +12417,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15258,20 +12451,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15284,18 +12473,11 @@ export class ApiClient {
     commentId: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15308,17 +12490,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue_event[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15332,18 +12513,11 @@ export class ApiClient {
   }): Observable<
     t_issue_event | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15357,18 +12531,11 @@ export class ApiClient {
   }): Observable<
     t_issue | t_basic_error | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15410,20 +12577,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15438,20 +12601,16 @@ export class ApiClient {
       assignees?: string[]
     }
   }): Observable<t_issue> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15466,20 +12625,16 @@ export class ApiClient {
       assignees?: string[]
     }
   }): Observable<t_issue> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15492,18 +12647,11 @@ export class ApiClient {
     issueNumber: number
     assignee: string
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15518,22 +12666,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue_comment[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15554,20 +12698,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15581,18 +12721,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue_event_for_issue[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15606,18 +12745,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_label[] | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15649,20 +12787,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15694,20 +12828,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15719,18 +12849,11 @@ export class ApiClient {
     repo: string
     issueNumber: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15743,18 +12866,11 @@ export class ApiClient {
     issueNumber: number
     name: string
   }): Observable<t_label[] | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15771,20 +12887,16 @@ export class ApiClient {
   }): Observable<
     void | t_basic_error | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15796,18 +12908,11 @@ export class ApiClient {
     repo: string
     issueNumber: number
   }): Observable<void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15830,22 +12935,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15868,20 +12969,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15894,18 +12991,11 @@ export class ApiClient {
     issueNumber: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -15919,18 +13009,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_timeline_issue_events[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15943,17 +13032,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_deploy_key[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -15969,19 +13057,15 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_deploy_key | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15993,18 +13077,11 @@ export class ApiClient {
     repo: string
     keyId: number
   }): Observable<t_deploy_key | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16016,18 +13093,11 @@ export class ApiClient {
     repo: string
     keyId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16040,17 +13110,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_label[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16066,19 +13135,15 @@ export class ApiClient {
       name: string
     }
   }): Observable<t_label | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16090,18 +13155,11 @@ export class ApiClient {
     repo: string
     name: string
   }): Observable<t_label | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16118,20 +13176,16 @@ export class ApiClient {
       new_name?: string
     }
   }): Observable<t_label> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16143,18 +13197,11 @@ export class ApiClient {
     repo: string
     name: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16165,17 +13212,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_language> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16185,17 +13225,10 @@ export class ApiClient {
   reposEnableLfsForRepo(p: { owner: string; repo: string }): Observable<{
     [key: string]: unknown
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16203,17 +13236,10 @@ export class ApiClient {
   }
 
   reposDisableLfsForRepo(p: { owner: string; repo: string }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16224,17 +13250,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_license_content> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16248,19 +13267,15 @@ export class ApiClient {
       branch: string
     }
   }): Observable<t_merged_upstream | void | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16278,19 +13293,15 @@ export class ApiClient {
   }): Observable<
     t_commit | void | t_basic_error | void | void | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16306,23 +13317,19 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_milestone[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16339,19 +13346,15 @@ export class ApiClient {
       title: string
     }
   }): Observable<t_milestone | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16363,18 +13366,11 @@ export class ApiClient {
     repo: string
     milestoneNumber: number
   }): Observable<t_milestone | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16392,20 +13388,16 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_milestone> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16417,18 +13409,11 @@ export class ApiClient {
     repo: string
     milestoneNumber: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16442,18 +13427,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_label[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16470,24 +13454,20 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_thread[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       all: p["all"],
       participating: p["participating"],
       since: p["since"],
       before: p["before"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16504,19 +13484,15 @@ export class ApiClient {
     message?: string
     url?: string
   } | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16527,17 +13503,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_page | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16555,19 +13524,15 @@ export class ApiClient {
       }
     } | null
   }): Observable<t_page | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16586,19 +13551,15 @@ export class ApiClient {
       }
     }
   }): Observable<void | t_scim_error | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16609,17 +13570,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | t_basic_error | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16632,17 +13586,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_page_build[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16653,17 +13606,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_page_build_status> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16674,18 +13620,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_page_build> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16697,18 +13636,11 @@ export class ApiClient {
     repo: string
     buildId: number
   }): Observable<t_page_build> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16727,20 +13659,16 @@ export class ApiClient {
   }): Observable<
     t_page_deployment | t_scim_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16753,17 +13681,10 @@ export class ApiClient {
   }): Observable<
     t_pages_health_check | t_empty_object | void | t_basic_error | void
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16784,21 +13705,17 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16820,19 +13737,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16850,9 +13763,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_pull_request_simple[] | void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       head: p["head"],
       base: p["base"],
@@ -16860,15 +13771,13 @@ export class ApiClient {
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16888,19 +13797,15 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_pull_request | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16916,23 +13821,19 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_pull_request_review_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -16944,18 +13845,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<t_pull_request_review_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -16970,20 +13864,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_pull_request_review_comment> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -16995,18 +13885,11 @@ export class ApiClient {
     repo: string
     commentId: number
   }): Observable<void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17029,22 +13912,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17067,20 +13946,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction | t_reaction | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17093,18 +13968,11 @@ export class ApiClient {
     commentId: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17122,18 +13990,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17152,20 +14013,16 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_pull_request | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17199,20 +14056,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17229,24 +14082,20 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_pull_request_review_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17271,20 +14120,16 @@ export class ApiClient {
   }): Observable<
     t_pull_request_review_comment | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17300,20 +14145,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_pull_request_review_comment | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17327,18 +14168,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_commit[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17361,18 +14201,17 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17384,18 +14223,11 @@ export class ApiClient {
     repo: string
     pullNumber: number
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17426,20 +14258,16 @@ export class ApiClient {
       }
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17451,18 +14279,11 @@ export class ApiClient {
     repo: string
     pullNumber: number
   }): Observable<t_pull_request_review_request> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17478,20 +14299,16 @@ export class ApiClient {
       team_reviewers?: string[]
     }
   }): Observable<t_pull_request_simple | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17507,20 +14324,16 @@ export class ApiClient {
       team_reviewers?: string[]
     }
   }): Observable<t_pull_request_simple | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17534,18 +14347,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_pull_request_review[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17573,20 +14385,16 @@ export class ApiClient {
   }): Observable<
     t_pull_request_review | t_basic_error | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17599,18 +14407,11 @@ export class ApiClient {
     pullNumber: number
     reviewId: number
   }): Observable<t_pull_request_review | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17626,20 +14427,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_pull_request_review | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17654,18 +14451,11 @@ export class ApiClient {
   }): Observable<
     t_pull_request_review | t_basic_error | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17680,18 +14470,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_review_comment[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17710,20 +14499,16 @@ export class ApiClient {
   }): Observable<
     t_pull_request_review | t_basic_error | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17745,20 +14530,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17780,20 +14561,16 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17805,17 +14582,13 @@ export class ApiClient {
     repo: string
     ref?: string
   }): Observable<t_content_file | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { ref: p["ref"] }
+    const params = this._queryParams({ ref: p["ref"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17828,18 +14601,14 @@ export class ApiClient {
     dir: string
     ref?: string
   }): Observable<t_content_file | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { ref: p["ref"] }
+    const params = this._queryParams({ ref: p["ref"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17852,17 +14621,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_release[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -17884,19 +14652,15 @@ export class ApiClient {
       target_commitish?: string
     }
   }): Observable<t_release | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17908,18 +14672,11 @@ export class ApiClient {
     repo: string
     assetId: number
   }): Observable<t_release_asset | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17936,20 +14693,16 @@ export class ApiClient {
       state?: string
     }
   }): Observable<t_release_asset> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -17961,18 +14714,11 @@ export class ApiClient {
     repo: string
     assetId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -17989,20 +14735,16 @@ export class ApiClient {
       target_commitish?: string
     }
   }): Observable<t_release_notes_content | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18013,18 +14755,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_release> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/latest`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18036,18 +14771,11 @@ export class ApiClient {
     repo: string
     tag: string
   }): Observable<t_release | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18059,18 +14787,11 @@ export class ApiClient {
     repo: string
     releaseId: number
   }): Observable<t_release | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18092,20 +14813,16 @@ export class ApiClient {
       target_commitish?: string
     }
   }): Observable<t_release | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18117,18 +14834,11 @@ export class ApiClient {
     repo: string
     releaseId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18142,18 +14852,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_release_asset[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18168,20 +14877,18 @@ export class ApiClient {
     label?: string
     requestBody?: string
   }): Observable<t_release_asset | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "*/*",
-    }
-
-    const queryParameters = { name: p["name"], label: p["label"] }
+    const headers = this._headers({ "Content-Type": "*/*" })
+    const params = this._queryParams({ name: p["name"], label: p["label"] })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        params,
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18196,22 +14903,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18226,20 +14929,16 @@ export class ApiClient {
       content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
     }
   }): Observable<t_reaction | t_reaction | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18252,18 +14951,11 @@ export class ApiClient {
     releaseId: number
     reactionId: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18291,9 +14983,7 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
       resolution: p["resolution"],
@@ -18303,16 +14993,14 @@ export class ApiClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18333,18 +15021,11 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18371,20 +15052,16 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18406,18 +15083,17 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18435,17 +15111,16 @@ export class ApiClient {
       }
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18459,18 +15134,11 @@ export class ApiClient {
       }
     | void
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18484,18 +15152,11 @@ export class ApiClient {
       }
     | void
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18509,18 +15170,11 @@ export class ApiClient {
       }
     | void
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18531,18 +15185,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_participation_stats | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/participation`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18553,18 +15200,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_code_frequency_stat[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18582,20 +15222,16 @@ export class ApiClient {
       target_url?: string | null
     }
   }): Observable<t_status> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18608,17 +15244,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18629,17 +15264,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_repository_subscription | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18654,19 +15282,15 @@ export class ApiClient {
       subscribed?: boolean
     }
   }): Observable<t_repository_subscription> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18677,17 +15301,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18700,17 +15317,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_tag[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18721,18 +15337,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_tag_protection[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags/protection`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18746,20 +15355,16 @@ export class ApiClient {
       pattern: string
     }
   }): Observable<t_tag_protection | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags/protection`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18771,18 +15376,11 @@ export class ApiClient {
     repo: string
     tagProtectionId: number
   }): Observable<void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18794,18 +15392,11 @@ export class ApiClient {
     repo: string
     ref: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18818,17 +15409,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18841,17 +15431,16 @@ export class ApiClient {
     page?: number
     perPage?: number
   }): Observable<t_topic | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { page: p["page"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18865,19 +15454,15 @@ export class ApiClient {
       names: string[]
     }
   }): Observable<t_topic | t_basic_error | t_validation_error_simple> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -18889,17 +15474,13 @@ export class ApiClient {
     repo: string
     per?: "" | "day" | "week"
   }): Observable<t_clone_traffic | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per: p["per"] }
+    const params = this._queryParams({ per: p["per"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18910,18 +15491,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_content_traffic[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18932,18 +15506,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_referrer_traffic[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -18955,17 +15522,13 @@ export class ApiClient {
     repo: string
     per?: "" | "day" | "week"
   }): Observable<t_view_traffic | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per: p["per"] }
+    const params = this._queryParams({ per: p["per"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -18981,19 +15544,15 @@ export class ApiClient {
       team_ids?: number[]
     }
   }): Observable<t_minimal_repository> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19004,18 +15563,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19026,18 +15578,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19048,18 +15593,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19071,18 +15609,11 @@ export class ApiClient {
     repo: string
     ref: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19100,20 +15631,16 @@ export class ApiClient {
       private?: boolean
     }
   }): Observable<t_repository> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19123,17 +15650,13 @@ export class ApiClient {
   reposListPublic(p: {
     since?: number
   }): Observable<t_minimal_repository[] | void | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { since: p["since"] }
+    const params = this._queryParams({ since: p["since"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19149,18 +15672,17 @@ export class ApiClient {
     secrets: t_actions_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19171,18 +15693,11 @@ export class ApiClient {
     repositoryId: number
     environmentName: string
   }): Observable<t_actions_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19194,18 +15709,11 @@ export class ApiClient {
     environmentName: string
     secretName: string
   }): Observable<t_actions_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19221,20 +15729,16 @@ export class ApiClient {
       key_id: string
     }
   }): Observable<t_empty_object | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19246,18 +15750,11 @@ export class ApiClient {
     environmentName: string
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19273,18 +15770,17 @@ export class ApiClient {
     total_count: number
     variables: t_actions_variable[]
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19299,20 +15795,16 @@ export class ApiClient {
       value: string
     }
   }): Observable<t_empty_object> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19324,18 +15816,11 @@ export class ApiClient {
     environmentName: string
     name: string
   }): Observable<t_actions_variable> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19351,20 +15836,16 @@ export class ApiClient {
       value?: string
     }
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19376,18 +15857,11 @@ export class ApiClient {
     environmentName: string
     name: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19415,23 +15889,19 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/code`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19449,23 +15919,19 @@ export class ApiClient {
     items: t_commit_search_result_item[]
     total_count: number
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/commits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19504,23 +15970,19 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19545,24 +16007,20 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       repository_id: p["repositoryId"],
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/labels`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19589,23 +16047,19 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19617,21 +16071,17 @@ export class ApiClient {
     items: t_topic_search_result_item[]
     total_count: number
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/topics`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19658,23 +16108,19 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/search/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19684,17 +16130,10 @@ export class ApiClient {
   teamsGetLegacy(p: {
     teamId: number
   }): Observable<t_team_full | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19717,19 +16156,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/teams/${p["teamId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19739,17 +16174,10 @@ export class ApiClient {
   teamsDeleteLegacy(p: {
     teamId: number
   }): Observable<void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19762,21 +16190,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_discussion[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/discussions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19791,19 +16215,15 @@ export class ApiClient {
       title: string
     }
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/teams/${p["teamId"]}/discussions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19814,18 +16234,11 @@ export class ApiClient {
     teamId: number
     discussionNumber: number
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19840,20 +16253,16 @@ export class ApiClient {
       title?: string
     }
   }): Observable<t_team_discussion> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19864,18 +16273,11 @@ export class ApiClient {
     teamId: number
     discussionNumber: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19889,22 +16291,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_discussion_comment[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -19918,20 +16316,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19943,18 +16337,11 @@ export class ApiClient {
     discussionNumber: number
     commentNumber: number
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -19969,20 +16356,16 @@ export class ApiClient {
       body: string
     }
   }): Observable<t_team_discussion_comment> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -19994,18 +16377,11 @@ export class ApiClient {
     discussionNumber: number
     commentNumber: number
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20028,22 +16404,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20066,20 +16438,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20101,22 +16469,18 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_reaction[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20138,20 +16502,16 @@ export class ApiClient {
         | "eyes"
     }
   }): Observable<t_reaction> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20163,17 +16523,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_organization_invitation[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20186,21 +16545,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/members`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20211,17 +16566,10 @@ export class ApiClient {
     teamId: number
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20232,17 +16580,10 @@ export class ApiClient {
     teamId: number
     username: string
   }): Observable<void | t_basic_error | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20253,17 +16594,10 @@ export class ApiClient {
     teamId: number
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20274,18 +16608,11 @@ export class ApiClient {
     teamId: number
     username: string
   }): Observable<t_team_membership | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20299,20 +16626,16 @@ export class ApiClient {
       role?: "member" | "maintainer"
     }
   }): Observable<t_team_membership | void | t_basic_error | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20323,18 +16646,11 @@ export class ApiClient {
     teamId: number
     username: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20346,17 +16662,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_project[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20367,17 +16682,10 @@ export class ApiClient {
     teamId: number
     projectId: number
   }): Observable<t_team_project | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20399,19 +16707,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20422,17 +16726,10 @@ export class ApiClient {
     teamId: number
     projectId: number
   }): Observable<void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20444,17 +16741,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20466,18 +16762,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<t_team_repository | void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20492,20 +16781,16 @@ export class ApiClient {
       permission?: "pull" | "push" | "admin"
     }
   }): Observable<void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20517,18 +16802,11 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20542,17 +16820,16 @@ export class ApiClient {
   }): Observable<
     t_team[] | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20562,14 +16839,7 @@ export class ApiClient {
   usersGetAuthenticated(): Observable<
     (t_private_user | t_public_user) | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>("GET", this.config.basePath + `/user`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
       observe: "body",
       reportProgress: false,
     })
@@ -20594,19 +16864,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/user`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20619,17 +16885,16 @@ export class ApiClient {
   }): Observable<
     t_simple_user[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/blocks`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20639,17 +16904,10 @@ export class ApiClient {
   usersCheckBlocked(p: {
     username: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20666,17 +16924,10 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20686,17 +16937,10 @@ export class ApiClient {
   usersUnblock(p: {
     username: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20718,21 +16962,17 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
       repository_id: p["repositoryId"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20777,19 +17017,15 @@ export class ApiClient {
         message?: string
       }
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20803,17 +17039,16 @@ export class ApiClient {
     secrets: t_codespaces_secret[]
     total_count: number
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/secrets`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -20821,17 +17056,10 @@ export class ApiClient {
   }
 
   codespacesGetPublicKeyForAuthenticatedUser(): Observable<t_codespaces_user_public_key> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/secrets/public-key`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20841,17 +17069,10 @@ export class ApiClient {
   codespacesGetSecretForAuthenticatedUser(p: {
     secretName: string
   }): Observable<t_codespaces_secret> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20866,19 +17087,15 @@ export class ApiClient {
       selected_repository_ids?: string[]
     }
   }): Observable<t_empty_object | void | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20888,17 +17105,10 @@ export class ApiClient {
   codespacesDeleteSecretForAuthenticatedUser(p: {
     secretName: string
   }): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20917,18 +17127,11 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20943,20 +17146,16 @@ export class ApiClient {
   }): Observable<
     void | t_basic_error | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -20969,18 +17168,11 @@ export class ApiClient {
   }): Observable<
     void | t_basic_error | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -20993,18 +17185,11 @@ export class ApiClient {
   }): Observable<
     void | t_basic_error | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21021,17 +17206,10 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21046,19 +17224,15 @@ export class ApiClient {
       recent_folders?: string[]
     }
   }): Observable<t_codespace | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21077,17 +17251,10 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21104,17 +17271,10 @@ export class ApiClient {
     | t_validation_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/exports`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21125,18 +17285,11 @@ export class ApiClient {
     codespaceName: string
     exportId: string
   }): Observable<t_codespace_export_details | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21156,17 +17309,10 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/machines`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21186,19 +17332,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/publish`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21218,17 +17360,10 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/start`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21240,17 +17375,10 @@ export class ApiClient {
   }): Observable<
     t_codespace | t_basic_error | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/stop`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21269,19 +17397,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/user/email/visibility`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21294,17 +17418,16 @@ export class ApiClient {
   }): Observable<
     t_email[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/emails`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21326,19 +17449,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/emails`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21360,19 +17479,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/emails`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21383,17 +17498,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/followers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21404,17 +17518,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/following`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21424,17 +17537,10 @@ export class ApiClient {
   usersCheckPersonIsFollowedByAuthenticated(p: {
     username: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21444,17 +17550,10 @@ export class ApiClient {
   usersFollow(p: {
     username: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21464,17 +17563,10 @@ export class ApiClient {
   usersUnfollow(p: {
     username: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21487,17 +17579,16 @@ export class ApiClient {
   }): Observable<
     t_gpg_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/gpg_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21517,19 +17608,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/gpg_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21541,17 +17628,10 @@ export class ApiClient {
   }): Observable<
     t_gpg_key | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21568,17 +17648,10 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21597,17 +17670,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/installations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21628,18 +17700,17 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21650,18 +17721,11 @@ export class ApiClient {
     installationId: number
     repositoryId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21672,18 +17736,11 @@ export class ApiClient {
     installationId: number
     repositoryId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21693,17 +17750,10 @@ export class ApiClient {
   interactionsGetRestrictionsForAuthenticatedUser(): Observable<{
     [key: string]: unknown
   } | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21713,19 +17763,15 @@ export class ApiClient {
   interactionsSetRestrictionsForAuthenticatedUser(p: {
     requestBody: t_interaction_limit
   }): Observable<t_interaction_limit_response | t_validation_error> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21733,17 +17779,10 @@ export class ApiClient {
   }
 
   interactionsRemoveRestrictionsForAuthenticatedUser(): Observable<void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/interaction-limits`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21766,9 +17805,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_issue[] | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
@@ -21777,15 +17814,13 @@ export class ApiClient {
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/issues`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21798,17 +17833,16 @@ export class ApiClient {
   }): Observable<
     t_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21828,19 +17862,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -21850,17 +17880,10 @@ export class ApiClient {
   usersGetPublicSshKeyForAuthenticatedUser(p: {
     keyId: number
   }): Observable<t_key | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/keys/${p["keyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21870,17 +17893,10 @@ export class ApiClient {
   usersDeletePublicSshKeyForAuthenticatedUser(p: {
     keyId: number
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/keys/${p["keyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21893,17 +17909,16 @@ export class ApiClient {
   }): Observable<
     t_user_marketplace_purchase[] | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/marketplace_purchases`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21914,17 +17929,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_user_marketplace_purchase[] | void | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/marketplace_purchases/stubbed`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21942,21 +17956,17 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/memberships/orgs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -21966,17 +17976,10 @@ export class ApiClient {
   orgsGetMembershipForAuthenticatedUser(p: {
     org: string
   }): Observable<t_org_membership | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -21991,19 +17994,15 @@ export class ApiClient {
   }): Observable<
     t_org_membership | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -22014,17 +18013,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_migration[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/migrations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22046,19 +18044,15 @@ export class ApiClient {
   }): Observable<
     t_migration | void | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/migrations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -22071,17 +18065,13 @@ export class ApiClient {
   }): Observable<
     t_migration | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { exclude: p["exclude"] }
+    const params = this._queryParams({ exclude: p["exclude"] })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/migrations/${p["migrationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22091,17 +18081,10 @@ export class ApiClient {
   migrationsGetArchiveForAuthenticatedUser(p: {
     migrationId: number
   }): Observable<void | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22111,17 +18094,10 @@ export class ApiClient {
   migrationsDeleteArchiveForAuthenticatedUser(p: {
     migrationId: number
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22132,18 +18108,11 @@ export class ApiClient {
     migrationId: number
     repoName: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22155,18 +18124,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/migrations/${p["migrationId"]}/repositories`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22179,17 +18147,16 @@ export class ApiClient {
   }): Observable<
     t_organization_simple[] | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/orgs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22200,20 +18167,16 @@ export class ApiClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
   }): Observable<t_package[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/packages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22224,18 +18187,11 @@ export class ApiClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     packageName: string
   }): Observable<t_package> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22246,18 +18202,11 @@ export class ApiClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     packageName: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22269,18 +18218,14 @@ export class ApiClient {
     packageName: string
     token?: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { token: p["token"] }
+    const params = this._queryParams({ token: p["token"] })
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22296,22 +18241,18 @@ export class ApiClient {
   }): Observable<
     t_package_version[] | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22323,18 +18264,11 @@ export class ApiClient {
     packageName: string
     packageVersionId: number
   }): Observable<t_package_version> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22346,18 +18280,11 @@ export class ApiClient {
     packageName: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22369,18 +18296,11 @@ export class ApiClient {
     packageName: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22395,19 +18315,15 @@ export class ApiClient {
   }): Observable<
     t_project | void | t_basic_error | t_basic_error | t_validation_error_simple
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -22420,17 +18336,16 @@ export class ApiClient {
   }): Observable<
     t_email[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/public_emails`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22450,9 +18365,7 @@ export class ApiClient {
   }): Observable<
     t_repository[] | void | t_basic_error | t_basic_error | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       visibility: p["visibility"],
       affiliation: p["affiliation"],
       type: p["type"],
@@ -22462,15 +18375,13 @@ export class ApiClient {
       page: p["page"],
       since: p["since"],
       before: p["before"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22512,19 +18423,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -22541,17 +18448,16 @@ export class ApiClient {
     | t_basic_error
     | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/repository_invitations`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22561,18 +18467,11 @@ export class ApiClient {
   reposAcceptInvitationForAuthenticatedUser(p: {
     invitationId: number
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22582,18 +18481,11 @@ export class ApiClient {
   reposDeclineInvitationForAuthenticatedUser(p: {
     invitationId: number
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22606,17 +18498,16 @@ export class ApiClient {
   }): Observable<
     t_ssh_signing_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/ssh_signing_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22636,19 +18527,15 @@ export class ApiClient {
     | t_basic_error
     | t_validation_error
   > {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/ssh_signing_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -22660,17 +18547,10 @@ export class ApiClient {
   }): Observable<
     t_ssh_signing_key | void | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22680,17 +18560,10 @@ export class ApiClient {
   usersDeleteSshSigningKeyForAuthenticatedUser(p: {
     sshSigningKeyId: number
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22705,22 +18578,18 @@ export class ApiClient {
   }): Observable<
     t_starred_repository[] | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/starred`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22731,17 +18600,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22752,17 +18614,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22773,17 +18628,10 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<void | void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22796,17 +18644,16 @@ export class ApiClient {
   }): Observable<
     t_minimal_repository[] | void | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/subscriptions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22817,17 +18664,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_team_full[] | void | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/teams`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22838,17 +18684,16 @@ export class ApiClient {
     since?: number
     perPage?: number
   }): Observable<t_simple_user[] | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { since: p["since"], per_page: p["perPage"] }
+    const params = this._queryParams({
+      since: p["since"],
+      per_page: p["perPage"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22858,17 +18703,10 @@ export class ApiClient {
   usersGetByUsername(p: {
     username: string
   }): Observable<(t_private_user | t_public_user) | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -22880,17 +18718,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22903,17 +18740,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22925,17 +18761,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/events/public`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22947,17 +18782,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/followers`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22969,17 +18803,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_simple_user[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/following`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -22990,18 +18823,11 @@ export class ApiClient {
     username: string
     targetUser: string
   }): Observable<void | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/following/${p["targetUser"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23014,21 +18840,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_base_gist[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/gists`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23040,17 +18862,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_gpg_key[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/gpg_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23062,20 +18883,16 @@ export class ApiClient {
     subjectType?: "organization" | "repository" | "issue" | "pull_request"
     subjectId?: string
   }): Observable<t_hovercard | t_basic_error | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/hovercard`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23083,17 +18900,10 @@ export class ApiClient {
   }
 
   appsGetUserInstallation(p: { username: string }): Observable<t_installation> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/installation`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23105,17 +18915,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_key_simple[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23127,17 +18936,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_organization_simple[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/orgs`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23149,20 +18957,16 @@ export class ApiClient {
     visibility?: "public" | "private" | "internal"
     username: string
   }): Observable<t_package[] | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/packages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23174,18 +18978,11 @@ export class ApiClient {
     packageName: string
     username: string
   }): Observable<t_package> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23197,18 +18994,11 @@ export class ApiClient {
     packageName: string
     username: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23221,18 +19011,14 @@ export class ApiClient {
     username: string
     token?: string
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { token: p["token"] }
+    const params = this._queryParams({ token: p["token"] })
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23246,18 +19032,11 @@ export class ApiClient {
   }): Observable<
     t_package_version[] | t_basic_error | t_basic_error | t_basic_error
   > {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23270,18 +19049,11 @@ export class ApiClient {
     packageVersionId: number
     username: string
   }): Observable<t_package_version> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23294,18 +19066,11 @@ export class ApiClient {
     username: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23318,18 +19083,11 @@ export class ApiClient {
     username: string
     packageVersionId: number
   }): Observable<void | t_basic_error | t_basic_error | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23342,21 +19100,17 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_project[] | t_validation_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/projects`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23368,17 +19122,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/received_events`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23390,17 +19143,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_event[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/received_events/public`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23415,23 +19167,19 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/repos`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23441,17 +19189,10 @@ export class ApiClient {
   billingGetGithubActionsBillingUser(p: {
     username: string
   }): Observable<t_actions_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/settings/billing/actions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23461,18 +19202,11 @@ export class ApiClient {
   billingGetGithubPackagesBillingUser(p: {
     username: string
   }): Observable<t_packages_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/packages`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23482,18 +19216,11 @@ export class ApiClient {
   billingGetSharedStorageBillingUser(p: {
     username: string
   }): Observable<t_combined_billing_usage> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/shared-storage`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23505,17 +19232,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_ssh_signing_key[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/ssh_signing_keys`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23531,22 +19257,18 @@ export class ApiClient {
   }): Observable<{
     [key: string]: unknown
   }> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {
+    const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
-    }
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/starred`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23558,17 +19280,16 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<t_minimal_repository[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { per_page: p["perPage"], page: p["page"] }
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/subscriptions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -23576,17 +19297,10 @@ export class ApiClient {
   }
 
   metaGetAllVersions(): Observable<string[] | t_basic_error> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/versions`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -23594,14 +19308,7 @@ export class ApiClient {
   }
 
   metaGetZen(): Observable<string> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>("GET", this.config.basePath + `/zen`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
       observe: "body",
       reportProgress: false,
     })
