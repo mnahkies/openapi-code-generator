@@ -51,10 +51,12 @@ export class ApiClient {
     return result
   }
 
-  findPets(p: {
-    tags?: string[]
-    limit?: number
-  }): Observable<t_Pet[] | t_Error> {
+  findPets(
+    p: {
+      tags?: string[]
+      limit?: number
+    } = {}
+  ): Observable<t_Pet[] | t_Error> {
     const params = this._queryParams({ tags: p["tags"], limit: p["limit"] })
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/pets`, {

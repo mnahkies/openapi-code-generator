@@ -368,11 +368,13 @@ export class ApiClient {
     )
   }
 
-  appsListWebhookDeliveries(p: {
-    perPage?: number
-    cursor?: string
-    redelivery?: boolean
-  }): Observable<t_hook_delivery_item[] | t_scim_error | t_validation_error> {
+  appsListWebhookDeliveries(
+    p: {
+      perPage?: number
+      cursor?: string
+      redelivery?: boolean
+    } = {}
+  ): Observable<t_hook_delivery_item[] | t_scim_error | t_validation_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
@@ -420,12 +422,14 @@ export class ApiClient {
     )
   }
 
-  appsListInstallations(p: {
-    perPage?: number
-    page?: number
-    since?: string
-    outdated?: string
-  }): Observable<t_installation[]> {
+  appsListInstallations(
+    p: {
+      perPage?: number
+      page?: number
+      since?: string
+      outdated?: string
+    } = {}
+  ): Observable<t_installation[]> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -1025,7 +1029,12 @@ export class ApiClient {
     )
   }
 
-  activityListPublicEvents(p: { perPage?: number; page?: number }): Observable<
+  activityListPublicEvents(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     | t_event[]
     | void
     | t_basic_error
@@ -1062,11 +1071,13 @@ export class ApiClient {
     )
   }
 
-  gistsList(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Observable<t_base_gist[] | void | t_basic_error> {
+  gistsList(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_base_gist[] | void | t_basic_error> {
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1110,11 +1121,13 @@ export class ApiClient {
     )
   }
 
-  gistsListPublic(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Observable<t_base_gist[] | void | t_basic_error | t_validation_error> {
+  gistsListPublic(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_base_gist[] | void | t_basic_error | t_validation_error> {
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1132,11 +1145,13 @@ export class ApiClient {
     )
   }
 
-  gistsListStarred(p: {
-    since?: string
-    perPage?: number
-    page?: number
-  }): Observable<t_base_gist[] | void | t_basic_error | t_basic_error> {
+  gistsListStarred(
+    p: {
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_base_gist[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1458,10 +1473,12 @@ export class ApiClient {
     )
   }
 
-  appsListReposAccessibleToInstallation(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  appsListReposAccessibleToInstallation(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     | {
         repositories: t_repository[]
         repository_selection?: string
@@ -1498,26 +1515,28 @@ export class ApiClient {
     )
   }
 
-  issuesList(p: {
-    filter?:
-      | "assigned"
-      | "created"
-      | "mentioned"
-      | "subscribed"
-      | "repos"
-      | "all"
-    state?: "open" | "closed" | "all"
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    collab?: boolean
-    orgs?: boolean
-    owned?: boolean
-    pulls?: boolean
-    perPage?: number
-    page?: number
-  }): Observable<t_issue[] | void | t_basic_error | t_validation_error> {
+  issuesList(
+    p: {
+      filter?:
+        | "assigned"
+        | "created"
+        | "mentioned"
+        | "subscribed"
+        | "repos"
+        | "all"
+      state?: "open" | "closed" | "all"
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      collab?: boolean
+      orgs?: boolean
+      owned?: boolean
+      pulls?: boolean
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_issue[] | void | t_basic_error | t_validation_error> {
     const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
@@ -1544,11 +1563,13 @@ export class ApiClient {
     )
   }
 
-  licensesGetAllCommonlyUsed(p: {
-    featured?: boolean
-    perPage?: number
-    page?: number
-  }): Observable<t_license_simple[] | void> {
+  licensesGetAllCommonlyUsed(
+    p: {
+      featured?: boolean
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_license_simple[] | void> {
     const params = this._queryParams({
       featured: p["featured"],
       per_page: p["perPage"],
@@ -1601,7 +1622,11 @@ export class ApiClient {
     )
   }
 
-  markdownRenderRaw(p: { requestBody?: string }): Observable<string | void> {
+  markdownRenderRaw(
+    p: {
+      requestBody?: string
+    } = {}
+  ): Observable<string | void> {
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = p["requestBody"]
 
@@ -1630,10 +1655,12 @@ export class ApiClient {
     )
   }
 
-  appsListPlans(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_marketplace_listing_plan[] | t_basic_error | t_basic_error> {
+  appsListPlans(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_marketplace_listing_plan[] | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -1695,10 +1722,12 @@ export class ApiClient {
     )
   }
 
-  appsListPlansStubbed(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_marketplace_listing_plan[] | t_basic_error> {
+  appsListPlansStubbed(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_marketplace_listing_plan[] | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -1772,14 +1801,16 @@ export class ApiClient {
     )
   }
 
-  activityListNotificationsForAuthenticatedUser(p: {
-    all?: boolean
-    participating?: boolean
-    since?: string
-    before?: string
-    page?: number
-    perPage?: number
-  }): Observable<
+  activityListNotificationsForAuthenticatedUser(
+    p: {
+      all?: boolean
+      participating?: boolean
+      since?: string
+      before?: string
+      page?: number
+      perPage?: number
+    } = {}
+  ): Observable<
     t_thread[] | void | t_basic_error | t_basic_error | t_validation_error
   > {
     const params = this._queryParams({
@@ -1802,12 +1833,14 @@ export class ApiClient {
     )
   }
 
-  activityMarkNotificationsAsRead(p: {
-    requestBody?: {
-      last_read_at?: string
-      read?: boolean
-    }
-  }): Observable<
+  activityMarkNotificationsAsRead(
+    p: {
+      requestBody?: {
+        last_read_at?: string
+        read?: boolean
+      }
+    } = {}
+  ): Observable<
     | {
         message?: string
       }
@@ -1907,7 +1940,11 @@ export class ApiClient {
     )
   }
 
-  metaGetOctocat(p: { s?: string }): Observable<string> {
+  metaGetOctocat(
+    p: {
+      s?: string
+    } = {}
+  ): Observable<string> {
     const params = this._queryParams({ s: p["s"] })
 
     return this.httpClient.request<any>(
@@ -1921,10 +1958,12 @@ export class ApiClient {
     )
   }
 
-  orgsList(p: {
-    since?: number
-    perPage?: number
-  }): Observable<t_organization_simple[] | void> {
+  orgsList(
+    p: {
+      since?: number
+      perPage?: number
+    } = {}
+  ): Observable<t_organization_simple[] | void> {
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -15647,9 +15686,11 @@ export class ApiClient {
     )
   }
 
-  reposListPublic(p: {
-    since?: number
-  }): Observable<t_minimal_repository[] | void | t_validation_error> {
+  reposListPublic(
+    p: {
+      since?: number
+    } = {}
+  ): Observable<t_minimal_repository[] | void | t_validation_error> {
     const params = this._queryParams({ since: p["since"] })
 
     return this.httpClient.request<any>(
@@ -16845,18 +16886,20 @@ export class ApiClient {
     })
   }
 
-  usersUpdateAuthenticated(p: {
-    requestBody?: {
-      bio?: string
-      blog?: string
-      company?: string
-      email?: string
-      hireable?: boolean
-      location?: string
-      name?: string
-      twitter_username?: string | null
-    }
-  }): Observable<
+  usersUpdateAuthenticated(
+    p: {
+      requestBody?: {
+        bio?: string
+        blog?: string
+        company?: string
+        email?: string
+        hireable?: boolean
+        location?: string
+        name?: string
+        twitter_username?: string | null
+      }
+    } = {}
+  ): Observable<
     | t_private_user
     | void
     | t_basic_error
@@ -16879,10 +16922,12 @@ export class ApiClient {
     )
   }
 
-  usersListBlockedByAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListBlockedByAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_simple_user[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -16947,11 +16992,13 @@ export class ApiClient {
     )
   }
 
-  codespacesListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-    repositoryId?: number
-  }): Observable<
+  codespacesListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+      repositoryId?: number
+    } = {}
+  ): Observable<
     | {
         codespaces: t_codespace[]
         total_count: number
@@ -17032,10 +17079,12 @@ export class ApiClient {
     )
   }
 
-  codespacesListSecretsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<{
+  codespacesListSecretsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<{
     secrets: t_codespaces_secret[]
     total_count: number
   }> {
@@ -17412,10 +17461,12 @@ export class ApiClient {
     )
   }
 
-  usersListEmailsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListEmailsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_email[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -17434,14 +17485,16 @@ export class ApiClient {
     )
   }
 
-  usersAddEmailForAuthenticatedUser(p: {
-    requestBody?:
-      | {
-          emails: string[]
-        }
-      | string[]
-      | string
-  }): Observable<
+  usersAddEmailForAuthenticatedUser(
+    p: {
+      requestBody?:
+        | {
+            emails: string[]
+          }
+        | string[]
+        | string
+    } = {}
+  ): Observable<
     | t_email[]
     | void
     | t_basic_error
@@ -17494,10 +17547,12 @@ export class ApiClient {
     )
   }
 
-  usersListFollowersForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
+  usersListFollowersForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -17514,10 +17569,12 @@ export class ApiClient {
     )
   }
 
-  usersListFollowedByAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
+  usersListFollowedByAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_simple_user[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -17573,10 +17630,12 @@ export class ApiClient {
     )
   }
 
-  usersListGpgKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListGpgKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_gpg_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -17658,10 +17717,12 @@ export class ApiClient {
     )
   }
 
-  appsListInstallationsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  appsListInstallationsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     | {
         installations: t_installation[]
         total_count: number
@@ -17789,22 +17850,24 @@ export class ApiClient {
     )
   }
 
-  issuesListForAuthenticatedUser(p: {
-    filter?:
-      | "assigned"
-      | "created"
-      | "mentioned"
-      | "subscribed"
-      | "repos"
-      | "all"
-    state?: "open" | "closed" | "all"
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Observable<t_issue[] | void | t_basic_error> {
+  issuesListForAuthenticatedUser(
+    p: {
+      filter?:
+        | "assigned"
+        | "created"
+        | "mentioned"
+        | "subscribed"
+        | "repos"
+        | "all"
+      state?: "open" | "closed" | "all"
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_issue[] | void | t_basic_error> {
     const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
@@ -17827,10 +17890,12 @@ export class ApiClient {
     )
   }
 
-  usersListPublicSshKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListPublicSshKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -17903,10 +17968,12 @@ export class ApiClient {
     )
   }
 
-  appsListSubscriptionsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  appsListSubscriptionsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_user_marketplace_purchase[] | void | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -17925,10 +17992,12 @@ export class ApiClient {
     )
   }
 
-  appsListSubscriptionsForAuthenticatedUserStubbed(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_user_marketplace_purchase[] | void | t_basic_error> {
+  appsListSubscriptionsForAuthenticatedUserStubbed(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_user_marketplace_purchase[] | void | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -17945,11 +18014,13 @@ export class ApiClient {
     )
   }
 
-  orgsListMembershipsForAuthenticatedUser(p: {
-    state?: "active" | "pending"
-    perPage?: number
-    page?: number
-  }): Observable<
+  orgsListMembershipsForAuthenticatedUser(
+    p: {
+      state?: "active" | "pending"
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     | t_org_membership[]
     | void
     | t_basic_error
@@ -18009,10 +18080,12 @@ export class ApiClient {
     )
   }
 
-  migrationsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_migration[] | void | t_basic_error | t_basic_error> {
+  migrationsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_migration[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -18141,10 +18214,12 @@ export class ApiClient {
     )
   }
 
-  orgsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  orgsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_organization_simple[] | void | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -18330,10 +18405,12 @@ export class ApiClient {
     )
   }
 
-  usersListPublicEmailsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListPublicEmailsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_email[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -18352,17 +18429,19 @@ export class ApiClient {
     )
   }
 
-  reposListForAuthenticatedUser(p: {
-    visibility?: "all" | "public" | "private"
-    affiliation?: string
-    type?: "all" | "owner" | "public" | "private" | "member"
-    sort?: "created" | "updated" | "pushed" | "full_name"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-    since?: string
-    before?: string
-  }): Observable<
+  reposListForAuthenticatedUser(
+    p: {
+      visibility?: "all" | "public" | "private"
+      affiliation?: string
+      type?: "all" | "owner" | "public" | "private" | "member"
+      sort?: "created" | "updated" | "pushed" | "full_name"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+      since?: string
+      before?: string
+    } = {}
+  ): Observable<
     t_repository[] | void | t_basic_error | t_basic_error | t_validation_error
   > {
     const params = this._queryParams({
@@ -18438,10 +18517,12 @@ export class ApiClient {
     )
   }
 
-  reposListInvitationsForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  reposListInvitationsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     | t_repository_invitation[]
     | void
     | t_basic_error
@@ -18492,10 +18573,12 @@ export class ApiClient {
     )
   }
 
-  usersListSshSigningKeysForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
+  usersListSshSigningKeysForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
     t_ssh_signing_key[] | void | t_basic_error | t_basic_error | t_basic_error
   > {
     const params = this._queryParams({
@@ -18570,14 +18653,14 @@ export class ApiClient {
     )
   }
 
-  activityListReposStarredByAuthenticatedUser(p: {
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Observable<
-    t_starred_repository[] | void | t_basic_error | t_basic_error
-  > {
+  activityListReposStarredByAuthenticatedUser(
+    p: {
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_starred_repository[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -18638,12 +18721,12 @@ export class ApiClient {
     )
   }
 
-  activityListWatchedReposForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<
-    t_minimal_repository[] | void | t_basic_error | t_basic_error
-  > {
+  activityListWatchedReposForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_minimal_repository[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -18660,10 +18743,12 @@ export class ApiClient {
     )
   }
 
-  teamsListForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-  }): Observable<t_team_full[] | void | t_basic_error | t_basic_error> {
+  teamsListForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_team_full[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -18680,10 +18765,12 @@ export class ApiClient {
     )
   }
 
-  usersList(p: {
-    since?: number
-    perPage?: number
-  }): Observable<t_simple_user[] | void> {
+  usersList(
+    p: {
+      since?: number
+      perPage?: number
+    } = {}
+  ): Observable<t_simple_user[] | void> {
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],

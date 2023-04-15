@@ -21,10 +21,12 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  async getTodoLists(p: {
-    created?: string
-    status?: "incomplete" | "complete"
-  }): Promise<Response<200, t_TodoList[]>> {
+  async getTodoLists(
+    p: {
+      created?: string
+      status?: "incomplete" | "complete"
+    } = {}
+  ): Promise<Response<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
     const res = await fetch(url + query, { method: "GET" })
