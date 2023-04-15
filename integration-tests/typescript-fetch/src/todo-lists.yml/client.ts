@@ -25,9 +25,9 @@ export class ApiClient extends AbstractFetchClient {
     created?: string
     status?: "incomplete" | "complete"
   }): Promise<Response<200, t_TodoList[]>> {
-    const route = `/list`
+    const url = this.basePath + `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -40,9 +40,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<StatusCode4xx, t_Error>
     | Response<StatusCode, void>
   > {
-    const route = `/list/${p["listId"]}`
+    const url = this.basePath + `/list/${p["listId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -56,14 +56,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<StatusCode4xx, t_Error>
     | Response<StatusCode, void>
   > {
-    const route = `/list/${p["listId"]}`
+    const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -76,9 +72,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<StatusCode4xx, t_Error>
     | Response<StatusCode, void>
   > {
-    const route = `/list/${p["listId"]}`
+    const url = this.basePath + `/list/${p["listId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }

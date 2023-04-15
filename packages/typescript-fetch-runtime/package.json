@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "exports": {
     "./main": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/main.js",
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts"
     }
   },
   "scripts": {

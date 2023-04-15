@@ -36,7 +36,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .join(" | ")
 
     const body = `
-const route = \`${routeToTemplateString(route)}\`
+const url = this.basePath + \`${routeToTemplateString(route)}\`
     ${
       [
         headers ? `const headers = this._headers(${headers})` : "",
@@ -46,7 +46,7 @@ const route = \`${routeToTemplateString(route)}\`
         .filter(Boolean)
         .join("\n")
     }
-const res = await fetch(this.basePath + route ${queryString ? "+ query" : ""},
+const res = await fetch(url ${queryString ? "+ query" : ""},
     {${
       [
         `method: "${method}",`,

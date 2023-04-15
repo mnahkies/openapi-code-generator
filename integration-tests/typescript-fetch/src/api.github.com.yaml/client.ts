@@ -270,18 +270,18 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async metaRoot(): Promise<Response<200, t_root>> {
-    const route = `/`
+    const url = this.basePath + `/`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetAuthenticated(): Promise<Response<200, t_integration>> {
-    const route = `/app`
+    const url = this.basePath + `/app`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -301,18 +301,18 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/app-manifests/${p["code"]}/conversions`
+    const url = this.basePath + `/app-manifests/${p["code"]}/conversions`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsGetWebhookConfigForApp(): Promise<Response<200, t_webhook_config>> {
-    const route = `/app/hook/config`
+    const url = this.basePath + `/app/hook/config`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -326,14 +326,10 @@ export class ApiClient extends AbstractFetchClient {
       url?: t_webhook_config_url
     }
   }): Promise<Response<200, t_webhook_config>> {
-    const route = `/app/hook/config`
+    const url = this.basePath + `/app/hook/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -348,13 +344,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/app/hook/deliveries`
+    const url = this.basePath + `/app/hook/deliveries`
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -367,9 +363,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/app/hook/deliveries/${p["deliveryId"]}`
+    const url = this.basePath + `/app/hook/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -385,9 +381,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
+    const url =
+      this.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -399,14 +396,14 @@ export class ApiClient extends AbstractFetchClient {
     since?: string
     outdated?: string
   }): Promise<Response<200, t_installation[]>> {
-    const route = `/app/installations`
+    const url = this.basePath + `/app/installations`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       since: p["since"],
       outdated: p["outdated"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -415,9 +412,9 @@ export class ApiClient extends AbstractFetchClient {
   async appsGetInstallation(p: {
     installationId: number
   }): Promise<Response<200, t_installation> | Response<404, t_basic_error>> {
-    const route = `/app/installations/${p["installationId"]}`
+    const url = this.basePath + `/app/installations/${p["installationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -426,9 +423,9 @@ export class ApiClient extends AbstractFetchClient {
   async appsDeleteInstallation(p: {
     installationId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/app/installations/${p["installationId"]}`
+    const url = this.basePath + `/app/installations/${p["installationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -448,14 +445,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/app/installations/${p["installationId"]}/access_tokens`
+    const url =
+      this.basePath + `/app/installations/${p["installationId"]}/access_tokens`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -464,9 +458,10 @@ export class ApiClient extends AbstractFetchClient {
   async appsSuspendInstallation(p: {
     installationId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/app/installations/${p["installationId"]}/suspended`
+    const url =
+      this.basePath + `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -475,9 +470,10 @@ export class ApiClient extends AbstractFetchClient {
   async appsUnsuspendInstallation(p: {
     installationId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/app/installations/${p["installationId"]}/suspended`
+    const url =
+      this.basePath + `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -489,14 +485,10 @@ export class ApiClient extends AbstractFetchClient {
       access_token: string
     }
   }): Promise<Response<204, void> | Response<422, t_validation_error>> {
-    const route = `/applications/${p["clientId"]}/grant`
+    const url = this.basePath + `/applications/${p["clientId"]}/grant`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -512,14 +504,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/applications/${p["clientId"]}/token`
+    const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -533,14 +521,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_authorization> | Response<422, t_validation_error>
   > {
-    const route = `/applications/${p["clientId"]}/token`
+    const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -552,14 +536,10 @@ export class ApiClient extends AbstractFetchClient {
       access_token: string
     }
   }): Promise<Response<204, void> | Response<422, t_validation_error>> {
-    const route = `/applications/${p["clientId"]}/token`
+    const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -582,14 +562,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/applications/${p["clientId"]}/token/scoped`
+    const url = this.basePath + `/applications/${p["clientId"]}/token/scoped`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -602,9 +578,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/apps/${p["appSlug"]}`
+    const url = this.basePath + `/apps/${p["appSlug"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -613,9 +589,9 @@ export class ApiClient extends AbstractFetchClient {
   async codesOfConductGetAllCodesOfConduct(): Promise<
     Response<200, t_code_of_conduct[]> | Response<304, void>
   > {
-    const route = `/codes_of_conduct`
+    const url = this.basePath + `/codes_of_conduct`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -628,9 +604,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<404, t_basic_error>
   > {
-    const route = `/codes_of_conduct/${p["key"]}`
+    const url = this.basePath + `/codes_of_conduct/${p["key"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -645,9 +621,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<304, void>
   > {
-    const route = `/emojis`
+    const url = this.basePath + `/emojis`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -657,9 +633,11 @@ export class ApiClient extends AbstractFetchClient {
     enterprise: string
     orgId: number
   }): Promise<Response<204, void>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/permissions/organizations/${p["orgId"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/permissions/organizations/${p["orgId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -679,13 +657,14 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/enterprises/${p["enterprise"]}/actions/runner-groups`
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/actions/runner-groups`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       visible_to_organization: p["visibleToOrganization"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -703,14 +682,11 @@ export class ApiClient extends AbstractFetchClient {
       visibility?: "selected" | "all"
     }
   }): Promise<Response<201, t_runner_groups_enterprise>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/runner-groups`
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/actions/runner-groups`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -720,9 +696,11 @@ export class ApiClient extends AbstractFetchClient {
     enterprise: string
     runnerGroupId: number
   }): Promise<Response<200, t_runner_groups_enterprise>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -733,9 +711,11 @@ export class ApiClient extends AbstractFetchClient {
     runnerGroupId: number
     orgId: number
   }): Promise<Response<204, void>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/organizations/${p["orgId"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/organizations/${p["orgId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -746,9 +726,11 @@ export class ApiClient extends AbstractFetchClient {
     runnerGroupId: number
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -758,9 +740,11 @@ export class ApiClient extends AbstractFetchClient {
     enterprise: string
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -779,9 +763,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -804,14 +790,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -823,9 +807,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_enterprise_security_analysis_settings>
     | Response<404, t_basic_error>
   > {
-    const route = `/enterprises/${p["enterprise"]}/code_security_and_analysis`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code_security_and_analysis`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -842,14 +828,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<204, void> | Response<404, t_basic_error> | Response<422, void>
   > {
-    const route = `/enterprises/${p["enterprise"]}/code_security_and_analysis`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code_security_and_analysis`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -876,7 +860,8 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/enterprises/${p["enterprise"]}/dependabot/alerts`
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/dependabot/alerts`
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -891,7 +876,7 @@ export class ApiClient extends AbstractFetchClient {
       last: p["last"],
       per_page: p["perPage"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -919,7 +904,8 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -930,7 +916,7 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -946,9 +932,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<204, void> | Response<404, t_basic_error> | Response<422, void>
   > {
-    const route = `/enterprises/${p["enterprise"]}/${p["securityProduct"]}/${p["enablement"]}`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/${p["securityProduct"]}/${p["enablement"]}`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -970,18 +958,18 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/events`
+    const url = this.basePath + `/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async activityGetFeeds(): Promise<Response<200, t_feed>> {
-    const route = `/feeds`
+    const url = this.basePath + `/feeds`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -996,13 +984,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<403, t_basic_error>
   > {
-    const route = `/gists`
+    const url = this.basePath + `/gists`
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1023,14 +1011,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/gists`
+    const url = this.basePath + `/gists`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1046,13 +1030,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/gists/public`
+    const url = this.basePath + `/gists/public`
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1068,13 +1052,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/gists/starred`
+    const url = this.basePath + `/gists/starred`
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1097,9 +1081,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}`
+    const url = this.basePath + `/gists/${p["gistId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1118,14 +1102,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/gists/${p["gistId"]}`
+    const url = this.basePath + `/gists/${p["gistId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1139,9 +1119,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}`
+    const url = this.basePath + `/gists/${p["gistId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1157,9 +1137,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/comments`
+    const url = this.basePath + `/gists/${p["gistId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1176,14 +1156,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/comments`
+    const url = this.basePath + `/gists/${p["gistId"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1206,9 +1182,10 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1221,14 +1198,11 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<200, t_gist_comment> | Response<404, t_basic_error>> {
-    const route = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1243,9 +1217,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1261,9 +1236,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/commits`
+    const url = this.basePath + `/gists/${p["gistId"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1279,9 +1254,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/forks`
+    const url = this.basePath + `/gists/${p["gistId"]}/forks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1296,9 +1271,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/gists/${p["gistId"]}/forks`
+    const url = this.basePath + `/gists/${p["gistId"]}/forks`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1315,9 +1290,9 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/gists/${p["gistId"]}/star`
+    const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1331,9 +1306,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/star`
+    const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1347,9 +1322,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/gists/${p["gistId"]}/star`
+    const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1364,9 +1339,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/gists/${p["gistId"]}/${p["sha"]}`
+    const url = this.basePath + `/gists/${p["gistId"]}/${p["sha"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1375,9 +1350,9 @@ export class ApiClient extends AbstractFetchClient {
   async gitignoreGetAllTemplates(): Promise<
     Response<200, string[]> | Response<304, void>
   > {
-    const route = `/gitignore/templates`
+    const url = this.basePath + `/gitignore/templates`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1386,9 +1361,9 @@ export class ApiClient extends AbstractFetchClient {
   async gitignoreGetTemplate(p: {
     name: string
   }): Promise<Response<200, t_gitignore_template> | Response<304, void>> {
-    const route = `/gitignore/templates/${p["name"]}`
+    const url = this.basePath + `/gitignore/templates/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1410,18 +1385,18 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/installation/repositories`
+    const url = this.basePath + `/installation/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async appsRevokeInstallationAccessToken(): Promise<Response<204, void>> {
-    const route = `/installation/token`
+    const url = this.basePath + `/installation/token`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1452,7 +1427,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/issues`
+    const url = this.basePath + `/issues`
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -1467,7 +1442,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1478,13 +1453,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_license_simple[]> | Response<304, void>> {
-    const route = `/licenses`
+    const url = this.basePath + `/licenses`
     const query = this._query({
       featured: p["featured"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1498,9 +1473,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/licenses/${p["license"]}`
+    const url = this.basePath + `/licenses/${p["license"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1513,14 +1488,10 @@ export class ApiClient extends AbstractFetchClient {
       text: string
     }
   }): Promise<Response<200, string> | Response<304, void>> {
-    const route = `/markdown`
+    const url = this.basePath + `/markdown`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1529,14 +1500,10 @@ export class ApiClient extends AbstractFetchClient {
   async markdownRenderRaw(p: {
     requestBody?: string
   }): Promise<Response<200, string> | Response<304, void>> {
-    const route = `/markdown/raw`
+    const url = this.basePath + `/markdown/raw`
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1549,9 +1516,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/marketplace_listing/accounts/${p["accountId"]}`
+    const url =
+      this.basePath + `/marketplace_listing/accounts/${p["accountId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1565,9 +1533,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/marketplace_listing/plans`
+    const url = this.basePath + `/marketplace_listing/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1585,14 +1553,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/marketplace_listing/plans/${p["planId"]}/accounts`
+    const url =
+      this.basePath + `/marketplace_listing/plans/${p["planId"]}/accounts`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1605,9 +1574,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<404, void>
   > {
-    const route = `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
+    const url =
+      this.basePath + `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1619,9 +1589,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_marketplace_listing_plan[]> | Response<401, t_basic_error>
   > {
-    const route = `/marketplace_listing/stubbed/plans`
+    const url = this.basePath + `/marketplace_listing/stubbed/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1636,14 +1606,16 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_marketplace_purchase[]> | Response<401, t_basic_error>
   > {
-    const route = `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`
+    const url =
+      this.basePath +
+      `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1652,9 +1624,9 @@ export class ApiClient extends AbstractFetchClient {
   async metaGet(): Promise<
     Response<200, t_api_overview> | Response<304, void>
   > {
-    const route = `/meta`
+    const url = this.basePath + `/meta`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1672,9 +1644,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/networks/${p["owner"]}/${p["repo"]}/events`
+    const url = this.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1694,7 +1666,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/notifications`
+    const url = this.basePath + `/notifications`
     const query = this._query({
       all: p["all"],
       participating: p["participating"],
@@ -1703,7 +1675,7 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1726,14 +1698,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/notifications`
+    const url = this.basePath + `/notifications`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1747,9 +1715,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/notifications/threads/${p["threadId"]}`
+    const url = this.basePath + `/notifications/threads/${p["threadId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1760,9 +1728,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<205, void> | Response<304, void> | Response<403, t_basic_error>
   > {
-    const route = `/notifications/threads/${p["threadId"]}`
+    const url = this.basePath + `/notifications/threads/${p["threadId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PATCH" })
+    const res = await fetch(url, { method: "PATCH" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1776,9 +1744,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/notifications/threads/${p["threadId"]}/subscription`
+    const url =
+      this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1795,14 +1764,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/notifications/threads/${p["threadId"]}/subscription`
+    const url =
+      this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1816,18 +1782,19 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/notifications/threads/${p["threadId"]}/subscription`
+    const url =
+      this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async metaGetOctocat(p: { s?: string }): Promise<Response<200, string>> {
-    const route = `/octocat`
+    const url = this.basePath + `/octocat`
     const query = this._query({ s: p["s"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1837,9 +1804,9 @@ export class ApiClient extends AbstractFetchClient {
     since?: number
     perPage?: number
   }): Promise<Response<200, t_organization_simple[]> | Response<304, void>> {
-    const route = `/organizations`
+    const url = this.basePath + `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1850,9 +1817,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_organization_full> | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}`
+    const url = this.basePath + `/orgs/${p["org"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1896,14 +1863,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error | t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}`
+    const url = this.basePath + `/orgs/${p["org"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1912,9 +1875,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsGetActionsCacheUsageForOrg(p: {
     org: string
   }): Promise<Response<200, t_actions_cache_usage_org_enterprise>> {
-    const route = `/orgs/${p["org"]}/actions/cache/usage`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/cache/usage`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1933,9 +1896,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1944,9 +1908,10 @@ export class ApiClient extends AbstractFetchClient {
   async oidcGetOidcCustomSubTemplateForOrg(p: {
     org: string
   }): Promise<Response<200, t_oidc_custom_sub>> {
-    const route = `/orgs/${p["org"]}/actions/oidc/customization/sub`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1960,14 +1925,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/actions/oidc/customization/sub`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1976,9 +1938,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsGetGithubActionsPermissionsOrganization(p: {
     org: string
   }): Promise<Response<200, t_actions_organization_permissions>> {
-    const route = `/orgs/${p["org"]}/actions/permissions`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -1991,14 +1953,10 @@ export class ApiClient extends AbstractFetchClient {
       enabled_repositories: t_enabled_repositories
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2017,9 +1975,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/permissions/repositories`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2031,14 +1990,11 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/repositories`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2048,9 +2004,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     repositoryId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2060,9 +2018,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     repositoryId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2071,9 +2031,10 @@ export class ApiClient extends AbstractFetchClient {
   async actionsGetAllowedActionsOrganization(p: {
     org: string
   }): Promise<Response<200, t_selected_actions>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/selected-actions`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2083,14 +2044,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     requestBody?: t_selected_actions
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/selected-actions`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2099,9 +2057,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
   }): Promise<Response<200, t_actions_get_default_workflow_permissions>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/workflow`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2111,14 +2069,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/permissions/workflow`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2137,9 +2091,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/required_workflows`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2157,14 +2111,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_required_workflow>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/actions/required_workflows`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2174,9 +2124,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     requiredWorkflowId: number
   }): Promise<Response<200, t_required_workflow>> {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2195,14 +2147,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_required_workflow>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2212,9 +2162,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     requiredWorkflowId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2233,9 +2185,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, void>
   > {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2248,14 +2202,12 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2266,9 +2218,11 @@ export class ApiClient extends AbstractFetchClient {
     requiredWorkflowId: number
     repositoryId: number
   }): Promise<Response<204, void> | Response<404, void> | Response<422, void>> {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2279,9 +2233,11 @@ export class ApiClient extends AbstractFetchClient {
     requiredWorkflowId: number
     repositoryId: number
   }): Promise<Response<204, void> | Response<404, void> | Response<422, void>> {
-    const route = `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2301,13 +2257,13 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/runner-groups`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       visible_to_repository: p["visibleToRepository"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2325,14 +2281,10 @@ export class ApiClient extends AbstractFetchClient {
       visibility?: "selected" | "all" | "private"
     }
   }): Promise<Response<201, t_runner_groups_org>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2342,9 +2294,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     runnerGroupId: number
   }): Promise<Response<200, t_runner_groups_org>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2361,14 +2315,12 @@ export class ApiClient extends AbstractFetchClient {
       visibility?: "selected" | "all" | "private"
     }
   }): Promise<Response<200, t_runner_groups_org>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2378,9 +2330,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     runnerGroupId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2400,9 +2354,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2415,14 +2371,12 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2433,9 +2387,11 @@ export class ApiClient extends AbstractFetchClient {
     runnerGroupId: number
     repositoryId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2455,9 +2411,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2470,14 +2428,12 @@ export class ApiClient extends AbstractFetchClient {
       runners: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2488,9 +2444,11 @@ export class ApiClient extends AbstractFetchClient {
     runnerGroupId: number
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2501,9 +2459,11 @@ export class ApiClient extends AbstractFetchClient {
     runnerGroupId: number
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2522,9 +2482,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/runners`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runners`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2533,9 +2493,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsListRunnerApplicationsForOrg(p: {
     org: string
   }): Promise<Response<200, t_runner_application[]>> {
-    const route = `/orgs/${p["org"]}/actions/runners/downloads`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runners/downloads`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2544,9 +2504,10 @@ export class ApiClient extends AbstractFetchClient {
   async actionsCreateRegistrationTokenForOrg(p: {
     org: string
   }): Promise<Response<201, t_authentication_token>> {
-    const route = `/orgs/${p["org"]}/actions/runners/registration-token`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/runners/registration-token`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2555,9 +2516,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsCreateRemoveTokenForOrg(p: {
     org: string
   }): Promise<Response<201, t_authentication_token>> {
-    const route = `/orgs/${p["org"]}/actions/runners/remove-token`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2567,9 +2528,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     runnerId: number
   }): Promise<Response<200, t_runner>> {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2579,9 +2541,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2600,9 +2563,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2625,14 +2590,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2655,14 +2618,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2681,9 +2642,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2704,9 +2667,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2725,9 +2690,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/secrets`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2736,9 +2701,9 @@ export class ApiClient extends AbstractFetchClient {
   async actionsGetOrgPublicKey(p: {
     org: string
   }): Promise<Response<200, t_actions_public_key>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/public-key`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2748,9 +2713,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<200, t_organization_actions_secret>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2766,14 +2732,11 @@ export class ApiClient extends AbstractFetchClient {
       visibility: "all" | "private" | "selected"
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2783,9 +2746,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2805,9 +2769,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2820,14 +2786,12 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2838,9 +2802,11 @@ export class ApiClient extends AbstractFetchClient {
     secretName: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2851,9 +2817,11 @@ export class ApiClient extends AbstractFetchClient {
     secretName: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2872,9 +2840,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/actions/variables`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2889,14 +2857,10 @@ export class ApiClient extends AbstractFetchClient {
       visibility: "all" | "private" | "selected"
     }
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/orgs/${p["org"]}/actions/variables`
+    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2906,9 +2870,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     name: string
   }): Promise<Response<200, t_organization_actions_variable>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2924,14 +2889,11 @@ export class ApiClient extends AbstractFetchClient {
       visibility?: "all" | "private" | "selected"
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2941,9 +2903,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     name: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2964,9 +2927,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<409, void>
   > {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2979,14 +2944,12 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -2997,9 +2960,11 @@ export class ApiClient extends AbstractFetchClient {
     name: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3010,9 +2975,11 @@ export class ApiClient extends AbstractFetchClient {
     name: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3023,9 +2990,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/orgs/${p["org"]}/blocks`
+    const url = this.basePath + `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3035,9 +3002,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3047,9 +3014,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<422, t_validation_error>> {
-    const route = `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3059,9 +3026,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3091,7 +3058,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/orgs/${p["org"]}/code-scanning/alerts`
+    const url = this.basePath + `/orgs/${p["org"]}/code-scanning/alerts`
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -3104,7 +3071,7 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
       severity: p["severity"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3128,9 +3095,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces`
+    const url = this.basePath + `/orgs/${p["org"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3154,14 +3121,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<422, t_validation_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/billing`
+    const url = this.basePath + `/orgs/${p["org"]}/codespaces/billing`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3180,9 +3143,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets`
+    const url = this.basePath + `/orgs/${p["org"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3191,9 +3154,10 @@ export class ApiClient extends AbstractFetchClient {
   async codespacesGetOrgPublicKey(p: {
     org: string
   }): Promise<Response<200, t_codespaces_public_key>> {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/public-key`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3203,9 +3167,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<200, t_codespaces_org_secret>> {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3226,14 +3191,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3243,9 +3205,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3266,9 +3229,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3283,14 +3248,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<204, void> | Response<404, t_basic_error> | Response<409, void>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3306,9 +3269,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3324,9 +3289,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3354,7 +3321,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/dependabot/alerts`
+    const url = this.basePath + `/orgs/${p["org"]}/dependabot/alerts`
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -3369,7 +3336,7 @@ export class ApiClient extends AbstractFetchClient {
       last: p["last"],
       per_page: p["perPage"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3388,9 +3355,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/dependabot/secrets`
+    const url = this.basePath + `/orgs/${p["org"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3399,9 +3366,10 @@ export class ApiClient extends AbstractFetchClient {
   async dependabotGetOrgPublicKey(p: {
     org: string
   }): Promise<Response<200, t_dependabot_public_key>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/public-key`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3411,9 +3379,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<200, t_organization_dependabot_secret>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3429,14 +3398,11 @@ export class ApiClient extends AbstractFetchClient {
       visibility: "all" | "private" | "selected"
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3446,9 +3412,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3468,9 +3435,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3483,14 +3452,12 @@ export class ApiClient extends AbstractFetchClient {
       selected_repository_ids: number[]
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3501,9 +3468,11 @@ export class ApiClient extends AbstractFetchClient {
     secretName: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3514,9 +3483,11 @@ export class ApiClient extends AbstractFetchClient {
     secretName: string
     repositoryId: number
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3527,9 +3498,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/orgs/${p["org"]}/events`
+    const url = this.basePath + `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3542,9 +3513,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/failed_invitations`
+    const url = this.basePath + `/orgs/${p["org"]}/failed_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3555,9 +3526,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_org_hook[]> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/hooks`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3583,14 +3554,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/hooks`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3600,9 +3567,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     hookId: number
   }): Promise<Response<200, t_org_hook> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3627,14 +3594,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3644,9 +3607,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     hookId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3656,9 +3619,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     hookId: number
   }): Promise<Response<200, t_webhook_config>> {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3674,14 +3637,10 @@ export class ApiClient extends AbstractFetchClient {
       url?: t_webhook_config_url
     }
   }): Promise<Response<200, t_webhook_config>> {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3698,13 +3657,14 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3719,9 +3679,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3741,9 +3703,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3753,9 +3717,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     hookId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
+    const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3764,9 +3728,9 @@ export class ApiClient extends AbstractFetchClient {
   async appsGetOrgInstallation(p: {
     org: string
   }): Promise<Response<200, t_installation>> {
-    const route = `/orgs/${p["org"]}/installation`
+    const url = this.basePath + `/orgs/${p["org"]}/installation`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3785,9 +3749,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/installations`
+    const url = this.basePath + `/orgs/${p["org"]}/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3801,9 +3765,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/orgs/${p["org"]}/interaction-limits`
+    const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3816,14 +3780,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_interaction_limit_response>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/interaction-limits`
+    const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3832,9 +3792,9 @@ export class ApiClient extends AbstractFetchClient {
   async interactionsRemoveRestrictionsForOrg(p: {
     org: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/interaction-limits`
+    const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3847,9 +3807,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/invitations`
+    const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3868,14 +3828,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/invitations`
+    const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3889,9 +3845,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3903,9 +3860,10 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team[]> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3928,7 +3886,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_issue[]> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/issues`
+    const url = this.basePath + `/orgs/${p["org"]}/issues`
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -3939,7 +3897,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3954,14 +3912,14 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_simple_user[]> | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/members`
+    const url = this.basePath + `/orgs/${p["org"]}/members`
     const query = this._query({
       filter: p["filter"],
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3971,9 +3929,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<302, void> | Response<404, void>> {
-    const route = `/orgs/${p["org"]}/members/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -3983,9 +3941,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<403, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/members/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4010,9 +3968,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4035,9 +3994,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4055,9 +4016,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4071,9 +4034,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/memberships/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4090,14 +4053,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/memberships/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4111,9 +4070,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/memberships/${p["username"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4125,13 +4084,13 @@ export class ApiClient extends AbstractFetchClient {
     page?: number
     exclude?: "repositories"[]
   }): Promise<Response<200, t_migration[]>> {
-    const route = `/orgs/${p["org"]}/migrations`
+    const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       exclude: p["exclude"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4155,14 +4114,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/migrations`
+    const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4173,9 +4128,10 @@ export class ApiClient extends AbstractFetchClient {
     migrationId: number
     exclude?: "repositories"[]
   }): Promise<Response<200, t_migration> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4185,9 +4141,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     migrationId: number
   }): Promise<Response<302, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4197,9 +4154,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     migrationId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4210,9 +4168,11 @@ export class ApiClient extends AbstractFetchClient {
     migrationId: number
     repoName: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4226,9 +4186,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4240,13 +4202,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/orgs/${p["org"]}/outside_collaborators`
+    const url = this.basePath + `/orgs/${p["org"]}/outside_collaborators`
     const query = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4269,14 +4231,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, void>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4295,9 +4254,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4312,12 +4272,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages`
+    const url = this.basePath + `/orgs/${p["org"]}/packages`
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4328,9 +4288,11 @@ export class ApiClient extends AbstractFetchClient {
     packageName: string
     org: string
   }): Promise<Response<200, t_package>> {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4346,9 +4308,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4365,9 +4329,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(this.basePath + route + query, { method: "POST" })
+    const res = await fetch(url + query, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4386,13 +4352,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4404,9 +4372,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     packageVersionId: number
   }): Promise<Response<200, t_package_version>> {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4423,9 +4393,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4442,9 +4414,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4458,13 +4432,13 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_project[]> | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/projects`
+    const url = this.basePath + `/orgs/${p["org"]}/projects`
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4484,14 +4458,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/orgs/${p["org"]}/projects`
+    const url = this.basePath + `/orgs/${p["org"]}/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4502,9 +4472,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/orgs/${p["org"]}/public_members`
+    const url = this.basePath + `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4514,9 +4484,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4526,9 +4497,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void> | Response<403, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4538,9 +4510,10 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     username: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4554,7 +4527,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_minimal_repository[]>> {
-    const route = `/orgs/${p["org"]}/repos`
+    const url = this.basePath + `/orgs/${p["org"]}/repos`
     const query = this._query({
       type: p["type"],
       sort: p["sort"],
@@ -4562,7 +4535,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4601,14 +4574,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/repos`
+    const url = this.basePath + `/orgs/${p["org"]}/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4637,7 +4606,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/orgs/${p["org"]}/secret-scanning/alerts`
+    const url = this.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -4649,7 +4618,7 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4658,9 +4627,9 @@ export class ApiClient extends AbstractFetchClient {
   async orgsListSecurityManagerTeams(p: {
     org: string
   }): Promise<Response<200, t_team_simple[]>> {
-    const route = `/orgs/${p["org"]}/security-managers`
+    const url = this.basePath + `/orgs/${p["org"]}/security-managers`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4670,9 +4639,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     teamSlug: string
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4682,9 +4653,11 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     teamSlug: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4693,9 +4666,9 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetGithubActionsBillingOrg(p: {
     org: string
   }): Promise<Response<200, t_actions_billing_usage>> {
-    const route = `/orgs/${p["org"]}/settings/billing/actions`
+    const url = this.basePath + `/orgs/${p["org"]}/settings/billing/actions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4704,9 +4677,9 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetGithubPackagesBillingOrg(p: {
     org: string
   }): Promise<Response<200, t_packages_billing_usage>> {
-    const route = `/orgs/${p["org"]}/settings/billing/packages`
+    const url = this.basePath + `/orgs/${p["org"]}/settings/billing/packages`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4715,9 +4688,10 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetSharedStorageBillingOrg(p: {
     org: string
   }): Promise<Response<200, t_combined_billing_usage>> {
-    const route = `/orgs/${p["org"]}/settings/billing/shared-storage`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4728,9 +4702,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team[]> | Response<403, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/teams`
+    const url = this.basePath + `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4752,14 +4726,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/teams`
+    const url = this.basePath + `/orgs/${p["org"]}/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4769,9 +4739,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     teamSlug: string
   }): Promise<Response<200, t_team_full> | Response<404, t_basic_error>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4794,14 +4764,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4811,9 +4777,9 @@ export class ApiClient extends AbstractFetchClient {
     org: string
     teamSlug: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
+    const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4827,14 +4793,15 @@ export class ApiClient extends AbstractFetchClient {
     page?: number
     pinned?: string
   }): Promise<Response<200, t_team_discussion[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
       pinned: p["pinned"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4849,14 +4816,11 @@ export class ApiClient extends AbstractFetchClient {
       title: string
     }
   }): Promise<Response<201, t_team_discussion>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4867,9 +4831,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     discussionNumber: number
   }): Promise<Response<200, t_team_discussion>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4884,14 +4850,12 @@ export class ApiClient extends AbstractFetchClient {
       title?: string
     }
   }): Promise<Response<200, t_team_discussion>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4902,9 +4866,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     discussionNumber: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4918,13 +4884,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team_discussion_comment[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4938,14 +4906,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<201, t_team_discussion_comment>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4957,9 +4923,11 @@ export class ApiClient extends AbstractFetchClient {
     discussionNumber: number
     commentNumber: number
   }): Promise<Response<200, t_team_discussion_comment>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4974,14 +4942,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<200, t_team_discussion_comment>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -4993,9 +4959,11 @@ export class ApiClient extends AbstractFetchClient {
     discussionNumber: number
     commentNumber: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5018,13 +4986,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5047,14 +5017,12 @@ export class ApiClient extends AbstractFetchClient {
         | "eyes"
     }
   }): Promise<Response<200, t_reaction> | Response<201, t_reaction>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5067,9 +5035,11 @@ export class ApiClient extends AbstractFetchClient {
     commentNumber: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5091,13 +5061,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5119,14 +5091,12 @@ export class ApiClient extends AbstractFetchClient {
         | "eyes"
     }
   }): Promise<Response<200, t_reaction> | Response<201, t_reaction>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5138,9 +5108,11 @@ export class ApiClient extends AbstractFetchClient {
     discussionNumber: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5152,9 +5124,10 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_organization_invitation[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5167,13 +5140,14 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
     const query = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5184,9 +5158,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     username: string
   }): Promise<Response<200, t_team_membership> | Response<404, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5202,14 +5178,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_team_membership> | Response<403, void> | Response<422, void>
   > {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5220,9 +5194,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     username: string
   }): Promise<Response<204, void> | Response<403, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5234,9 +5210,10 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team_project[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
+    const url =
+      this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5247,9 +5224,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     projectId: number
   }): Promise<Response<200, t_team_project> | Response<404, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5272,14 +5251,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5290,9 +5267,11 @@ export class ApiClient extends AbstractFetchClient {
     teamSlug: string
     projectId: number
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5304,9 +5283,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_minimal_repository[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
+    const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5320,9 +5299,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_team_repository> | Response<204, void> | Response<404, void>
   > {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5337,14 +5318,12 @@ export class ApiClient extends AbstractFetchClient {
       permission?: string
     }
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5356,9 +5335,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5370,9 +5351,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team[]>> {
-    const route = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
+    const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5389,9 +5370,11 @@ export class ApiClient extends AbstractFetchClient {
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
   }): Promise<Response<204, void> | Response<422, void>> {
-    const route = `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5406,9 +5389,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/projects/columns/cards/${p["cardId"]}`
+    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5428,14 +5411,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/projects/columns/cards/${p["cardId"]}`
+    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5455,9 +5434,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/projects/columns/cards/${p["cardId"]}`
+    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5505,14 +5484,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/projects/columns/cards/${p["cardId"]}/moves`
+    const url = this.basePath + `/projects/columns/cards/${p["cardId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5527,9 +5502,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/projects/columns/${p["columnId"]}`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5546,14 +5521,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/projects/columns/${p["columnId"]}`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5567,9 +5538,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/projects/columns/${p["columnId"]}`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5586,13 +5557,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/projects/columns/${p["columnId"]}/cards`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
     const query = this._query({
       archived_state: p["archivedState"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5627,14 +5598,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/projects/columns/${p["columnId"]}/cards`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5657,14 +5624,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/projects/columns/${p["columnId"]}/moves`
+    const url = this.basePath + `/projects/columns/${p["columnId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5678,9 +5641,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/projects/${p["projectId"]}`
+    const url = this.basePath + `/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5711,14 +5674,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/projects/${p["projectId"]}`
+    const url = this.basePath + `/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5739,9 +5698,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/projects/${p["projectId"]}`
+    const url = this.basePath + `/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5760,13 +5719,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/projects/${p["projectId"]}/collaborators`
+    const url = this.basePath + `/projects/${p["projectId"]}/collaborators`
     const query = this._query({
       affiliation: p["affiliation"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5786,14 +5745,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
+    const url =
+      this.basePath +
+      `/projects/${p["projectId"]}/collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5810,9 +5767,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
+    const url =
+      this.basePath +
+      `/projects/${p["projectId"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5829,9 +5788,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
+    const url =
+      this.basePath +
+      `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5847,9 +5808,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/projects/${p["projectId"]}/columns`
+    const url = this.basePath + `/projects/${p["projectId"]}/columns`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5867,14 +5828,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/projects/${p["projectId"]}/columns`
+    const url = this.basePath + `/projects/${p["projectId"]}/columns`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5885,9 +5842,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<404, t_basic_error>
   > {
-    const route = `/rate_limit`
+    const url = this.basePath + `/rate_limit`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5908,9 +5865,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows`
+    const url =
+      this.basePath +
+      `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5923,9 +5882,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_repo_required_workflow> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5936,9 +5897,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     requiredWorkflowIdForRepo: number
   }): Promise<Response<200, t_workflow_usage> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/timing`
+    const url =
+      this.basePath +
+      `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/timing`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -5953,9 +5916,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6008,14 +5971,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6033,9 +5992,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6056,13 +6015,14 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6073,9 +6033,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     artifactId: number
   }): Promise<Response<200, t_artifact>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6086,9 +6048,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     artifactId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6100,9 +6064,11 @@ export class ApiClient extends AbstractFetchClient {
     artifactId: number
     archiveFormat: string
   }): Promise<Response<302, void> | Response<410, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6112,9 +6078,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_actions_cache_usage_by_repository>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6130,7 +6097,8 @@ export class ApiClient extends AbstractFetchClient {
     sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
     direction?: "asc" | "desc"
   }): Promise<Response<200, t_actions_cache_list>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -6139,7 +6107,7 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
       direction: p["direction"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6151,9 +6119,10 @@ export class ApiClient extends AbstractFetchClient {
     key: string
     ref?: t_code_scanning_ref
   }): Promise<Response<200, t_actions_cache_list>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({ key: p["key"], ref: p["ref"] })
-    const res = await fetch(this.basePath + route + query, { method: "DELETE" })
+    const res = await fetch(url + query, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6164,9 +6133,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     cacheId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6177,9 +6148,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     jobId: number
   }): Promise<Response<200, t_job>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6190,9 +6163,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     jobId: number
   }): Promise<Response<302, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6206,14 +6181,12 @@ export class ApiClient extends AbstractFetchClient {
       enable_debug_logging?: boolean
     } | null
   }): Promise<Response<201, t_empty_object> | Response<403, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6227,9 +6200,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6245,14 +6220,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6262,9 +6235,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_actions_repository_permissions>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6278,14 +6252,11 @@ export class ApiClient extends AbstractFetchClient {
       enabled: t_actions_enabled
     }
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6295,9 +6266,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_actions_workflow_access_to_repository>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6308,14 +6281,12 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     requestBody: t_actions_workflow_access_to_repository
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6325,9 +6296,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_selected_actions>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6338,14 +6311,12 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     requestBody?: t_selected_actions
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6355,9 +6326,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_actions_get_default_workflow_permissions>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6368,14 +6341,12 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     requestBody: t_actions_set_default_workflow_permissions
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6417,7 +6388,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/runs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/runs`
     const query = this._query({
       actor: p["actor"],
       branch: p["branch"],
@@ -6430,7 +6403,7 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6450,9 +6423,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runners`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6462,9 +6436,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_runner_application[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6474,9 +6450,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<201, t_authentication_token>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6486,9 +6464,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<201, t_authentication_token>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6499,9 +6479,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runnerId: number
   }): Promise<Response<200, t_runner>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6512,9 +6494,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runnerId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6534,9 +6518,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6560,14 +6546,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6591,14 +6575,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6618,9 +6600,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6642,9 +6626,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6685,7 +6671,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`
     const query = this._query({
       actor: p["actor"],
       branch: p["branch"],
@@ -6698,7 +6684,7 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6710,11 +6696,13 @@ export class ApiClient extends AbstractFetchClient {
     runId: number
     excludePullRequests?: boolean
   }): Promise<Response<200, t_workflow_run>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6725,9 +6713,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6738,9 +6728,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<200, t_environment_approvals[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6755,9 +6747,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6778,9 +6772,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6793,11 +6789,13 @@ export class ApiClient extends AbstractFetchClient {
     attemptNumber: number
     excludePullRequests?: boolean
   }): Promise<Response<200, t_workflow_run>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6820,9 +6818,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6834,9 +6834,11 @@ export class ApiClient extends AbstractFetchClient {
     runId: number
     attemptNumber: number
   }): Promise<Response<302, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6847,9 +6849,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<202, t_empty_object> | Response<409, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6871,13 +6875,15 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/jobs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/jobs`
     const query = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6888,9 +6894,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<302, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6905,9 +6913,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6918,9 +6928,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<200, t_pending_deployment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6936,14 +6948,12 @@ export class ApiClient extends AbstractFetchClient {
       state: "approved" | "rejected"
     }
   }): Promise<Response<200, t_deployment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6957,14 +6967,12 @@ export class ApiClient extends AbstractFetchClient {
       enable_debug_logging?: boolean
     } | null
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6978,14 +6986,12 @@ export class ApiClient extends AbstractFetchClient {
       enable_debug_logging?: boolean
     } | null
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -6996,9 +7002,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     runId: number
   }): Promise<Response<200, t_workflow_run_usage>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7018,9 +7026,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7030,9 +7039,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_actions_public_key>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7043,9 +7054,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<200, t_actions_secret>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7060,14 +7073,12 @@ export class ApiClient extends AbstractFetchClient {
       key_id?: string
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7078,9 +7089,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7100,9 +7113,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7116,14 +7130,11 @@ export class ApiClient extends AbstractFetchClient {
       value: string
     }
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7134,9 +7145,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     name: string
   }): Promise<Response<200, t_actions_variable>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7151,14 +7164,12 @@ export class ApiClient extends AbstractFetchClient {
       value?: string
     }
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7169,9 +7180,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     name: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7191,9 +7204,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7204,9 +7218,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     workflowId: number | string
   }): Promise<Response<200, t_workflow>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7217,9 +7233,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     workflowId: number | string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7236,14 +7254,12 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     }
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7254,9 +7270,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     workflowId: number | string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7298,7 +7316,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/runs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/runs`
     const query = this._query({
       actor: p["actor"],
       branch: p["branch"],
@@ -7311,7 +7331,7 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7322,9 +7342,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     workflowId: number | string
   }): Promise<Response<200, t_workflow_usage>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7336,9 +7358,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/assignees`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7349,9 +7371,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     assignee: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7362,9 +7386,9 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     page?: number
   }): Promise<Response<200, t_autolink[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const query = this._query({ page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7379,14 +7403,10 @@ export class ApiClient extends AbstractFetchClient {
       url_template: string
     }
   }): Promise<Response<201, t_autolink> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7397,9 +7417,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     autolinkId: number
   }): Promise<Response<200, t_autolink> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7410,9 +7432,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     autolinkId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7422,9 +7446,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7434,9 +7460,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7449,13 +7477,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_short_branch[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`
     const query = this._query({
       protected: p["protected"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7470,9 +7498,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<301, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7485,9 +7515,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_branch_protection> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7542,14 +7574,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7560,9 +7590,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void> | Response<403, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7573,9 +7605,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_protected_branch_admin_enforced>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7586,9 +7620,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_protected_branch_admin_enforced>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7599,9 +7635,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7612,9 +7650,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_protected_branch_pull_request_review>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7644,14 +7684,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_protected_branch_pull_request_review>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7662,9 +7700,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7678,9 +7718,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_protected_branch_admin_enforced>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7694,9 +7736,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_protected_branch_admin_enforced>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7707,9 +7751,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7722,9 +7768,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_status_check_policy> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7747,14 +7795,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7765,9 +7811,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7778,9 +7826,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, string[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7801,14 +7851,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7828,14 +7876,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7855,14 +7901,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7875,9 +7919,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_branch_restriction_policy> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7888,9 +7934,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7901,9 +7949,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_integration[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7921,14 +7971,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_integration[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7946,14 +7994,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_integration[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7971,14 +8017,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_integration[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -7989,9 +8033,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_team[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8007,14 +8053,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       | string[]
   }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8030,14 +8074,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       | string[]
   }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8053,14 +8095,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       | string[]
   }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8071,9 +8111,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     branch: string
   }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8091,14 +8133,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_simple_user[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8116,14 +8156,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_simple_user[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8141,14 +8179,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_simple_user[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8167,14 +8203,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8197,14 +8231,10 @@ export class ApiClient extends AbstractFetchClient {
           [key: string]: unknown
         }
   }): Promise<Response<201, t_check_run>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-runs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8215,9 +8245,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     checkRunId: number
   }): Promise<Response<200, t_check_run>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8271,14 +8303,12 @@ export class ApiClient extends AbstractFetchClient {
       status?: "queued" | "in_progress" | "completed"
     }
   }): Promise<Response<200, t_check_run>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8291,9 +8321,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_check_annotation[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8309,9 +8341,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8324,14 +8358,10 @@ export class ApiClient extends AbstractFetchClient {
       head_sha: string
     }
   }): Promise<Response<200, t_check_suite> | Response<201, t_check_suite>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-suites`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8347,14 +8377,12 @@ export class ApiClient extends AbstractFetchClient {
       }[]
     }
   }): Promise<Response<200, t_check_suite_preference>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8365,9 +8393,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     checkSuiteId: number
   }): Promise<Response<200, t_check_suite>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8391,7 +8421,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/check-runs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/check-runs`
     const query = this._query({
       check_name: p["checkName"],
       status: p["status"],
@@ -8399,7 +8431,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8410,9 +8442,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     checkSuiteId: number
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8444,7 +8478,8 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -8456,7 +8491,7 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
       severity: p["severity"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8480,9 +8515,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8510,14 +8547,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8543,13 +8578,15 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8579,7 +8616,8 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -8590,7 +8628,7 @@ export class ApiClient extends AbstractFetchClient {
       direction: p["direction"],
       sort: p["sort"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8618,9 +8656,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8645,9 +8685,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const query = this._query({ confirm_delete: p["confirmDelete"] })
-    const res = await fetch(this.basePath + route + query, { method: "DELETE" })
+    const res = await fetch(url + query, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8669,9 +8711,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8695,9 +8739,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8730,14 +8776,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8760,9 +8803,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8773,9 +8818,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref?: string
   }): Promise<Response<200, t_codeowners_errors> | Response<404, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8799,9 +8845,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8838,14 +8884,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8873,9 +8915,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8900,12 +8944,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`
     const query = this._query({
       location: p["location"],
       client_ip: p["clientIp"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8931,9 +8976,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8953,9 +8999,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8965,9 +9012,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_codespaces_public_key>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8978,9 +9027,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<200, t_repo_codespaces_secret>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -8995,14 +9046,12 @@ export class ApiClient extends AbstractFetchClient {
       key_id?: string
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9013,9 +9062,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9029,14 +9080,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_collaborator[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/collaborators`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`
     const query = this._query({
       affiliation: p["affiliation"],
       permission: p["permission"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9047,9 +9099,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     username: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9068,14 +9122,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9086,9 +9138,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     username: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9102,9 +9156,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_repository_collaborator_permission>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9116,9 +9172,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_commit_comment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9129,9 +9185,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commentId: number
   }): Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9145,14 +9203,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9163,9 +9219,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commentId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9187,13 +9245,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9219,14 +9279,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_reaction>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9238,9 +9296,11 @@ export class ApiClient extends AbstractFetchClient {
     commentId: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9263,7 +9323,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits`
     const query = this._query({
       sha: p["sha"],
       path: p["path"],
@@ -9273,7 +9333,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9286,9 +9346,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_branch_short[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9301,9 +9363,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_commit_comment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9324,14 +9388,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9344,9 +9406,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_pull_request_simple[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9372,9 +9436,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9399,7 +9464,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-runs`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-runs`
     const query = this._query({
       check_name: p["checkName"],
       status: p["status"],
@@ -9408,7 +9475,7 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       app_id: p["appId"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9431,14 +9498,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-suites`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-suites`
     const query = this._query({
       app_id: p["appId"],
       check_name: p["checkName"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9453,9 +9522,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_combined_commit_status> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9468,9 +9539,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_status[]> | Response<301, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9480,9 +9553,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_community_profile>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/community/profile`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/community/profile`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9507,9 +9581,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9532,9 +9608,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9567,14 +9644,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9611,14 +9685,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9636,13 +9707,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/contributors`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contributors`
     const query = this._query({
       anon: p["anon"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9673,7 +9744,8 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -9690,7 +9762,7 @@ export class ApiClient extends AbstractFetchClient {
       first: p["first"],
       last: p["last"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9706,9 +9778,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9736,14 +9810,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9763,9 +9835,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9775,9 +9848,11 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_dependabot_public_key>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9788,9 +9863,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<200, t_dependabot_secret>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9805,14 +9882,12 @@ export class ApiClient extends AbstractFetchClient {
       key_id?: string
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9823,9 +9898,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9841,9 +9918,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9864,14 +9943,12 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9887,7 +9964,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_deployment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const query = this._query({
       sha: p["sha"],
       ref: p["ref"],
@@ -9896,7 +9973,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9931,14 +10008,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9949,9 +10022,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     deploymentId: number
   }): Promise<Response<200, t_deployment> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9966,9 +10041,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -9983,9 +10060,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_deployment_status[]> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10014,14 +10093,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<201, t_deployment_status> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10035,9 +10112,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_deployment_status> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10053,14 +10132,10 @@ export class ApiClient extends AbstractFetchClient {
       event_type: string
     }
   }): Promise<Response<204, void> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/dispatches`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10080,9 +10155,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10093,9 +10168,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     environmentName: string
   }): Promise<Response<200, t_environment>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10116,14 +10193,12 @@ export class ApiClient extends AbstractFetchClient {
       wait_timer?: t_wait_timer
     } | null
   }): Promise<Response<200, t_environment> | Response<422, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10134,9 +10209,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     environmentName: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10157,9 +10234,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10175,14 +10254,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<303, void>
     | Response<404, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10194,9 +10271,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     branchPolicyId: number
   }): Promise<Response<200, t_deployment_branch_policy>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10209,14 +10288,12 @@ export class ApiClient extends AbstractFetchClient {
     branchPolicyId: number
     requestBody: t_deployment_branch_policy_name_pattern
   }): Promise<Response<200, t_deployment_branch_policy>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10228,9 +10305,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     branchPolicyId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10242,9 +10321,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/events`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10259,13 +10338,13 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_minimal_repository[]> | Response<400, t_scim_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/forks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const query = this._query({
       sort: p["sort"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10286,14 +10365,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/forks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10313,14 +10388,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/blobs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10336,9 +10407,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10368,14 +10441,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/commits`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10386,9 +10455,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commitSha: string
   }): Promise<Response<200, t_git_commit> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10399,9 +10470,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref: string
   }): Promise<Response<200, t_git_ref[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10412,9 +10485,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref: string
   }): Promise<Response<200, t_git_ref> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10429,14 +10503,10 @@ export class ApiClient extends AbstractFetchClient {
       sha: string
     }
   }): Promise<Response<201, t_git_ref> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/refs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10451,14 +10521,11 @@ export class ApiClient extends AbstractFetchClient {
       sha: string
     }
   }): Promise<Response<200, t_git_ref> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10469,9 +10536,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref: string
   }): Promise<Response<204, void> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10492,14 +10560,10 @@ export class ApiClient extends AbstractFetchClient {
       type: "commit" | "tree" | "blob"
     }
   }): Promise<Response<201, t_git_tag> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/tags`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10510,9 +10574,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     tagSha: string
   }): Promise<Response<200, t_git_tag> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10537,14 +10603,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/trees`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10560,9 +10622,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const query = this._query({ recursive: p["recursive"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10574,9 +10638,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_hook[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10604,14 +10668,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10622,9 +10682,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     hookId: number
   }): Promise<Response<200, t_hook> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10653,14 +10714,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10671,9 +10729,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     hookId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10684,9 +10743,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     hookId: number
   }): Promise<Response<200, t_webhook_config>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10703,14 +10764,12 @@ export class ApiClient extends AbstractFetchClient {
       url?: t_webhook_config_url
     }
   }): Promise<Response<200, t_webhook_config>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10728,13 +10787,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10750,9 +10811,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10773,9 +10836,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10786,9 +10851,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     hookId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10799,9 +10866,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     hookId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10815,9 +10884,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10839,14 +10908,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<422, t_validation_error>
     | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10862,14 +10927,10 @@ export class ApiClient extends AbstractFetchClient {
       vcs_username?: string
     } | null
   }): Promise<Response<200, t_import> | Response<503, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10879,9 +10940,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void> | Response<503, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10896,9 +10957,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const query = this._query({ since: p["since"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10918,14 +10980,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<422, t_validation_error>
     | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10937,9 +10997,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_porter_large_file[]> | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10956,14 +11017,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<422, t_validation_error>
     | Response<503, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/import/lfs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10977,9 +11034,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<301, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/installation`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10996,9 +11053,10 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11011,14 +11069,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_interaction_limit_response> | Response<409, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11028,9 +11083,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void> | Response<409, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11042,9 +11098,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_repository_invitation[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/invitations`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11058,14 +11114,12 @@ export class ApiClient extends AbstractFetchClient {
       permissions?: "read" | "write" | "maintain" | "triage" | "admin"
     }
   }): Promise<Response<200, t_repository_invitation>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11076,9 +11130,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     invitationId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11104,7 +11160,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
     const query = this._query({
       milestone: p["milestone"],
       state: p["state"],
@@ -11118,7 +11174,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11158,14 +11214,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11184,7 +11236,8 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/comments`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -11192,7 +11245,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11203,9 +11256,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commentId: number
   }): Promise<Response<200, t_issue_comment> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11221,14 +11276,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_issue_comment> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11239,9 +11292,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commentId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11263,13 +11318,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11295,14 +11352,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_reaction>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11314,9 +11369,11 @@ export class ApiClient extends AbstractFetchClient {
     commentId: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11330,9 +11387,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_issue_event[]> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11348,9 +11406,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11367,9 +11427,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11413,14 +11475,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11434,14 +11494,12 @@ export class ApiClient extends AbstractFetchClient {
       assignees?: string[]
     }
   }): Promise<Response<201, t_issue>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11455,14 +11513,12 @@ export class ApiClient extends AbstractFetchClient {
       assignees?: string[]
     }
   }): Promise<Response<200, t_issue>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11474,9 +11530,11 @@ export class ApiClient extends AbstractFetchClient {
     issueNumber: number
     assignee: string
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11494,13 +11552,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11520,14 +11580,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11542,9 +11600,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_issue_event_for_issue[]> | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11562,9 +11622,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11595,14 +11657,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11633,14 +11693,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11656,9 +11714,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11675,9 +11735,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11697,14 +11759,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11719,9 +11779,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11747,13 +11809,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11779,14 +11843,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_reaction>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11798,9 +11860,11 @@ export class ApiClient extends AbstractFetchClient {
     issueNumber: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11817,9 +11881,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<410, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11831,9 +11897,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_deploy_key[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/keys`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11848,14 +11914,10 @@ export class ApiClient extends AbstractFetchClient {
       title?: string
     }
   }): Promise<Response<201, t_deploy_key> | Response<422, t_validation_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/keys`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11866,9 +11928,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     keyId: number
   }): Promise<Response<200, t_deploy_key> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11879,9 +11942,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     keyId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11893,9 +11957,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_label[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/labels`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11914,14 +11978,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/labels`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11932,9 +11992,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     name: string
   }): Promise<Response<200, t_label> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11950,14 +12011,11 @@ export class ApiClient extends AbstractFetchClient {
       new_name?: string
     }
   }): Promise<Response<200, t_label>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11968,9 +12026,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     name: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11980,9 +12039,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_language>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/languages`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -11997,9 +12056,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<403, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/lfs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12009,9 +12068,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/lfs`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12021,9 +12080,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_license_content>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/license`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12038,14 +12097,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_merged_upstream> | Response<409, void> | Response<422, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12067,14 +12123,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/merges`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12089,7 +12141,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_milestone[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const query = this._query({
       state: p["state"],
       sort: p["sort"],
@@ -12097,7 +12149,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12117,14 +12169,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12135,9 +12183,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     milestoneNumber: number
   }): Promise<Response<200, t_milestone> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12154,14 +12204,12 @@ export class ApiClient extends AbstractFetchClient {
       title?: string
     }
   }): Promise<Response<200, t_milestone>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12172,9 +12220,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     milestoneNumber: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12187,9 +12237,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_label[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12205,7 +12257,8 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_thread[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/notifications`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const query = this._query({
       all: p["all"],
       participating: p["participating"],
@@ -12214,7 +12267,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12236,14 +12289,11 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<205, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/notifications`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12253,9 +12303,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_page> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12276,14 +12326,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12306,14 +12352,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12328,9 +12370,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12342,9 +12384,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_page_build[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12354,9 +12396,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<201, t_page_build_status>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12366,9 +12408,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_page_build>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12379,9 +12422,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     buildId: number
   }): Promise<Response<200, t_page_build>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12402,14 +12447,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12425,9 +12467,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pages/health`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12447,13 +12489,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/projects`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12474,14 +12516,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<410, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/projects`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12502,7 +12540,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
     const query = this._query({
       state: p["state"],
       head: p["head"],
@@ -12512,7 +12550,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12535,14 +12573,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12557,7 +12591,8 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_pull_request_review_comment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -12565,7 +12600,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12578,9 +12613,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_pull_request_review_comment> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12594,14 +12631,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<200, t_pull_request_review_comment>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12612,9 +12647,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     commentId: number
   }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12636,13 +12673,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12668,14 +12707,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_reaction>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12687,9 +12724,11 @@ export class ApiClient extends AbstractFetchClient {
     commentId: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12713,9 +12752,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12737,14 +12778,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12780,14 +12819,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12803,7 +12840,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_pull_request_review_comment[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -12811,7 +12850,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12837,14 +12876,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12861,14 +12898,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<201, t_pull_request_review_comment> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12881,9 +12916,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_commit[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12908,9 +12945,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12921,9 +12960,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     pullNumber: number
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12959,14 +13000,12 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12977,9 +13016,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     pullNumber: number
   }): Promise<Response<200, t_pull_request_review_request>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -12998,14 +13039,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13022,14 +13061,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_pull_request_simple> | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13042,9 +13079,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_pull_request_review[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13073,14 +13112,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13094,9 +13131,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_pull_request_review> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13114,14 +13153,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_pull_request_review>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13137,9 +13174,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13155,9 +13194,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_review_comment[]> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13177,14 +13218,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13205,14 +13244,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13236,14 +13273,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13258,9 +13293,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/readme`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13276,9 +13311,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13290,9 +13326,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_release[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13317,14 +13353,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13339,9 +13371,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<302, void>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13357,14 +13391,12 @@ export class ApiClient extends AbstractFetchClient {
       state?: string
     }
   }): Promise<Response<200, t_release_asset>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13375,9 +13407,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     assetId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13395,14 +13429,12 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_release_notes_content> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13412,9 +13444,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_release>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13425,9 +13458,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     tag: string
   }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13438,9 +13473,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     releaseId: number
   }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13461,14 +13498,12 @@ export class ApiClient extends AbstractFetchClient {
       target_commitish?: string
     }
   }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13479,9 +13514,11 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     releaseId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13494,9 +13531,11 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_release_asset[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13510,15 +13549,13 @@ export class ApiClient extends AbstractFetchClient {
     label?: string
     requestBody?: string
   }): Promise<Response<201, t_release_asset> | Response<422, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({ "Content-Type": "*/*" })
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route + query, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url + query, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13532,13 +13569,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13556,14 +13595,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<201, t_reaction>
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13575,9 +13612,11 @@ export class ApiClient extends AbstractFetchClient {
     releaseId: number
     reactionId: number
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13607,7 +13646,8 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -13619,7 +13659,7 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13642,9 +13682,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13673,14 +13715,12 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13704,9 +13744,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13726,9 +13768,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<422, t_validation_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13744,9 +13786,10 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<204, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13765,9 +13808,10 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<204, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13783,9 +13827,10 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<204, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13797,9 +13842,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_participation_stats> | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13809,9 +13855,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<200, t_code_frequency_stat[]> | Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13828,14 +13875,11 @@ export class ApiClient extends AbstractFetchClient {
       target_url?: string | null
     }
   }): Promise<Response<201, t_status>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13847,9 +13891,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13863,9 +13907,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, void>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/subscription`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13879,14 +13923,10 @@ export class ApiClient extends AbstractFetchClient {
       subscribed?: boolean
     }
   }): Promise<Response<200, t_repository_subscription>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/subscription`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13896,9 +13936,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/subscription`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13910,9 +13950,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_tag[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/tags`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13926,9 +13966,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13945,14 +13986,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13967,9 +14005,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13980,9 +14020,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref: string
   }): Promise<Response<302, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -13994,9 +14035,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team[]>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/teams`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14008,9 +14049,9 @@ export class ApiClient extends AbstractFetchClient {
     page?: number
     perPage?: number
   }): Promise<Response<200, t_topic> | Response<404, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/topics`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14027,14 +14068,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/topics`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14045,9 +14082,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     per?: "" | "day" | "week"
   }): Promise<Response<200, t_clone_traffic> | Response<403, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const query = this._query({ per: p["per"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14059,9 +14097,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_content_traffic[]> | Response<403, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14073,9 +14112,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_referrer_traffic[]> | Response<403, t_basic_error>
   > {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14086,9 +14127,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     per?: "" | "day" | "week"
   }): Promise<Response<200, t_view_traffic> | Response<403, t_basic_error>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const query = this._query({ per: p["per"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14103,14 +14145,10 @@ export class ApiClient extends AbstractFetchClient {
       team_ids?: number[]
     }
   }): Promise<Response<202, t_minimal_repository>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/transfer`
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14120,9 +14158,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14132,9 +14171,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14144,9 +14184,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14157,9 +14198,10 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     ref: string
   }): Promise<Response<302, void>> {
-    const route = `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14176,14 +14218,12 @@ export class ApiClient extends AbstractFetchClient {
       private?: boolean
     }
   }): Promise<Response<201, t_repository>> {
-    const route = `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
+    const url =
+      this.basePath +
+      `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14196,9 +14236,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<422, t_validation_error>
   > {
-    const route = `/repositories`
+    const url = this.basePath + `/repositories`
     const query = this._query({ since: p["since"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14218,9 +14258,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14230,9 +14272,11 @@ export class ApiClient extends AbstractFetchClient {
     repositoryId: number
     environmentName: string
   }): Promise<Response<200, t_actions_public_key>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14243,9 +14287,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     secretName: string
   }): Promise<Response<200, t_actions_secret>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14260,14 +14306,12 @@ export class ApiClient extends AbstractFetchClient {
       key_id: string
     }
   }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14278,9 +14322,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14300,9 +14346,11 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14316,14 +14364,12 @@ export class ApiClient extends AbstractFetchClient {
       value: string
     }
   }): Promise<Response<201, t_empty_object>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14334,9 +14380,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     name: string
   }): Promise<Response<200, t_actions_variable>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14351,14 +14399,12 @@ export class ApiClient extends AbstractFetchClient {
       value?: string
     }
   }): Promise<Response<204, void>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14369,9 +14415,11 @@ export class ApiClient extends AbstractFetchClient {
     environmentName: string
     name: string
   }): Promise<Response<204, void>> {
-    const route = `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const url =
+      this.basePath +
+      `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14404,7 +14452,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/search/code`
+    const url = this.basePath + `/search/code`
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -14412,7 +14460,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14435,7 +14483,7 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<304, void>
   > {
-    const route = `/search/commits`
+    const url = this.basePath + `/search/commits`
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -14443,7 +14491,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14487,7 +14535,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/search/issues`
+    const url = this.basePath + `/search/issues`
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -14495,7 +14543,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14522,7 +14570,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/search/labels`
+    const url = this.basePath + `/search/labels`
     const query = this._query({
       repository_id: p["repositoryId"],
       q: p["q"],
@@ -14531,7 +14579,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14563,7 +14611,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/search/repositories`
+    const url = this.basePath + `/search/repositories`
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -14571,7 +14619,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14592,13 +14640,13 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<304, void>
   > {
-    const route = `/search/topics`
+    const url = this.basePath + `/search/topics`
     const query = this._query({
       q: p["q"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14630,7 +14678,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/search/users`
+    const url = this.basePath + `/search/users`
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -14638,7 +14686,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14647,9 +14695,9 @@ export class ApiClient extends AbstractFetchClient {
   async teamsGetLegacy(p: {
     teamId: number
   }): Promise<Response<200, t_team_full> | Response<404, t_basic_error>> {
-    const route = `/teams/${p["teamId"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14671,14 +14719,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14691,9 +14735,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14705,13 +14749,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team_discussion[]>> {
-    const route = `/teams/${p["teamId"]}/discussions`
+    const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14725,14 +14769,10 @@ export class ApiClient extends AbstractFetchClient {
       title: string
     }
   }): Promise<Response<201, t_team_discussion>> {
-    const route = `/teams/${p["teamId"]}/discussions`
+    const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14742,9 +14782,11 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     discussionNumber: number
   }): Promise<Response<200, t_team_discussion>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14758,14 +14800,12 @@ export class ApiClient extends AbstractFetchClient {
       title?: string
     }
   }): Promise<Response<200, t_team_discussion>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14775,9 +14815,11 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     discussionNumber: number
   }): Promise<Response<204, void>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14790,13 +14832,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team_discussion_comment[]>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14809,14 +14853,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<201, t_team_discussion_comment>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14827,9 +14869,11 @@ export class ApiClient extends AbstractFetchClient {
     discussionNumber: number
     commentNumber: number
   }): Promise<Response<200, t_team_discussion_comment>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14843,14 +14887,12 @@ export class ApiClient extends AbstractFetchClient {
       body: string
     }
   }): Promise<Response<200, t_team_discussion_comment>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14861,9 +14903,11 @@ export class ApiClient extends AbstractFetchClient {
     discussionNumber: number
     commentNumber: number
   }): Promise<Response<204, void>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14885,13 +14929,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14913,14 +14959,12 @@ export class ApiClient extends AbstractFetchClient {
         | "eyes"
     }
   }): Promise<Response<201, t_reaction>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14941,13 +14985,15 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_reaction[]>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14968,14 +15014,12 @@ export class ApiClient extends AbstractFetchClient {
         | "eyes"
     }
   }): Promise<Response<201, t_reaction>> {
-    const route = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -14986,9 +15030,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_organization_invitation[]>> {
-    const route = `/teams/${p["teamId"]}/invitations`
+    const url = this.basePath + `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15000,13 +15044,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
-    const route = `/teams/${p["teamId"]}/members`
+    const url = this.basePath + `/teams/${p["teamId"]}/members`
     const query = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15016,9 +15060,9 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     username: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/teams/${p["teamId"]}/members/${p["username"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15033,9 +15077,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, void>
     | Response<422, void>
   > {
-    const route = `/teams/${p["teamId"]}/members/${p["username"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15045,9 +15089,9 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     username: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/teams/${p["teamId"]}/members/${p["username"]}`
+    const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15057,9 +15101,10 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     username: string
   }): Promise<Response<200, t_team_membership> | Response<404, t_basic_error>> {
-    const route = `/teams/${p["teamId"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15077,14 +15122,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, void>
   > {
-    const route = `/teams/${p["teamId"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15094,9 +15136,10 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     username: string
   }): Promise<Response<204, void> | Response<403, void>> {
-    const route = `/teams/${p["teamId"]}/memberships/${p["username"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15107,9 +15150,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_team_project[]> | Response<404, t_basic_error>> {
-    const route = `/teams/${p["teamId"]}/projects`
+    const url = this.basePath + `/teams/${p["teamId"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15119,9 +15162,10 @@ export class ApiClient extends AbstractFetchClient {
     teamId: number
     projectId: number
   }): Promise<Response<200, t_team_project> | Response<404, void>> {
-    const route = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15145,14 +15189,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15166,9 +15207,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15181,9 +15223,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
   > {
-    const route = `/teams/${p["teamId"]}/repos`
+    const url = this.basePath + `/teams/${p["teamId"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15196,9 +15238,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_team_repository> | Response<204, void> | Response<404, void>
   > {
-    const route = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15216,14 +15259,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15234,9 +15274,10 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
   }): Promise<Response<204, void>> {
-    const route = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
+    const url =
+      this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15252,9 +15293,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/teams/${p["teamId"]}/teams`
+    const url = this.basePath + `/teams/${p["teamId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15266,9 +15307,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user`
+    const url = this.basePath + `/user`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15293,14 +15334,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user`
+    const url = this.basePath + `/user`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15316,9 +15353,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/blocks`
+    const url = this.basePath + `/user/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15333,9 +15370,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/blocks/${p["username"]}`
+    const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15351,9 +15388,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/blocks/${p["username"]}`
+    const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15368,9 +15405,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/blocks/${p["username"]}`
+    const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15394,13 +15431,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces`
+    const url = this.basePath + `/user/codespaces`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       repository_id: p["repositoryId"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15447,14 +15484,10 @@ export class ApiClient extends AbstractFetchClient {
         }
       >
   > {
-    const route = `/user/codespaces`
+    const url = this.basePath + `/user/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15472,9 +15505,9 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/user/codespaces/secrets`
+    const url = this.basePath + `/user/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15483,9 +15516,9 @@ export class ApiClient extends AbstractFetchClient {
   async codespacesGetPublicKeyForAuthenticatedUser(): Promise<
     Response<200, t_codespaces_user_public_key>
   > {
-    const route = `/user/codespaces/secrets/public-key`
+    const url = this.basePath + `/user/codespaces/secrets/public-key`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15494,9 +15527,9 @@ export class ApiClient extends AbstractFetchClient {
   async codespacesGetSecretForAuthenticatedUser(p: {
     secretName: string
   }): Promise<Response<200, t_codespaces_secret>> {
-    const route = `/user/codespaces/secrets/${p["secretName"]}`
+    const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15515,14 +15548,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/codespaces/secrets/${p["secretName"]}`
+    const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15531,9 +15560,9 @@ export class ApiClient extends AbstractFetchClient {
   async codespacesDeleteSecretForAuthenticatedUser(p: {
     secretName: string
   }): Promise<Response<204, void>> {
-    const route = `/user/codespaces/secrets/${p["secretName"]}`
+    const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15554,9 +15583,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15574,14 +15604,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/secrets/${p["secretName"]}/repositories`
+    const url =
+      this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15597,9 +15624,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15615,9 +15644,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15633,9 +15664,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15654,14 +15685,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15682,9 +15709,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15700,9 +15727,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<422, t_validation_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/exports`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/exports`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15714,9 +15741,11 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_codespace_export_details> | Response<404, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
+    const url =
+      this.basePath +
+      `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15738,9 +15767,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/machines`
+    const url =
+      this.basePath + `/user/codespaces/${p["codespaceName"]}/machines`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15759,14 +15789,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/publish`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/publish`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15785,9 +15811,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<409, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/start`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/start`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15802,9 +15828,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<500, t_basic_error>
   > {
-    const route = `/user/codespaces/${p["codespaceName"]}/stop`
+    const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15822,14 +15848,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/email/visibility`
+    const url = this.basePath + `/user/email/visibility`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15845,9 +15867,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/emails`
+    const url = this.basePath + `/user/emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15868,14 +15890,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/emails`
+    const url = this.basePath + `/user/emails`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15896,14 +15914,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/emails`
+    const url = this.basePath + `/user/emails`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "DELETE",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "DELETE", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15918,9 +15932,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/followers`
+    const url = this.basePath + `/user/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15935,9 +15949,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/following`
+    const url = this.basePath + `/user/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15952,9 +15966,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/following/${p["username"]}`
+    const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15969,9 +15983,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/following/${p["username"]}`
+    const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -15986,9 +16000,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/following/${p["username"]}`
+    const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16004,9 +16018,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/gpg_keys`
+    const url = this.basePath + `/user/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16025,14 +16039,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/gpg_keys`
+    const url = this.basePath + `/user/gpg_keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16047,9 +16057,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/gpg_keys/${p["gpgKeyId"]}`
+    const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16065,9 +16075,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/gpg_keys/${p["gpgKeyId"]}`
+    const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16088,9 +16098,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/installations`
+    const url = this.basePath + `/user/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16113,9 +16123,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/installations/${p["installationId"]}/repositories`
+    const url =
+      this.basePath + `/user/installations/${p["installationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16130,9 +16141,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16147,9 +16160,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
+    const url =
+      this.basePath +
+      `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16164,9 +16179,9 @@ export class ApiClient extends AbstractFetchClient {
       >
     | Response<204, void>
   > {
-    const route = `/user/interaction-limits`
+    const url = this.basePath + `/user/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16178,14 +16193,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<200, t_interaction_limit_response>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/interaction-limits`
+    const url = this.basePath + `/user/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PUT",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PUT", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16194,9 +16205,9 @@ export class ApiClient extends AbstractFetchClient {
   async interactionsRemoveRestrictionsForAuthenticatedUser(): Promise<
     Response<204, void>
   > {
-    const route = `/user/interaction-limits`
+    const url = this.basePath + `/user/interaction-limits`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16222,7 +16233,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/issues`
+    const url = this.basePath + `/user/issues`
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -16233,7 +16244,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16249,9 +16260,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/keys`
+    const url = this.basePath + `/user/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16270,14 +16281,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/keys`
+    const url = this.basePath + `/user/keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16292,9 +16299,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/keys/${p["keyId"]}`
+    const url = this.basePath + `/user/keys/${p["keyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16309,9 +16316,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/keys/${p["keyId"]}`
+    const url = this.basePath + `/user/keys/${p["keyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16326,9 +16333,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/marketplace_purchases`
+    const url = this.basePath + `/user/marketplace_purchases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16342,9 +16349,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<304, void>
     | Response<401, t_basic_error>
   > {
-    const route = `/user/marketplace_purchases/stubbed`
+    const url = this.basePath + `/user/marketplace_purchases/stubbed`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16361,13 +16368,13 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/memberships/orgs`
+    const url = this.basePath + `/user/memberships/orgs`
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16380,9 +16387,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/memberships/orgs/${p["org"]}`
+    const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16399,14 +16406,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/memberships/orgs/${p["org"]}`
+    const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "PATCH",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "PATCH", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16421,9 +16424,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/migrations`
+    const url = this.basePath + `/user/migrations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16448,14 +16451,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/migrations`
+    const url = this.basePath + `/user/migrations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16471,9 +16470,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/migrations/${p["migrationId"]}`
+    const url = this.basePath + `/user/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16487,9 +16486,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/migrations/${p["migrationId"]}/archive`
+    const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16504,9 +16503,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/migrations/${p["migrationId"]}/archive`
+    const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16522,9 +16521,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
+    const url =
+      this.basePath +
+      `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16537,9 +16538,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
   > {
-    const route = `/user/migrations/${p["migrationId"]}/repositories`
+    const url =
+      this.basePath + `/user/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16554,9 +16556,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/orgs`
+    const url = this.basePath + `/user/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16566,12 +16568,12 @@ export class ApiClient extends AbstractFetchClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
   }): Promise<Response<200, t_package[]>> {
-    const route = `/user/packages`
+    const url = this.basePath + `/user/packages`
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16581,9 +16583,10 @@ export class ApiClient extends AbstractFetchClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     packageName: string
   }): Promise<Response<200, t_package>> {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16598,9 +16601,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16616,9 +16620,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const url =
+      this.basePath +
+      `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(this.basePath + route + query, { method: "POST" })
+    const res = await fetch(url + query, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16636,13 +16642,15 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const url =
+      this.basePath +
+      `/user/packages/${p["packageType"]}/${p["packageName"]}/versions`
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16653,9 +16661,11 @@ export class ApiClient extends AbstractFetchClient {
     packageName: string
     packageVersionId: number
   }): Promise<Response<200, t_package_version>> {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16671,9 +16681,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16689,9 +16701,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const url =
+      this.basePath +
+      `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16709,14 +16723,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error_simple>
   > {
-    const route = `/user/projects`
+    const url = this.basePath + `/user/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16732,9 +16742,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/public_emails`
+    const url = this.basePath + `/user/public_emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16757,7 +16767,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/repos`
+    const url = this.basePath + `/user/repos`
     const query = this._query({
       visibility: p["visibility"],
       affiliation: p["affiliation"],
@@ -16769,7 +16779,7 @@ export class ApiClient extends AbstractFetchClient {
       since: p["since"],
       before: p["before"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16810,14 +16820,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/repos`
+    const url = this.basePath + `/user/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16833,9 +16839,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/repository_invitations`
+    const url = this.basePath + `/user/repository_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16850,9 +16856,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<409, t_basic_error>
   > {
-    const route = `/user/repository_invitations/${p["invitationId"]}`
+    const url =
+      this.basePath + `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PATCH" })
+    const res = await fetch(url, { method: "PATCH" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16867,9 +16874,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<409, t_basic_error>
   > {
-    const route = `/user/repository_invitations/${p["invitationId"]}`
+    const url =
+      this.basePath + `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16885,9 +16893,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/ssh_signing_keys`
+    const url = this.basePath + `/user/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16906,14 +16914,10 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/user/ssh_signing_keys`
+    const url = this.basePath + `/user/ssh_signing_keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16928,9 +16932,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
+    const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16945,9 +16949,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
+    const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16964,14 +16968,14 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/starred`
+    const url = this.basePath + `/user/starred`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -16987,9 +16991,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/starred/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17005,9 +17009,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/starred/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "PUT" })
+    const res = await fetch(url, { method: "PUT" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17023,9 +17027,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/starred/${p["owner"]}/${p["repo"]}`
+    const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17040,9 +17044,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/user/subscriptions`
+    const url = this.basePath + `/user/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17057,9 +17061,9 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/user/teams`
+    const url = this.basePath + `/user/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17069,9 +17073,9 @@ export class ApiClient extends AbstractFetchClient {
     since?: number
     perPage?: number
   }): Promise<Response<200, t_simple_user[]> | Response<304, void>> {
-    const route = `/users`
+    const url = this.basePath + `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17082,9 +17086,9 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_private_user | t_public_user> | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}`
+    const url = this.basePath + `/users/${p["username"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17095,9 +17099,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/users/${p["username"]}/events`
+    const url = this.basePath + `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17109,9 +17113,10 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/users/${p["username"]}/events/orgs/${p["org"]}`
+    const url =
+      this.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17122,9 +17127,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/users/${p["username"]}/events/public`
+    const url = this.basePath + `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17135,9 +17140,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/users/${p["username"]}/followers`
+    const url = this.basePath + `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17148,9 +17153,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_simple_user[]>> {
-    const route = `/users/${p["username"]}/following`
+    const url = this.basePath + `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17160,9 +17165,10 @@ export class ApiClient extends AbstractFetchClient {
     username: string
     targetUser: string
   }): Promise<Response<204, void> | Response<404, void>> {
-    const route = `/users/${p["username"]}/following/${p["targetUser"]}`
+    const url =
+      this.basePath + `/users/${p["username"]}/following/${p["targetUser"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17176,13 +17182,13 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<200, t_base_gist[]> | Response<422, t_validation_error>
   > {
-    const route = `/users/${p["username"]}/gists`
+    const url = this.basePath + `/users/${p["username"]}/gists`
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17193,9 +17199,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_gpg_key[]>> {
-    const route = `/users/${p["username"]}/gpg_keys`
+    const url = this.basePath + `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17210,12 +17216,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
   > {
-    const route = `/users/${p["username"]}/hovercard`
+    const url = this.basePath + `/users/${p["username"]}/hovercard`
     const query = this._query({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17224,9 +17230,9 @@ export class ApiClient extends AbstractFetchClient {
   async appsGetUserInstallation(p: {
     username: string
   }): Promise<Response<200, t_installation>> {
-    const route = `/users/${p["username"]}/installation`
+    const url = this.basePath + `/users/${p["username"]}/installation`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17237,9 +17243,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_key_simple[]>> {
-    const route = `/users/${p["username"]}/keys`
+    const url = this.basePath + `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17250,9 +17256,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_organization_simple[]>> {
-    const route = `/users/${p["username"]}/orgs`
+    const url = this.basePath + `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17267,12 +17273,12 @@ export class ApiClient extends AbstractFetchClient {
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages`
+    const url = this.basePath + `/users/${p["username"]}/packages`
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17283,9 +17289,11 @@ export class ApiClient extends AbstractFetchClient {
     packageName: string
     username: string
   }): Promise<Response<200, t_package>> {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17301,9 +17309,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17320,9 +17330,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(this.basePath + route + query, { method: "POST" })
+    const res = await fetch(url + query, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17338,9 +17350,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17352,9 +17366,11 @@ export class ApiClient extends AbstractFetchClient {
     packageVersionId: number
     username: string
   }): Promise<Response<200, t_package_version>> {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17371,9 +17387,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17390,9 +17408,11 @@ export class ApiClient extends AbstractFetchClient {
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
-    const route = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(this.basePath + route, { method: "POST" })
+    const res = await fetch(url, { method: "POST" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17404,13 +17424,13 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_project[]> | Response<422, t_validation_error>> {
-    const route = `/users/${p["username"]}/projects`
+    const url = this.basePath + `/users/${p["username"]}/projects`
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17421,9 +17441,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/users/${p["username"]}/received_events`
+    const url = this.basePath + `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17434,9 +17454,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_event[]>> {
-    const route = `/users/${p["username"]}/received_events/public`
+    const url = this.basePath + `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17450,7 +17470,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_minimal_repository[]>> {
-    const route = `/users/${p["username"]}/repos`
+    const url = this.basePath + `/users/${p["username"]}/repos`
     const query = this._query({
       type: p["type"],
       sort: p["sort"],
@@ -17458,7 +17478,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17467,9 +17487,10 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetGithubActionsBillingUser(p: {
     username: string
   }): Promise<Response<200, t_actions_billing_usage>> {
-    const route = `/users/${p["username"]}/settings/billing/actions`
+    const url =
+      this.basePath + `/users/${p["username"]}/settings/billing/actions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17478,9 +17499,10 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetGithubPackagesBillingUser(p: {
     username: string
   }): Promise<Response<200, t_packages_billing_usage>> {
-    const route = `/users/${p["username"]}/settings/billing/packages`
+    const url =
+      this.basePath + `/users/${p["username"]}/settings/billing/packages`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17489,9 +17511,10 @@ export class ApiClient extends AbstractFetchClient {
   async billingGetSharedStorageBillingUser(p: {
     username: string
   }): Promise<Response<200, t_combined_billing_usage>> {
-    const route = `/users/${p["username"]}/settings/billing/shared-storage`
+    const url =
+      this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17502,9 +17525,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_ssh_signing_key[]>> {
-    const route = `/users/${p["username"]}/ssh_signing_keys`
+    const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17524,14 +17547,14 @@ export class ApiClient extends AbstractFetchClient {
       }
     >
   > {
-    const route = `/users/${p["username"]}/starred`
+    const url = this.basePath + `/users/${p["username"]}/starred`
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17542,9 +17565,9 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<Response<200, t_minimal_repository[]>> {
-    const route = `/users/${p["username"]}/subscriptions`
+    const url = this.basePath + `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -17553,18 +17576,18 @@ export class ApiClient extends AbstractFetchClient {
   async metaGetAllVersions(): Promise<
     Response<200, string[]> | Response<404, t_basic_error>
   > {
-    const route = `/versions`
+    const url = this.basePath + `/versions`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
   async metaGetZen(): Promise<Response<200, string>> {
-    const route = `/zen`
+    const url = this.basePath + `/zen`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }

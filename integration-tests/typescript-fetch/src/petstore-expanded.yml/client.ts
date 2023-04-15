@@ -25,9 +25,9 @@ export class ApiClient extends AbstractFetchClient {
     tags?: string[]
     limit?: number
   }): Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>> {
-    const route = `/pets`
+    const url = this.basePath + `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
-    const res = await fetch(this.basePath + route + query, { method: "GET" })
+    const res = await fetch(url + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -36,14 +36,10 @@ export class ApiClient extends AbstractFetchClient {
   async addPet(p: {
     requestBody: t_NewPet
   }): Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>> {
-    const route = `/pets`
+    const url = this.basePath + `/pets`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(this.basePath + route, {
-      method: "POST",
-      headers,
-      body,
-    })
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -52,9 +48,9 @@ export class ApiClient extends AbstractFetchClient {
   async findPetById(p: {
     id: number
   }): Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>> {
-    const route = `/pets/${p["id"]}`
+    const url = this.basePath + `/pets/${p["id"]}`
 
-    const res = await fetch(this.basePath + route, { method: "GET" })
+    const res = await fetch(url, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -63,9 +59,9 @@ export class ApiClient extends AbstractFetchClient {
   async deletePet(p: {
     id: number
   }): Promise<Response<204, void> | Response<StatusCode, t_Error>> {
-    const route = `/pets/${p["id"]}`
+    const url = this.basePath + `/pets/${p["id"]}`
 
-    const res = await fetch(this.basePath + route, { method: "DELETE" })
+    const res = await fetch(url, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
