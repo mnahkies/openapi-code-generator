@@ -2506,6 +2506,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@nahkies/typescript-fetch-runtime@0.0.1, @nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime":
+  version: 0.0.0-use.local
+  resolution: "@nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime"
+  languageName: unknown
+  linkType: soft
+
 "@nahkies/typescript-koa-runtime@0.0.1, @nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime":
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime"
@@ -14316,6 +14322,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "typescript-fetch@workspace:integration-tests/typescript-fetch"
   dependencies:
+    "@nahkies/typescript-fetch-runtime": 0.0.1
     "@types/node": ^18.15.11
     dotenv: ^16.0.3
     typescript: ~4.9.5

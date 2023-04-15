@@ -6,7 +6,7 @@ import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
 import {ModelBuilder} from "../common/model-builder"
 import {isDefined, titleCase} from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "./schema-builders/schema-builder"
-import {requestBodyAsParameter} from "../common/typescript-common"
+import {requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -99,15 +99,6 @@ export class ServerBuilder {
         $ref: this.input.loader.addVirtualType(operation.operationId, _.upperFirst(name), this.input.schema(requestBodyParameter.schema)),
       })
       this.statements.push(`const ${name} = ${bodyParamSchema}`)
-    }
-
-    const statusStringToType = (status: string) => {
-      if (/^\d+$/.test(status)) {
-        return status
-      } else if (/^\d[xX]{2}$/.test(status)) {
-        return `StatusCode${status[0]}xx`
-      }
-      throw new Error(`unexpected status string '${status}'`)
     }
 
     const responseSchemas = Object.entries(operation.responses ?? {}).reduce((acc, [status, response]) => {

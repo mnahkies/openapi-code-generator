@@ -108,6 +108,18 @@ export function requestBodyAsParameter(operation: IROperation): {
   return {}
 }
 
+export function statusStringToType (status: string): string {
+  if (/^\d+$/.test(status)) {
+    return status
+  } else if (/^\d[xX]{2}$/.test(status)) {
+    return `StatusCode${status[0]}xx`
+  } else if (status === "default") {
+    return "StatusCode"
+  }
+
+  throw new Error(`unexpected status string '${status}'`)
+}
+
 export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | undefined)[]) {
   const result = []
 
