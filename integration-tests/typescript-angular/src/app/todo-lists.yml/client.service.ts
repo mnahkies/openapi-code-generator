@@ -26,7 +26,7 @@ export class ApiClient {
     private readonly config: ApiClientConfig
   ) {}
 
-  private headers(
+  private _headers(
     headers: Record<string, string | undefined>
   ): Record<string, string> {
     return Object.fromEntries(
@@ -36,7 +36,7 @@ export class ApiClient {
     )
   }
 
-  private queryParams(
+  private _queryParams(
     queryParams: Record<
       string,
       boolean | number | string | string[] | undefined | null
@@ -55,14 +55,13 @@ export class ApiClient {
     created?: string
     status?: "incomplete" | "complete"
   }): Observable<t_TodoList[]> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = { created: p["created"], status: p["status"] }
+    const params = this._queryParams({
+      created: p["created"],
+      status: p["status"],
+    })
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {
-      params: this.queryParams(queryParameters),
-      headers: this.headers(headers),
-
+      params,
       observe: "body",
       reportProgress: false,
     })
@@ -71,17 +70,10 @@ export class ApiClient {
   getTodoListById(p: {
     listId: string
   }): Observable<t_TodoList | t_Error | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/list/${p["listId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }
@@ -92,19 +84,15 @@ export class ApiClient {
     listId: string
     requestBody: t_CreateUpdateTodoList
   }): Observable<t_TodoList | t_Error | void> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const queryParameters = {}
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/list/${p["listId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-        body: p["requestBody"],
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -112,17 +100,10 @@ export class ApiClient {
   }
 
   deleteTodoListById(p: { listId: string }): Observable<void | t_Error | void> {
-    const headers: Record<string, string | undefined> = {}
-
-    const queryParameters = {}
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/list/${p["listId"]}`,
       {
-        params: this.queryParams(queryParameters),
-        headers: this.headers(headers),
-
         observe: "body",
         reportProgress: false,
       }

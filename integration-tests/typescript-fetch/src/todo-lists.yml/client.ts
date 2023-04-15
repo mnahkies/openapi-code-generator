@@ -3,58 +3,31 @@
 /* eslint-disable */
 
 import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
-import qs from "querystring"
+import {
+  AbstractFetchClient,
+  AbstractFetchClientConfig,
+  Response,
+  StatusCode,
+  StatusCode2xx,
+  StatusCode3xx,
+  StatusCode4xx,
+  StatusCode5xx,
+} from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig {
-  basePath: string
-  defaultHeaders: Record<string, string>
-}
+export interface ApiClientConfig extends AbstractFetchClientConfig {}
 
-export interface Res<StatusCode, Body> {
-  status: StatusCode
-  body: Body
-}
-
-export class ApiClient {
-  constructor(private readonly config: ApiClientConfig) {}
-
-  private _query(
-    params: Record<
-      string,
-      string | number | boolean | string[] | undefined | null
-    >
-  ): string {
-    const filtered = Object.fromEntries(
-      Object.entries(params).filter(([k, v]) => v !== undefined)
-    )
-
-    return qs.stringify(filtered)
-  }
-
-  private _headers(
-    headers: Record<string, string | undefined>
-  ): Record<string, string> {
-    return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
-        (it): it is [string, string] => it[1] !== undefined
-      )
-    )
+export class ApiClient extends AbstractFetchClient {
+  constructor(config: ApiClientConfig) {
+    super(config)
   }
 
   async getTodoLists(p: {
     created?: string
     status?: "incomplete" | "complete"
-  }): Promise<Res<200, t_TodoList[]>> {
-    const headers: Record<string, string | undefined> = {}
-
-    const res = await fetch(
-      this.config.basePath +
-        `/list?${this._query({ created: p["created"], status: p["status"] })}`,
-      {
-        method: "GET",
-        headers: this._headers(headers),
-      }
-    )
+  }): Promise<Response<200, t_TodoList[]>> {
+    const route = `/list`
+    const query = this._query({ created: p["created"], status: p["status"] })
+    const res = await fetch(this.basePath + route + query, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -62,13 +35,14 @@ export class ApiClient {
 
   async getTodoListById(p: {
     listId: string
-  }): Promise<Res<200, t_TodoList> | Res<number, t_Error> | Res<number, void>> {
-    const headers: Record<string, string | undefined> = {}
+  }): Promise<
+    | Response<200, t_TodoList>
+    | Response<StatusCode4xx, t_Error>
+    | Response<StatusCode, void>
+  > {
+    const route = `/list/${p["listId"]}`
 
-    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
-      method: "GET",
-      headers: this._headers(headers),
-    })
+    const res = await fetch(this.basePath + route, { method: "GET" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -77,15 +51,18 @@ export class ApiClient {
   async updateTodoListById(p: {
     listId: string
     requestBody: t_CreateUpdateTodoList
-  }): Promise<Res<200, t_TodoList> | Res<number, t_Error> | Res<number, void>> {
-    const headers: Record<string, string | undefined> = {
-      "Content-Type": "application/json",
-    }
-
-    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
+  }): Promise<
+    | Response<200, t_TodoList>
+    | Response<StatusCode4xx, t_Error>
+    | Response<StatusCode, void>
+  > {
+    const route = `/list/${p["listId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(this.basePath + route, {
       method: "PUT",
-      headers: this._headers(headers),
-      body: JSON.stringify(p.requestBody),
+      headers,
+      body,
     })
 
     // TODO: this is a poor assumption
@@ -94,13 +71,14 @@ export class ApiClient {
 
   async deleteTodoListById(p: {
     listId: string
-  }): Promise<Res<204, void> | Res<number, t_Error> | Res<number, void>> {
-    const headers: Record<string, string | undefined> = {}
+  }): Promise<
+    | Response<204, void>
+    | Response<StatusCode4xx, t_Error>
+    | Response<StatusCode, void>
+  > {
+    const route = `/list/${p["listId"]}`
 
-    const res = await fetch(this.config.basePath + `/list/${p["listId"]}`, {
-      method: "DELETE",
-      headers: this._headers(headers),
-    })
+    const res = await fetch(this.basePath + route, { method: "DELETE" })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
