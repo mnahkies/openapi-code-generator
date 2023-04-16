@@ -54,6 +54,9 @@ import {
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
   t_code_scanning_codeql_database,
+  t_code_scanning_default_setup,
+  t_code_scanning_default_setup_update,
+  t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_sarifs_receipt,
@@ -89,6 +92,7 @@ import {
   t_dependabot_public_key,
   t_dependabot_secret,
   t_dependency_graph_diff,
+  t_dependency_graph_spdx_sbom,
   t_deploy_key,
   t_deployment,
   t_deployment_branch_policy,
@@ -100,7 +104,6 @@ import {
   t_email,
   t_empty_object,
   t_enabled_repositories,
-  t_enterprise_security_analysis_settings,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -124,6 +127,7 @@ import {
   t_installation,
   t_installation_token,
   t_integration,
+  t_integration_installation_request,
   t_interaction_limit,
   t_interaction_limit_response,
   t_issue,
@@ -155,6 +159,8 @@ import {
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
+  t_organization_programmatic_access_grant,
+  t_organization_programmatic_access_grant_request,
   t_organization_secret_scanning_alert,
   t_organization_simple,
   t_package,
@@ -194,6 +200,9 @@ import {
   t_repo_required_workflow,
   t_repo_search_result_item,
   t_repository,
+  t_repository_advisory,
+  t_repository_advisory_create,
+  t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_subscription,
@@ -202,8 +211,6 @@ import {
   t_root,
   t_runner,
   t_runner_application,
-  t_runner_groups_enterprise,
-  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_secret_scanning_alert,
@@ -216,6 +223,7 @@ import {
   t_short_branch,
   t_simple_user,
   t_snapshot,
+  t_social_account,
   t_ssh_signing_key,
   t_starred_repository,
   t_status,
@@ -416,6 +424,28 @@ export class ApiClient {
       "POST",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`,
       {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  appsListInstallationRequestsForAuthenticatedApp(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<t_integration_installation_request[] | void | t_basic_error> {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/app/installation-requests`,
+      {
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -698,228 +728,6 @@ export class ApiClient {
     )
   }
 
-  enterpriseAdminEnableSelectedOrganizationGithubActionsEnterprise(p: {
-    enterprise: string
-    orgId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/permissions/organizations/${p["orgId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminListSelfHostedRunnerGroupsForEnterprise(p: {
-    enterprise: string
-    perPage?: number
-    page?: number
-    visibleToOrganization?: string
-  }): Observable<{
-    runner_groups: t_runner_groups_enterprise[]
-    total_count: number
-  }> {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      visible_to_organization: p["visibleToOrganization"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runner-groups`,
-      {
-        params,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminCreateSelfHostedRunnerGroupForEnterprise(p: {
-    enterprise: string
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      runners?: number[]
-      selected_organization_ids?: number[]
-      selected_workflows?: string[]
-      visibility?: "selected" | "all"
-    }
-  }): Observable<t_runner_groups_enterprise> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runner-groups`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminGetSelfHostedRunnerGroupForEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-  }): Observable<t_runner_groups_enterprise> {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminAddOrgAccessToSelfHostedRunnerGroupInEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-    orgId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/organizations/${p["orgId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminRemoveSelfHostedRunnerFromGroupForEnterprise(p: {
-    enterprise: string
-    runnerGroupId: number
-    runnerId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminDeleteSelfHostedRunnerFromEnterprise(p: {
-    enterprise: string
-    runnerId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminListLabelsForSelfHostedRunnerForEnterprise(p: {
-    enterprise: string
-    runnerId: number
-  }): Observable<
-    | {
-        labels: t_runner_label[]
-        total_count: number
-      }
-    | t_basic_error
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  enterpriseAdminAddCustomLabelsToSelfHostedRunnerForEnterprise(p: {
-    enterprise: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Observable<
-    | {
-        labels: t_runner_label[]
-        total_count: number
-      }
-    | t_basic_error
-    | t_validation_error_simple
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/actions/runners/${p["runnerId"]}/labels`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  secretScanningGetSecurityAnalysisSettingsForEnterprise(p: {
-    enterprise: string
-  }): Observable<t_enterprise_security_analysis_settings | t_basic_error> {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/code_security_and_analysis`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  secretScanningPatchSecurityAnalysisSettingsForEnterprise(p: {
-    enterprise: string
-    requestBody?: {
-      advanced_security_enabled_for_new_repositories?: boolean
-      secret_scanning_enabled_for_new_repositories?: boolean
-      secret_scanning_push_protection_custom_link?: string | null
-      secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-    }
-  }): Observable<void | t_basic_error | void> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PATCH",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/code_security_and_analysis`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
   dependabotListAlertsForEnterprise(p: {
     enterprise: string
     state?: string
@@ -1004,25 +812,6 @@ export class ApiClient {
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
       {
         params,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  secretScanningPostSecurityProductEnablementForEnterprise(p: {
-    enterprise: string
-    securityProduct:
-      | "advanced_security"
-      | "secret_scanning"
-      | "secret_scanning_push_protection"
-    enablement: "enable_all" | "disable_all"
-  }): Observable<void | t_basic_error | void> {
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/${p["securityProduct"]}/${p["enablement"]}`,
-      {
         observe: "body",
         reportProgress: false,
       }
@@ -1980,6 +1769,254 @@ export class ApiClient {
     )
   }
 
+  orgsListPatGrantRequests(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Observable<
+    | t_organization_programmatic_access_grant_request[]
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+    | t_basic_error
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-token-requests`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsReviewPatGrantRequestsInBulk(p: {
+    org: string
+    requestBody: {
+      action: "approve" | "deny"
+      pat_request_ids?: number[]
+      reason?: string | null
+    }
+  }): Observable<
+    | {
+        [key: string]: unknown
+      }
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+    | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-token-requests`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsReviewPatGrantRequest(p: {
+    org: string
+    patRequestId: number
+    requestBody: {
+      action: "approve" | "deny"
+      reason?: string | null
+    }
+  }): Observable<
+    void | t_basic_error | t_basic_error | t_validation_error | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsListPatGrantRequestRepositories(p: {
+    org: string
+    patRequestId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    t_minimal_repository[] | t_basic_error | t_basic_error | t_basic_error
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsListPatGrants(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Observable<
+    | t_organization_programmatic_access_grant[]
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+    | t_basic_error
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-tokens`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsUpdatePatAccesses(p: {
+    org: string
+    requestBody: {
+      action: "revoke"
+      pat_ids: number[]
+    }
+  }): Observable<
+    | {
+        [key: string]: unknown
+      }
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+    | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-tokens`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsUpdatePatAccess(p: {
+    org: string
+    patId: number
+    requestBody: {
+      action: "revoke"
+    }
+  }): Observable<
+    void | t_basic_error | t_basic_error | t_validation_error | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsListPatGrantRepositories(p: {
+    org: string
+    patId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    t_minimal_repository[] | t_basic_error | t_basic_error | t_basic_error
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   orgsGet(p: { org: string }): Observable<t_organization_full | t_basic_error> {
     return this.httpClient.request<any>(
       "GET",
@@ -2038,6 +2075,23 @@ export class ApiClient {
       {
         headers,
         body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  orgsDelete(p: { org: string }): Observable<
+    | {
+        [key: string]: unknown
+      }
+    | t_basic_error
+    | t_basic_error
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/orgs/${p["org"]}`,
+      {
         observe: "body",
         reportProgress: false,
       }
@@ -2276,7 +2330,7 @@ export class ApiClient {
   actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
-  }): Observable<void | void> {
+  }): Observable<void> {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = p["requestBody"]
 
@@ -2462,262 +2516,6 @@ export class ApiClient {
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsListSelfHostedRunnerGroupsForOrg(p: {
-    org: string
-    perPage?: number
-    page?: number
-    visibleToRepository?: string
-  }): Observable<{
-    runner_groups: t_runner_groups_org[]
-    total_count: number
-  }> {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      visible_to_repository: p["visibleToRepository"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
-      {
-        params,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsCreateSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      runners?: number[]
-      selected_repository_ids?: number[]
-      selected_workflows?: string[]
-      visibility?: "selected" | "all" | "private"
-    }
-  }): Observable<t_runner_groups_org> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsGetSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-  }): Observable<t_runner_groups_org> {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsUpdateSelfHostedRunnerGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      allows_public_repositories?: boolean
-      name: string
-      restricted_to_workflows?: boolean
-      selected_workflows?: string[]
-      visibility?: "selected" | "all" | "private"
-    }
-  }): Observable<t_runner_groups_org> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PATCH",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsDeleteSelfHostedRunnerGroupFromOrg(p: {
-    org: string
-    runnerGroupId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsListRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    page?: number
-    perPage?: number
-  }): Observable<{
-    repositories: t_minimal_repository[]
-    total_count: number
-  }> {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
-      {
-        params,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Observable<void> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(p: {
-    org: string
-    runnerGroupId: number
-    repositoryId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsListSelfHostedRunnersInGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    perPage?: number
-    page?: number
-  }): Observable<{
-    runners: t_runner[]
-    total_count: number
-  }> {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
-      {
-        params,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsSetSelfHostedRunnersInGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    requestBody: {
-      runners: number[]
-    }
-  }): Observable<void> {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
-      {
-        headers,
-        body,
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsAddSelfHostedRunnerToGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    runnerId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
-      {
-        observe: "body",
-        reportProgress: false,
-      }
-    )
-  }
-
-  actionsRemoveSelfHostedRunnerFromGroupForOrg(p: {
-    org: string
-    runnerGroupId: number
-    runnerId: number
-  }): Observable<void> {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
         observe: "body",
         reportProgress: false,
@@ -3459,6 +3257,54 @@ export class ApiClient {
     )
   }
 
+  codespacesSetCodespacesBillingUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Observable<
+    void | void | void | t_basic_error | t_validation_error | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/codespaces/billing/selected_users`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  codespacesDeleteCodespacesBillingUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Observable<
+    void | void | void | t_basic_error | t_validation_error | t_basic_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/codespaces/billing/selected_users`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   codespacesListOrgSecrets(p: {
     org: string
     perPage?: number
@@ -3858,6 +3704,19 @@ export class ApiClient {
     )
   }
 
+  packagesListDockerMigrationConflictingPackagesForOrganization(p: {
+    org: string
+  }): Observable<t_package[] | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/docker/conflicts`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   activityListPublicOrgEvents(p: {
     org: string
     perPage?: number
@@ -4208,10 +4067,19 @@ export class ApiClient {
     org: string
     perPage?: number
     page?: number
+    role?:
+      | "all"
+      | "admin"
+      | "direct_member"
+      | "billing_manager"
+      | "hiring_manager"
+    invitationSource?: "all" | "member" | "scim"
   }): Observable<t_organization_invitation[] | t_basic_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
+      role: p["role"],
+      invitation_source: p["invitationSource"],
     })
 
     return this.httpClient.request<any>(
@@ -4726,10 +4594,14 @@ export class ApiClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     org: string
     visibility?: "public" | "private" | "internal"
-  }): Observable<t_package[] | t_basic_error | t_basic_error> {
+    page?: number
+    perPage?: number
+  }): Observable<t_package[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this.httpClient.request<any>(
@@ -5216,6 +5088,7 @@ export class ApiClient {
       description?: string
       maintainers?: string[]
       name: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number
       permission?: "pull" | "push"
       privacy?: "secret" | "closed"
@@ -5257,6 +5130,7 @@ export class ApiClient {
     requestBody?: {
       description?: string
       name?: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number | null
       permission?: "pull" | "push" | "admin"
       privacy?: "secret" | "closed"
@@ -5976,6 +5850,7 @@ export class ApiClient {
       | "dependabot_alerts"
       | "dependabot_security_updates"
       | "advanced_security"
+      | "code_scanning_default_setup"
       | "secret_scanning"
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
@@ -6736,7 +6611,7 @@ export class ApiClient {
     repo: string
     perPage?: number
     page?: number
-    ref?: t_code_scanning_ref
+    ref?: string
     key?: string
     sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
     direction?: "asc" | "desc"
@@ -6765,7 +6640,7 @@ export class ApiClient {
     owner: string
     repo: string
     key: string
-    ref?: t_code_scanning_ref
+    ref?: string
   }): Observable<t_actions_cache_list> {
     const params = this._queryParams({ key: p["key"], ref: p["ref"] })
 
@@ -6870,7 +6745,10 @@ export class ApiClient {
   actionsSetCustomOidcSubClaimForRepo(p: {
     owner: string
     repo: string
-    requestBody: t_oidc_custom_sub_repo
+    requestBody: {
+      include_claim_keys?: string[]
+      use_default: boolean
+    }
   }): Observable<
     t_empty_object | t_scim_error | t_basic_error | t_validation_error_simple
   > {
@@ -6884,6 +6762,58 @@ export class ApiClient {
       {
         headers,
         body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  actionsListRepoOrganizationSecrets(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    page?: number
+  }): Observable<{
+    secrets: t_actions_secret[]
+    total_count: number
+  }> {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  actionsListRepoOrganizationVariables(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    page?: number
+  }): Observable<{
+    total_count: number
+    variables: t_actions_variable[]
+  }> {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`,
+      {
+        params,
         observe: "body",
         reportProgress: false,
       }
@@ -7058,6 +6988,7 @@ export class ApiClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -7346,6 +7277,7 @@ export class ApiClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -8058,6 +7990,7 @@ export class ApiClient {
       | "queued"
       | "requested"
       | "waiting"
+      | "pending"
     perPage?: number
     page?: number
     created?: string
@@ -9614,6 +9547,59 @@ export class ApiClient {
     )
   }
 
+  codeScanningGetDefaultSetup(p: { owner: string; repo: string }): Observable<
+    | t_code_scanning_default_setup
+    | t_basic_error
+    | t_basic_error
+    | {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  codeScanningUpdateDefaultSetup(p: {
+    owner: string
+    repo: string
+    requestBody: t_code_scanning_default_setup_update
+  }): Observable<
+    | t_empty_object
+    | t_code_scanning_default_setup_update_response
+    | t_basic_error
+    | t_basic_error
+    | t_basic_error
+    | {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   codeScanningUploadSarif(p: {
     owner: string
     repo: string
@@ -9780,6 +9766,7 @@ export class ApiClient {
   }): Observable<
     | {
         devcontainers: {
+          display_name?: string
           name?: string
           path: string
         }[]
@@ -10239,6 +10226,7 @@ export class ApiClient {
     sha?: string
     path?: string
     author?: string
+    committer?: string
     since?: string
     until?: string
     perPage?: number
@@ -10250,6 +10238,7 @@ export class ApiClient {
       sha: p["sha"],
       path: p["path"],
       author: p["author"],
+      committer: p["committer"],
       since: p["since"],
       until: p["until"],
       per_page: p["perPage"],
@@ -10915,6 +10904,21 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`,
       {
         params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  dependencyGraphExportSbom(p: {
+    owner: string
+    repo: string
+  }): Observable<t_dependency_graph_spdx_sbom | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`,
+      {
         observe: "body",
         reportProgress: false,
       }
@@ -13831,6 +13835,7 @@ export class ApiClient {
       body?: string
       draft?: boolean
       head: string
+      head_repo?: string
       issue?: number
       maintainer_can_modify?: boolean
       title?: string
@@ -14155,6 +14160,7 @@ export class ApiClient {
       side?: "LEFT" | "RIGHT"
       start_line?: number
       start_side?: "LEFT" | "RIGHT" | "side"
+      subject_type?: "LINE" | "FILE"
     }
   }): Observable<
     t_pull_request_review_comment | t_basic_error | t_validation_error
@@ -14916,7 +14922,9 @@ export class ApiClient {
     label?: string
     requestBody?: string
   }): Observable<t_release_asset | void> {
-    const headers = this._headers({ "Content-Type": "*/*" })
+    const headers = this._headers({
+      "Content-Type": "application/octet-stream",
+    })
     const params = this._queryParams({ name: p["name"], label: p["label"] })
     const body = p["requestBody"]
 
@@ -15133,6 +15141,100 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`,
       {
         params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  securityAdvisoriesListRepositoryAdvisories(p: {
+    owner: string
+    repo: string
+    direction?: "asc" | "desc"
+    sort?: "created" | "updated" | "published"
+    before?: string
+    after?: string
+    perPage?: number
+    state?: "triage" | "draft" | "published" | "closed"
+  }): Observable<t_repository_advisory[] | t_scim_error | t_basic_error> {
+    const params = this._queryParams({
+      direction: p["direction"],
+      sort: p["sort"],
+      before: p["before"],
+      after: p["after"],
+      per_page: p["perPage"],
+      state: p["state"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  securityAdvisoriesCreateRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    requestBody: t_repository_advisory_create
+  }): Observable<
+    t_repository_advisory | t_basic_error | t_basic_error | t_validation_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  securityAdvisoriesGetRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    ghsaId: string
+  }): Observable<t_repository_advisory | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  securityAdvisoriesUpdateRepositoryAdvisory(p: {
+    owner: string
+    repo: string
+    ghsaId: string
+    requestBody: t_repository_advisory_update
+  }): Observable<
+    t_repository_advisory | t_basic_error | t_basic_error | t_validation_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`,
+      {
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -15511,7 +15613,7 @@ export class ApiClient {
   reposGetClones(p: {
     owner: string
     repo: string
-    per?: "" | "day" | "week"
+    per?: "day" | "week"
   }): Observable<t_clone_traffic | t_basic_error> {
     const params = this._queryParams({ per: p["per"] })
 
@@ -15559,7 +15661,7 @@ export class ApiClient {
   reposGetViews(p: {
     owner: string
     repo: string
-    per?: "" | "day" | "week"
+    per?: "day" | "week"
   }): Observable<t_view_traffic | t_basic_error> {
     const params = this._queryParams({ per: p["per"] })
 
@@ -15870,8 +15972,8 @@ export class ApiClient {
 
   actionsUpdateEnvironmentVariable(p: {
     repositoryId: number
-    environmentName: string
     name: string
+    environmentName: string
     requestBody: {
       name?: string
       value?: string
@@ -15895,8 +15997,8 @@ export class ApiClient {
 
   actionsDeleteEnvironmentVariable(p: {
     repositoryId: number
-    environmentName: string
     name: string
+    environmentName: string
   }): Observable<void> {
     return this.httpClient.request<any>(
       "DELETE",
@@ -17133,7 +17235,9 @@ export class ApiClient {
     requestBody: {
       encrypted_value?: string
       key_id: string
-      selected_repository_ids?: string[]
+      selected_repository_ids?: {
+        [key: string]: unknown
+      }[]
     }
   }): Observable<t_empty_object | void | t_basic_error | t_validation_error> {
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -17427,6 +17531,19 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/stop`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(): Observable<
+    t_package[]
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/user/docker/conflicts`,
       {
         observe: "body",
         reportProgress: false,
@@ -18241,10 +18358,14 @@ export class ApiClient {
   packagesListPackagesForAuthenticatedUser(p: {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
-  }): Observable<t_package[]> {
+    page?: number
+    perPage?: number
+  }): Observable<t_package[] | void> {
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this.httpClient.request<any>(
@@ -18573,6 +18694,84 @@ export class ApiClient {
     )
   }
 
+  usersListSocialAccountsForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+    } = {}
+  ): Observable<
+    t_social_account[] | void | t_basic_error | t_basic_error | t_basic_error
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/user/social_accounts`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  usersAddSocialAccountForAuthenticatedUser(p: {
+    requestBody: {
+      account_urls: string[]
+    }
+  }): Observable<
+    | t_social_account[]
+    | void
+    | t_basic_error
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/user/social_accounts`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  usersDeleteSocialAccountForAuthenticatedUser(p: {
+    requestBody: {
+      account_urls: string[]
+    }
+  }): Observable<
+    | void
+    | void
+    | t_basic_error
+    | t_basic_error
+    | t_basic_error
+    | t_validation_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/user/social_accounts`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   usersListSshSigningKeysForAuthenticatedUser(
     p: {
       perPage?: number
@@ -18793,6 +18992,19 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  packagesListDockerMigrationConflictingPackagesForUser(p: {
+    username: string
+  }): Observable<t_package[] | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/users/${p["username"]}/docker/conflicts`,
       {
         observe: "body",
         reportProgress: false,
@@ -19043,10 +19255,14 @@ export class ApiClient {
     packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
     visibility?: "public" | "private" | "internal"
     username: string
-  }): Observable<t_package[] | t_basic_error | t_basic_error> {
+    page?: number
+    perPage?: number
+  }): Observable<t_package[] | void | t_basic_error | t_basic_error> {
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this.httpClient.request<any>(
@@ -19308,6 +19524,27 @@ export class ApiClient {
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/shared-storage`,
       {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  usersListSocialAccountsForUser(p: {
+    username: string
+    perPage?: number
+    page?: number
+  }): Observable<t_social_account[]> {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/users/${p["username"]}/social_accounts`,
+      {
+        params,
         observe: "body",
         reportProgress: false,
       }
