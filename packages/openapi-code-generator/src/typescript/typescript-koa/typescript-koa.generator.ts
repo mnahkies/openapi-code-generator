@@ -7,6 +7,7 @@ import {TypeBuilder} from "../common/type-builder"
 import {isDefined, titleCase} from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
+import {OpenapiGeneratorConfig} from "../../templates.types"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -201,10 +202,11 @@ function route(route: string): string {
     }, route)
 }
 
-export async function generateTypescriptKoa({dest, input}: { dest: string, input: Input }): Promise<void> {
+export async function generateTypescriptKoa(config: OpenapiGeneratorConfig): Promise<void> {
+  const input = config.input
   const imports = new ImportBuilder()
   const types = TypeBuilder.fromInput("./models.ts", input).withImports(imports)
-  const schemaBuilder = schemaBuilderFactory("zod", input, imports)
+  const schemaBuilder = schemaBuilderFactory(config.schemaBuilder, input, imports)
 
   const server = new ServerBuilder(
     "generated.ts",
@@ -213,13 +215,13 @@ export async function generateTypescriptKoa({dest, input}: { dest: string, input
     imports,
     types,
     schemaBuilder,
-    loadExistingImplementations(await loadPreviousResult(dest, {filename: "index.ts"}))
+    loadExistingImplementations(await loadPreviousResult(config.dest, {filename: "index.ts"}))
   )
 
   input.allOperations()
     .map(it => server.add(it))
 
-  await emitGenerationResult(dest, [
+  await emitGenerationResult(config.dest, [
     types,
     server,
     schemaBuilder,

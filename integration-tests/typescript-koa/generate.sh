@@ -8,5 +8,6 @@ for path in ../../integration-tests-definitions/*; do
   node ../../packages/openapi-code-generator/dist/index.js \
     --input="$path" \
     --output="./src/$filename" \
-    --template=typescript-koa
+    --template=typescript-koa \
+    --schema-builder=zod
 done

@@ -21,36 +21,48 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     imports: ImportBuilder,
   ) {
     super(filename, input, imports)
+
+    this.importHelpers(imports)
+
+    imports.from("@nahkies/typescript-koa-runtime/joi")
+      .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
 
-  protected importHelpers(importBuilder: ImportBuilder) {
-    importBuilder.addModule(this.joi, "@hapi/joi")
-
-    importBuilder.from("@nahkies/typescript-koa-runtime/joi")
-      .add("parseRequestInput", "Params")
+  protected importHelpers(imports: ImportBuilder) {
+    imports.addModule(this.joi, "@hapi/joi")
   }
 
   public any(): string {
-    // TODO: implement
-    throw new Error("Method not implemented.")
+    return [
+      this.joi,
+      "any()",
+    ].filter(isDefined).join(".")
   }
 
   public void(): string {
-    // TODO: implement
-    throw new Error("Method not implemented.")
+    return [
+      this.joi,
+      "any()",
+      "valid(undefined)",
+    ].filter(isDefined).join(".")
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   protected intersect(schemas: string[]): string {
-    // TODO: implement
-    throw new Error("Method not implemented.")
+    return schemas.filter(isDefined).reduce((acc, it) => {
+      return `${acc}\n.concat(${it})`
+    })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   protected union(schemas: string[]): string {
-    // TODO: implement
-    throw new Error("Method not implemented.")
+    return [
+      this.joi,
+      `alternatives().try(${
+        schemas.filter(isDefined).map(it => it).join(",")
+      })`
+    ].filter(isDefined).join(".")
   }
 
   protected nullable(schema: string): string {

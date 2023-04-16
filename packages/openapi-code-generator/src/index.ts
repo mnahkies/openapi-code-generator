@@ -22,7 +22,11 @@ async function main() {
 
   logger.time("generation")
   // TODO abort generation if not a git repo or there are uncommitted changes
-  await config.generator({input, dest: config.output})
+  await config.generator({
+    input,
+    dest: config.output,
+    schemaBuilder: config.schemaBuilder,
+  })
 }
 
 main()
