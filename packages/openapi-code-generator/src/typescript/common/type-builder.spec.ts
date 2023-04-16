@@ -1,10 +1,10 @@
 import {describe, it, expect} from "@jest/globals"
 import {unitTestInput} from "../../test/input.test-utils"
-import {ModelBuilder} from "./model-builder"
+import {TypeBuilder} from "./type-builder"
 import {ImportBuilder} from "./import-builder"
 import {formatOutput} from "./output-utils"
 
-describe("typescript/common/model-builder", () => {
+describe("typescript/common/type-builder", () => {
   it("can build a type for a simple object correctly", async () => {
     const {type, schemas, imports} = await getActual(
       "components/schemas/SimpleObject"
@@ -147,7 +147,7 @@ describe("typescript/common/model-builder", () => {
 
     const imports = new ImportBuilder()
 
-    const builder = ModelBuilder.fromInput("models.ts", input).withImports(
+    const builder = TypeBuilder.fromInput("models.ts", input).withImports(
       imports
     )
 

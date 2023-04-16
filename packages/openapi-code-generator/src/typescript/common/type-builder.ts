@@ -4,7 +4,7 @@ import {Reference} from "../../core/openapi-types"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
 import {ImportBuilder} from "./import-builder"
 
-export class ModelBuilder {
+export class TypeBuilder {
 
   private constructor(
     public readonly filename: string,
@@ -13,8 +13,8 @@ export class ModelBuilder {
     private readonly imports?: ImportBuilder) {
   }
 
-  withImports(imports: ImportBuilder): ModelBuilder {
-    return new ModelBuilder(
+  withImports(imports: ImportBuilder): TypeBuilder {
+    return new TypeBuilder(
       this.filename,
       this.input,
       this.referenced,
@@ -185,7 +185,7 @@ export class ModelBuilder {
     }
   }
 
-  static fromInput(filename: string, input: Input): ModelBuilder {
-    return new ModelBuilder(filename, input)
+  static fromInput(filename: string, input: Input): TypeBuilder {
+    return new TypeBuilder(filename, input)
   }
 }

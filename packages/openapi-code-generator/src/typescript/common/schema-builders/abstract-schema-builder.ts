@@ -1,5 +1,5 @@
 import {IRModelObject, IRModelString, IRParameter, MaybeIRModel} from "../../../core/openapi-types-normalized"
-import {ImportBuilder} from "../../common/import-builder"
+import {ImportBuilder} from "../import-builder"
 import {Input} from "../../../core/input"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"
 import {Reference} from "../../../core/openapi-types"

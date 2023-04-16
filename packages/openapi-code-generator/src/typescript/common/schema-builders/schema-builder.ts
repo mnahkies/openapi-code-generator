@@ -1,5 +1,5 @@
 import {Input} from "../../../core/input"
-import {ImportBuilder} from "../../common/import-builder"
+import {ImportBuilder} from "../import-builder"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ZodBuilder} from "./zod-schema-builder"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"

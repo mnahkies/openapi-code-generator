@@ -2,13 +2,13 @@ import _ from "lodash"
 import {IROperation, IRParameter, MaybeIRModel} from "../../core/openapi-types-normalized"
 import {isDefined} from "../../core/utils"
 import {generationLib} from "../../core/generation-lib"
-import {ModelBuilder} from "./model-builder"
+import {TypeBuilder} from "./type-builder"
 import {combineParams, MethodParameterDefinition, requestBodyAsParameter, statusStringToType} from "./typescript-common"
 
 export class ClientOperationBuilder {
   constructor(
     private readonly operation: IROperation,
-    private readonly models: ModelBuilder,
+    private readonly models: TypeBuilder,
   ) {
   }
 
