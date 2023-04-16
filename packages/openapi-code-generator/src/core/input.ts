@@ -29,6 +29,13 @@ export class Input {
   ) {
   }
 
+  allSchemas(): Record<string, IRModel> {
+    const schemas = this.loader.entryPoint.components?.schemas ?? {}
+    return Object.fromEntries(Object.entries(schemas).map(([name, maybeSchema]) => {
+      return [name, this.schema(normalizeSchemaObject(maybeSchema))]
+    }))
+  }
+
   allOperations(): IROperation[] {
     const result: IROperation[] = []
 

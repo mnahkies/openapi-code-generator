@@ -82,4 +82,25 @@ components:
         breed:
           type: string
 
+    Ordering:
+      type: object
+      properties:
+        dependency1:
+          $ref: "#/components/schemas/ZOrdering"
+        dependency2:
+          $ref: "#/components/schemas/AOrdering"
+
+    ZOrdering:
+      type: object
+      properties:
+        name:
+          type: string
+        dependency1:
+          $ref: "#/components/schemas/AOrdering"
+    AOrdering:
+      type: object
+      properties:
+        name:
+          type: string
+
   parameters: { }
