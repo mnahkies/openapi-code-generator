@@ -75,7 +75,7 @@ export function bootstrap(
   })
 
   const findPetsResponseValidator = responseValidationFactory(
-    [["200", z.array(s_NewPet.merge(z.object({ id: z.coerce.number() })))]],
+    [["200", z.array(s_Pet)]],
     s_Error
   )
 
