@@ -91,21 +91,7 @@ export function bootstrap(
   })
 
   const getTodoListsResponseValidator = responseValidationFactory(
-    [
-      [
-        "200",
-        z.array(
-          z.object({
-            id: z.coerce.string(),
-            name: z.coerce.string(),
-            totalItemCount: z.coerce.number(),
-            incompleteItemCount: z.coerce.number(),
-            created: z.coerce.string().datetime({ offset: true }),
-            updated: z.coerce.string().datetime({ offset: true }),
-          })
-        ),
-      ],
-    ],
+    [["200", z.array(s_TodoList)]],
     undefined
   )
 

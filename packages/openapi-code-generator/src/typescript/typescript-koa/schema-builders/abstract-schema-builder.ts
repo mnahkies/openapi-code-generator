@@ -3,6 +3,7 @@ import {ImportBuilder} from "../../common/import-builder"
 import {Input} from "../../../core/input"
 import {getNameFromRef, isRef} from "../../../core/openapi-utils"
 import {Reference} from "../../../core/openapi-types"
+import {buildDependencyGraph} from "../../../core/dependency-graph"
 
 export abstract class AbstractSchemaBuilder {
 
@@ -10,14 +11,13 @@ export abstract class AbstractSchemaBuilder {
     public readonly filename: string,
     private readonly input: Input,
     private readonly imports: ImportBuilder,
-    private readonly referenced = new Set<string>(),
+    private readonly referenced: Record<string, Reference> = {},
   ) {
   }
 
-  private add({$ref}: Reference): string {
-    this.referenced.add($ref)
-
-    const name = getNameFromRef({$ref}, "s_")
+  private add(reference: Reference): string {
+    const name = this.getNameFromRef(reference)
+    this.referenced[name] = reference
 
     if (this.imports) {
       this.imports.addSingle(name, this.filename)
@@ -26,10 +26,28 @@ export abstract class AbstractSchemaBuilder {
     return name
   }
 
+  private readonly getNameFromRef = (reference: Reference) => {
+    return getNameFromRef(reference, "s_")
+  }
+
   toString(): string {
-    const generate = () => Array.from(this.referenced.values())
-      .sort()
-      .map(($ref) => this.generateSchemaFromRef($ref))
+    const generate = () => {
+      const seen = new Set()
+      const order = buildDependencyGraph(this.input, this.getNameFromRef)
+
+      return order
+        .filter(it => this.referenced[it])
+        // TODO: this is needed because the dependency graph only considers schemas from the entrypoint
+        //       specification - ideally we'd recurse into all referenced specifications and include their
+        //       schemas in the ordering
+        .concat(Object.keys(this.referenced))
+        .filter(it => {
+          const alreadySeen = seen.has(it)
+          seen.add(it)
+          return !alreadySeen
+        })
+        .map((name) => this.generateSchemaFromRef(this.referenced[name]))
+    }
 
     // Super lazy way of discovering sub-references for generation easily...
     // could obviously be optimized but in most cases is plenty fast enough.
@@ -47,9 +65,9 @@ export abstract class AbstractSchemaBuilder {
     return `${imports.toString()}\n${next.join("\n\n")}`
   }
 
-  private generateSchemaFromRef($ref: string): string {
-    const name = getNameFromRef({$ref}, "s_")
-    const schemaObject = this.input.schema({$ref})
+  private generateSchemaFromRef(reference: Reference): string {
+    const name = this.getNameFromRef(reference)
+    const schemaObject = this.input.schema(reference)
 
     return `
   export const ${name} = ${this.fromModel(schemaObject, true)}
@@ -102,7 +120,7 @@ export abstract class AbstractSchemaBuilder {
         break
       case "array":
         result = this.array([
-          this.fromModel(this.input.schema(model.items), true),
+          this.fromModel(model.items, true),
         ], required)
         break
       case "object":
@@ -116,7 +134,7 @@ export abstract class AbstractSchemaBuilder {
             Object.fromEntries(
               Object.entries(model.properties)
                 .map(([key, value]) => {
-                  return [key, this.fromModel(this.input.schema(value), model.required.includes(key))]
+                  return [key, this.fromModel(value, model.required.includes(key))]
                 }),
             ), required,
           )
