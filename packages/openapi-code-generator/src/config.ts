@@ -1,5 +1,7 @@
 import convict from "convict"
-import {OpenapiGenerator, templates} from "./templates"
+import {templates} from "./templates"
+import {OpenapiGenerator} from "./templates.types"
+import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 
 const convictConfig = convict({
   input: {
@@ -23,6 +25,13 @@ const convictConfig = convict({
     env: "TEMPLATE",
     arg: "template",
   },
+  schemaBuilder: {
+    doc: "Runtime parsing library to use",
+    format: ["zod", "joi"],
+    default: "zod",
+    env: "SCHEMA_BUILDER",
+    arg: "schema-builder",
+  }
 })
 
 export class Config {
@@ -32,6 +41,10 @@ export class Config {
 
   get output(): string {
     return convictConfig.get("output")
+  }
+
+  get schemaBuilder(): SchemaBuilderType {
+    return convictConfig.get<any>("schemaBuilder")
   }
 
   get generator(): OpenapiGenerator {

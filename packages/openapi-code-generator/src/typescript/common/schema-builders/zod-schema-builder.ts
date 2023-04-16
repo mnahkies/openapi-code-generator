@@ -18,8 +18,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   ) {
     super(filename, input, imports)
 
-    imports.from("zod")
-      .add(this.zod)
+    this.importHelpers(imports)
 
     imports.from("@nahkies/typescript-koa-runtime/zod")
       .add("parseRequestInput", "Params", "responseValidationFactory")
@@ -40,7 +39,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     return [
       this.zod,
       `union([\n${
-        schemas.map(it => it + ",").join("\n")
+        schemas.filter(isDefined).map(it => it + ",").join("\n")
       }\n])`
     ].filter(isDefined).join(".")
   }
