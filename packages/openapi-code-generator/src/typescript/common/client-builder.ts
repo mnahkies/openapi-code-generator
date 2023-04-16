@@ -1,17 +1,17 @@
 import {IROperation} from "../../core/openapi-types-normalized"
 import {ImportBuilder} from "./import-builder"
-import {ModelBuilder} from "./model-builder"
+import {TypeBuilder} from "./type-builder"
 import {ClientOperationBuilder} from "./client-operation-builder"
 
 export abstract class TypescriptClientBuilder {
   private readonly imports: ImportBuilder
-  private readonly models: ModelBuilder
+  private readonly models: TypeBuilder
   private readonly operations: string[] = []
 
   constructor(
     public readonly filename: string,
     public readonly name: string,
-    models: ModelBuilder,
+    models: TypeBuilder,
   ) {
     this.imports = new ImportBuilder()
     this.models = models.withImports(this.imports)

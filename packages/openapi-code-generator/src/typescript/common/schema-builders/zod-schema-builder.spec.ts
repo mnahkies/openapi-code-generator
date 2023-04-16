@@ -1,10 +1,10 @@
 import {describe, it, expect} from "@jest/globals"
 import {ZodBuilder} from "./zod-schema-builder"
 import {unitTestInput} from "../../../test/input.test-utils"
-import {ImportBuilder} from "../../common/import-builder"
-import {formatOutput} from "../../common/output-utils"
+import {ImportBuilder} from "../import-builder"
+import {formatOutput} from "../output-utils"
 
-describe("zod-schema-builder", () => {
+describe("typescript/common/schema-builders/zod-schema-builder", () => {
   it("supports the SimpleObject", async () => {
     const {model, schemas} = await getActual(
       "components/schemas/SimpleObject"

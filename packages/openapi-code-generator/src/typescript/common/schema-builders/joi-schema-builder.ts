@@ -2,7 +2,7 @@ import {Input} from "../../../core/input"
 import {IRModelString} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
-import {ImportBuilder} from "../../common/import-builder"
+import {ImportBuilder} from "../import-builder"
 
 enum JoiFn {
   Object = "object()",
