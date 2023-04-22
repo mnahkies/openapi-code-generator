@@ -108,6 +108,8 @@ export type t_actor = {
   url: string
 }
 
+export type t_alert_auto_dismissed_at = string | null
+
 export type t_alert_created_at = string
 
 export type t_alert_dismissed_at = string | null
@@ -743,7 +745,18 @@ export type t_code_scanning_codeql_database = {
 }
 
 export type t_code_scanning_default_setup = {
-  languages?: ("javascript" | "python" | "ruby")[]
+  languages?: (
+    | "c"
+    | "cpp"
+    | "csharp"
+    | "go"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "ruby"
+    | "typescript"
+  )[]
   query_suite?: "default" | "extended"
   state?: "configured" | "not-configured"
   updated_at?: string | null
@@ -1270,7 +1283,15 @@ export type t_contributor_activity = {
   }[]
 }
 
+export type t_custom_deployment_rule_app = {
+  id: number
+  integration_url: string
+  node_id: string
+  slug: string
+}
+
 export type t_dependabot_alert = {
+  auto_dismissed_at?: t_alert_auto_dismissed_at
   created_at: t_alert_created_at
   readonly dependency: {
     readonly manifest_path?: string
@@ -1292,7 +1313,7 @@ export type t_dependabot_alert = {
   number: t_alert_number
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state: "dismissed" | "fixed" | "open"
+  readonly state: "auto_dismissed" | "dismissed" | "fixed" | "open"
   updated_at: t_alert_updated_at
   url: t_alert_url
 }
@@ -1339,6 +1360,7 @@ export type t_dependabot_alert_security_vulnerability = {
 }
 
 export type t_dependabot_alert_with_repository = {
+  auto_dismissed_at?: t_alert_auto_dismissed_at
   created_at: t_alert_created_at
   readonly dependency: {
     readonly manifest_path?: string
@@ -1361,7 +1383,7 @@ export type t_dependabot_alert_with_repository = {
   repository: t_simple_repository
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state: "dismissed" | "fixed" | "open"
+  readonly state: "auto_dismissed" | "dismissed" | "fixed" | "open"
   updated_at: t_alert_updated_at
   url: t_alert_url
 }
@@ -1472,6 +1494,13 @@ export type t_deployment_branch_policy_settings = {
   custom_branch_policies: boolean
   protected_branches: boolean
 } | null
+
+export type t_deployment_protection_rule = {
+  app: t_custom_deployment_rule_app
+  enabled: boolean
+  id: number
+  node_id: string
+}
 
 export type t_deployment_reviewer_type = "User" | "Team"
 
@@ -1997,7 +2026,8 @@ export type t_gpg_key = {
     can_sign?: boolean
     created_at?: string
     emails?: {
-      [key: string]: unknown
+      email?: string
+      verified?: boolean
     }[]
     expires_at?: string | null
     id?: number
@@ -3352,6 +3382,9 @@ export type t_org_membership = {
   user: t_nullable_simple_user
 }
 
+export type t_org_ruleset_conditions = t_repository_ruleset_conditions &
+  t_repository_ruleset_conditions_repository_name_target
+
 export type t_organization_actions_secret = {
   created_at: string
   name: string
@@ -4336,7 +4369,7 @@ export type t_pull_request = {
   title: string
   updated_at: string
   url: string
-  user: t_nullable_simple_user
+  user: t_simple_user
 }
 
 export type t_pull_request_merge_result = {
@@ -5061,6 +5094,173 @@ export type t_repository_invitation = {
   url: string
 }
 
+export type t_repository_rule =
+  | t_repository_rule_creation
+  | t_repository_rule_update
+  | t_repository_rule_deletion
+  | t_repository_rule_required_linear_history
+  | t_repository_rule_required_deployments
+  | t_repository_rule_required_signatures
+  | t_repository_rule_pull_request
+  | t_repository_rule_required_status_checks
+  | t_repository_rule_non_fast_forward
+  | t_repository_rule_commit_message_pattern
+  | t_repository_rule_commit_author_email_pattern
+  | t_repository_rule_committer_email_pattern
+  | t_repository_rule_branch_name_pattern
+  | t_repository_rule_tag_name_pattern
+
+export type t_repository_rule_branch_name_pattern = {
+  parameters?: {
+    name?: string
+    negate?: boolean
+    operator: "starts_with" | "ends_with" | "contains" | "regex"
+    pattern: string
+  }
+  type: "branch_name_pattern"
+}
+
+export type t_repository_rule_commit_author_email_pattern = {
+  parameters?: {
+    name?: string
+    negate?: boolean
+    operator: "starts_with" | "ends_with" | "contains" | "regex"
+    pattern: string
+  }
+  type: "commit_author_email_pattern"
+}
+
+export type t_repository_rule_commit_message_pattern = {
+  parameters?: {
+    name?: string
+    negate?: boolean
+    operator: "starts_with" | "ends_with" | "contains" | "regex"
+    pattern: string
+  }
+  type: "commit_message_pattern"
+}
+
+export type t_repository_rule_committer_email_pattern = {
+  parameters?: {
+    name?: string
+    negate?: boolean
+    operator: "starts_with" | "ends_with" | "contains" | "regex"
+    pattern: string
+  }
+  type: "committer_email_pattern"
+}
+
+export type t_repository_rule_creation = {
+  type: "creation"
+}
+
+export type t_repository_rule_deletion = {
+  type: "deletion"
+}
+
+export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
+
+export type t_repository_rule_non_fast_forward = {
+  type: "non_fast_forward"
+}
+
+export type t_repository_rule_params_status_check_configuration = {
+  context: string
+  integration_id?: number
+}
+
+export type t_repository_rule_pull_request = {
+  parameters?: {
+    dismiss_stale_reviews_on_push: boolean
+    require_code_owner_review: boolean
+    require_last_push_approval: boolean
+    required_approving_review_count: number
+    required_review_thread_resolution: boolean
+  }
+  type: "pull_request"
+}
+
+export type t_repository_rule_required_deployments = {
+  parameters?: {
+    required_deployment_environments: string[]
+  }
+  type: "required_deployments"
+}
+
+export type t_repository_rule_required_linear_history = {
+  type: "required_linear_history"
+}
+
+export type t_repository_rule_required_signatures = {
+  type: "required_signatures"
+}
+
+export type t_repository_rule_required_status_checks = {
+  parameters?: {
+    required_status_checks: t_repository_rule_params_status_check_configuration[]
+    strict_required_status_checks_policy: boolean
+  }
+  type: "required_status_checks"
+}
+
+export type t_repository_rule_tag_name_pattern = {
+  parameters?: {
+    name?: string
+    negate?: boolean
+    operator: "starts_with" | "ends_with" | "contains" | "regex"
+    pattern: string
+  }
+  type: "tag_name_pattern"
+}
+
+export type t_repository_rule_update = {
+  parameters?: {
+    update_allows_fetch_and_merge: boolean
+  }
+  type: "update"
+}
+
+export type t_repository_ruleset = {
+  _links?: {
+    self?: {
+      href?: string
+    }
+  }
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  bypass_mode?: "none" | "repository" | "organization"
+  conditions?: {
+    [key: string]: unknown
+  }
+  enforcement: t_repository_rule_enforcement
+  id: number
+  name: string
+  node_id?: string
+  rules?: t_repository_rule[]
+  source: string
+  source_type?: "Repository" | "Organization"
+  target?: "branch" | "tag"
+}
+
+export type t_repository_ruleset_bypass_actor = {
+  actor_id?: number
+  actor_type?: "Team" | "Integration"
+}
+
+export type t_repository_ruleset_conditions = {
+  ref_name?: {
+    exclude?: string[]
+    include?: string[]
+  }
+}
+
+export type t_repository_ruleset_conditions_repository_name_target = {
+  repository_name?: {
+    exclude?: string[]
+    include?: string[]
+    protected?: boolean
+  }
+}
+
 export type t_repository_subscription = {
   created_at: string
   ignored: boolean
@@ -5160,6 +5360,7 @@ export type t_runner = {
   labels: t_runner_label[]
   name: string
   os: string
+  runner_group_id?: number
   status: string
 }
 
@@ -6919,6 +7120,16 @@ export type t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = {
   org: string
   repository_id: number
   required_workflow_id: number
+}
+
+export type t_ActionsReviewCustomGatesForRunBodySchema = {
+  [key: string]: unknown
+}
+
+export type t_ActionsReviewCustomGatesForRunParamSchema = {
+  owner: string
+  repo: string
+  run_id: number
 }
 
 export type t_ActionsReviewPendingDeploymentsForRunBodySchema = {
@@ -11171,6 +11382,16 @@ export type t_ReposCreateDeploymentBranchPolicyParamSchema = {
   repo: string
 }
 
+export type t_ReposCreateDeploymentProtectionRuleBodySchema = {
+  integration_id?: number
+}
+
+export type t_ReposCreateDeploymentProtectionRuleParamSchema = {
+  environment_name: string
+  owner: string
+  repo: string
+}
+
 export type t_ReposCreateDeploymentStatusBodySchema = {
   auto_inactive?: boolean
   description?: string
@@ -11314,6 +11535,19 @@ export type t_ReposCreateOrUpdateFileContentsParamSchema = {
   repo: string
 }
 
+export type t_ReposCreateOrgRulesetBodySchema = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_org_ruleset_conditions
+  enforcement: t_repository_rule_enforcement
+  name: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag"
+}
+
+export type t_ReposCreateOrgRulesetParamSchema = {
+  org: string
+}
+
 export type t_ReposCreatePagesDeploymentBodySchema = {
   artifact_url: string
   environment?: string
@@ -11352,6 +11586,21 @@ export type t_ReposCreateReleaseBodySchema = {
 }
 
 export type t_ReposCreateReleaseParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_ReposCreateRepoRulesetBodySchema = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  bypass_mode?: "none" | "repository" | "organization"
+  conditions?: t_repository_ruleset_conditions
+  enforcement: t_repository_rule_enforcement
+  name: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag"
+}
+
+export type t_ReposCreateRepoRulesetParamSchema = {
   owner: string
   repo: string
 }
@@ -11493,6 +11742,11 @@ export type t_ReposDeleteInvitationParamSchema = {
   repo: string
 }
 
+export type t_ReposDeleteOrgRulesetParamSchema = {
+  org: string
+  ruleset_id: number
+}
+
 export type t_ReposDeletePagesSiteParamSchema = {
   owner: string
   repo: string
@@ -11516,6 +11770,12 @@ export type t_ReposDeleteReleaseAssetParamSchema = {
   repo: string
 }
 
+export type t_ReposDeleteRepoRulesetParamSchema = {
+  owner: string
+  repo: string
+  ruleset_id: number
+}
+
 export type t_ReposDeleteTagProtectionParamSchema = {
   owner: string
   repo: string
@@ -11530,6 +11790,13 @@ export type t_ReposDeleteWebhookParamSchema = {
 
 export type t_ReposDisableAutomatedSecurityFixesParamSchema = {
   owner: string
+  repo: string
+}
+
+export type t_ReposDisableDeploymentProtectionRuleParamSchema = {
+  environment_name: string
+  owner: string
+  protection_rule_id: number
   repo: string
 }
 
@@ -11599,6 +11866,12 @@ export type t_ReposGetAdminBranchProtectionParamSchema = {
   repo: string
 }
 
+export type t_ReposGetAllDeploymentProtectionRulesParamSchema = {
+  environment_name: string
+  owner: string
+  repo: string
+}
+
 export type t_ReposGetAllEnvironmentsParamSchema = {
   owner: string
   repo: string
@@ -11644,6 +11917,12 @@ export type t_ReposGetBranchParamSchema = {
 }
 
 export type t_ReposGetBranchProtectionParamSchema = {
+  branch: string
+  owner: string
+  repo: string
+}
+
+export type t_ReposGetBranchRulesParamSchema = {
   branch: string
   owner: string
   repo: string
@@ -11728,6 +12007,13 @@ export type t_ReposGetContributorsStatsParamSchema = {
   repo: string
 }
 
+export type t_ReposGetCustomDeploymentProtectionRuleParamSchema = {
+  environment_name: string
+  owner: string
+  protection_rule_id: number
+  repo: string
+}
+
 export type t_ReposGetDeployKeyParamSchema = {
   key_id: number
   owner: string
@@ -11768,6 +12054,15 @@ export type t_ReposGetLatestPagesBuildParamSchema = {
 export type t_ReposGetLatestReleaseParamSchema = {
   owner: string
   repo: string
+}
+
+export type t_ReposGetOrgRulesetParamSchema = {
+  org: string
+  ruleset_id: number
+}
+
+export type t_ReposGetOrgRulesetsParamSchema = {
+  org: string
 }
 
 export type t_ReposGetPagesParamSchema = {
@@ -11837,6 +12132,25 @@ export type t_ReposGetReleaseByTagParamSchema = {
   owner: string
   repo: string
   tag: string
+}
+
+export type t_ReposGetRepoRulesetParamSchema = {
+  owner: string
+  repo: string
+  ruleset_id: number
+}
+
+export type t_ReposGetRepoRulesetQuerySchema = {
+  includes_parents?: boolean
+}
+
+export type t_ReposGetRepoRulesetsParamSchema = {
+  owner: string
+  repo: string
+}
+
+export type t_ReposGetRepoRulesetsQuerySchema = {
+  includes_parents?: boolean
 }
 
 export type t_ReposGetStatusChecksProtectionParamSchema = {
@@ -11988,6 +12302,17 @@ export type t_ReposListContributorsParamSchema = {
 
 export type t_ReposListContributorsQuerySchema = {
   anon?: string
+  page?: number
+  per_page?: number
+}
+
+export type t_ReposListCustomDeploymentRuleIntegrationsParamSchema = {
+  environment_name: string
+  owner: string
+  repo: string
+}
+
+export type t_ReposListCustomDeploymentRuleIntegrationsQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -12520,6 +12845,20 @@ export type t_ReposUpdateInvitationParamSchema = {
   repo: string
 }
 
+export type t_ReposUpdateOrgRulesetBodySchema = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  conditions?: t_org_ruleset_conditions
+  enforcement?: t_repository_rule_enforcement
+  name?: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag"
+}
+
+export type t_ReposUpdateOrgRulesetParamSchema = {
+  org: string
+  ruleset_id: number
+}
+
 export type t_ReposUpdatePullRequestReviewProtectionBodySchema = {
   bypass_pull_request_allowances?: {
     apps?: string[]
@@ -12570,6 +12909,22 @@ export type t_ReposUpdateReleaseAssetParamSchema = {
   asset_id: number
   owner: string
   repo: string
+}
+
+export type t_ReposUpdateRepoRulesetBodySchema = {
+  bypass_actors?: t_repository_ruleset_bypass_actor[]
+  bypass_mode?: "none" | "repository" | "organization"
+  conditions?: t_repository_ruleset_conditions
+  enforcement?: t_repository_rule_enforcement
+  name?: string
+  rules?: t_repository_rule[]
+  target?: "branch" | "tag"
+}
+
+export type t_ReposUpdateRepoRulesetParamSchema = {
+  owner: string
+  repo: string
+  ruleset_id: number
 }
 
 export type t_ReposUpdateStatusCheckProtectionBodySchema = {
@@ -12773,6 +13128,30 @@ export type t_SecretScanningUpdateAlertBodySchema = {
 
 export type t_SecretScanningUpdateAlertParamSchema = {
   alert_number: t_alert_number
+  owner: string
+  repo: string
+}
+
+export type t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema = {
+  cvss_vector_string?: string | null
+  cwe_ids?: string[] | null
+  description: string
+  severity?: "critical" | "high" | "medium" | "low" | null
+  summary: string
+  vulnerabilities?:
+    | {
+        package: {
+          ecosystem: t_repository_advisory_ecosystems
+          name?: string | null
+        }
+        patched_versions?: string | null
+        vulnerable_functions?: string[] | null
+        vulnerable_version_range?: string | null
+      }[]
+    | null
+}
+
+export type t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema = {
   owner: string
   repo: string
 }
@@ -13337,6 +13716,7 @@ export type t_TeamsUpdateInOrgParamSchema = {
 export type t_TeamsUpdateLegacyBodySchema = {
   description?: string
   name: string
+  notification_setting?: "notifications_enabled" | "notifications_disabled"
   parent_team_id?: number | null
   permission?: "pull" | "push" | "admin"
   privacy?: "secret" | "closed"

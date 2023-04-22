@@ -158,6 +158,8 @@ import {
   t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
   t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
+  t_ActionsReviewCustomGatesForRunBodySchema,
+  t_ActionsReviewCustomGatesForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunBodySchema,
   t_ActionsReviewPendingDeploymentsForRunParamSchema,
   t_ActionsSetAllowedActionsOrganizationBodySchema,
@@ -875,6 +877,8 @@ import {
   t_ReposCreateDeploymentBranchPolicyBodySchema,
   t_ReposCreateDeploymentBranchPolicyParamSchema,
   t_ReposCreateDeploymentParamSchema,
+  t_ReposCreateDeploymentProtectionRuleBodySchema,
+  t_ReposCreateDeploymentProtectionRuleParamSchema,
   t_ReposCreateDeploymentStatusBodySchema,
   t_ReposCreateDeploymentStatusParamSchema,
   t_ReposCreateDispatchEventBodySchema,
@@ -888,12 +892,16 @@ import {
   t_ReposCreateOrUpdateEnvironmentParamSchema,
   t_ReposCreateOrUpdateFileContentsBodySchema,
   t_ReposCreateOrUpdateFileContentsParamSchema,
+  t_ReposCreateOrgRulesetBodySchema,
+  t_ReposCreateOrgRulesetParamSchema,
   t_ReposCreatePagesDeploymentBodySchema,
   t_ReposCreatePagesDeploymentParamSchema,
   t_ReposCreatePagesSiteBodySchema,
   t_ReposCreatePagesSiteParamSchema,
   t_ReposCreateReleaseBodySchema,
   t_ReposCreateReleaseParamSchema,
+  t_ReposCreateRepoRulesetBodySchema,
+  t_ReposCreateRepoRulesetParamSchema,
   t_ReposCreateTagProtectionBodySchema,
   t_ReposCreateTagProtectionParamSchema,
   t_ReposCreateUsingTemplateBodySchema,
@@ -914,14 +922,17 @@ import {
   t_ReposDeleteFileBodySchema,
   t_ReposDeleteFileParamSchema,
   t_ReposDeleteInvitationParamSchema,
+  t_ReposDeleteOrgRulesetParamSchema,
   t_ReposDeletePagesSiteParamSchema,
   t_ReposDeleteParamSchema,
   t_ReposDeletePullRequestReviewProtectionParamSchema,
   t_ReposDeleteReleaseAssetParamSchema,
   t_ReposDeleteReleaseParamSchema,
+  t_ReposDeleteRepoRulesetParamSchema,
   t_ReposDeleteTagProtectionParamSchema,
   t_ReposDeleteWebhookParamSchema,
   t_ReposDisableAutomatedSecurityFixesParamSchema,
+  t_ReposDisableDeploymentProtectionRuleParamSchema,
   t_ReposDisableLfsForRepoParamSchema,
   t_ReposDisableVulnerabilityAlertsParamSchema,
   t_ReposDownloadTarballArchiveParamSchema,
@@ -933,6 +944,7 @@ import {
   t_ReposGenerateReleaseNotesParamSchema,
   t_ReposGetAccessRestrictionsParamSchema,
   t_ReposGetAdminBranchProtectionParamSchema,
+  t_ReposGetAllDeploymentProtectionRulesParamSchema,
   t_ReposGetAllEnvironmentsParamSchema,
   t_ReposGetAllEnvironmentsQuerySchema,
   t_ReposGetAllStatusCheckContextsParamSchema,
@@ -942,6 +954,7 @@ import {
   t_ReposGetAutolinkParamSchema,
   t_ReposGetBranchParamSchema,
   t_ReposGetBranchProtectionParamSchema,
+  t_ReposGetBranchRulesParamSchema,
   t_ReposGetClonesParamSchema,
   t_ReposGetClonesQuerySchema,
   t_ReposGetCodeFrequencyStatsParamSchema,
@@ -957,6 +970,7 @@ import {
   t_ReposGetContentParamSchema,
   t_ReposGetContentQuerySchema,
   t_ReposGetContributorsStatsParamSchema,
+  t_ReposGetCustomDeploymentProtectionRuleParamSchema,
   t_ReposGetDeployKeyParamSchema,
   t_ReposGetDeploymentBranchPolicyParamSchema,
   t_ReposGetDeploymentParamSchema,
@@ -964,6 +978,8 @@ import {
   t_ReposGetEnvironmentParamSchema,
   t_ReposGetLatestPagesBuildParamSchema,
   t_ReposGetLatestReleaseParamSchema,
+  t_ReposGetOrgRulesetParamSchema,
+  t_ReposGetOrgRulesetsParamSchema,
   t_ReposGetPagesBuildParamSchema,
   t_ReposGetPagesHealthCheckParamSchema,
   t_ReposGetPagesParamSchema,
@@ -978,6 +994,10 @@ import {
   t_ReposGetReleaseAssetParamSchema,
   t_ReposGetReleaseByTagParamSchema,
   t_ReposGetReleaseParamSchema,
+  t_ReposGetRepoRulesetParamSchema,
+  t_ReposGetRepoRulesetQuerySchema,
+  t_ReposGetRepoRulesetsParamSchema,
+  t_ReposGetRepoRulesetsQuerySchema,
   t_ReposGetStatusChecksProtectionParamSchema,
   t_ReposGetTeamsWithAccessToProtectedBranchParamSchema,
   t_ReposGetTopPathsParamSchema,
@@ -1005,6 +1025,8 @@ import {
   t_ReposListCommitsQuerySchema,
   t_ReposListContributorsParamSchema,
   t_ReposListContributorsQuerySchema,
+  t_ReposListCustomDeploymentRuleIntegrationsParamSchema,
+  t_ReposListCustomDeploymentRuleIntegrationsQuerySchema,
   t_ReposListDeployKeysParamSchema,
   t_ReposListDeployKeysQuerySchema,
   t_ReposListDeploymentBranchPoliciesParamSchema,
@@ -1086,6 +1108,8 @@ import {
   t_ReposUpdateInformationAboutPagesSiteParamSchema,
   t_ReposUpdateInvitationBodySchema,
   t_ReposUpdateInvitationParamSchema,
+  t_ReposUpdateOrgRulesetBodySchema,
+  t_ReposUpdateOrgRulesetParamSchema,
   t_ReposUpdateParamSchema,
   t_ReposUpdatePullRequestReviewProtectionBodySchema,
   t_ReposUpdatePullRequestReviewProtectionParamSchema,
@@ -1093,6 +1117,8 @@ import {
   t_ReposUpdateReleaseAssetParamSchema,
   t_ReposUpdateReleaseBodySchema,
   t_ReposUpdateReleaseParamSchema,
+  t_ReposUpdateRepoRulesetBodySchema,
+  t_ReposUpdateRepoRulesetParamSchema,
   t_ReposUpdateStatusCheckProtectionBodySchema,
   t_ReposUpdateStatusCheckProtectionParamSchema,
   t_ReposUpdateWebhookBodySchema,
@@ -1120,6 +1146,8 @@ import {
   t_SecretScanningListLocationsForAlertQuerySchema,
   t_SecretScanningUpdateAlertBodySchema,
   t_SecretScanningUpdateAlertParamSchema,
+  t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
+  t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
   t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
@@ -1281,6 +1309,7 @@ import {
   t_actions_variable,
   t_actions_workflow_access_to_repository,
   t_actor,
+  t_alert_auto_dismissed_at,
   t_alert_created_at,
   t_alert_dismissed_at,
   t_alert_fixed_at,
@@ -1373,6 +1402,7 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_custom_deployment_rule_app,
   t_dependabot_alert,
   t_dependabot_alert_package,
   t_dependabot_alert_security_advisory,
@@ -1386,6 +1416,7 @@ import {
   t_deployment,
   t_deployment_branch_policy,
   t_deployment_branch_policy_settings,
+  t_deployment_protection_rule,
   t_deployment_reviewer_type,
   t_deployment_simple,
   t_deployment_status,
@@ -1471,6 +1502,7 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
@@ -1531,6 +1563,27 @@ import {
   t_repository_advisory_vulnerability,
   t_repository_collaborator_permission,
   t_repository_invitation,
+  t_repository_rule,
+  t_repository_rule_branch_name_pattern,
+  t_repository_rule_commit_author_email_pattern,
+  t_repository_rule_commit_message_pattern,
+  t_repository_rule_committer_email_pattern,
+  t_repository_rule_creation,
+  t_repository_rule_deletion,
+  t_repository_rule_enforcement,
+  t_repository_rule_non_fast_forward,
+  t_repository_rule_params_status_check_configuration,
+  t_repository_rule_pull_request,
+  t_repository_rule_required_deployments,
+  t_repository_rule_required_linear_history,
+  t_repository_rule_required_signatures,
+  t_repository_rule_required_status_checks,
+  t_repository_rule_tag_name_pattern,
+  t_repository_rule_update,
+  t_repository_ruleset,
+  t_repository_ruleset_bypass_actor,
+  t_repository_ruleset_conditions,
+  t_repository_ruleset_conditions_repository_name_target,
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
@@ -1682,6 +1735,7 @@ import {
   s_content_traffic,
   s_contributor,
   s_contributor_activity,
+  s_custom_deployment_rule_app,
   s_dependabot_alert,
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
@@ -1693,6 +1747,7 @@ import {
   s_deployment_branch_policy,
   s_deployment_branch_policy_name_pattern,
   s_deployment_branch_policy_settings,
+  s_deployment_protection_rule,
   s_deployment_reviewer_type,
   s_deployment_status,
   s_diff_entry,
@@ -1749,6 +1804,7 @@ import {
   s_oidc_custom_sub_repo,
   s_org_hook,
   s_org_membership,
+  s_org_ruleset_conditions,
   s_organization_actions_secret,
   s_organization_actions_variable,
   s_organization_dependabot_secret,
@@ -1771,6 +1827,7 @@ import {
   s_porter_author,
   s_porter_large_file,
   s_private_user,
+  s_private_vulnerability_report_create,
   s_project,
   s_project_card,
   s_project_collaborator_permission,
@@ -1800,6 +1857,11 @@ import {
   s_repository_advisory_update,
   s_repository_collaborator_permission,
   s_repository_invitation,
+  s_repository_rule,
+  s_repository_rule_enforcement,
+  s_repository_ruleset,
+  s_repository_ruleset_bypass_actor,
+  s_repository_ruleset_conditions,
   s_repository_subscription,
   s_required_workflow,
   s_review_comment,
@@ -4226,6 +4288,59 @@ export type ReposCreateInOrg = (
   | Response<422, t_validation_error>
 >
 
+export type ReposGetOrgRulesets = (
+  params: Params<t_ReposGetOrgRulesetsParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset[]>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposCreateOrgRuleset = (
+  params: Params<
+    t_ReposCreateOrgRulesetParamSchema,
+    void,
+    t_ReposCreateOrgRulesetBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<201, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposGetOrgRuleset = (
+  params: Params<t_ReposGetOrgRulesetParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposUpdateOrgRuleset = (
+  params: Params<
+    t_ReposUpdateOrgRulesetParamSchema,
+    void,
+    t_ReposUpdateOrgRulesetBodySchema | undefined
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposDeleteOrgRuleset = (
+  params: Params<t_ReposDeleteOrgRulesetParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type SecretScanningListAlertsForOrg = (
   params: Params<
     t_SecretScanningListAlertsForOrgParamSchema,
@@ -5428,6 +5543,15 @@ export type ActionsCancelWorkflowRun = (
   params: Params<t_ActionsCancelWorkflowRunParamSchema, void, void>,
   ctx: Context
 ) => Promise<Response<202, t_empty_object> | Response<409, t_basic_error>>
+
+export type ActionsReviewCustomGatesForRun = (
+  params: Params<
+    t_ActionsReviewCustomGatesForRunParamSchema,
+    void,
+    t_ActionsReviewCustomGatesForRunBodySchema
+  >,
+  ctx: Context
+) => Promise<Response<204, void>>
 
 export type ActionsListJobsForWorkflowRun = (
   params: Params<
@@ -7122,6 +7246,59 @@ export type ReposDeleteDeploymentBranchPolicy = (
   ctx: Context
 ) => Promise<Response<204, void>>
 
+export type ReposGetAllDeploymentProtectionRules = (
+  params: Params<t_ReposGetAllDeploymentProtectionRulesParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  Response<
+    200,
+    {
+      custom_deployment_protection_rules?: t_deployment_protection_rule[]
+      total_count?: number
+    }
+  >
+>
+
+export type ReposCreateDeploymentProtectionRule = (
+  params: Params<
+    t_ReposCreateDeploymentProtectionRuleParamSchema,
+    void,
+    t_ReposCreateDeploymentProtectionRuleBodySchema
+  >,
+  ctx: Context
+) => Promise<Response<201, t_deployment_protection_rule>>
+
+export type ReposListCustomDeploymentRuleIntegrations = (
+  params: Params<
+    t_ReposListCustomDeploymentRuleIntegrationsParamSchema,
+    t_ReposListCustomDeploymentRuleIntegrationsQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  Response<
+    200,
+    {
+      available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
+      total_count?: number
+    }
+  >
+>
+
+export type ReposGetCustomDeploymentProtectionRule = (
+  params: Params<
+    t_ReposGetCustomDeploymentProtectionRuleParamSchema,
+    void,
+    void
+  >,
+  ctx: Context
+) => Promise<Response<200, t_deployment_protection_rule>>
+
+export type ReposDisableDeploymentProtectionRule = (
+  params: Params<t_ReposDisableDeploymentProtectionRuleParamSchema, void, void>,
+  ctx: Context
+) => Promise<Response<204, void>>
+
 export type ActivityListRepoEvents = (
   params: Params<
     t_ActivityListRepoEventsParamSchema,
@@ -8677,6 +8854,72 @@ export type ReactionsDeleteForRelease = (
   ctx: Context
 ) => Promise<Response<204, void>>
 
+export type ReposGetBranchRules = (
+  params: Params<t_ReposGetBranchRulesParamSchema, void, void>,
+  ctx: Context
+) => Promise<Response<200, t_repository_rule[]>>
+
+export type ReposGetRepoRulesets = (
+  params: Params<
+    t_ReposGetRepoRulesetsParamSchema,
+    t_ReposGetRepoRulesetsQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset[]>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposCreateRepoRuleset = (
+  params: Params<
+    t_ReposCreateRepoRulesetParamSchema,
+    void,
+    t_ReposCreateRepoRulesetBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<201, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposGetRepoRuleset = (
+  params: Params<
+    t_ReposGetRepoRulesetParamSchema,
+    t_ReposGetRepoRulesetQuerySchema,
+    void
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposUpdateRepoRuleset = (
+  params: Params<
+    t_ReposUpdateRepoRulesetParamSchema,
+    void,
+    t_ReposUpdateRepoRulesetBodySchema | undefined
+  >,
+  ctx: Context
+) => Promise<
+  | Response<200, t_repository_ruleset>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposDeleteRepoRuleset = (
+  params: Params<t_ReposDeleteRepoRulesetParamSchema, void, void>,
+  ctx: Context
+) => Promise<
+  | Response<204, void>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type SecretScanningListAlertsForRepo = (
   params: Params<
     t_SecretScanningListAlertsForRepoParamSchema,
@@ -8774,6 +9017,20 @@ export type SecurityAdvisoriesCreateRepositoryAdvisory = (
     t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
     void,
     t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema
+  >,
+  ctx: Context
+) => Promise<
+  | Response<201, t_repository_advisory>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
+export type SecurityAdvisoriesCreatePrivateVulnerabilityReport = (
+  params: Params<
+    t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
+    void,
+    t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema
   >,
   ctx: Context
 ) => Promise<
@@ -11371,6 +11628,11 @@ export type Implementation = {
   orgsRemovePublicMembershipForAuthenticatedUser: OrgsRemovePublicMembershipForAuthenticatedUser
   reposListForOrg: ReposListForOrg
   reposCreateInOrg: ReposCreateInOrg
+  reposGetOrgRulesets: ReposGetOrgRulesets
+  reposCreateOrgRuleset: ReposCreateOrgRuleset
+  reposGetOrgRuleset: ReposGetOrgRuleset
+  reposUpdateOrgRuleset: ReposUpdateOrgRuleset
+  reposDeleteOrgRuleset: ReposDeleteOrgRuleset
   secretScanningListAlertsForOrg: SecretScanningListAlertsForOrg
   orgsListSecurityManagerTeams: OrgsListSecurityManagerTeams
   orgsAddSecurityManagerTeam: OrgsAddSecurityManagerTeam
@@ -11485,6 +11747,7 @@ export type Implementation = {
   actionsListJobsForWorkflowRunAttempt: ActionsListJobsForWorkflowRunAttempt
   actionsDownloadWorkflowRunAttemptLogs: ActionsDownloadWorkflowRunAttemptLogs
   actionsCancelWorkflowRun: ActionsCancelWorkflowRun
+  actionsReviewCustomGatesForRun: ActionsReviewCustomGatesForRun
   actionsListJobsForWorkflowRun: ActionsListJobsForWorkflowRun
   actionsDownloadWorkflowRunLogs: ActionsDownloadWorkflowRunLogs
   actionsDeleteWorkflowRunLogs: ActionsDeleteWorkflowRunLogs
@@ -11644,6 +11907,11 @@ export type Implementation = {
   reposGetDeploymentBranchPolicy: ReposGetDeploymentBranchPolicy
   reposUpdateDeploymentBranchPolicy: ReposUpdateDeploymentBranchPolicy
   reposDeleteDeploymentBranchPolicy: ReposDeleteDeploymentBranchPolicy
+  reposGetAllDeploymentProtectionRules: ReposGetAllDeploymentProtectionRules
+  reposCreateDeploymentProtectionRule: ReposCreateDeploymentProtectionRule
+  reposListCustomDeploymentRuleIntegrations: ReposListCustomDeploymentRuleIntegrations
+  reposGetCustomDeploymentProtectionRule: ReposGetCustomDeploymentProtectionRule
+  reposDisableDeploymentProtectionRule: ReposDisableDeploymentProtectionRule
   activityListRepoEvents: ActivityListRepoEvents
   reposListForks: ReposListForks
   reposCreateFork: ReposCreateFork
@@ -11801,12 +12069,19 @@ export type Implementation = {
   reactionsListForRelease: ReactionsListForRelease
   reactionsCreateForRelease: ReactionsCreateForRelease
   reactionsDeleteForRelease: ReactionsDeleteForRelease
+  reposGetBranchRules: ReposGetBranchRules
+  reposGetRepoRulesets: ReposGetRepoRulesets
+  reposCreateRepoRuleset: ReposCreateRepoRuleset
+  reposGetRepoRuleset: ReposGetRepoRuleset
+  reposUpdateRepoRuleset: ReposUpdateRepoRuleset
+  reposDeleteRepoRuleset: ReposDeleteRepoRuleset
   secretScanningListAlertsForRepo: SecretScanningListAlertsForRepo
   secretScanningGetAlert: SecretScanningGetAlert
   secretScanningUpdateAlert: SecretScanningUpdateAlert
   secretScanningListLocationsForAlert: SecretScanningListLocationsForAlert
   securityAdvisoriesListRepositoryAdvisories: SecurityAdvisoriesListRepositoryAdvisories
   securityAdvisoriesCreateRepositoryAdvisory: SecurityAdvisoriesCreateRepositoryAdvisory
+  securityAdvisoriesCreatePrivateVulnerabilityReport: SecurityAdvisoriesCreatePrivateVulnerabilityReport
   securityAdvisoriesGetRepositoryAdvisory: SecurityAdvisoriesGetRepositoryAdvisory
   securityAdvisoriesUpdateRepositoryAdvisory: SecurityAdvisoriesUpdateRepositoryAdvisory
   activityListStargazersForRepo: ActivityListStargazersForRepo
@@ -20855,6 +21130,201 @@ export function bootstrap(
     return next()
   })
 
+  const reposGetOrgRulesetsParamSchema = z.object({ org: z.coerce.string() })
+
+  const reposGetOrgRulesetsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_repository_ruleset)],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "reposGetOrgRulesets",
+    "/orgs/:org/rulesets",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposGetOrgRulesetsParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetOrgRulesets(
+        input,
+        ctx
+      )
+
+      ctx.body = reposGetOrgRulesetsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposCreateOrgRulesetParamSchema = z.object({ org: z.coerce.string() })
+
+  const reposCreateOrgRulesetBodySchema = z.object({
+    name: z.coerce.string(),
+    target: z.enum(["branch", "tag"]).optional(),
+    enforcement: s_repository_rule_enforcement,
+    bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
+    conditions: s_org_ruleset_conditions,
+    rules: z.array(s_repository_rule).optional(),
+  })
+
+  const reposCreateOrgRulesetResponseValidator = responseValidationFactory(
+    [
+      ["201", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.post(
+    "reposCreateOrgRuleset",
+    "/orgs/:org/rulesets",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposCreateOrgRulesetParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateOrgRulesetBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.reposCreateOrgRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposCreateOrgRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposGetOrgRulesetParamSchema = z.object({
+    org: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposGetOrgRulesetResponseValidator = responseValidationFactory(
+    [
+      ["200", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "reposGetOrgRuleset",
+    "/orgs/:org/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposGetOrgRulesetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetOrgRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposGetOrgRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposUpdateOrgRulesetParamSchema = z.object({
+    org: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposUpdateOrgRulesetBodySchema = z
+    .object({
+      name: z.coerce.string().optional(),
+      target: z.enum(["branch", "tag"]).optional(),
+      enforcement: s_repository_rule_enforcement,
+      bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
+      conditions: s_org_ruleset_conditions,
+      rules: z.array(s_repository_rule).optional(),
+    })
+    .optional()
+
+  const reposUpdateOrgRulesetResponseValidator = responseValidationFactory(
+    [
+      ["200", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.put(
+    "reposUpdateOrgRuleset",
+    "/orgs/:org/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposUpdateOrgRulesetParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateOrgRulesetBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.reposUpdateOrgRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposUpdateOrgRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposDeleteOrgRulesetParamSchema = z.object({
+    org: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposDeleteOrgRulesetResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.delete(
+    "reposDeleteOrgRuleset",
+    "/orgs/:org/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposDeleteOrgRulesetParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposDeleteOrgRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposDeleteOrgRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
   const secretScanningListAlertsForOrgParamSchema = z.object({
     org: z.coerce.string(),
   })
@@ -25590,6 +26060,42 @@ export function bootstrap(
       )
 
       ctx.body = actionsCancelWorkflowRunResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const actionsReviewCustomGatesForRunParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    run_id: z.coerce.number(),
+  })
+
+  const actionsReviewCustomGatesForRunBodySchema = z.object({})
+
+  const actionsReviewCustomGatesForRunResponseValidator =
+    responseValidationFactory([["204", z.void()]], undefined)
+
+  router.post(
+    "actionsReviewCustomGatesForRun",
+    "/repos/:owner/:repo/actions/runs/:runId/deployment_protection_rule",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsReviewCustomGatesForRunParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsReviewCustomGatesForRunBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.actionsReviewCustomGatesForRun(input, ctx)
+
+      ctx.body = actionsReviewCustomGatesForRunResponseValidator(status, body)
       ctx.status = status
       return next()
     }
@@ -32577,6 +33083,228 @@ export function bootstrap(
     }
   )
 
+  const reposGetAllDeploymentProtectionRulesParamSchema = z.object({
+    environment_name: z.coerce.string(),
+    repo: z.coerce.string(),
+    owner: z.coerce.string(),
+  })
+
+  const reposGetAllDeploymentProtectionRulesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number().optional(),
+            custom_deployment_protection_rules: z
+              .array(s_deployment_protection_rule)
+              .optional(),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.get(
+    "reposGetAllDeploymentProtectionRules",
+    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetAllDeploymentProtectionRulesParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposGetAllDeploymentProtectionRules(input, ctx)
+
+      ctx.body = reposGetAllDeploymentProtectionRulesResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposCreateDeploymentProtectionRuleParamSchema = z.object({
+    environment_name: z.coerce.string(),
+    repo: z.coerce.string(),
+    owner: z.coerce.string(),
+  })
+
+  const reposCreateDeploymentProtectionRuleBodySchema = z.object({
+    integration_id: z.coerce.number().optional(),
+  })
+
+  const reposCreateDeploymentProtectionRuleResponseValidator =
+    responseValidationFactory(
+      [["201", s_deployment_protection_rule]],
+      undefined
+    )
+
+  router.post(
+    "reposCreateDeploymentProtectionRule",
+    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateDeploymentProtectionRuleParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateDeploymentProtectionRuleBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.reposCreateDeploymentProtectionRule(input, ctx)
+
+      ctx.body = reposCreateDeploymentProtectionRuleResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposListCustomDeploymentRuleIntegrationsParamSchema = z.object({
+    environment_name: z.coerce.string(),
+    repo: z.coerce.string(),
+    owner: z.coerce.string(),
+  })
+
+  const reposListCustomDeploymentRuleIntegrationsQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const reposListCustomDeploymentRuleIntegrationsResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number().optional(),
+            available_custom_deployment_protection_rule_integrations: z
+              .array(s_custom_deployment_rule_app)
+              .optional(),
+          }),
+        ],
+      ],
+      undefined
+    )
+
+  router.get(
+    "reposListCustomDeploymentRuleIntegrations",
+    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/apps",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposListCustomDeploymentRuleIntegrationsParamSchema,
+          ctx.params
+        ),
+        query: parseRequestInput(
+          reposListCustomDeploymentRuleIntegrationsQuerySchema,
+          ctx.query
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposListCustomDeploymentRuleIntegrations(
+          input,
+          ctx
+        )
+
+      ctx.body = reposListCustomDeploymentRuleIntegrationsResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposGetCustomDeploymentProtectionRuleParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    environment_name: z.coerce.string(),
+    protection_rule_id: z.coerce.number(),
+  })
+
+  const reposGetCustomDeploymentProtectionRuleResponseValidator =
+    responseValidationFactory(
+      [["200", s_deployment_protection_rule]],
+      undefined
+    )
+
+  router.get(
+    "reposGetCustomDeploymentProtectionRule",
+    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/:protectionRuleId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetCustomDeploymentProtectionRuleParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposGetCustomDeploymentProtectionRule(input, ctx)
+
+      ctx.body = reposGetCustomDeploymentProtectionRuleResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposDisableDeploymentProtectionRuleParamSchema = z.object({
+    environment_name: z.coerce.string(),
+    repo: z.coerce.string(),
+    owner: z.coerce.string(),
+    protection_rule_id: z.coerce.number(),
+  })
+
+  const reposDisableDeploymentProtectionRuleResponseValidator =
+    responseValidationFactory([["204", z.void()]], undefined)
+
+  router.delete(
+    "reposDisableDeploymentProtectionRule",
+    "/repos/:owner/:repo/environments/:environmentName/deployment_protection_rules/:protectionRuleId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisableDeploymentProtectionRuleParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposDisableDeploymentProtectionRule(input, ctx)
+
+      ctx.body = reposDisableDeploymentProtectionRuleResponseValidator(
+        status,
+        body
+      )
+      ctx.status = status
+      return next()
+    }
+  )
+
   const activityListRepoEventsParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -39057,6 +39785,261 @@ export function bootstrap(
     }
   )
 
+  const reposGetBranchRulesParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    branch: z.coerce.string(),
+  })
+
+  const reposGetBranchRulesResponseValidator = responseValidationFactory(
+    [["200", z.array(s_repository_rule)]],
+    undefined
+  )
+
+  router.get(
+    "reposGetBranchRules",
+    "/repos/:owner/:repo/rules/branches/:branch",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposGetBranchRulesParamSchema, ctx.params),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetBranchRules(
+        input,
+        ctx
+      )
+
+      ctx.body = reposGetBranchRulesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposGetRepoRulesetsParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposGetRepoRulesetsQuerySchema = z.object({
+    includes_parents: z.coerce.boolean().optional(),
+  })
+
+  const reposGetRepoRulesetsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_repository_ruleset)],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "reposGetRepoRulesets",
+    "/repos/:owner/:repo/rulesets",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposGetRepoRulesetsParamSchema, ctx.params),
+        query: parseRequestInput(reposGetRepoRulesetsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetRepoRulesets(
+        input,
+        ctx
+      )
+
+      ctx.body = reposGetRepoRulesetsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposCreateRepoRulesetParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposCreateRepoRulesetBodySchema = z.object({
+    name: z.coerce.string(),
+    target: z.enum(["branch", "tag"]).optional(),
+    enforcement: s_repository_rule_enforcement,
+    bypass_mode: z.enum(["none", "repository", "organization"]).optional(),
+    bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
+    conditions: s_repository_ruleset_conditions,
+    rules: z.array(s_repository_rule).optional(),
+  })
+
+  const reposCreateRepoRulesetResponseValidator = responseValidationFactory(
+    [
+      ["201", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.post(
+    "reposCreateRepoRuleset",
+    "/repos/:owner/:repo/rulesets",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateRepoRulesetParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateRepoRulesetBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.reposCreateRepoRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposCreateRepoRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposGetRepoRulesetParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposGetRepoRulesetQuerySchema = z.object({
+    includes_parents: z.coerce.boolean().optional(),
+  })
+
+  const reposGetRepoRulesetResponseValidator = responseValidationFactory(
+    [
+      ["200", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.get(
+    "reposGetRepoRuleset",
+    "/repos/:owner/:repo/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposGetRepoRulesetParamSchema, ctx.params),
+        query: parseRequestInput(reposGetRepoRulesetQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposGetRepoRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposGetRepoRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposUpdateRepoRulesetParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposUpdateRepoRulesetBodySchema = z
+    .object({
+      name: z.coerce.string().optional(),
+      target: z.enum(["branch", "tag"]).optional(),
+      enforcement: s_repository_rule_enforcement,
+      bypass_mode: z.enum(["none", "repository", "organization"]).optional(),
+      bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
+      conditions: s_repository_ruleset_conditions,
+      rules: z.array(s_repository_rule).optional(),
+    })
+    .optional()
+
+  const reposUpdateRepoRulesetResponseValidator = responseValidationFactory(
+    [
+      ["200", s_repository_ruleset],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.put(
+    "reposUpdateRepoRuleset",
+    "/repos/:owner/:repo/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposUpdateRepoRulesetParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposUpdateRepoRulesetBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } = await implementation.reposUpdateRepoRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposUpdateRepoRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const reposDeleteRepoRulesetParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposDeleteRepoRulesetResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined
+  )
+
+  router.delete(
+    "reposDeleteRepoRuleset",
+    "/repos/:owner/:repo/rulesets/:rulesetId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposDeleteRepoRulesetParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposDeleteRepoRuleset(
+        input,
+        ctx
+      )
+
+      ctx.body = reposDeleteRepoRulesetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    }
+  )
+
   const secretScanningListAlertsForRepoParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -39376,6 +40359,55 @@ export function bootstrap(
         status,
         body
       )
+      ctx.status = status
+      return next()
+    }
+  )
+
+  const securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema =
+    z.object({ owner: z.coerce.string(), repo: z.coerce.string() })
+
+  const securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema =
+    s_private_vulnerability_report_create
+
+  const securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_repository_advisory],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined
+    )
+
+  router.post(
+    "securityAdvisoriesCreatePrivateVulnerabilityReport",
+    "/repos/:owner/:repo/security-advisories/reports",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
+          ctx.params
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          securityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
+          ctx.request.body
+        ),
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesCreatePrivateVulnerabilityReport(
+          input,
+          ctx
+        )
+
+      ctx.body =
+        securityAdvisoriesCreatePrivateVulnerabilityReportResponseValidator(
+          status,
+          body
+        )
       ctx.status = status
       return next()
     }
@@ -41305,6 +42337,9 @@ export function bootstrap(
     name: z.coerce.string(),
     description: z.coerce.string().optional(),
     privacy: z.enum(["secret", "closed"]).optional(),
+    notification_setting: z
+      .enum(["notifications_enabled", "notifications_disabled"])
+      .optional(),
     permission: z.enum(["pull", "push", "admin"]).optional(),
     parent_team_id: z.coerce.number().optional().nullable(),
   })

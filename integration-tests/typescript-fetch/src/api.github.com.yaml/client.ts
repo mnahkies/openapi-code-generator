@@ -87,6 +87,7 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_custom_deployment_rule_app,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -98,6 +99,7 @@ import {
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
   t_deployment_branch_policy_settings,
+  t_deployment_protection_rule,
   t_deployment_reviewer_type,
   t_deployment_status,
   t_diff_entry,
@@ -154,6 +156,7 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
@@ -176,6 +179,7 @@ import {
   t_porter_author,
   t_porter_large_file,
   t_private_user,
+  t_private_vulnerability_report_create,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
@@ -205,6 +209,11 @@ import {
   t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
+  t_repository_rule,
+  t_repository_rule_enforcement,
+  t_repository_ruleset,
+  t_repository_ruleset_bypass_actor,
+  t_repository_ruleset_conditions,
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
@@ -4507,6 +4516,102 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async reposGetOrgRulesets(p: {
+    org: string
+  }): Promise<
+    | Response<200, t_repository_ruleset[]>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposCreateOrgRuleset(p: {
+    org: string
+    requestBody: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      conditions?: t_org_ruleset_conditions
+      enforcement: t_repository_rule_enforcement
+      name: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Promise<
+    | Response<201, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposGetOrgRuleset(p: {
+    org: string
+    rulesetId: number
+  }): Promise<
+    | Response<200, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposUpdateOrgRuleset(p: {
+    org: string
+    rulesetId: number
+    requestBody?: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      conditions?: t_org_ruleset_conditions
+      enforcement?: t_repository_rule_enforcement
+      name?: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Promise<
+    | Response<200, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "PUT", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposDeleteOrgRuleset(p: {
+    org: string
+    rulesetId: number
+  }): Promise<
+    | Response<204, void>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
+
+    const res = await fetch(url, { method: "DELETE" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async secretScanningListAlertsForOrg(p: {
     org: string
     state?: "open" | "resolved"
@@ -6834,6 +6939,25 @@ export class ApiClient extends AbstractFetchClient {
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
 
     const res = await fetch(url, { method: "POST" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async actionsReviewCustomGatesForRun(p: {
+    owner: string
+    repo: string
+    runId: number
+    requestBody: {
+      [key: string]: unknown
+    }
+  }): Promise<Response<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
 
     // TODO: this is a poor assumption
     return { status: res.status as any, body: (await res.json()) as any }
@@ -10372,6 +10496,105 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async reposGetAllDeploymentProtectionRules(p: {
+    environmentName: string
+    repo: string
+    owner: string
+  }): Promise<
+    Response<
+      200,
+      {
+        custom_deployment_protection_rules?: t_deployment_protection_rule[]
+        total_count?: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposCreateDeploymentProtectionRule(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    requestBody: {
+      integration_id?: number
+    }
+  }): Promise<Response<201, t_deployment_protection_rule>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposListCustomDeploymentRuleIntegrations(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    page?: number
+    perPage?: number
+  }): Promise<
+    Response<
+      200,
+      {
+        available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
+        total_count?: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposGetCustomDeploymentProtectionRule(p: {
+    owner: string
+    repo: string
+    environmentName: string
+    protectionRuleId: number
+  }): Promise<Response<200, t_deployment_protection_rule>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposDisableDeploymentProtectionRule(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    protectionRuleId: number
+  }): Promise<Response<204, void>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
+
+    const res = await fetch(url, { method: "DELETE" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async activityListRepoEvents(p: {
     owner: string
     repo: string
@@ -13683,6 +13906,132 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
+  async reposGetBranchRules(p: {
+    owner: string
+    repo: string
+    branch: string
+  }): Promise<Response<200, t_repository_rule[]>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
+
+    const res = await fetch(url, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposGetRepoRulesets(p: {
+    owner: string
+    repo: string
+    includesParents?: boolean
+  }): Promise<
+    | Response<200, t_repository_ruleset[]>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
+    const query = this._query({ includes_parents: p["includesParents"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposCreateRepoRuleset(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      bypass_mode?: "none" | "repository" | "organization"
+      conditions?: t_repository_ruleset_conditions
+      enforcement: t_repository_rule_enforcement
+      name: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Promise<
+    | Response<201, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposGetRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+    includesParents?: boolean
+  }): Promise<
+    | Response<200, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
+    const query = this._query({ includes_parents: p["includesParents"] })
+    const res = await fetch(url + query, { method: "GET" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposUpdateRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+    requestBody?: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      bypass_mode?: "none" | "repository" | "organization"
+      conditions?: t_repository_ruleset_conditions
+      enforcement?: t_repository_rule_enforcement
+      name?: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Promise<
+    | Response<200, t_repository_ruleset>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "PUT", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async reposDeleteRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+  }): Promise<
+    | Response<204, void>
+    | Response<404, t_basic_error>
+    | Response<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
+
+    const res = await fetch(url, { method: "DELETE" })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
   async secretScanningListAlertsForRepo(p: {
     owner: string
     repo: string
@@ -13857,6 +14206,27 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+    const res = await fetch(url, { method: "POST", headers, body })
+
+    // TODO: this is a poor assumption
+    return { status: res.status as any, body: (await res.json()) as any }
+  }
+
+  async securityAdvisoriesCreatePrivateVulnerabilityReport(p: {
+    owner: string
+    repo: string
+    requestBody: t_private_vulnerability_report_create
+  }): Promise<
+    | Response<201, t_repository_advisory>
+    | Response<403, t_basic_error>
+    | Response<404, t_basic_error>
+    | Response<422, t_validation_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/security-advisories/reports`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
     const res = await fetch(url, { method: "POST", headers, body })
@@ -14862,6 +15232,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       description?: string
       name: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number | null
       permission?: "pull" | "push" | "admin"
       privacy?: "secret" | "closed"

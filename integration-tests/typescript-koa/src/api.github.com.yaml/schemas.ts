@@ -338,6 +338,11 @@ export const s_repository_advisory_ecosystems = z.enum([
   "other",
 ])
 
+export const s_repository_rule_params_status_check_configuration = z.object({
+  context: z.coerce.string(),
+  integration_id: z.coerce.number().optional(),
+})
+
 export const s_team = z.object({
   id: z.coerce.number(),
   node_id: z.coerce.string(),
@@ -362,6 +367,11 @@ export const s_team = z.object({
   repositories_url: z.coerce.string(),
   parent: s_nullable_team_simple,
 })
+
+export const s_alert_auto_dismissed_at = z.coerce
+  .string()
+  .datetime({ offset: true })
+  .nullable()
 
 export const s_alert_created_at = z.coerce.string().datetime({ offset: true })
 
@@ -1232,6 +1242,125 @@ export const s_repository_advisory_vulnerability = z.object({
   vulnerable_functions: z.array(z.coerce.string()).nullable(),
 })
 
+export const s_repository_rule_branch_name_pattern = z.object({
+  type: z.enum(["branch_name_pattern"]),
+  parameters: z
+    .object({
+      name: z.coerce.string().optional(),
+      negate: z.coerce.boolean().optional(),
+      operator: z.enum(["starts_with", "ends_with", "contains", "regex"]),
+      pattern: z.coerce.string(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_commit_author_email_pattern = z.object({
+  type: z.enum(["commit_author_email_pattern"]),
+  parameters: z
+    .object({
+      name: z.coerce.string().optional(),
+      negate: z.coerce.boolean().optional(),
+      operator: z.enum(["starts_with", "ends_with", "contains", "regex"]),
+      pattern: z.coerce.string(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_commit_message_pattern = z.object({
+  type: z.enum(["commit_message_pattern"]),
+  parameters: z
+    .object({
+      name: z.coerce.string().optional(),
+      negate: z.coerce.boolean().optional(),
+      operator: z.enum(["starts_with", "ends_with", "contains", "regex"]),
+      pattern: z.coerce.string(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_committer_email_pattern = z.object({
+  type: z.enum(["committer_email_pattern"]),
+  parameters: z
+    .object({
+      name: z.coerce.string().optional(),
+      negate: z.coerce.boolean().optional(),
+      operator: z.enum(["starts_with", "ends_with", "contains", "regex"]),
+      pattern: z.coerce.string(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_creation = z.object({
+  type: z.enum(["creation"]),
+})
+
+export const s_repository_rule_deletion = z.object({
+  type: z.enum(["deletion"]),
+})
+
+export const s_repository_rule_non_fast_forward = z.object({
+  type: z.enum(["non_fast_forward"]),
+})
+
+export const s_repository_rule_pull_request = z.object({
+  type: z.enum(["pull_request"]),
+  parameters: z
+    .object({
+      dismiss_stale_reviews_on_push: z.coerce.boolean(),
+      require_code_owner_review: z.coerce.boolean(),
+      require_last_push_approval: z.coerce.boolean(),
+      required_approving_review_count: z.coerce.number(),
+      required_review_thread_resolution: z.coerce.boolean(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_required_deployments = z.object({
+  type: z.enum(["required_deployments"]),
+  parameters: z
+    .object({ required_deployment_environments: z.array(z.coerce.string()) })
+    .optional(),
+})
+
+export const s_repository_rule_required_linear_history = z.object({
+  type: z.enum(["required_linear_history"]),
+})
+
+export const s_repository_rule_required_signatures = z.object({
+  type: z.enum(["required_signatures"]),
+})
+
+export const s_repository_rule_required_status_checks = z.object({
+  type: z.enum(["required_status_checks"]),
+  parameters: z
+    .object({
+      required_status_checks: z.array(
+        s_repository_rule_params_status_check_configuration
+      ),
+      strict_required_status_checks_policy: z.coerce.boolean(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_tag_name_pattern = z.object({
+  type: z.enum(["tag_name_pattern"]),
+  parameters: z
+    .object({
+      name: z.coerce.string().optional(),
+      negate: z.coerce.boolean().optional(),
+      operator: z.enum(["starts_with", "ends_with", "contains", "regex"]),
+      pattern: z.coerce.string(),
+    })
+    .optional(),
+})
+
+export const s_repository_rule_update = z.object({
+  type: z.enum(["update"]),
+  parameters: z
+    .object({ update_allows_fetch_and_merge: z.coerce.boolean() })
+    .optional(),
+})
+
 export const s_secret_scanning_alert_resolution = z
   .enum(["false_positive", "wont_fix", "revoked", "used_in_tests"])
   .nullable()
@@ -1450,9 +1579,16 @@ export const s_commit_comment = z.object({
   reactions: s_reaction_rollup,
 })
 
+export const s_custom_deployment_rule_app = z.object({
+  id: z.coerce.number(),
+  slug: z.coerce.string(),
+  integration_url: z.coerce.string(),
+  node_id: z.coerce.string(),
+})
+
 export const s_dependabot_alert = z.object({
   number: s_alert_number,
-  state: z.enum(["dismissed", "fixed", "open"]),
+  state: z.enum(["auto_dismissed", "dismissed", "fixed", "open"]),
   dependency: z.object({
     package: s_dependabot_alert_package,
     manifest_path: z.coerce.string().optional(),
@@ -1477,6 +1613,7 @@ export const s_dependabot_alert = z.object({
     .nullable(),
   dismissed_comment: z.coerce.string().nullable(),
   fixed_at: s_alert_fixed_at,
+  auto_dismissed_at: s_alert_auto_dismissed_at,
 })
 
 export const s_deployment = z.object({
@@ -2232,7 +2369,7 @@ export const s_pull_request = z.object({
   state: z.enum(["open", "closed"]),
   locked: z.coerce.boolean(),
   title: z.coerce.string(),
-  user: s_nullable_simple_user,
+  user: s_simple_user,
   body: z.coerce.string().nullable(),
   labels: z.array(
     z.object({
@@ -2676,6 +2813,53 @@ export const s_repository_advisory = z.object({
     )
     .nullable(),
   credits_detailed: z.array(s_repository_advisory_credit).nullable(),
+})
+
+export const s_repository_rule = z.union([
+  s_repository_rule_creation,
+  s_repository_rule_update,
+  s_repository_rule_deletion,
+  s_repository_rule_required_linear_history,
+  s_repository_rule_required_deployments,
+  s_repository_rule_required_signatures,
+  s_repository_rule_pull_request,
+  s_repository_rule_required_status_checks,
+  s_repository_rule_non_fast_forward,
+  s_repository_rule_commit_message_pattern,
+  s_repository_rule_commit_author_email_pattern,
+  s_repository_rule_committer_email_pattern,
+  s_repository_rule_branch_name_pattern,
+  s_repository_rule_tag_name_pattern,
+])
+
+export const s_repository_rule_enforcement = z.enum([
+  "disabled",
+  "active",
+  "evaluate",
+])
+
+export const s_repository_ruleset_bypass_actor = z.object({
+  actor_id: z.coerce.number().optional(),
+  actor_type: z.enum(["Team", "Integration"]).optional(),
+})
+
+export const s_repository_ruleset_conditions = z.object({
+  ref_name: z
+    .object({
+      include: z.array(z.coerce.string()).optional(),
+      exclude: z.array(z.coerce.string()).optional(),
+    })
+    .optional(),
+})
+
+export const s_repository_ruleset_conditions_repository_name_target = z.object({
+  repository_name: z
+    .object({
+      include: z.array(z.coerce.string()).optional(),
+      exclude: z.array(z.coerce.string()).optional(),
+      protected: z.coerce.boolean().optional(),
+    })
+    .optional(),
 })
 
 export const s_runner_label = z.object({
@@ -3337,7 +3521,22 @@ export const s_code_scanning_codeql_database = z.object({
 
 export const s_code_scanning_default_setup = z.object({
   state: z.enum(["configured", "not-configured"]).optional(),
-  languages: z.array(z.enum(["javascript", "python", "ruby"])).optional(),
+  languages: z
+    .array(
+      z.enum([
+        "c",
+        "cpp",
+        "csharp",
+        "go",
+        "java",
+        "javascript",
+        "kotlin",
+        "python",
+        "ruby",
+        "typescript",
+      ])
+    )
+    .optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
   updated_at: z.coerce
     .string()
@@ -3853,7 +4052,7 @@ export const s_contributor_activity = z.object({
 
 export const s_dependabot_alert_with_repository = z.object({
   number: s_alert_number,
-  state: z.enum(["dismissed", "fixed", "open"]),
+  state: z.enum(["auto_dismissed", "dismissed", "fixed", "open"]),
   dependency: z.object({
     package: s_dependabot_alert_package,
     manifest_path: z.coerce.string().optional(),
@@ -3878,6 +4077,7 @@ export const s_dependabot_alert_with_repository = z.object({
     .nullable(),
   dismissed_comment: z.coerce.string().nullable(),
   fixed_at: s_alert_fixed_at,
+  auto_dismissed_at: s_alert_auto_dismissed_at,
   repository: s_simple_repository,
 })
 
@@ -3970,6 +4170,13 @@ export const s_deployment_branch_policy = z.object({
 
 export const s_deployment_branch_policy_name_pattern = z.object({
   name: z.coerce.string(),
+})
+
+export const s_deployment_protection_rule = z.object({
+  id: z.coerce.number(),
+  node_id: z.coerce.string(),
+  enabled: z.coerce.boolean(),
+  app: s_custom_deployment_rule_app,
 })
 
 export const s_deployment_status = z.object({
@@ -4342,7 +4549,14 @@ export const s_gpg_key = z.object({
       primary_key_id: z.coerce.number().optional(),
       key_id: z.coerce.string().optional(),
       public_key: z.coerce.string().optional(),
-      emails: z.array(z.object({})).optional(),
+      emails: z
+        .array(
+          z.object({
+            email: z.coerce.string().optional(),
+            verified: z.coerce.boolean().optional(),
+          })
+        )
+        .optional(),
       subkeys: z.array(z.object({})).optional(),
       can_sign: z.coerce.boolean().optional(),
       can_encrypt_comms: z.coerce.boolean().optional(),
@@ -4837,6 +5051,10 @@ export const s_org_membership = z.object({
     .optional(),
 })
 
+export const s_org_ruleset_conditions = s_repository_ruleset_conditions.merge(
+  s_repository_ruleset_conditions_repository_name_target
+)
+
 export const s_organization_actions_secret = z.object({
   name: z.coerce.string(),
   created_at: z.coerce.string().datetime({ offset: true }),
@@ -5290,6 +5508,28 @@ export const s_private_user = z.object({
     .nullable(),
   business_plus: z.coerce.boolean().optional(),
   ldap_dn: z.coerce.string().optional(),
+})
+
+export const s_private_vulnerability_report_create = z.object({
+  summary: z.coerce.string(),
+  description: z.coerce.string(),
+  vulnerabilities: z
+    .array(
+      z.object({
+        package: z.object({
+          ecosystem: s_repository_advisory_ecosystems,
+          name: z.coerce.string().optional().nullable(),
+        }),
+        vulnerable_version_range: z.coerce.string().optional().nullable(),
+        patched_versions: z.coerce.string().optional().nullable(),
+        vulnerable_functions: z.array(z.coerce.string()).optional().nullable(),
+      })
+    )
+    .optional()
+    .nullable(),
+  cwe_ids: z.array(z.coerce.string()).optional().nullable(),
+  severity: z.enum(["critical", "high", "medium", "low"]).optional().nullable(),
+  cvss_vector_string: z.coerce.string().optional().nullable(),
 })
 
 export const s_project = z.object({
@@ -5762,6 +6002,25 @@ export const s_repository_invitation = z.object({
   node_id: z.coerce.string(),
 })
 
+export const s_repository_ruleset = z.object({
+  id: z.coerce.number(),
+  name: z.coerce.string(),
+  target: z.enum(["branch", "tag"]).optional(),
+  source_type: z.enum(["Repository", "Organization"]).optional(),
+  source: z.coerce.string(),
+  enforcement: s_repository_rule_enforcement,
+  bypass_mode: z.enum(["none", "repository", "organization"]).optional(),
+  bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
+  node_id: z.coerce.string().optional(),
+  _links: z
+    .object({
+      self: z.object({ href: z.coerce.string().optional() }).optional(),
+    })
+    .optional(),
+  conditions: z.object({}).optional(),
+  rules: z.array(s_repository_rule).optional(),
+})
+
 export const s_repository_subscription = z.object({
   subscribed: z.coerce.boolean(),
   ignored: z.coerce.boolean(),
@@ -5853,6 +6112,7 @@ export const s_root = z.object({
 
 export const s_runner = z.object({
   id: z.coerce.number(),
+  runner_group_id: z.coerce.number().optional(),
   name: z.coerce.string(),
   os: z.coerce.string(),
   status: z.coerce.string(),

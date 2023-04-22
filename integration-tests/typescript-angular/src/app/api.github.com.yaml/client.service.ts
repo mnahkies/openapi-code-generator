@@ -87,6 +87,7 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_custom_deployment_rule_app,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
@@ -98,6 +99,7 @@ import {
   t_deployment_branch_policy,
   t_deployment_branch_policy_name_pattern,
   t_deployment_branch_policy_settings,
+  t_deployment_protection_rule,
   t_deployment_reviewer_type,
   t_deployment_status,
   t_diff_entry,
@@ -154,6 +156,7 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
@@ -176,6 +179,7 @@ import {
   t_porter_author,
   t_porter_large_file,
   t_private_user,
+  t_private_vulnerability_report_create,
   t_project,
   t_project_card,
   t_project_collaborator_permission,
@@ -205,6 +209,11 @@ import {
   t_repository_advisory_update,
   t_repository_collaborator_permission,
   t_repository_invitation,
+  t_repository_rule,
+  t_repository_rule_enforcement,
+  t_repository_ruleset,
+  t_repository_ruleset_bypass_actor,
+  t_repository_ruleset_conditions,
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
@@ -4935,6 +4944,100 @@ export class ApiClient {
     )
   }
 
+  reposGetOrgRulesets(p: {
+    org: string
+  }): Observable<t_repository_ruleset[] | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/rulesets`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposCreateOrgRuleset(p: {
+    org: string
+    requestBody: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      conditions?: t_org_ruleset_conditions
+      enforcement: t_repository_rule_enforcement
+      name: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/rulesets`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposGetOrgRuleset(p: {
+    org: string
+    rulesetId: number
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposUpdateOrgRuleset(p: {
+    org: string
+    rulesetId: number
+    requestBody?: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      conditions?: t_org_ruleset_conditions
+      enforcement?: t_repository_rule_enforcement
+      name?: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposDeleteOrgRuleset(p: {
+    org: string
+    rulesetId: number
+  }): Observable<void | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   secretScanningListAlertsForOrg(p: {
     org: string
     state?: "open" | "resolved"
@@ -7490,6 +7593,30 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`,
       {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  actionsReviewCustomGatesForRun(p: {
+    owner: string
+    repo: string
+    runId: number
+    requestBody: {
+      [key: string]: unknown
+    }
+  }): Observable<void> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`,
+      {
+        headers,
+        body,
         observe: "body",
         reportProgress: false,
       }
@@ -11351,6 +11478,110 @@ export class ApiClient {
     )
   }
 
+  reposGetAllDeploymentProtectionRules(p: {
+    environmentName: string
+    repo: string
+    owner: string
+  }): Observable<{
+    custom_deployment_protection_rules?: t_deployment_protection_rule[]
+    total_count?: number
+  }> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposCreateDeploymentProtectionRule(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    requestBody: {
+      integration_id?: number
+    }
+  }): Observable<t_deployment_protection_rule> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposListCustomDeploymentRuleIntegrations(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    page?: number
+    perPage?: number
+  }): Observable<{
+    available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
+    total_count?: number
+  }> {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposGetCustomDeploymentProtectionRule(p: {
+    owner: string
+    repo: string
+    environmentName: string
+    protectionRuleId: number
+  }): Observable<t_deployment_protection_rule> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposDisableDeploymentProtectionRule(p: {
+    environmentName: string
+    repo: string
+    owner: string
+    protectionRuleId: number
+  }): Observable<void> {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   activityListRepoEvents(p: {
     owner: string
     repo: string
@@ -15009,6 +15240,134 @@ export class ApiClient {
     )
   }
 
+  reposGetBranchRules(p: {
+    owner: string
+    repo: string
+    branch: string
+  }): Observable<t_repository_rule[]> {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposGetRepoRulesets(p: {
+    owner: string
+    repo: string
+    includesParents?: boolean
+  }): Observable<t_repository_ruleset[] | t_basic_error | t_basic_error> {
+    const params = this._queryParams({ includes_parents: p["includesParents"] })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposCreateRepoRuleset(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      bypass_mode?: "none" | "repository" | "organization"
+      conditions?: t_repository_ruleset_conditions
+      enforcement: t_repository_rule_enforcement
+      name: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposGetRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+    includesParents?: boolean
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    const params = this._queryParams({ includes_parents: p["includesParents"] })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`,
+      {
+        params,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposUpdateRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+    requestBody?: {
+      bypass_actors?: t_repository_ruleset_bypass_actor[]
+      bypass_mode?: "none" | "repository" | "organization"
+      conditions?: t_repository_ruleset_conditions
+      enforcement?: t_repository_rule_enforcement
+      name?: string
+      rules?: t_repository_rule[]
+      target?: "branch" | "tag"
+    }
+  }): Observable<t_repository_ruleset | t_basic_error | t_basic_error> {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  reposDeleteRepoRuleset(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+  }): Observable<void | t_basic_error | t_basic_error> {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`,
+      {
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
   secretScanningListAlertsForRepo(p: {
     owner: string
     repo: string
@@ -15192,6 +15551,29 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/security-advisories`,
+      {
+        headers,
+        body,
+        observe: "body",
+        reportProgress: false,
+      }
+    )
+  }
+
+  securityAdvisoriesCreatePrivateVulnerabilityReport(p: {
+    owner: string
+    repo: string
+    requestBody: t_private_vulnerability_report_create
+  }): Observable<
+    t_repository_advisory | t_basic_error | t_basic_error | t_validation_error
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories/reports`,
       {
         headers,
         body,
@@ -16288,6 +16670,7 @@ export class ApiClient {
     requestBody: {
       description?: string
       name: string
+      notification_setting?: "notifications_enabled" | "notifications_disabled"
       parent_team_id?: number | null
       permission?: "pull" | "push" | "admin"
       privacy?: "secret" | "closed"
