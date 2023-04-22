@@ -1,4 +1,4 @@
-import {IRModelArray, MaybeIRModel} from "../../core/openapi-types-normalized"
+import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
@@ -58,39 +58,7 @@ export class TypeBuilder {
     const name = getNameFromRef({$ref}, "t_")
     const schemaObject = this.input.schema({$ref})
 
-    // Arrays
-    if (schemaObject.type === "array") {
-      return `
-    export type ${name} = ${this.itemsToType(schemaObject.items)}[];
-    `
-    }
-
-    // Objects
-    if (schemaObject.type === "object" || schemaObject.type === undefined) {
-      return `
-    export type ${name} = ${this.schemaObjectToType(schemaObject)}
-    `
-    }
-
-    // Primitives
-    return `
-  export type ${name} = ${this.schemaObjectToType(schemaObject)}
-  `
-  }
-
-  private readonly itemsToType = (items: IRModelArray["items"]): string => {
-
-    if (isRef(items)) {
-      return this.add(items)
-    }
-
-    // todo unofficial extension to openapi3 - items doesn't normally accept an array.
-    if (Array.isArray(items)) {
-      return union(items.map(this.schemaObjectToType))
-    }
-
-    return `${this.schemaObjectToType(items)}`
-
+    return `export type ${name} = ${this.schemaObjectToType(schemaObject)}`
   }
 
   readonly schemaObjectToType = (schemaObject: MaybeIRModel): string => {
@@ -110,7 +78,12 @@ export class TypeBuilder {
 
     switch (schemaObject.type) {
       case "array": {
-        return `${this.itemsToType(schemaObject.items)}[]`
+        // todo unofficial extension to openapi3 - items doesn't normally accept an array.
+        if (Array.isArray(schemaObject.items)) {
+          return union(schemaObject.items.map(this.schemaObjectToType))
+        }
+
+        return `${this.schemaObjectToType(schemaObject.items)}[]`
       }
 
       case "boolean": {
