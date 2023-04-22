@@ -130,6 +130,8 @@ export abstract class AbstractSchemaBuilder {
           result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
         } else if (model.oneOf.length) {
           result = this.union(model.oneOf.map(it => this.fromModel(it, true)))
+        } else if (model.anyOf.length) {
+          result = this.union(model.anyOf.map(it => this.fromModel(it, true)))
         } else {
           result = this.object(
             Object.fromEntries(
