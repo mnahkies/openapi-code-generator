@@ -1,6 +1,6 @@
 import {Reference} from "./openapi-types"
 
-export function isRef(it: any | Reference): it is Reference {
+export function isRef(it: unknown | Reference): it is Reference {
   if (!it || typeof it !== "object") {
     return false
   }
@@ -16,5 +16,5 @@ export function getNameFromRef({$ref}: Reference, prefix: string): string {
 
   // TODO: this is a hack to workaround reserved words being used as names
   //       can likely improve to selectively apply when a reserved word is used.
-  return prefix + name.replace(/-/g, "_")
+  return prefix + name.replace(/[-.]+/g, "_")
 }
