@@ -9,3 +9,5 @@ curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3
 # Example API Definitions
 curl -L https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml -o ./integration-tests-definitions/api.github.com.yaml
 curl -L https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examples/v3.0/petstore-expanded.yaml -o ./integration-tests-definitions/petstore-expanded.yaml
+
+curl -L https://github.com/stripe/openapi/raw/master/openapi/spec3.yaml -o ./integration-tests-definitions/stripe.yaml
