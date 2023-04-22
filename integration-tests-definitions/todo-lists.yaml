@@ -41,9 +41,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoList'
         4XX:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ClientError'
         default:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ServerError'
     put:
       operationId: updateTodoListById
       requestBody:
@@ -60,18 +60,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/TodoList'
         4XX:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ClientError'
         default:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ServerError'
     delete:
       operationId: deleteTodoListById
       responses:
         204:
           description: 'deleted'
         4XX:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ClientError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ClientError'
         default:
-          $ref: '../integration-tests-definitions-shared/error-handling.yml#/components/responses/ServerError'
+          $ref: '../integration-tests-definitions-shared/error-handling.yaml#/components/responses/ServerError'
 components:
   schemas:
     CreateUpdateTodoList:
