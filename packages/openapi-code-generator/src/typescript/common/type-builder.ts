@@ -144,25 +144,17 @@ export class TypeBuilder {
           .sort(([a], [b]) => a < b ? -1 : 1)
           .map(([name, definition]) => {
             const isRequired = schemaObject.required.some(it => it === name)
+            const type = isRef(definition) ? this.add(definition) : this.schemaObjectToType(definition)
 
-            if (isRef(definition)) {
-              this.add(definition)
+            const isReadonly = isRef(definition) ? false : definition.readOnly
+            const isNullable = isRef(definition) ? false : definition.nullable
 
-              return objectProperty({
-                name,
-                type: getNameFromRef(definition, "t_"),
-                isRequired,
-                isReadonly: false, // todo?
-              })
-            }
-
-            const isReadonly = definition.readOnly
-            const isNullable = definition.nullable
-            const type = this.schemaObjectToType(definition)
+            // TODO: eventually this should be pushed up into every branch of the switch
+            const shouldUnionNull = !isRef(definition) && isNullable && !["string", "number"].find(it => it === definition.type)
 
             return objectProperty({
               name,
-              type: isNullable && definition.type !== "string" && definition.type !== "number" ? union(type, "null") : type,
+              type: shouldUnionNull ? union(type, "null") : type,
               isReadonly,
               isRequired
             })
@@ -177,6 +169,7 @@ export class TypeBuilder {
           schemaObject.nullable ? "null" : "",
         )
       }
+
       default: {
         throw new Error(`unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`)
       }
