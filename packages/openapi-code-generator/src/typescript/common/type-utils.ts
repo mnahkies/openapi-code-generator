@@ -1,9 +1,9 @@
-function wrapForArrayOrRestParameters<T, U>(fn: (arg: T[]) => U): {
+function wrap<T, U>(
+  fn: (arg: T[]) => U
+): {
   (...arg: T[] | T[][]): U
 } {
-
   return (...args: T[] | T[][]) => {
-
     if ((args as unknown[]).every((it) => Array.isArray(it))) {
       return fn((args as T[][]).reduce((acc, it) => acc.concat(it), [] as T[]))
     }
@@ -17,13 +17,13 @@ function unique(types: (string | undefined | null)[]) {
   return Array.from(
     types
       .filter((it): it is string => Boolean(it))
-      .filter(it => seen.has(it) ? false : seen.add(it) && true)
+      .filter((it) => (seen.has(it) ? false : seen.add(it) && true))
   )
 }
 
 type MaybeString = string | undefined | null
 
-export const union = wrapForArrayOrRestParameters(function (types: MaybeString[]): string {
+export const union = wrap((types: MaybeString[]): string => {
   const distinctTypes = unique(types)
 
   if (!distinctTypes.length) {
@@ -35,7 +35,7 @@ export const union = wrapForArrayOrRestParameters(function (types: MaybeString[]
   return `(${distinctTypes.join("\n | ")})`
 })
 
-export const intersect = wrapForArrayOrRestParameters(function (types: MaybeString[]): string {
+export const intersect = wrap((types: MaybeString[]): string => {
   const distinctTypes = unique(types)
 
   if (!distinctTypes.length) {
@@ -47,15 +47,33 @@ export const intersect = wrapForArrayOrRestParameters(function (types: MaybeStri
   return `(${distinctTypes.join(" & ")})`
 })
 
-export const objectProperty = ({name, type, isReadonly, isRequired}: {
-  name: string,
-  type: string,
-  isReadonly: boolean,
+export type ObjectPropertyDefinition = {
+  name: string
+  type: string
+  isReadonly: boolean
   isRequired: boolean
-}) => {
+}
+
+export const objectProperty = ({
+  name,
+  type,
+  isReadonly,
+  isRequired,
+}: ObjectPropertyDefinition): string => {
   return [
     isReadonly ? "readonly" : "",
     `"${name}"` + (isRequired ? ":" : "?:"),
     type,
-  ].filter(Boolean).join(" ") + ""
+  ]
+    .filter(Boolean)
+    .join(" ")
 }
+
+export const object = (properties: string[]): string =>
+  "{\n" + properties.filter(Boolean).join("\n") + "\n}"
+
+export const array = (type: string): string => `(${type})[]`
+
+export const toString = (it: string | number): string => it.toString()
+
+export const quotedValue = (it: string): string => `"${it}"`
