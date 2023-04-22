@@ -200,7 +200,7 @@ export type t_artifact = {
     head_sha?: string
     id?: number
     repository_id?: number
-  } | null | null
+  } | null
 }
 
 export type t_authentication_token = {
@@ -467,7 +467,7 @@ export type t_check_run = {
   app: t_nullable_integration
   check_suite: {
     id: number
-  } | null | null
+  } | null
   completed_at: string | null
   conclusion:
     | "success"
@@ -743,7 +743,7 @@ export type t_code_scanning_codeql_database = {
 }
 
 export type t_code_scanning_default_setup = {
-  languages?: "javascript" | "python" | "ruby"[]
+  languages?: ("javascript" | "python" | "ruby")[]
   query_suite?: "default" | "extended"
   state?: "configured" | "not-configured"
   updated_at?: string | null
@@ -1332,7 +1332,7 @@ export type t_dependabot_alert_security_advisory = {
 export type t_dependabot_alert_security_vulnerability = {
   readonly first_patched_version: {
     readonly identifier: string
-  } | null | null
+  } | null
   package: t_dependabot_alert_package
   readonly severity: "low" | "medium" | "high" | "critical"
   readonly vulnerable_version_range: string
@@ -1680,7 +1680,7 @@ export type t_file_commit = {
     size?: number
     type?: string
     url?: string
-  } | null | null
+  } | null
 }
 
 export type t_full_repository = {
@@ -1865,7 +1865,7 @@ export type t_gist_simple = {
     updated_at: string
     url: string
     user: t_nullable_simple_user
-  } | null | null
+  } | null
   forks?:
     | {
         created_at?: string
@@ -2052,15 +2052,15 @@ export type t_hook_delivery = {
   request: {
     headers: {
       [key: string]: unknown
-    } | null | null
+    } | null
     payload: {
       [key: string]: unknown
-    } | null | null
+    } | null
   }
   response: {
     headers: {
       [key: string]: unknown
-    } | null | null
+    } | null
     payload: string | null
   }
   status: string
@@ -2145,7 +2145,7 @@ export type t_installation = {
   access_tokens_url: string
   account: {
     [key: string]: unknown
-  } | null | null
+  } | null
   app_id: number
   app_slug: string
   contact_email?: string | null
@@ -2586,7 +2586,7 @@ export type t_marketplace_purchase = {
     is_installed?: boolean
     plan?: t_marketplace_listing_plan
     unit_count?: number | null
-  } | null | null
+  } | null
   marketplace_purchase: {
     billing_cycle?: string
     free_trial_ends_on?: string | null
@@ -2708,7 +2708,7 @@ export type t_minimal_repository = {
     node_id?: string
     spdx_id?: string
     url?: string
-  } | null | null
+  } | null
   merges_url: string
   milestones_url: string
   mirror_url?: string | null
@@ -2980,7 +2980,7 @@ export type t_nullable_minimal_repository = {
     node_id?: string
     spdx_id?: string
     url?: string
-  } | null | null
+  } | null
   merges_url: string
   milestones_url: string
   mirror_url?: string | null
@@ -3235,7 +3235,7 @@ export type t_nullable_repository = {
     use_squash_pr_title_as_default?: boolean
     visibility?: string
     watchers_count?: number
-  } | null | null
+  } | null
   topics?: string[]
   trees_url: string
   updated_at: string | null
@@ -3261,11 +3261,11 @@ export type t_nullable_simple_commit = {
   author: {
     email: string
     name: string
-  } | null | null
+  } | null
   committer: {
     email: string
     name: string
-  } | null | null
+  } | null
   id: string
   message: string
   timestamp: string
@@ -3655,7 +3655,7 @@ export type t_pages_health_check = {
     responds_to_https?: boolean
     should_be_a_record?: boolean | null
     uri?: string
-  } | null | null
+  } | null
   domain?: {
     caa_error?: string | null
     dns_resolves?: boolean
@@ -4218,7 +4218,7 @@ export type t_pull_request = {
         node_id: string
         spdx_id: string | null
         url: string | null
-      } | null | null
+      } | null
       master_branch?: string
       merges_url: string
       milestones_url: string
@@ -4278,7 +4278,7 @@ export type t_pull_request = {
       watchers: number
       watchers_count: number
       web_commit_signoff_required?: boolean
-    } | null | null
+    } | null
     sha: string
     user: {
       avatar_url: string
@@ -4944,7 +4944,7 @@ export type t_repository = {
     use_squash_pr_title_as_default?: boolean
     visibility?: string
     watchers_count?: number
-  } | null | null
+  } | null
   topics?: string[]
   trees_url: string
   updated_at: string | null
@@ -4971,7 +4971,7 @@ export type t_repository_advisory = {
   cvss: {
     readonly score: number | null
     vector_string: string | null
-  } | null | null
+  } | null
   cwe_ids: string[] | null
   readonly cwes:
     | {
@@ -4992,7 +4992,7 @@ export type t_repository_advisory = {
   state: "published" | "closed" | "withdrawn" | "draft" | "triage"
   readonly submission: {
     readonly accepted: boolean
-  } | null | null
+  } | null
   summary: string
   readonly updated_at: string | null
   url: string
@@ -5036,7 +5036,7 @@ export type t_repository_advisory_vulnerability = {
   package: {
     ecosystem: t_repository_advisory_ecosystems
     name: string | null
-  } | null | null
+  } | null
   patched_versions: string | null
   vulnerable_functions: string[] | null
   vulnerable_version_range: string | null
@@ -5302,11 +5302,11 @@ export type t_simple_commit = {
   author: {
     email: string
     name: string
-  } | null | null
+  } | null
   committer: {
     email: string
     name: string
-  } | null | null
+  } | null
   id: string
   message: string
   timestamp: string
@@ -5878,7 +5878,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: string | null | number | string[]
+    value?: (string | null) | (number | null) | string[]
   }[]
   message: string
 }
@@ -8498,7 +8498,7 @@ export type t_GistsCreateBodySchema = {
   files: {
     [key: string]: unknown
   }
-  public?: boolean | "true" | "false"
+  public?: boolean | ("true" | "false")
 }
 
 export type t_GistsCreateCommentBodySchema = {
@@ -8855,7 +8855,7 @@ export type t_IssuesCreateBodySchema = {
         name?: string
       }
   )[]
-  milestone?: (string | number) | null
+  milestone?: string | number | null
   title: string | number
 }
 
@@ -9190,10 +9190,10 @@ export type t_IssuesUpdateBodySchema = {
         name?: string
       }
   )[]
-  milestone?: (string | number) | null
+  milestone?: string | number | null
   state?: "open" | "closed"
   state_reason?: "completed" | "not_planned" | "reopened" | null
-  title?: (string | number) | null
+  title?: string | number | null
 }
 
 export type t_IssuesUpdateParamSchema = {
@@ -12416,7 +12416,7 @@ export type t_ReposUpdateBodySchema = {
     secret_scanning_push_protection?: {
       status?: string
     }
-  } | null | null
+  } | null
   squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
   squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
   use_squash_pr_title_as_default?: boolean
@@ -12453,7 +12453,7 @@ export type t_ReposUpdateBranchProtectionBodySchema = {
     require_code_owner_reviews?: boolean
     require_last_push_approval?: boolean
     required_approving_review_count?: number
-  } | null | null
+  } | null
   required_status_checks: {
     checks?: {
       app_id?: number
@@ -12461,12 +12461,12 @@ export type t_ReposUpdateBranchProtectionBodySchema = {
     }[]
     contexts: string[]
     strict: boolean
-  } | null | null
+  } | null
   restrictions: {
     apps?: string[]
     teams: string[]
     users: string[]
-  } | null | null
+  } | null
 }
 
 export type t_ReposUpdateBranchProtectionParamSchema = {

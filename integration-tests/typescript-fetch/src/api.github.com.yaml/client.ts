@@ -806,7 +806,7 @@ export class ApiClient extends AbstractFetchClient {
       files: {
         [key: string]: unknown
       }
-      public?: boolean | "true" | "false"
+      public?: boolean | ("true" | "false")
     }
   }): Promise<
     | Response<201, t_gist_simple>
@@ -5884,7 +5884,7 @@ export class ApiClient extends AbstractFetchClient {
         secret_scanning_push_protection?: {
           status?: string
         }
-      } | null | null
+      } | null
       squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
       squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
       use_squash_pr_title_as_default?: boolean
@@ -7534,7 +7534,7 @@ export class ApiClient extends AbstractFetchClient {
         require_code_owner_reviews?: boolean
         require_last_push_approval?: boolean
         required_approving_review_count?: number
-      } | null | null
+      } | null
       required_status_checks: {
         checks?: {
           app_id?: number
@@ -7542,12 +7542,12 @@ export class ApiClient extends AbstractFetchClient {
         }[]
         contexts: string[]
         strict: boolean
-      } | null | null
+      } | null
       restrictions: {
         apps?: string[]
         teams: string[]
         users: string[]
-      } | null | null
+      } | null
     }
   }): Promise<
     | Response<200, t_protected_branch>
@@ -11253,7 +11253,7 @@ export class ApiClient extends AbstractFetchClient {
             name?: string
           }
       )[]
-      milestone?: (string | number) | null
+      milestone?: string | number | null
       title: string | number
     }
   }): Promise<
@@ -11511,10 +11511,10 @@ export class ApiClient extends AbstractFetchClient {
             name?: string
           }
       )[]
-      milestone?: (string | number) | null
+      milestone?: string | number | null
       state?: "open" | "closed"
       state_reason?: "completed" | "not_planned" | "reopened" | null
-      title?: (string | number) | null
+      title?: string | number | null
     }
   }): Promise<
     | Response<200, t_issue>
