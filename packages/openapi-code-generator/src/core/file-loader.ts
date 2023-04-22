@@ -43,7 +43,7 @@ async function loadLocalFile(file: string): Promise<[string, any]> {
 }
 
 async function loadRemoteFile(uri: string): Promise<[string, any]> {
-  // todo not implemented
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/43
   throw new Error(`could not load ${uri} - not implemented,`)
 }
 

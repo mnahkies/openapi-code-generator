@@ -44,7 +44,7 @@ export class ServerBuilder {
     public readonly schemaBuilder: SchemaBuilder,
     private existingRegions: { [operationId: string]: string },
   ) {
-    // TODO: unsure why, but adding an export at `.` of index.ts doesn't work properly
+    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports.from("@nahkies/typescript-koa-runtime/server")
       .add(
         "startServer",

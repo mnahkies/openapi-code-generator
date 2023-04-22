@@ -37,7 +37,7 @@ export abstract class AbstractSchemaBuilder {
 
       return order
         .filter(it => this.referenced[it])
-        // TODO: this is needed because the dependency graph only considers schemas from the entrypoint
+        // todo: this is needed because the dependency graph only considers schemas from the entrypoint
         //       specification - ideally we'd recurse into all referenced specifications and include their
         //       schemas in the ordering
         .concat(Object.keys(this.referenced))

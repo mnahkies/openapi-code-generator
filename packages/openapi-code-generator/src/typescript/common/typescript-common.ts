@@ -92,7 +92,7 @@ export function requestBodyAsParameter(operation: IROperation): {
     return {}
   }
 
-  // todo support multiple request body types
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/42
   for (const [requestBodyContentType, definition] of Object.entries(requestBody.content)) {
     return {
       requestBodyContentType,
@@ -144,7 +144,7 @@ export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | u
   return result.join("\n")
 }
 
-// TODO do we need to quote names sometimes here?
+// todo: do we need to quote names sometimes here?
 function params(parameters: (MethodParameterDefinition | undefined)[], quoteNames = false): string {
   return parameters
     .filter(isDefined)

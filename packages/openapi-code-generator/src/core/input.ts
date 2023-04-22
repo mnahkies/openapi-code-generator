@@ -250,8 +250,8 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         .filter((it): it is number => isFinite(it))
       return type<IRModelNumeric>({
         ...base,
-        // todo support format
         type: "number",
+        // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
         format: schemaObject.format as any,
         enum: enumValues.length ? enumValues : undefined,
       })

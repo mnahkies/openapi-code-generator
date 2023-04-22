@@ -21,7 +21,7 @@ async function main() {
   const input = new Input(loader)
 
   logger.time("generation")
-  // TODO abort generation if not a git repo or there are uncommitted changes
+
   await config.generator({
     input,
     dest: config.output,
