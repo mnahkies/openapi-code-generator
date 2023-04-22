@@ -5878,7 +5878,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: (string | null) | (number | null) | string[]
+    value?: string | null | number | string[]
   }[]
   message: string
 }
@@ -8498,7 +8498,7 @@ export type t_GistsCreateBodySchema = {
   files: {
     [key: string]: unknown
   }
-  public?: boolean | ("true" | "false")
+  public?: boolean | "true" | "false"
 }
 
 export type t_GistsCreateCommentBodySchema = {
