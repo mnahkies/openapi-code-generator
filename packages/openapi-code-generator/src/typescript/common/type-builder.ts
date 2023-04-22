@@ -102,7 +102,7 @@ export class TypeBuilder {
         }
 
         case "number": {
-          // todo support bigint as string
+          // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
           result.push(...(schemaObject.enum?.map(toString) ?? ["number"]))
           break
         }
@@ -124,7 +124,7 @@ export class TypeBuilder {
               })
             })
 
-          // TODO better support
+          // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
           const additionalProperties =
             schemaObject.additionalProperties || properties.length === 0
               ? "[key: string]: unknown"

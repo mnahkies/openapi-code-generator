@@ -111,7 +111,7 @@ export interface Responses {
 
 export interface Response {
   description?: string
-  // TODO support response headers
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/45
   headers?: {
     [headerName: string]: Header | Reference
   }
@@ -140,7 +140,7 @@ export interface Callback {
 
 export interface MediaType {
   schema: Schema | Reference
-  // TODO support encoding
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/53
   encoding: unknown
 }
 
