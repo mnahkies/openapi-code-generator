@@ -61,93 +61,88 @@ export class TypeBuilder {
     return `export type ${name} = ${this.schemaObjectToType(schemaObject)}`
   }
 
-  readonly schemaObjectToType = (schemaObject: MaybeIRModel): string => {
+  readonly schemaObjectToType = (schemaObject: MaybeIRModel) => {
+    const result = this.schemaObjectToTypes(schemaObject)
+    return union(result)
+  }
+
+  readonly schemaObjectToTypes = (schemaObject: MaybeIRModel): string[] => {
 
     if (isRef(schemaObject)) {
-      return this.add(schemaObject)
+      return [this.add(schemaObject)]
     }
 
+    const result: string[] = []
+
     if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      const result = intersect(schemaObject.allOf.map(this.schemaObjectToType))
-      return schemaObject.nullable ? union(result, "null") : result
+      result.push(intersect(schemaObject.allOf.map(this.schemaObjectToType)))
     }
 
     if (schemaObject.type === "object" && schemaObject.oneOf.length) {
-      return union(schemaObject.oneOf.map(this.schemaObjectToType).concat(schemaObject.nullable ? ["null"] : []))
+      result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
     }
 
-    switch (schemaObject.type) {
-      case "array": {
-        // todo unofficial extension to openapi3 - items doesn't normally accept an array.
-        if (Array.isArray(schemaObject.items)) {
-          return union(schemaObject.items.map(this.schemaObjectToType))
+    if (result.length === 0) {
+      switch (schemaObject.type) {
+        case "array": {
+          result.push(`${this.schemaObjectToType(schemaObject.items)}[]`)
+          break
         }
 
-        return `${this.schemaObjectToType(schemaObject.items)}[]`
-      }
-
-      case "boolean": {
-        return "boolean"
-      }
-
-      case "string": {
-        const result = (schemaObject.enum?.filter(it => typeof it === "string")
-          .map(it => `"${it}"`) ?? ["string"])
-
-        if (schemaObject.nullable) {
-          result.push("null")
+        case "boolean": {
+          result.push("boolean")
+          break
         }
 
-        return union(result)
-      }
-
-      case "number": {
-        // todo support bigint as string
-        const result = (schemaObject.enum?.filter(it => typeof it === "number")
-          .map(it => `${it}`) ?? ["number"])
-
-        if (schemaObject.nullable) {
-          result.push("null")
+        case "string": {
+          result.push(...(schemaObject.enum?.filter(it => typeof it === "string")
+            .map(it => `"${it}"`) ?? ["string"]))
+          break
         }
 
-        return union(result)
-      }
+        case "number": {
+          // todo support bigint as string
+          result.push(...(schemaObject.enum?.filter(it => typeof it === "number")
+            .map(it => `${it}`) ?? ["number"]))
+          break
+        }
 
-      case "object": {
-        const members = Object.entries(schemaObject.properties)
-          .sort(([a], [b]) => a < b ? -1 : 1)
-          .map(([name, definition]) => {
-            const isRequired = schemaObject.required.some(it => it === name)
-            const type = isRef(definition) ? this.add(definition) : this.schemaObjectToType(definition)
+        case "object": {
+          const properties = Object.entries(schemaObject.properties)
+            .sort(([a], [b]) => a < b ? -1 : 1)
+            .map(([name, definition]) => {
+              const isRequired = schemaObject.required.some(it => it === name)
+              const type = this.schemaObjectToType(definition)
 
-            const isReadonly = isRef(definition) ? false : definition.readOnly
-            const isNullable = isRef(definition) ? false : definition.nullable
+              const isReadonly = isRef(definition) ? false : definition.readOnly
 
-            // TODO: eventually this should be pushed up into every branch of the switch
-            const shouldUnionNull = !isRef(definition) && isNullable && !["string", "number", "object"].find(it => it === definition.type)
-
-            return objectProperty({
-              name,
-              type: shouldUnionNull ? union(type, "null") : type,
-              isReadonly,
-              isRequired
+              return objectProperty({
+                name,
+                type,
+                isReadonly,
+                isRequired
+              })
             })
-          })
 
-        // TODO better support
-        const additionalProperties = schemaObject.additionalProperties || members.length === 0 ?
-          "[key: string]: unknown" : ""
+          // TODO better support
+          const additionalProperties = schemaObject.additionalProperties || properties.length === 0 ?
+            "[key: string]: unknown" : ""
 
-        return union(
-          "{\n" + [...members, additionalProperties].filter(Boolean).join("\n") + "\n}",
-          schemaObject.nullable ? "null" : "",
-        )
-      }
+          result.push("{\n" + [...properties, additionalProperties].filter(Boolean).join("\n") + "\n}")
+          break
+        }
 
-      default: {
-        throw new Error(`unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`)
+        default: {
+          throw new Error(`unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`)
+        }
       }
     }
+
+    if (schemaObject.nullable) {
+      result.push("null")
+    }
+
+    return result
   }
 
   static fromInput(filename: string, input: Input): TypeBuilder {
