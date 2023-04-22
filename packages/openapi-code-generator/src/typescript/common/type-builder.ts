@@ -100,11 +100,12 @@ export class TypeBuilder {
     }
 
     if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      return intersect(schemaObject.allOf.map(this.schemaObjectToType))
+      const result = intersect(schemaObject.allOf.map(this.schemaObjectToType))
+      return schemaObject.nullable ? union(result, "null") : result
     }
 
     if (schemaObject.type === "object" && schemaObject.oneOf.length) {
-      return union(schemaObject.oneOf.map(this.schemaObjectToType))
+      return union(schemaObject.oneOf.map(this.schemaObjectToType).concat(schemaObject.nullable ? ["null"] : []))
     }
 
     switch (schemaObject.type) {
