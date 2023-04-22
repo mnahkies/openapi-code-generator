@@ -3,6 +3,7 @@ import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
 import {ImportBuilder} from "./import-builder"
+import {intersect, objectProperty, union} from "./type-utils"
 
 export class TypeBuilder {
 
@@ -85,7 +86,7 @@ export class TypeBuilder {
 
     // todo unofficial extension to openapi3 - items doesn't normally accept an array.
     if (Array.isArray(items)) {
-      return `( ${items.map(this.schemaObjectToType).join(" | ")} )`
+      return union(items.map(this.schemaObjectToType))
     }
 
     return `${this.schemaObjectToType(items)}`
@@ -99,20 +100,23 @@ export class TypeBuilder {
     }
 
     if (schemaObject.type === "object" && schemaObject.allOf.length) {
-      return `(${schemaObject.allOf.map(this.schemaObjectToType).join(" & ")})`
+      const result = intersect(schemaObject.allOf.map(this.schemaObjectToType))
+      return schemaObject.nullable ? union(result, "null") : result
     }
 
     if (schemaObject.type === "object" && schemaObject.oneOf.length) {
-      return `(${schemaObject.oneOf.map(this.schemaObjectToType).join("\n | ")})`
+      return union(schemaObject.oneOf.map(this.schemaObjectToType).concat(schemaObject.nullable ? ["null"] : []))
     }
 
     switch (schemaObject.type) {
       case "array": {
         return `${this.itemsToType(schemaObject.items)}[]`
       }
+
       case "boolean": {
         return "boolean"
       }
+
       case "string": {
         const result = (schemaObject.enum?.filter(it => typeof it === "string")
           .map(it => `"${it}"`) ?? ["string"])
@@ -121,64 +125,52 @@ export class TypeBuilder {
           result.push("null")
         }
 
-        return result.join(" | ")
+        return union(result)
       }
+
       case "number": {
         // todo support bigint as string
-        if (Array.isArray(schemaObject.enum)) {
-          return schemaObject.enum
-            .map(it => `${it}`)
-            .join(" | ")
+        const result = (schemaObject.enum?.filter(it => typeof it === "number")
+          .map(it => `${it}`) ?? ["number"])
+
+        if (schemaObject.nullable) {
+          result.push("null")
         }
 
-        return "number"
+        return union(result)
       }
+
       case "object": {
         const members = Object.entries(schemaObject.properties)
           .sort(([a], [b]) => a < b ? -1 : 1)
           .map(([name, definition]) => {
             const isRequired = schemaObject.required.some(it => it === name)
+            const type = isRef(definition) ? this.add(definition) : this.schemaObjectToType(definition)
 
-            if (isRef(definition)) {
-              this.add(definition)
+            const isReadonly = isRef(definition) ? false : definition.readOnly
+            const isNullable = isRef(definition) ? false : definition.nullable
 
-              return [
-                `"${name}"`,
-                isRequired ? "" : "?",
-                ":",
-                getNameFromRef(definition, "t_"),
-                ";",
-              ].filter(Boolean).join(" ")
-            }
+            // TODO: eventually this should be pushed up into every branch of the switch
+            const shouldUnionNull = !isRef(definition) && isNullable && !["string", "number", "object"].find(it => it === definition.type)
 
-            const isReadonly = definition.readOnly
-            const isNullable = definition.nullable
-            const type = this.schemaObjectToType(definition)
-
-            return [
-              isReadonly ? "readonly" : "",
-              `"${name}"`,
-              isRequired ? "" : "?",
-              ":",
-              type,
-              isNullable && definition.type !== "string" ? "| null" : "",
-              ";",
-            ].filter(Boolean).join(" ")
+            return objectProperty({
+              name,
+              type: shouldUnionNull ? union(type, "null") : type,
+              isReadonly,
+              isRequired
+            })
           })
 
         // TODO better support
         const additionalProperties = schemaObject.additionalProperties || members.length === 0 ?
-          "[key: string]: unknown;" : ""
+          "[key: string]: unknown" : ""
 
-        return [
-          "{",
-          ...members,
-          additionalProperties,
-          "}",
-          // TODO: this gives a ugly but harmless double `null` on the type in some cases
-          schemaObject.nullable ? "| null" : "",
-        ].filter(Boolean).join("\n")
+        return union(
+          "{\n" + [...members, additionalProperties].filter(Boolean).join("\n") + "\n}",
+          schemaObject.nullable ? "null" : "",
+        )
       }
+
       default: {
         throw new Error(`unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`)
       }
