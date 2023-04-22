@@ -300,6 +300,13 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
   function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
     return anyOf
+      .filter(it => {
+        // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
+        //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
+        //       it's intended to indicate that at least one of the objects properties must be set (consider it a
+        //       Omit<Partial<Thing>, EmptyObject> )
+        return isRef(it) || Boolean(it.type)
+      })
       .map(normalizeSchemaObject)
   }
 }

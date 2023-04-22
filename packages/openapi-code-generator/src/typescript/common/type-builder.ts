@@ -130,11 +130,13 @@ export class TypeBuilder {
 
           // TODO better support
           const additionalProperties =
-            schemaObject.additionalProperties || properties.length === 0
+            schemaObject.additionalProperties
               ? "[key: string]: unknown"
               : ""
 
-          result.push(object([...properties, additionalProperties]))
+          const emptyObject = !additionalProperties && properties.length === 0 ? "[key: string]:  never" : ""
+
+          result.push(object([...properties, additionalProperties, emptyObject]))
           break
         }
 
