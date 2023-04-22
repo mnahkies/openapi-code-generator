@@ -79,7 +79,7 @@ export interface IRRequestBody {
 }
 
 export interface IRResponse {
-  // TODO support response headers
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/45
   headers: unknown
   description?: string
   content?: {
@@ -89,6 +89,6 @@ export interface IRResponse {
 
 export interface IRMediaType {
   schema: MaybeIRModel
-  // TODO support encoding
+  // todo: https://github.com/mnahkies/openapi-code-generator/issues/53
   encoding: unknown
 }

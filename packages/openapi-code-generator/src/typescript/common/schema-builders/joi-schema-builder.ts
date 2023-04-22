@@ -99,7 +99,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
   }
 
   protected string(model: IRModelString, required: boolean) {
-    // TODO: enum support
+    // todo: enum support
 
     return [
       this.joi,
