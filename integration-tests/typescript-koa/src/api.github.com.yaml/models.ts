@@ -108,6 +108,26 @@ export type t_actor = {
   url: string
 }
 
+export type t_added_to_project_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  project_card?: {
+    column_name: string
+    id: number
+    previous_column_name?: string
+    project_id: number
+    project_url: string
+    url: string
+  }
+  url: string
+}
+
 export type t_alert_auto_dismissed_at = string | null
 
 export type t_alert_created_at = string
@@ -205,10 +225,24 @@ export type t_artifact = {
   } | null
 }
 
+export type t_assigned_issue_event = {
+  actor: t_simple_user
+  assignee: t_simple_user
+  assigner: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_integration
+  url: string
+}
+
 export type t_authentication_token = {
   expires_at: string
   permissions?: {
-    [key: string]: unknown
+    [key: string]: never
   }
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
@@ -272,13 +306,13 @@ export type t_base_gist = {
     [key: string]: unknown
   }
   forks?: {
-    [key: string]: unknown
+    [key: string]: never
   }[]
   forks_url: string
   git_pull_url: string
   git_push_url: string
   history?: {
-    [key: string]: unknown
+    [key: string]: never
   }[]
   html_url: string
   id: string
@@ -1283,11 +1317,46 @@ export type t_contributor_activity = {
   }[]
 }
 
+export type t_converted_note_to_issue_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_integration
+  project_card?: {
+    column_name: string
+    id: number
+    previous_column_name?: string
+    project_id: number
+    project_url: string
+    url: string
+  }
+  url: string
+}
+
 export type t_custom_deployment_rule_app = {
   id: number
   integration_url: string
   node_id: string
   slug: string
+}
+
+export type t_demilestoned_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  milestone: {
+    title: string
+  }
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
 }
 
 export type t_dependabot_alert = {
@@ -1575,10 +1644,23 @@ export type t_email = {
 }
 
 export type t_empty_object = {
-  [key: string]: unknown
+  [key: string]: never
 }
 
 export type t_enabled_repositories = "all" | "none" | "selected"
+
+export type t_enterprise = {
+  avatar_url: string
+  created_at: string | null
+  description?: string | null
+  html_url: string
+  id: number
+  name: string
+  node_id: string
+  slug: string
+  updated_at: string | null
+  website_url?: string | null
+}
 
 export type t_environment = {
   created_at: string
@@ -1587,9 +1669,28 @@ export type t_environment = {
   id: number
   name: string
   node_id: string
-  protection_rules?: {
-    [key: string]: unknown
-  }[]
+  protection_rules?: (
+    | {
+        id: number
+        node_id: string
+        type: string
+        wait_timer?: t_wait_timer
+      }
+    | {
+        id: number
+        node_id: string
+        reviewers?: {
+          reviewer?: t_simple_user | t_team
+          type?: t_deployment_reviewer_type
+        }[]
+        type: string
+      }
+    | {
+        id: number
+        node_id: string
+        type: string
+      }
+  )[]
   updated_at: string
   url: string
 }
@@ -1877,13 +1978,13 @@ export type t_gist_simple = {
       [key: string]: unknown
     }
     forks?: {
-      [key: string]: unknown
+      [key: string]: never
     }[]
     forks_url: string
     git_pull_url: string
     git_push_url: string
     history?: {
-      [key: string]: unknown
+      [key: string]: never
     }[]
     html_url: string
     id: string
@@ -2037,7 +2138,7 @@ export type t_gpg_key = {
     raw_key?: string | null
     revoked?: boolean
     subkeys?: {
-      [key: string]: unknown
+      [key: string]: never
     }[]
   }[]
 }
@@ -2173,9 +2274,7 @@ export type t_import = {
 
 export type t_installation = {
   access_tokens_url: string
-  account: {
-    [key: string]: unknown
-  } | null
+  account: t_simple_user | t_enterprise | null
   app_id: number
   app_slug: string
   contact_email?: string | null
@@ -2235,9 +2334,7 @@ export type t_integration = {
 }
 
 export type t_integration_installation_request = {
-  account: {
-    [key: string]: unknown
-  }
+  account: t_simple_user | t_enterprise
   created_at: string
   id: number
   node_id?: string
@@ -2365,9 +2462,22 @@ export type t_issue_event_dismissed_review = {
   state: string
 }
 
-export type t_issue_event_for_issue = {
-  [key: string]: unknown
-}
+export type t_issue_event_for_issue =
+  | t_labeled_issue_event
+  | t_unlabeled_issue_event
+  | t_assigned_issue_event
+  | t_unassigned_issue_event
+  | t_milestoned_issue_event
+  | t_demilestoned_issue_event
+  | t_renamed_issue_event
+  | t_review_requested_issue_event
+  | t_review_request_removed_issue_event
+  | t_review_dismissed_issue_event
+  | t_locked_issue_event
+  | t_added_to_project_issue_event
+  | t_moved_column_in_project_issue_event
+  | t_removed_from_project_issue_event
+  | t_converted_note_to_issue_issue_event
 
 export type t_issue_event_label = {
   color: string | null
@@ -2522,6 +2632,22 @@ export type t_label_search_result_item = {
   url: string
 }
 
+export type t_labeled_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  label: {
+    color: string
+    name: string
+  }
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
+}
+
 export type t_language = {
   [key: string]: unknown
 }
@@ -2578,6 +2704,19 @@ export type t_link = {
 export type t_link_with_type = {
   href: string
   type: string
+}
+
+export type t_locked_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  lock_reason: string | null
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
 }
 
 export type t_marketplace_account = {
@@ -2682,6 +2821,21 @@ export type t_milestone = {
   url: string
 }
 
+export type t_milestoned_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  milestone: {
+    title: string
+  }
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
+}
+
 export type t_minimal_repository = {
   allow_forking?: boolean
   archive_url: string
@@ -2782,6 +2936,26 @@ export type t_minimal_repository = {
   watchers?: number
   watchers_count?: number
   web_commit_signoff_required?: boolean
+}
+
+export type t_moved_column_in_project_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  project_card?: {
+    column_name: string
+    id: number
+    previous_column_name?: string
+    project_id: number
+    project_url: string
+    url: string
+  }
+  url: string
 }
 
 export type t_nullable_alert_updated_at = string | null
@@ -3760,9 +3934,7 @@ export type t_pending_deployment = {
     url?: string
   }
   reviewers: {
-    reviewer?: {
-      [key: string]: unknown
-    }
+    reviewer?: t_simple_user | t_team
     type?: t_deployment_reviewer_type
   }[]
   wait_timer: number
@@ -4650,6 +4822,42 @@ export type t_release_notes_content = {
   name: string
 }
 
+export type t_removed_from_project_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  project_card?: {
+    column_name: string
+    id: number
+    previous_column_name?: string
+    project_id: number
+    project_url: string
+    url: string
+  }
+  url: string
+}
+
+export type t_renamed_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  rename: {
+    from: string
+    to: string
+  }
+  url: string
+}
+
 export type t_repo_codespaces_secret = {
   created_at: string
   name: string
@@ -5228,9 +5436,7 @@ export type t_repository_ruleset = {
   }
   bypass_actors?: t_repository_ruleset_bypass_actor[]
   bypass_mode?: "none" | "repository" | "organization"
-  conditions?: {
-    [key: string]: unknown
-  }
+  conditions?: t_repository_ruleset_conditions | t_org_ruleset_conditions
   enforcement: t_repository_rule_enforcement
   id: number
   name: string
@@ -5316,6 +5522,65 @@ export type t_review_comment = {
   updated_at: string
   url: string
   user: t_nullable_simple_user
+}
+
+export type t_review_custom_gates_comment_required = {
+  comment: string
+  environment_name: string
+}
+
+export type t_review_custom_gates_state_required = {
+  comment?: string
+  environment_name: string
+  state: "approved" | "rejected"
+}
+
+export type t_review_dismissed_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  dismissed_review: {
+    dismissal_commit_id?: string
+    dismissal_message: string | null
+    review_id: number
+    state: string
+  }
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
+}
+
+export type t_review_request_removed_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  requested_reviewer?: t_simple_user
+  requested_team?: t_team
+  review_requester: t_simple_user
+  url: string
+}
+
+export type t_review_requested_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  requested_reviewer?: t_simple_user
+  requested_team?: t_team
+  review_requester: t_simple_user
+  url: string
 }
 
 export type t_root = {
@@ -5613,9 +5878,27 @@ export type t_ssh_signing_key = {
   title: string
 }
 
+export type t_stargazer = {
+  starred_at: string
+  user: t_nullable_simple_user
+}
+
 export type t_starred_repository = {
   repo: t_repository
   starred_at: string
+}
+
+export type t_state_change_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  state_reason?: string | null
+  url: string
 }
 
 export type t_status = {
@@ -5972,8 +6255,155 @@ export type t_thread_subscription = {
   url: string
 }
 
-export type t_timeline_issue_events = {
-  [key: string]: unknown
+export type t_timeline_assigned_issue_event = {
+  actor: t_simple_user
+  assignee: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
+}
+
+export type t_timeline_comment_event = {
+  actor: t_simple_user
+  author_association: t_author_association
+  body?: string
+  body_html?: string
+  body_text?: string
+  created_at: string
+  event: string
+  html_url: string
+  id: number
+  issue_url: string
+  node_id: string
+  performed_via_github_app?: t_nullable_integration
+  reactions?: t_reaction_rollup
+  updated_at: string
+  url: string
+  user: t_simple_user
+}
+
+export type t_timeline_commit_commented_event = {
+  comments?: t_commit_comment[]
+  commit_id?: string
+  event?: string
+  node_id?: string
+}
+
+export type t_timeline_committed_event = {
+  author: {
+    date: string
+    email: string
+    name: string
+  }
+  committer: {
+    date: string
+    email: string
+    name: string
+  }
+  event?: string
+  html_url: string
+  message: string
+  node_id: string
+  parents: {
+    html_url: string
+    sha: string
+    url: string
+  }[]
+  sha: string
+  tree: {
+    sha: string
+    url: string
+  }
+  url: string
+  verification: {
+    payload: string | null
+    reason: string
+    signature: string | null
+    verified: boolean
+  }
+}
+
+export type t_timeline_cross_referenced_event = {
+  actor?: t_simple_user
+  created_at: string
+  event: string
+  source: {
+    issue?: t_issue
+    type?: string
+  }
+  updated_at: string
+}
+
+export type t_timeline_issue_events =
+  | t_labeled_issue_event
+  | t_unlabeled_issue_event
+  | t_milestoned_issue_event
+  | t_demilestoned_issue_event
+  | t_renamed_issue_event
+  | t_review_requested_issue_event
+  | t_review_request_removed_issue_event
+  | t_review_dismissed_issue_event
+  | t_locked_issue_event
+  | t_added_to_project_issue_event
+  | t_moved_column_in_project_issue_event
+  | t_removed_from_project_issue_event
+  | t_converted_note_to_issue_issue_event
+  | t_timeline_comment_event
+  | t_timeline_cross_referenced_event
+  | t_timeline_committed_event
+  | t_timeline_reviewed_event
+  | t_timeline_line_commented_event
+  | t_timeline_commit_commented_event
+  | t_timeline_assigned_issue_event
+  | t_timeline_unassigned_issue_event
+  | t_state_change_issue_event
+
+export type t_timeline_line_commented_event = {
+  comments?: t_pull_request_review_comment[]
+  event?: string
+  node_id?: string
+}
+
+export type t_timeline_reviewed_event = {
+  _links: {
+    html: {
+      href: string
+    }
+    pull_request: {
+      href: string
+    }
+  }
+  author_association: t_author_association
+  body: string | null
+  body_html?: string
+  body_text?: string
+  commit_id: string
+  event: string
+  html_url: string
+  id: number
+  node_id: string
+  pull_request_url: string
+  state: string
+  submitted_at?: string
+  user: t_simple_user
+}
+
+export type t_timeline_unassigned_issue_event = {
+  actor: t_simple_user
+  assignee: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
 }
 
 export type t_topic = {
@@ -6021,6 +6451,36 @@ export type t_traffic = {
   count: number
   timestamp: string
   uniques: number
+}
+
+export type t_unassigned_issue_event = {
+  actor: t_simple_user
+  assignee: t_simple_user
+  assigner: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
+}
+
+export type t_unlabeled_issue_event = {
+  actor: t_simple_user
+  commit_id: string | null
+  commit_url: string | null
+  created_at: string
+  event: string
+  id: number
+  label: {
+    color: string
+    name: string
+  }
+  node_id: string
+  performed_via_github_app: t_nullable_integration
+  url: string
 }
 
 export type t_user_marketplace_purchase = {
@@ -7122,9 +7582,9 @@ export type t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = {
   required_workflow_id: number
 }
 
-export type t_ActionsReviewCustomGatesForRunBodySchema = {
-  [key: string]: unknown
-}
+export type t_ActionsReviewCustomGatesForRunBodySchema =
+  | t_review_custom_gates_comment_required
+  | t_review_custom_gates_state_required
 
 export type t_ActionsReviewCustomGatesForRunParamSchema = {
   owner: string
@@ -7787,13 +8247,13 @@ export type t_BillingGetSharedStorageBillingUserParamSchema = {
 export type t_ChecksCreateBodySchema =
   | {
       status: {
-        [key: string]: unknown
+        [key: string]: never
       }
       [key: string]: unknown
     }
   | {
       status?: {
-        [key: string]: unknown
+        [key: string]: never
       }
       [key: string]: unknown
     }
@@ -8166,9 +8626,7 @@ export type t_CodespacesCreateOrUpdateRepoSecretParamSchema = {
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserBodySchema = {
   encrypted_value?: string
   key_id: string
-  selected_repository_ids?: {
-    [key: string]: unknown
-  }[]
+  selected_repository_ids?: (number | string)[]
 }
 
 export type t_CodespacesCreateOrUpdateSecretForAuthenticatedUserParamSchema = {
@@ -12825,9 +13283,14 @@ export type t_ReposUpdateInformationAboutPagesSiteBodySchema = {
   build_type?: "legacy" | "workflow"
   cname?: string | null
   https_enforced?: boolean
-  source?: {
-    [key: string]: unknown
-  }
+  source?:
+    | "gh-pages"
+    | "master"
+    | "master /docs"
+    | {
+        branch: string
+        path: "/" | "/docs"
+      }
 }
 
 export type t_ReposUpdateInformationAboutPagesSiteParamSchema = {

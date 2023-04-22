@@ -217,6 +217,8 @@ import {
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
+  t_review_custom_gates_comment_required,
+  t_review_custom_gates_state_required,
   t_root,
   t_runner,
   t_runner_application,
@@ -234,6 +236,7 @@ import {
   t_snapshot,
   t_social_account,
   t_ssh_signing_key,
+  t_stargazer,
   t_starred_repository,
   t_status,
   t_status_check_policy,
@@ -394,7 +397,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<400, t_scim_error>
@@ -1103,7 +1106,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         404,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
   > {
@@ -1700,7 +1703,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<403, t_basic_error>
@@ -1812,7 +1815,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<403, t_basic_error>
@@ -1939,7 +1942,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<403, t_basic_error>
@@ -3613,7 +3616,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<400, t_scim_error>
@@ -3676,9 +3679,10 @@ export class ApiClient extends AbstractFetchClient {
   async interactionsGetRestrictionsForOrg(p: { org: string }): Promise<
     Response<
       200,
-      {
-        [key: string]: unknown
-      }
+      | t_interaction_limit_response
+      | {
+          [key: string]: never
+        }
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
@@ -3913,7 +3917,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<304, void>
@@ -4152,7 +4156,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<204, void>
@@ -5484,7 +5488,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         201,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<304, void>
@@ -5648,7 +5652,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         201,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<304, void>
@@ -6948,9 +6952,9 @@ export class ApiClient extends AbstractFetchClient {
     owner: string
     repo: string
     runId: number
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | t_review_custom_gates_comment_required
+      | t_review_custom_gates_state_required
   }): Promise<Response<204, void>> {
     const url =
       this.basePath +
@@ -8325,13 +8329,13 @@ export class ApiClient extends AbstractFetchClient {
     requestBody:
       | {
           status: {
-            [key: string]: unknown
+            [key: string]: never
           }
           [key: string]: unknown
         }
       | {
           status?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           [key: string]: unknown
         }
@@ -11110,7 +11114,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<400, t_scim_error>
@@ -11328,9 +11332,10 @@ export class ApiClient extends AbstractFetchClient {
   }): Promise<
     Response<
       200,
-      {
-        [key: string]: unknown
-      }
+      | t_interaction_limit_response
+      | {
+          [key: string]: never
+        }
     >
   > {
     const url =
@@ -12331,7 +12336,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<403, void>
@@ -12622,9 +12627,14 @@ export class ApiClient extends AbstractFetchClient {
       build_type?: "legacy" | "workflow"
       cname?: string | null
       https_enforced?: boolean
-      source?: {
-        [key: string]: unknown
-      }
+      source?:
+        | "gh-pages"
+        | "master"
+        | "master /docs"
+        | {
+            branch: string
+            path: "/" | "/docs"
+          }
     }
   }): Promise<
     | Response<204, void>
@@ -14282,12 +14292,7 @@ export class ApiClient extends AbstractFetchClient {
     perPage?: number
     page?: number
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_simple_user[] | t_stargazer[]>
     | Response<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
@@ -14303,7 +14308,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<204, void>
@@ -14325,7 +14330,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<204, void>
@@ -14344,7 +14349,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<204, void>
@@ -16073,9 +16078,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       encrypted_value?: string
       key_id: string
-      selected_repository_ids?: {
-        [key: string]: unknown
-      }[]
+      selected_repository_ids?: (number | string)[]
     }
   }): Promise<
     | Response<201, t_empty_object>
@@ -16235,7 +16238,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         202,
         {
-          [key: string]: unknown
+          [key: string]: never
         }
       >
     | Response<304, void>
@@ -16731,9 +16734,10 @@ export class ApiClient extends AbstractFetchClient {
   async interactionsGetRestrictionsForAuthenticatedUser(): Promise<
     | Response<
         200,
-        {
-          [key: string]: unknown
-        }
+        | t_interaction_limit_response
+        | {
+            [key: string]: never
+          }
       >
     | Response<204, void>
   > {
@@ -18226,14 +18230,7 @@ export class ApiClient extends AbstractFetchClient {
     direction?: "asc" | "desc"
     perPage?: number
     page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
-  > {
+  }): Promise<Response<200, t_starred_repository[] | t_repository[]>> {
     const url = this.basePath + `/users/${p["username"]}/starred`
     const query = this._query({
       sort: p["sort"],
