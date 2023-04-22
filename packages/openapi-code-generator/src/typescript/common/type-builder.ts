@@ -84,6 +84,10 @@ export class TypeBuilder {
       result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
     }
 
+    if (schemaObject.type === "object" && schemaObject.anyOf.length) {
+      result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
+    }
+
     if (result.length === 0) {
       switch (schemaObject.type) {
         case "array": {
@@ -126,11 +130,13 @@ export class TypeBuilder {
 
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
           const additionalProperties =
-            schemaObject.additionalProperties || properties.length === 0
+            schemaObject.additionalProperties
               ? "[key: string]: unknown"
               : ""
 
-          result.push(object([...properties, additionalProperties]))
+          const emptyObject = !additionalProperties && properties.length === 0 ? "[key: string]:  never" : ""
+
+          result.push(object([...properties, additionalProperties, emptyObject]))
           break
         }
 

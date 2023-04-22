@@ -1309,6 +1309,7 @@ import {
   t_actions_variable,
   t_actions_workflow_access_to_repository,
   t_actor,
+  t_added_to_project_issue_event,
   t_alert_auto_dismissed_at,
   t_alert_created_at,
   t_alert_dismissed_at,
@@ -1322,6 +1323,7 @@ import {
   t_api_overview,
   t_app_permissions,
   t_artifact,
+  t_assigned_issue_event,
   t_authentication_token,
   t_author_association,
   t_authorization,
@@ -1402,7 +1404,9 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_converted_note_to_issue_issue_event,
   t_custom_deployment_rule_app,
+  t_demilestoned_issue_event,
   t_dependabot_alert,
   t_dependabot_alert_package,
   t_dependabot_alert_security_advisory,
@@ -1424,6 +1428,7 @@ import {
   t_email,
   t_empty_object,
   t_enabled_repositories,
+  t_enterprise,
   t_environment,
   t_environment_approvals,
   t_event,
@@ -1468,12 +1473,14 @@ import {
   t_key_simple,
   t_label,
   t_label_search_result_item,
+  t_labeled_issue_event,
   t_language,
   t_license,
   t_license_content,
   t_license_simple,
   t_link,
   t_link_with_type,
+  t_locked_issue_event,
   t_marketplace_account,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
@@ -1481,7 +1488,9 @@ import {
   t_metadata,
   t_migration,
   t_milestone,
+  t_milestoned_issue_event,
   t_minimal_repository,
+  t_moved_column_in_project_issue_event,
   t_nullable_alert_updated_at,
   t_nullable_code_of_conduct_simple,
   t_nullable_codespace_machine,
@@ -1552,6 +1561,8 @@ import {
   t_release,
   t_release_asset,
   t_release_notes_content,
+  t_removed_from_project_issue_event,
+  t_renamed_issue_event,
   t_repo_codespaces_secret,
   t_repo_required_workflow,
   t_repo_search_result_item,
@@ -1587,6 +1598,11 @@ import {
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
+  t_review_custom_gates_comment_required,
+  t_review_custom_gates_state_required,
+  t_review_dismissed_issue_event,
+  t_review_request_removed_issue_event,
+  t_review_requested_issue_event,
   t_root,
   t_runner,
   t_runner_application,
@@ -1613,7 +1629,9 @@ import {
   t_simple_user,
   t_social_account,
   t_ssh_signing_key,
+  t_stargazer,
   t_starred_repository,
+  t_state_change_issue_event,
   t_status,
   t_status_check_policy,
   t_tag,
@@ -1629,10 +1647,20 @@ import {
   t_team_simple,
   t_thread,
   t_thread_subscription,
+  t_timeline_assigned_issue_event,
+  t_timeline_comment_event,
+  t_timeline_commit_commented_event,
+  t_timeline_committed_event,
+  t_timeline_cross_referenced_event,
   t_timeline_issue_events,
+  t_timeline_line_commented_event,
+  t_timeline_reviewed_event,
+  t_timeline_unassigned_issue_event,
   t_topic,
   t_topic_search_result_item,
   t_traffic,
+  t_unassigned_issue_event,
+  t_unlabeled_issue_event,
   t_user_marketplace_purchase,
   t_user_search_result_item,
   t_validation_error,
@@ -1865,6 +1893,8 @@ import {
   s_repository_subscription,
   s_required_workflow,
   s_review_comment,
+  s_review_custom_gates_comment_required,
+  s_review_custom_gates_state_required,
   s_root,
   s_runner,
   s_runner_application,
@@ -1882,6 +1912,7 @@ import {
   s_snapshot,
   s_social_account,
   s_ssh_signing_key,
+  s_stargazer,
   s_starred_repository,
   s_status,
   s_status_check_policy,
@@ -2003,7 +2034,7 @@ export type AppsRedeliverWebhookDelivery = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<400, t_scim_error>
@@ -2396,7 +2427,7 @@ export type GistsCheckIsStarred = (
   | Response<
       404,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
 >
@@ -2711,7 +2742,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<403, t_basic_error>
@@ -2775,7 +2806,7 @@ export type OrgsUpdatePatAccesses = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<403, t_basic_error>
@@ -2838,7 +2869,7 @@ export type OrgsDelete = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<403, t_basic_error>
@@ -3807,7 +3838,7 @@ export type OrgsRedeliverWebhookDelivery = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<400, t_scim_error>
@@ -3847,9 +3878,10 @@ export type InteractionsGetRestrictionsForOrg = (
 ) => Promise<
   Response<
     200,
-    {
-      [key: string]: unknown
-    }
+    | t_interaction_limit_response
+    | {
+        [key: string]: never
+      }
   >
 >
 
@@ -3969,7 +4001,7 @@ export type CodespacesDeleteFromOrganization = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<304, void>
@@ -4099,7 +4131,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<204, void>
@@ -4734,7 +4766,7 @@ export type ProjectsMoveCard = (
   | Response<
       201,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<304, void>
@@ -4854,7 +4886,7 @@ export type ProjectsMoveColumn = (
   | Response<
       201,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<304, void>
@@ -7516,7 +7548,7 @@ export type ReposRedeliverWebhookDelivery = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<400, t_scim_error>
@@ -7632,9 +7664,10 @@ export type InteractionsGetRestrictionsForRepo = (
 ) => Promise<
   Response<
     200,
-    {
-      [key: string]: unknown
-    }
+    | t_interaction_limit_response
+    | {
+        [key: string]: never
+      }
   >
 >
 
@@ -8100,7 +8133,7 @@ export type ReposEnableLfsForRepo = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<403, void>
@@ -9075,12 +9108,7 @@ export type ActivityListStargazersForRepo = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_simple_user[] | t_stargazer[]>
   | Response<422, t_validation_error>
 >
 
@@ -9092,7 +9120,7 @@ export type ReposGetCodeFrequencyStats = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<204, void>
@@ -9106,7 +9134,7 @@ export type ReposGetCommitActivityStats = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<204, void>
@@ -9120,7 +9148,7 @@ export type ReposGetContributorsStats = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<204, void>
@@ -10105,7 +10133,7 @@ export type CodespacesDeleteForAuthenticatedUser = (
   | Response<
       202,
       {
-        [key: string]: unknown
+        [key: string]: never
       }
     >
   | Response<304, void>
@@ -10448,9 +10476,10 @@ export type InteractionsGetRestrictionsForAuthenticatedUser = (
 ) => Promise<
   | Response<
       200,
-      {
-        [key: string]: unknown
-      }
+      | t_interaction_limit_response
+      | {
+          [key: string]: never
+        }
     >
   | Response<204, void>
 >
@@ -11376,14 +11405,7 @@ export type ActivityListReposStarredByUser = (
     void
   >,
   ctx: Context
-) => Promise<
-  Response<
-    200,
-    {
-      [key: string]: unknown
-    }
-  >
->
+) => Promise<Response<200, t_starred_repository[] | t_repository[]>>
 
 export type ActivityListReposWatchedByUser = (
   params: Params<
@@ -19329,7 +19351,10 @@ export function bootstrap(
   })
 
   const interactionsGetRestrictionsForOrgResponseValidator =
-    responseValidationFactory([["200", z.object({})]], undefined)
+    responseValidationFactory(
+      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      undefined
+    )
 
   router.get(
     "interactionsGetRestrictionsForOrg",
@@ -26071,7 +26096,10 @@ export function bootstrap(
     run_id: z.coerce.number(),
   })
 
-  const actionsReviewCustomGatesForRunBodySchema = z.object({})
+  const actionsReviewCustomGatesForRunBodySchema = z.union([
+    s_review_custom_gates_comment_required,
+    s_review_custom_gates_state_required,
+  ])
 
   const actionsReviewCustomGatesForRunResponseValidator =
     responseValidationFactory([["204", z.void()]], undefined)
@@ -34789,7 +34817,10 @@ export function bootstrap(
   })
 
   const interactionsGetRestrictionsForRepoResponseValidator =
-    responseValidationFactory([["200", z.object({})]], undefined)
+    responseValidationFactory(
+      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      undefined
+    )
 
   router.get(
     "interactionsGetRestrictionsForRepo",
@@ -37290,7 +37321,10 @@ export function bootstrap(
     cname: z.coerce.string().optional().nullable(),
     https_enforced: z.coerce.boolean().optional(),
     build_type: z.enum(["legacy", "workflow"]).optional(),
-    source: z.object({}).optional(),
+    source: z.union([
+      z.enum(["gh-pages", "master", "master /docs"]),
+      z.object({ branch: z.coerce.string(), path: z.enum(["/", "/docs"]) }),
+    ]),
   })
 
   const reposUpdateInformationAboutPagesSiteResponseValidator =
@@ -40518,7 +40552,7 @@ export function bootstrap(
   const activityListStargazersForRepoResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.object({})],
+        ["200", z.union([z.array(s_simple_user), z.array(s_stargazer)])],
         ["422", s_validation_error],
       ],
       undefined
@@ -44118,7 +44152,9 @@ export function bootstrap(
     {
       encrypted_value: z.coerce.string().optional(),
       key_id: z.coerce.string(),
-      selected_repository_ids: z.array(z.object({})).optional(),
+      selected_repository_ids: z
+        .array(z.union([z.coerce.number(), z.coerce.string()]))
+        .optional(),
     }
   )
 
@@ -45559,7 +45595,7 @@ export function bootstrap(
   const interactionsGetRestrictionsForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.object({})],
+        ["200", z.union([s_interaction_limit_response, z.object({})])],
         ["204", z.void()],
       ],
       undefined
@@ -49052,7 +49088,15 @@ export function bootstrap(
   })
 
   const activityListReposStarredByUserResponseValidator =
-    responseValidationFactory([["200", z.object({})]], undefined)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([z.array(s_starred_repository), z.array(s_repository)]),
+        ],
+      ],
+      undefined
+    )
 
   router.get(
     "activityListReposStarredByUser",
