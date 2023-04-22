@@ -33,6 +33,7 @@ import {
   t_deleted_external_account,
   t_deleted_invoice,
   t_deleted_invoiceitem,
+  t_deleted_payment_source,
   t_deleted_person,
   t_deleted_plan,
   t_deleted_product,
@@ -154,7 +155,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<Response<200, t_account> | Response<StatusCode, t_error>> {
@@ -193,15 +194,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getAccounts(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -238,9 +244,23 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       requestBody?: {
         account_token?: string
-        bank_account?: {
-          [key: string]: unknown
-        }
+        bank_account?:
+          | {
+              account_holder_name?: string
+              account_holder_type?: "company" | "individual"
+              account_number: string
+              account_type?: "checking" | "futsu" | "savings" | "toza"
+              country: string
+              currency?: string
+              documents?: {
+                bank_account_ownership_verification?: {
+                  files?: string[]
+                }
+              }
+              object?: "bank_account"
+              routing_number?: string
+            }
+          | string
         business_profile?: {
           mcc?: string
           name?: string
@@ -255,9 +275,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           support_email?: string
           support_phone?: string
-          support_url?: {
-            [key: string]: unknown
-          }
+          support_url?: string | ""
           url?: string
         }
         business_type?:
@@ -501,16 +519,18 @@ export class ApiClient extends AbstractFetchClient {
             state?: string
             town?: string
           }
-          dob?: {
-            [key: string]: unknown
-          }
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ""
           email?: string
           first_name?: string
           first_name_kana?: string
           first_name_kanji?: string
-          full_name_aliases?: {
-            [key: string]: unknown
-          }
+          full_name_aliases?: string[] | ""
           gender?: string
           id_number?: string
           id_number_secondary?: string
@@ -518,9 +538,11 @@ export class ApiClient extends AbstractFetchClient {
           last_name_kana?: string
           last_name_kanji?: string
           maiden_name?: string
-          metadata?: {
-            [key: string]: unknown
-          }
+          metadata?:
+            | {
+                [key: string]: unknown
+              }
+            | ""
           phone?: string
           political_exposure?: "existing" | "none"
           registered_address?: {
@@ -543,9 +565,11 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
         }
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         settings?: {
           branding?: {
             icon?: string
@@ -566,12 +590,8 @@ export class ApiClient extends AbstractFetchClient {
               cvc_failure?: boolean
             }
             statement_descriptor_prefix?: string
-            statement_descriptor_prefix_kana?: {
-              [key: string]: unknown
-            }
-            statement_descriptor_prefix_kanji?: {
-              [key: string]: unknown
-            }
+            statement_descriptor_prefix_kana?: string | ""
+            statement_descriptor_prefix_kanji?: string | ""
           }
           payments?: {
             statement_descriptor?: string
@@ -581,9 +601,7 @@ export class ApiClient extends AbstractFetchClient {
           payouts?: {
             debit_negative_balances?: boolean
             schedule?: {
-              delay_days?: {
-                [key: string]: unknown
-              }
+              delay_days?: "minimum" | number
               interval?: "daily" | "manual" | "monthly" | "weekly"
               monthly_anchor?: number
               weekly_anchor?:
@@ -629,7 +647,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccount(p: {
     account: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_account> | Response<StatusCode, t_error>
@@ -649,7 +667,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_account> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
@@ -682,9 +700,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         support_email?: string
         support_phone?: string
-        support_url?: {
-          [key: string]: unknown
-        }
+        support_url?: string | ""
         url?: string
       }
       business_type?:
@@ -927,16 +943,18 @@ export class ApiClient extends AbstractFetchClient {
           state?: string
           town?: string
         }
-        dob?: {
-          [key: string]: unknown
-        }
+        dob?:
+          | {
+              day: number
+              month: number
+              year: number
+            }
+          | ""
         email?: string
         first_name?: string
         first_name_kana?: string
         first_name_kanji?: string
-        full_name_aliases?: {
-          [key: string]: unknown
-        }
+        full_name_aliases?: string[] | ""
         gender?: string
         id_number?: string
         id_number_secondary?: string
@@ -944,9 +962,11 @@ export class ApiClient extends AbstractFetchClient {
         last_name_kana?: string
         last_name_kanji?: string
         maiden_name?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         phone?: string
         political_exposure?: "existing" | "none"
         registered_address?: {
@@ -969,9 +989,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       settings?: {
         branding?: {
           icon?: string
@@ -992,12 +1014,8 @@ export class ApiClient extends AbstractFetchClient {
             cvc_failure?: boolean
           }
           statement_descriptor_prefix?: string
-          statement_descriptor_prefix_kana?: {
-            [key: string]: unknown
-          }
-          statement_descriptor_prefix_kanji?: {
-            [key: string]: unknown
-          }
+          statement_descriptor_prefix_kana?: string | ""
+          statement_descriptor_prefix_kanji?: string | ""
         }
         payments?: {
           statement_descriptor?: string
@@ -1007,9 +1025,7 @@ export class ApiClient extends AbstractFetchClient {
         payouts?: {
           debit_negative_balances?: boolean
           schedule?: {
-            delay_days?: {
-              [key: string]: unknown
-            }
+            delay_days?: "minimum" | number
             interval?: "daily" | "manual" | "monthly" | "weekly"
             monthly_anchor?: number
             weekly_anchor?:
@@ -1053,9 +1069,23 @@ export class ApiClient extends AbstractFetchClient {
   async postAccountsAccountBankAccounts(p: {
     account: string
     requestBody?: {
-      bank_account?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            account_type?: "checking" | "futsu" | "savings" | "toza"
+            country: string
+            currency?: string
+            documents?: {
+              bank_account_ownership_verification?: {
+                files?: string[]
+              }
+            }
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
       default_for_currency?: boolean
       expand?: string[]
       external_account?: string
@@ -1081,7 +1111,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
@@ -1103,7 +1133,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_external_account> | Response<StatusCode, t_error>
@@ -1143,9 +1173,11 @@ export class ApiClient extends AbstractFetchClient {
       exp_month?: string
       exp_year?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
     }
   }): Promise<
@@ -1167,7 +1199,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -1198,7 +1230,7 @@ export class ApiClient extends AbstractFetchClient {
     capability: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_capability> | Response<StatusCode, t_error>> {
     const url =
@@ -1243,15 +1275,13 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
         200,
         {
-          data: {
-            [key: string]: unknown
-          }[]
+          data: (t_bank_account | t_card)[]
           has_more: boolean
           object: "list"
           url: string
@@ -1279,9 +1309,23 @@ export class ApiClient extends AbstractFetchClient {
   async postAccountsAccountExternalAccounts(p: {
     account: string
     requestBody?: {
-      bank_account?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            account_type?: "checking" | "futsu" | "savings" | "toza"
+            country: string
+            currency?: string
+            documents?: {
+              bank_account_ownership_verification?: {
+                files?: string[]
+              }
+            }
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
       default_for_currency?: boolean
       expand?: string[]
       external_account?: string
@@ -1307,7 +1351,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
@@ -1330,7 +1374,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_external_account> | Response<StatusCode, t_error>
@@ -1371,9 +1415,11 @@ export class ApiClient extends AbstractFetchClient {
       exp_month?: string
       exp_year?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
     }
   }): Promise<
@@ -1422,7 +1468,7 @@ export class ApiClient extends AbstractFetchClient {
     }
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -1483,9 +1529,13 @@ export class ApiClient extends AbstractFetchClient {
         state?: string
         town?: string
       }
-      dob?: {
-        [key: string]: unknown
-      }
+      dob?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
       documents?: {
         company_authorization?: {
           files?: string[]
@@ -1502,9 +1552,7 @@ export class ApiClient extends AbstractFetchClient {
       first_name?: string
       first_name_kana?: string
       first_name_kanji?: string
-      full_name_aliases?: {
-        [key: string]: unknown
-      }
+      full_name_aliases?: string[] | ""
       gender?: string
       id_number?: string
       id_number_secondary?: string
@@ -1512,9 +1560,11 @@ export class ApiClient extends AbstractFetchClient {
       last_name_kana?: string
       last_name_kanji?: string
       maiden_name?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nationality?: string
       person_token?: string
       phone?: string
@@ -1531,9 +1581,7 @@ export class ApiClient extends AbstractFetchClient {
         director?: boolean
         executive?: boolean
         owner?: boolean
-        percent_ownership?: {
-          [key: string]: unknown
-        }
+        percent_ownership?: number | ""
         representative?: boolean
         title?: string
       }
@@ -1565,7 +1613,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     person: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>> {
     const url =
@@ -1585,7 +1633,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     person: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_person> | Response<StatusCode, t_error>> {
     const url =
@@ -1631,9 +1679,13 @@ export class ApiClient extends AbstractFetchClient {
         state?: string
         town?: string
       }
-      dob?: {
-        [key: string]: unknown
-      }
+      dob?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
       documents?: {
         company_authorization?: {
           files?: string[]
@@ -1650,9 +1702,7 @@ export class ApiClient extends AbstractFetchClient {
       first_name?: string
       first_name_kana?: string
       first_name_kanji?: string
-      full_name_aliases?: {
-        [key: string]: unknown
-      }
+      full_name_aliases?: string[] | ""
       gender?: string
       id_number?: string
       id_number_secondary?: string
@@ -1660,9 +1710,11 @@ export class ApiClient extends AbstractFetchClient {
       last_name_kana?: string
       last_name_kanji?: string
       maiden_name?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nationality?: string
       person_token?: string
       phone?: string
@@ -1679,9 +1731,7 @@ export class ApiClient extends AbstractFetchClient {
         director?: boolean
         executive?: boolean
         owner?: boolean
-        percent_ownership?: {
-          [key: string]: unknown
-        }
+        percent_ownership?: number | ""
         representative?: boolean
         title?: string
       }
@@ -1723,7 +1773,7 @@ export class ApiClient extends AbstractFetchClient {
     }
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -1784,9 +1834,13 @@ export class ApiClient extends AbstractFetchClient {
         state?: string
         town?: string
       }
-      dob?: {
-        [key: string]: unknown
-      }
+      dob?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
       documents?: {
         company_authorization?: {
           files?: string[]
@@ -1803,9 +1857,7 @@ export class ApiClient extends AbstractFetchClient {
       first_name?: string
       first_name_kana?: string
       first_name_kanji?: string
-      full_name_aliases?: {
-        [key: string]: unknown
-      }
+      full_name_aliases?: string[] | ""
       gender?: string
       id_number?: string
       id_number_secondary?: string
@@ -1813,9 +1865,11 @@ export class ApiClient extends AbstractFetchClient {
       last_name_kana?: string
       last_name_kanji?: string
       maiden_name?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nationality?: string
       person_token?: string
       phone?: string
@@ -1832,9 +1886,7 @@ export class ApiClient extends AbstractFetchClient {
         director?: boolean
         executive?: boolean
         owner?: boolean
-        percent_ownership?: {
-          [key: string]: unknown
-        }
+        percent_ownership?: number | ""
         representative?: boolean
         title?: string
       }
@@ -1866,7 +1918,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     person: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>> {
     const url =
@@ -1886,7 +1938,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     person: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_person> | Response<StatusCode, t_error>> {
     const url =
@@ -1932,9 +1984,13 @@ export class ApiClient extends AbstractFetchClient {
         state?: string
         town?: string
       }
-      dob?: {
-        [key: string]: unknown
-      }
+      dob?:
+        | {
+            day: number
+            month: number
+            year: number
+          }
+        | ""
       documents?: {
         company_authorization?: {
           files?: string[]
@@ -1951,9 +2007,7 @@ export class ApiClient extends AbstractFetchClient {
       first_name?: string
       first_name_kana?: string
       first_name_kanji?: string
-      full_name_aliases?: {
-        [key: string]: unknown
-      }
+      full_name_aliases?: string[] | ""
       gender?: string
       id_number?: string
       id_number_secondary?: string
@@ -1961,9 +2015,11 @@ export class ApiClient extends AbstractFetchClient {
       last_name_kana?: string
       last_name_kanji?: string
       maiden_name?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nationality?: string
       person_token?: string
       phone?: string
@@ -1980,9 +2036,7 @@ export class ApiClient extends AbstractFetchClient {
         director?: boolean
         executive?: boolean
         owner?: boolean
-        percent_ownership?: {
-          [key: string]: unknown
-        }
+        percent_ownership?: number | ""
         representative?: boolean
         title?: string
       }
@@ -2037,7 +2091,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2092,7 +2146,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteApplePayDomainsDomain(p: {
     domain: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_apple_pay_domain> | Response<StatusCode, t_error>
@@ -2112,7 +2166,7 @@ export class ApiClient extends AbstractFetchClient {
     domain: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_apple_pay_domain> | Response<StatusCode, t_error>
@@ -2132,15 +2186,20 @@ export class ApiClient extends AbstractFetchClient {
   async getApplicationFees(
     p: {
       charge?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2179,7 +2238,7 @@ export class ApiClient extends AbstractFetchClient {
     fee: string
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>> {
     const url =
@@ -2200,9 +2259,11 @@ export class ApiClient extends AbstractFetchClient {
     id: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>> {
     const url =
@@ -2221,7 +2282,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_application_fee> | Response<StatusCode, t_error>
@@ -2266,7 +2327,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -2328,7 +2389,7 @@ export class ApiClient extends AbstractFetchClient {
     }
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -2412,7 +2473,7 @@ export class ApiClient extends AbstractFetchClient {
       user?: string
     }
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_apps_secret> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/find`
@@ -2435,7 +2496,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<Response<200, t_balance> | Response<StatusCode, t_error>> {
@@ -2453,9 +2514,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getBalanceHistory(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       currency?: string
       endingBefore?: string
       expand?: string[]
@@ -2465,7 +2531,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2506,7 +2572,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_balance_transaction> | Response<StatusCode, t_error>
@@ -2525,9 +2591,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getBalanceTransactions(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       currency?: string
       endingBefore?: string
       expand?: string[]
@@ -2537,7 +2608,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2578,7 +2649,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_balance_transaction> | Response<StatusCode, t_error>
@@ -2604,7 +2675,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2645,15 +2716,13 @@ export class ApiClient extends AbstractFetchClient {
         privacy_policy_url?: string
         terms_of_service_url?: string
       }
-      default_return_url?: {
-        [key: string]: unknown
-      }
+      default_return_url?: string | ""
       expand?: string[]
       features: {
         customer_update?: {
-          allowed_updates?: {
-            [key: string]: unknown
-          }
+          allowed_updates?:
+            | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
+            | ""
           enabled: boolean
         }
         invoice_history?: {
@@ -2665,9 +2734,18 @@ export class ApiClient extends AbstractFetchClient {
         subscription_cancel?: {
           cancellation_reason?: {
             enabled: boolean
-            options: {
-              [key: string]: unknown
-            }
+            options:
+              | (
+                  | "customer_service"
+                  | "low_quality"
+                  | "missing_features"
+                  | "other"
+                  | "switched_service"
+                  | "too_complex"
+                  | "too_expensive"
+                  | "unused"
+                )[]
+              | ""
           }
           enabled: boolean
           mode?: "at_period_end" | "immediately"
@@ -2677,13 +2755,16 @@ export class ApiClient extends AbstractFetchClient {
           enabled?: boolean
         }
         subscription_update?: {
-          default_allowed_updates: {
-            [key: string]: unknown
-          }
+          default_allowed_updates:
+            | ("price" | "promotion_code" | "quantity")[]
+            | ""
           enabled: boolean
-          products: {
-            [key: string]: unknown
-          }
+          products:
+            | {
+                prices: string[]
+                product: string
+              }[]
+            | ""
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
         }
       }
@@ -2713,7 +2794,7 @@ export class ApiClient extends AbstractFetchClient {
     configuration: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_billing_portal_configuration>
@@ -2738,22 +2819,16 @@ export class ApiClient extends AbstractFetchClient {
       active?: boolean
       business_profile?: {
         headline?: string
-        privacy_policy_url?: {
-          [key: string]: unknown
-        }
-        terms_of_service_url?: {
-          [key: string]: unknown
-        }
+        privacy_policy_url?: string | ""
+        terms_of_service_url?: string | ""
       }
-      default_return_url?: {
-        [key: string]: unknown
-      }
+      default_return_url?: string | ""
       expand?: string[]
       features?: {
         customer_update?: {
-          allowed_updates?: {
-            [key: string]: unknown
-          }
+          allowed_updates?:
+            | ("address" | "email" | "name" | "phone" | "shipping" | "tax_id")[]
+            | ""
           enabled?: boolean
         }
         invoice_history?: {
@@ -2765,9 +2840,18 @@ export class ApiClient extends AbstractFetchClient {
         subscription_cancel?: {
           cancellation_reason?: {
             enabled: boolean
-            options?: {
-              [key: string]: unknown
-            }
+            options?:
+              | (
+                  | "customer_service"
+                  | "low_quality"
+                  | "missing_features"
+                  | "other"
+                  | "switched_service"
+                  | "too_complex"
+                  | "too_expensive"
+                  | "unused"
+                )[]
+              | ""
           }
           enabled?: boolean
           mode?: "at_period_end" | "immediately"
@@ -2777,22 +2861,27 @@ export class ApiClient extends AbstractFetchClient {
           enabled?: boolean
         }
         subscription_update?: {
-          default_allowed_updates?: {
-            [key: string]: unknown
-          }
+          default_allowed_updates?:
+            | ("price" | "promotion_code" | "quantity")[]
+            | ""
           enabled?: boolean
-          products?: {
-            [key: string]: unknown
-          }
+          products?:
+            | {
+                prices: string[]
+                product: string
+              }[]
+            | ""
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
         }
       }
       login_page?: {
         enabled: boolean
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     | Response<200, t_billing_portal_configuration>
@@ -2897,9 +2986,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getCharges(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
@@ -2908,7 +3002,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       transferGroup?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -2951,19 +3045,40 @@ export class ApiClient extends AbstractFetchClient {
         application_fee?: number
         application_fee_amount?: number
         capture?: boolean
-        card?: {
-          [key: string]: unknown
-        }
+        card?:
+          | {
+              address_city?: string
+              address_country?: string
+              address_line1?: string
+              address_line2?: string
+              address_state?: string
+              address_zip?: string
+              cvc?: string
+              exp_month: number
+              exp_year: number
+              metadata?: {
+                [key: string]: unknown
+              }
+              name?: string
+              number: string
+              object?: "card"
+            }
+          | string
         currency?: string
         customer?: string
         description?: string
-        destination?: {
-          [key: string]: unknown
-        }
+        destination?:
+          | {
+              account: string
+              amount?: number
+            }
+          | string
         expand?: string[]
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         on_behalf_of?: string
         radar_options?: {
           session?: string
@@ -3011,7 +3126,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -3048,7 +3163,7 @@ export class ApiClient extends AbstractFetchClient {
     charge: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_charge> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
@@ -3072,9 +3187,11 @@ export class ApiClient extends AbstractFetchClient {
       fraud_details?: {
         user_report: "" | "fraudulent" | "safe"
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       receipt_email?: string
       shipping?: {
         address: {
@@ -3135,7 +3252,7 @@ export class ApiClient extends AbstractFetchClient {
     charge: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
@@ -3183,9 +3300,11 @@ export class ApiClient extends AbstractFetchClient {
         uncategorized_text?: string
       }
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       submit?: boolean
     }
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
@@ -3223,9 +3342,11 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       expand?: string[]
       instructions_email?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       payment_intent?: string
       reason?: "duplicate" | "fraudulent" | "requested_by_customer"
       refund_application_fee?: boolean
@@ -3250,7 +3371,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -3289,9 +3410,11 @@ export class ApiClient extends AbstractFetchClient {
       customer?: string
       expand?: string[]
       instructions_email?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       origin?: "customer_balance"
       payment_intent?: string
       reason?: "duplicate" | "fraudulent" | "requested_by_customer"
@@ -3315,7 +3438,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     refund: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url =
@@ -3336,9 +3459,11 @@ export class ApiClient extends AbstractFetchClient {
     refund: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url =
@@ -3367,7 +3492,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       subscription?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -3440,12 +3565,16 @@ export class ApiClient extends AbstractFetchClient {
         type: "dropdown" | "numeric" | "text"
       }[]
       custom_text?: {
-        shipping_address?: {
-          [key: string]: unknown
-        }
-        submit?: {
-          [key: string]: unknown
-        }
+        shipping_address?:
+          | {
+              message: string
+            }
+          | ""
+        submit?:
+          | {
+              message: string
+            }
+          | ""
       }
       customer?: string
       customer_creation?: "always" | "if_required"
@@ -3464,20 +3593,26 @@ export class ApiClient extends AbstractFetchClient {
       invoice_creation?: {
         enabled: boolean
         invoice_data?: {
-          account_tax_ids?: {
-            [key: string]: unknown
-          }
-          custom_fields?: {
-            [key: string]: unknown
-          }
+          account_tax_ids?: string[] | ""
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ""
           description?: string
           footer?: string
           metadata?: {
             [key: string]: unknown
           }
-          rendering_options?: {
-            [key: string]: unknown
-          }
+          rendering_options?:
+            | {
+                amount_tax_display?:
+                  | ""
+                  | "exclude_tax"
+                  | "include_inclusive_tax"
+              }
+            | ""
         }
       }
       line_items?: {
@@ -3594,9 +3729,7 @@ export class ApiClient extends AbstractFetchClient {
         acss_debit?: {
           currency?: "cad" | "usd"
           mandate_options?: {
-            custom_mandate_url?: {
-              [key: string]: unknown
-            }
+            custom_mandate_url?: string | ""
             default_for?: ("invoice" | "subscription")[]
             interval_description?: string
             payment_schedule?: "combined" | "interval" | "sporadic"
@@ -4074,7 +4207,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     session: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_checkout_session> | Response<StatusCode, t_error>
@@ -4117,7 +4250,7 @@ export class ApiClient extends AbstractFetchClient {
     session: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -4156,7 +4289,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -4192,7 +4325,7 @@ export class ApiClient extends AbstractFetchClient {
     country: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_country_spec> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
@@ -4209,15 +4342,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getCoupons(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -4266,9 +4404,11 @@ export class ApiClient extends AbstractFetchClient {
         expand?: string[]
         id?: string
         max_redemptions?: number
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         name?: string
         percent_off?: number
         redeem_by?: number
@@ -4289,7 +4429,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCouponsCoupon(p: {
     coupon: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_deleted_coupon> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
@@ -4307,7 +4447,7 @@ export class ApiClient extends AbstractFetchClient {
     coupon: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_coupon> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
@@ -4329,9 +4469,11 @@ export class ApiClient extends AbstractFetchClient {
         [key: string]: unknown
       }
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
     }
   }): Promise<Response<200, t_coupon> | Response<StatusCode, t_error>> {
@@ -4355,7 +4497,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -4400,9 +4542,7 @@ export class ApiClient extends AbstractFetchClient {
         description?: string
         invoice_line_item?: string
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
         type: "custom_line_item" | "invoice_line_item"
         unit_amount?: number
         unit_amount_decimal?: string
@@ -4445,9 +4585,7 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       invoice_line_item?: string
       quantity?: number
-      tax_rates?: {
-        [key: string]: unknown
-      }
+      tax_rates?: string[] | ""
       type: "custom_line_item" | "invoice_line_item"
       unit_amount?: number
       unit_amount_decimal?: string
@@ -4468,7 +4606,7 @@ export class ApiClient extends AbstractFetchClient {
       shipping_rate?: string
     }
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/preview`
@@ -4508,9 +4646,7 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       invoice_line_item?: string
       quantity?: number
-      tax_rates?: {
-        [key: string]: unknown
-      }
+      tax_rates?: string[] | ""
       type: "custom_line_item" | "invoice_line_item"
       unit_amount?: number
       unit_amount_decimal?: string
@@ -4532,7 +4668,7 @@ export class ApiClient extends AbstractFetchClient {
     }
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -4581,7 +4717,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -4616,7 +4752,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
@@ -4671,9 +4807,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getCustomers(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       email?: string
       endingBefore?: string
       expand?: string[]
@@ -4681,7 +4822,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       testClock?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -4719,9 +4860,16 @@ export class ApiClient extends AbstractFetchClient {
   async postCustomers(
     p: {
       requestBody?: {
-        address?: {
-          [key: string]: unknown
-        }
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
         balance?: number
         cash_balance?: {
           settings?: {
@@ -4734,32 +4882,51 @@ export class ApiClient extends AbstractFetchClient {
         expand?: string[]
         invoice_prefix?: string
         invoice_settings?: {
-          custom_fields?: {
-            [key: string]: unknown
-          }
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ""
           default_payment_method?: string
           footer?: string
-          rendering_options?: {
-            [key: string]: unknown
-          }
+          rendering_options?:
+            | {
+                amount_tax_display?:
+                  | ""
+                  | "exclude_tax"
+                  | "include_inclusive_tax"
+              }
+            | ""
         }
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         name?: string
         next_invoice_sequence?: number
         payment_method?: string
         phone?: string
         preferred_locales?: string[]
         promotion_code?: string
-        shipping?: {
-          [key: string]: unknown
-        }
+        shipping?:
+          | {
+              address: {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+              name: string
+              phone?: string
+            }
+          | ""
         source?: string
         tax?: {
-          ip_address?: {
-            [key: string]: unknown
-          }
+          ip_address?: string | ""
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_id_data?: {
@@ -4838,7 +5005,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -4874,7 +5041,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomer(p: {
     customer: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_customer> | Response<StatusCode, t_error>
@@ -4894,15 +5061,10 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_customer | t_deleted_customer>
     | Response<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
@@ -4920,16 +5082,47 @@ export class ApiClient extends AbstractFetchClient {
   async postCustomersCustomer(p: {
     customer: string
     requestBody?: {
-      address?: {
-        [key: string]: unknown
-      }
+      address?:
+        | {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        | ""
       balance?: number
-      bank_account?: {
-        [key: string]: unknown
-      }
-      card?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            country: string
+            currency?: string
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
+      card?:
+        | {
+            address_city?: string
+            address_country?: string
+            address_line1?: string
+            address_line2?: string
+            address_state?: string
+            address_zip?: string
+            cvc?: string
+            exp_month: number
+            exp_year: number
+            metadata?: {
+              [key: string]: unknown
+            }
+            name?: string
+            number: string
+            object?: "card"
+          }
+        | string
       cash_balance?: {
         settings?: {
           reconciliation_mode?: "automatic" | "manual" | "merchant_default"
@@ -4945,31 +5138,47 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       invoice_prefix?: string
       invoice_settings?: {
-        custom_fields?: {
-          [key: string]: unknown
-        }
+        custom_fields?:
+          | {
+              name: string
+              value: string
+            }[]
+          | ""
         default_payment_method?: string
         footer?: string
-        rendering_options?: {
-          [key: string]: unknown
-        }
+        rendering_options?:
+          | {
+              amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+            }
+          | ""
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
       next_invoice_sequence?: number
       phone?: string
       preferred_locales?: string[]
       promotion_code?: string
-      shipping?: {
-        [key: string]: unknown
-      }
+      shipping?:
+        | {
+            address: {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            name: string
+            phone?: string
+          }
+        | ""
       source?: string
       tax?: {
-        ip_address?: {
-          [key: string]: unknown
-        }
+        ip_address?: string | ""
       }
       tax_exempt?: "" | "exempt" | "none" | "reverse"
     }
@@ -4992,7 +5201,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5031,9 +5240,11 @@ export class ApiClient extends AbstractFetchClient {
       currency: string
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     | Response<200, t_customer_balance_transaction>
@@ -5056,7 +5267,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     transaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_customer_balance_transaction>
@@ -5082,9 +5293,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     | Response<200, t_customer_balance_transaction>
@@ -5110,7 +5323,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5145,12 +5358,36 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     requestBody?: {
       alipay_account?: string
-      bank_account?: {
-        [key: string]: unknown
-      }
-      card?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            country: string
+            currency?: string
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
+      card?:
+        | {
+            address_city?: string
+            address_country?: string
+            address_line1?: string
+            address_line2?: string
+            address_state?: string
+            address_zip?: string
+            cvc?: string
+            exp_month: number
+            exp_year: number
+            metadata?: {
+              [key: string]: unknown
+            }
+            name?: string
+            number: string
+            object?: "card"
+          }
+        | string
       expand?: string[]
       metadata?: {
         [key: string]: unknown
@@ -5176,12 +5413,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_payment_source | t_deleted_payment_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5201,7 +5433,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_bank_account> | Response<StatusCode, t_error>> {
     const url =
@@ -5232,9 +5464,11 @@ export class ApiClient extends AbstractFetchClient {
       exp_month?: string
       exp_year?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
       owner?: {
         address?: {
@@ -5251,12 +5485,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_card | t_bank_account | t_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5299,7 +5528,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5334,12 +5563,36 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     requestBody?: {
       alipay_account?: string
-      bank_account?: {
-        [key: string]: unknown
-      }
-      card?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            country: string
+            currency?: string
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
+      card?:
+        | {
+            address_city?: string
+            address_country?: string
+            address_line1?: string
+            address_line2?: string
+            address_state?: string
+            address_zip?: string
+            cvc?: string
+            exp_month: number
+            exp_year: number
+            metadata?: {
+              [key: string]: unknown
+            }
+            name?: string
+            number: string
+            object?: "card"
+          }
+        | string
       expand?: string[]
       metadata?: {
         [key: string]: unknown
@@ -5365,12 +5618,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_payment_source | t_deleted_payment_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5390,7 +5638,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_card> | Response<StatusCode, t_error>> {
     const url =
@@ -5421,9 +5669,11 @@ export class ApiClient extends AbstractFetchClient {
       exp_month?: string
       exp_year?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
       owner?: {
         address?: {
@@ -5440,12 +5690,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_card | t_bank_account | t_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5464,7 +5709,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_cash_balance> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
@@ -5506,7 +5751,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5543,7 +5788,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     transaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_customer_cash_balance_transaction>
@@ -5566,7 +5811,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomerDiscount(p: {
     customer: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
@@ -5586,7 +5831,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_discount> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
@@ -5671,7 +5916,7 @@ export class ApiClient extends AbstractFetchClient {
       | "us_bank_account"
       | "wechat_pay"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5708,7 +5953,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     paymentMethod: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>> {
     const url =
@@ -5733,15 +5978,13 @@ export class ApiClient extends AbstractFetchClient {
     object?: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
         200,
         {
-          data: {
-            [key: string]: unknown
-          }[]
+          data: (t_bank_account | t_card | t_source)[]
           has_more: boolean
           object: "list"
           url: string
@@ -5771,12 +6014,36 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     requestBody?: {
       alipay_account?: string
-      bank_account?: {
-        [key: string]: unknown
-      }
-      card?: {
-        [key: string]: unknown
-      }
+      bank_account?:
+        | {
+            account_holder_name?: string
+            account_holder_type?: "company" | "individual"
+            account_number: string
+            country: string
+            currency?: string
+            object?: "bank_account"
+            routing_number?: string
+          }
+        | string
+      card?:
+        | {
+            address_city?: string
+            address_country?: string
+            address_line1?: string
+            address_line2?: string
+            address_state?: string
+            address_zip?: string
+            cvc?: string
+            exp_month: number
+            exp_year: number
+            metadata?: {
+              [key: string]: unknown
+            }
+            name?: string
+            number: string
+            object?: "card"
+          }
+        | string
       expand?: string[]
       metadata?: {
         [key: string]: unknown
@@ -5802,12 +6069,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_payment_source | t_deleted_payment_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5827,7 +6089,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>> {
     const url =
@@ -5858,9 +6120,11 @@ export class ApiClient extends AbstractFetchClient {
       exp_month?: string
       exp_year?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
       owner?: {
         address?: {
@@ -5877,12 +6141,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_card | t_bank_account | t_source>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -5924,7 +6183,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -5968,9 +6227,7 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       application_fee_percent?: number
       automatic_tax?: {
@@ -5978,9 +6235,12 @@ export class ApiClient extends AbstractFetchClient {
       }
       backdate_start_date?: number
       billing_cycle_anchor?: number
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
       cancel_at?: number
       cancel_at_period_end?: boolean
       collection_method?: "charge_automatically" | "send_invoice"
@@ -5989,14 +6249,14 @@ export class ApiClient extends AbstractFetchClient {
       days_until_due?: number
       default_payment_method?: string
       default_source?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       expand?: string[]
       items?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         metadata?: {
           [key: string]: unknown
         }
@@ -6013,13 +6273,13 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       off_session?: boolean
       payment_behavior?:
         | "allow_incomplete"
@@ -6028,42 +6288,111 @@ export class ApiClient extends AbstractFetchClient {
         | "pending_if_incomplete"
       payment_settings?: {
         payment_method_options?: {
-          acss_debit?: {
-            [key: string]: unknown
-          }
-          bancontact?: {
-            [key: string]: unknown
-          }
-          card?: {
-            [key: string]: unknown
-          }
-          customer_balance?: {
-            [key: string]: unknown
-          }
-          konbini?: {
-            [key: string]: unknown
-          }
-          us_bank_account?: {
-            [key: string]: unknown
-          }
+          acss_debit?:
+            | {
+                mandate_options?: {
+                  transaction_type?: "business" | "personal"
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
+          bancontact?:
+            | {
+                preferred_language?: "de" | "en" | "fr" | "nl"
+              }
+            | ""
+          card?:
+            | {
+                mandate_options?: {
+                  amount?: number
+                  amount_type?: "fixed" | "maximum"
+                  description?: string
+                }
+                network?:
+                  | "amex"
+                  | "cartes_bancaires"
+                  | "diners"
+                  | "discover"
+                  | "interac"
+                  | "jcb"
+                  | "mastercard"
+                  | "unionpay"
+                  | "unknown"
+                  | "visa"
+                request_three_d_secure?: "any" | "automatic"
+              }
+            | ""
+          customer_balance?:
+            | {
+                bank_transfer?: {
+                  eu_bank_transfer?: {
+                    country: string
+                  }
+                  type?: string
+                }
+                funding_type?: string
+              }
+            | ""
+          konbini?:
+            | {
+                [key: string]: never
+              }
+            | ""
+          us_bank_account?:
+            | {
+                financial_connections?: {
+                  permissions?: (
+                    | "balances"
+                    | "ownership"
+                    | "payment_method"
+                    | "transactions"
+                  )[]
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
         }
-        payment_method_types?: {
-          [key: string]: unknown
-        }
+        payment_method_types?:
+          | (
+              | "ach_credit_transfer"
+              | "ach_debit"
+              | "acss_debit"
+              | "au_becs_debit"
+              | "bacs_debit"
+              | "bancontact"
+              | "boleto"
+              | "card"
+              | "cashapp"
+              | "customer_balance"
+              | "fpx"
+              | "giropay"
+              | "grabpay"
+              | "ideal"
+              | "konbini"
+              | "link"
+              | "paynow"
+              | "promptpay"
+              | "sepa_debit"
+              | "sofort"
+              | "us_bank_account"
+              | "wechat_pay"
+            )[]
+          | ""
         save_default_payment_method?: "off" | "on_subscription"
       }
-      pending_invoice_item_interval?: {
-        [key: string]: unknown
-      }
+      pending_invoice_item_interval?:
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+        | ""
       promotion_code?: string
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       transfer_data?: {
         amount_percent?: number
         destination: string
       }
-      trial_end?: {
-        [key: string]: unknown
-      }
+      trial_end?: "now" | number
       trial_from_plan?: boolean
       trial_period_days?: number
       trial_settings?: {
@@ -6111,7 +6440,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_subscription> | Response<StatusCode, t_error>> {
     const url =
@@ -6142,21 +6471,20 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       application_fee_percent?: number
       automatic_tax?: {
         enabled: boolean
       }
       billing_cycle_anchor?: "now" | "unchanged"
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
-      cancel_at?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+      cancel_at?: number | ""
       cancel_at_period_end?: boolean
       cancellation_details?: {
         comment?: string
@@ -6176,20 +6504,22 @@ export class ApiClient extends AbstractFetchClient {
       days_until_due?: number
       default_payment_method?: string
       default_source?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       expand?: string[]
       items?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         clear_usage?: boolean
         deleted?: boolean
         id?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         price?: string
         price_data?: {
           currency: string
@@ -6203,17 +6533,20 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       off_session?: boolean
-      pause_collection?: {
-        [key: string]: unknown
-      }
+      pause_collection?:
+        | {
+            behavior: "keep_as_draft" | "mark_uncollectible" | "void"
+            resumes_at?: number
+          }
+        | ""
       payment_behavior?:
         | "allow_incomplete"
         | "default_incomplete"
@@ -6221,42 +6554,114 @@ export class ApiClient extends AbstractFetchClient {
         | "pending_if_incomplete"
       payment_settings?: {
         payment_method_options?: {
-          acss_debit?: {
-            [key: string]: unknown
-          }
-          bancontact?: {
-            [key: string]: unknown
-          }
-          card?: {
-            [key: string]: unknown
-          }
-          customer_balance?: {
-            [key: string]: unknown
-          }
-          konbini?: {
-            [key: string]: unknown
-          }
-          us_bank_account?: {
-            [key: string]: unknown
-          }
+          acss_debit?:
+            | {
+                mandate_options?: {
+                  transaction_type?: "business" | "personal"
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
+          bancontact?:
+            | {
+                preferred_language?: "de" | "en" | "fr" | "nl"
+              }
+            | ""
+          card?:
+            | {
+                mandate_options?: {
+                  amount?: number
+                  amount_type?: "fixed" | "maximum"
+                  description?: string
+                }
+                network?:
+                  | "amex"
+                  | "cartes_bancaires"
+                  | "diners"
+                  | "discover"
+                  | "interac"
+                  | "jcb"
+                  | "mastercard"
+                  | "unionpay"
+                  | "unknown"
+                  | "visa"
+                request_three_d_secure?: "any" | "automatic"
+              }
+            | ""
+          customer_balance?:
+            | {
+                bank_transfer?: {
+                  eu_bank_transfer?: {
+                    country: string
+                  }
+                  type?: string
+                }
+                funding_type?: string
+              }
+            | ""
+          konbini?:
+            | {
+                [key: string]: never
+              }
+            | ""
+          us_bank_account?:
+            | {
+                financial_connections?: {
+                  permissions?: (
+                    | "balances"
+                    | "ownership"
+                    | "payment_method"
+                    | "transactions"
+                  )[]
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
         }
-        payment_method_types?: {
-          [key: string]: unknown
-        }
+        payment_method_types?:
+          | (
+              | "ach_credit_transfer"
+              | "ach_debit"
+              | "acss_debit"
+              | "au_becs_debit"
+              | "bacs_debit"
+              | "bancontact"
+              | "boleto"
+              | "card"
+              | "cashapp"
+              | "customer_balance"
+              | "fpx"
+              | "giropay"
+              | "grabpay"
+              | "ideal"
+              | "konbini"
+              | "link"
+              | "paynow"
+              | "promptpay"
+              | "sepa_debit"
+              | "sofort"
+              | "us_bank_account"
+              | "wechat_pay"
+            )[]
+          | ""
         save_default_payment_method?: "off" | "on_subscription"
       }
-      pending_invoice_item_interval?: {
-        [key: string]: unknown
-      }
+      pending_invoice_item_interval?:
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+        | ""
       promotion_code?: string
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       proration_date?: number
-      transfer_data?: {
-        [key: string]: unknown
-      }
-      trial_end?: {
-        [key: string]: unknown
-      }
+      transfer_data?:
+        | {
+            amount_percent?: number
+            destination: string
+          }
+        | ""
+      trial_end?: "now" | number
       trial_from_plan?: boolean
       trial_settings?: {
         end_behavior: {
@@ -6282,7 +6687,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     subscriptionExposedId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
@@ -6305,7 +6710,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_discount> | Response<StatusCode, t_error>> {
     const url =
@@ -6329,7 +6734,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -6434,7 +6839,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_deleted_tax_id> | Response<StatusCode, t_error>> {
     const url =
@@ -6454,7 +6859,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_tax_id> | Response<StatusCode, t_error>> {
     const url =
@@ -6473,16 +6878,21 @@ export class ApiClient extends AbstractFetchClient {
   async getDisputes(
     p: {
       charge?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       paymentIntent?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -6521,7 +6931,7 @@ export class ApiClient extends AbstractFetchClient {
     dispute: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
@@ -6569,9 +6979,11 @@ export class ApiClient extends AbstractFetchClient {
         uncategorized_text?: string
       }
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       submit?: boolean
     }
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
@@ -6643,9 +7055,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getEvents(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       deliverySuccess?: boolean
       endingBefore?: string
       expand?: string[]
@@ -6654,7 +7071,7 @@ export class ApiClient extends AbstractFetchClient {
       type?: string
       types?: string[]
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -6694,7 +7111,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_event> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
@@ -6716,7 +7133,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -6752,7 +7169,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     rateId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_exchange_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
@@ -6769,9 +7186,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getFileLinks(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       expired?: boolean
@@ -6779,7 +7201,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -6819,9 +7241,11 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       expires_at?: number
       file: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_file_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links`
@@ -6839,7 +7263,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     link: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_file_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
@@ -6858,12 +7282,12 @@ export class ApiClient extends AbstractFetchClient {
     link: string
     requestBody?: {
       expand?: string[]
-      expires_at?: {
-        [key: string]: unknown
-      }
-      metadata?: {
-        [key: string]: unknown
-      }
+      expires_at?: "now" | number | ""
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_file_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
@@ -6879,9 +7303,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getFiles(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -6903,7 +7332,7 @@ export class ApiClient extends AbstractFetchClient {
         | "terminal_reader_splashscreen"
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -6944,9 +7373,11 @@ export class ApiClient extends AbstractFetchClient {
       file_link_data?: {
         create: boolean
         expires_at?: number
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
       }
       purpose:
         | "account_requirement"
@@ -6974,7 +7405,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     file: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_file> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
@@ -7001,7 +7432,7 @@ export class ApiClient extends AbstractFetchClient {
       session?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -7039,7 +7470,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_financial_connections_account>
@@ -7088,7 +7519,7 @@ export class ApiClient extends AbstractFetchClient {
     ownership: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -7183,7 +7614,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     session: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_financial_connections_session>
@@ -7204,9 +7635,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getIdentityVerificationReports(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -7214,7 +7650,7 @@ export class ApiClient extends AbstractFetchClient {
       type?: "document" | "id_number"
       verificationSession?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -7253,7 +7689,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     report: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_identity_verification_report>
@@ -7274,16 +7710,21 @@ export class ApiClient extends AbstractFetchClient {
 
   async getIdentityVerificationSessions(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -7324,9 +7765,14 @@ export class ApiClient extends AbstractFetchClient {
         [key: string]: unknown
       }
       options?: {
-        document?: {
-          [key: string]: unknown
-        }
+        document?:
+          | {
+              allowed_types?: ("driving_license" | "id_card" | "passport")[]
+              require_id_number?: boolean
+              require_live_capture?: boolean
+              require_matching_selfie?: boolean
+            }
+          | ""
       }
       return_url?: string
       type: "document" | "id_number"
@@ -7350,7 +7796,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     session: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_identity_verification_session>
@@ -7377,9 +7823,14 @@ export class ApiClient extends AbstractFetchClient {
         [key: string]: unknown
       }
       options?: {
-        document?: {
-          [key: string]: unknown
-        }
+        document?:
+          | {
+              allowed_types?: ("driving_license" | "id_card" | "passport")[]
+              require_id_number?: boolean
+              require_live_capture?: boolean
+              require_matching_selfie?: boolean
+            }
+          | ""
       }
       type?: "document" | "id_number"
     }
@@ -7445,9 +7896,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getInvoiceitems(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
@@ -7456,7 +7912,7 @@ export class ApiClient extends AbstractFetchClient {
       pending?: boolean
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -7499,14 +7955,19 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       description?: string
       discountable?: boolean
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       expand?: string[]
       invoice?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       period?: {
         end: number
         start: number
@@ -7522,9 +7983,7 @@ export class ApiClient extends AbstractFetchClient {
       quantity?: number
       subscription?: string
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      tax_code?: {
-        [key: string]: unknown
-      }
+      tax_code?: string | ""
       tax_rates?: string[]
       unit_amount?: number
       unit_amount_decimal?: string
@@ -7544,7 +8003,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_invoiceitem> | Response<StatusCode, t_error>
@@ -7564,7 +8023,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     invoiceitem: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_invoiceitem> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
@@ -7585,13 +8044,18 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       description?: string
       discountable?: boolean
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       period?: {
         end: number
         start: number
@@ -7606,12 +8070,8 @@ export class ApiClient extends AbstractFetchClient {
       }
       quantity?: number
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-      tax_code?: {
-        [key: string]: unknown
-      }
-      tax_rates?: {
-        [key: string]: unknown
-      }
+      tax_code?: string | ""
+      tax_rates?: string[] | ""
       unit_amount?: number
       unit_amount_decimal?: string
     }
@@ -7630,13 +8090,23 @@ export class ApiClient extends AbstractFetchClient {
   async getInvoices(
     p: {
       collectionMethod?: "charge_automatically" | "send_invoice"
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
-      dueDate?: {
-        [key: string]: unknown
-      }
+      dueDate?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -7644,7 +8114,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -7685,9 +8155,7 @@ export class ApiClient extends AbstractFetchClient {
   async postInvoices(
     p: {
       requestBody?: {
-        account_tax_ids?: {
-          [key: string]: unknown
-        }
+        account_tax_ids?: string[] | ""
         application_fee_amount?: number
         auto_advance?: boolean
         automatic_tax?: {
@@ -7695,18 +8163,24 @@ export class ApiClient extends AbstractFetchClient {
         }
         collection_method?: "charge_automatically" | "send_invoice"
         currency?: string
-        custom_fields?: {
-          [key: string]: unknown
-        }
+        custom_fields?:
+          | {
+              name: string
+              value: string
+            }[]
+          | ""
         customer?: string
         days_until_due?: number
         default_payment_method?: string
         default_source?: string
         default_tax_rates?: string[]
         description?: string
-        discounts?: {
-          [key: string]: unknown
-        }
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ""
         due_date?: number
         expand?: string[]
         footer?: string
@@ -7714,43 +8188,115 @@ export class ApiClient extends AbstractFetchClient {
           action: "revision"
           invoice: string
         }
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         on_behalf_of?: string
         payment_settings?: {
           default_mandate?: string
           payment_method_options?: {
-            acss_debit?: {
-              [key: string]: unknown
-            }
-            bancontact?: {
-              [key: string]: unknown
-            }
-            card?: {
-              [key: string]: unknown
-            }
-            customer_balance?: {
-              [key: string]: unknown
-            }
-            konbini?: {
-              [key: string]: unknown
-            }
-            us_bank_account?: {
-              [key: string]: unknown
-            }
+            acss_debit?:
+              | {
+                  mandate_options?: {
+                    transaction_type?: "business" | "personal"
+                  }
+                  verification_method?:
+                    | "automatic"
+                    | "instant"
+                    | "microdeposits"
+                }
+              | ""
+            bancontact?:
+              | {
+                  preferred_language?: "de" | "en" | "fr" | "nl"
+                }
+              | ""
+            card?:
+              | {
+                  installments?: {
+                    enabled?: boolean
+                    plan?:
+                      | {
+                          count: number
+                          interval: "month"
+                          type: "fixed_count"
+                        }
+                      | ""
+                  }
+                  request_three_d_secure?: "any" | "automatic"
+                }
+              | ""
+            customer_balance?:
+              | {
+                  bank_transfer?: {
+                    eu_bank_transfer?: {
+                      country: string
+                    }
+                    type?: string
+                  }
+                  funding_type?: string
+                }
+              | ""
+            konbini?:
+              | {
+                  [key: string]: never
+                }
+              | ""
+            us_bank_account?:
+              | {
+                  financial_connections?: {
+                    permissions?: (
+                      | "balances"
+                      | "ownership"
+                      | "payment_method"
+                      | "transactions"
+                    )[]
+                  }
+                  verification_method?:
+                    | "automatic"
+                    | "instant"
+                    | "microdeposits"
+                }
+              | ""
           }
-          payment_method_types?: {
-            [key: string]: unknown
-          }
+          payment_method_types?:
+            | (
+                | "ach_credit_transfer"
+                | "ach_debit"
+                | "acss_debit"
+                | "au_becs_debit"
+                | "bacs_debit"
+                | "bancontact"
+                | "boleto"
+                | "card"
+                | "cashapp"
+                | "customer_balance"
+                | "fpx"
+                | "giropay"
+                | "grabpay"
+                | "ideal"
+                | "konbini"
+                | "link"
+                | "paynow"
+                | "promptpay"
+                | "sepa_debit"
+                | "sofort"
+                | "us_bank_account"
+                | "wechat_pay"
+              )[]
+            | ""
         }
         pending_invoice_items_behavior?:
           | "exclude"
           | "include"
           | "include_and_require"
-        rendering_options?: {
-          [key: string]: unknown
-        }
+        rendering_options?:
+          | {
+              amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+            }
+          | ""
         shipping_cost?: {
           shipping_rate?: string
           shipping_rate_data?: {
@@ -7818,7 +8364,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -7860,16 +8406,32 @@ export class ApiClient extends AbstractFetchClient {
       currency?: string
       customer?: string
       customerDetails?: {
-        address?: {
-          [key: string]: unknown
-        }
-        shipping?: {
-          [key: string]: unknown
-        }
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        shipping?:
+          | {
+              address: {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+              name: string
+              phone?: string
+            }
+          | ""
         tax?: {
-          ip_address?: {
-            [key: string]: unknown
-          }
+          ip_address?: string | ""
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_ids?: {
@@ -7928,22 +8490,30 @@ export class ApiClient extends AbstractFetchClient {
           value: string
         }[]
       }
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       expand?: string[]
       invoiceItems?: {
         amount?: number
         currency?: string
         description?: string
         discountable?: boolean
-        discounts?: {
-          [key: string]: unknown
-        }
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ""
         invoiceitem?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         period?: {
           end: number
           start: number
@@ -7958,38 +8528,32 @@ export class ApiClient extends AbstractFetchClient {
         }
         quantity?: number
         tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        tax_code?: {
-          [key: string]: unknown
-        }
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_code?: string | ""
+        tax_rates?: string[] | ""
         unit_amount?: number
         unit_amount_decimal?: string
       }[]
       schedule?: string
       subscription?: string
-      subscriptionBillingCycleAnchor?: {
-        [key: string]: unknown
-      }
-      subscriptionCancelAt?: {
-        [key: string]: unknown
-      }
+      subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
+      subscriptionCancelAt?: number | ""
       subscriptionCancelAtPeriodEnd?: boolean
       subscriptionCancelNow?: boolean
-      subscriptionDefaultTaxRates?: {
-        [key: string]: unknown
-      }
+      subscriptionDefaultTaxRates?: string[] | ""
       subscriptionItems?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         clear_usage?: boolean
         deleted?: boolean
         id?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         price?: string
         price_data?: {
           currency: string
@@ -8003,9 +8567,7 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       subscriptionProrationBehavior?:
         | "always_invoice"
@@ -8014,12 +8576,10 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionProrationDate?: number
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
-      subscriptionTrialEnd?: {
-        [key: string]: unknown
-      }
+      subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<Response<200, t_invoice> | Response<StatusCode, t_error>> {
@@ -8067,16 +8627,32 @@ export class ApiClient extends AbstractFetchClient {
       currency?: string
       customer?: string
       customerDetails?: {
-        address?: {
-          [key: string]: unknown
-        }
-        shipping?: {
-          [key: string]: unknown
-        }
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        shipping?:
+          | {
+              address: {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+              name: string
+              phone?: string
+            }
+          | ""
         tax?: {
-          ip_address?: {
-            [key: string]: unknown
-          }
+          ip_address?: string | ""
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_ids?: {
@@ -8135,9 +8711,12 @@ export class ApiClient extends AbstractFetchClient {
           value: string
         }[]
       }
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       endingBefore?: string
       expand?: string[]
       invoiceItems?: {
@@ -8145,13 +8724,18 @@ export class ApiClient extends AbstractFetchClient {
         currency?: string
         description?: string
         discountable?: boolean
-        discounts?: {
-          [key: string]: unknown
-        }
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ""
         invoiceitem?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         period?: {
           end: number
           start: number
@@ -8166,12 +8750,8 @@ export class ApiClient extends AbstractFetchClient {
         }
         quantity?: number
         tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        tax_code?: {
-          [key: string]: unknown
-        }
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_code?: string | ""
+        tax_rates?: string[] | ""
         unit_amount?: number
         unit_amount_decimal?: string
       }[]
@@ -8179,27 +8759,25 @@ export class ApiClient extends AbstractFetchClient {
       schedule?: string
       startingAfter?: string
       subscription?: string
-      subscriptionBillingCycleAnchor?: {
-        [key: string]: unknown
-      }
-      subscriptionCancelAt?: {
-        [key: string]: unknown
-      }
+      subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
+      subscriptionCancelAt?: number | ""
       subscriptionCancelAtPeriodEnd?: boolean
       subscriptionCancelNow?: boolean
-      subscriptionDefaultTaxRates?: {
-        [key: string]: unknown
-      }
+      subscriptionDefaultTaxRates?: string[] | ""
       subscriptionItems?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         clear_usage?: boolean
         deleted?: boolean
         id?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         price?: string
         price_data?: {
           currency: string
@@ -8213,9 +8791,7 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       subscriptionProrationBehavior?:
         | "always_invoice"
@@ -8224,12 +8800,10 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionProrationDate?: number
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
-      subscriptionTrialEnd?: {
-        [key: string]: unknown
-      }
+      subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -8285,7 +8859,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteInvoicesInvoice(p: {
     invoice: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_invoice> | Response<StatusCode, t_error>
@@ -8305,7 +8879,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     invoice: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_invoice> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
@@ -8323,76 +8897,184 @@ export class ApiClient extends AbstractFetchClient {
   async postInvoicesInvoice(p: {
     invoice: string
     requestBody?: {
-      account_tax_ids?: {
-        [key: string]: unknown
-      }
+      account_tax_ids?: string[] | ""
       application_fee_amount?: number
       auto_advance?: boolean
       automatic_tax?: {
         enabled: boolean
       }
       collection_method?: "charge_automatically" | "send_invoice"
-      custom_fields?: {
-        [key: string]: unknown
-      }
+      custom_fields?:
+        | {
+            name: string
+            value: string
+          }[]
+        | ""
       days_until_due?: number
       default_payment_method?: string
       default_source?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       description?: string
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       due_date?: number
       expand?: string[]
       footer?: string
-      metadata?: {
-        [key: string]: unknown
-      }
-      on_behalf_of?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
+      on_behalf_of?: string | ""
       payment_settings?: {
         default_mandate?: string
         payment_method_options?: {
-          acss_debit?: {
-            [key: string]: unknown
-          }
-          bancontact?: {
-            [key: string]: unknown
-          }
-          card?: {
-            [key: string]: unknown
-          }
-          customer_balance?: {
-            [key: string]: unknown
-          }
-          konbini?: {
-            [key: string]: unknown
-          }
-          us_bank_account?: {
-            [key: string]: unknown
-          }
+          acss_debit?:
+            | {
+                mandate_options?: {
+                  transaction_type?: "business" | "personal"
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
+          bancontact?:
+            | {
+                preferred_language?: "de" | "en" | "fr" | "nl"
+              }
+            | ""
+          card?:
+            | {
+                installments?: {
+                  enabled?: boolean
+                  plan?:
+                    | {
+                        count: number
+                        interval: "month"
+                        type: "fixed_count"
+                      }
+                    | ""
+                }
+                request_three_d_secure?: "any" | "automatic"
+              }
+            | ""
+          customer_balance?:
+            | {
+                bank_transfer?: {
+                  eu_bank_transfer?: {
+                    country: string
+                  }
+                  type?: string
+                }
+                funding_type?: string
+              }
+            | ""
+          konbini?:
+            | {
+                [key: string]: never
+              }
+            | ""
+          us_bank_account?:
+            | {
+                financial_connections?: {
+                  permissions?: (
+                    | "balances"
+                    | "ownership"
+                    | "payment_method"
+                    | "transactions"
+                  )[]
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
         }
-        payment_method_types?: {
-          [key: string]: unknown
-        }
+        payment_method_types?:
+          | (
+              | "ach_credit_transfer"
+              | "ach_debit"
+              | "acss_debit"
+              | "au_becs_debit"
+              | "bacs_debit"
+              | "bancontact"
+              | "boleto"
+              | "card"
+              | "cashapp"
+              | "customer_balance"
+              | "fpx"
+              | "giropay"
+              | "grabpay"
+              | "ideal"
+              | "konbini"
+              | "link"
+              | "paynow"
+              | "promptpay"
+              | "sepa_debit"
+              | "sofort"
+              | "us_bank_account"
+              | "wechat_pay"
+            )[]
+          | ""
       }
-      rendering_options?: {
-        [key: string]: unknown
-      }
-      shipping_cost?: {
-        [key: string]: unknown
-      }
-      shipping_details?: {
-        [key: string]: unknown
-      }
+      rendering_options?:
+        | {
+            amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+          }
+        | ""
+      shipping_cost?:
+        | {
+            shipping_rate?: string
+            shipping_rate_data?: {
+              delivery_estimate?: {
+                maximum?: {
+                  unit: "business_day" | "day" | "hour" | "month" | "week"
+                  value: number
+                }
+                minimum?: {
+                  unit: "business_day" | "day" | "hour" | "month" | "week"
+                  value: number
+                }
+              }
+              display_name: string
+              fixed_amount?: {
+                amount: number
+                currency: string
+                currency_options?: {
+                  [key: string]: unknown
+                }
+              }
+              metadata?: {
+                [key: string]: unknown
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              tax_code?: string
+              type?: "fixed_amount"
+            }
+          }
+        | ""
+      shipping_details?:
+        | {
+            address: {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            name: string
+            phone?: string
+          }
+        | ""
       statement_descriptor?: string
-      transfer_data?: {
-        [key: string]: unknown
-      }
+      transfer_data?:
+        | {
+            amount?: number
+            destination: string
+          }
+        | ""
     }
   }): Promise<Response<200, t_invoice> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
@@ -8431,7 +9113,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -8541,16 +9223,21 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       card?: string
       cardholder?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -8590,7 +9277,7 @@ export class ApiClient extends AbstractFetchClient {
     authorization: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
@@ -8612,9 +9299,11 @@ export class ApiClient extends AbstractFetchClient {
     authorization: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
@@ -8636,9 +9325,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       amount?: number
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
@@ -8659,9 +9350,11 @@ export class ApiClient extends AbstractFetchClient {
     authorization: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
@@ -8680,9 +9373,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getIssuingCardholders(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       email?: string
       endingBefore?: string
       expand?: string[]
@@ -8692,7 +9390,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -9698,7 +10396,7 @@ export class ApiClient extends AbstractFetchClient {
     cardholder: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_issuing_cardholder> | Response<StatusCode, t_error>
@@ -10682,9 +11380,14 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingCards(
     p: {
       cardholder?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expMonth?: number
       expYear?: number
@@ -10695,7 +11398,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -11685,7 +12388,7 @@ export class ApiClient extends AbstractFetchClient {
     card: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
@@ -11705,9 +12408,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       cancellation_reason?: "lost" | "stolen"
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       pin?: {
         encrypted_number?: string
       }
@@ -12630,9 +13335,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getIssuingDisputes(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
@@ -12640,7 +13350,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -12680,24 +13390,63 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: {
         amount?: number
         evidence?: {
-          canceled?: {
-            [key: string]: unknown
-          }
-          duplicate?: {
-            [key: string]: unknown
-          }
-          fraudulent?: {
-            [key: string]: unknown
-          }
-          merchandise_not_as_described?: {
-            [key: string]: unknown
-          }
-          not_received?: {
-            [key: string]: unknown
-          }
-          other?: {
-            [key: string]: unknown
-          }
+          canceled?:
+            | {
+                additional_documentation?: string | ""
+                canceled_at?: number | ""
+                cancellation_policy_provided?: boolean | ""
+                cancellation_reason?: string
+                expected_at?: number | ""
+                explanation?: string
+                product_description?: string
+                product_type?: "" | "merchandise" | "service"
+                return_status?: "" | "merchant_rejected" | "successful"
+                returned_at?: number | ""
+              }
+            | ""
+          duplicate?:
+            | {
+                additional_documentation?: string | ""
+                card_statement?: string | ""
+                cash_receipt?: string | ""
+                check_image?: string | ""
+                explanation?: string
+                original_transaction?: string
+              }
+            | ""
+          fraudulent?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string
+              }
+            | ""
+          merchandise_not_as_described?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string
+                received_at?: number | ""
+                return_description?: string
+                return_status?: "" | "merchant_rejected" | "successful"
+                returned_at?: number | ""
+              }
+            | ""
+          not_received?:
+            | {
+                additional_documentation?: string | ""
+                expected_at?: number | ""
+                explanation?: string
+                product_description?: string
+                product_type?: "" | "merchandise" | "service"
+              }
+            | ""
+          other?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string
+                product_description?: string
+                product_type?: "" | "merchandise" | "service"
+              }
+            | ""
           reason?:
             | "canceled"
             | "duplicate"
@@ -12706,9 +13455,15 @@ export class ApiClient extends AbstractFetchClient {
             | "not_received"
             | "other"
             | "service_not_as_described"
-          service_not_as_described?: {
-            [key: string]: unknown
-          }
+          service_not_as_described?:
+            | {
+                additional_documentation?: string | ""
+                canceled_at?: number | ""
+                cancellation_reason?: string
+                explanation?: string
+                received_at?: number | ""
+              }
+            | ""
         }
         expand?: string[]
         metadata?: {
@@ -12736,7 +13491,7 @@ export class ApiClient extends AbstractFetchClient {
     dispute: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_issuing_dispute> | Response<StatusCode, t_error>
@@ -12758,24 +13513,63 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       amount?: number
       evidence?: {
-        canceled?: {
-          [key: string]: unknown
-        }
-        duplicate?: {
-          [key: string]: unknown
-        }
-        fraudulent?: {
-          [key: string]: unknown
-        }
-        merchandise_not_as_described?: {
-          [key: string]: unknown
-        }
-        not_received?: {
-          [key: string]: unknown
-        }
-        other?: {
-          [key: string]: unknown
-        }
+        canceled?:
+          | {
+              additional_documentation?: string | ""
+              canceled_at?: number | ""
+              cancellation_policy_provided?: boolean | ""
+              cancellation_reason?: string
+              expected_at?: number | ""
+              explanation?: string
+              product_description?: string
+              product_type?: "" | "merchandise" | "service"
+              return_status?: "" | "merchant_rejected" | "successful"
+              returned_at?: number | ""
+            }
+          | ""
+        duplicate?:
+          | {
+              additional_documentation?: string | ""
+              card_statement?: string | ""
+              cash_receipt?: string | ""
+              check_image?: string | ""
+              explanation?: string
+              original_transaction?: string
+            }
+          | ""
+        fraudulent?:
+          | {
+              additional_documentation?: string | ""
+              explanation?: string
+            }
+          | ""
+        merchandise_not_as_described?:
+          | {
+              additional_documentation?: string | ""
+              explanation?: string
+              received_at?: number | ""
+              return_description?: string
+              return_status?: "" | "merchant_rejected" | "successful"
+              returned_at?: number | ""
+            }
+          | ""
+        not_received?:
+          | {
+              additional_documentation?: string | ""
+              expected_at?: number | ""
+              explanation?: string
+              product_description?: string
+              product_type?: "" | "merchandise" | "service"
+            }
+          | ""
+        other?:
+          | {
+              additional_documentation?: string | ""
+              explanation?: string
+              product_description?: string
+              product_type?: "" | "merchandise" | "service"
+            }
+          | ""
         reason?:
           | "canceled"
           | "duplicate"
@@ -12784,14 +13578,22 @@ export class ApiClient extends AbstractFetchClient {
           | "not_received"
           | "other"
           | "service_not_as_described"
-        service_not_as_described?: {
-          [key: string]: unknown
-        }
+        service_not_as_described?:
+          | {
+              additional_documentation?: string | ""
+              canceled_at?: number | ""
+              cancellation_reason?: string
+              explanation?: string
+              received_at?: number | ""
+            }
+          | ""
       }
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_dispute> | Response<StatusCode, t_error>
@@ -12811,9 +13613,11 @@ export class ApiClient extends AbstractFetchClient {
     dispute: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_dispute> | Response<StatusCode, t_error>
@@ -12831,15 +13635,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getIssuingSettlements(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -12876,7 +13685,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     settlement: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_issuing_settlement> | Response<StatusCode, t_error>
@@ -12919,16 +13728,21 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       card?: string
       cardholder?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -12968,7 +13782,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     transaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_issuing_transaction> | Response<StatusCode, t_error>
@@ -12989,9 +13803,11 @@ export class ApiClient extends AbstractFetchClient {
     transaction: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_issuing_transaction> | Response<StatusCode, t_error>
@@ -13045,7 +13861,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     session: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_financial_connections_session>
@@ -13075,7 +13891,7 @@ export class ApiClient extends AbstractFetchClient {
       session?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -13113,7 +13929,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_financial_connections_account>
@@ -13159,7 +13975,7 @@ export class ApiClient extends AbstractFetchClient {
     ownership: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -13216,7 +14032,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     mandate: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_mandate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
@@ -13233,16 +14049,21 @@ export class ApiClient extends AbstractFetchClient {
 
   async getPaymentIntents(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -13296,7 +14117,7 @@ export class ApiClient extends AbstractFetchClient {
         customer_acceptance: {
           accepted_at?: number
           offline?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           online?: {
             ip_address: string
@@ -13308,9 +14129,7 @@ export class ApiClient extends AbstractFetchClient {
       metadata?: {
         [key: string]: unknown
       }
-      off_session?: {
-        [key: string]: unknown
-      }
+      off_session?: boolean | "one_off" | "recurring"
       on_behalf_of?: string
       payment_method?: string
       payment_method_data?: {
@@ -13320,13 +14139,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -13337,29 +14156,34 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -13418,10 +14242,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -13441,7 +14265,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -13451,16 +14275,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -13491,13 +14315,13 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -13545,103 +14369,318 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
       payment_method_options?: {
-        acss_debit?: {
-          [key: string]: unknown
-        }
-        affirm?: {
-          [key: string]: unknown
-        }
-        afterpay_clearpay?: {
-          [key: string]: unknown
-        }
-        alipay?: {
-          [key: string]: unknown
-        }
-        au_becs_debit?: {
-          [key: string]: unknown
-        }
-        bacs_debit?: {
-          [key: string]: unknown
-        }
-        bancontact?: {
-          [key: string]: unknown
-        }
-        blik?: {
-          [key: string]: unknown
-        }
-        boleto?: {
-          [key: string]: unknown
-        }
-        card?: {
-          [key: string]: unknown
-        }
-        card_present?: {
-          [key: string]: unknown
-        }
-        cashapp?: {
-          [key: string]: unknown
-        }
-        customer_balance?: {
-          [key: string]: unknown
-        }
-        eps?: {
-          [key: string]: unknown
-        }
-        fpx?: {
-          [key: string]: unknown
-        }
-        giropay?: {
-          [key: string]: unknown
-        }
-        grabpay?: {
-          [key: string]: unknown
-        }
-        ideal?: {
-          [key: string]: unknown
-        }
-        interac_present?: {
-          [key: string]: unknown
-        }
-        klarna?: {
-          [key: string]: unknown
-        }
-        konbini?: {
-          [key: string]: unknown
-        }
-        link?: {
-          [key: string]: unknown
-        }
-        oxxo?: {
-          [key: string]: unknown
-        }
-        p24?: {
-          [key: string]: unknown
-        }
-        paynow?: {
-          [key: string]: unknown
-        }
-        pix?: {
-          [key: string]: unknown
-        }
-        promptpay?: {
-          [key: string]: unknown
-        }
-        sepa_debit?: {
-          [key: string]: unknown
-        }
-        sofort?: {
-          [key: string]: unknown
-        }
-        us_bank_account?: {
-          [key: string]: unknown
-        }
-        wechat_pay?: {
-          [key: string]: unknown
-        }
+        acss_debit?:
+          | {
+              mandate_options?: {
+                custom_mandate_url?: string | ""
+                interval_description?: string
+                payment_schedule?: "combined" | "interval" | "sporadic"
+                transaction_type?: "business" | "personal"
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        affirm?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        afterpay_clearpay?:
+          | {
+              capture_method?: "" | "manual"
+              reference?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        alipay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        au_becs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bacs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bancontact?:
+          | {
+              preferred_language?: "de" | "en" | "fr" | "nl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        blik?:
+          | {
+              code?: string
+            }
+          | ""
+        boleto?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        card?:
+          | {
+              capture_method?: "" | "manual"
+              cvc_token?: string
+              installments?: {
+                enabled?: boolean
+                plan?:
+                  | {
+                      count: number
+                      interval: "month"
+                      type: "fixed_count"
+                    }
+                  | ""
+              }
+              mandate_options?: {
+                amount: number
+                amount_type: "fixed" | "maximum"
+                description?: string
+                end_date?: number
+                interval: "day" | "month" | "sporadic" | "week" | "year"
+                interval_count?: number
+                reference: string
+                start_date: number
+                supported_types?: "india"[]
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "interac"
+                | "jcb"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+              request_three_d_secure?: "any" | "automatic"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              statement_descriptor_suffix_kana?: string | ""
+              statement_descriptor_suffix_kanji?: string | ""
+            }
+          | ""
+        card_present?:
+          | {
+              request_extended_authorization?: boolean
+              request_incremental_authorization_support?: boolean
+            }
+          | ""
+        cashapp?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                requested_address_types?: (
+                  | "iban"
+                  | "sepa"
+                  | "sort_code"
+                  | "spei"
+                  | "zengin"
+                )[]
+                type:
+                  | "eu_bank_transfer"
+                  | "gb_bank_transfer"
+                  | "jp_bank_transfer"
+                  | "mx_bank_transfer"
+              }
+              funding_type?: "bank_transfer"
+              setup_future_usage?: "none"
+            }
+          | ""
+        eps?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        fpx?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        giropay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        grabpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        ideal?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        interac_present?:
+          | {
+              [key: string]: never
+            }
+          | ""
+        klarna?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-CH"
+                | "de-DE"
+                | "el-GR"
+                | "en-AT"
+                | "en-AU"
+                | "en-BE"
+                | "en-CA"
+                | "en-CH"
+                | "en-CZ"
+                | "en-DE"
+                | "en-DK"
+                | "en-ES"
+                | "en-FI"
+                | "en-FR"
+                | "en-GB"
+                | "en-GR"
+                | "en-IE"
+                | "en-IT"
+                | "en-NL"
+                | "en-NO"
+                | "en-NZ"
+                | "en-PL"
+                | "en-PT"
+                | "en-SE"
+                | "en-US"
+                | "es-ES"
+                | "es-US"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-CA"
+                | "fr-CH"
+                | "fr-FR"
+                | "it-CH"
+                | "it-IT"
+                | "nb-NO"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sv-FI"
+                | "sv-SE"
+              setup_future_usage?: "none"
+            }
+          | ""
+        konbini?:
+          | {
+              confirmation_number?: string
+              expires_after_days?: number | ""
+              expires_at?: number | ""
+              product_description?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        link?:
+          | {
+              capture_method?: "" | "manual"
+              persistent_token?: string
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        oxxo?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        p24?:
+          | {
+              setup_future_usage?: "none"
+              tos_shown_and_accepted?: boolean
+            }
+          | ""
+        paynow?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        pix?:
+          | {
+              expires_after_seconds?: number
+              expires_at?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        promptpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        sepa_debit?:
+          | {
+              mandate_options?: {
+                [key: string]: never
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        sofort?:
+          | {
+              preferred_language?:
+                | ""
+                | "de"
+                | "en"
+                | "es"
+                | "fr"
+                | "it"
+                | "nl"
+                | "pl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                )[]
+                return_url?: string
+              }
+              networks?: {
+                requested?: ("ach" | "us_domestic_wire")[]
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        wechat_pay?:
+          | {
+              app_id?: string
+              client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
       }
       payment_method_types?: string[]
       radar_options?: {
@@ -13691,7 +14730,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -13729,7 +14768,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     intent: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
@@ -13751,17 +14790,17 @@ export class ApiClient extends AbstractFetchClient {
     intent: string
     requestBody?: {
       amount?: number
-      application_fee_amount?: {
-        [key: string]: unknown
-      }
+      application_fee_amount?: number | ""
       capture_method?: "automatic" | "automatic_async" | "manual"
       currency?: string
       customer?: string
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       payment_method?: string
       payment_method_data?: {
         acss_debit?: {
@@ -13770,13 +14809,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -13787,29 +14826,34 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -13868,10 +14912,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -13891,7 +14935,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -13901,16 +14945,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -13941,13 +14985,13 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -13995,112 +15039,338 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
       payment_method_options?: {
-        acss_debit?: {
-          [key: string]: unknown
-        }
-        affirm?: {
-          [key: string]: unknown
-        }
-        afterpay_clearpay?: {
-          [key: string]: unknown
-        }
-        alipay?: {
-          [key: string]: unknown
-        }
-        au_becs_debit?: {
-          [key: string]: unknown
-        }
-        bacs_debit?: {
-          [key: string]: unknown
-        }
-        bancontact?: {
-          [key: string]: unknown
-        }
-        blik?: {
-          [key: string]: unknown
-        }
-        boleto?: {
-          [key: string]: unknown
-        }
-        card?: {
-          [key: string]: unknown
-        }
-        card_present?: {
-          [key: string]: unknown
-        }
-        cashapp?: {
-          [key: string]: unknown
-        }
-        customer_balance?: {
-          [key: string]: unknown
-        }
-        eps?: {
-          [key: string]: unknown
-        }
-        fpx?: {
-          [key: string]: unknown
-        }
-        giropay?: {
-          [key: string]: unknown
-        }
-        grabpay?: {
-          [key: string]: unknown
-        }
-        ideal?: {
-          [key: string]: unknown
-        }
-        interac_present?: {
-          [key: string]: unknown
-        }
-        klarna?: {
-          [key: string]: unknown
-        }
-        konbini?: {
-          [key: string]: unknown
-        }
-        link?: {
-          [key: string]: unknown
-        }
-        oxxo?: {
-          [key: string]: unknown
-        }
-        p24?: {
-          [key: string]: unknown
-        }
-        paynow?: {
-          [key: string]: unknown
-        }
-        pix?: {
-          [key: string]: unknown
-        }
-        promptpay?: {
-          [key: string]: unknown
-        }
-        sepa_debit?: {
-          [key: string]: unknown
-        }
-        sofort?: {
-          [key: string]: unknown
-        }
-        us_bank_account?: {
-          [key: string]: unknown
-        }
-        wechat_pay?: {
-          [key: string]: unknown
-        }
+        acss_debit?:
+          | {
+              mandate_options?: {
+                custom_mandate_url?: string | ""
+                interval_description?: string
+                payment_schedule?: "combined" | "interval" | "sporadic"
+                transaction_type?: "business" | "personal"
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        affirm?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        afterpay_clearpay?:
+          | {
+              capture_method?: "" | "manual"
+              reference?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        alipay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        au_becs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bacs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bancontact?:
+          | {
+              preferred_language?: "de" | "en" | "fr" | "nl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        blik?:
+          | {
+              code?: string
+            }
+          | ""
+        boleto?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        card?:
+          | {
+              capture_method?: "" | "manual"
+              cvc_token?: string
+              installments?: {
+                enabled?: boolean
+                plan?:
+                  | {
+                      count: number
+                      interval: "month"
+                      type: "fixed_count"
+                    }
+                  | ""
+              }
+              mandate_options?: {
+                amount: number
+                amount_type: "fixed" | "maximum"
+                description?: string
+                end_date?: number
+                interval: "day" | "month" | "sporadic" | "week" | "year"
+                interval_count?: number
+                reference: string
+                start_date: number
+                supported_types?: "india"[]
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "interac"
+                | "jcb"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+              request_three_d_secure?: "any" | "automatic"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              statement_descriptor_suffix_kana?: string | ""
+              statement_descriptor_suffix_kanji?: string | ""
+            }
+          | ""
+        card_present?:
+          | {
+              request_extended_authorization?: boolean
+              request_incremental_authorization_support?: boolean
+            }
+          | ""
+        cashapp?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                requested_address_types?: (
+                  | "iban"
+                  | "sepa"
+                  | "sort_code"
+                  | "spei"
+                  | "zengin"
+                )[]
+                type:
+                  | "eu_bank_transfer"
+                  | "gb_bank_transfer"
+                  | "jp_bank_transfer"
+                  | "mx_bank_transfer"
+              }
+              funding_type?: "bank_transfer"
+              setup_future_usage?: "none"
+            }
+          | ""
+        eps?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        fpx?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        giropay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        grabpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        ideal?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        interac_present?:
+          | {
+              [key: string]: never
+            }
+          | ""
+        klarna?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-CH"
+                | "de-DE"
+                | "el-GR"
+                | "en-AT"
+                | "en-AU"
+                | "en-BE"
+                | "en-CA"
+                | "en-CH"
+                | "en-CZ"
+                | "en-DE"
+                | "en-DK"
+                | "en-ES"
+                | "en-FI"
+                | "en-FR"
+                | "en-GB"
+                | "en-GR"
+                | "en-IE"
+                | "en-IT"
+                | "en-NL"
+                | "en-NO"
+                | "en-NZ"
+                | "en-PL"
+                | "en-PT"
+                | "en-SE"
+                | "en-US"
+                | "es-ES"
+                | "es-US"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-CA"
+                | "fr-CH"
+                | "fr-FR"
+                | "it-CH"
+                | "it-IT"
+                | "nb-NO"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sv-FI"
+                | "sv-SE"
+              setup_future_usage?: "none"
+            }
+          | ""
+        konbini?:
+          | {
+              confirmation_number?: string
+              expires_after_days?: number | ""
+              expires_at?: number | ""
+              product_description?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        link?:
+          | {
+              capture_method?: "" | "manual"
+              persistent_token?: string
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        oxxo?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        p24?:
+          | {
+              setup_future_usage?: "none"
+              tos_shown_and_accepted?: boolean
+            }
+          | ""
+        paynow?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        pix?:
+          | {
+              expires_after_seconds?: number
+              expires_at?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        promptpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        sepa_debit?:
+          | {
+              mandate_options?: {
+                [key: string]: never
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        sofort?:
+          | {
+              preferred_language?:
+                | ""
+                | "de"
+                | "en"
+                | "es"
+                | "fr"
+                | "it"
+                | "nl"
+                | "pl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                )[]
+                return_url?: string
+              }
+              networks?: {
+                requested?: ("ach" | "us_domestic_wire")[]
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        wechat_pay?:
+          | {
+              app_id?: string
+              client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
       }
       payment_method_types?: string[]
-      receipt_email?: {
-        [key: string]: unknown
-      }
+      receipt_email?: string | ""
       setup_future_usage?: "" | "off_session" | "on_session"
-      shipping?: {
-        [key: string]: unknown
-      }
+      shipping?:
+        | {
+            address: {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            carrier?: string
+            name: string
+            phone?: string
+            tracking_number?: string
+          }
+        | ""
       statement_descriptor?: string
       statement_descriptor_suffix?: string
       transfer_data?: {
@@ -14169,9 +15439,11 @@ export class ApiClient extends AbstractFetchClient {
       amount_to_capture?: number
       application_fee_amount?: number
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       statement_descriptor?: string
       statement_descriptor_suffix?: string
       transfer_data?: {
@@ -14198,12 +15470,30 @@ export class ApiClient extends AbstractFetchClient {
       error_on_requires_action?: boolean
       expand?: string[]
       mandate?: string
-      mandate_data?: {
-        [key: string]: unknown
-      }
-      off_session?: {
-        [key: string]: unknown
-      }
+      mandate_data?:
+        | {
+            customer_acceptance: {
+              accepted_at?: number
+              offline?: {
+                [key: string]: never
+              }
+              online?: {
+                ip_address: string
+                user_agent: string
+              }
+              type: "offline" | "online"
+            }
+          }
+        | {
+            customer_acceptance: {
+              online: {
+                ip_address?: string
+                user_agent?: string
+              }
+              type: "online"
+            }
+          }
+      off_session?: boolean | "one_off" | "recurring"
       payment_method?: string
       payment_method_data?: {
         acss_debit?: {
@@ -14212,13 +15502,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -14229,29 +15519,34 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -14310,10 +15605,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -14333,7 +15628,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -14343,16 +15638,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -14383,13 +15678,13 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -14437,116 +15732,342 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
       payment_method_options?: {
-        acss_debit?: {
-          [key: string]: unknown
-        }
-        affirm?: {
-          [key: string]: unknown
-        }
-        afterpay_clearpay?: {
-          [key: string]: unknown
-        }
-        alipay?: {
-          [key: string]: unknown
-        }
-        au_becs_debit?: {
-          [key: string]: unknown
-        }
-        bacs_debit?: {
-          [key: string]: unknown
-        }
-        bancontact?: {
-          [key: string]: unknown
-        }
-        blik?: {
-          [key: string]: unknown
-        }
-        boleto?: {
-          [key: string]: unknown
-        }
-        card?: {
-          [key: string]: unknown
-        }
-        card_present?: {
-          [key: string]: unknown
-        }
-        cashapp?: {
-          [key: string]: unknown
-        }
-        customer_balance?: {
-          [key: string]: unknown
-        }
-        eps?: {
-          [key: string]: unknown
-        }
-        fpx?: {
-          [key: string]: unknown
-        }
-        giropay?: {
-          [key: string]: unknown
-        }
-        grabpay?: {
-          [key: string]: unknown
-        }
-        ideal?: {
-          [key: string]: unknown
-        }
-        interac_present?: {
-          [key: string]: unknown
-        }
-        klarna?: {
-          [key: string]: unknown
-        }
-        konbini?: {
-          [key: string]: unknown
-        }
-        link?: {
-          [key: string]: unknown
-        }
-        oxxo?: {
-          [key: string]: unknown
-        }
-        p24?: {
-          [key: string]: unknown
-        }
-        paynow?: {
-          [key: string]: unknown
-        }
-        pix?: {
-          [key: string]: unknown
-        }
-        promptpay?: {
-          [key: string]: unknown
-        }
-        sepa_debit?: {
-          [key: string]: unknown
-        }
-        sofort?: {
-          [key: string]: unknown
-        }
-        us_bank_account?: {
-          [key: string]: unknown
-        }
-        wechat_pay?: {
-          [key: string]: unknown
-        }
+        acss_debit?:
+          | {
+              mandate_options?: {
+                custom_mandate_url?: string | ""
+                interval_description?: string
+                payment_schedule?: "combined" | "interval" | "sporadic"
+                transaction_type?: "business" | "personal"
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        affirm?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        afterpay_clearpay?:
+          | {
+              capture_method?: "" | "manual"
+              reference?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        alipay?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        au_becs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bacs_debit?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        bancontact?:
+          | {
+              preferred_language?: "de" | "en" | "fr" | "nl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        blik?:
+          | {
+              code?: string
+            }
+          | ""
+        boleto?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        card?:
+          | {
+              capture_method?: "" | "manual"
+              cvc_token?: string
+              installments?: {
+                enabled?: boolean
+                plan?:
+                  | {
+                      count: number
+                      interval: "month"
+                      type: "fixed_count"
+                    }
+                  | ""
+              }
+              mandate_options?: {
+                amount: number
+                amount_type: "fixed" | "maximum"
+                description?: string
+                end_date?: number
+                interval: "day" | "month" | "sporadic" | "week" | "year"
+                interval_count?: number
+                reference: string
+                start_date: number
+                supported_types?: "india"[]
+              }
+              network?:
+                | "amex"
+                | "cartes_bancaires"
+                | "diners"
+                | "discover"
+                | "interac"
+                | "jcb"
+                | "mastercard"
+                | "unionpay"
+                | "unknown"
+                | "visa"
+              request_three_d_secure?: "any" | "automatic"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              statement_descriptor_suffix_kana?: string | ""
+              statement_descriptor_suffix_kanji?: string | ""
+            }
+          | ""
+        card_present?:
+          | {
+              request_extended_authorization?: boolean
+              request_incremental_authorization_support?: boolean
+            }
+          | ""
+        cashapp?:
+          | {
+              capture_method?: "" | "manual"
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        customer_balance?:
+          | {
+              bank_transfer?: {
+                eu_bank_transfer?: {
+                  country: string
+                }
+                requested_address_types?: (
+                  | "iban"
+                  | "sepa"
+                  | "sort_code"
+                  | "spei"
+                  | "zengin"
+                )[]
+                type:
+                  | "eu_bank_transfer"
+                  | "gb_bank_transfer"
+                  | "jp_bank_transfer"
+                  | "mx_bank_transfer"
+              }
+              funding_type?: "bank_transfer"
+              setup_future_usage?: "none"
+            }
+          | ""
+        eps?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        fpx?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        giropay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        grabpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        ideal?:
+          | {
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        interac_present?:
+          | {
+              [key: string]: never
+            }
+          | ""
+        klarna?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-CH"
+                | "de-DE"
+                | "el-GR"
+                | "en-AT"
+                | "en-AU"
+                | "en-BE"
+                | "en-CA"
+                | "en-CH"
+                | "en-CZ"
+                | "en-DE"
+                | "en-DK"
+                | "en-ES"
+                | "en-FI"
+                | "en-FR"
+                | "en-GB"
+                | "en-GR"
+                | "en-IE"
+                | "en-IT"
+                | "en-NL"
+                | "en-NO"
+                | "en-NZ"
+                | "en-PL"
+                | "en-PT"
+                | "en-SE"
+                | "en-US"
+                | "es-ES"
+                | "es-US"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-CA"
+                | "fr-CH"
+                | "fr-FR"
+                | "it-CH"
+                | "it-IT"
+                | "nb-NO"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sv-FI"
+                | "sv-SE"
+              setup_future_usage?: "none"
+            }
+          | ""
+        konbini?:
+          | {
+              confirmation_number?: string
+              expires_after_days?: number | ""
+              expires_at?: number | ""
+              product_description?: string
+              setup_future_usage?: "none"
+            }
+          | ""
+        link?:
+          | {
+              capture_method?: "" | "manual"
+              persistent_token?: string
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        oxxo?:
+          | {
+              expires_after_days?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        p24?:
+          | {
+              setup_future_usage?: "none"
+              tos_shown_and_accepted?: boolean
+            }
+          | ""
+        paynow?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        pix?:
+          | {
+              expires_after_seconds?: number
+              expires_at?: number
+              setup_future_usage?: "none"
+            }
+          | ""
+        promptpay?:
+          | {
+              setup_future_usage?: "none"
+            }
+          | ""
+        sepa_debit?:
+          | {
+              mandate_options?: {
+                [key: string]: never
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+            }
+          | ""
+        sofort?:
+          | {
+              preferred_language?:
+                | ""
+                | "de"
+                | "en"
+                | "es"
+                | "fr"
+                | "it"
+                | "nl"
+                | "pl"
+              setup_future_usage?: "" | "none" | "off_session"
+            }
+          | ""
+        us_bank_account?:
+          | {
+              financial_connections?: {
+                permissions?: (
+                  | "balances"
+                  | "ownership"
+                  | "payment_method"
+                  | "transactions"
+                )[]
+                return_url?: string
+              }
+              networks?: {
+                requested?: ("ach" | "us_domestic_wire")[]
+              }
+              setup_future_usage?: "" | "none" | "off_session" | "on_session"
+              verification_method?: "automatic" | "instant" | "microdeposits"
+            }
+          | ""
+        wechat_pay?:
+          | {
+              app_id?: string
+              client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
       }
       payment_method_types?: string[]
       radar_options?: {
         session?: string
       }
-      receipt_email?: {
-        [key: string]: unknown
-      }
+      receipt_email?: string | ""
       return_url?: string
       setup_future_usage?: "" | "off_session" | "on_session"
-      shipping?: {
-        [key: string]: unknown
-      }
+      shipping?:
+        | {
+            address: {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            carrier?: string
+            name: string
+            phone?: string
+            tracking_number?: string
+          }
+        | ""
       use_stripe_sdk?: boolean
     }
   }): Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>> {
@@ -14619,7 +16140,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -14691,32 +16212,44 @@ export class ApiClient extends AbstractFetchClient {
         type: "dropdown" | "numeric" | "text"
       }[]
       custom_text?: {
-        shipping_address?: {
-          [key: string]: unknown
-        }
-        submit?: {
-          [key: string]: unknown
-        }
+        shipping_address?:
+          | {
+              message: string
+            }
+          | ""
+        submit?:
+          | {
+              message: string
+            }
+          | ""
       }
       customer_creation?: "always" | "if_required"
       expand?: string[]
       invoice_creation?: {
         enabled: boolean
         invoice_data?: {
-          account_tax_ids?: {
-            [key: string]: unknown
-          }
-          custom_fields?: {
-            [key: string]: unknown
-          }
+          account_tax_ids?: string[] | ""
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ""
           description?: string
           footer?: string
-          metadata?: {
-            [key: string]: unknown
-          }
-          rendering_options?: {
-            [key: string]: unknown
-          }
+          metadata?:
+            | {
+                [key: string]: unknown
+              }
+            | ""
+          rendering_options?:
+            | {
+                amount_tax_display?:
+                  | ""
+                  | "exclude_tax"
+                  | "include_inclusive_tax"
+              }
+            | ""
         }
       }
       line_items: {
@@ -15042,7 +16575,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     paymentLink: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
@@ -15075,36 +16608,62 @@ export class ApiClient extends AbstractFetchClient {
         enabled: boolean
       }
       billing_address_collection?: "auto" | "required"
-      custom_fields?: {
-        [key: string]: unknown
-      }
+      custom_fields?:
+        | {
+            dropdown?: {
+              options: {
+                label: string
+                value: string
+              }[]
+            }
+            key: string
+            label: {
+              custom: string
+              type: "custom"
+            }
+            optional?: boolean
+            type: "dropdown" | "numeric" | "text"
+          }[]
+        | ""
       custom_text?: {
-        shipping_address?: {
-          [key: string]: unknown
-        }
-        submit?: {
-          [key: string]: unknown
-        }
+        shipping_address?:
+          | {
+              message: string
+            }
+          | ""
+        submit?:
+          | {
+              message: string
+            }
+          | ""
       }
       customer_creation?: "always" | "if_required"
       expand?: string[]
       invoice_creation?: {
         enabled: boolean
         invoice_data?: {
-          account_tax_ids?: {
-            [key: string]: unknown
-          }
-          custom_fields?: {
-            [key: string]: unknown
-          }
+          account_tax_ids?: string[] | ""
+          custom_fields?:
+            | {
+                name: string
+                value: string
+              }[]
+            | ""
           description?: string
           footer?: string
-          metadata?: {
-            [key: string]: unknown
-          }
-          rendering_options?: {
-            [key: string]: unknown
-          }
+          metadata?:
+            | {
+                [key: string]: unknown
+              }
+            | ""
+          rendering_options?:
+            | {
+                amount_tax_display?:
+                  | ""
+                  | "exclude_tax"
+                  | "include_inclusive_tax"
+              }
+            | ""
         }
       }
       line_items?: {
@@ -15120,12 +16679,280 @@ export class ApiClient extends AbstractFetchClient {
         [key: string]: unknown
       }
       payment_method_collection?: "always" | "if_required"
-      payment_method_types?: {
-        [key: string]: unknown
-      }
-      shipping_address_collection?: {
-        [key: string]: unknown
-      }
+      payment_method_types?:
+        | (
+            | "affirm"
+            | "afterpay_clearpay"
+            | "alipay"
+            | "au_becs_debit"
+            | "bacs_debit"
+            | "bancontact"
+            | "blik"
+            | "boleto"
+            | "card"
+            | "cashapp"
+            | "eps"
+            | "fpx"
+            | "giropay"
+            | "grabpay"
+            | "ideal"
+            | "klarna"
+            | "konbini"
+            | "link"
+            | "oxxo"
+            | "p24"
+            | "paynow"
+            | "pix"
+            | "promptpay"
+            | "sepa_debit"
+            | "sofort"
+            | "us_bank_account"
+            | "wechat_pay"
+          )[]
+        | ""
+      shipping_address_collection?:
+        | {
+            allowed_countries: (
+              | "AC"
+              | "AD"
+              | "AE"
+              | "AF"
+              | "AG"
+              | "AI"
+              | "AL"
+              | "AM"
+              | "AO"
+              | "AQ"
+              | "AR"
+              | "AT"
+              | "AU"
+              | "AW"
+              | "AX"
+              | "AZ"
+              | "BA"
+              | "BB"
+              | "BD"
+              | "BE"
+              | "BF"
+              | "BG"
+              | "BH"
+              | "BI"
+              | "BJ"
+              | "BL"
+              | "BM"
+              | "BN"
+              | "BO"
+              | "BQ"
+              | "BR"
+              | "BS"
+              | "BT"
+              | "BV"
+              | "BW"
+              | "BY"
+              | "BZ"
+              | "CA"
+              | "CD"
+              | "CF"
+              | "CG"
+              | "CH"
+              | "CI"
+              | "CK"
+              | "CL"
+              | "CM"
+              | "CN"
+              | "CO"
+              | "CR"
+              | "CV"
+              | "CW"
+              | "CY"
+              | "CZ"
+              | "DE"
+              | "DJ"
+              | "DK"
+              | "DM"
+              | "DO"
+              | "DZ"
+              | "EC"
+              | "EE"
+              | "EG"
+              | "EH"
+              | "ER"
+              | "ES"
+              | "ET"
+              | "FI"
+              | "FJ"
+              | "FK"
+              | "FO"
+              | "FR"
+              | "GA"
+              | "GB"
+              | "GD"
+              | "GE"
+              | "GF"
+              | "GG"
+              | "GH"
+              | "GI"
+              | "GL"
+              | "GM"
+              | "GN"
+              | "GP"
+              | "GQ"
+              | "GR"
+              | "GS"
+              | "GT"
+              | "GU"
+              | "GW"
+              | "GY"
+              | "HK"
+              | "HN"
+              | "HR"
+              | "HT"
+              | "HU"
+              | "ID"
+              | "IE"
+              | "IL"
+              | "IM"
+              | "IN"
+              | "IO"
+              | "IQ"
+              | "IS"
+              | "IT"
+              | "JE"
+              | "JM"
+              | "JO"
+              | "JP"
+              | "KE"
+              | "KG"
+              | "KH"
+              | "KI"
+              | "KM"
+              | "KN"
+              | "KR"
+              | "KW"
+              | "KY"
+              | "KZ"
+              | "LA"
+              | "LB"
+              | "LC"
+              | "LI"
+              | "LK"
+              | "LR"
+              | "LS"
+              | "LT"
+              | "LU"
+              | "LV"
+              | "LY"
+              | "MA"
+              | "MC"
+              | "MD"
+              | "ME"
+              | "MF"
+              | "MG"
+              | "MK"
+              | "ML"
+              | "MM"
+              | "MN"
+              | "MO"
+              | "MQ"
+              | "MR"
+              | "MS"
+              | "MT"
+              | "MU"
+              | "MV"
+              | "MW"
+              | "MX"
+              | "MY"
+              | "MZ"
+              | "NA"
+              | "NC"
+              | "NE"
+              | "NG"
+              | "NI"
+              | "NL"
+              | "NO"
+              | "NP"
+              | "NR"
+              | "NU"
+              | "NZ"
+              | "OM"
+              | "PA"
+              | "PE"
+              | "PF"
+              | "PG"
+              | "PH"
+              | "PK"
+              | "PL"
+              | "PM"
+              | "PN"
+              | "PR"
+              | "PS"
+              | "PT"
+              | "PY"
+              | "QA"
+              | "RE"
+              | "RO"
+              | "RS"
+              | "RU"
+              | "RW"
+              | "SA"
+              | "SB"
+              | "SC"
+              | "SE"
+              | "SG"
+              | "SH"
+              | "SI"
+              | "SJ"
+              | "SK"
+              | "SL"
+              | "SM"
+              | "SN"
+              | "SO"
+              | "SR"
+              | "SS"
+              | "ST"
+              | "SV"
+              | "SX"
+              | "SZ"
+              | "TA"
+              | "TC"
+              | "TD"
+              | "TF"
+              | "TG"
+              | "TH"
+              | "TJ"
+              | "TK"
+              | "TL"
+              | "TM"
+              | "TN"
+              | "TO"
+              | "TR"
+              | "TT"
+              | "TV"
+              | "TW"
+              | "TZ"
+              | "UA"
+              | "UG"
+              | "US"
+              | "UY"
+              | "UZ"
+              | "VA"
+              | "VC"
+              | "VE"
+              | "VG"
+              | "VN"
+              | "VU"
+              | "WF"
+              | "WS"
+              | "XK"
+              | "YE"
+              | "YT"
+              | "ZA"
+              | "ZM"
+              | "ZW"
+              | "ZZ"
+            )[]
+          }
+        | ""
     }
   }): Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
@@ -15146,7 +16973,7 @@ export class ApiClient extends AbstractFetchClient {
     paymentLink: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -15216,7 +17043,7 @@ export class ApiClient extends AbstractFetchClient {
         | "us_bank_account"
         | "wechat_pay"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -15259,13 +17086,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -15276,33 +17103,45 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
-        card?: {
-          [key: string]: unknown
-        }
+        card?:
+          | {
+              cvc?: string
+              exp_month: number
+              exp_year: number
+              number: string
+            }
+          | {
+              token: string
+            }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer?: string
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -15362,10 +17201,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -15385,7 +17224,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -15395,16 +17234,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -15436,13 +17275,13 @@ export class ApiClient extends AbstractFetchClient {
         }
         payment_method?: string
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -15491,7 +17330,7 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
     } = {}
@@ -15511,7 +17350,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     paymentMethod: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
@@ -15530,12 +17369,17 @@ export class ApiClient extends AbstractFetchClient {
     paymentMethod: string
     requestBody?: {
       billing_details?: {
-        address?: {
-          [key: string]: unknown
-        }
-        email?: {
-          [key: string]: unknown
-        }
+        address?:
+          | {
+              city?: string
+              country?: string
+              line1?: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+          | ""
+        email?: string | ""
         name?: string
         phone?: string
       }
@@ -15545,11 +17389,13 @@ export class ApiClient extends AbstractFetchClient {
       }
       expand?: string[]
       link?: {
-        [key: string]: unknown
+        [key: string]: never
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       us_bank_account?: {
         account_holder_type?: "company" | "individual"
       }
@@ -15605,12 +17451,22 @@ export class ApiClient extends AbstractFetchClient {
 
   async getPayouts(
     p: {
-      arrivalDate?: {
-        [key: string]: unknown
-      }
-      created?: {
-        [key: string]: unknown
-      }
+      arrivalDate?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       destination?: string
       endingBefore?: string
       expand?: string[]
@@ -15618,7 +17474,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -15684,7 +17540,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     payout: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_payout> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
@@ -15703,9 +17559,11 @@ export class ApiClient extends AbstractFetchClient {
     payout: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_payout> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
@@ -15759,16 +17617,21 @@ export class ApiClient extends AbstractFetchClient {
   async getPlans(
     p: {
       active?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       product?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -15815,21 +17678,31 @@ export class ApiClient extends AbstractFetchClient {
       id?: string
       interval: "day" | "month" | "week" | "year"
       interval_count?: number
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nickname?: string
-      product?: {
-        [key: string]: unknown
-      }
+      product?:
+        | {
+            active?: boolean
+            id?: string
+            metadata?: {
+              [key: string]: unknown
+            }
+            name: string
+            statement_descriptor?: string
+            tax_code?: string
+            unit_label?: string
+          }
+        | string
       tiers?: {
         flat_amount?: number
         flat_amount_decimal?: string
         unit_amount?: number
         unit_amount_decimal?: string
-        up_to: {
-          [key: string]: unknown
-        }
+        up_to: "inf" | number
       }[]
       tiers_mode?: "graduated" | "volume"
       transform_usage?: {
@@ -15854,7 +17727,7 @@ export class ApiClient extends AbstractFetchClient {
   async deletePlansPlan(p: {
     plan: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_deleted_plan> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
@@ -15872,7 +17745,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     plan: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_plan> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
@@ -15892,9 +17765,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       active?: boolean
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nickname?: string
       product?: string
       trial_period_days?: number
@@ -15914,9 +17789,14 @@ export class ApiClient extends AbstractFetchClient {
   async getPrices(
     p: {
       active?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       currency?: string
       endingBefore?: string
       expand?: string[]
@@ -15930,7 +17810,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: "one_time" | "recurring"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -16013,9 +17893,7 @@ export class ApiClient extends AbstractFetchClient {
         flat_amount_decimal?: string
         unit_amount?: number
         unit_amount_decimal?: string
-        up_to: {
-          [key: string]: unknown
-        }
+        up_to: "inf" | number
       }[]
       tiers_mode?: "graduated" | "volume"
       transfer_lookup_key?: boolean
@@ -16044,7 +17922,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -16081,7 +17959,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     price: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_price> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
@@ -16100,14 +17978,18 @@ export class ApiClient extends AbstractFetchClient {
     price: string
     requestBody?: {
       active?: boolean
-      currency_options?: {
-        [key: string]: unknown
-      }
+      currency_options?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       expand?: string[]
       lookup_key?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       nickname?: string
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       transfer_lookup_key?: boolean
@@ -16127,9 +18009,14 @@ export class ApiClient extends AbstractFetchClient {
   async getProducts(
     p: {
       active?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       ids?: string[]
@@ -16138,7 +18025,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       url?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -16229,7 +18116,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -16265,7 +18152,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteProductsId(p: {
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_product> | Response<StatusCode, t_error>
@@ -16285,7 +18172,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_product> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
@@ -16307,25 +18194,26 @@ export class ApiClient extends AbstractFetchClient {
       default_price?: string
       description?: string
       expand?: string[]
-      images?: {
-        [key: string]: unknown
-      }
-      metadata?: {
-        [key: string]: unknown
-      }
+      images?: string[] | ""
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       name?: string
-      package_dimensions?: {
-        [key: string]: unknown
-      }
+      package_dimensions?:
+        | {
+            height: number
+            length: number
+            weight: number
+            width: number
+          }
+        | ""
       shippable?: boolean
       statement_descriptor?: string
-      tax_code?: {
-        [key: string]: unknown
-      }
+      tax_code?: string | ""
       unit_label?: string
-      url?: {
-        [key: string]: unknown
-      }
+      url?: string | ""
     }
   }): Promise<Response<200, t_product> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
@@ -16344,16 +18232,21 @@ export class ApiClient extends AbstractFetchClient {
       active?: boolean
       code?: string
       coupon?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -16427,7 +18320,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     promotionCode: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_promotion_code> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
@@ -16447,9 +18340,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       active?: boolean
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       restrictions?: {
         currency_options?: {
           [key: string]: unknown
@@ -16478,7 +18373,7 @@ export class ApiClient extends AbstractFetchClient {
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -16516,24 +18411,21 @@ export class ApiClient extends AbstractFetchClient {
   async postQuotes(
     p: {
       requestBody?: {
-        application_fee_amount?: {
-          [key: string]: unknown
-        }
-        application_fee_percent?: {
-          [key: string]: unknown
-        }
+        application_fee_amount?: number | ""
+        application_fee_percent?: number | ""
         automatic_tax?: {
           enabled: boolean
         }
         collection_method?: "charge_automatically" | "send_invoice"
         customer?: string
-        default_tax_rates?: {
-          [key: string]: unknown
-        }
+        default_tax_rates?: string[] | ""
         description?: string
-        discounts?: {
-          [key: string]: unknown
-        }
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+            }[]
+          | ""
         expand?: string[]
         expires_at?: number
         footer?: string
@@ -16559,29 +18451,25 @@ export class ApiClient extends AbstractFetchClient {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: {
-            [key: string]: unknown
-          }
+          tax_rates?: string[] | ""
         }[]
         metadata?: {
           [key: string]: unknown
         }
-        on_behalf_of?: {
-          [key: string]: unknown
-        }
+        on_behalf_of?: string | ""
         subscription_data?: {
           description?: string
-          effective_date?: {
-            [key: string]: unknown
-          }
-          trial_period_days?: {
-            [key: string]: unknown
-          }
+          effective_date?: "current_period_end" | number | ""
+          trial_period_days?: number | ""
         }
         test_clock?: string
-        transfer_data?: {
-          [key: string]: unknown
-        }
+        transfer_data?:
+          | {
+              amount?: number
+              amount_percent?: number
+              destination: string
+            }
+          | ""
       }
     } = {}
   ): Promise<Response<200, t_quote> | Response<StatusCode, t_error>> {
@@ -16600,7 +18488,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     quote: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_quote> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
@@ -16618,24 +18506,21 @@ export class ApiClient extends AbstractFetchClient {
   async postQuotesQuote(p: {
     quote: string
     requestBody?: {
-      application_fee_amount?: {
-        [key: string]: unknown
-      }
-      application_fee_percent?: {
-        [key: string]: unknown
-      }
+      application_fee_amount?: number | ""
+      application_fee_percent?: number | ""
       automatic_tax?: {
         enabled: boolean
       }
       collection_method?: "charge_automatically" | "send_invoice"
       customer?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       description?: string
-      discounts?: {
-        [key: string]: unknown
-      }
+      discounts?:
+        | {
+            coupon?: string
+            discount?: string
+          }[]
+        | ""
       expand?: string[]
       expires_at?: number
       footer?: string
@@ -16658,28 +18543,24 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       metadata?: {
         [key: string]: unknown
       }
-      on_behalf_of?: {
-        [key: string]: unknown
-      }
+      on_behalf_of?: string | ""
       subscription_data?: {
         description?: string
-        effective_date?: {
-          [key: string]: unknown
-        }
-        trial_period_days?: {
-          [key: string]: unknown
-        }
+        effective_date?: "current_period_end" | number | ""
+        trial_period_days?: number | ""
       }
-      transfer_data?: {
-        [key: string]: unknown
-      }
+      transfer_data?:
+        | {
+            amount?: number
+            amount_percent?: number
+            destination: string
+          }
+        | ""
     }
   }): Promise<Response<200, t_quote> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
@@ -16734,7 +18615,7 @@ export class ApiClient extends AbstractFetchClient {
     quote: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -16791,7 +18672,7 @@ export class ApiClient extends AbstractFetchClient {
     quote: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -16826,7 +18707,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     quote: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, string> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
@@ -16850,7 +18731,7 @@ export class ApiClient extends AbstractFetchClient {
       paymentIntent?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -16888,7 +18769,7 @@ export class ApiClient extends AbstractFetchClient {
     earlyFraudWarning: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_radar_early_fraud_warning> | Response<StatusCode, t_error>
@@ -16907,9 +18788,14 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async getRadarValueListItems(p: {
-    created?: {
-      [key: string]: unknown
-    }
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     endingBefore?: string
     expand?: string[]
     limit?: number
@@ -16917,7 +18803,7 @@ export class ApiClient extends AbstractFetchClient {
     value?: string
     valueList: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -16974,7 +18860,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteRadarValueListItemsItem(p: {
     item: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_deleted_radar_value_list_item>
@@ -16995,7 +18881,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     item: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_radar_value_list_item> | Response<StatusCode, t_error>
@@ -17016,15 +18902,20 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       alias?: string
       contains?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -17094,7 +18985,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteRadarValueListsValueList(p: {
     valueList: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_radar_value_list> | Response<StatusCode, t_error>
@@ -17114,7 +19005,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     valueList: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_radar_value_list> | Response<StatusCode, t_error>
@@ -17158,16 +19049,21 @@ export class ApiClient extends AbstractFetchClient {
   async getRefunds(
     p: {
       charge?: string
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       paymentIntent?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -17211,9 +19107,11 @@ export class ApiClient extends AbstractFetchClient {
         customer?: string
         expand?: string[]
         instructions_email?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         origin?: "customer_balance"
         payment_intent?: string
         reason?: "duplicate" | "fraudulent" | "requested_by_customer"
@@ -17237,7 +19135,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     refund: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
@@ -17256,9 +19154,11 @@ export class ApiClient extends AbstractFetchClient {
     refund: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
@@ -17291,15 +19191,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getReportingReportRuns(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -17997,7 +19902,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     reportRun: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_reporting_report_run> | Response<StatusCode, t_error>
@@ -18018,7 +19923,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -18049,7 +19954,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     reportType: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_reporting_report_type> | Response<StatusCode, t_error>
@@ -18068,15 +19973,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getReviews(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -18113,7 +20023,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     review: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_review> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
@@ -18146,16 +20056,21 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async getSetupAttempts(p: {
-    created?: {
-      [key: string]: unknown
-    }
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     endingBefore?: string
     expand?: string[]
     limit?: number
     setupIntent: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -18191,9 +20106,14 @@ export class ApiClient extends AbstractFetchClient {
   async getSetupIntents(
     p: {
       attachToSelf?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
@@ -18201,7 +20121,7 @@ export class ApiClient extends AbstractFetchClient {
       paymentMethod?: string
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -18253,7 +20173,7 @@ export class ApiClient extends AbstractFetchClient {
           customer_acceptance: {
             accepted_at?: number
             offline?: {
-              [key: string]: unknown
+              [key: string]: never
             }
             online?: {
               ip_address: string
@@ -18274,13 +20194,13 @@ export class ApiClient extends AbstractFetchClient {
             transit_number: string
           }
           affirm?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           afterpay_clearpay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           alipay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           au_becs_debit?: {
             account_number: string
@@ -18291,29 +20211,34 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           billing_details?: {
-            address?: {
-              [key: string]: unknown
-            }
-            email?: {
-              [key: string]: unknown
-            }
+            address?:
+              | {
+                  city?: string
+                  country?: string
+                  line1?: string
+                  line2?: string
+                  postal_code?: string
+                  state?: string
+                }
+              | ""
+            email?: string | ""
             name?: string
             phone?: string
           }
           blik?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           boleto?: {
             tax_id: string
           }
           cashapp?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           customer_balance?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           eps?: {
             bank?:
@@ -18372,10 +20297,10 @@ export class ApiClient extends AbstractFetchClient {
               | "uob"
           }
           giropay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           grabpay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           ideal?: {
             bank?:
@@ -18395,7 +20320,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           klarna?: {
             dob?: {
@@ -18405,16 +20330,16 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           link?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           metadata?: {
             [key: string]: unknown
           }
           oxxo?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           p24?: {
             bank?:
@@ -18445,13 +20370,13 @@ export class ApiClient extends AbstractFetchClient {
               | "volkswagen_bank"
           }
           paynow?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           pix?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           promptpay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           radar_options?: {
             session?: string
@@ -18499,16 +20424,14 @@ export class ApiClient extends AbstractFetchClient {
             routing_number?: string
           }
           wechat_pay?: {
-            [key: string]: unknown
+            [key: string]: never
           }
         }
         payment_method_options?: {
           acss_debit?: {
             currency?: "cad" | "usd"
             mandate_options?: {
-              custom_mandate_url?: {
-                [key: string]: unknown
-              }
+              custom_mandate_url?: string | ""
               default_for?: ("invoice" | "subscription")[]
               interval_description?: string
               payment_schedule?: "combined" | "interval" | "sporadic"
@@ -18550,7 +20473,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           sepa_debit?: {
             mandate_options?: {
-              [key: string]: unknown
+              [key: string]: never
             }
           }
           us_bank_account?: {
@@ -18595,7 +20518,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     intent: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
@@ -18621,9 +20544,11 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       expand?: string[]
       flow_directions?: ("inbound" | "outbound")[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       payment_method?: string
       payment_method_data?: {
         acss_debit?: {
@@ -18632,13 +20557,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -18649,29 +20574,34 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -18730,10 +20660,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -18753,7 +20683,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -18763,16 +20693,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -18803,13 +20733,13 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -18857,16 +20787,14 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
       payment_method_options?: {
         acss_debit?: {
           currency?: "cad" | "usd"
           mandate_options?: {
-            custom_mandate_url?: {
-              [key: string]: unknown
-            }
+            custom_mandate_url?: string | ""
             default_for?: ("invoice" | "subscription")[]
             interval_description?: string
             payment_schedule?: "combined" | "interval" | "sporadic"
@@ -18908,7 +20836,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         sepa_debit?: {
           mandate_options?: {
-            [key: string]: unknown
+            [key: string]: never
           }
         }
         us_bank_account?: {
@@ -18964,9 +20892,29 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       client_secret?: string
       expand?: string[]
-      mandate_data?: {
-        [key: string]: unknown
-      }
+      mandate_data?:
+        | {
+            customer_acceptance: {
+              accepted_at?: number
+              offline?: {
+                [key: string]: never
+              }
+              online?: {
+                ip_address: string
+                user_agent: string
+              }
+              type: "offline" | "online"
+            }
+          }
+        | {
+            customer_acceptance: {
+              online: {
+                ip_address?: string
+                user_agent?: string
+              }
+              type: "online"
+            }
+          }
       payment_method?: string
       payment_method_data?: {
         acss_debit?: {
@@ -18975,13 +20923,13 @@ export class ApiClient extends AbstractFetchClient {
           transit_number: string
         }
         affirm?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         afterpay_clearpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         alipay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         au_becs_debit?: {
           account_number: string
@@ -18992,29 +20940,34 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
         blik?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         boleto?: {
           tax_id: string
         }
         cashapp?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         customer_balance?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         eps?: {
           bank?:
@@ -19073,10 +21026,10 @@ export class ApiClient extends AbstractFetchClient {
             | "uob"
         }
         giropay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         grabpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         ideal?: {
           bank?:
@@ -19096,7 +21049,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         klarna?: {
           dob?: {
@@ -19106,16 +21059,16 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         link?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         metadata?: {
           [key: string]: unknown
         }
         oxxo?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         p24?: {
           bank?:
@@ -19146,13 +21099,13 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         paynow?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         pix?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         promptpay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
         radar_options?: {
           session?: string
@@ -19200,16 +21153,14 @@ export class ApiClient extends AbstractFetchClient {
           routing_number?: string
         }
         wechat_pay?: {
-          [key: string]: unknown
+          [key: string]: never
         }
       }
       payment_method_options?: {
         acss_debit?: {
           currency?: "cad" | "usd"
           mandate_options?: {
-            custom_mandate_url?: {
-              [key: string]: unknown
-            }
+            custom_mandate_url?: string | ""
             default_for?: ("invoice" | "subscription")[]
             interval_description?: string
             payment_schedule?: "combined" | "interval" | "sporadic"
@@ -19251,7 +21202,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         sepa_debit?: {
           mandate_options?: {
-            [key: string]: unknown
+            [key: string]: never
           }
         }
         us_bank_account?: {
@@ -19308,16 +21259,21 @@ export class ApiClient extends AbstractFetchClient {
   async getShippingRates(
     p: {
       active?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       currency?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -19396,7 +21352,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     shippingRateToken: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
@@ -19421,9 +21377,11 @@ export class ApiClient extends AbstractFetchClient {
           [key: string]: unknown
         }
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
     }
   }): Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>> {
@@ -19445,7 +21403,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -19481,7 +21439,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     scheduledQueryRun: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_scheduled_query_run> | Response<StatusCode, t_error>
@@ -19523,9 +21481,7 @@ export class ApiClient extends AbstractFetchClient {
             type?: "offline" | "online"
             user_agent?: string
           }
-          amount?: {
-            [key: string]: unknown
-          }
+          amount?: number | ""
           currency?: string
           interval?: "one_time" | "scheduled" | "variable"
           notification_method?:
@@ -19605,7 +21561,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     source: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_source> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
@@ -19644,9 +21600,7 @@ export class ApiClient extends AbstractFetchClient {
           type?: "offline" | "online"
           user_agent?: string
         }
-        amount?: {
-          [key: string]: unknown
-        }
+        amount?: number | ""
         currency?: string
         interval?: "one_time" | "scheduled" | "variable"
         notification_method?:
@@ -19656,9 +21610,11 @@ export class ApiClient extends AbstractFetchClient {
           | "none"
           | "stripe_email"
       }
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       owner?: {
         address?: {
           city?: string
@@ -19714,7 +21670,7 @@ export class ApiClient extends AbstractFetchClient {
     mandateNotification: string
     source: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_source_mandate_notification> | Response<StatusCode, t_error>
@@ -19740,7 +21696,7 @@ export class ApiClient extends AbstractFetchClient {
     source: string
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -19776,7 +21732,7 @@ export class ApiClient extends AbstractFetchClient {
     source: string
     sourceTransaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_source_transaction> | Response<StatusCode, t_error>
@@ -19820,7 +21776,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     subscription: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -19854,9 +21810,11 @@ export class ApiClient extends AbstractFetchClient {
 
   async postSubscriptionItems(p: {
     requestBody: {
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
       expand?: string[]
       metadata?: {
         [key: string]: unknown
@@ -19882,9 +21840,7 @@ export class ApiClient extends AbstractFetchClient {
       proration_date?: number
       quantity?: number
       subscription: string
-      tax_rates?: {
-        [key: string]: unknown
-      }
+      tax_rates?: string[] | ""
     }
   }): Promise<
     Response<200, t_subscription_item> | Response<StatusCode, t_error>
@@ -19925,7 +21881,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     item: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_subscription_item> | Response<StatusCode, t_error>
@@ -19945,13 +21901,17 @@ export class ApiClient extends AbstractFetchClient {
   async postSubscriptionItemsItem(p: {
     item: string
     requestBody?: {
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       off_session?: boolean
       payment_behavior?:
         | "allow_incomplete"
@@ -19973,9 +21933,7 @@ export class ApiClient extends AbstractFetchClient {
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       proration_date?: number
       quantity?: number
-      tax_rates?: {
-        [key: string]: unknown
-      }
+      tax_rates?: string[] | ""
     }
   }): Promise<
     Response<200, t_subscription_item> | Response<StatusCode, t_error>
@@ -19998,7 +21956,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     subscriptionItem: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -20037,9 +21995,7 @@ export class ApiClient extends AbstractFetchClient {
       action?: "increment" | "set"
       expand?: string[]
       quantity: number
-      timestamp?: {
-        [key: string]: unknown
-      }
+      timestamp?: "now" | number
     }
   }): Promise<Response<200, t_usage_record> | Response<StatusCode, t_error>> {
     const url =
@@ -20057,26 +22013,46 @@ export class ApiClient extends AbstractFetchClient {
 
   async getSubscriptionSchedules(
     p: {
-      canceledAt?: {
-        [key: string]: unknown
-      }
-      completedAt?: {
-        [key: string]: unknown
-      }
-      created?: {
-        [key: string]: unknown
-      }
+      canceledAt?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      completedAt?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
       limit?: number
-      releasedAt?: {
-        [key: string]: unknown
-      }
+      releasedAt?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       scheduled?: boolean
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -20124,28 +22100,34 @@ export class ApiClient extends AbstractFetchClient {
             enabled: boolean
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?: {
-            [key: string]: unknown
-          }
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
           collection_method?: "charge_automatically" | "send_invoice"
           default_payment_method?: string
           description?: string
           invoice_settings?: {
             days_until_due?: number
           }
-          on_behalf_of?: {
-            [key: string]: unknown
-          }
-          transfer_data?: {
-            [key: string]: unknown
-          }
+          on_behalf_of?: string | ""
+          transfer_data?:
+            | {
+                amount_percent?: number
+                destination: string
+              }
+            | ""
         }
         end_behavior?: "cancel" | "none" | "release" | "renew"
         expand?: string[]
         from_subscription?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         phases?: {
           add_invoice_items?: {
             price?: string
@@ -20157,34 +22139,35 @@ export class ApiClient extends AbstractFetchClient {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: {
-              [key: string]: unknown
-            }
+            tax_rates?: string[] | ""
           }[]
           application_fee_percent?: number
           automatic_tax?: {
             enabled: boolean
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?: {
-            [key: string]: unknown
-          }
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
           collection_method?: "charge_automatically" | "send_invoice"
           coupon?: string
           currency?: string
           default_payment_method?: string
-          default_tax_rates?: {
-            [key: string]: unknown
-          }
+          default_tax_rates?: string[] | ""
           description?: string
           end_date?: number
           invoice_settings?: {
             days_until_due?: number
           }
           items: {
-            billing_thresholds?: {
-              [key: string]: unknown
-            }
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
             metadata?: {
               [key: string]: unknown
             }
@@ -20201,9 +22184,7 @@ export class ApiClient extends AbstractFetchClient {
               unit_amount_decimal?: string
             }
             quantity?: number
-            tax_rates?: {
-              [key: string]: unknown
-            }
+            tax_rates?: string[] | ""
           }[]
           iterations?: number
           metadata?: {
@@ -20218,9 +22199,7 @@ export class ApiClient extends AbstractFetchClient {
           trial?: boolean
           trial_end?: number
         }[]
-        start_date?: {
-          [key: string]: unknown
-        }
+        start_date?: number | "now"
       }
     } = {}
   ): Promise<
@@ -20241,7 +22220,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     schedule: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
@@ -20267,27 +22246,33 @@ export class ApiClient extends AbstractFetchClient {
           enabled: boolean
         }
         billing_cycle_anchor?: "automatic" | "phase_start"
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              amount_gte?: number
+              reset_billing_cycle_anchor?: boolean
+            }
+          | ""
         collection_method?: "charge_automatically" | "send_invoice"
         default_payment_method?: string
         description?: string
         invoice_settings?: {
           days_until_due?: number
         }
-        on_behalf_of?: {
-          [key: string]: unknown
-        }
-        transfer_data?: {
-          [key: string]: unknown
-        }
+        on_behalf_of?: string | ""
+        transfer_data?:
+          | {
+              amount_percent?: number
+              destination: string
+            }
+          | ""
       }
       end_behavior?: "cancel" | "none" | "release" | "renew"
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       phases?: {
         add_invoice_items?: {
           price?: string
@@ -20299,35 +22284,34 @@ export class ApiClient extends AbstractFetchClient {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: {
-            [key: string]: unknown
-          }
+          tax_rates?: string[] | ""
         }[]
         application_fee_percent?: number
         automatic_tax?: {
           enabled: boolean
         }
         billing_cycle_anchor?: "automatic" | "phase_start"
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              amount_gte?: number
+              reset_billing_cycle_anchor?: boolean
+            }
+          | ""
         collection_method?: "charge_automatically" | "send_invoice"
         coupon?: string
         default_payment_method?: string
-        default_tax_rates?: {
-          [key: string]: unknown
-        }
+        default_tax_rates?: string[] | ""
         description?: string
-        end_date?: {
-          [key: string]: unknown
-        }
+        end_date?: number | "now"
         invoice_settings?: {
           days_until_due?: number
         }
         items: {
-          billing_thresholds?: {
-            [key: string]: unknown
-          }
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ""
           metadata?: {
             [key: string]: unknown
           }
@@ -20344,9 +22328,7 @@ export class ApiClient extends AbstractFetchClient {
             unit_amount_decimal?: string
           }
           quantity?: number
-          tax_rates?: {
-            [key: string]: unknown
-          }
+          tax_rates?: string[] | ""
         }[]
         iterations?: number
         metadata?: {
@@ -20354,17 +22336,13 @@ export class ApiClient extends AbstractFetchClient {
         }
         on_behalf_of?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
-        start_date?: {
-          [key: string]: unknown
-        }
+        start_date?: number | "now"
         transfer_data?: {
           amount_percent?: number
           destination: string
         }
         trial?: boolean
-        trial_end?: {
-          [key: string]: unknown
-        }
+        trial_end?: number | "now"
       }[]
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
     }
@@ -20428,15 +22406,30 @@ export class ApiClient extends AbstractFetchClient {
   async getSubscriptions(
     p: {
       collectionMethod?: "charge_automatically" | "send_invoice"
-      created?: {
-        [key: string]: unknown
-      }
-      currentPeriodEnd?: {
-        [key: string]: unknown
-      }
-      currentPeriodStart?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      currentPeriodEnd?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      currentPeriodStart?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       customer?: string
       endingBefore?: string
       expand?: string[]
@@ -20456,7 +22449,7 @@ export class ApiClient extends AbstractFetchClient {
         | "unpaid"
       testClock?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -20508,9 +22501,7 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       application_fee_percent?: number
       automatic_tax?: {
@@ -20518,9 +22509,12 @@ export class ApiClient extends AbstractFetchClient {
       }
       backdate_start_date?: number
       billing_cycle_anchor?: number
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
       cancel_at?: number
       cancel_at_period_end?: boolean
       collection_method?: "charge_automatically" | "send_invoice"
@@ -20530,15 +22524,15 @@ export class ApiClient extends AbstractFetchClient {
       days_until_due?: number
       default_payment_method?: string
       default_source?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       description?: string
       expand?: string[]
       items?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         metadata?: {
           [key: string]: unknown
         }
@@ -20555,17 +22549,15 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       off_session?: boolean
-      on_behalf_of?: {
-        [key: string]: unknown
-      }
+      on_behalf_of?: string | ""
       payment_behavior?:
         | "allow_incomplete"
         | "default_incomplete"
@@ -20573,42 +22565,111 @@ export class ApiClient extends AbstractFetchClient {
         | "pending_if_incomplete"
       payment_settings?: {
         payment_method_options?: {
-          acss_debit?: {
-            [key: string]: unknown
-          }
-          bancontact?: {
-            [key: string]: unknown
-          }
-          card?: {
-            [key: string]: unknown
-          }
-          customer_balance?: {
-            [key: string]: unknown
-          }
-          konbini?: {
-            [key: string]: unknown
-          }
-          us_bank_account?: {
-            [key: string]: unknown
-          }
+          acss_debit?:
+            | {
+                mandate_options?: {
+                  transaction_type?: "business" | "personal"
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
+          bancontact?:
+            | {
+                preferred_language?: "de" | "en" | "fr" | "nl"
+              }
+            | ""
+          card?:
+            | {
+                mandate_options?: {
+                  amount?: number
+                  amount_type?: "fixed" | "maximum"
+                  description?: string
+                }
+                network?:
+                  | "amex"
+                  | "cartes_bancaires"
+                  | "diners"
+                  | "discover"
+                  | "interac"
+                  | "jcb"
+                  | "mastercard"
+                  | "unionpay"
+                  | "unknown"
+                  | "visa"
+                request_three_d_secure?: "any" | "automatic"
+              }
+            | ""
+          customer_balance?:
+            | {
+                bank_transfer?: {
+                  eu_bank_transfer?: {
+                    country: string
+                  }
+                  type?: string
+                }
+                funding_type?: string
+              }
+            | ""
+          konbini?:
+            | {
+                [key: string]: never
+              }
+            | ""
+          us_bank_account?:
+            | {
+                financial_connections?: {
+                  permissions?: (
+                    | "balances"
+                    | "ownership"
+                    | "payment_method"
+                    | "transactions"
+                  )[]
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
         }
-        payment_method_types?: {
-          [key: string]: unknown
-        }
+        payment_method_types?:
+          | (
+              | "ach_credit_transfer"
+              | "ach_debit"
+              | "acss_debit"
+              | "au_becs_debit"
+              | "bacs_debit"
+              | "bancontact"
+              | "boleto"
+              | "card"
+              | "cashapp"
+              | "customer_balance"
+              | "fpx"
+              | "giropay"
+              | "grabpay"
+              | "ideal"
+              | "konbini"
+              | "link"
+              | "paynow"
+              | "promptpay"
+              | "sepa_debit"
+              | "sofort"
+              | "us_bank_account"
+              | "wechat_pay"
+            )[]
+          | ""
         save_default_payment_method?: "off" | "on_subscription"
       }
-      pending_invoice_item_interval?: {
-        [key: string]: unknown
-      }
+      pending_invoice_item_interval?:
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+        | ""
       promotion_code?: string
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       transfer_data?: {
         amount_percent?: number
         destination: string
       }
-      trial_end?: {
-        [key: string]: unknown
-      }
+      trial_end?: "now" | number
       trial_from_plan?: boolean
       trial_period_days?: number
       trial_settings?: {
@@ -20635,7 +22696,7 @@ export class ApiClient extends AbstractFetchClient {
     page?: string
     query: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -20705,7 +22766,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_subscription> | Response<StatusCode, t_error>> {
     const url =
@@ -20734,21 +22795,20 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
       application_fee_percent?: number
       automatic_tax?: {
         enabled: boolean
       }
       billing_cycle_anchor?: "now" | "unchanged"
-      billing_thresholds?: {
-        [key: string]: unknown
-      }
-      cancel_at?: {
-        [key: string]: unknown
-      }
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+      cancel_at?: number | ""
       cancel_at_period_end?: boolean
       cancellation_details?: {
         comment?: string
@@ -20768,21 +22828,23 @@ export class ApiClient extends AbstractFetchClient {
       days_until_due?: number
       default_payment_method?: string
       default_source?: string
-      default_tax_rates?: {
-        [key: string]: unknown
-      }
+      default_tax_rates?: string[] | ""
       description?: string
       expand?: string[]
       items?: {
-        billing_thresholds?: {
-          [key: string]: unknown
-        }
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
         clear_usage?: boolean
         deleted?: boolean
         id?: string
-        metadata?: {
-          [key: string]: unknown
-        }
+        metadata?:
+          | {
+              [key: string]: unknown
+            }
+          | ""
         price?: string
         price_data?: {
           currency: string
@@ -20796,20 +22858,21 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount_decimal?: string
         }
         quantity?: number
-        tax_rates?: {
-          [key: string]: unknown
-        }
+        tax_rates?: string[] | ""
       }[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       off_session?: boolean
-      on_behalf_of?: {
-        [key: string]: unknown
-      }
-      pause_collection?: {
-        [key: string]: unknown
-      }
+      on_behalf_of?: string | ""
+      pause_collection?:
+        | {
+            behavior: "keep_as_draft" | "mark_uncollectible" | "void"
+            resumes_at?: number
+          }
+        | ""
       payment_behavior?:
         | "allow_incomplete"
         | "default_incomplete"
@@ -20817,42 +22880,114 @@ export class ApiClient extends AbstractFetchClient {
         | "pending_if_incomplete"
       payment_settings?: {
         payment_method_options?: {
-          acss_debit?: {
-            [key: string]: unknown
-          }
-          bancontact?: {
-            [key: string]: unknown
-          }
-          card?: {
-            [key: string]: unknown
-          }
-          customer_balance?: {
-            [key: string]: unknown
-          }
-          konbini?: {
-            [key: string]: unknown
-          }
-          us_bank_account?: {
-            [key: string]: unknown
-          }
+          acss_debit?:
+            | {
+                mandate_options?: {
+                  transaction_type?: "business" | "personal"
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
+          bancontact?:
+            | {
+                preferred_language?: "de" | "en" | "fr" | "nl"
+              }
+            | ""
+          card?:
+            | {
+                mandate_options?: {
+                  amount?: number
+                  amount_type?: "fixed" | "maximum"
+                  description?: string
+                }
+                network?:
+                  | "amex"
+                  | "cartes_bancaires"
+                  | "diners"
+                  | "discover"
+                  | "interac"
+                  | "jcb"
+                  | "mastercard"
+                  | "unionpay"
+                  | "unknown"
+                  | "visa"
+                request_three_d_secure?: "any" | "automatic"
+              }
+            | ""
+          customer_balance?:
+            | {
+                bank_transfer?: {
+                  eu_bank_transfer?: {
+                    country: string
+                  }
+                  type?: string
+                }
+                funding_type?: string
+              }
+            | ""
+          konbini?:
+            | {
+                [key: string]: never
+              }
+            | ""
+          us_bank_account?:
+            | {
+                financial_connections?: {
+                  permissions?: (
+                    | "balances"
+                    | "ownership"
+                    | "payment_method"
+                    | "transactions"
+                  )[]
+                }
+                verification_method?: "automatic" | "instant" | "microdeposits"
+              }
+            | ""
         }
-        payment_method_types?: {
-          [key: string]: unknown
-        }
+        payment_method_types?:
+          | (
+              | "ach_credit_transfer"
+              | "ach_debit"
+              | "acss_debit"
+              | "au_becs_debit"
+              | "bacs_debit"
+              | "bancontact"
+              | "boleto"
+              | "card"
+              | "cashapp"
+              | "customer_balance"
+              | "fpx"
+              | "giropay"
+              | "grabpay"
+              | "ideal"
+              | "konbini"
+              | "link"
+              | "paynow"
+              | "promptpay"
+              | "sepa_debit"
+              | "sofort"
+              | "us_bank_account"
+              | "wechat_pay"
+            )[]
+          | ""
         save_default_payment_method?: "off" | "on_subscription"
       }
-      pending_invoice_item_interval?: {
-        [key: string]: unknown
-      }
+      pending_invoice_item_interval?:
+        | {
+            interval: "day" | "month" | "week" | "year"
+            interval_count?: number
+          }
+        | ""
       promotion_code?: string
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       proration_date?: number
-      transfer_data?: {
-        [key: string]: unknown
-      }
-      trial_end?: {
-        [key: string]: unknown
-      }
+      transfer_data?:
+        | {
+            amount_percent?: number
+            destination: string
+          }
+        | ""
+      trial_end?: "now" | number
       trial_from_plan?: boolean
       trial_settings?: {
         end_behavior: {
@@ -20876,7 +23011,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
@@ -21023,7 +23158,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -21120,7 +23255,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     transaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_tax_transaction> | Response<StatusCode, t_error>
@@ -21144,7 +23279,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     transaction: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -21183,7 +23318,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -21219,7 +23354,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_tax_code> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
@@ -21237,16 +23372,21 @@ export class ApiClient extends AbstractFetchClient {
   async getTaxRates(
     p: {
       active?: boolean
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       inclusive?: boolean
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -21323,7 +23463,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     taxRate: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_tax_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
@@ -21347,9 +23487,11 @@ export class ApiClient extends AbstractFetchClient {
       display_name?: string
       expand?: string[]
       jurisdiction?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       state?: string
       tax_type?:
         | "gst"
@@ -21383,7 +23525,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -21420,18 +23562,85 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       requestBody?: {
         bbpos_wisepos_e?: {
-          splashscreen?: {
-            [key: string]: unknown
-          }
+          splashscreen?: string | ""
         }
         expand?: string[]
-        tipping?: {
-          [key: string]: unknown
-        }
+        tipping?:
+          | {
+              aud?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              cad?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              chf?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              czk?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              dkk?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              eur?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              gbp?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              hkd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              myr?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              nok?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              nzd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              sek?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              sgd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              usd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+            }
+          | ""
         verifone_p400?: {
-          splashscreen?: {
-            [key: string]: unknown
-          }
+          splashscreen?: string | ""
         }
       }
     } = {}
@@ -21452,7 +23661,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_deleted_terminal_configuration>
@@ -21474,15 +23683,10 @@ export class ApiClient extends AbstractFetchClient {
     configuration: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -21501,24 +23705,94 @@ export class ApiClient extends AbstractFetchClient {
   async postTerminalConfigurationsConfiguration(p: {
     configuration: string
     requestBody?: {
-      bbpos_wisepos_e?: {
-        [key: string]: unknown
-      }
+      bbpos_wisepos_e?:
+        | {
+            splashscreen?: string | ""
+          }
+        | ""
       expand?: string[]
-      tipping?: {
-        [key: string]: unknown
-      }
-      verifone_p400?: {
-        [key: string]: unknown
-      }
+      tipping?:
+        | {
+            aud?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            cad?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            chf?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            czk?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            dkk?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            eur?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            gbp?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            hkd?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            myr?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            nok?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            nzd?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            sek?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            sgd?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+            usd?: {
+              fixed_amounts?: number[]
+              percentages?: number[]
+              smart_tip_threshold?: number
+            }
+          }
+        | ""
+      verifone_p400?:
+        | {
+            splashscreen?: string | ""
+          }
+        | ""
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
     | Response<StatusCode, t_error>
   > {
     const url =
@@ -21561,7 +23835,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -21606,9 +23880,11 @@ export class ApiClient extends AbstractFetchClient {
       configuration_overrides?: string
       display_name: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_terminal_location> | Response<StatusCode, t_error>
@@ -21627,7 +23903,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalLocationsLocation(p: {
     location: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_terminal_location> | Response<StatusCode, t_error>
@@ -21647,15 +23923,10 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     location: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_location | t_deleted_terminal_location>
     | Response<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
@@ -21684,17 +23955,14 @@ export class ApiClient extends AbstractFetchClient {
       configuration_overrides?: string
       display_name?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_location | t_deleted_terminal_location>
     | Response<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
@@ -21724,7 +23992,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "offline" | "online"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -21764,9 +24032,11 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       label?: string
       location?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       registration_code: string
     }
   }): Promise<
@@ -21786,7 +24056,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalReadersReader(p: {
     reader: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_terminal_reader> | Response<StatusCode, t_error>
@@ -21806,15 +24076,10 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     reader: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_reader | t_deleted_terminal_reader>
     | Response<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
@@ -21834,17 +24099,14 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       expand?: string[]
       label?: string
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
+    | Response<200, t_terminal_reader | t_deleted_terminal_reader>
     | Response<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
@@ -22141,7 +24403,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -22196,7 +24458,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_deleted_test_helpers_test_clock>
@@ -22217,7 +24479,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     testClock: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_test_helpers_test_clock> | Response<StatusCode, t_error>
@@ -22659,16 +24921,18 @@ export class ApiClient extends AbstractFetchClient {
               state?: string
               town?: string
             }
-            dob?: {
-              [key: string]: unknown
-            }
+            dob?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ""
             email?: string
             first_name?: string
             first_name_kana?: string
             first_name_kanji?: string
-            full_name_aliases?: {
-              [key: string]: unknown
-            }
+            full_name_aliases?: string[] | ""
             gender?: string
             id_number?: string
             id_number_secondary?: string
@@ -22676,9 +24940,11 @@ export class ApiClient extends AbstractFetchClient {
             last_name_kana?: string
             last_name_kanji?: string
             maiden_name?: string
-            metadata?: {
-              [key: string]: unknown
-            }
+            metadata?:
+              | {
+                  [key: string]: unknown
+                }
+              | ""
             phone?: string
             political_exposure?: "existing" | "none"
             registered_address?: {
@@ -22712,9 +24978,22 @@ export class ApiClient extends AbstractFetchClient {
           currency?: string
           routing_number?: string
         }
-        card?: {
-          [key: string]: unknown
-        }
+        card?:
+          | {
+              address_city?: string
+              address_country?: string
+              address_line1?: string
+              address_line2?: string
+              address_state?: string
+              address_zip?: string
+              currency?: string
+              cvc?: string
+              exp_month: string
+              exp_year: string
+              name?: string
+              number: string
+            }
+          | string
         customer?: string
         cvc_update?: {
           cvc: string
@@ -22747,9 +25026,13 @@ export class ApiClient extends AbstractFetchClient {
             state?: string
             town?: string
           }
-          dob?: {
-            [key: string]: unknown
-          }
+          dob?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ""
           documents?: {
             company_authorization?: {
               files?: string[]
@@ -22765,9 +25048,7 @@ export class ApiClient extends AbstractFetchClient {
           first_name?: string
           first_name_kana?: string
           first_name_kanji?: string
-          full_name_aliases?: {
-            [key: string]: unknown
-          }
+          full_name_aliases?: string[] | ""
           gender?: string
           id_number?: string
           id_number_secondary?: string
@@ -22775,9 +25056,11 @@ export class ApiClient extends AbstractFetchClient {
           last_name_kana?: string
           last_name_kanji?: string
           maiden_name?: string
-          metadata?: {
-            [key: string]: unknown
-          }
+          metadata?:
+            | {
+                [key: string]: unknown
+              }
+            | ""
           nationality?: string
           phone?: string
           political_exposure?: string
@@ -22793,9 +25076,7 @@ export class ApiClient extends AbstractFetchClient {
             director?: boolean
             executive?: boolean
             owner?: boolean
-            percent_ownership?: {
-              [key: string]: unknown
-            }
+            percent_ownership?: number | ""
             representative?: boolean
             title?: string
           }
@@ -22832,7 +25113,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     token: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_token> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
@@ -22849,19 +25130,29 @@ export class ApiClient extends AbstractFetchClient {
 
   async getTopups(
     p: {
-      amount?: {
-        [key: string]: unknown
-      }
-      created?: {
-        [key: string]: unknown
-      }
+      amount?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -22902,9 +25193,11 @@ export class ApiClient extends AbstractFetchClient {
       currency: string
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       source?: string
       statement_descriptor?: string
       transfer_group?: string
@@ -22925,7 +25218,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     topup: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_topup> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
@@ -22945,9 +25238,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_topup> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
@@ -22980,9 +25275,14 @@ export class ApiClient extends AbstractFetchClient {
 
   async getTransfers(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       destination?: string
       endingBefore?: string
       expand?: string[]
@@ -22990,7 +25290,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       transferGroup?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -23058,7 +25358,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23095,9 +25395,11 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       refund_application_fee?: boolean
     }
   }): Promise<
@@ -23118,7 +25420,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     transfer: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<Response<200, t_transfer> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
@@ -23138,9 +25440,11 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       description?: string
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<Response<200, t_transfer> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
@@ -23159,7 +25463,7 @@ export class ApiClient extends AbstractFetchClient {
     id: string
     transfer: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_transfer_reversal> | Response<StatusCode, t_error>
@@ -23182,9 +25486,11 @@ export class ApiClient extends AbstractFetchClient {
     transfer: string
     requestBody?: {
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
     }
   }): Promise<
     Response<200, t_transfer_reversal> | Response<StatusCode, t_error>
@@ -23210,7 +25516,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "canceled" | "posted" | "processing"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23270,7 +25576,7 @@ export class ApiClient extends AbstractFetchClient {
     creditReversal: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_credit_reversal> | Response<StatusCode, t_error>
@@ -23298,7 +25604,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "canceled" | "completed" | "processing"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23359,7 +25665,7 @@ export class ApiClient extends AbstractFetchClient {
     debitReversal: string
     expand?: string[]
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_debit_reversal> | Response<StatusCode, t_error>
@@ -23379,15 +25685,20 @@ export class ApiClient extends AbstractFetchClient {
 
   async getTreasuryFinancialAccounts(
     p: {
-      created?: {
-        [key: string]: unknown
-      }
+      created?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
       endingBefore?: string
       expand?: string[]
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -23487,7 +25798,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     financialAccount: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_financial_account> | Response<StatusCode, t_error>
@@ -23573,7 +25884,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     financialAccount: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<200, t_treasury_financial_account_features>
@@ -23658,7 +25969,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "canceled" | "failed" | "processing" | "succeeded"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23722,7 +26033,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
@@ -23769,7 +26080,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23812,12 +26123,17 @@ export class ApiClient extends AbstractFetchClient {
       destination_payment_method?: string
       destination_payment_method_data?: {
         billing_details?: {
-          address?: {
-            [key: string]: unknown
-          }
-          email?: {
-            [key: string]: unknown
-          }
+          address?:
+            | {
+                city?: string
+                country?: string
+                line1?: string
+                line2?: string
+                postal_code?: string
+                state?: string
+              }
+            | ""
+          email?: string | ""
           name?: string
           phone?: string
         }
@@ -23835,9 +26151,11 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       destination_payment_method_options?: {
-        us_bank_account?: {
-          [key: string]: unknown
-        }
+        us_bank_account?:
+          | {
+              network?: "ach" | "us_domestic_wire"
+            }
+          | ""
       }
       end_user_details?: {
         ip_address?: string
@@ -23868,7 +26186,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
@@ -23913,7 +26231,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -23953,9 +26271,11 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       destination_payment_method?: string
       destination_payment_method_options?: {
-        us_bank_account?: {
-          [key: string]: unknown
-        }
+        us_bank_account?:
+          | {
+              network?: "ach" | "us_domestic_wire"
+            }
+          | ""
       }
       expand?: string[]
       financial_account: string
@@ -23982,7 +26302,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     outboundTransfer: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
@@ -24036,7 +26356,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "failed" | "succeeded"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -24074,7 +26394,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_received_credit> | Response<StatusCode, t_error>
@@ -24099,7 +26419,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "failed" | "succeeded"
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -24136,7 +26456,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_received_debit> | Response<StatusCode, t_error>
@@ -24154,12 +26474,22 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async getTreasuryTransactionEntries(p: {
-    created?: {
-      [key: string]: unknown
-    }
-    effectiveAt?: {
-      [key: string]: unknown
-    }
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
+    effectiveAt?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     endingBefore?: string
     expand?: string[]
     financialAccount: string
@@ -24168,7 +26498,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     transaction?: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -24208,7 +26538,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_transaction_entry> | Response<StatusCode, t_error>
@@ -24226,9 +26556,14 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async getTreasuryTransactions(p: {
-    created?: {
-      [key: string]: unknown
-    }
+    created?:
+      | {
+          gt?: number
+          gte?: number
+          lt?: number
+          lte?: number
+        }
+      | number
     endingBefore?: string
     expand?: string[]
     financialAccount: string
@@ -24237,12 +26572,17 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     status?: "open" | "posted" | "void"
     statusTransitions?: {
-      posted_at?: {
-        [key: string]: unknown
-      }
+      posted_at?:
+        | {
+            gt?: number
+            gte?: number
+            lt?: number
+            lte?: number
+          }
+        | number
     }
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     | Response<
@@ -24282,7 +26622,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_treasury_transaction> | Response<StatusCode, t_error>
@@ -24306,7 +26646,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       requestBody?: {
-        [key: string]: unknown
+        [key: string]: never
       }
     } = {}
   ): Promise<
@@ -24667,9 +27007,11 @@ export class ApiClient extends AbstractFetchClient {
         | "treasury.received_debit.created"
       )[]
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       url: string
     }
   }): Promise<
@@ -24689,7 +27031,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_deleted_webhook_endpoint> | Response<StatusCode, t_error>
@@ -24709,7 +27051,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     webhookEndpoint: string
     requestBody?: {
-      [key: string]: unknown
+      [key: string]: never
     }
   }): Promise<
     Response<200, t_webhook_endpoint> | Response<StatusCode, t_error>
@@ -24957,9 +27299,11 @@ export class ApiClient extends AbstractFetchClient {
         | "treasury.received_debit.created"
       )[]
       expand?: string[]
-      metadata?: {
-        [key: string]: unknown
-      }
+      metadata?:
+        | {
+            [key: string]: unknown
+          }
+        | ""
       url?: string
     }
   }): Promise<
