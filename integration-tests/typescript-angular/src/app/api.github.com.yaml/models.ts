@@ -5967,7 +5967,7 @@ export type t_validation_error = {
     index?: number
     message?: string
     resource?: string
-    value?: (string | null) | (number | null) | string[]
+    value?: string | null | number | string[]
   }[]
   message: string
 }

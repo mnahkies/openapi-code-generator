@@ -806,7 +806,7 @@ export class ApiClient extends AbstractFetchClient {
       files: {
         [key: string]: unknown
       }
-      public?: boolean | ("true" | "false")
+      public?: boolean | "true" | "false"
     }
   }): Promise<
     | Response<201, t_gist_simple>

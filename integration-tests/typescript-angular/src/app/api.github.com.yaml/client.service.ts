@@ -890,7 +890,7 @@ export class ApiClient {
       files: {
         [key: string]: unknown
       }
-      public?: boolean | ("true" | "false")
+      public?: boolean | "true" | "false"
     }
   }): Observable<
     t_gist_simple | void | t_basic_error | t_basic_error | t_validation_error
