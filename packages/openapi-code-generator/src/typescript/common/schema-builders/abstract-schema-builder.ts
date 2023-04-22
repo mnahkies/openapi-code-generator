@@ -37,7 +37,7 @@ export abstract class AbstractSchemaBuilder {
 
       return order
         .filter(it => this.referenced[it])
-        // TODO: this is needed because the dependency graph only considers schemas from the entrypoint
+        // todo: this is needed because the dependency graph only considers schemas from the entrypoint
         //       specification - ideally we'd recurse into all referenced specifications and include their
         //       schemas in the ordering
         .concat(Object.keys(this.referenced))
@@ -83,6 +83,7 @@ export abstract class AbstractSchemaBuilder {
       properties: {},
       allOf: [],
       oneOf: [],
+      anyOf: [],
       readOnly: false,
       nullable: false,
       additionalProperties: false,
@@ -129,6 +130,8 @@ export abstract class AbstractSchemaBuilder {
           result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
         } else if (model.oneOf.length) {
           result = this.union(model.oneOf.map(it => this.fromModel(it, true)))
+        } else if (model.anyOf.length) {
+          result = this.union(model.anyOf.map(it => this.fromModel(it, true)))
         } else {
           result = this.object(
             Object.fromEntries(

@@ -84,6 +84,10 @@ export class TypeBuilder {
       result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
     }
 
+    if (schemaObject.type === "object" && schemaObject.anyOf.length) {
+      result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
+    }
+
     if (result.length === 0) {
       switch (schemaObject.type) {
         case "array": {
@@ -102,7 +106,7 @@ export class TypeBuilder {
         }
 
         case "number": {
-          // todo support bigint as string
+          // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
           result.push(...(schemaObject.enum?.map(toString) ?? ["number"]))
           break
         }
@@ -124,13 +128,15 @@ export class TypeBuilder {
               })
             })
 
-          // TODO better support
+          // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
           const additionalProperties =
-            schemaObject.additionalProperties || properties.length === 0
+            schemaObject.additionalProperties
               ? "[key: string]: unknown"
               : ""
 
-          result.push(object([...properties, additionalProperties]))
+          const emptyObject = !additionalProperties && properties.length === 0 ? "[key: string]:  never" : ""
+
+          result.push(object([...properties, additionalProperties, emptyObject]))
           break
         }
 

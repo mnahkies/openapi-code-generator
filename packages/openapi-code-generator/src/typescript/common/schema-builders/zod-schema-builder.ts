@@ -6,7 +6,7 @@ import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
 
-// TODO: coerce is cool for input where everything starts as strings,
+// todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
 //       to mask mistakes. https://en.wikipedia.org/wiki/Robustness_principle
 export class ZodBuilder extends AbstractSchemaBuilder {
@@ -104,7 +104,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   protected boolean(required: boolean) {
     return [
       this.zod,
-      // TODO: this would mean the literal string "false" as a query parameter is coerced to true
+      // todo: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
       required ? undefined : "optional()",
     ].filter(isDefined).join(".")

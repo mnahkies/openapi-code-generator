@@ -3,7 +3,7 @@ import {IRModel} from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 import {Input} from "./input"
 
-type DependencyGraph = { [name: string]: DependencyGraph };
+type DependencyGraph = { [name: string]: DependencyGraph }
 
 /**
  * Pretty horrible function that works out the order that schemas should be output, based on their dependencies.
@@ -27,7 +27,9 @@ export function buildDependencyGraph(
 
     const composite: Array<IRModel | Reference> = (
       Reflect.get(schema, "oneOf") ?? []
-    ).concat(Reflect.get(schema, "allOf") ?? [])
+    )
+      .concat(Reflect.get(schema, "allOf") ?? [])
+      .concat(Reflect.get(schema, "anyOf") ?? [])
 
     if (composite.length) {
       return composite.map(getDependencies).reduce((acc, it) => {

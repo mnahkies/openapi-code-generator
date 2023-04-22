@@ -200,6 +200,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
       const properties = normalizeProperties(schemaObject.properties)
       const allOf = normalizeAllOf(schemaObject.allOf)
       const oneOf = normalizeOneOf(schemaObject.oneOf)
+      const anyOf = normalizeAnyOf(schemaObject.anyOf)
 
       const required = (schemaObject.required ?? []).filter(it => {
         const include = Reflect.has(properties, it)
@@ -223,6 +224,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         type: "object",
         allOf,
         oneOf,
+        anyOf,
         required,
         properties,
         additionalProperties,
@@ -248,8 +250,8 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         .filter((it): it is number => isFinite(it))
       return type<IRModelNumeric>({
         ...base,
-        // todo support format
         type: "number",
+        // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
         format: schemaObject.format as any,
         enum: enumValues.length ? enumValues : undefined,
       })
@@ -293,6 +295,18 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
   function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
     return oneOf
+      .map(normalizeSchemaObject)
+  }
+
+  function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
+    return anyOf
+      .filter(it => {
+        // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
+        //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
+        //       it's intended to indicate that at least one of the objects properties must be set (consider it a
+        //       Omit<Partial<Thing>, EmptyObject> )
+        return isRef(it) || Boolean(it.type)
+      })
       .map(normalizeSchemaObject)
   }
 }

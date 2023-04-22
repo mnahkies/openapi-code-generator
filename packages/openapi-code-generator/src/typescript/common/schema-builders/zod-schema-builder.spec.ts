@@ -48,6 +48,21 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     `)
   })
 
+  it("supports unions / anyOf", async () => {
+    const {model, schemas} = await getActual("components/schemas/AnyOf")
+
+    expect(model).toMatchInlineSnapshot(`
+      "s_AnyOf
+      "
+    `)
+    expect(schemas).toMatchInlineSnapshot(`
+      "import { z } from "zod"
+
+      export const s_AnyOf = z.union([z.coerce.number(), z.coerce.string()])
+      "
+    `)
+  })
+
   it("supports allOf", async () => {
     const {model, schemas} = await getActual("components/schemas/AllOf")
 

@@ -217,6 +217,8 @@ import {
   t_repository_subscription,
   t_required_workflow,
   t_review_comment,
+  t_review_custom_gates_comment_required,
+  t_review_custom_gates_state_required,
   t_root,
   t_runner,
   t_runner_application,
@@ -234,6 +236,7 @@ import {
   t_snapshot,
   t_social_account,
   t_ssh_signing_key,
+  t_stargazer,
   t_starred_repository,
   t_status,
   t_status_check_policy,
@@ -424,7 +427,7 @@ export class ApiClient {
 
   appsRedeliverWebhookDelivery(p: { deliveryId: number }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_scim_error
     | t_validation_error
@@ -1192,7 +1195,7 @@ export class ApiClient {
     | void
     | t_basic_error
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
   > {
     return this.httpClient.request<any>(
@@ -1829,7 +1832,7 @@ export class ApiClient {
     }
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_basic_error
     | t_basic_error
@@ -1953,7 +1956,7 @@ export class ApiClient {
     }
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_basic_error
     | t_basic_error
@@ -2092,7 +2095,7 @@ export class ApiClient {
 
   orgsDelete(p: { org: string }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_basic_error
     | t_basic_error
@@ -3964,7 +3967,7 @@ export class ApiClient {
     deliveryId: number
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_scim_error
     | t_validation_error
@@ -4029,9 +4032,12 @@ export class ApiClient {
     )
   }
 
-  interactionsGetRestrictionsForOrg(p: { org: string }): Observable<{
-    [key: string]: unknown
-  }> {
+  interactionsGetRestrictionsForOrg(p: { org: string }): Observable<
+    | t_interaction_limit_response
+    | {
+        [key: string]: never
+      }
+  > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
@@ -4297,7 +4303,7 @@ export class ApiClient {
     codespaceName: string
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
     | t_basic_error
@@ -4559,7 +4565,7 @@ export class ApiClient {
     }
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
     | void
@@ -6042,7 +6048,7 @@ export class ApiClient {
     }
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
     | t_basic_error
@@ -6202,7 +6208,7 @@ export class ApiClient {
     }
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
     | t_basic_error
@@ -7603,9 +7609,9 @@ export class ApiClient {
     owner: string
     repo: string
     runId: number
-    requestBody: {
-      [key: string]: unknown
-    }
+    requestBody:
+      | t_review_custom_gates_comment_required
+      | t_review_custom_gates_state_required
   }): Observable<void> {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = p["requestBody"]
@@ -9119,13 +9125,13 @@ export class ApiClient {
     requestBody:
       | {
           status: {
-            [key: string]: unknown
+            [key: string]: never
           }
           [key: string]: unknown
         }
       | {
           status?: {
-            [key: string]: unknown
+            [key: string]: never
           }
           [key: string]: unknown
         }
@@ -12162,7 +12168,7 @@ export class ApiClient {
     deliveryId: number
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | t_scim_error
     | t_validation_error
@@ -12390,9 +12396,12 @@ export class ApiClient {
   interactionsGetRestrictionsForRepo(p: {
     owner: string
     repo: string
-  }): Observable<{
-    [key: string]: unknown
-  }> {
+  }): Observable<
+    | t_interaction_limit_response
+    | {
+        [key: string]: never
+      }
+  > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -13497,7 +13506,7 @@ export class ApiClient {
   }
 
   reposEnableLfsForRepo(p: { owner: string; repo: string }): Observable<{
-    [key: string]: unknown
+    [key: string]: never
   } | void> {
     return this.httpClient.request<any>(
       "PUT",
@@ -13820,9 +13829,14 @@ export class ApiClient {
       build_type?: "legacy" | "workflow"
       cname?: string | null
       https_enforced?: boolean
-      source?: {
-        [key: string]: unknown
-      }
+      source?:
+        | "gh-pages"
+        | "master"
+        | "master /docs"
+        | {
+            branch: string
+            path: "/" | "/docs"
+          }
     }
   }): Observable<void | t_scim_error | t_basic_error | t_validation_error> {
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -15628,12 +15642,7 @@ export class ApiClient {
     repo: string
     perPage?: number
     page?: number
-  }): Observable<
-    | {
-        [key: string]: unknown
-      }
-    | t_validation_error
-  > {
+  }): Observable<(t_simple_user[] | t_stargazer[]) | t_validation_error> {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -15653,7 +15662,7 @@ export class ApiClient {
   reposGetCodeFrequencyStats(p: { owner: string; repo: string }): Observable<
     | t_code_frequency_stat[]
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
   > {
@@ -15671,7 +15680,7 @@ export class ApiClient {
   reposGetCommitActivityStats(p: { owner: string; repo: string }): Observable<
     | t_commit_activity[]
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
   > {
@@ -15689,7 +15698,7 @@ export class ApiClient {
   reposGetContributorsStats(p: { owner: string; repo: string }): Observable<
     | t_contributor_activity[]
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
   > {
@@ -17618,9 +17627,7 @@ export class ApiClient {
     requestBody: {
       encrypted_value?: string
       key_id: string
-      selected_repository_ids?: {
-        [key: string]: unknown
-      }[]
+      selected_repository_ids?: (number | string)[]
     }
   }): Observable<t_empty_object | void | t_basic_error | t_validation_error> {
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -17779,7 +17786,7 @@ export class ApiClient {
     codespaceName: string
   }): Observable<
     | {
-        [key: string]: unknown
+        [key: string]: never
       }
     | void
     | t_basic_error
@@ -18308,9 +18315,15 @@ export class ApiClient {
     )
   }
 
-  interactionsGetRestrictionsForAuthenticatedUser(): Observable<{
-    [key: string]: unknown
-  } | void> {
+  interactionsGetRestrictionsForAuthenticatedUser(): Observable<
+    | (
+        | t_interaction_limit_response
+        | {
+            [key: string]: never
+          }
+      )
+    | void
+  > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/interaction-limits`,
@@ -19961,9 +19974,7 @@ export class ApiClient {
     direction?: "asc" | "desc"
     perPage?: number
     page?: number
-  }): Observable<{
-    [key: string]: unknown
-  }> {
+  }): Observable<t_starred_repository[] | t_repository[]> {
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],

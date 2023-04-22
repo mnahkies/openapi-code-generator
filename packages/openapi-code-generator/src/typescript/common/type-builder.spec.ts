@@ -113,6 +113,27 @@ describe("typescript/common/type-builder", () => {
     `)
   })
 
+  it("can build a type for a anyOf correctly", async () => {
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/AnyOf"
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_AnyOf
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AnyOf = number | string
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_AnyOf } from "models"
+      "
+    `)
+  })
+
   it("can build a type for a allOf correctly", async () => {
     const {type, schemas, imports} = await getActual(
       "components/schemas/AllOf"
