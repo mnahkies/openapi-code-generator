@@ -17,7 +17,7 @@ function unique(types: (string | undefined | null)[]) {
   return Array.from(
     types
       .filter((it): it is string => Boolean(it))
-      .filter(it => seen.has(it) ? false : seen.add(it) && it)
+      .filter(it => seen.has(it) ? false : seen.add(it) && true)
   )
 }
 
@@ -46,3 +46,16 @@ export const intersect = wrapForArrayOrRestParameters(function (types: MaybeStri
 
   return `(${distinctTypes.join(" & ")})`
 })
+
+export const objectProperty = ({name, type, isReadonly, isRequired}: {
+  name: string,
+  type: string,
+  isReadonly: boolean,
+  isRequired: boolean
+}) => {
+  return [
+    isReadonly ? "readonly" : "",
+    `"${name}"` + (isRequired ? ":" : "?:"),
+    type,
+  ].filter(Boolean).join(" ") + ";"
+}

@@ -3,7 +3,7 @@ import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
 import {getNameFromRef, isRef} from "../../core/openapi-utils"
 import {ImportBuilder} from "./import-builder"
-import {intersect, union} from "./type-utils"
+import {intersect, objectProperty, union} from "./type-utils"
 
 export class TypeBuilder {
 
@@ -148,28 +148,24 @@ export class TypeBuilder {
             if (isRef(definition)) {
               this.add(definition)
 
-              return [
-                `"${name}"`,
-                isRequired ? "" : "?",
-                ":",
-                getNameFromRef(definition, "t_"),
-                ";",
-              ].filter(Boolean).join(" ")
+              return objectProperty({
+                name,
+                type: getNameFromRef(definition, "t_"),
+                isRequired,
+                isReadonly: false, // todo?
+              })
             }
 
             const isReadonly = definition.readOnly
             const isNullable = definition.nullable
             const type = this.schemaObjectToType(definition)
 
-            return [
-              isReadonly ? "readonly" : "",
-              `"${name}"`,
-              isRequired ? "" : "?",
-              ":",
-              type,
-              isNullable && definition.type !== "string" ? "| null" : "",
-              ";",
-            ].filter(Boolean).join(" ")
+            return objectProperty({
+              name,
+              type: isNullable && definition.type !== "string" && definition.type !== "number" ? union(type, "null") : type,
+              isReadonly,
+              isRequired
+            })
           })
 
         // TODO better support

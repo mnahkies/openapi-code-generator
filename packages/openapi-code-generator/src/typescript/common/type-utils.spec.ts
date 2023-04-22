@@ -1,5 +1,5 @@
-import {describe} from "@jest/globals"
-import {intersect, union} from "./type-utils"
+import {describe, expect} from "@jest/globals"
+import {intersect, objectProperty, union} from "./type-utils"
 
 describe("typescript/common/type-utils", () => {
 
@@ -59,6 +59,28 @@ describe("typescript/common/type-utils", () => {
       expect(intersect("1", "2", "3")).toBe("(1 & 2 & 3)")
     })
 
+  })
+
+  describe("objectProperty", () => {
+    it("returns a mutable required property", () => {
+      expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: false}))
+        .toBe('"foo": number;')
+    })
+
+    it("returns a mutable optional property", () => {
+      expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: false}))
+        .toBe('"foo"?: number;')
+    })
+
+    it("returns a readonly required property", () => {
+      expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: true}))
+        .toBe('readonly "foo": number;')
+    })
+
+    it("returns a readonly optional property", () => {
+      expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: true}))
+        .toBe('readonly "foo"?: number;')
+    })
   })
 
 })
