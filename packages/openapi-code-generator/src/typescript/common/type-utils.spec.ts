@@ -14,20 +14,20 @@ describe("typescript/common/type-utils", () => {
     })
 
     it("de-duplicates maintaining order of types", () => {
-      expect(union(["1", "3", "2", "3"])).toBe("(1 | 3 | 2)")
+      expect(union(["1", "3", "2", "3"])).toBe("(1\n | 3\n | 2)")
       expect(union(["3", "3"])).toBe("3")
     })
 
     it("skips empty strings and falsy values", () => {
-      expect(union(["1", "", "2", undefined, "3", null])).toBe("(1 | 2 | 3)")
+      expect(union(["1", "", "2", undefined, "3", null])).toBe("(1\n | 2\n | 3)")
     })
 
     it("accepts an array", () => {
-      expect(union(["1", "2", "3"])).toBe("(1 | 2 | 3)")
+      expect(union(["1", "2", "3"])).toBe("(1\n | 2\n | 3)")
     })
 
     it("accepts rest parameters", () => {
-      expect(union("1", "2", "3")).toBe("(1 | 2 | 3)")
+      expect(union("1", "2", "3")).toBe("(1\n | 2\n | 3)")
     })
 
   })
@@ -64,22 +64,22 @@ describe("typescript/common/type-utils", () => {
   describe("objectProperty", () => {
     it("returns a mutable required property", () => {
       expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: false}))
-        .toBe('"foo": number;')
+        .toBe('"foo": number')
     })
 
     it("returns a mutable optional property", () => {
       expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: false}))
-        .toBe('"foo"?: number;')
+        .toBe('"foo"?: number')
     })
 
     it("returns a readonly required property", () => {
       expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: true}))
-        .toBe('readonly "foo": number;')
+        .toBe('readonly "foo": number')
     })
 
     it("returns a readonly optional property", () => {
       expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: true}))
-        .toBe('readonly "foo"?: number;')
+        .toBe('readonly "foo"?: number')
     })
   })
 

@@ -32,7 +32,7 @@ export const union = wrapForArrayOrRestParameters(function (types: MaybeString[]
     return distinctTypes[0]
   }
 
-  return `(${distinctTypes.join(" | ")})`
+  return `(${distinctTypes.join("\n | ")})`
 })
 
 export const intersect = wrapForArrayOrRestParameters(function (types: MaybeString[]): string {
@@ -57,5 +57,5 @@ export const objectProperty = ({name, type, isReadonly, isRequired}: {
     isReadonly ? "readonly" : "",
     `"${name}"` + (isRequired ? ":" : "?:"),
     type,
-  ].filter(Boolean).join(" ") + ";"
+  ].filter(Boolean).join(" ") + ""
 }

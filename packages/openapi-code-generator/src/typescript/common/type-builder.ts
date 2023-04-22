@@ -150,7 +150,7 @@ export class TypeBuilder {
             const isNullable = isRef(definition) ? false : definition.nullable
 
             // TODO: eventually this should be pushed up into every branch of the switch
-            const shouldUnionNull = !isRef(definition) && isNullable && !["string", "number"].find(it => it === definition.type)
+            const shouldUnionNull = !isRef(definition) && isNullable && !["string", "number", "object"].find(it => it === definition.type)
 
             return objectProperty({
               name,
@@ -162,10 +162,10 @@ export class TypeBuilder {
 
         // TODO better support
         const additionalProperties = schemaObject.additionalProperties || members.length === 0 ?
-          "[key: string]: unknown;" : ""
+          "[key: string]: unknown" : ""
 
         return union(
-          "{" + [...members, additionalProperties].filter(Boolean).join("\n") + "}",
+          "{\n" + [...members, additionalProperties].filter(Boolean).join("\n") + "\n}",
           schemaObject.nullable ? "null" : "",
         )
       }
