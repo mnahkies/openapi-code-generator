@@ -98,12 +98,7 @@ describe("typescript/common/type-builder", () => {
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-      "export type t_OneOf =
-        | {
-            strs: string[]
-          }
-        | string[]
-        | string
+      "export type t_OneOf = { strs: string[] } | string[] | string
       "
     `)
 
@@ -124,14 +119,9 @@ describe("typescript/common/type-builder", () => {
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-      "export type t_Base = {
-        breed?: string
-        name: string
-      }
+      "export type t_Base = { breed?: string; name: string }
 
-      export type t_AllOf = t_Base & {
-        id: number
-      }
+      export type t_AllOf = t_Base & { id: number }
       "
     `)
 
