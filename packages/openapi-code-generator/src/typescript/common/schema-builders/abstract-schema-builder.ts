@@ -83,6 +83,7 @@ export abstract class AbstractSchemaBuilder {
       properties: {},
       allOf: [],
       oneOf: [],
+      anyOf: [],
       readOnly: false,
       nullable: false,
       additionalProperties: false,

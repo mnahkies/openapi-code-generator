@@ -84,6 +84,10 @@ export class TypeBuilder {
       result.push(...schemaObject.oneOf.flatMap(this.schemaObjectToTypes))
     }
 
+    if (schemaObject.type === "object" && schemaObject.anyOf.length) {
+      result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
+    }
+
     if (result.length === 0) {
       switch (schemaObject.type) {
         case "array": {

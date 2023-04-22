@@ -200,6 +200,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
       const properties = normalizeProperties(schemaObject.properties)
       const allOf = normalizeAllOf(schemaObject.allOf)
       const oneOf = normalizeOneOf(schemaObject.oneOf)
+      const anyOf = normalizeAnyOf(schemaObject.anyOf)
 
       const required = (schemaObject.required ?? []).filter(it => {
         const include = Reflect.has(properties, it)
@@ -223,6 +224,7 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         type: "object",
         allOf,
         oneOf,
+        anyOf,
         required,
         properties,
         additionalProperties,
@@ -293,6 +295,11 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
 
   function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
     return oneOf
+      .map(normalizeSchemaObject)
+  }
+
+  function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
+    return anyOf
       .map(normalizeSchemaObject)
   }
 }

@@ -24,6 +24,7 @@ function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
     required: [],
     oneOf: [],
     allOf: [],
+    anyOf: [],
     additionalProperties: false,
     nullable: false,
     readOnly: false

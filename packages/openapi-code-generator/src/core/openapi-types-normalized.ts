@@ -29,6 +29,7 @@ export interface IRModelBoolean extends IRModelBase {
 export interface IRModelObject extends IRModelBase {
   allOf: MaybeIRModel[]
   oneOf: MaybeIRModel[]
+  anyOf: MaybeIRModel[]
 
   type: "object"
   required: string[]

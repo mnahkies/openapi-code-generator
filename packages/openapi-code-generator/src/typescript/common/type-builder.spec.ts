@@ -1,12 +1,12 @@
-import {describe, it, expect} from "@jest/globals"
-import {unitTestInput} from "../../test/input.test-utils"
-import {TypeBuilder} from "./type-builder"
-import {ImportBuilder} from "./import-builder"
-import {formatOutput} from "./output-utils"
+import { describe, it, expect } from "@jest/globals"
+import { unitTestInput } from "../../test/input.test-utils"
+import { TypeBuilder } from "./type-builder"
+import { ImportBuilder } from "./import-builder"
+import { formatOutput } from "./output-utils"
 
 describe("typescript/common/type-builder", () => {
   it("can build a type for a simple object correctly", async () => {
-    const {type, schemas, imports} = await getActual(
+    const { type, schemas, imports } = await getActual(
       "components/schemas/SimpleObject"
     )
 
@@ -34,7 +34,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for an object that references other objects correctly", async () => {
-    const {type, schemas, imports} = await getActual(
+    const { type, schemas, imports } = await getActual(
       "components/schemas/ObjectWithRefs"
     )
 
@@ -67,7 +67,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for a named nullable string enum", async () => {
-    const {type, schemas, imports} = await getActual(
+    const { type, schemas, imports } = await getActual(
       "components/schemas/NamedNullableStringEnum"
     )
 
@@ -88,7 +88,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for a oneOf correctly", async () => {
-    const {type, schemas, imports} = await getActual(
+    const { type, schemas, imports } = await getActual(
       "components/schemas/OneOf"
     )
 
@@ -113,8 +113,29 @@ describe("typescript/common/type-builder", () => {
     `)
   })
 
+  it("can build a type for a anyOf correctly", async () => {
+    const { type, schemas, imports } = await getActual(
+      "components/schemas/AnyOf"
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_AnyOf
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AnyOf = number | string
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_AnyOf } from "models"
+      "
+    `)
+  })
+
   it("can build a type for a allOf correctly", async () => {
-    const {type, schemas, imports} = await getActual(
+    const { type, schemas, imports } = await getActual(
       "components/schemas/AllOf"
     )
 
@@ -142,8 +163,8 @@ describe("typescript/common/type-builder", () => {
   })
 
   async function getActual(path: string) {
-    const {input, file} = await unitTestInput()
-    const schema = {$ref: `${file}#${path}`}
+    const { input, file } = await unitTestInput()
+    const schema = { $ref: `${file}#${path}` }
 
     const imports = new ImportBuilder()
 
