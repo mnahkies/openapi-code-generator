@@ -35,7 +35,6 @@ import { z } from "zod"
 //region safe-edit-region-header
 
 //endregion safe-edit-region-header
-
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void>,
   ctx: Context
