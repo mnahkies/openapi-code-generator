@@ -120,4 +120,10 @@ components:
       additionalProperties:
         $ref: "#/components/schemas/NamedNullableStringEnum"
 
+    Recursive:
+      type: object
+      properties:
+        child:
+          $ref: "#/components/schemas/Recursive"
+
   parameters: { }

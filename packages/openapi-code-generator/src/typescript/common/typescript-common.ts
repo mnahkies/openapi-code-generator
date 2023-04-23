@@ -3,7 +3,7 @@ import {isDefined} from "../../core/utils"
 import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
 import {logger} from "../../core/logger"
 
-export type MethodParameterDefinition = { name: string, type: string, required?: boolean, default?: string }
+export type MethodParameterDefinition = {name: string, type: string, required?: boolean, default?: string}
 
 export type MethodDefinition = {
   name: string
@@ -31,7 +31,7 @@ export function combineParams(parameters: MethodParameterDefinition[], name = "p
     }
     }`,
     required: true, // avoid "TS1015: Parameter cannot have question mark and initializer."
-    default: !required ? "{}" : undefined,
+    default: !required ? "{}" : undefined
   }
 }
 
@@ -51,7 +51,7 @@ export function combineAndDestructureParams(parameters: MethodParameterDefinitio
     ${
       params(parameters)
     }
-    }`,
+    }`
   }
 }
 
@@ -60,7 +60,7 @@ export function routeToTemplateString(route: string, paramName = "p"): string {
 
   return Array.from(route.matchAll(placeholder))
     .reduce((result, match) => {
-      return result.replace(match[0], "${" + paramName + '["' + _.camelCase(match[1]) + '"]}')
+      return result.replace(match[0], "${" + paramName + "[\"" + _.camelCase(match[1]) + "\"]}")
     }, route)
 }
 
@@ -80,6 +80,26 @@ export function asyncMethod({name, parameters, returnType, overloads = [], body}
   {
     ${body}
   }`
+}
+
+export type ExportDefinition = {name: string, type?: string, value: string, kind: "const"} | {
+  name: string,
+  value: string,
+  kind: "type"
+}
+
+export function buildExport(args: ExportDefinition) {
+
+  if (!args.value) {
+    return ""
+  }
+
+  switch (args.kind) {
+    case "const":
+      return `export const ${args.name}${args.type ? `: ${args.type}` : ""} = ${args.value}`
+    case "type":
+      return `export type ${args.name} = ${args.value}`
+  }
 }
 
 export function requestBodyAsParameter(operation: IROperation): {
@@ -103,8 +123,8 @@ export function requestBodyAsParameter(operation: IROperation): {
         required: requestBody.required,
         schema: definition.schema,
         allowEmptyValue: false,
-        deprecated: false,
-      },
+        deprecated: false
+      }
     }
   }
 
@@ -112,7 +132,7 @@ export function requestBodyAsParameter(operation: IROperation): {
   return {}
 }
 
-export function statusStringToType (status: string): string {
+export function statusStringToType(status: string): string {
   if (/^\d+$/.test(status)) {
     return status
   } else if (/^\d[xX]{2}$/.test(status)) {
@@ -124,7 +144,7 @@ export function statusStringToType (status: string): string {
   throw new Error(`unexpected status string '${status}'`)
 }
 
-export function ifElseIfBuilder(parts: ({ condition?: string, body: string } | undefined)[]) {
+export function ifElseIfBuilder(parts: ({condition?: string, body: string} | undefined)[]) {
   const result = []
 
   const definedParts = parts.filter(isDefined).sort((a, b) => a.condition && !b.condition ? -1 : 1)

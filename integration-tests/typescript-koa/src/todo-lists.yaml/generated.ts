@@ -35,7 +35,6 @@ import { z } from "zod"
 //region safe-edit-region-header
 
 //endregion safe-edit-region-header
-
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void>,
   ctx: Context

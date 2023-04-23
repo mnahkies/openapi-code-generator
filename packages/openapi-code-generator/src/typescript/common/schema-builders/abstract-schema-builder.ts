@@ -1,22 +1,35 @@
-import {IRModelObject, IRModelString, IRParameter, MaybeIRModel} from "../../../core/openapi-types-normalized"
+/**
+ * @prettier
+ */
+
+import {
+  IRModelObject,
+  IRModelString,
+  IRParameter,
+  MaybeIRModel,
+} from "../../../core/openapi-types-normalized"
 import {ImportBuilder} from "../import-builder"
 import {Input} from "../../../core/input"
-import {getNameFromRef, isRef} from "../../../core/openapi-utils"
+import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {Reference} from "../../../core/openapi-types"
 import {buildDependencyGraph} from "../../../core/dependency-graph"
+import {logger} from "../../../core/logger"
+import {buildExport, ExportDefinition} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder {
+  private readonly graph
 
   protected constructor(
     public readonly filename: string,
-    private readonly input: Input,
+    protected readonly input: Input,
     private readonly imports: ImportBuilder,
     private readonly referenced: Record<string, Reference> = {},
   ) {
+    this.graph = buildDependencyGraph(this.input, getSchemaNameFromRef)
   }
 
   private add(reference: Reference): string {
-    const name = this.getNameFromRef(reference)
+    const name = getSchemaNameFromRef(reference)
     this.referenced[name] = reference
 
     if (this.imports) {
@@ -26,27 +39,32 @@ export abstract class AbstractSchemaBuilder {
     return name
   }
 
-  private readonly getNameFromRef = (reference: Reference) => {
-    return getNameFromRef(reference, "s_")
-  }
-
   toString(): string {
+    logger.time(`generate ${this.filename}`)
+
+    const imports = new ImportBuilder()
+
     const generate = () => {
       const seen = new Set()
-      const order = buildDependencyGraph(this.input, this.getNameFromRef)
 
-      return order
-        .filter(it => this.referenced[it])
-        // todo: this is needed because the dependency graph only considers schemas from the entrypoint
-        //       specification - ideally we'd recurse into all referenced specifications and include their
-        //       schemas in the ordering
-        .concat(Object.keys(this.referenced))
-        .filter(it => {
-          const alreadySeen = seen.has(it)
-          seen.add(it)
-          return !alreadySeen
-        })
-        .map((name) => this.generateSchemaFromRef(this.referenced[name]))
+      return (
+        this.graph.order
+          .filter((it) => this.referenced[it])
+          // todo: this is needed because the dependency graph only considers schemas from the entrypoint
+          //       specification - ideally we'd recurse into all referenced specifications and include their
+          //       schemas in the ordering
+          .concat(Object.keys(this.referenced))
+          .filter((it) => {
+            const alreadySeen = seen.has(it)
+            seen.add(it)
+            return !alreadySeen
+          })
+          .map((name) => {
+            return buildExport(
+              this.schemaFromRef(this.referenced[name], imports),
+            )
+          })
+      )
     }
 
     // Super lazy way of discovering sub-references for generation easily...
@@ -59,22 +77,17 @@ export abstract class AbstractSchemaBuilder {
       next = generate()
     }
 
-    const imports = new ImportBuilder()
     this.importHelpers(imports)
 
-    return `${imports.toString()}\n${next.join("\n\n")}`
-  }
-
-  private generateSchemaFromRef(reference: Reference): string {
-    const name = this.getNameFromRef(reference)
-    const schemaObject = this.input.schema(reference)
-
-    return `
-  export const ${name} = ${this.fromModel(schemaObject, true)}
-  `
+    return `${imports.toString()}\n\n${next.join("\n\n")}`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
+
+  protected abstract schemaFromRef(
+    reference: Reference,
+    imports: ImportBuilder,
+  ): ExportDefinition
 
   fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {
@@ -89,20 +102,30 @@ export abstract class AbstractSchemaBuilder {
       additionalProperties: false,
     }
 
-    parameters.forEach(parameter => {
+    parameters.forEach((parameter) => {
       if (parameter.required) {
         model.required.push(parameter.name)
       }
       model.properties[parameter.name] = parameter.schema
     })
 
-    return this.fromModel(model, true)
+    return this.fromModel(model, true, true)
   }
 
-  fromModel(maybeModel: MaybeIRModel, required: boolean): string {
-
+  // todo: rethink the isAnonymous parameter - it would be better to just provide more context
+  fromModel(
+    maybeModel: MaybeIRModel,
+    required: boolean,
+    isAnonymous = false,
+  ): string {
     if (isRef(maybeModel)) {
-      return this.add(maybeModel)
+      const name = this.add(maybeModel)
+
+      if (this.graph.circular.has(name) && !isAnonymous) {
+        return this.lazy(name)
+      } else {
+        return name
+      }
     }
 
     const model = this.input.schema(maybeModel)
@@ -120,26 +143,29 @@ export abstract class AbstractSchemaBuilder {
         result = this.boolean(required)
         break
       case "array":
-        result = this.array([
-          this.fromModel(model.items, true),
-        ], required)
+        result = this.array([this.fromModel(model.items, true)], required)
         break
       case "object":
         // todo: additionalProperties support
         if (model.allOf.length) {
-          result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
+          result = this.intersect(
+            model.allOf.map((it) => this.fromModel(it, true)),
+          )
         } else if (model.oneOf.length) {
-          result = this.union(model.oneOf.map(it => this.fromModel(it, true)))
+          result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
-          result = this.union(model.anyOf.map(it => this.fromModel(it, true)))
+          result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
         } else {
           result = this.object(
             Object.fromEntries(
-              Object.entries(model.properties)
-                .map(([key, value]) => {
-                  return [key, this.fromModel(value, model.required.includes(key))]
-                }),
-            ), required,
+              Object.entries(model.properties).map(([key, value]) => {
+                return [
+                  key,
+                  this.fromModel(value, model.required.includes(key)),
+                ]
+              }),
+            ),
+            required,
           )
         }
         break
@@ -156,13 +182,18 @@ export abstract class AbstractSchemaBuilder {
 
   public abstract void(): string
 
+  protected abstract lazy(schema: string): string
+
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
 
   protected abstract nullable(schema: string): string
 
-  protected abstract object(keys: Record<string, string>, required: boolean): string
+  protected abstract object(
+    keys: Record<string, string>,
+    required: boolean,
+  ): string
 
   protected abstract array(items: string[], required: boolean): string
 

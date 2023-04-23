@@ -48,18 +48,18 @@ describe("typescript/common/type-builder", () => {
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-      "export type t_SimpleObject = {
+      "export type t_ObjectWithRefs = {
+        optionalObject?: t_SimpleObject
+        requiredObject: t_SimpleObject
+      }
+
+      export type t_SimpleObject = {
         date: string
         datetime: string
         num: number
         optional_str?: string
         required_nullable: string | null
         str: string
-      }
-
-      export type t_ObjectWithRefs = {
-        optionalObject?: t_SimpleObject
-        requiredObject: t_SimpleObject
       }
       "
     `)
@@ -143,13 +143,13 @@ describe("typescript/common/type-builder", () => {
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-      "export type t_Base = {
-        breed?: string
-        name: string
+      "export type t_AllOf = t_Base & {
+        id: number
       }
 
-      export type t_AllOf = t_Base & {
-        id: number
+      export type t_Base = {
+        breed?: string
+        name: string
       }
       "
     `)
@@ -183,6 +183,29 @@ describe("typescript/common/type-builder", () => {
     `)
   })
 
+  it("can build a recursive type correctly", async () => {
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/Recursive",
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_Recursive
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_Recursive = {
+        child?: t_Recursive
+      }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_Recursive } from "models"
+      "
+    `)
+  })
+
   it("handles additionalProperties specifying a schema", async () => {
     const {type, schemas, imports} = await getActual(
       "components/schemas/AdditionalPropertiesSchema",
@@ -194,15 +217,15 @@ describe("typescript/common/type-builder", () => {
     `)
 
     expect(schemas).toMatchInlineSnapshot(`
-      "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
-
-      export type t_AdditionalPropertiesSchema =
+      "export type t_AdditionalPropertiesSchema =
         | {
             name?: string
           }
         | {
             [key: string]: t_NamedNullableStringEnum
           }
+
+      export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
       "
     `)
 
@@ -214,7 +237,7 @@ describe("typescript/common/type-builder", () => {
 
   async function getActual(path: string) {
     const {input, file} = await unitTestInput()
-    const schema = {$ref: `${file}#${path}`}
+    const schema = {$ref: `${file}#/${path}`}
 
     const imports = new ImportBuilder()
 
