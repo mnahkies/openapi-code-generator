@@ -11,7 +11,7 @@ import {formatOutput} from "./output-utils"
 describe("typescript/common/type-builder", () => {
   it("can build a type for a simple object correctly", async () => {
     const {type, schemas, imports} = await getActual(
-      "components/schemas/SimpleObject"
+      "components/schemas/SimpleObject",
     )
 
     expect(type).toMatchInlineSnapshot(`
@@ -39,7 +39,7 @@ describe("typescript/common/type-builder", () => {
 
   it("can build a type for an object that references other objects correctly", async () => {
     const {type, schemas, imports} = await getActual(
-      "components/schemas/ObjectWithRefs"
+      "components/schemas/ObjectWithRefs",
     )
 
     expect(type).toMatchInlineSnapshot(`
@@ -72,7 +72,7 @@ describe("typescript/common/type-builder", () => {
 
   it("can build a type for a named nullable string enum", async () => {
     const {type, schemas, imports} = await getActual(
-      "components/schemas/NamedNullableStringEnum"
+      "components/schemas/NamedNullableStringEnum",
     )
 
     expect(type).toMatchInlineSnapshot(`
@@ -162,7 +162,7 @@ describe("typescript/common/type-builder", () => {
 
   it("handles additionalProperties set to true", async () => {
     const {type, schemas, imports} = await getActual(
-      "components/schemas/AdditionalPropertiesBool"
+      "components/schemas/AdditionalPropertiesBool",
     )
 
     expect(type).toMatchInlineSnapshot(`
@@ -185,7 +185,7 @@ describe("typescript/common/type-builder", () => {
 
   it("handles additionalProperties specifying a schema", async () => {
     const {type, schemas, imports} = await getActual(
-      "components/schemas/AdditionalPropertiesSchema"
+      "components/schemas/AdditionalPropertiesSchema",
     )
 
     expect(type).toMatchInlineSnapshot(`
@@ -219,7 +219,7 @@ describe("typescript/common/type-builder", () => {
     const imports = new ImportBuilder()
 
     const builder = TypeBuilder.fromInput("models.ts", input).withImports(
-      imports
+      imports,
     )
 
     const type = builder.schemaObjectToType(schema)

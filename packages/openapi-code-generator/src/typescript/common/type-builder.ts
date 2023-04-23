@@ -29,7 +29,7 @@ export class TypeBuilder {
     private readonly input: Input,
     private readonly referenced = new Set<string>(),
     private readonly referencedStaticTypes = new Set<StaticType>(),
-    private readonly imports?: ImportBuilder
+    private readonly imports?: ImportBuilder,
   ) {}
 
   withImports(imports: ImportBuilder): TypeBuilder {
@@ -38,7 +38,7 @@ export class TypeBuilder {
       this.input,
       this.referenced,
       this.referencedStaticTypes,
-      imports
+      imports,
     )
   }
 
@@ -75,7 +75,7 @@ export class TypeBuilder {
       return this.staticTypes().concat(
         Array.from(this.referenced.values())
           .sort()
-          .map(($ref) => this.generateModelFromRef($ref))
+          .map(($ref) => this.generateModelFromRef($ref)),
       )
     }
 
@@ -183,14 +183,14 @@ export class TypeBuilder {
           result.push(
             object(properties),
             object(additionalProperties),
-            emptyObject
+            emptyObject,
           )
           break
         }
 
         default: {
           throw new Error(
-            `unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`
+            `unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`,
           )
         }
       }
