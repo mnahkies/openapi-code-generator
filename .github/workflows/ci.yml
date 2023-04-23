@@ -28,6 +28,7 @@ jobs:
     - run: yarn ci-build
     - run: yarn ci-test
     - run: yarn ci-lint
+    - run: yarn ci-format
     - run: yarn integration:generate
     - run: yarn integration:validate
     - run: |

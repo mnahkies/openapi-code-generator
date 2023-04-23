@@ -1,0 +1,5 @@
+semi: false
+arrowParens: always
+bracketSpacing: false
+requirePragma: true
+trailingComma: all

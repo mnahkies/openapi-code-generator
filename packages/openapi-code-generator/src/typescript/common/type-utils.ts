@@ -1,5 +1,9 @@
+/**
+ * @prettier
+ */
+
 function wrap<T, U>(
-  fn: (arg: T[]) => U
+  fn: (arg: T[]) => U,
 ): {
   (...arg: T[] | T[][]): U
 } {
@@ -17,7 +21,7 @@ function unique(types: (string | undefined | null)[]) {
   return Array.from(
     types
       .filter((it): it is string => Boolean(it))
-      .filter((it) => (seen.has(it) ? false : seen.add(it) && true))
+      .filter((it) => (seen.has(it) ? false : seen.add(it) && true)),
   )
 }
 
@@ -69,9 +73,15 @@ export const objectProperty = ({
     .join(" ")
 }
 
-export const object = (properties: string[]): string =>
-  "{\n" + properties.filter(Boolean).join("\n") + "\n}"
+export const object = wrap((properties: MaybeString[]): string => {
+  const definedProperties = properties.filter(Boolean)
 
+  if (!definedProperties.length) {
+    return ""
+  }
+
+  return "{\n" + definedProperties.join("\n") + "\n}"
+})
 export const array = (type: string): string => `(${type})[]`
 
 export const toString = (it: string | number): string => it.toString()

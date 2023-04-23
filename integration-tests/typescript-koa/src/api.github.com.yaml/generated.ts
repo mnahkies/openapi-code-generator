@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
@@ -1414,6 +1415,7 @@ import {
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
   t_dependabot_secret,
+  t_dependency,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
@@ -1481,6 +1483,7 @@ import {
   t_link,
   t_link_with_type,
   t_locked_issue_event,
+  t_manifest,
   t_marketplace_account,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
@@ -1987,13 +1990,18 @@ export type AppsCreateFromManifest = (
 ) => Promise<
   | Response<
       201,
-      t_integration & {
-        client_id: string
-        client_secret: string
-        pem: string
-        webhook_secret: string | null
-        [key: string]: unknown
-      }
+      t_integration &
+        (
+          | {
+              client_id: string
+              client_secret: string
+              pem: string
+              webhook_secret: string | null
+            }
+          | {
+              [key: string]: unknown
+            }
+        )
     >
   | Response<404, t_basic_error>
   | Response<422, t_validation_error_simple>
@@ -2031,12 +2039,7 @@ export type AppsRedeliverWebhookDelivery = (
   params: Params<t_AppsRedeliverWebhookDeliveryParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -2167,7 +2170,7 @@ export type EmojisGet = (
   | Response<
       200,
       {
-        [key: string]: unknown
+        [key: string]: string
       }
     >
   | Response<304, void>
@@ -2424,12 +2427,7 @@ export type GistsCheckIsStarred = (
   | Response<204, void>
   | Response<304, void>
   | Response<403, t_basic_error>
-  | Response<
-      404,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<404, EmptyObject>
 >
 
 export type GistsStar = (
@@ -2739,12 +2737,7 @@ export type OrgsReviewPatGrantRequestsInBulk = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<422, t_validation_error>
@@ -2803,12 +2796,7 @@ export type OrgsUpdatePatAccesses = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<422, t_validation_error>
@@ -2866,12 +2854,7 @@ export type OrgsDelete = (
   params: Params<t_OrgsDeleteParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
 >
@@ -3835,12 +3818,7 @@ export type OrgsRedeliverWebhookDelivery = (
   params: Params<t_OrgsRedeliverWebhookDeliveryParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -3875,15 +3853,7 @@ export type OrgsListAppInstallations = (
 export type InteractionsGetRestrictionsForOrg = (
   params: Params<t_InteractionsGetRestrictionsForOrgParamSchema, void, void>,
   ctx: Context
-) => Promise<
-  Response<
-    200,
-    | t_interaction_limit_response
-    | {
-        [key: string]: never
-      }
-  >
->
+) => Promise<Response<200, t_interaction_limit_response | EmptyObject>>
 
 export type InteractionsSetRestrictionsForOrg = (
   params: Params<
@@ -3998,12 +3968,7 @@ export type CodespacesDeleteFromOrganization = (
   params: Params<t_CodespacesDeleteFromOrganizationParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -4128,12 +4093,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<204, void>
   | Response<403, void>
   | Response<404, t_basic_error>
@@ -4763,12 +4723,7 @@ export type ProjectsMoveCard = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      201,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<201, EmptyObject>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<
@@ -4883,12 +4838,7 @@ export type ProjectsMoveColumn = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      201,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<201, EmptyObject>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -7545,12 +7495,7 @@ export type ReposRedeliverWebhookDelivery = (
   params: Params<t_ReposRedeliverWebhookDeliveryParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<400, t_scim_error>
   | Response<422, t_validation_error>
 >
@@ -7661,15 +7606,7 @@ export type AppsGetRepoInstallation = (
 export type InteractionsGetRestrictionsForRepo = (
   params: Params<t_InteractionsGetRestrictionsForRepoParamSchema, void, void>,
   ctx: Context
-) => Promise<
-  Response<
-    200,
-    | t_interaction_limit_response
-    | {
-        [key: string]: never
-      }
-  >
->
+) => Promise<Response<200, t_interaction_limit_response | EmptyObject>>
 
 export type InteractionsSetRestrictionsForRepo = (
   params: Params<
@@ -8129,15 +8066,7 @@ export type ReposListLanguages = (
 export type ReposEnableLfsForRepo = (
   params: Params<t_ReposEnableLfsForRepoParamSchema, void, void>,
   ctx: Context
-) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
-  | Response<403, void>
->
+) => Promise<Response<202, EmptyObject> | Response<403, void>>
 
 export type ReposDisableLfsForRepo = (
   params: Params<t_ReposDisableLfsForRepoParamSchema, void, void>,
@@ -9117,12 +9046,7 @@ export type ReposGetCodeFrequencyStats = (
   ctx: Context
 ) => Promise<
   | Response<200, t_code_frequency_stat[]>
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<204, void>
 >
 
@@ -9131,12 +9055,7 @@ export type ReposGetCommitActivityStats = (
   ctx: Context
 ) => Promise<
   | Response<200, t_commit_activity[]>
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<204, void>
 >
 
@@ -9145,12 +9064,7 @@ export type ReposGetContributorsStats = (
   ctx: Context
 ) => Promise<
   | Response<200, t_contributor_activity[]>
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<204, void>
 >
 
@@ -10130,12 +10044,7 @@ export type CodespacesDeleteForAuthenticatedUser = (
   params: Params<t_CodespacesDeleteForAuthenticatedUserParamSchema, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      202,
-      {
-        [key: string]: never
-      }
-    >
+  | Response<202, EmptyObject>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -10474,13 +10383,7 @@ export type InteractionsGetRestrictionsForAuthenticatedUser = (
   params: Params<void, void, void>,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      | t_interaction_limit_response
-      | {
-          [key: string]: never
-        }
-    >
+  | Response<200, t_interaction_limit_response | EmptyObject>
   | Response<204, void>
 >
 

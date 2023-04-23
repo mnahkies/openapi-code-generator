@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_actions_billing_usage = {
   included_minutes: number
   minutes_used_breakdown: {
@@ -241,9 +243,7 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: {
-    [key: string]: never
-  }
+  permissions?: EmptyObject
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
   single_file?: string | null
@@ -303,17 +303,19 @@ export type t_base_gist = {
   created_at: string
   description: string | null
   files: {
-    [key: string]: unknown
+    [key: string]: {
+      filename?: string
+      language?: string
+      raw_url?: string
+      size?: number
+      type?: string
+    }
   }
-  forks?: {
-    [key: string]: never
-  }[]
+  forks?: EmptyObject[]
   forks_url: string
   git_pull_url: string
   git_push_url: string
-  history?: {
-    [key: string]: never
-  }[]
+  history?: EmptyObject[]
   html_url: string
   id: string
   node_id: string
@@ -1468,6 +1470,14 @@ export type t_dependabot_secret = {
   updated_at: string
 }
 
+export type t_dependency = {
+  dependencies?: string[]
+  metadata?: t_metadata
+  package_url?: string
+  relationship?: "direct" | "indirect"
+  scope?: "runtime" | "development"
+}
+
 export type t_dependency_graph_diff = {
   change_type: "added" | "removed"
   ecosystem: string
@@ -1643,9 +1653,7 @@ export type t_email = {
   visibility: string | null
 }
 
-export type t_empty_object = {
-  [key: string]: never
-}
+export type t_empty_object = EmptyObject
 
 export type t_enabled_repositories = "all" | "none" | "selected"
 
@@ -1966,7 +1974,15 @@ export type t_gist_simple = {
   created_at?: string
   description?: string | null
   files?: {
-    [key: string]: unknown
+    [key: string]: {
+      content?: string
+      filename?: string
+      language?: string
+      raw_url?: string
+      size?: number
+      truncated?: boolean
+      type?: string
+    } | null
   }
   fork_of?: {
     comments: number
@@ -1975,17 +1991,19 @@ export type t_gist_simple = {
     created_at: string
     description: string | null
     files: {
-      [key: string]: unknown
+      [key: string]: {
+        filename?: string
+        language?: string
+        raw_url?: string
+        size?: number
+        type?: string
+      }
     }
-    forks?: {
-      [key: string]: never
-    }[]
+    forks?: EmptyObject[]
     forks_url: string
     git_pull_url: string
     git_push_url: string
-    history?: {
-      [key: string]: never
-    }[]
+    history?: EmptyObject[]
     html_url: string
     id: string
     node_id: string
@@ -2137,9 +2155,7 @@ export type t_gpg_key = {
     public_key?: string
     raw_key?: string | null
     revoked?: boolean
-    subkeys?: {
-      [key: string]: never
-    }[]
+    subkeys?: EmptyObject[]
   }[]
 }
 
@@ -2320,14 +2336,17 @@ export type t_integration = {
   node_id: string
   owner: t_nullable_simple_user
   pem?: string
-  permissions: {
-    checks?: string
-    contents?: string
-    deployments?: string
-    issues?: string
-    metadata?: string
-    [key: string]: unknown
-  }
+  permissions:
+    | {
+        checks?: string
+        contents?: string
+        deployments?: string
+        issues?: string
+        metadata?: string
+      }
+    | {
+        [key: string]: string
+      }
   slug?: string
   updated_at: string
   webhook_secret?: string | null
@@ -2649,7 +2668,7 @@ export type t_labeled_issue_event = {
 }
 
 export type t_language = {
-  [key: string]: unknown
+  [key: string]: number
 }
 
 export type t_license = {
@@ -2719,6 +2738,17 @@ export type t_locked_issue_event = {
   url: string
 }
 
+export type t_manifest = {
+  file?: {
+    source_location?: string
+  }
+  metadata?: t_metadata
+  name: string
+  resolved?: {
+    [key: string]: t_dependency
+  }
+}
+
 export type t_marketplace_account = {
   email?: string | null
   id: number
@@ -2778,7 +2808,7 @@ export type t_merged_upstream = {
 }
 
 export type t_metadata = {
-  [key: string]: unknown
+  [key: string]: string | number | boolean | null
 }
 
 export type t_migration = {
@@ -3033,14 +3063,17 @@ export type t_nullable_integration = {
   node_id: string
   owner: t_nullable_simple_user
   pem?: string
-  permissions: {
-    checks?: string
-    contents?: string
-    deployments?: string
-    issues?: string
-    metadata?: string
-    [key: string]: unknown
-  }
+  permissions:
+    | {
+        checks?: string
+        contents?: string
+        deployments?: string
+        issues?: string
+        metadata?: string
+      }
+    | {
+        [key: string]: string
+      }
   slug?: string
   updated_at: string
   webhook_secret?: string | null
@@ -3670,13 +3703,13 @@ export type t_organization_programmatic_access_grant = {
   owner: t_simple_user
   permissions: {
     organization?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     other?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     repository?: {
-      [key: string]: unknown
+      [key: string]: string
     }
   }
   repositories_url: string
@@ -3692,13 +3725,13 @@ export type t_organization_programmatic_access_grant_request = {
   owner: t_simple_user
   permissions: {
     organization?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     other?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     repository?: {
-      [key: string]: unknown
+      [key: string]: string
     }
   }
   reason: string | null
@@ -8246,16 +8279,13 @@ export type t_BillingGetSharedStorageBillingUserParamSchema = {
 
 export type t_ChecksCreateBodySchema =
   | {
-      status: {
-        [key: string]: never
-      }
+      status: EmptyObject
+    }
+  | {
       [key: string]: unknown
     }
   | {
-      status?: {
-        [key: string]: never
-      }
-      [key: string]: unknown
+      status?: EmptyObject
     }
 
 export type t_ChecksCreateParamSchema = {
@@ -9129,7 +9159,7 @@ export type t_DependencyGraphCreateRepositorySnapshotBodySchema = {
     id: string
   }
   manifests?: {
-    [key: string]: unknown
+    [key: string]: t_manifest
   }
   metadata?: t_metadata
   ref: string
@@ -9165,7 +9195,9 @@ export type t_GistsCheckIsStarredParamSchema = {
 export type t_GistsCreateBodySchema = {
   description?: string
   files: {
-    [key: string]: unknown
+    [key: string]: {
+      content: string
+    }
   }
   public?: boolean | "true" | "false"
 }
@@ -9271,7 +9303,7 @@ export type t_GistsUnstarParamSchema = {
 export type t_GistsUpdateBodySchema = {
   description?: string
   files?: {
-    [key: string]: unknown
+    [key: string]: EmptyObject | null
   }
 } | null
 

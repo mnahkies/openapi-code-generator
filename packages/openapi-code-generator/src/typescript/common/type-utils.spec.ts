@@ -1,10 +1,12 @@
+/**
+ * @prettier
+ */
+
 import {describe, expect} from "@jest/globals"
-import {intersect, objectProperty, union} from "./type-utils"
+import {intersect, object, objectProperty, union} from "./type-utils"
 
 describe("typescript/common/type-utils", () => {
-
   describe("union", () => {
-
     it("handles an empty array", () => {
       expect(union([])).toBe("")
     })
@@ -19,7 +21,9 @@ describe("typescript/common/type-utils", () => {
     })
 
     it("skips empty strings and falsy values", () => {
-      expect(union(["1", "", "2", undefined, "3", null])).toBe("(1\n | 2\n | 3)")
+      const actual = union(["1", "", "2", undefined, "3", null])
+
+      expect(actual).toBe("(1\n | 2\n | 3)")
     })
 
     it("accepts an array", () => {
@@ -29,11 +33,9 @@ describe("typescript/common/type-utils", () => {
     it("accepts rest parameters", () => {
       expect(union("1", "2", "3")).toBe("(1\n | 2\n | 3)")
     })
-
   })
 
   describe("intersect", () => {
-
     it("handles an empty array", () => {
       expect(intersect([])).toBe("")
     })
@@ -48,7 +50,9 @@ describe("typescript/common/type-utils", () => {
     })
 
     it("skips empty strings and falsy values", () => {
-      expect(intersect(["1", "", "2", undefined, "3", null])).toBe("(1 & 2 & 3)")
+      const actual = intersect(["1", "", "2", undefined, "3", null])
+
+      expect(actual).toBe("(1 & 2 & 3)")
     })
 
     it("accepts an array", () => {
@@ -58,29 +62,70 @@ describe("typescript/common/type-utils", () => {
     it("accepts rest parameters", () => {
       expect(intersect("1", "2", "3")).toBe("(1 & 2 & 3)")
     })
-
   })
 
   describe("objectProperty", () => {
     it("returns a mutable required property", () => {
-      expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: false}))
-        .toBe('"foo": number')
+      const actual = objectProperty({
+        name: "foo",
+        type: "number",
+        isRequired: true,
+        isReadonly: false,
+      })
+
+      expect(actual).toBe('"foo": number')
     })
 
     it("returns a mutable optional property", () => {
-      expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: false}))
-        .toBe('"foo"?: number')
+      const actual = objectProperty({
+        name: "foo",
+        type: "number",
+        isRequired: false,
+        isReadonly: false,
+      })
+
+      expect(actual).toBe('"foo"?: number')
     })
 
     it("returns a readonly required property", () => {
-      expect(objectProperty({name: "foo", type: "number", isRequired: true, isReadonly: true}))
-        .toBe('readonly "foo": number')
+      const actual = objectProperty({
+        name: "foo",
+        type: "number",
+        isRequired: true,
+        isReadonly: true,
+      })
+
+      expect(actual).toBe('readonly "foo": number')
     })
 
     it("returns a readonly optional property", () => {
-      expect(objectProperty({name: "foo", type: "number", isRequired: false, isReadonly: true}))
-        .toBe('readonly "foo"?: number')
+      const actual = objectProperty({
+        name: "foo",
+        type: "number",
+        isRequired: false,
+        isReadonly: true,
+      })
+
+      expect(actual).toBe('readonly "foo"?: number')
     })
   })
 
+  describe("object", () => {
+    it("returns an empty string when no defined properties", () => {
+      expect(object([""])).toBe("")
+    })
+
+    it("returns an object when there are defined properties", () => {
+      const property = objectProperty({
+        name: "foo",
+        type: "string",
+        isReadonly: false,
+        isRequired: true,
+      })
+
+      const actual = object(property, "")
+
+      expect(actual).toBe('{\n"foo": string\n}')
+    })
+  })
 })
