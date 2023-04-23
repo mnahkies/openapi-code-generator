@@ -17,6 +17,7 @@ import {
   union,
 } from "./type-utils"
 import {logger} from "../../core/logger"
+import {buildExport} from "./typescript-common"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",
@@ -99,7 +100,11 @@ export class TypeBuilder {
     const name = getTypeNameFromRef({$ref})
     const schemaObject = this.input.schema({$ref})
 
-    return `export type ${name} = ${this.schemaObjectToType(schemaObject)}`
+    return buildExport({
+      name,
+      value: this.schemaObjectToType(schemaObject),
+      kind: "type",
+    })
   }
 
   readonly schemaObjectToType = (schemaObject: MaybeIRModel) => {

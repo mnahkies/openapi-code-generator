@@ -6,8 +6,9 @@ import {emitGenerationResult, loadPreviousResult} from "../common/output-utils"
 import {TypeBuilder} from "../common/type-builder"
 import {isDefined, titleCase} from "../../core/utils"
 import {SchemaBuilder, schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
+import {buildExport, requestBodyAsParameter, statusStringToType} from "../common/typescript-common"
 import {OpenapiGeneratorConfig} from "../../templates.types"
+import {object} from "../common/type-utils"
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce((acc, parameter) => {
@@ -127,17 +128,23 @@ export class ServerBuilder {
       }
     })
 
-    this.operationTypeMap[operation.operationId] = `
-        export type ${titleCase(operation.operationId)} = (
-            params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
-            ctx: Context
-        ) => Promise<
-        ${[
-      ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
-      responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
-    ].filter(isDefined).join(" | ")}
-        >
-`
+    this.operationTypeMap[operation.operationId] =
+      buildExport({
+        name: titleCase(operation.operationId),
+        value: `
+(
+  params: Params<${pathParamsType}, ${queryParamsType}, ${bodyParamsType + (bodyParamsType === "void" || bodyParamIsRequired ? "" : " | undefined")}>,
+  ctx: Context
+) => Promise<${
+          [
+            ...responseSchemas.specific.map(it => `Response<${it.statusType}, ${it.type}>`),
+            responseSchemas.defaultResponse && `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`
+          ]
+            .filter(isDefined).join(" | ")
+        }>`,
+        kind: "type"
+      })
+
     this.statements.push([
       `const ${operation.operationId}ResponseValidator = responseValidationFactory([${
         responseSchemas.specific.map(it => `["${it.statusString}", ${it.schema}]`)}
@@ -174,9 +181,11 @@ ${this.existingRegions["header"] ?? ""}
 //endregion safe-edit-region-header
 ${Object.values(this.operationTypeMap).join("\n\n")}
 
-export type Implementation = {
-    ${Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")}
-}
+${buildExport({
+      name: "Implementation",
+      value: object(Object.keys(this.operationTypeMap).map((key) => `${key}: ${titleCase(key)}`).join(",")),
+      kind: "type"
+    })}
 
 export function bootstrap(implementation: Implementation, config: Omit<ServerConfig, "router">){
   // ${clientName}

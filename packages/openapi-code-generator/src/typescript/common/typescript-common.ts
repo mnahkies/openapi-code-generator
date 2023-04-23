@@ -82,8 +82,24 @@ export function asyncMethod({name, parameters, returnType, overloads = [], body}
   }`
 }
 
-export function exportConst({name, type, value}: {name: string, type?: string, value: string}) {
-  return `export const ${name}${type ? `: ${type}` : ""} = ${value}`
+export type ExportDefinition = {name: string, type?: string, value: string, kind: "const"} | {
+  name: string,
+  value: string,
+  kind: "type"
+}
+
+export function buildExport(args: ExportDefinition) {
+
+  if (!args.value) {
+    return ""
+  }
+
+  switch (args.kind) {
+    case "const":
+      return `export const ${args.name}${args.type ? `: ${args.type}` : ""} = ${args.value}`
+    case "type":
+      return `export type ${args.name} = ${args.value}`
+  }
 }
 
 export function requestBodyAsParameter(operation: IROperation): {

@@ -12,6 +12,7 @@ import {
   getSchemaNameFromRef,
   getTypeNameFromRef,
 } from "../../../core/openapi-utils"
+import {ExportDefinition} from "../typescript-common"
 
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
@@ -39,7 +40,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   protected schemaFromRef(
     reference: Reference,
     imports: ImportBuilder,
-  ): {name: string; type: string; value: string} {
+  ): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
@@ -57,6 +58,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       name,
       type: type ? `${this.zod}.ZodType<${type}>` : "",
       value,
+      kind: "const",
     }
   }
 

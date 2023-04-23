@@ -9,6 +9,7 @@ import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
 import {Reference} from "../../../core/openapi-types"
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
+import {ExportDefinition} from "../typescript-common"
 
 enum JoiFn {
   Object = "object()",
@@ -51,7 +52,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     reference: Reference,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     imports: ImportBuilder,
-  ): {name: string; type: string; value: string} {
+  ): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
@@ -61,6 +62,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       name,
       type: "",
       value: value + `.id("${name}")`,
+      kind: "const",
     }
   }
 

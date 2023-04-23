@@ -14,7 +14,7 @@ import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {Reference} from "../../../core/openapi-types"
 import {buildDependencyGraph} from "../../../core/dependency-graph"
 import {logger} from "../../../core/logger"
-import {exportConst} from "../typescript-common"
+import {buildExport, ExportDefinition} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder {
   private readonly graph
@@ -60,7 +60,7 @@ export abstract class AbstractSchemaBuilder {
             return !alreadySeen
           })
           .map((name) => {
-            return exportConst(
+            return buildExport(
               this.schemaFromRef(this.referenced[name], imports),
             )
           })
@@ -87,7 +87,7 @@ export abstract class AbstractSchemaBuilder {
   protected abstract schemaFromRef(
     reference: Reference,
     imports: ImportBuilder,
-  ): {name: string; type: string; value: string}
+  ): ExportDefinition
 
   fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {
