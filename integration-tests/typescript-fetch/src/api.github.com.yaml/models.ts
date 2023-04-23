@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_actions_billing_usage = {
   included_minutes: number
   minutes_used_breakdown: {
@@ -246,9 +248,7 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: {
-    [key: string]: never
-  }
+  permissions?: EmptyObject
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
   single_file?: string | null
@@ -316,15 +316,11 @@ export type t_base_gist = {
       type?: string
     }
   }
-  forks?: {
-    [key: string]: never
-  }[]
+  forks?: EmptyObject[]
   forks_url: string
   git_pull_url: string
   git_push_url: string
-  history?: {
-    [key: string]: never
-  }[]
+  history?: EmptyObject[]
   html_url: string
   id: string
   node_id: string
@@ -1671,9 +1667,7 @@ export type t_email = {
   visibility: string | null
 }
 
-export type t_empty_object = {
-  [key: string]: never
-}
+export type t_empty_object = EmptyObject
 
 export type t_enabled_repositories = "all" | "none" | "selected"
 
@@ -2019,15 +2013,11 @@ export type t_gist_simple = {
         type?: string
       }
     }
-    forks?: {
-      [key: string]: never
-    }[]
+    forks?: EmptyObject[]
     forks_url: string
     git_pull_url: string
     git_push_url: string
-    history?: {
-      [key: string]: never
-    }[]
+    history?: EmptyObject[]
     html_url: string
     id: string
     node_id: string
@@ -2179,9 +2169,7 @@ export type t_gpg_key = {
     public_key?: string
     raw_key?: string | null
     revoked?: boolean
-    subkeys?: {
-      [key: string]: never
-    }[]
+    subkeys?: EmptyObject[]
   }[]
 }
 

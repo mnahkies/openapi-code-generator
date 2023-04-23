@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -430,13 +431,9 @@ export class ApiClient {
     )
   }
 
-  appsRedeliverWebhookDelivery(p: { deliveryId: number }): Observable<
-    | {
-        [key: string]: never
-      }
-    | t_scim_error
-    | t_validation_error
-  > {
+  appsRedeliverWebhookDelivery(p: {
+    deliveryId: number
+  }): Observable<EmptyObject | t_scim_error | t_validation_error> {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`,
@@ -1006,9 +1003,7 @@ export class ApiClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: {
-          [key: string]: never
-        } | null
+        [key: string]: EmptyObject | null
       }
     } | null
   }): Observable<t_gist_simple | t_basic_error | t_validation_error> {
@@ -1199,14 +1194,9 @@ export class ApiClient {
     )
   }
 
-  gistsCheckIsStarred(p: { gistId: string }): Observable<
-    | void
-    | void
-    | t_basic_error
-    | {
-        [key: string]: never
-      }
-  > {
+  gistsCheckIsStarred(p: {
+    gistId: string
+  }): Observable<void | void | t_basic_error | EmptyObject> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
@@ -1840,9 +1830,7 @@ export class ApiClient {
       reason?: string | null
     }
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | t_basic_error
     | t_basic_error
     | t_validation_error
@@ -1964,9 +1952,7 @@ export class ApiClient {
       pat_ids: number[]
     }
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | t_basic_error
     | t_basic_error
     | t_validation_error
@@ -2102,13 +2088,9 @@ export class ApiClient {
     )
   }
 
-  orgsDelete(p: { org: string }): Observable<
-    | {
-        [key: string]: never
-      }
-    | t_basic_error
-    | t_basic_error
-  > {
+  orgsDelete(p: {
+    org: string
+  }): Observable<EmptyObject | t_basic_error | t_basic_error> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}`,
@@ -3974,13 +3956,7 @@ export class ApiClient {
     org: string
     hookId: number
     deliveryId: number
-  }): Observable<
-    | {
-        [key: string]: never
-      }
-    | t_scim_error
-    | t_validation_error
-  > {
+  }): Observable<EmptyObject | t_scim_error | t_validation_error> {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
@@ -4041,12 +4017,9 @@ export class ApiClient {
     )
   }
 
-  interactionsGetRestrictionsForOrg(p: { org: string }): Observable<
-    | t_interaction_limit_response
-    | {
-        [key: string]: never
-      }
-  > {
+  interactionsGetRestrictionsForOrg(p: {
+    org: string
+  }): Observable<t_interaction_limit_response | EmptyObject> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
@@ -4311,9 +4284,7 @@ export class ApiClient {
     username: string
     codespaceName: string
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | void
     | t_basic_error
     | t_basic_error
@@ -4572,14 +4543,7 @@ export class ApiClient {
     requestBody?: {
       async?: boolean
     }
-  }): Observable<
-    | {
-        [key: string]: never
-      }
-    | void
-    | void
-    | t_basic_error
-  > {
+  }): Observable<EmptyObject | void | void | t_basic_error> {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = p["requestBody"]
 
@@ -6056,9 +6020,7 @@ export class ApiClient {
       position: string
     }
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | void
     | t_basic_error
     | {
@@ -6216,9 +6178,7 @@ export class ApiClient {
       position: string
     }
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | void
     | t_basic_error
     | t_basic_error
@@ -9133,17 +9093,13 @@ export class ApiClient {
     repo: string
     requestBody:
       | {
-          status: {
-            [key: string]: never
-          }
+          status: EmptyObject
         }
       | {
           [key: string]: unknown
         }
       | {
-          status?: {
-            [key: string]: never
-          }
+          status?: EmptyObject
         }
   }): Observable<t_check_run> {
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -12176,13 +12132,7 @@ export class ApiClient {
     repo: string
     hookId: number
     deliveryId: number
-  }): Observable<
-    | {
-        [key: string]: never
-      }
-    | t_scim_error
-    | t_validation_error
-  > {
+  }): Observable<EmptyObject | t_scim_error | t_validation_error> {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
@@ -12406,12 +12356,7 @@ export class ApiClient {
   interactionsGetRestrictionsForRepo(p: {
     owner: string
     repo: string
-  }): Observable<
-    | t_interaction_limit_response
-    | {
-        [key: string]: never
-      }
-  > {
+  }): Observable<t_interaction_limit_response | EmptyObject> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -13515,9 +13460,10 @@ export class ApiClient {
     )
   }
 
-  reposEnableLfsForRepo(p: { owner: string; repo: string }): Observable<{
-    [key: string]: never
-  } | void> {
+  reposEnableLfsForRepo(p: {
+    owner: string
+    repo: string
+  }): Observable<EmptyObject | void> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`,
@@ -15669,13 +15615,10 @@ export class ApiClient {
     )
   }
 
-  reposGetCodeFrequencyStats(p: { owner: string; repo: string }): Observable<
-    | t_code_frequency_stat[]
-    | {
-        [key: string]: never
-      }
-    | void
-  > {
+  reposGetCodeFrequencyStats(p: {
+    owner: string
+    repo: string
+  }): Observable<t_code_frequency_stat[] | EmptyObject | void> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -15687,13 +15630,10 @@ export class ApiClient {
     )
   }
 
-  reposGetCommitActivityStats(p: { owner: string; repo: string }): Observable<
-    | t_commit_activity[]
-    | {
-        [key: string]: never
-      }
-    | void
-  > {
+  reposGetCommitActivityStats(p: {
+    owner: string
+    repo: string
+  }): Observable<t_commit_activity[] | EmptyObject | void> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -15705,13 +15645,10 @@ export class ApiClient {
     )
   }
 
-  reposGetContributorsStats(p: { owner: string; repo: string }): Observable<
-    | t_contributor_activity[]
-    | {
-        [key: string]: never
-      }
-    | void
-  > {
+  reposGetContributorsStats(p: {
+    owner: string
+    repo: string
+  }): Observable<t_contributor_activity[] | EmptyObject | void> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -17795,9 +17732,7 @@ export class ApiClient {
   codespacesDeleteForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | {
-        [key: string]: never
-      }
+    | EmptyObject
     | void
     | t_basic_error
     | t_basic_error
@@ -18326,13 +18261,7 @@ export class ApiClient {
   }
 
   interactionsGetRestrictionsForAuthenticatedUser(): Observable<
-    | (
-        | t_interaction_limit_response
-        | {
-            [key: string]: never
-          }
-      )
-    | void
+    (t_interaction_limit_response | EmptyObject) | void
   > {
     return this.httpClient.request<any>(
       "GET",
