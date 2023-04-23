@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {Input} from "../../../core/input"
 import {IRModelString} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
@@ -12,7 +16,7 @@ enum JoiFn {
   Number = "number()",
   String = "string()",
   Boolean = "boolean()",
-  Required = "required()"
+  Required = "required()",
 }
 
 export class JoiBuilder extends AbstractSchemaBuilder {
@@ -26,32 +30,28 @@ export class JoiBuilder extends AbstractSchemaBuilder {
 
     this.importHelpers(imports)
 
-    imports.from("@nahkies/typescript-koa-runtime/joi")
+    imports
+      .from("@nahkies/typescript-koa-runtime/joi")
       .add("parseRequestInput", "Params", "responseValidationFactory")
   }
-
 
   protected importHelpers(imports: ImportBuilder) {
     imports.addModule(this.joi, "@hapi/joi")
   }
 
   public any(): string {
-    return [
-      this.joi,
-      "any()",
-    ].filter(isDefined).join(".")
+    return [this.joi, "any()"].filter(isDefined).join(".")
   }
 
   public void(): string {
-    return [
-      this.joi,
-      "any()",
-      "valid(undefined)",
-    ].filter(isDefined).join(".")
+    return [this.joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected schemaFromRef(reference: Reference, imports: ImportBuilder): {name: string, type: string, value: string} {
+  protected schemaFromRef(
+    reference: Reference,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    imports: ImportBuilder,
+  ): {name: string; type: string; value: string} {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
@@ -60,7 +60,7 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     return {
       name,
       type: "",
-      value: value + `.id("${name}")`
+      value: value + `.id("${name}")`,
     }
   }
 
@@ -77,26 +77,30 @@ export class JoiBuilder extends AbstractSchemaBuilder {
   protected union(schemas: string[]): string {
     return [
       this.joi,
-      `alternatives().try(${
-        schemas.filter(isDefined).map(it => it).join(",")
-      })`
-    ].filter(isDefined).join(".")
+      `alternatives().try(${schemas
+        .filter(isDefined)
+        .map((it) => it)
+        .join(",")})`,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected nullable(schema: string): string {
-    return [
-      schema,
-      "allow(null)",
-    ].join(".")
+    return [schema, "allow(null)"].join(".")
   }
 
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.joi,
       JoiFn.Object,
-      `keys({${Object.entries(keys).map(([key, value]) => `"${key}": ${value}`).join(",")} })`,
+      `keys({${Object.entries(keys)
+        .map(([key, value]) => `"${key}": ${value}`)
+        .join(",")} })`,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join(".")
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected array(items: string[], required: boolean): string {
@@ -105,33 +109,28 @@ export class JoiBuilder extends AbstractSchemaBuilder {
       JoiFn.Array,
       `items(${items.join(",")})`,
       required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join(".")
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected number(required: boolean) {
-    return [
-      this.joi,
-      JoiFn.Number,
-      required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join(".")
+    return [this.joi, JoiFn.Number, required ? JoiFn.Required : undefined]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected string(model: IRModelString, required: boolean) {
     // todo: enum support
 
-    return [
-      this.joi,
-      JoiFn.String,
-      required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join(".")
+    return [this.joi, JoiFn.String, required ? JoiFn.Required : undefined]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected boolean(required: boolean) {
-    return [
-      this.joi,
-      JoiFn.Boolean,
-      required ? JoiFn.Required : undefined,
-    ].filter(isDefined).join(".")
+    return [this.joi, JoiFn.Boolean, required ? JoiFn.Required : undefined]
+      .filter(isDefined)
+      .join(".")
   }
-
 }

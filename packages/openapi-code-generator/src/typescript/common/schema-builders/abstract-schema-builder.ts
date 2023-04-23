@@ -1,4 +1,13 @@
-import {IRModelObject, IRModelString, IRParameter, MaybeIRModel} from "../../../core/openapi-types-normalized"
+/**
+ * @prettier
+ */
+
+import {
+  IRModelObject,
+  IRModelString,
+  IRParameter,
+  MaybeIRModel,
+} from "../../../core/openapi-types-normalized"
 import {ImportBuilder} from "../import-builder"
 import {Input} from "../../../core/input"
 import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
@@ -8,14 +17,13 @@ import {logger} from "../../../core/logger"
 import {exportConst} from "../typescript-common"
 
 export abstract class AbstractSchemaBuilder {
-
   private readonly graph
 
   protected constructor(
     public readonly filename: string,
     protected readonly input: Input,
     private readonly imports: ImportBuilder,
-    private readonly referenced: Record<string, Reference> = {}
+    private readonly referenced: Record<string, Reference> = {},
   ) {
     this.graph = buildDependencyGraph(this.input, getSchemaNameFromRef)
   }
@@ -39,20 +47,24 @@ export abstract class AbstractSchemaBuilder {
     const generate = () => {
       const seen = new Set()
 
-      return this.graph.order
-        .filter(it => this.referenced[it])
-        // todo: this is needed because the dependency graph only considers schemas from the entrypoint
-        //       specification - ideally we'd recurse into all referenced specifications and include their
-        //       schemas in the ordering
-        .concat(Object.keys(this.referenced))
-        .filter(it => {
-          const alreadySeen = seen.has(it)
-          seen.add(it)
-          return !alreadySeen
-        })
-        .map((name) => {
-          return exportConst(this.schemaFromRef(this.referenced[name], imports))
-        })
+      return (
+        this.graph.order
+          .filter((it) => this.referenced[it])
+          // todo: this is needed because the dependency graph only considers schemas from the entrypoint
+          //       specification - ideally we'd recurse into all referenced specifications and include their
+          //       schemas in the ordering
+          .concat(Object.keys(this.referenced))
+          .filter((it) => {
+            const alreadySeen = seen.has(it)
+            seen.add(it)
+            return !alreadySeen
+          })
+          .map((name) => {
+            return exportConst(
+              this.schemaFromRef(this.referenced[name], imports),
+            )
+          })
+      )
     }
 
     // Super lazy way of discovering sub-references for generation easily...
@@ -72,7 +84,10 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
 
-  protected abstract schemaFromRef(reference: Reference, imports: ImportBuilder): {name: string, type: string, value: string}
+  protected abstract schemaFromRef(
+    reference: Reference,
+    imports: ImportBuilder,
+  ): {name: string; type: string; value: string}
 
   fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {
@@ -84,10 +99,10 @@ export abstract class AbstractSchemaBuilder {
       anyOf: [],
       readOnly: false,
       nullable: false,
-      additionalProperties: false
+      additionalProperties: false,
     }
 
-    parameters.forEach(parameter => {
+    parameters.forEach((parameter) => {
       if (parameter.required) {
         model.required.push(parameter.name)
       }
@@ -98,8 +113,11 @@ export abstract class AbstractSchemaBuilder {
   }
 
   // todo: rethink the isAnonymous parameter - it would be better to just provide more context
-  fromModel(maybeModel: MaybeIRModel, required: boolean, isAnonymous = false): string {
-
+  fromModel(
+    maybeModel: MaybeIRModel,
+    required: boolean,
+    isAnonymous = false,
+  ): string {
     if (isRef(maybeModel)) {
       const name = this.add(maybeModel)
 
@@ -125,26 +143,29 @@ export abstract class AbstractSchemaBuilder {
         result = this.boolean(required)
         break
       case "array":
-        result = this.array([
-          this.fromModel(model.items, true)
-        ], required)
+        result = this.array([this.fromModel(model.items, true)], required)
         break
       case "object":
         // todo: additionalProperties support
         if (model.allOf.length) {
-          result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
+          result = this.intersect(
+            model.allOf.map((it) => this.fromModel(it, true)),
+          )
         } else if (model.oneOf.length) {
-          result = this.union(model.oneOf.map(it => this.fromModel(it, true)))
+          result = this.union(model.oneOf.map((it) => this.fromModel(it, true)))
         } else if (model.anyOf.length) {
-          result = this.union(model.anyOf.map(it => this.fromModel(it, true)))
+          result = this.union(model.anyOf.map((it) => this.fromModel(it, true)))
         } else {
           result = this.object(
             Object.fromEntries(
-              Object.entries(model.properties)
-                .map(([key, value]) => {
-                  return [key, this.fromModel(value, model.required.includes(key))]
-                })
-            ), required
+              Object.entries(model.properties).map(([key, value]) => {
+                return [
+                  key,
+                  this.fromModel(value, model.required.includes(key)),
+                ]
+              }),
+            ),
+            required,
           )
         }
         break
@@ -169,7 +190,10 @@ export abstract class AbstractSchemaBuilder {
 
   protected abstract nullable(schema: string): string
 
-  protected abstract object(keys: Record<string, string>, required: boolean): string
+  protected abstract object(
+    keys: Record<string, string>,
+    required: boolean,
+  ): string
 
   protected abstract array(items: string[], required: boolean): string
 
@@ -178,5 +202,4 @@ export abstract class AbstractSchemaBuilder {
   protected abstract string(model: IRModelString, required: boolean): string
 
   protected abstract boolean(required: boolean): string
-
 }

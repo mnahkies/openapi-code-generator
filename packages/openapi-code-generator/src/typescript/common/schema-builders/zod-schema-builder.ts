@@ -1,12 +1,17 @@
+/**
+ * @prettier
+ */
+
 import {Input} from "../../../core/input"
-import {
-  IRModelString
-} from "../../../core/openapi-types-normalized"
+import {IRModelString} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
 import {Reference} from "../../../core/openapi-types"
-import {getSchemaNameFromRef, getTypeNameFromRef} from "../../../core/openapi-utils"
+import {
+  getSchemaNameFromRef,
+  getTypeNameFromRef,
+} from "../../../core/openapi-utils"
 
 // todo: coerce is cool for input where everything starts as strings,
 //       but for output we probably don't want that as its more likely
@@ -16,22 +21,25 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     private readonly zod = "z",
     filename: string,
     input: Input,
-    imports: ImportBuilder
+    imports: ImportBuilder,
   ) {
     super(filename, input, imports)
 
     this.importHelpers(imports)
 
-    imports.from("@nahkies/typescript-koa-runtime/zod")
+    imports
+      .from("@nahkies/typescript-koa-runtime/zod")
       .add("parseRequestInput", "Params", "responseValidationFactory")
   }
 
   protected importHelpers(imports: ImportBuilder) {
-    imports.from("zod")
-      .add(this.zod)
+    imports.from("zod").add(this.zod)
   }
 
-  protected schemaFromRef(reference: Reference, imports: ImportBuilder): {name: string, type: string, value: string} {
+  protected schemaFromRef(
+    reference: Reference,
+    imports: ImportBuilder,
+  ): {name: string; type: string; value: string} {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
@@ -48,7 +56,7 @@ export class ZodBuilder extends AbstractSchemaBuilder {
     return {
       name,
       type: type ? `${this.zod}.ZodType<${type}>` : "",
-      value
+      value,
     }
   }
 
@@ -63,7 +71,6 @@ export class ZodBuilder extends AbstractSchemaBuilder {
   }
 
   protected union(schemas: string[]): string {
-
     const definedSchemas = schemas.filter(isDefined)
 
     if (definedSchemas.length === 1) {
@@ -72,41 +79,42 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
     return [
       this.zod,
-      `union([\n${
-        definedSchemas.map(it => it + ",").join("\n")
-      }\n])`
-    ].filter(isDefined).join(".")
+      `union([\n${definedSchemas.map((it) => it + ",").join("\n")}\n])`,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected nullable(schema: string): string {
-    return [
-      schema,
-      "nullable()"
-    ].filter(isDefined).join(".")
+    return [schema, "nullable()"].filter(isDefined).join(".")
   }
 
   protected object(keys: Record<string, string>, required: boolean): string {
     return [
       this.zod,
-      `object({${Object.entries(keys).map(([key, value]) => `"${key}": ${value}`).join(",")}})`,
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+      `object({${Object.entries(keys)
+        .map(([key, value]) => `"${key}": ${value}`)
+        .join(",")}})`,
+      required ? undefined : "optional()",
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected array(items: string[], required: boolean): string {
     return [
       this.zod,
       `array(${items.join(",")})`,
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+      required ? undefined : "optional()",
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected number(required: boolean) {
-    return [
-      this.zod,
-      "coerce.number()",
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+    return [this.zod, "coerce.number()", required ? undefined : "optional()"]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected string(model: IRModelString, required: boolean) {
@@ -119,8 +127,10 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       "coerce.string()",
       model.format === "date-time" ? "datetime({offset:true})" : undefined,
       model.format === "email" ? "email()" : undefined,
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+      required ? undefined : "optional()",
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected enum(model: IRModelString, required: boolean) {
@@ -130,9 +140,11 @@ export class ZodBuilder extends AbstractSchemaBuilder {
 
     return [
       this.zod,
-      `enum([${model.enum.map(it => `"${it}"`).join(",")}])`,
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+      `enum([${model.enum.map((it) => `"${it}"`).join(",")}])`,
+      required ? undefined : "optional()",
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected boolean(required: boolean) {
@@ -140,22 +152,17 @@ export class ZodBuilder extends AbstractSchemaBuilder {
       this.zod,
       // todo: this would mean the literal string "false" as a query parameter is coerced to true
       "coerce.boolean()",
-      required ? undefined : "optional()"
-    ].filter(isDefined).join(".")
+      required ? undefined : "optional()",
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   public any(): string {
-    return [
-      this.zod,
-      "any()"
-    ].filter(isDefined).join(".")
+    return [this.zod, "any()"].filter(isDefined).join(".")
   }
 
   public void(): string {
-    return [
-      this.zod,
-      "void()"
-    ].filter(isDefined).join(".")
+    return [this.zod, "void()"].filter(isDefined).join(".")
   }
-
 }
