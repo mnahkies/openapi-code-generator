@@ -334,13 +334,18 @@ export class ApiClient {
   }
 
   appsCreateFromManifest(p: { code: string }): Observable<
-    | (t_integration & {
-        client_id: string
-        client_secret: string
-        pem: string
-        webhook_secret: string | null
-        [key: string]: unknown
-      })
+    | (t_integration &
+        (
+          | {
+              client_id: string
+              client_secret: string
+              pem: string
+              webhook_secret: string | null
+            }
+          | {
+              [key: string]: unknown
+            }
+        ))
     | t_basic_error
     | t_validation_error_simple
   > {
@@ -728,7 +733,7 @@ export class ApiClient {
   }
 
   emojisGet(): Observable<{
-    [key: string]: unknown
+    [key: string]: string
   } | void> {
     return this.httpClient.request<any>(
       "GET",
@@ -900,7 +905,9 @@ export class ApiClient {
     requestBody: {
       description?: string
       files: {
-        [key: string]: unknown
+        [key: string]: {
+          content: string
+        }
       }
       public?: boolean | "true" | "false"
     }
@@ -999,7 +1006,9 @@ export class ApiClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: unknown
+        [key: string]: {
+          [key: string]: never
+        } | null
       }
     } | null
   }): Observable<t_gist_simple | t_basic_error | t_validation_error> {
@@ -9127,13 +9136,14 @@ export class ApiClient {
           status: {
             [key: string]: never
           }
+        }
+      | {
           [key: string]: unknown
         }
       | {
           status?: {
             [key: string]: never
           }
-          [key: string]: unknown
         }
   }): Observable<t_check_run> {
     const headers = this._headers({ "Content-Type": "application/json" })

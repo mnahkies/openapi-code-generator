@@ -310,13 +310,18 @@ export class ApiClient extends AbstractFetchClient {
   async appsCreateFromManifest(p: { code: string }): Promise<
     | Response<
         201,
-        t_integration & {
-          client_id: string
-          client_secret: string
-          pem: string
-          webhook_secret: string | null
-          [key: string]: unknown
-        }
+        t_integration &
+          (
+            | {
+                client_id: string
+                client_secret: string
+                pem: string
+                webhook_secret: string | null
+              }
+            | {
+                [key: string]: unknown
+              }
+          )
       >
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
@@ -658,7 +663,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         200,
         {
-          [key: string]: unknown
+          [key: string]: string
         }
       >
     | Response<304, void>
@@ -816,7 +821,9 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       description?: string
       files: {
-        [key: string]: unknown
+        [key: string]: {
+          content: string
+        }
       }
       public?: boolean | "true" | "false"
     }
@@ -914,7 +921,9 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: unknown
+        [key: string]: {
+          [key: string]: never
+        } | null
       }
     } | null
   }): Promise<
@@ -8331,13 +8340,14 @@ export class ApiClient extends AbstractFetchClient {
           status: {
             [key: string]: never
           }
+        }
+      | {
           [key: string]: unknown
         }
       | {
           status?: {
             [key: string]: never
           }
-          [key: string]: unknown
         }
   }): Promise<Response<201, t_check_run>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`

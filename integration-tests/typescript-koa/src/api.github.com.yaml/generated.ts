@@ -1414,6 +1414,7 @@ import {
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
   t_dependabot_secret,
+  t_dependency,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
   t_deploy_key,
@@ -1481,6 +1482,7 @@ import {
   t_link,
   t_link_with_type,
   t_locked_issue_event,
+  t_manifest,
   t_marketplace_account,
   t_marketplace_listing_plan,
   t_marketplace_purchase,
@@ -1987,13 +1989,18 @@ export type AppsCreateFromManifest = (
 ) => Promise<
   | Response<
       201,
-      t_integration & {
-        client_id: string
-        client_secret: string
-        pem: string
-        webhook_secret: string | null
-        [key: string]: unknown
-      }
+      t_integration &
+        (
+          | {
+              client_id: string
+              client_secret: string
+              pem: string
+              webhook_secret: string | null
+            }
+          | {
+              [key: string]: unknown
+            }
+        )
     >
   | Response<404, t_basic_error>
   | Response<422, t_validation_error_simple>
@@ -2167,7 +2174,7 @@ export type EmojisGet = (
   | Response<
       200,
       {
-        [key: string]: unknown
+        [key: string]: string
       }
     >
   | Response<304, void>
