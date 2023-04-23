@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 export interface IRRef {
   $ref: string
 }
@@ -14,7 +18,13 @@ export interface IRModelNumeric extends IRModelBase {
   enum?: number[]
 }
 
-export type IRModelStringFormat = "byte" | "binary" | "date" | "date-time" | "password" | "email"
+export type IRModelStringFormat =
+  | "byte"
+  | "binary"
+  | "date"
+  | "date-time"
+  | "password"
+  | "email"
 
 export interface IRModelString extends IRModelBase {
   type: "string"
@@ -33,8 +43,8 @@ export interface IRModelObject extends IRModelBase {
 
   type: "object"
   required: string[]
-  properties: { [propertyName: string]: MaybeIRModel }
-  additionalProperties: boolean /* | IRObject */
+  properties: {[propertyName: string]: MaybeIRModel}
+  additionalProperties: boolean | MaybeIRModel
 }
 
 export interface IRModelArray extends IRModelBase {
@@ -42,7 +52,12 @@ export interface IRModelArray extends IRModelBase {
   items: MaybeIRModel
 }
 
-export type IRModel = IRModelNumeric | IRModelString | IRModelBoolean | IRModelObject | IRModelArray
+export type IRModel =
+  | IRModelNumeric
+  | IRModelString
+  | IRModelBoolean
+  | IRModelObject
+  | IRModelArray
 export type MaybeIRModel = IRModel | IRRef
 
 export interface IRParameter {

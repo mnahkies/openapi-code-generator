@@ -108,4 +108,16 @@ components:
         name:
           type: string
 
+    AdditionalPropertiesBool:
+      type: object
+      additionalProperties: true
+
+    AdditionalPropertiesSchema:
+      type: object
+      properties:
+        name:
+          type: string
+      additionalProperties:
+        $ref: "#/components/schemas/NamedNullableStringEnum"
+
   parameters: { }

@@ -125,7 +125,7 @@ export abstract class AbstractSchemaBuilder {
         ], required)
         break
       case "object":
-
+        // todo: additionalProperties support
         if (model.allOf.length) {
           result = this.intersect(model.allOf.map(it => this.fromModel(it, true)))
         } else if (model.oneOf.length) {

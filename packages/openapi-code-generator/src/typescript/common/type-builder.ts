@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
@@ -13,17 +17,29 @@ import {
   union,
 } from "./type-utils"
 
+const staticTypes = {
+  EmptyObject: "export type EmptyObject = { [key: string]: never }",
+}
+
+type StaticType = keyof typeof staticTypes
+
 export class TypeBuilder {
   private constructor(
     public readonly filename: string,
     private readonly input: Input,
     private readonly referenced = new Set<string>(),
-    private readonly imports?: ImportBuilder
-  ) {
-  }
+    private readonly referencedStaticTypes = new Set<StaticType>(),
+    private readonly imports?: ImportBuilder,
+  ) {}
 
   withImports(imports: ImportBuilder): TypeBuilder {
-    return new TypeBuilder(this.filename, this.input, this.referenced, imports)
+    return new TypeBuilder(
+      this.filename,
+      this.input,
+      this.referenced,
+      this.referencedStaticTypes,
+      imports,
+    )
   }
 
   private add({$ref}: Reference): string {
@@ -38,11 +54,30 @@ export class TypeBuilder {
     return name
   }
 
+  private addStaticType(name: StaticType): string {
+    this.referencedStaticTypes.add(name)
+
+    if (this.imports) {
+      this.imports.addSingle(name, this.filename)
+    }
+
+    return name
+  }
+
+  private staticTypes(): string[] {
+    return Array.from(this.referencedStaticTypes.values())
+      .sort()
+      .map((it) => staticTypes[it])
+  }
+
   toString(): string {
-    const generate = () =>
-      Array.from(this.referenced.values())
-        .sort()
-        .map(($ref) => this.generateModelFromRef($ref))
+    const generate = () => {
+      return this.staticTypes().concat(
+        Array.from(this.referenced.values())
+          .sort()
+          .map(($ref) => this.generateModelFromRef($ref)),
+      )
+    }
 
     // Super lazy way of discovering sub-references for generation easily...
     // could obviously be optimized but in most cases is plenty fast enough.
@@ -129,20 +164,33 @@ export class TypeBuilder {
             })
 
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
-          const additionalProperties =
-            schemaObject.additionalProperties
-              ? "[key: string]: unknown"
+
+          const additionalPropertiesType = schemaObject.additionalProperties
+            ? typeof schemaObject.additionalProperties === "boolean"
+              ? "unknown"
+              : this.schemaObjectToType(schemaObject.additionalProperties)
+            : ""
+
+          const additionalProperties = additionalPropertiesType
+            ? `[key: string]: ${additionalPropertiesType}`
+            : ""
+
+          const emptyObject =
+            !additionalProperties && properties.length === 0
+              ? this.addStaticType("EmptyObject")
               : ""
 
-          const emptyObject = !additionalProperties && properties.length === 0 ? "[key: string]:  never" : ""
-
-          result.push(object([...properties, additionalProperties, emptyObject]))
+          result.push(
+            object(properties),
+            object(additionalProperties),
+            emptyObject,
+          )
           break
         }
 
         default: {
           throw new Error(
-            `unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`
+            `unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`,
           )
         }
       }

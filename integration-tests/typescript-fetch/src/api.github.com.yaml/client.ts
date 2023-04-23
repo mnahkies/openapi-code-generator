@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -310,13 +311,18 @@ export class ApiClient extends AbstractFetchClient {
   async appsCreateFromManifest(p: { code: string }): Promise<
     | Response<
         201,
-        t_integration & {
-          client_id: string
-          client_secret: string
-          pem: string
-          webhook_secret: string | null
-          [key: string]: unknown
-        }
+        t_integration &
+          (
+            | {
+                client_id: string
+                client_secret: string
+                pem: string
+                webhook_secret: string | null
+              }
+            | {
+                [key: string]: unknown
+              }
+          )
       >
     | Response<404, t_basic_error>
     | Response<422, t_validation_error_simple>
@@ -393,13 +399,10 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async appsRedeliverWebhookDelivery(p: { deliveryId: number }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+  async appsRedeliverWebhookDelivery(p: {
+    deliveryId: number
+  }): Promise<
+    | Response<202, EmptyObject>
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
@@ -658,7 +661,7 @@ export class ApiClient extends AbstractFetchClient {
     | Response<
         200,
         {
-          [key: string]: unknown
+          [key: string]: string
         }
       >
     | Response<304, void>
@@ -816,7 +819,9 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       description?: string
       files: {
-        [key: string]: unknown
+        [key: string]: {
+          content: string
+        }
       }
       public?: boolean | "true" | "false"
     }
@@ -914,7 +919,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: unknown
+        [key: string]: EmptyObject | null
       }
     } | null
   }): Promise<
@@ -1099,16 +1104,13 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async gistsCheckIsStarred(p: { gistId: string }): Promise<
+  async gistsCheckIsStarred(p: {
+    gistId: string
+  }): Promise<
     | Response<204, void>
     | Response<304, void>
     | Response<403, t_basic_error>
-    | Response<
-        404,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<404, EmptyObject>
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
 
@@ -1700,12 +1702,7 @@ export class ApiClient extends AbstractFetchClient {
       reason?: string | null
     }
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
@@ -1812,12 +1809,7 @@ export class ApiClient extends AbstractFetchClient {
       pat_ids: number[]
     }
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
     | Response<422, t_validation_error>
@@ -1938,13 +1930,10 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async orgsDelete(p: { org: string }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+  async orgsDelete(p: {
+    org: string
+  }): Promise<
+    | Response<202, EmptyObject>
     | Response<403, t_basic_error>
     | Response<404, t_basic_error>
   > {
@@ -3613,12 +3602,7 @@ export class ApiClient extends AbstractFetchClient {
     hookId: number
     deliveryId: number
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
@@ -3676,15 +3660,9 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async interactionsGetRestrictionsForOrg(p: { org: string }): Promise<
-    Response<
-      200,
-      | t_interaction_limit_response
-      | {
-          [key: string]: never
-        }
-    >
-  > {
+  async interactionsGetRestrictionsForOrg(p: {
+    org: string
+  }): Promise<Response<200, t_interaction_limit_response | EmptyObject>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
     const res = await fetch(url, { method: "GET" })
@@ -3914,12 +3892,7 @@ export class ApiClient extends AbstractFetchClient {
     username: string
     codespaceName: string
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<304, void>
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
@@ -4153,12 +4126,7 @@ export class ApiClient extends AbstractFetchClient {
       async?: boolean
     }
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<204, void>
     | Response<403, void>
     | Response<404, t_basic_error>
@@ -5485,12 +5453,7 @@ export class ApiClient extends AbstractFetchClient {
       position: string
     }
   }): Promise<
-    | Response<
-        201,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<201, EmptyObject>
     | Response<304, void>
     | Response<401, t_basic_error>
     | Response<
@@ -5649,12 +5612,7 @@ export class ApiClient extends AbstractFetchClient {
       position: string
     }
   }): Promise<
-    | Response<
-        201,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<201, EmptyObject>
     | Response<304, void>
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
@@ -8328,16 +8286,13 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
     requestBody:
       | {
-          status: {
-            [key: string]: never
-          }
+          status: EmptyObject
+        }
+      | {
           [key: string]: unknown
         }
       | {
-          status?: {
-            [key: string]: never
-          }
-          [key: string]: unknown
+          status?: EmptyObject
         }
   }): Promise<Response<201, t_check_run>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`
@@ -11111,12 +11066,7 @@ export class ApiClient extends AbstractFetchClient {
     hookId: number
     deliveryId: number
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<400, t_scim_error>
     | Response<422, t_validation_error>
   > {
@@ -11329,15 +11279,7 @@ export class ApiClient extends AbstractFetchClient {
   async interactionsGetRestrictionsForRepo(p: {
     owner: string
     repo: string
-  }): Promise<
-    Response<
-      200,
-      | t_interaction_limit_response
-      | {
-          [key: string]: never
-        }
-    >
-  > {
+  }): Promise<Response<200, t_interaction_limit_response | EmptyObject>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
@@ -12332,15 +12274,10 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposEnableLfsForRepo(p: { owner: string; repo: string }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
-    | Response<403, void>
-  > {
+  async reposEnableLfsForRepo(p: {
+    owner: string
+    repo: string
+  }): Promise<Response<202, EmptyObject> | Response<403, void>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
     const res = await fetch(url, { method: "PUT" })
@@ -14303,14 +14240,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposGetCodeFrequencyStats(p: { owner: string; repo: string }): Promise<
+  async reposGetCodeFrequencyStats(p: {
+    owner: string
+    repo: string
+  }): Promise<
     | Response<200, t_code_frequency_stat[]>
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<204, void>
   > {
     const url =
@@ -14327,12 +14262,7 @@ export class ApiClient extends AbstractFetchClient {
     repo: string
   }): Promise<
     | Response<200, t_commit_activity[]>
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<204, void>
   > {
     const url =
@@ -14344,14 +14274,12 @@ export class ApiClient extends AbstractFetchClient {
     return { status: res.status as any, body: (await res.json()) as any }
   }
 
-  async reposGetContributorsStats(p: { owner: string; repo: string }): Promise<
+  async reposGetContributorsStats(p: {
+    owner: string
+    repo: string
+  }): Promise<
     | Response<200, t_contributor_activity[]>
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<204, void>
   > {
     const url =
@@ -16235,12 +16163,7 @@ export class ApiClient extends AbstractFetchClient {
   async codespacesDeleteForAuthenticatedUser(p: {
     codespaceName: string
   }): Promise<
-    | Response<
-        202,
-        {
-          [key: string]: never
-        }
-      >
+    | Response<202, EmptyObject>
     | Response<304, void>
     | Response<401, t_basic_error>
     | Response<403, t_basic_error>
@@ -16732,13 +16655,7 @@ export class ApiClient extends AbstractFetchClient {
   }
 
   async interactionsGetRestrictionsForAuthenticatedUser(): Promise<
-    | Response<
-        200,
-        | t_interaction_limit_response
-        | {
-            [key: string]: never
-          }
-      >
+    | Response<200, t_interaction_limit_response | EmptyObject>
     | Response<204, void>
   > {
     const url = this.basePath + `/user/interaction-limits`
