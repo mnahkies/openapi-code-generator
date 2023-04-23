@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_account = {
   business_profile?: t_account_business_profile | null
   business_type?:
@@ -29,7 +31,7 @@ export type t_account = {
   id: string
   individual?: t_person
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "account"
   payouts_enabled?: boolean
@@ -475,7 +477,7 @@ export type t_bank_account = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "bank_account"
   requirements?: t_external_account_requirements | null
@@ -494,20 +496,20 @@ export type t_bank_connections_resource_balance = {
   cash?: t_bank_connections_resource_balance_api_resource_cash_balance
   credit?: t_bank_connections_resource_balance_api_resource_credit_balance
   current: {
-    [key: string]: unknown
+    [key: string]: number
   }
   type: "cash" | "credit"
 }
 
 export type t_bank_connections_resource_balance_api_resource_cash_balance = {
   available?: {
-    [key: string]: unknown
+    [key: string]: number
   } | null
 }
 
 export type t_bank_connections_resource_balance_api_resource_credit_balance = {
   used?: {
-    [key: string]: unknown
+    [key: string]: number
   } | null
 }
 
@@ -544,7 +546,7 @@ export type t_billing_portal_configuration = {
   livemode: boolean
   login_page: t_portal_login_page
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "billing_portal.configuration"
   updated: number
@@ -667,7 +669,7 @@ export type t_card = {
   id: string
   last4: string
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   name?: string | null
   object: "card"
@@ -686,13 +688,11 @@ export type t_card_issuing_account_terms_of_service = {
   user_agent?: string
 }
 
-export type t_card_mandate_payment_method_details = {
-  [key: string]: never
-}
+export type t_card_mandate_payment_method_details = EmptyObject
 
 export type t_cash_balance = {
   available?: {
-    [key: string]: unknown
+    [key: string]: number
   } | null
   customer: string
   livemode: boolean
@@ -724,7 +724,7 @@ export type t_charge = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "charge"
   on_behalf_of?: string | t_account | null
@@ -850,7 +850,7 @@ export type t_checkout_session = {
     | "zh-TW"
     | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   mode: "payment" | "setup" | "subscription"
   object: "checkout.session"
@@ -1060,7 +1060,7 @@ export type t_country_spec = {
   id: string
   object: "country_spec"
   supported_bank_account_currencies: {
-    [key: string]: unknown
+    [key: string]: string[]
   }
   supported_payment_currencies: string[]
   supported_payment_methods: string[]
@@ -1084,7 +1084,7 @@ export type t_coupon = {
   created: number
   currency?: string | null
   currency_options?: {
-    [key: string]: unknown
+    [key: string]: t_coupon_currency_option
   }
   duration: "forever" | "once" | "repeating"
   duration_in_months?: number | null
@@ -1092,7 +1092,7 @@ export type t_coupon = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   name?: string | null
   object: "coupon"
@@ -1104,6 +1104,10 @@ export type t_coupon = {
 
 export type t_coupon_applies_to = {
   products: string[]
+}
+
+export type t_coupon_currency_option = {
+  amount_off: number
 }
 
 export type t_credit_note = {
@@ -1126,7 +1130,7 @@ export type t_credit_note = {
   livemode: boolean
   memo?: string | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   number: string
   object: "credit_note"
@@ -1175,6 +1179,14 @@ export type t_credit_note_tax_amount = {
   tax_rate: string | t_tax_rate
 }
 
+export type t_currency_option = {
+  custom_unit_amount?: t_custom_unit_amount | null
+  tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null
+  tiers?: t_price_tier[]
+  unit_amount?: number | null
+  unit_amount_decimal?: string | null
+}
+
 export type t_custom_unit_amount = {
   maximum?: number | null
   minimum?: number | null
@@ -1194,13 +1206,13 @@ export type t_customer = {
   email?: string | null
   id: string
   invoice_credit_balance?: {
-    [key: string]: unknown
+    [key: string]: number
   }
   invoice_prefix?: string | null
   invoice_settings?: t_invoice_setting_customer_setting
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   }
   name?: string | null
   next_invoice_sequence?: number
@@ -1293,7 +1305,7 @@ export type t_customer_balance_transaction = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "customer_balance_transaction"
   type:
@@ -1536,7 +1548,7 @@ export type t_dispute = {
   is_charge_refundable: boolean
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "dispute"
   payment_intent?: string | t_payment_intent | null
@@ -1624,7 +1636,7 @@ export type t_exchange_rate = {
   id: string
   object: "exchange_rate"
   rates: {
-    [key: string]: unknown
+    [key: string]: number
   }
 }
 
@@ -1653,7 +1665,7 @@ export type t_fee_refund = {
   fee: string | t_application_fee
   id: string
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "fee_refund"
 }
@@ -1700,7 +1712,7 @@ export type t_file_link = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "file_link"
   url?: string | null
@@ -1917,9 +1929,7 @@ export type t_gelato_report_document_options = {
   require_matching_selfie?: boolean
 }
 
-export type t_gelato_report_id_number_options = {
-  [key: string]: never
-}
+export type t_gelato_report_id_number_options = EmptyObject
 
 export type t_gelato_selfie_report = {
   document?: string | null
@@ -1945,9 +1955,7 @@ export type t_gelato_session_document_options = {
   require_matching_selfie?: boolean
 }
 
-export type t_gelato_session_id_number_options = {
-  [key: string]: never
-}
+export type t_gelato_session_id_number_options = EmptyObject
 
 export type t_gelato_session_last_error = {
   code?:
@@ -2010,7 +2018,7 @@ export type t_identity_verification_session = {
   last_verification_report?: string | t_identity_verification_report | null
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "identity.verification_session"
   options?: t_gelato_verification_session_options | null
@@ -2098,7 +2106,7 @@ export type t_invoice = {
   }
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   next_payment_attempt?: number | null
   number?: string | null
@@ -2189,9 +2197,7 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
     country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL"
   }
 
-export type t_invoice_payment_method_options_konbini = {
-  [key: string]: never
-}
+export type t_invoice_payment_method_options_konbini = EmptyObject
 
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?: t_invoice_payment_method_options_us_bank_account_linked_account_options
@@ -2259,7 +2265,7 @@ export type t_invoiceitem = {
   invoice?: string | t_invoice | null
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "invoiceitem"
   period: t_invoice_line_item_period
@@ -2416,7 +2422,7 @@ export type t_issuing_authorization = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   network_data?: t_issuing_authorization_network_data | null
   object: "issuing.authorization"
@@ -2443,7 +2449,7 @@ export type t_issuing_card = {
   last4: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   number?: string
   object: "issuing.card"
@@ -2466,7 +2472,7 @@ export type t_issuing_cardholder = {
   individual?: t_issuing_cardholder_individual | null
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   name: string
   object: "issuing.cardholder"
@@ -2486,7 +2492,7 @@ export type t_issuing_dispute = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "issuing.dispute"
   status: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
@@ -2503,7 +2509,7 @@ export type t_issuing_settlement = {
   interchange_fees: number
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   net_total: number
   network: "visa"
@@ -2531,7 +2537,7 @@ export type t_issuing_transaction = {
   merchant_currency: string
   merchant_data: t_issuing_authorization_merchant_data
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "issuing.transaction"
   purchase_details?: t_issuing_transaction_purchase_details | null
@@ -4797,7 +4803,7 @@ export type t_line_item = {
   invoice_item?: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "line_item"
   period: t_invoice_line_item_period
@@ -4870,17 +4876,11 @@ export type t_mandate_blik = {
   type?: "off_session" | "on_session" | null
 }
 
-export type t_mandate_cashapp = {
-  [key: string]: never
-}
+export type t_mandate_cashapp = EmptyObject
 
-export type t_mandate_link = {
-  [key: string]: never
-}
+export type t_mandate_link = EmptyObject
 
-export type t_mandate_multi_use = {
-  [key: string]: never
-}
+export type t_mandate_multi_use = EmptyObject
 
 export type t_mandate_options_off_session_details_blik = {
   amount?: number | null
@@ -4912,9 +4912,7 @@ export type t_mandate_single_use = {
   currency: string
 }
 
-export type t_mandate_us_bank_account = {
-  [key: string]: never
-}
+export type t_mandate_us_bank_account = EmptyObject
 
 export type t_networks = {
   available: string[]
@@ -4922,12 +4920,8 @@ export type t_networks = {
 }
 
 export type t_notification_event_data = {
-  object: {
-    [key: string]: never
-  }
-  previous_attributes?: {
-    [key: string]: never
-  }
+  object: EmptyObject
+  previous_attributes?: EmptyObject
 }
 
 export type t_notification_event_request = {
@@ -4935,9 +4929,7 @@ export type t_notification_event_request = {
   idempotency_key?: string | null
 }
 
-export type t_offline_acceptance = {
-  [key: string]: never
-}
+export type t_offline_acceptance = EmptyObject
 
 export type t_online_acceptance = {
   ip_address?: string | null
@@ -5010,9 +5002,7 @@ export type t_payment_flows_installment_options = {
   plan?: t_payment_method_details_card_installments_plan
 }
 
-export type t_payment_flows_private_payment_methods_alipay = {
-  [key: string]: never
-}
+export type t_payment_flows_private_payment_methods_alipay = EmptyObject
 
 export type t_payment_flows_private_payment_methods_alipay_details = {
   buyer_id?: string
@@ -5057,7 +5047,7 @@ export type t_payment_intent = {
   latest_charge?: string | t_charge | null
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   }
   next_action?: t_payment_intent_next_action | null
   object: "payment_intent"
@@ -5101,9 +5091,7 @@ export type t_payment_intent_next_action = {
   promptpay_display_qr_code?: t_payment_intent_next_action_promptpay_display_qr_code
   redirect_to_url?: t_payment_intent_next_action_redirect_to_url
   type: string
-  use_stripe_sdk?: {
-    [key: string]: never
-  }
+  use_stripe_sdk?: EmptyObject
   verify_with_microdeposits?: t_payment_intent_next_action_verify_with_microdeposits
   wechat_pay_display_qr_code?: t_payment_intent_next_action_wechat_pay_display_qr_code
   wechat_pay_redirect_to_android_app?: t_payment_intent_next_action_wechat_pay_redirect_to_android_app
@@ -5355,9 +5343,7 @@ export type t_payment_intent_payment_method_options_au_becs_debit = {
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
-export type t_payment_intent_payment_method_options_blik = {
-  [key: string]: never
-}
+export type t_payment_intent_payment_method_options_blik = EmptyObject
 
 export type t_payment_intent_payment_method_options_card = {
   capture_method?: "manual"
@@ -5400,9 +5386,7 @@ export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
   }
 
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
-  {
-    [key: string]: never
-  }
+  EmptyObject
 
 export type t_payment_intent_payment_method_options_sepa_debit = {
   mandate_options?: t_payment_intent_payment_method_options_mandate_options_sepa_debit
@@ -5455,7 +5439,7 @@ export type t_payment_link = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "payment_link"
   on_behalf_of?: string | t_account | null
@@ -5567,7 +5551,7 @@ export type t_payment_links_resource_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -5871,7 +5855,7 @@ export type t_payment_method = {
   link?: t_payment_method_link
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
@@ -5926,13 +5910,9 @@ export type t_payment_method_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_affirm = {
-  [key: string]: never
-}
+export type t_payment_method_affirm = EmptyObject
 
-export type t_payment_method_afterpay_clearpay = {
-  [key: string]: never
-}
+export type t_payment_method_afterpay_clearpay = EmptyObject
 
 export type t_payment_method_au_becs_debit = {
   bsb_number?: string | null
@@ -5946,13 +5926,9 @@ export type t_payment_method_bacs_debit = {
   sort_code?: string | null
 }
 
-export type t_payment_method_bancontact = {
-  [key: string]: never
-}
+export type t_payment_method_bancontact = EmptyObject
 
-export type t_payment_method_blik = {
-  [key: string]: never
-}
+export type t_payment_method_blik = EmptyObject
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -5985,9 +5961,7 @@ export type t_payment_method_card_generated_card = {
   setup_attempt?: string | t_setup_attempt | null
 }
 
-export type t_payment_method_card_present = {
-  [key: string]: never
-}
+export type t_payment_method_card_present = EmptyObject
 
 export type t_payment_method_card_wallet = {
   amex_express_checkout?: t_payment_method_card_wallet_amex_express_checkout
@@ -6007,17 +5981,11 @@ export type t_payment_method_card_wallet = {
   visa_checkout?: t_payment_method_card_wallet_visa_checkout
 }
 
-export type t_payment_method_card_wallet_amex_express_checkout = {
-  [key: string]: never
-}
+export type t_payment_method_card_wallet_amex_express_checkout = EmptyObject
 
-export type t_payment_method_card_wallet_apple_pay = {
-  [key: string]: never
-}
+export type t_payment_method_card_wallet_apple_pay = EmptyObject
 
-export type t_payment_method_card_wallet_google_pay = {
-  [key: string]: never
-}
+export type t_payment_method_card_wallet_google_pay = EmptyObject
 
 export type t_payment_method_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -6026,9 +5994,7 @@ export type t_payment_method_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_card_wallet_samsung_pay = {
-  [key: string]: never
-}
+export type t_payment_method_card_wallet_samsung_pay = EmptyObject
 
 export type t_payment_method_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -6037,13 +6003,9 @@ export type t_payment_method_card_wallet_visa_checkout = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_cashapp = {
-  [key: string]: never
-}
+export type t_payment_method_cashapp = EmptyObject
 
-export type t_payment_method_customer_balance = {
-  [key: string]: never
-}
+export type t_payment_method_customer_balance = EmptyObject
 
 export type t_payment_method_details = {
   ach_credit_transfer?: t_payment_method_details_ach_credit_transfer
@@ -6110,9 +6072,7 @@ export type t_payment_method_details_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_details_affirm = {
-  [key: string]: never
-}
+export type t_payment_method_details_affirm = EmptyObject
 
 export type t_payment_method_details_afterpay_clearpay = {
   reference?: string | null
@@ -6143,9 +6103,7 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_blik = {
-  [key: string]: never
-}
+export type t_payment_method_details_blik = EmptyObject
 
 export type t_payment_method_details_boleto = {
   tax_id: string
@@ -6239,17 +6197,12 @@ export type t_payment_method_details_card_wallet = {
   visa_checkout?: t_payment_method_details_card_wallet_visa_checkout
 }
 
-export type t_payment_method_details_card_wallet_amex_express_checkout = {
-  [key: string]: never
-}
+export type t_payment_method_details_card_wallet_amex_express_checkout =
+  EmptyObject
 
-export type t_payment_method_details_card_wallet_apple_pay = {
-  [key: string]: never
-}
+export type t_payment_method_details_card_wallet_apple_pay = EmptyObject
 
-export type t_payment_method_details_card_wallet_google_pay = {
-  [key: string]: never
-}
+export type t_payment_method_details_card_wallet_google_pay = EmptyObject
 
 export type t_payment_method_details_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -6258,9 +6211,7 @@ export type t_payment_method_details_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_details_card_wallet_samsung_pay = {
-  [key: string]: never
-}
+export type t_payment_method_details_card_wallet_samsung_pay = EmptyObject
 
 export type t_payment_method_details_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -6269,13 +6220,9 @@ export type t_payment_method_details_card_wallet_visa_checkout = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_details_cashapp = {
-  [key: string]: never
-}
+export type t_payment_method_details_cashapp = EmptyObject
 
-export type t_payment_method_details_customer_balance = {
-  [key: string]: never
-}
+export type t_payment_method_details_customer_balance = EmptyObject
 
 export type t_payment_method_details_eps = {
   bank?:
@@ -6515,9 +6462,7 @@ export type t_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_stripe_account = {
-  [key: string]: never
-}
+export type t_payment_method_details_stripe_account = EmptyObject
 
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
@@ -6528,9 +6473,7 @@ export type t_payment_method_details_us_bank_account = {
   routing_number?: string | null
 }
 
-export type t_payment_method_details_wechat = {
-  [key: string]: never
-}
+export type t_payment_method_details_wechat = EmptyObject
 
 export type t_payment_method_details_wechat_pay = {
   fingerprint?: string | null
@@ -6596,13 +6539,9 @@ export type t_payment_method_fpx = {
     | "uob"
 }
 
-export type t_payment_method_giropay = {
-  [key: string]: never
-}
+export type t_payment_method_giropay = EmptyObject
 
-export type t_payment_method_grabpay = {
-  [key: string]: never
-}
+export type t_payment_method_grabpay = EmptyObject
 
 export type t_payment_method_ideal = {
   bank?:
@@ -6640,17 +6579,13 @@ export type t_payment_method_ideal = {
     | null
 }
 
-export type t_payment_method_interac_present = {
-  [key: string]: never
-}
+export type t_payment_method_interac_present = EmptyObject
 
 export type t_payment_method_klarna = {
   dob?: t_payment_flows_private_payment_methods_klarna_dob | null
 }
 
-export type t_payment_method_konbini = {
-  [key: string]: never
-}
+export type t_payment_method_konbini = EmptyObject
 
 export type t_payment_method_link = {
   email?: string | null
@@ -6758,9 +6693,7 @@ export type t_payment_method_options_ideal = {
   setup_future_usage?: "none" | "off_session"
 }
 
-export type t_payment_method_options_interac_present = {
-  [key: string]: never
-}
+export type t_payment_method_options_interac_present = EmptyObject
 
 export type t_payment_method_options_klarna = {
   capture_method?: "manual"
@@ -6810,9 +6743,7 @@ export type t_payment_method_options_wechat_pay = {
   setup_future_usage?: "none"
 }
 
-export type t_payment_method_oxxo = {
-  [key: string]: never
-}
+export type t_payment_method_oxxo = EmptyObject
 
 export type t_payment_method_p24 = {
   bank?:
@@ -6844,17 +6775,11 @@ export type t_payment_method_p24 = {
     | null
 }
 
-export type t_payment_method_paynow = {
-  [key: string]: never
-}
+export type t_payment_method_paynow = EmptyObject
 
-export type t_payment_method_pix = {
-  [key: string]: never
-}
+export type t_payment_method_pix = EmptyObject
 
-export type t_payment_method_promptpay = {
-  [key: string]: never
-}
+export type t_payment_method_promptpay = EmptyObject
 
 export type t_payment_method_sepa_debit = {
   bank_code?: string | null
@@ -6910,9 +6835,7 @@ export type t_payment_method_us_bank_account_status_details = {
   blocked?: t_payment_method_us_bank_account_blocked
 }
 
-export type t_payment_method_wechat_pay = {
-  [key: string]: never
-}
+export type t_payment_method_wechat_pay = EmptyObject
 
 export type t_payment_pages_checkout_session_after_expiration = {
   recovery?: t_payment_pages_checkout_session_after_expiration_recovery | null
@@ -7009,7 +6932,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   description?: string | null
   footer?: string | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   rendering_options?: t_invoice_setting_rendering_options | null
 }
@@ -7370,7 +7293,7 @@ export type t_payout = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   method: string
   object: "payout"
@@ -7410,7 +7333,7 @@ export type t_person = {
   last_name_kanji?: string | null
   maiden_name?: string | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   }
   nationality?: string | null
   object: "person"
@@ -7463,7 +7386,7 @@ export type t_plan = {
   interval_count: number
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   nickname?: string | null
   object: "plan"
@@ -7598,14 +7521,14 @@ export type t_price = {
   created: number
   currency: string
   currency_options?: {
-    [key: string]: unknown
+    [key: string]: t_currency_option
   }
   custom_unit_amount?: t_custom_unit_amount | null
   id: string
   livemode: boolean
   lookup_key?: string | null
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   nickname?: string | null
   object: "price"
@@ -7637,7 +7560,7 @@ export type t_product = {
   images: string[]
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   name: string
   object: "product"
@@ -7661,16 +7584,20 @@ export type t_promotion_code = {
   livemode: boolean
   max_redemptions?: number | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "promotion_code"
   restrictions: t_promotion_codes_resource_restrictions
   times_redeemed: number
 }
 
+export type t_promotion_code_currency_option = {
+  minimum_amount: number
+}
+
 export type t_promotion_codes_resource_restrictions = {
   currency_options?: {
-    [key: string]: unknown
+    [key: string]: t_promotion_code_currency_option
   }
   first_time_transaction: boolean
   minimum_amount?: number | null
@@ -7707,7 +7634,7 @@ export type t_quote = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   number?: string | null
   object: "quote"
@@ -7820,7 +7747,7 @@ export type t_radar_value_list = {
   }
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   name: string
   object: "radar.value_list"
@@ -7879,7 +7806,7 @@ export type t_refund = {
   id: string
   instructions_email?: string
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   next_action?: t_refund_next_action
   object: "refund"
@@ -8033,17 +7960,11 @@ export type t_setup_attempt_payment_method_details = {
   us_bank_account?: t_setup_attempt_payment_method_details_us_bank_account
 }
 
-export type t_setup_attempt_payment_method_details_acss_debit = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_acss_debit = EmptyObject
 
-export type t_setup_attempt_payment_method_details_au_becs_debit = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_au_becs_debit = EmptyObject
 
-export type t_setup_attempt_payment_method_details_bacs_debit = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_bacs_debit = EmptyObject
 
 export type t_setup_attempt_payment_method_details_bancontact = {
   bank_code?: string | null
@@ -8056,13 +7977,9 @@ export type t_setup_attempt_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_blik = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_blik = EmptyObject
 
-export type t_setup_attempt_payment_method_details_boleto = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_boleto = EmptyObject
 
 export type t_setup_attempt_payment_method_details_card = {
   checks?: t_payment_method_details_card_checks | null
@@ -8073,9 +7990,7 @@ export type t_setup_attempt_payment_method_details_card_present = {
   generated_card?: string | t_payment_method | null
 }
 
-export type t_setup_attempt_payment_method_details_cashapp = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_cashapp = EmptyObject
 
 export type t_setup_attempt_payment_method_details_ideal = {
   bank?:
@@ -8117,17 +8032,11 @@ export type t_setup_attempt_payment_method_details_ideal = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_klarna = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_klarna = EmptyObject
 
-export type t_setup_attempt_payment_method_details_link = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_link = EmptyObject
 
-export type t_setup_attempt_payment_method_details_sepa_debit = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_sepa_debit = EmptyObject
 
 export type t_setup_attempt_payment_method_details_sofort = {
   bank_code?: string | null
@@ -8140,9 +8049,7 @@ export type t_setup_attempt_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_us_bank_account = {
-  [key: string]: never
-}
+export type t_setup_attempt_payment_method_details_us_bank_account = EmptyObject
 
 export type t_setup_intent = {
   application?: string | t_application | null
@@ -8164,7 +8071,7 @@ export type t_setup_intent = {
   livemode: boolean
   mandate?: string | t_mandate | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   next_action?: t_setup_intent_next_action | null
   object: "setup_intent"
@@ -8187,9 +8094,7 @@ export type t_setup_intent_next_action = {
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
   redirect_to_url?: t_setup_intent_next_action_redirect_to_url
   type: string
-  use_stripe_sdk?: {
-    [key: string]: never
-  }
+  use_stripe_sdk?: EmptyObject
   verify_with_microdeposits?: t_setup_intent_next_action_verify_with_microdeposits
 }
 
@@ -8281,9 +8186,8 @@ export type t_setup_intent_payment_method_options_mandate_options_blik = {
   type?: "off_session" | "on_session" | null
 }
 
-export type t_setup_intent_payment_method_options_mandate_options_sepa_debit = {
-  [key: string]: never
-}
+export type t_setup_intent_payment_method_options_mandate_options_sepa_debit =
+  EmptyObject
 
 export type t_setup_intent_payment_method_options_sepa_debit = {
   mandate_options?: t_setup_intent_payment_method_options_mandate_options_sepa_debit
@@ -8315,12 +8219,17 @@ export type t_shipping_rate = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "shipping_rate"
   tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null
   tax_code?: string | t_tax_code | null
   type: "fixed_amount"
+}
+
+export type t_shipping_rate_currency_option = {
+  amount: number
+  tax_behavior: "exclusive" | "inclusive" | "unspecified"
 }
 
 export type t_shipping_rate_delivery_estimate = {
@@ -8337,7 +8246,7 @@ export type t_shipping_rate_fixed_amount = {
   amount: number
   currency: string
   currency_options?: {
-    [key: string]: unknown
+    [key: string]: t_shipping_rate_currency_option
   }
 }
 
@@ -8368,7 +8277,7 @@ export type t_source = {
   klarna?: t_source_type_klarna
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   multibanco?: t_source_type_multibanco
   object: "source"
@@ -8793,7 +8702,7 @@ export type t_subscription = {
   latest_invoice?: string | t_invoice | null
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   next_pending_invoice_item_invoice?: number | null
   object: "subscription"
@@ -8835,7 +8744,7 @@ export type t_subscription_item = {
   created: number
   id: string
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "subscription_item"
   price: t_price
@@ -8882,7 +8791,7 @@ export type t_subscription_schedule = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "subscription_schedule"
   phases: t_subscription_schedule_phase_configuration[]
@@ -8902,7 +8811,7 @@ export type t_subscription_schedule_add_invoice_item = {
 export type t_subscription_schedule_configuration_item = {
   billing_thresholds?: t_subscription_item_billing_thresholds | null
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   price: string | t_price | t_deleted_price
   quantity?: number
@@ -8930,7 +8839,7 @@ export type t_subscription_schedule_phase_configuration = {
   invoice_settings?: t_invoice_setting_phase_setting | null
   items: t_subscription_schedule_configuration_item[]
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   on_behalf_of?: string | t_account | null
   proration_behavior: "always_invoice" | "create_prorations" | "none"
@@ -9072,7 +8981,7 @@ export type t_tax_transaction = {
   } | null
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "tax.transaction"
   reference: string
@@ -9088,7 +8997,7 @@ export type t_tax_transaction_line_item = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "tax.transaction_line_item"
   quantity: number
@@ -9358,7 +9267,7 @@ export type t_tax_rate = {
   jurisdiction?: string | null
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "tax_rate"
   percentage: number
@@ -9400,7 +9309,7 @@ export type t_terminal_location = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "terminal.location"
 }
@@ -9421,7 +9330,7 @@ export type t_terminal_reader = {
   livemode: boolean
   location?: string | t_terminal_location | null
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "terminal.reader"
   serial_number: string
@@ -9504,7 +9413,7 @@ export type t_terminal_reader_reader_resource_refund_payment_action = {
   amount?: number
   charge?: string | t_charge
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   }
   payment_intent?: string | t_payment_intent
   reason?: "duplicate" | "fraudulent" | "requested_by_customer"
@@ -9583,7 +9492,7 @@ export type t_topup = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "topup"
   source?: t_source | null
@@ -9604,7 +9513,7 @@ export type t_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "transfer"
   reversals: {
@@ -9632,7 +9541,7 @@ export type t_transfer_reversal = {
   destination_payment_refund?: string | t_refund | null
   id: string
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "transfer_reversal"
   source_refund?: string | t_refund | null
@@ -9665,7 +9574,7 @@ export type t_treasury_credit_reversal = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   network: "ach" | "stripe"
   object: "treasury.credit_reversal"
@@ -9685,7 +9594,7 @@ export type t_treasury_debit_reversal = {
   linked_flows?: t_treasury_received_debits_resource_debit_reversal_linked_flows | null
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   network: "ach" | "card"
   object: "treasury.debit_reversal"
@@ -9716,7 +9625,7 @@ export type t_treasury_financial_account = {
   id: string
   livemode: boolean
   metadata?: {
-    [key: string]: unknown
+    [key: string]: string
   } | null
   object: "treasury.financial_account"
   pending_features?: (
@@ -9773,7 +9682,7 @@ export type t_treasury_inbound_transfer = {
   linked_flows: t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "treasury.inbound_transfer"
   origin_payment_method: string
@@ -9801,7 +9710,7 @@ export type t_treasury_outbound_payment = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "treasury.outbound_payment"
   returned_details?: t_treasury_outbound_payments_resource_returned_status | null
@@ -9825,7 +9734,7 @@ export type t_treasury_outbound_transfer = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "treasury.outbound_transfer"
   returned_details?: t_treasury_outbound_transfers_resource_returned_details | null
@@ -9971,13 +9880,13 @@ export type t_treasury_financial_accounts_resource_ach_toggle_settings = {
 
 export type t_treasury_financial_accounts_resource_balance = {
   cash: {
-    [key: string]: unknown
+    [key: string]: number
   }
   inbound_pending: {
-    [key: string]: unknown
+    [key: string]: number
   }
   outbound_pending: {
-    [key: string]: unknown
+    [key: string]: number
   }
 }
 
@@ -10280,7 +10189,7 @@ export type t_webhook_endpoint = {
   id: string
   livemode: boolean
   metadata: {
-    [key: string]: unknown
+    [key: string]: string
   }
   object: "webhook_endpoint"
   secret?: string

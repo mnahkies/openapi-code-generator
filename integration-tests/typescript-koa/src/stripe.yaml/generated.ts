@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_DeleteAccountsAccountBankAccountsIdBodySchema,
   t_DeleteAccountsAccountBankAccountsIdParamSchema,
   t_DeleteAccountsAccountBodySchema,
@@ -972,19 +973,33 @@ import {
   t_PostWebhookEndpointsWebhookEndpointBodySchema,
   t_PostWebhookEndpointsWebhookEndpointParamSchema,
   t_account,
+  t_account_bacs_debit_payments_settings,
+  t_account_branding_settings,
+  t_account_business_profile,
   t_account_capabilities,
   t_account_capability_future_requirements,
   t_account_capability_requirements,
+  t_account_card_issuing_settings,
+  t_account_card_payments_settings,
+  t_account_dashboard_settings,
+  t_account_decline_charge_on,
   t_account_future_requirements,
   t_account_link,
+  t_account_payments_settings,
+  t_account_payout_settings,
   t_account_requirements,
   t_account_requirements_alternative,
   t_account_requirements_error,
+  t_account_sepa_debit_payments_settings,
+  t_account_settings,
+  t_account_terms_of_service,
   t_account_tos_acceptance,
+  t_account_treasury_settings,
   t_account_unification_account_controller,
   t_address,
   t_api_errors,
   t_apple_pay_domain,
+  t_application,
   t_application_fee,
   t_apps_secret,
   t_automatic_tax,
@@ -994,24 +1009,69 @@ import {
   t_balance_detail,
   t_balance_transaction,
   t_bank_account,
+  t_bank_connections_resource_accountholder,
+  t_bank_connections_resource_balance,
+  t_bank_connections_resource_balance_api_resource_cash_balance,
+  t_bank_connections_resource_balance_api_resource_credit_balance,
+  t_bank_connections_resource_balance_refresh,
   t_bank_connections_resource_link_account_session_filters,
+  t_bank_connections_resource_ownership_refresh,
   t_billing_details,
   t_billing_portal_configuration,
   t_billing_portal_session,
+  t_cancellation_details,
   t_capability,
   t_card,
+  t_card_generated_from_payment_method_details,
+  t_card_issuing_account_terms_of_service,
   t_card_mandate_payment_method_details,
   t_cash_balance,
   t_charge,
+  t_charge_fraud_details,
+  t_charge_outcome,
+  t_charge_transfer_data,
+  t_checkout_acss_debit_mandate_options,
+  t_checkout_acss_debit_payment_method_options,
+  t_checkout_affirm_payment_method_options,
+  t_checkout_afterpay_clearpay_payment_method_options,
+  t_checkout_alipay_payment_method_options,
+  t_checkout_au_becs_debit_payment_method_options,
+  t_checkout_bacs_debit_payment_method_options,
+  t_checkout_bancontact_payment_method_options,
+  t_checkout_boleto_payment_method_options,
+  t_checkout_card_installments_options,
+  t_checkout_card_payment_method_options,
+  t_checkout_cashapp_payment_method_options,
+  t_checkout_customer_balance_bank_transfer_payment_method_options,
+  t_checkout_customer_balance_payment_method_options,
+  t_checkout_eps_payment_method_options,
+  t_checkout_fpx_payment_method_options,
+  t_checkout_giropay_payment_method_options,
+  t_checkout_grab_pay_payment_method_options,
+  t_checkout_ideal_payment_method_options,
+  t_checkout_klarna_payment_method_options,
+  t_checkout_konbini_payment_method_options,
+  t_checkout_oxxo_payment_method_options,
+  t_checkout_p24_payment_method_options,
+  t_checkout_paynow_payment_method_options,
+  t_checkout_pix_payment_method_options,
+  t_checkout_sepa_debit_payment_method_options,
   t_checkout_session,
+  t_checkout_session_payment_method_options,
+  t_checkout_sofort_payment_method_options,
+  t_checkout_us_bank_account_payment_method_options,
+  t_connect_collection_transfer,
   t_country_spec,
   t_country_spec_verification_field_details,
   t_country_spec_verification_fields,
   t_coupon,
   t_coupon_applies_to,
+  t_coupon_currency_option,
   t_credit_note,
   t_credit_note_line_item,
   t_credit_note_tax_amount,
+  t_currency_option,
+  t_custom_unit_amount,
   t_customer,
   t_customer_acceptance,
   t_customer_balance_customer_balance_settings,
@@ -1024,16 +1084,22 @@ import {
   t_customer_balance_transaction,
   t_customer_cash_balance_transaction,
   t_customer_tax,
+  t_customer_tax_location,
   t_deleted_account,
   t_deleted_apple_pay_domain,
+  t_deleted_application,
+  t_deleted_bank_account,
+  t_deleted_card,
   t_deleted_coupon,
   t_deleted_customer,
   t_deleted_discount,
   t_deleted_external_account,
   t_deleted_invoice,
   t_deleted_invoiceitem,
+  t_deleted_payment_source,
   t_deleted_person,
   t_deleted_plan,
+  t_deleted_price,
   t_deleted_product,
   t_deleted_radar_value_list,
   t_deleted_radar_value_list_item,
@@ -1049,17 +1115,20 @@ import {
   t_dispute,
   t_dispute_evidence,
   t_dispute_evidence_details,
+  t_email_sent,
   t_ephemeral_key,
   t_error,
   t_event,
   t_exchange_rate,
   t_external_account,
+  t_external_account_requirements,
   t_fee,
   t_fee_refund,
   t_file,
   t_file_link,
   t_financial_connections_account,
   t_financial_connections_account_owner,
+  t_financial_connections_account_ownership,
   t_financial_connections_session,
   t_financial_reporting_finance_report_run_run_parameters,
   t_funding_instructions,
@@ -1069,35 +1138,90 @@ import {
   t_funding_instructions_bank_transfer_sort_code_record,
   t_funding_instructions_bank_transfer_spei_record,
   t_funding_instructions_bank_transfer_zengin_record,
+  t_gelato_data_document_report_date_of_birth,
+  t_gelato_data_document_report_expiration_date,
+  t_gelato_data_document_report_issued_date,
+  t_gelato_data_id_number_report_date,
+  t_gelato_data_verified_outputs_date,
   t_gelato_document_report,
+  t_gelato_document_report_error,
   t_gelato_id_number_report,
+  t_gelato_id_number_report_error,
   t_gelato_report_document_options,
   t_gelato_report_id_number_options,
   t_gelato_selfie_report,
+  t_gelato_selfie_report_error,
+  t_gelato_session_document_options,
+  t_gelato_session_id_number_options,
+  t_gelato_session_last_error,
   t_gelato_verification_report_options,
+  t_gelato_verification_session_options,
+  t_gelato_verified_outputs,
   t_identity_verification_report,
   t_identity_verification_session,
+  t_inbound_transfers,
+  t_inbound_transfers_payment_method_details_us_bank_account,
   t_invoice,
+  t_invoice_installments_card,
   t_invoice_item_threshold_reason,
   t_invoice_line_item_period,
+  t_invoice_mandate_options_card,
+  t_invoice_payment_method_options_acss_debit,
+  t_invoice_payment_method_options_acss_debit_mandate_options,
+  t_invoice_payment_method_options_bancontact,
+  t_invoice_payment_method_options_card,
+  t_invoice_payment_method_options_customer_balance,
+  t_invoice_payment_method_options_customer_balance_bank_transfer,
+  t_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer,
+  t_invoice_payment_method_options_konbini,
+  t_invoice_payment_method_options_us_bank_account,
+  t_invoice_payment_method_options_us_bank_account_linked_account_options,
   t_invoice_setting_custom_field,
   t_invoice_setting_customer_setting,
+  t_invoice_setting_phase_setting,
+  t_invoice_setting_quote_setting,
+  t_invoice_setting_rendering_options,
+  t_invoice_setting_subscription_schedule_setting,
   t_invoice_tax_amount,
   t_invoice_threshold_reason,
+  t_invoice_transfer_data,
   t_invoiceitem,
+  t_invoices_from_invoice,
+  t_invoices_line_items_credited_items,
+  t_invoices_line_items_proration_details,
+  t_invoices_payment_method_options,
   t_invoices_payment_settings,
   t_invoices_resource_invoice_tax_id,
+  t_invoices_shipping_cost,
   t_invoices_status_transitions,
   t_issuing_authorization,
+  t_issuing_authorization_amount_details,
   t_issuing_authorization_merchant_data,
+  t_issuing_authorization_network_data,
+  t_issuing_authorization_pending_request,
   t_issuing_authorization_request,
+  t_issuing_authorization_treasury,
   t_issuing_authorization_verification_data,
   t_issuing_card,
+  t_issuing_card_apple_pay,
   t_issuing_card_authorization_controls,
+  t_issuing_card_google_pay,
+  t_issuing_card_shipping,
+  t_issuing_card_shipping_customs,
   t_issuing_card_spending_limit,
+  t_issuing_card_wallets,
   t_issuing_cardholder,
   t_issuing_cardholder_address,
+  t_issuing_cardholder_authorization_controls,
+  t_issuing_cardholder_card_issuing,
+  t_issuing_cardholder_company,
+  t_issuing_cardholder_id_document,
+  t_issuing_cardholder_individual,
+  t_issuing_cardholder_individual_dob,
   t_issuing_cardholder_requirements,
+  t_issuing_cardholder_spending_limit,
+  t_issuing_cardholder_user_terms_acceptance,
+  t_issuing_cardholder_verification,
   t_issuing_dispute,
   t_issuing_dispute_canceled_evidence,
   t_issuing_dispute_duplicate_evidence,
@@ -1107,16 +1231,30 @@ import {
   t_issuing_dispute_not_received_evidence,
   t_issuing_dispute_other_evidence,
   t_issuing_dispute_service_not_as_described_evidence,
+  t_issuing_dispute_treasury,
   t_issuing_settlement,
   t_issuing_transaction,
+  t_issuing_transaction_amount_details,
+  t_issuing_transaction_flight_data,
+  t_issuing_transaction_flight_data_leg,
+  t_issuing_transaction_fuel_data,
+  t_issuing_transaction_lodging_data,
+  t_issuing_transaction_purchase_details,
+  t_issuing_transaction_receipt_data,
+  t_issuing_transaction_treasury,
   t_item,
   t_legal_entity_company,
+  t_legal_entity_company_verification,
+  t_legal_entity_company_verification_document,
   t_legal_entity_dob,
+  t_legal_entity_japan_address,
   t_legal_entity_person_verification,
   t_legal_entity_person_verification_document,
+  t_legal_entity_ubo_declaration,
   t_line_item,
   t_line_items_discount_amount,
   t_line_items_tax_amount,
+  t_linked_account_options_us_bank_account,
   t_login_link,
   t_mandate,
   t_mandate_acss_debit,
@@ -1131,26 +1269,84 @@ import {
   t_mandate_sepa_debit,
   t_mandate_single_use,
   t_mandate_us_bank_account,
+  t_networks,
   t_notification_event_data,
+  t_notification_event_request,
   t_offline_acceptance,
   t_online_acceptance,
+  t_outbound_payments_payment_method_details,
+  t_outbound_payments_payment_method_details_financial_account,
+  t_outbound_payments_payment_method_details_us_bank_account,
   t_outbound_transfers_payment_method_details,
   t_outbound_transfers_payment_method_details_us_bank_account,
+  t_package_dimensions,
   t_payment_flows_amount_details,
   t_payment_flows_amount_details_resource_tip,
+  t_payment_flows_automatic_payment_methods_payment_intent,
+  t_payment_flows_automatic_payment_methods_setup_intent,
+  t_payment_flows_installment_options,
   t_payment_flows_private_payment_methods_alipay,
+  t_payment_flows_private_payment_methods_alipay_details,
+  t_payment_flows_private_payment_methods_klarna_dob,
   t_payment_intent,
+  t_payment_intent_card_processing,
+  t_payment_intent_next_action,
+  t_payment_intent_next_action_alipay_handle_redirect,
+  t_payment_intent_next_action_boleto,
+  t_payment_intent_next_action_card_await_notification,
+  t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code,
+  t_payment_intent_next_action_cashapp_qr_code,
+  t_payment_intent_next_action_display_bank_transfer_instructions,
+  t_payment_intent_next_action_display_oxxo_details,
+  t_payment_intent_next_action_konbini,
+  t_payment_intent_next_action_konbini_familymart,
+  t_payment_intent_next_action_konbini_lawson,
+  t_payment_intent_next_action_konbini_ministop,
+  t_payment_intent_next_action_konbini_seicomart,
+  t_payment_intent_next_action_konbini_stores,
+  t_payment_intent_next_action_paynow_display_qr_code,
+  t_payment_intent_next_action_pix_display_qr_code,
+  t_payment_intent_next_action_promptpay_display_qr_code,
+  t_payment_intent_next_action_redirect_to_url,
+  t_payment_intent_next_action_verify_with_microdeposits,
+  t_payment_intent_next_action_wechat_pay_display_qr_code,
+  t_payment_intent_next_action_wechat_pay_redirect_to_android_app,
+  t_payment_intent_next_action_wechat_pay_redirect_to_ios_app,
+  t_payment_intent_payment_method_options,
+  t_payment_intent_payment_method_options_acss_debit,
+  t_payment_intent_payment_method_options_au_becs_debit,
+  t_payment_intent_payment_method_options_blik,
+  t_payment_intent_payment_method_options_card,
+  t_payment_intent_payment_method_options_eps,
+  t_payment_intent_payment_method_options_link,
+  t_payment_intent_payment_method_options_mandate_options_acss_debit,
+  t_payment_intent_payment_method_options_mandate_options_sepa_debit,
+  t_payment_intent_payment_method_options_sepa_debit,
+  t_payment_intent_payment_method_options_us_bank_account,
+  t_payment_intent_processing,
+  t_payment_intent_processing_customer_notification,
+  t_payment_intent_type_specific_payment_method_options_client,
   t_payment_link,
   t_payment_links_resource_after_completion,
   t_payment_links_resource_automatic_tax,
   t_payment_links_resource_completion_behavior_confirmation_page,
   t_payment_links_resource_completion_behavior_redirect,
+  t_payment_links_resource_consent_collection,
   t_payment_links_resource_custom_fields,
+  t_payment_links_resource_custom_fields_dropdown,
+  t_payment_links_resource_custom_fields_dropdown_option,
   t_payment_links_resource_custom_fields_label,
   t_payment_links_resource_custom_text,
+  t_payment_links_resource_custom_text_position,
+  t_payment_links_resource_invoice_creation,
+  t_payment_links_resource_invoice_settings,
+  t_payment_links_resource_payment_intent_data,
   t_payment_links_resource_phone_number_collection,
+  t_payment_links_resource_shipping_address_collection,
   t_payment_links_resource_shipping_option,
+  t_payment_links_resource_subscription_data,
   t_payment_links_resource_tax_id_collection,
+  t_payment_links_resource_transfer_data,
   t_payment_method,
   t_payment_method_acss_debit,
   t_payment_method_affirm,
@@ -1161,9 +1357,67 @@ import {
   t_payment_method_blik,
   t_payment_method_boleto,
   t_payment_method_card,
+  t_payment_method_card_checks,
+  t_payment_method_card_generated_card,
   t_payment_method_card_present,
+  t_payment_method_card_wallet,
+  t_payment_method_card_wallet_amex_express_checkout,
+  t_payment_method_card_wallet_apple_pay,
+  t_payment_method_card_wallet_google_pay,
+  t_payment_method_card_wallet_masterpass,
+  t_payment_method_card_wallet_samsung_pay,
+  t_payment_method_card_wallet_visa_checkout,
   t_payment_method_cashapp,
   t_payment_method_customer_balance,
+  t_payment_method_details,
+  t_payment_method_details_ach_credit_transfer,
+  t_payment_method_details_ach_debit,
+  t_payment_method_details_acss_debit,
+  t_payment_method_details_affirm,
+  t_payment_method_details_afterpay_clearpay,
+  t_payment_method_details_au_becs_debit,
+  t_payment_method_details_bacs_debit,
+  t_payment_method_details_bancontact,
+  t_payment_method_details_blik,
+  t_payment_method_details_boleto,
+  t_payment_method_details_card,
+  t_payment_method_details_card_checks,
+  t_payment_method_details_card_installments,
+  t_payment_method_details_card_installments_plan,
+  t_payment_method_details_card_present,
+  t_payment_method_details_card_present_receipt,
+  t_payment_method_details_card_wallet,
+  t_payment_method_details_card_wallet_amex_express_checkout,
+  t_payment_method_details_card_wallet_apple_pay,
+  t_payment_method_details_card_wallet_google_pay,
+  t_payment_method_details_card_wallet_masterpass,
+  t_payment_method_details_card_wallet_samsung_pay,
+  t_payment_method_details_card_wallet_visa_checkout,
+  t_payment_method_details_cashapp,
+  t_payment_method_details_customer_balance,
+  t_payment_method_details_eps,
+  t_payment_method_details_fpx,
+  t_payment_method_details_giropay,
+  t_payment_method_details_grabpay,
+  t_payment_method_details_ideal,
+  t_payment_method_details_interac_present,
+  t_payment_method_details_interac_present_receipt,
+  t_payment_method_details_klarna,
+  t_payment_method_details_konbini,
+  t_payment_method_details_konbini_store,
+  t_payment_method_details_link,
+  t_payment_method_details_multibanco,
+  t_payment_method_details_oxxo,
+  t_payment_method_details_p24,
+  t_payment_method_details_paynow,
+  t_payment_method_details_pix,
+  t_payment_method_details_promptpay,
+  t_payment_method_details_sepa_debit,
+  t_payment_method_details_sofort,
+  t_payment_method_details_stripe_account,
+  t_payment_method_details_us_bank_account,
+  t_payment_method_details_wechat,
+  t_payment_method_details_wechat_pay,
   t_payment_method_eps,
   t_payment_method_fpx,
   t_payment_method_giropay,
@@ -1173,6 +1427,33 @@ import {
   t_payment_method_klarna,
   t_payment_method_konbini,
   t_payment_method_link,
+  t_payment_method_options_affirm,
+  t_payment_method_options_afterpay_clearpay,
+  t_payment_method_options_alipay,
+  t_payment_method_options_bacs_debit,
+  t_payment_method_options_bancontact,
+  t_payment_method_options_boleto,
+  t_payment_method_options_card_installments,
+  t_payment_method_options_card_mandate_options,
+  t_payment_method_options_card_present,
+  t_payment_method_options_cashapp,
+  t_payment_method_options_customer_balance,
+  t_payment_method_options_customer_balance_bank_transfer,
+  t_payment_method_options_customer_balance_eu_bank_account,
+  t_payment_method_options_fpx,
+  t_payment_method_options_giropay,
+  t_payment_method_options_grabpay,
+  t_payment_method_options_ideal,
+  t_payment_method_options_interac_present,
+  t_payment_method_options_klarna,
+  t_payment_method_options_konbini,
+  t_payment_method_options_oxxo,
+  t_payment_method_options_p24,
+  t_payment_method_options_paynow,
+  t_payment_method_options_pix,
+  t_payment_method_options_promptpay,
+  t_payment_method_options_sofort,
+  t_payment_method_options_wechat_pay,
   t_payment_method_oxxo,
   t_payment_method_p24,
   t_payment_method_paynow,
@@ -1181,24 +1462,52 @@ import {
   t_payment_method_sepa_debit,
   t_payment_method_sofort,
   t_payment_method_us_bank_account,
+  t_payment_method_us_bank_account_blocked,
+  t_payment_method_us_bank_account_status_details,
   t_payment_method_wechat_pay,
+  t_payment_pages_checkout_session_after_expiration,
+  t_payment_pages_checkout_session_after_expiration_recovery,
   t_payment_pages_checkout_session_automatic_tax,
+  t_payment_pages_checkout_session_consent,
+  t_payment_pages_checkout_session_consent_collection,
+  t_payment_pages_checkout_session_currency_conversion,
   t_payment_pages_checkout_session_custom_fields,
+  t_payment_pages_checkout_session_custom_fields_dropdown,
   t_payment_pages_checkout_session_custom_fields_label,
+  t_payment_pages_checkout_session_custom_fields_numeric,
+  t_payment_pages_checkout_session_custom_fields_option,
+  t_payment_pages_checkout_session_custom_fields_text,
   t_payment_pages_checkout_session_custom_text,
+  t_payment_pages_checkout_session_custom_text_position,
+  t_payment_pages_checkout_session_customer_details,
+  t_payment_pages_checkout_session_invoice_creation,
+  t_payment_pages_checkout_session_invoice_settings,
   t_payment_pages_checkout_session_phone_number_collection,
+  t_payment_pages_checkout_session_shipping_address_collection,
+  t_payment_pages_checkout_session_shipping_cost,
   t_payment_pages_checkout_session_shipping_option,
+  t_payment_pages_checkout_session_tax_id,
   t_payment_pages_checkout_session_tax_id_collection,
+  t_payment_pages_checkout_session_total_details,
+  t_payment_pages_checkout_session_total_details_resource_breakdown,
   t_payment_source,
   t_payout,
   t_period,
   t_person,
+  t_person_future_requirements,
   t_person_relationship,
+  t_person_requirements,
   t_plan,
   t_plan_tier,
+  t_platform_tax_fee,
   t_portal_business_profile,
   t_portal_customer_update,
   t_portal_features,
+  t_portal_flows_after_completion_hosted_confirmation,
+  t_portal_flows_after_completion_redirect,
+  t_portal_flows_flow,
+  t_portal_flows_flow_after_completion,
+  t_portal_flows_flow_subscription_cancel,
   t_portal_invoice_list,
   t_portal_login_page,
   t_portal_payment_method_update,
@@ -1211,28 +1520,39 @@ import {
   t_price_tier,
   t_product,
   t_promotion_code,
+  t_promotion_code_currency_option,
   t_promotion_codes_resource_restrictions,
   t_quote,
   t_quotes_resource_automatic_tax,
   t_quotes_resource_computed,
+  t_quotes_resource_from_quote,
+  t_quotes_resource_recurring,
   t_quotes_resource_status_transitions,
   t_quotes_resource_subscription_data_subscription_data,
   t_quotes_resource_total_details,
   t_quotes_resource_total_details_resource_breakdown,
+  t_quotes_resource_transfer_data,
   t_quotes_resource_upfront,
   t_radar_early_fraud_warning,
   t_radar_radar_options,
+  t_radar_review_resource_location,
+  t_radar_review_resource_session,
   t_radar_value_list,
   t_radar_value_list_item,
   t_received_payment_method_details_financial_account,
+  t_recurring,
   t_refund,
   t_refund_next_action,
+  t_refund_next_action_display_details,
   t_reporting_report_run,
   t_reporting_report_type,
+  t_reserve_transaction,
   t_review,
+  t_rule,
   t_scheduled_query_run,
   t_schedules_phase_automatic_tax,
   t_secret_service_resource_scope,
+  t_sepa_debit_generated_from,
   t_setup_attempt,
   t_setup_attempt_payment_method_details,
   t_setup_attempt_payment_method_details_acss_debit,
@@ -1251,8 +1571,26 @@ import {
   t_setup_attempt_payment_method_details_sofort,
   t_setup_attempt_payment_method_details_us_bank_account,
   t_setup_intent,
+  t_setup_intent_next_action,
+  t_setup_intent_next_action_redirect_to_url,
+  t_setup_intent_next_action_verify_with_microdeposits,
+  t_setup_intent_payment_method_options,
+  t_setup_intent_payment_method_options_acss_debit,
+  t_setup_intent_payment_method_options_blik,
+  t_setup_intent_payment_method_options_card,
+  t_setup_intent_payment_method_options_card_mandate_options,
+  t_setup_intent_payment_method_options_link,
+  t_setup_intent_payment_method_options_mandate_options_acss_debit,
+  t_setup_intent_payment_method_options_mandate_options_blik,
+  t_setup_intent_payment_method_options_mandate_options_sepa_debit,
+  t_setup_intent_payment_method_options_sepa_debit,
+  t_setup_intent_payment_method_options_us_bank_account,
+  t_setup_intent_type_specific_payment_method_options_client,
   t_shipping,
   t_shipping_rate,
+  t_shipping_rate_currency_option,
+  t_shipping_rate_delivery_estimate,
+  t_shipping_rate_delivery_estimate_bound,
   t_shipping_rate_fixed_amount,
   t_sigma_scheduled_query_run_error,
   t_source,
@@ -1263,6 +1601,7 @@ import {
   t_source_mandate_notification_sepa_debit_data,
   t_source_order,
   t_source_order_item,
+  t_source_owner,
   t_source_receiver_flow,
   t_source_redirect_flow,
   t_source_transaction,
@@ -1291,23 +1630,42 @@ import {
   t_source_type_wechat,
   t_subscription,
   t_subscription_automatic_tax,
+  t_subscription_billing_thresholds,
   t_subscription_item,
+  t_subscription_item_billing_thresholds,
+  t_subscription_payment_method_options_card,
+  t_subscription_pending_invoice_item_interval,
   t_subscription_schedule,
   t_subscription_schedule_add_invoice_item,
   t_subscription_schedule_configuration_item,
+  t_subscription_schedule_current_phase,
   t_subscription_schedule_phase_configuration,
   t_subscription_schedules_resource_default_settings,
   t_subscription_schedules_resource_default_settings_automatic_tax,
+  t_subscription_transfer_data,
+  t_subscriptions_resource_pause_collection,
+  t_subscriptions_resource_payment_method_options,
+  t_subscriptions_resource_payment_settings,
+  t_subscriptions_resource_pending_update,
+  t_subscriptions_trials_resource_end_behavior,
+  t_subscriptions_trials_resource_trial_settings,
   t_tax_calculation,
   t_tax_calculation_line_item,
   t_tax_code,
+  t_tax_deducted_at_source,
   t_tax_id,
+  t_tax_id_verification,
   t_tax_product_resource_customer_details,
   t_tax_product_resource_customer_details_resource_tax_id,
   t_tax_product_resource_jurisdiction,
   t_tax_product_resource_line_item_tax_breakdown,
+  t_tax_product_resource_line_item_tax_rate_details,
+  t_tax_product_resource_postal_address,
+  t_tax_product_resource_shipping_cost,
   t_tax_product_resource_tax_breakdown,
   t_tax_product_resource_tax_rate_details,
+  t_tax_product_resource_tax_transaction_line_item_resource_reversal,
+  t_tax_product_resource_tax_transaction_resource_reversal,
   t_tax_rate,
   t_tax_transaction,
   t_tax_transaction_line_item,
@@ -1318,11 +1676,26 @@ import {
   t_terminal_connection_token,
   t_terminal_location,
   t_terminal_reader,
+  t_terminal_reader_reader_resource_cart,
+  t_terminal_reader_reader_resource_line_item,
+  t_terminal_reader_reader_resource_process_config,
+  t_terminal_reader_reader_resource_process_payment_intent_action,
+  t_terminal_reader_reader_resource_process_setup_intent_action,
+  t_terminal_reader_reader_resource_reader_action,
+  t_terminal_reader_reader_resource_refund_payment_action,
+  t_terminal_reader_reader_resource_set_reader_display_action,
+  t_terminal_reader_reader_resource_tipping_config,
   t_test_helpers_test_clock,
+  t_three_d_secure_details,
+  t_three_d_secure_usage,
   t_token,
   t_topup,
   t_transfer,
+  t_transfer_data,
   t_transfer_reversal,
+  t_transfer_schedule,
+  t_transform_quantity,
+  t_transform_usage,
   t_treasury_credit_reversal,
   t_treasury_debit_reversal,
   t_treasury_financial_account,
@@ -1330,26 +1703,36 @@ import {
   t_treasury_financial_accounts_resource_aba_record,
   t_treasury_financial_accounts_resource_ach_toggle_settings,
   t_treasury_financial_accounts_resource_balance,
+  t_treasury_financial_accounts_resource_closed_status_details,
   t_treasury_financial_accounts_resource_financial_address,
   t_treasury_financial_accounts_resource_financial_addresses_features,
   t_treasury_financial_accounts_resource_inbound_transfers,
   t_treasury_financial_accounts_resource_outbound_payments,
   t_treasury_financial_accounts_resource_outbound_transfers,
+  t_treasury_financial_accounts_resource_platform_restrictions,
   t_treasury_financial_accounts_resource_status_details,
   t_treasury_financial_accounts_resource_toggle_settings,
   t_treasury_financial_accounts_resource_toggles_setting_status_details,
   t_treasury_inbound_transfer,
+  t_treasury_inbound_transfers_resource_failure_details,
   t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows,
   t_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions,
   t_treasury_outbound_payment,
+  t_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details,
   t_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions,
+  t_treasury_outbound_payments_resource_returned_status,
   t_treasury_outbound_transfer,
+  t_treasury_outbound_transfers_resource_returned_details,
   t_treasury_outbound_transfers_resource_status_transitions,
   t_treasury_received_credit,
   t_treasury_received_credits_resource_linked_flows,
+  t_treasury_received_credits_resource_reversal_details,
+  t_treasury_received_credits_resource_source_flows_details,
   t_treasury_received_credits_resource_status_transitions,
   t_treasury_received_debit,
+  t_treasury_received_debits_resource_debit_reversal_linked_flows,
   t_treasury_received_debits_resource_linked_flows,
+  t_treasury_received_debits_resource_reversal_details,
   t_treasury_received_debits_resource_status_transitions,
   t_treasury_shared_resource_billing_details,
   t_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details,
@@ -1358,8 +1741,11 @@ import {
   t_treasury_transaction_entry,
   t_treasury_transactions_resource_abstract_transaction_resource_status_transitions,
   t_treasury_transactions_resource_balance_impact,
+  t_treasury_transactions_resource_flow_details,
+  t_us_bank_account_networks,
   t_usage_record,
   t_usage_record_summary,
+  t_verification_session_redaction,
   t_webhook_endpoint,
 } from "./models"
 import {
@@ -1393,6 +1779,7 @@ import {
   s_deleted_external_account,
   s_deleted_invoice,
   s_deleted_invoiceitem,
+  s_deleted_payment_source,
   s_deleted_person,
   s_deleted_plan,
   s_deleted_product,
@@ -1515,7 +1902,6 @@ import { z } from "zod"
 //region safe-edit-region-header
 
 //endregion safe-edit-region-header
-
 export type GetAccount = (
   params: Params<
     void,
@@ -1669,9 +2055,7 @@ export type GetAccountsAccountExternalAccounts = (
   | Response<
       200,
       {
-        data: {
-          [key: string]: unknown
-        }[]
+        data: (t_bank_account | t_card)[]
         has_more: boolean
         object: "list"
         url: string
@@ -2610,13 +2994,7 @@ export type GetCustomersCustomer = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
-  | Response<StatusCode, t_error>
+  Response<200, t_customer | t_deleted_customer> | Response<StatusCode, t_error>
 >
 
 export type PostCustomersCustomer = (
@@ -2718,12 +3096,7 @@ export type DeleteCustomersCustomerBankAccountsId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
 >
 
@@ -2744,12 +3117,7 @@ export type PostCustomersCustomerBankAccountsId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
 >
 
@@ -2799,12 +3167,7 @@ export type DeleteCustomersCustomerCardsId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
 >
 
@@ -2825,12 +3188,7 @@ export type PostCustomersCustomerCardsId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
 >
 
@@ -2954,9 +3312,7 @@ export type GetCustomersCustomerSources = (
   | Response<
       200,
       {
-        data: {
-          [key: string]: unknown
-        }[]
+        data: (t_bank_account | t_card | t_source)[]
         has_more: boolean
         object: "list"
         url: string
@@ -2982,12 +3338,7 @@ export type DeleteCustomersCustomerSourcesId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
 >
 
@@ -3008,12 +3359,7 @@ export type PostCustomersCustomerSourcesId = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
 >
 
@@ -5777,12 +6123,7 @@ export type GetTerminalConfigurationsConfiguration = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
 >
 
@@ -5794,12 +6135,7 @@ export type PostTerminalConfigurationsConfiguration = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
 >
 
@@ -5858,12 +6194,7 @@ export type GetTerminalLocationsLocation = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
 >
 
@@ -5875,12 +6206,7 @@ export type PostTerminalLocationsLocation = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
 >
 
@@ -5928,12 +6254,7 @@ export type GetTerminalReadersReader = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
 >
 
@@ -5945,12 +6266,7 @@ export type PostTerminalReadersReader = (
   >,
   ctx: Context
 ) => Promise<
-  | Response<
-      200,
-      {
-        [key: string]: unknown
-      }
-    >
+  | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
 >
 
@@ -7394,7 +7710,15 @@ export function bootstrap(
   })
 
   const getAccountsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -7408,7 +7732,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_account),
+          data: z.array(z.lazy(() => s_account)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -7435,7 +7759,28 @@ export function bootstrap(
   const postAccountsBodySchema = z
     .object({
       account_token: z.coerce.string().optional(),
-      bank_account: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          account_type: z
+            .enum(["checking", "futsu", "savings", "toza"])
+            .optional(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          documents: z
+            .object({
+              bank_account_ownership_verification: z
+                .object({ files: z.array(z.coerce.string()).optional() })
+                .optional(),
+            })
+            .optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
       business_profile: z
         .object({
           mcc: z.coerce.string().optional(),
@@ -7453,7 +7798,7 @@ export function bootstrap(
             .optional(),
           support_email: z.coerce.string().optional(),
           support_phone: z.coerce.string().optional(),
-          support_url: z.object({}).optional(),
+          support_url: z.union([z.coerce.string(), z.enum([""])]),
           url: z.coerce.string().optional(),
         })
         .optional(),
@@ -7724,12 +8069,22 @@ export function bootstrap(
               town: z.coerce.string().optional(),
             })
             .optional(),
-          dob: z.object({}).optional(),
+          dob: z.union([
+            z.object({
+              day: z.coerce.number(),
+              month: z.coerce.number(),
+              year: z.coerce.number(),
+            }),
+            z.enum([""]),
+          ]),
           email: z.coerce.string().optional(),
           first_name: z.coerce.string().optional(),
           first_name_kana: z.coerce.string().optional(),
           first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.object({}).optional(),
+          full_name_aliases: z.union([
+            z.array(z.coerce.string()),
+            z.enum([""]),
+          ]),
           gender: z.coerce.string().optional(),
           id_number: z.coerce.string().optional(),
           id_number_secondary: z.coerce.string().optional(),
@@ -7737,7 +8092,7 @@ export function bootstrap(
           last_name_kana: z.coerce.string().optional(),
           last_name_kanji: z.coerce.string().optional(),
           maiden_name: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           phone: z.coerce.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -7769,7 +8124,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       settings: z
         .object({
           branding: z
@@ -7800,8 +8155,14 @@ export function bootstrap(
                 })
                 .optional(),
               statement_descriptor_prefix: z.coerce.string().optional(),
-              statement_descriptor_prefix_kana: z.object({}).optional(),
-              statement_descriptor_prefix_kanji: z.object({}).optional(),
+              statement_descriptor_prefix_kana: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              statement_descriptor_prefix_kanji: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
             })
             .optional(),
           payments: z
@@ -7816,7 +8177,7 @@ export function bootstrap(
               debit_negative_balances: z.coerce.boolean().optional(),
               schedule: z
                 .object({
-                  delay_days: z.object({}).optional(),
+                  delay_days: z.union([z.enum(["minimum"]), z.coerce.number()]),
                   interval: z
                     .enum(["daily", "manual", "monthly", "weekly"])
                     .optional(),
@@ -7974,7 +8335,7 @@ export function bootstrap(
             .optional(),
           support_email: z.coerce.string().optional(),
           support_phone: z.coerce.string().optional(),
-          support_url: z.object({}).optional(),
+          support_url: z.union([z.coerce.string(), z.enum([""])]),
           url: z.coerce.string().optional(),
         })
         .optional(),
@@ -8244,12 +8605,22 @@ export function bootstrap(
               town: z.coerce.string().optional(),
             })
             .optional(),
-          dob: z.object({}).optional(),
+          dob: z.union([
+            z.object({
+              day: z.coerce.number(),
+              month: z.coerce.number(),
+              year: z.coerce.number(),
+            }),
+            z.enum([""]),
+          ]),
           email: z.coerce.string().optional(),
           first_name: z.coerce.string().optional(),
           first_name_kana: z.coerce.string().optional(),
           first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.object({}).optional(),
+          full_name_aliases: z.union([
+            z.array(z.coerce.string()),
+            z.enum([""]),
+          ]),
           gender: z.coerce.string().optional(),
           id_number: z.coerce.string().optional(),
           id_number_secondary: z.coerce.string().optional(),
@@ -8257,7 +8628,7 @@ export function bootstrap(
           last_name_kana: z.coerce.string().optional(),
           last_name_kanji: z.coerce.string().optional(),
           maiden_name: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           phone: z.coerce.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -8289,7 +8660,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       settings: z
         .object({
           branding: z
@@ -8320,8 +8691,14 @@ export function bootstrap(
                 })
                 .optional(),
               statement_descriptor_prefix: z.coerce.string().optional(),
-              statement_descriptor_prefix_kana: z.object({}).optional(),
-              statement_descriptor_prefix_kanji: z.object({}).optional(),
+              statement_descriptor_prefix_kana: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              statement_descriptor_prefix_kanji: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
             })
             .optional(),
           payments: z
@@ -8336,7 +8713,7 @@ export function bootstrap(
               debit_negative_balances: z.coerce.boolean().optional(),
               schedule: z
                 .object({
-                  delay_days: z.object({}).optional(),
+                  delay_days: z.union([z.enum(["minimum"]), z.coerce.number()]),
                   interval: z
                     .enum(["daily", "manual", "monthly", "weekly"])
                     .optional(),
@@ -8416,7 +8793,28 @@ export function bootstrap(
 
   const postAccountsAccountBankAccountsBodySchema = z
     .object({
-      bank_account: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          account_type: z
+            .enum(["checking", "futsu", "savings", "toza"])
+            .optional(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          documents: z
+            .object({
+              bank_account_ownership_verification: z
+                .object({ files: z.array(z.coerce.string()).optional() })
+                .optional(),
+            })
+            .optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
       default_for_currency: z.coerce.boolean().optional(),
       expand: z.array(z.coerce.string()).optional(),
       external_account: z.coerce.string().optional(),
@@ -8559,7 +8957,7 @@ export function bootstrap(
       exp_month: z.coerce.string().optional(),
       exp_year: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
     })
     .optional()
@@ -8611,7 +9009,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_capability),
+            data: z.array(z.lazy(() => s_capability)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -8764,7 +9162,9 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(z.object({})),
+            data: z.array(
+              z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)])
+            ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -8811,7 +9211,28 @@ export function bootstrap(
 
   const postAccountsAccountExternalAccountsBodySchema = z
     .object({
-      bank_account: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          account_type: z
+            .enum(["checking", "futsu", "savings", "toza"])
+            .optional(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          documents: z
+            .object({
+              bank_account_ownership_verification: z
+                .object({ files: z.array(z.coerce.string()).optional() })
+                .optional(),
+            })
+            .optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
       default_for_currency: z.coerce.boolean().optional(),
       expand: z.array(z.coerce.string()).optional(),
       external_account: z.coerce.string().optional(),
@@ -8962,7 +9383,7 @@ export function bootstrap(
       exp_month: z.coerce.string().optional(),
       exp_year: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
     })
     .optional()
@@ -9060,7 +9481,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_person),
+          data: z.array(z.lazy(() => s_person)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -9138,7 +9559,14 @@ export function bootstrap(
           town: z.coerce.string().optional(),
         })
         .optional(),
-      dob: z.object({}).optional(),
+      dob: z.union([
+        z.object({
+          day: z.coerce.number(),
+          month: z.coerce.number(),
+          year: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ]),
       documents: z
         .object({
           company_authorization: z
@@ -9157,7 +9585,7 @@ export function bootstrap(
       first_name: z.coerce.string().optional(),
       first_name_kana: z.coerce.string().optional(),
       first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.object({}).optional(),
+      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
       gender: z.coerce.string().optional(),
       id_number: z.coerce.string().optional(),
       id_number_secondary: z.coerce.string().optional(),
@@ -9165,7 +9593,7 @@ export function bootstrap(
       last_name_kana: z.coerce.string().optional(),
       last_name_kanji: z.coerce.string().optional(),
       maiden_name: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nationality: z.coerce.string().optional(),
       person_token: z.coerce.string().optional(),
       phone: z.coerce.string().optional(),
@@ -9185,7 +9613,7 @@ export function bootstrap(
           director: z.coerce.boolean().optional(),
           executive: z.coerce.boolean().optional(),
           owner: z.coerce.boolean().optional(),
-          percent_ownership: z.object({}).optional(),
+          percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
           title: z.coerce.string().optional(),
         })
@@ -9361,7 +9789,14 @@ export function bootstrap(
           town: z.coerce.string().optional(),
         })
         .optional(),
-      dob: z.object({}).optional(),
+      dob: z.union([
+        z.object({
+          day: z.coerce.number(),
+          month: z.coerce.number(),
+          year: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ]),
       documents: z
         .object({
           company_authorization: z
@@ -9380,7 +9815,7 @@ export function bootstrap(
       first_name: z.coerce.string().optional(),
       first_name_kana: z.coerce.string().optional(),
       first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.object({}).optional(),
+      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
       gender: z.coerce.string().optional(),
       id_number: z.coerce.string().optional(),
       id_number_secondary: z.coerce.string().optional(),
@@ -9388,7 +9823,7 @@ export function bootstrap(
       last_name_kana: z.coerce.string().optional(),
       last_name_kanji: z.coerce.string().optional(),
       maiden_name: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nationality: z.coerce.string().optional(),
       person_token: z.coerce.string().optional(),
       phone: z.coerce.string().optional(),
@@ -9408,7 +9843,7 @@ export function bootstrap(
           director: z.coerce.boolean().optional(),
           executive: z.coerce.boolean().optional(),
           owner: z.coerce.boolean().optional(),
-          percent_ownership: z.object({}).optional(),
+          percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
           title: z.coerce.string().optional(),
         })
@@ -9487,7 +9922,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_person),
+          data: z.array(z.lazy(() => s_person)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -9565,7 +10000,14 @@ export function bootstrap(
           town: z.coerce.string().optional(),
         })
         .optional(),
-      dob: z.object({}).optional(),
+      dob: z.union([
+        z.object({
+          day: z.coerce.number(),
+          month: z.coerce.number(),
+          year: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ]),
       documents: z
         .object({
           company_authorization: z
@@ -9584,7 +10026,7 @@ export function bootstrap(
       first_name: z.coerce.string().optional(),
       first_name_kana: z.coerce.string().optional(),
       first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.object({}).optional(),
+      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
       gender: z.coerce.string().optional(),
       id_number: z.coerce.string().optional(),
       id_number_secondary: z.coerce.string().optional(),
@@ -9592,7 +10034,7 @@ export function bootstrap(
       last_name_kana: z.coerce.string().optional(),
       last_name_kanji: z.coerce.string().optional(),
       maiden_name: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nationality: z.coerce.string().optional(),
       person_token: z.coerce.string().optional(),
       phone: z.coerce.string().optional(),
@@ -9612,7 +10054,7 @@ export function bootstrap(
           director: z.coerce.boolean().optional(),
           executive: z.coerce.boolean().optional(),
           owner: z.coerce.boolean().optional(),
-          percent_ownership: z.object({}).optional(),
+          percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
           title: z.coerce.string().optional(),
         })
@@ -9788,7 +10230,14 @@ export function bootstrap(
           town: z.coerce.string().optional(),
         })
         .optional(),
-      dob: z.object({}).optional(),
+      dob: z.union([
+        z.object({
+          day: z.coerce.number(),
+          month: z.coerce.number(),
+          year: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ]),
       documents: z
         .object({
           company_authorization: z
@@ -9807,7 +10256,7 @@ export function bootstrap(
       first_name: z.coerce.string().optional(),
       first_name_kana: z.coerce.string().optional(),
       first_name_kanji: z.coerce.string().optional(),
-      full_name_aliases: z.object({}).optional(),
+      full_name_aliases: z.union([z.array(z.coerce.string()), z.enum([""])]),
       gender: z.coerce.string().optional(),
       id_number: z.coerce.string().optional(),
       id_number_secondary: z.coerce.string().optional(),
@@ -9815,7 +10264,7 @@ export function bootstrap(
       last_name_kana: z.coerce.string().optional(),
       last_name_kanji: z.coerce.string().optional(),
       maiden_name: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nationality: z.coerce.string().optional(),
       person_token: z.coerce.string().optional(),
       phone: z.coerce.string().optional(),
@@ -9835,7 +10284,7 @@ export function bootstrap(
           director: z.coerce.boolean().optional(),
           executive: z.coerce.boolean().optional(),
           owner: z.coerce.boolean().optional(),
-          percent_ownership: z.object({}).optional(),
+          percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
           representative: z.coerce.boolean().optional(),
           title: z.coerce.string().optional(),
         })
@@ -10092,7 +10541,15 @@ export function bootstrap(
 
   const getApplicationFeesQuerySchema = z.object({
     charge: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -10106,7 +10563,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_application_fee),
+          data: z.array(z.lazy(() => s_application_fee)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -10187,7 +10644,7 @@ export function bootstrap(
   const postApplicationFeesFeeRefundsIdBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -10317,7 +10774,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_fee_refund),
+            data: z.array(z.lazy(() => s_fee_refund)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -10570,7 +11027,15 @@ export function bootstrap(
   })
 
   const getBalanceHistoryQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     currency: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -10588,7 +11053,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_balance_transaction),
+          data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -10650,7 +11115,15 @@ export function bootstrap(
   )
 
   const getBalanceTransactionsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     currency: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -10668,7 +11141,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_balance_transaction),
+          data: z.array(z.lazy(() => s_balance_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -10805,12 +11278,24 @@ export function bootstrap(
       privacy_policy_url: z.coerce.string().optional(),
       terms_of_service_url: z.coerce.string().optional(),
     }),
-    default_return_url: z.object({}).optional(),
+    default_return_url: z.union([z.coerce.string(), z.enum([""])]),
     expand: z.array(z.coerce.string()).optional(),
     features: z.object({
       customer_update: z
         .object({
-          allowed_updates: z.object({}).optional(),
+          allowed_updates: z.union([
+            z.array(
+              z.enum([
+                "address",
+                "email",
+                "name",
+                "phone",
+                "shipping",
+                "tax_id",
+              ])
+            ),
+            z.enum([""]),
+          ]),
           enabled: z.coerce.boolean(),
         })
         .optional(),
@@ -10821,7 +11306,24 @@ export function bootstrap(
       subscription_cancel: z
         .object({
           cancellation_reason: z
-            .object({ enabled: z.coerce.boolean(), options: z.object({}) })
+            .object({
+              enabled: z.coerce.boolean(),
+              options: z.union([
+                z.array(
+                  z.enum([
+                    "customer_service",
+                    "low_quality",
+                    "missing_features",
+                    "other",
+                    "switched_service",
+                    "too_complex",
+                    "too_expensive",
+                    "unused",
+                  ])
+                ),
+                z.enum([""]),
+              ]),
+            })
             .optional(),
           enabled: z.coerce.boolean(),
           mode: z.enum(["at_period_end", "immediately"]).optional(),
@@ -10835,9 +11337,20 @@ export function bootstrap(
         .optional(),
       subscription_update: z
         .object({
-          default_allowed_updates: z.object({}),
+          default_allowed_updates: z.union([
+            z.array(z.enum(["price", "promotion_code", "quantity"])),
+            z.enum([""]),
+          ]),
           enabled: z.coerce.boolean(),
-          products: z.object({}),
+          products: z.union([
+            z.array(
+              z.object({
+                prices: z.array(z.coerce.string()),
+                product: z.coerce.string(),
+              })
+            ),
+            z.enum([""]),
+          ]),
           proration_behavior: z
             .enum(["always_invoice", "create_prorations", "none"])
             .optional(),
@@ -10938,17 +11451,29 @@ export function bootstrap(
       business_profile: z
         .object({
           headline: z.coerce.string().optional(),
-          privacy_policy_url: z.object({}).optional(),
-          terms_of_service_url: z.object({}).optional(),
+          privacy_policy_url: z.union([z.coerce.string(), z.enum([""])]),
+          terms_of_service_url: z.union([z.coerce.string(), z.enum([""])]),
         })
         .optional(),
-      default_return_url: z.object({}).optional(),
+      default_return_url: z.union([z.coerce.string(), z.enum([""])]),
       expand: z.array(z.coerce.string()).optional(),
       features: z
         .object({
           customer_update: z
             .object({
-              allowed_updates: z.object({}).optional(),
+              allowed_updates: z.union([
+                z.array(
+                  z.enum([
+                    "address",
+                    "email",
+                    "name",
+                    "phone",
+                    "shipping",
+                    "tax_id",
+                  ])
+                ),
+                z.enum([""]),
+              ]),
               enabled: z.coerce.boolean().optional(),
             })
             .optional(),
@@ -10961,7 +11486,21 @@ export function bootstrap(
               cancellation_reason: z
                 .object({
                   enabled: z.coerce.boolean(),
-                  options: z.object({}).optional(),
+                  options: z.union([
+                    z.array(
+                      z.enum([
+                        "customer_service",
+                        "low_quality",
+                        "missing_features",
+                        "other",
+                        "switched_service",
+                        "too_complex",
+                        "too_expensive",
+                        "unused",
+                      ])
+                    ),
+                    z.enum([""]),
+                  ]),
                 })
                 .optional(),
               enabled: z.coerce.boolean().optional(),
@@ -10976,9 +11515,20 @@ export function bootstrap(
             .optional(),
           subscription_update: z
             .object({
-              default_allowed_updates: z.object({}).optional(),
+              default_allowed_updates: z.union([
+                z.array(z.enum(["price", "promotion_code", "quantity"])),
+                z.enum([""]),
+              ]),
               enabled: z.coerce.boolean().optional(),
-              products: z.object({}).optional(),
+              products: z.union([
+                z.array(
+                  z.object({
+                    prices: z.array(z.coerce.string()),
+                    product: z.coerce.string(),
+                  })
+                ),
+                z.enum([""]),
+              ]),
               proration_behavior: z
                 .enum(["always_invoice", "create_prorations", "none"])
                 .optional(),
@@ -10987,7 +11537,7 @@ export function bootstrap(
         })
         .optional(),
       login_page: z.object({ enabled: z.coerce.boolean() }).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -11138,7 +11688,15 @@ export function bootstrap(
   )
 
   const getChargesQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -11155,7 +11713,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_charge),
+          data: z.array(z.lazy(() => s_charge)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -11185,13 +11743,36 @@ export function bootstrap(
       application_fee: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
       capture: z.coerce.boolean().optional(),
-      card: z.object({}).optional(),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          metadata: z.object({}).optional(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+          object: z.enum(["card"]).optional(),
+        }),
+        z.coerce.string(),
+      ]),
       currency: z.coerce.string().optional(),
       customer: z.coerce.string().optional(),
       description: z.coerce.string().optional(),
-      destination: z.object({}).optional(),
+      destination: z.union([
+        z.object({
+          account: z.coerce.string(),
+          amount: z.coerce.number().optional(),
+        }),
+        z.coerce.string(),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       on_behalf_of: z.coerce.string().optional(),
       radar_options: z
         .object({ session: z.coerce.string().optional() })
@@ -11259,7 +11840,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_charge),
+          data: z.array(z.lazy(() => s_charge)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -11322,7 +11903,7 @@ export function bootstrap(
       fraud_details: z
         .object({ user_report: z.enum(["", "fraudulent", "safe"]) })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       receipt_email: z.coerce.string().optional(),
       shipping: z
         .object({
@@ -11495,7 +12076,7 @@ export function bootstrap(
         })
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       submit: z.coerce.boolean().optional(),
     })
     .optional()
@@ -11577,7 +12158,7 @@ export function bootstrap(
       amount: z.coerce.number().optional(),
       expand: z.array(z.coerce.string()).optional(),
       instructions_email: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       payment_intent: z.coerce.string().optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
@@ -11637,7 +12218,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_refund),
+          data: z.array(z.lazy(() => s_refund)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -11685,7 +12266,7 @@ export function bootstrap(
       customer: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
       instructions_email: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.coerce.string().optional(),
       reason: z
@@ -11778,7 +12359,7 @@ export function bootstrap(
   const postChargesChargeRefundsRefundBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -11829,7 +12410,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_checkout_session),
+          data: z.array(z.lazy(() => s_checkout_session)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -11908,8 +12489,14 @@ export function bootstrap(
       .optional(),
     custom_text: z
       .object({
-        shipping_address: z.object({}).optional(),
-        submit: z.object({}).optional(),
+        shipping_address: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
+        submit: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
       })
       .optional(),
     customer: z.coerce.string().optional(),
@@ -11937,12 +12524,27 @@ export function bootstrap(
         enabled: z.coerce.boolean(),
         invoice_data: z
           .object({
-            account_tax_ids: z.object({}).optional(),
-            custom_fields: z.object({}).optional(),
+            account_tax_ids: z.union([
+              z.array(z.coerce.string()),
+              z.enum([""]),
+            ]),
+            custom_fields: z.union([
+              z.array(
+                z.object({ name: z.coerce.string(), value: z.coerce.string() })
+              ),
+              z.enum([""]),
+            ]),
             description: z.coerce.string().optional(),
             footer: z.coerce.string().optional(),
             metadata: z.object({}).optional(),
-            rendering_options: z.object({}).optional(),
+            rendering_options: z.union([
+              z.object({
+                amount_tax_display: z
+                  .enum(["", "exclude_tax", "include_inclusive_tax"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ]),
           })
           .optional(),
       })
@@ -12083,7 +12685,7 @@ export function bootstrap(
             currency: z.enum(["cad", "usd"]).optional(),
             mandate_options: z
               .object({
-                custom_mandate_url: z.object({}).optional(),
+                custom_mandate_url: z.union([z.coerce.string(), z.enum([""])]),
                 default_for: z
                   .array(z.enum(["invoice", "subscription"]))
                   .optional(),
@@ -12766,7 +13368,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_item),
+            data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -12888,7 +13490,15 @@ export function bootstrap(
   )
 
   const getCouponsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -12939,7 +13549,7 @@ export function bootstrap(
       expand: z.array(z.coerce.string()).optional(),
       id: z.coerce.string().optional(),
       max_redemptions: z.coerce.number().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       percent_off: z.coerce.number().optional(),
       redeem_by: z.coerce.number().optional(),
@@ -13031,7 +13641,7 @@ export function bootstrap(
     .object({
       currency_options: z.object({}).optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
     })
     .optional()
@@ -13071,7 +13681,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_credit_note),
+          data: z.array(z.lazy(() => s_credit_note)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -13107,7 +13717,7 @@ export function bootstrap(
           description: z.coerce.string().optional(),
           invoice_line_item: z.coerce.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
@@ -13163,7 +13773,7 @@ export function bootstrap(
           description: z.coerce.string().optional(),
           invoice_line_item: z.coerce.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
@@ -13233,7 +13843,7 @@ export function bootstrap(
           description: z.coerce.string().optional(),
           invoice_line_item: z.coerce.string().optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           type: z.enum(["custom_line_item", "invoice_line_item"]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
@@ -13266,7 +13876,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_credit_note_line_item),
+          data: z.array(z.lazy(() => s_credit_note_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -13322,7 +13932,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_credit_note_line_item),
+            data: z.array(z.lazy(() => s_credit_note_line_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -13459,7 +14069,15 @@ export function bootstrap(
   )
 
   const getCustomersQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     email: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -13475,7 +14093,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_customer),
+          data: z.array(z.lazy(() => s_customer)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -13501,7 +14119,17 @@ export function bootstrap(
 
   const postCustomersBodySchema = z
     .object({
-      address: z.object({}).optional(),
+      address: z.union([
+        z.object({
+          city: z.coerce.string().optional(),
+          country: z.coerce.string().optional(),
+          line1: z.coerce.string().optional(),
+          line2: z.coerce.string().optional(),
+          postal_code: z.coerce.string().optional(),
+          state: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       balance: z.coerce.number().optional(),
       cash_balance: z
         .object({
@@ -13521,22 +14149,50 @@ export function bootstrap(
       invoice_prefix: z.coerce.string().optional(),
       invoice_settings: z
         .object({
-          custom_fields: z.object({}).optional(),
+          custom_fields: z.union([
+            z.array(
+              z.object({ name: z.coerce.string(), value: z.coerce.string() })
+            ),
+            z.enum([""]),
+          ]),
           default_payment_method: z.coerce.string().optional(),
           footer: z.coerce.string().optional(),
-          rendering_options: z.object({}).optional(),
+          rendering_options: z.union([
+            z.object({
+              amount_tax_display: z
+                .enum(["", "exclude_tax", "include_inclusive_tax"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       payment_method: z.coerce.string().optional(),
       phone: z.coerce.string().optional(),
       preferred_locales: z.array(z.coerce.string()).optional(),
       promotion_code: z.coerce.string().optional(),
-      shipping: z.object({}).optional(),
+      shipping: z.union([
+        z.object({
+          address: z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          name: z.coerce.string(),
+          phone: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       source: z.coerce.string().optional(),
-      tax: z.object({ ip_address: z.object({}).optional() }).optional(),
+      tax: z
+        .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+        .optional(),
       tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
       tax_id_data: z
         .array(
@@ -13635,7 +14291,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_customer),
+          data: z.array(z.lazy(() => s_customer)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -13717,7 +14373,7 @@ export function bootstrap(
   const getCustomersCustomerBodySchema = z.object({}).optional()
 
   const getCustomersCustomerResponseValidator = responseValidationFactory(
-    [["200", z.object({})]],
+    [["200", z.union([z.lazy(() => s_customer), s_deleted_customer])]],
     s_error
   )
 
@@ -13751,10 +14407,48 @@ export function bootstrap(
 
   const postCustomersCustomerBodySchema = z
     .object({
-      address: z.object({}).optional(),
+      address: z.union([
+        z.object({
+          city: z.coerce.string().optional(),
+          country: z.coerce.string().optional(),
+          line1: z.coerce.string().optional(),
+          line2: z.coerce.string().optional(),
+          postal_code: z.coerce.string().optional(),
+          state: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       balance: z.coerce.number().optional(),
-      bank_account: z.object({}).optional(),
-      card: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          metadata: z.object({}).optional(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+          object: z.enum(["card"]).optional(),
+        }),
+        z.coerce.string(),
+      ]),
       cash_balance: z
         .object({
           settings: z
@@ -13777,21 +14471,49 @@ export function bootstrap(
       invoice_prefix: z.coerce.string().optional(),
       invoice_settings: z
         .object({
-          custom_fields: z.object({}).optional(),
+          custom_fields: z.union([
+            z.array(
+              z.object({ name: z.coerce.string(), value: z.coerce.string() })
+            ),
+            z.enum([""]),
+          ]),
           default_payment_method: z.coerce.string().optional(),
           footer: z.coerce.string().optional(),
-          rendering_options: z.object({}).optional(),
+          rendering_options: z.union([
+            z.object({
+              amount_tax_display: z
+                .enum(["", "exclude_tax", "include_inclusive_tax"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       phone: z.coerce.string().optional(),
       preferred_locales: z.array(z.coerce.string()).optional(),
       promotion_code: z.coerce.string().optional(),
-      shipping: z.object({}).optional(),
+      shipping: z.union([
+        z.object({
+          address: z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          name: z.coerce.string(),
+          phone: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       source: z.coerce.string().optional(),
-      tax: z.object({ ip_address: z.object({}).optional() }).optional(),
+      tax: z
+        .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+        .optional(),
       tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
     })
     .optional()
@@ -13846,7 +14568,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_customer_balance_transaction),
+            data: z.array(z.lazy(() => s_customer_balance_transaction)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -13896,7 +14618,7 @@ export function bootstrap(
     currency: z.coerce.string(),
     description: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
   })
 
   const postCustomersCustomerBalanceTransactionsResponseValidator =
@@ -13994,7 +14716,7 @@ export function bootstrap(
     .object({
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -14055,7 +14777,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_bank_account),
+            data: z.array(z.lazy(() => s_bank_account)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -14100,8 +14822,36 @@ export function bootstrap(
   const postCustomersCustomerBankAccountsBodySchema = z
     .object({
       alipay_account: z.coerce.string().optional(),
-      bank_account: z.object({}).optional(),
-      card: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          metadata: z.object({}).optional(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+          object: z.enum(["card"]).optional(),
+        }),
+        z.coerce.string(),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
       metadata: z.object({}).optional(),
       source: z.coerce.string().optional(),
@@ -14149,7 +14899,15 @@ export function bootstrap(
     .optional()
 
   const deleteCustomersCustomerBankAccountsIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+        ],
+      ],
+      s_error
+    )
 
   router.delete(
     "deleteCustomersCustomerBankAccountsId",
@@ -14242,7 +15000,7 @@ export function bootstrap(
       exp_month: z.coerce.string().optional(),
       exp_year: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       owner: z
         .object({
@@ -14265,7 +15023,19 @@ export function bootstrap(
     .optional()
 
   const postCustomersCustomerBankAccountsIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([
+            z.lazy(() => s_card),
+            z.lazy(() => s_bank_account),
+            s_source,
+          ]),
+        ],
+      ],
+      s_error
+    )
 
   router.post(
     "postCustomersCustomerBankAccountsId",
@@ -14359,7 +15129,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_card),
+          data: z.array(z.lazy(() => s_card)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -14406,8 +15176,36 @@ export function bootstrap(
   const postCustomersCustomerCardsBodySchema = z
     .object({
       alipay_account: z.coerce.string().optional(),
-      bank_account: z.object({}).optional(),
-      card: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          metadata: z.object({}).optional(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+          object: z.enum(["card"]).optional(),
+        }),
+        z.coerce.string(),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
       metadata: z.object({}).optional(),
       source: z.coerce.string().optional(),
@@ -14456,7 +15254,15 @@ export function bootstrap(
     .optional()
 
   const deleteCustomersCustomerCardsIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+        ],
+      ],
+      s_error
+    )
 
   router.delete(
     "deleteCustomersCustomerCardsId",
@@ -14545,7 +15351,7 @@ export function bootstrap(
       exp_month: z.coerce.string().optional(),
       exp_year: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       owner: z
         .object({
@@ -14568,7 +15374,19 @@ export function bootstrap(
     .optional()
 
   const postCustomersCustomerCardsIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([
+            z.lazy(() => s_card),
+            z.lazy(() => s_bank_account),
+            s_source,
+          ]),
+        ],
+      ],
+      s_error
+    )
 
   router.post(
     "postCustomersCustomerCardsId",
@@ -14702,7 +15520,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_customer_cash_balance_transaction),
+            data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -14980,7 +15798,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_payment_method),
+            data: z.array(z.lazy(() => s_payment_method)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -15092,7 +15910,13 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(z.object({})),
+            data: z.array(
+              z.union([
+                z.lazy(() => s_bank_account),
+                z.lazy(() => s_card),
+                s_source,
+              ])
+            ),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -15139,8 +15963,36 @@ export function bootstrap(
   const postCustomersCustomerSourcesBodySchema = z
     .object({
       alipay_account: z.coerce.string().optional(),
-      bank_account: z.object({}).optional(),
-      card: z.object({}).optional(),
+      bank_account: z.union([
+        z.object({
+          account_holder_name: z.coerce.string().optional(),
+          account_holder_type: z.enum(["company", "individual"]).optional(),
+          account_number: z.coerce.string(),
+          country: z.coerce.string(),
+          currency: z.coerce.string().optional(),
+          object: z.enum(["bank_account"]).optional(),
+          routing_number: z.coerce.string().optional(),
+        }),
+        z.coerce.string(),
+      ]),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          metadata: z.object({}).optional(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+          object: z.enum(["card"]).optional(),
+        }),
+        z.coerce.string(),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
       metadata: z.object({}).optional(),
       source: z.coerce.string().optional(),
@@ -15185,7 +16037,15 @@ export function bootstrap(
     .optional()
 
   const deleteCustomersCustomerSourcesIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+        ],
+      ],
+      s_error
+    )
 
   router.delete(
     "deleteCustomersCustomerSourcesId",
@@ -15272,7 +16132,7 @@ export function bootstrap(
       exp_month: z.coerce.string().optional(),
       exp_year: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
       owner: z
         .object({
@@ -15295,7 +16155,19 @@ export function bootstrap(
     .optional()
 
   const postCustomersCustomerSourcesIdResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([
+            z.lazy(() => s_card),
+            z.lazy(() => s_bank_account),
+            s_source,
+          ]),
+        ],
+      ],
+      s_error
+    )
 
   router.post(
     "postCustomersCustomerSourcesId",
@@ -15384,7 +16256,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_subscription),
+            data: z.array(z.lazy(() => s_subscription)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -15447,7 +16319,7 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
@@ -15455,7 +16327,13 @@ export function bootstrap(
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       backdate_start_date: z.coerce.number().optional(),
       billing_cycle_anchor: z.coerce.number().optional(),
-      billing_thresholds: z.object({}).optional(),
+      billing_thresholds: z.union([
+        z.object({
+          amount_gte: z.coerce.number().optional(),
+          reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+        }),
+        z.enum([""]),
+      ]),
       cancel_at: z.coerce.number().optional(),
       cancel_at_period_end: z.coerce.boolean().optional(),
       collection_method: z
@@ -15466,12 +16344,15 @@ export function bootstrap(
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.coerce.string().optional(),
       default_source: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       expand: z.array(z.coerce.string()).optional(),
       items: z
         .array(
           z.object({
-            billing_thresholds: z.object({}).optional(),
+            billing_thresholds: z.union([
+              z.object({ usage_gte: z.coerce.number() }),
+              z.enum([""]),
+            ]),
             metadata: z.object({}).optional(),
             price: z.coerce.string().optional(),
             price_data: z
@@ -15490,11 +16371,11 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
       payment_behavior: z
         .enum([
@@ -15508,21 +16389,138 @@ export function bootstrap(
         .object({
           payment_method_options: z
             .object({
-              acss_debit: z.object({}).optional(),
-              bancontact: z.object({}).optional(),
-              card: z.object({}).optional(),
-              customer_balance: z.object({}).optional(),
-              konbini: z.object({}).optional(),
-              us_bank_account: z.object({}).optional(),
+              acss_debit: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      transaction_type: z
+                        .enum(["business", "personal"])
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              bancontact: z.union([
+                z.object({
+                  preferred_language: z
+                    .enum(["de", "en", "fr", "nl"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              card: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      amount: z.coerce.number().optional(),
+                      amount_type: z.enum(["fixed", "maximum"]).optional(),
+                      description: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  network: z
+                    .enum([
+                      "amex",
+                      "cartes_bancaires",
+                      "diners",
+                      "discover",
+                      "interac",
+                      "jcb",
+                      "mastercard",
+                      "unionpay",
+                      "unknown",
+                      "visa",
+                    ])
+                    .optional(),
+                  request_three_d_secure: z
+                    .enum(["any", "automatic"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              customer_balance: z.union([
+                z.object({
+                  bank_transfer: z
+                    .object({
+                      eu_bank_transfer: z
+                        .object({ country: z.coerce.string() })
+                        .optional(),
+                      type: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  funding_type: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              konbini: z.union([z.object({}), z.enum([""])]),
+              us_bank_account: z.union([
+                z.object({
+                  financial_connections: z
+                    .object({
+                      permissions: z
+                        .array(
+                          z.enum([
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                          ])
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
-          payment_method_types: z.object({}).optional(),
+          payment_method_types: z.union([
+            z.array(
+              z.enum([
+                "ach_credit_transfer",
+                "ach_debit",
+                "acss_debit",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "boleto",
+                "card",
+                "cashapp",
+                "customer_balance",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "konbini",
+                "link",
+                "paynow",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+              ])
+            ),
+            z.enum([""]),
+          ]),
           save_default_payment_method: z
             .enum(["off", "on_subscription"])
             .optional(),
         })
         .optional(),
-      pending_invoice_item_interval: z.object({}).optional(),
+      pending_invoice_item_interval: z.union([
+        z.object({
+          interval: z.enum(["day", "month", "week", "year"]),
+          interval_count: z.coerce.number().optional(),
+        }),
+        z.enum([""]),
+      ]),
       promotion_code: z.coerce.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
@@ -15533,7 +16531,7 @@ export function bootstrap(
           destination: z.coerce.string(),
         })
         .optional(),
-      trial_end: z.object({}).optional(),
+      trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
       trial_from_plan: z.coerce.boolean().optional(),
       trial_period_days: z.coerce.number().optional(),
       trial_settings: z
@@ -15705,15 +16703,21 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
       application_fee_percent: z.coerce.number().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-      billing_thresholds: z.object({}).optional(),
-      cancel_at: z.object({}).optional(),
+      billing_thresholds: z.union([
+        z.object({
+          amount_gte: z.coerce.number().optional(),
+          reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+        }),
+        z.enum([""]),
+      ]),
+      cancel_at: z.union([z.coerce.number(), z.enum([""])]),
       cancel_at_period_end: z.coerce.boolean().optional(),
       cancellation_details: z
         .object({
@@ -15740,16 +16744,19 @@ export function bootstrap(
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.coerce.string().optional(),
       default_source: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       expand: z.array(z.coerce.string()).optional(),
       items: z
         .array(
           z.object({
-            billing_thresholds: z.object({}).optional(),
+            billing_thresholds: z.union([
+              z.object({ usage_gte: z.coerce.number() }),
+              z.enum([""]),
+            ]),
             clear_usage: z.coerce.boolean().optional(),
             deleted: z.coerce.boolean().optional(),
             id: z.coerce.string().optional(),
-            metadata: z.object({}).optional(),
+            metadata: z.union([z.object({}), z.enum([""])]),
             price: z.coerce.string().optional(),
             price_data: z
               .object({
@@ -15767,13 +16774,19 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
-      pause_collection: z.object({}).optional(),
+      pause_collection: z.union([
+        z.object({
+          behavior: z.enum(["keep_as_draft", "mark_uncollectible", "void"]),
+          resumes_at: z.coerce.number().optional(),
+        }),
+        z.enum([""]),
+      ]),
       payment_behavior: z
         .enum([
           "allow_incomplete",
@@ -15786,28 +16799,151 @@ export function bootstrap(
         .object({
           payment_method_options: z
             .object({
-              acss_debit: z.object({}).optional(),
-              bancontact: z.object({}).optional(),
-              card: z.object({}).optional(),
-              customer_balance: z.object({}).optional(),
-              konbini: z.object({}).optional(),
-              us_bank_account: z.object({}).optional(),
+              acss_debit: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      transaction_type: z
+                        .enum(["business", "personal"])
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              bancontact: z.union([
+                z.object({
+                  preferred_language: z
+                    .enum(["de", "en", "fr", "nl"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              card: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      amount: z.coerce.number().optional(),
+                      amount_type: z.enum(["fixed", "maximum"]).optional(),
+                      description: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  network: z
+                    .enum([
+                      "amex",
+                      "cartes_bancaires",
+                      "diners",
+                      "discover",
+                      "interac",
+                      "jcb",
+                      "mastercard",
+                      "unionpay",
+                      "unknown",
+                      "visa",
+                    ])
+                    .optional(),
+                  request_three_d_secure: z
+                    .enum(["any", "automatic"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              customer_balance: z.union([
+                z.object({
+                  bank_transfer: z
+                    .object({
+                      eu_bank_transfer: z
+                        .object({ country: z.coerce.string() })
+                        .optional(),
+                      type: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  funding_type: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              konbini: z.union([z.object({}), z.enum([""])]),
+              us_bank_account: z.union([
+                z.object({
+                  financial_connections: z
+                    .object({
+                      permissions: z
+                        .array(
+                          z.enum([
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                          ])
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
-          payment_method_types: z.object({}).optional(),
+          payment_method_types: z.union([
+            z.array(
+              z.enum([
+                "ach_credit_transfer",
+                "ach_debit",
+                "acss_debit",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "boleto",
+                "card",
+                "cashapp",
+                "customer_balance",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "konbini",
+                "link",
+                "paynow",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+              ])
+            ),
+            z.enum([""]),
+          ]),
           save_default_payment_method: z
             .enum(["off", "on_subscription"])
             .optional(),
         })
         .optional(),
-      pending_invoice_item_interval: z.object({}).optional(),
+      pending_invoice_item_interval: z.union([
+        z.object({
+          interval: z.enum(["day", "month", "week", "year"]),
+          interval_count: z.coerce.number().optional(),
+        }),
+        z.enum([""]),
+      ]),
       promotion_code: z.coerce.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
       proration_date: z.coerce.number().optional(),
-      transfer_data: z.object({}).optional(),
-      trial_end: z.object({}).optional(),
+      transfer_data: z.union([
+        z.object({
+          amount_percent: z.coerce.number().optional(),
+          destination: z.coerce.string(),
+        }),
+        z.enum([""]),
+      ]),
+      trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
       trial_from_plan: z.coerce.boolean().optional(),
       trial_settings: z
         .object({
@@ -15970,7 +17106,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_tax_id),
+          data: z.array(z.lazy(() => s_tax_id)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -16181,7 +17317,15 @@ export function bootstrap(
 
   const getDisputesQuerySchema = z.object({
     charge: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -16196,7 +17340,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_dispute),
+          data: z.array(z.lazy(() => s_dispute)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -16292,7 +17436,7 @@ export function bootstrap(
         })
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       submit: z.coerce.boolean().optional(),
     })
     .optional()
@@ -16433,7 +17577,15 @@ export function bootstrap(
   )
 
   const getEventsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     delivery_success: z.coerce.boolean().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -16582,7 +17734,15 @@ export function bootstrap(
   )
 
   const getFileLinksQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     expired: z.coerce.boolean().optional(),
@@ -16598,7 +17758,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_file_link),
+          data: z.array(z.lazy(() => s_file_link)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -16626,7 +17786,7 @@ export function bootstrap(
     expand: z.array(z.coerce.string()).optional(),
     expires_at: z.coerce.number().optional(),
     file: z.coerce.string(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
   })
 
   const postFileLinksResponseValidator = responseValidationFactory(
@@ -16680,8 +17840,8 @@ export function bootstrap(
   const postFileLinksLinkBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      expires_at: z.object({}).optional(),
-      metadata: z.object({}).optional(),
+      expires_at: z.union([z.enum(["now"]), z.coerce.number(), z.enum([""])]),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -16712,7 +17872,15 @@ export function bootstrap(
   )
 
   const getFilesQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -16745,7 +17913,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_file),
+          data: z.array(z.lazy(() => s_file)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -16776,7 +17944,7 @@ export function bootstrap(
       .object({
         create: z.coerce.boolean(),
         expires_at: z.coerce.number().optional(),
-        metadata: z.object({}).optional(),
+        metadata: z.union([z.object({}), z.enum([""])]),
       })
       .optional(),
     purpose: z.enum([
@@ -16861,7 +18029,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_financial_connections_account),
+            data: z.array(z.lazy(() => s_financial_connections_account)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -17196,7 +18364,15 @@ export function bootstrap(
   )
 
   const getIdentityVerificationReportsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -17296,7 +18472,15 @@ export function bootstrap(
   )
 
   const getIdentityVerificationSessionsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -17352,7 +18536,21 @@ export function bootstrap(
   const postIdentityVerificationSessionsBodySchema = z.object({
     expand: z.array(z.coerce.string()).optional(),
     metadata: z.object({}).optional(),
-    options: z.object({ document: z.object({}).optional() }).optional(),
+    options: z
+      .object({
+        document: z.union([
+          z.object({
+            allowed_types: z
+              .array(z.enum(["driving_license", "id_card", "passport"]))
+              .optional(),
+            require_id_number: z.coerce.boolean().optional(),
+            require_live_capture: z.coerce.boolean().optional(),
+            require_matching_selfie: z.coerce.boolean().optional(),
+          }),
+          z.enum([""]),
+        ]),
+      })
+      .optional(),
     return_url: z.coerce.string().optional(),
     type: z.enum(["document", "id_number"]),
   })
@@ -17442,7 +18640,21 @@ export function bootstrap(
     .object({
       expand: z.array(z.coerce.string()).optional(),
       metadata: z.object({}).optional(),
-      options: z.object({ document: z.object({}).optional() }).optional(),
+      options: z
+        .object({
+          document: z.union([
+            z.object({
+              allowed_types: z
+                .array(z.enum(["driving_license", "id_card", "passport"]))
+                .optional(),
+              require_id_number: z.coerce.boolean().optional(),
+              require_live_capture: z.coerce.boolean().optional(),
+              require_matching_selfie: z.coerce.boolean().optional(),
+            }),
+            z.enum([""]),
+          ]),
+        })
+        .optional(),
       type: z.enum(["document", "id_number"]).optional(),
     })
     .optional()
@@ -17572,7 +18784,15 @@ export function bootstrap(
   )
 
   const getInvoiceitemsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -17589,7 +18809,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_invoiceitem),
+          data: z.array(z.lazy(() => s_invoiceitem)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -17619,10 +18839,18 @@ export function bootstrap(
     customer: z.coerce.string(),
     description: z.coerce.string().optional(),
     discountable: z.coerce.boolean().optional(),
-    discounts: z.object({}).optional(),
+    discounts: z.union([
+      z.array(
+        z.object({
+          coupon: z.coerce.string().optional(),
+          discount: z.coerce.string().optional(),
+        })
+      ),
+      z.enum([""]),
+    ]),
     expand: z.array(z.coerce.string()).optional(),
     invoice: z.coerce.string().optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     period: z
       .object({ end: z.coerce.number(), start: z.coerce.number() })
       .optional(),
@@ -17641,7 +18869,7 @@ export function bootstrap(
     quantity: z.coerce.number().optional(),
     subscription: z.coerce.string().optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
-    tax_code: z.object({}).optional(),
+    tax_code: z.union([z.coerce.string(), z.enum([""])]),
     tax_rates: z.array(z.coerce.string()).optional(),
     unit_amount: z.coerce.number().optional(),
     unit_amount_decimal: z.coerce.string().optional(),
@@ -17754,9 +18982,17 @@ export function bootstrap(
       amount: z.coerce.number().optional(),
       description: z.coerce.string().optional(),
       discountable: z.coerce.boolean().optional(),
-      discounts: z.object({}).optional(),
+      discounts: z.union([
+        z.array(
+          z.object({
+            coupon: z.coerce.string().optional(),
+            discount: z.coerce.string().optional(),
+          })
+        ),
+        z.enum([""]),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       period: z
         .object({ end: z.coerce.number(), start: z.coerce.number() })
         .optional(),
@@ -17776,8 +19012,8 @@ export function bootstrap(
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
-      tax_code: z.object({}).optional(),
-      tax_rates: z.object({}).optional(),
+      tax_code: z.union([z.coerce.string(), z.enum([""])]),
+      tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       unit_amount: z.coerce.number().optional(),
       unit_amount_decimal: z.coerce.string().optional(),
     })
@@ -17817,9 +19053,25 @@ export function bootstrap(
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
-    due_date: z.object({}).optional(),
+    due_date: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -17837,7 +19089,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_invoice),
+          data: z.array(z.lazy(() => s_invoice)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -17863,7 +19115,7 @@ export function bootstrap(
 
   const postInvoicesBodySchema = z
     .object({
-      account_tax_ids: z.object({}).optional(),
+      account_tax_ids: z.union([z.array(z.coerce.string()), z.enum([""])]),
       application_fee_amount: z.coerce.number().optional(),
       auto_advance: z.coerce.boolean().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
@@ -17871,42 +19123,165 @@ export function bootstrap(
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
       currency: z.coerce.string().optional(),
-      custom_fields: z.object({}).optional(),
+      custom_fields: z.union([
+        z.array(
+          z.object({ name: z.coerce.string(), value: z.coerce.string() })
+        ),
+        z.enum([""]),
+      ]),
       customer: z.coerce.string().optional(),
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.coerce.string().optional(),
       default_source: z.coerce.string().optional(),
       default_tax_rates: z.array(z.coerce.string()).optional(),
       description: z.coerce.string().optional(),
-      discounts: z.object({}).optional(),
+      discounts: z.union([
+        z.array(
+          z.object({
+            coupon: z.coerce.string().optional(),
+            discount: z.coerce.string().optional(),
+          })
+        ),
+        z.enum([""]),
+      ]),
       due_date: z.coerce.number().optional(),
       expand: z.array(z.coerce.string()).optional(),
       footer: z.coerce.string().optional(),
       from_invoice: z
         .object({ action: z.enum(["revision"]), invoice: z.coerce.string() })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       on_behalf_of: z.coerce.string().optional(),
       payment_settings: z
         .object({
           default_mandate: z.coerce.string().optional(),
           payment_method_options: z
             .object({
-              acss_debit: z.object({}).optional(),
-              bancontact: z.object({}).optional(),
-              card: z.object({}).optional(),
-              customer_balance: z.object({}).optional(),
-              konbini: z.object({}).optional(),
-              us_bank_account: z.object({}).optional(),
+              acss_debit: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      transaction_type: z
+                        .enum(["business", "personal"])
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              bancontact: z.union([
+                z.object({
+                  preferred_language: z
+                    .enum(["de", "en", "fr", "nl"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              card: z.union([
+                z.object({
+                  installments: z
+                    .object({
+                      enabled: z.coerce.boolean().optional(),
+                      plan: z.union([
+                        z.object({
+                          count: z.coerce.number(),
+                          interval: z.enum(["month"]),
+                          type: z.enum(["fixed_count"]),
+                        }),
+                        z.enum([""]),
+                      ]),
+                    })
+                    .optional(),
+                  request_three_d_secure: z
+                    .enum(["any", "automatic"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              customer_balance: z.union([
+                z.object({
+                  bank_transfer: z
+                    .object({
+                      eu_bank_transfer: z
+                        .object({ country: z.coerce.string() })
+                        .optional(),
+                      type: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  funding_type: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              konbini: z.union([z.object({}), z.enum([""])]),
+              us_bank_account: z.union([
+                z.object({
+                  financial_connections: z
+                    .object({
+                      permissions: z
+                        .array(
+                          z.enum([
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                          ])
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
-          payment_method_types: z.object({}).optional(),
+          payment_method_types: z.union([
+            z.array(
+              z.enum([
+                "ach_credit_transfer",
+                "ach_debit",
+                "acss_debit",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "boleto",
+                "card",
+                "cashapp",
+                "customer_balance",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "konbini",
+                "link",
+                "paynow",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+              ])
+            ),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       pending_invoice_items_behavior: z
         .enum(["exclude", "include", "include_and_require"])
         .optional(),
-      rendering_options: z.object({}).optional(),
+      rendering_options: z.union([
+        z.object({
+          amount_tax_display: z
+            .enum(["", "exclude_tax", "include_inclusive_tax"])
+            .optional(),
+        }),
+        z.enum([""]),
+      ]),
       shipping_cost: z
         .object({
           shipping_rate: z.coerce.string().optional(),
@@ -18016,7 +19391,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_invoice),
+          data: z.array(z.lazy(() => s_invoice)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -18049,9 +19424,35 @@ export function bootstrap(
     customer: z.coerce.string().optional(),
     customer_details: z
       .object({
-        address: z.object({}).optional(),
-        shipping: z.object({}).optional(),
-        tax: z.object({ ip_address: z.object({}).optional() }).optional(),
+        address: z.union([
+          z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          z.enum([""]),
+        ]),
+        shipping: z.union([
+          z.object({
+            address: z.object({
+              city: z.coerce.string().optional(),
+              country: z.coerce.string().optional(),
+              line1: z.coerce.string().optional(),
+              line2: z.coerce.string().optional(),
+              postal_code: z.coerce.string().optional(),
+              state: z.coerce.string().optional(),
+            }),
+            name: z.coerce.string(),
+            phone: z.coerce.string().optional(),
+          }),
+          z.enum([""]),
+        ]),
+        tax: z
+          .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+          .optional(),
         tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
         tax_ids: z
           .array(
@@ -18115,7 +19516,15 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    discounts: z.object({}).optional(),
+    discounts: z.union([
+      z.array(
+        z.object({
+          coupon: z.coerce.string().optional(),
+          discount: z.coerce.string().optional(),
+        })
+      ),
+      z.enum([""]),
+    ]),
     expand: z.array(z.coerce.string()).optional(),
     invoice_items: z
       .array(
@@ -18124,9 +19533,17 @@ export function bootstrap(
           currency: z.coerce.string().optional(),
           description: z.coerce.string().optional(),
           discountable: z.coerce.boolean().optional(),
-          discounts: z.object({}).optional(),
+          discounts: z.union([
+            z.array(
+              z.object({
+                coupon: z.coerce.string().optional(),
+                discount: z.coerce.string().optional(),
+              })
+            ),
+            z.enum([""]),
+          ]),
           invoiceitem: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           period: z
             .object({ end: z.coerce.number(), start: z.coerce.number() })
             .optional(),
@@ -18146,8 +19563,8 @@ export function bootstrap(
           tax_behavior: z
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
-          tax_code: z.object({}).optional(),
-          tax_rates: z.object({}).optional(),
+          tax_code: z.union([z.coerce.string(), z.enum([""])]),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
         })
@@ -18155,19 +19572,28 @@ export function bootstrap(
       .optional(),
     schedule: z.coerce.string().optional(),
     subscription: z.coerce.string().optional(),
-    subscription_billing_cycle_anchor: z.object({}).optional(),
-    subscription_cancel_at: z.object({}).optional(),
+    subscription_billing_cycle_anchor: z.union([
+      z.enum(["now", "unchanged"]),
+      z.coerce.number(),
+    ]),
+    subscription_cancel_at: z.union([z.coerce.number(), z.enum([""])]),
     subscription_cancel_at_period_end: z.coerce.boolean().optional(),
     subscription_cancel_now: z.coerce.boolean().optional(),
-    subscription_default_tax_rates: z.object({}).optional(),
+    subscription_default_tax_rates: z.union([
+      z.array(z.coerce.string()),
+      z.enum([""]),
+    ]),
     subscription_items: z
       .array(
         z.object({
-          billing_thresholds: z.object({}).optional(),
+          billing_thresholds: z.union([
+            z.object({ usage_gte: z.coerce.number() }),
+            z.enum([""]),
+          ]),
           clear_usage: z.coerce.boolean().optional(),
           deleted: z.coerce.boolean().optional(),
           id: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           price: z.coerce.string().optional(),
           price_data: z
             .object({
@@ -18185,7 +19611,7 @@ export function bootstrap(
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
         })
       )
       .optional(),
@@ -18195,7 +19621,7 @@ export function bootstrap(
     subscription_proration_date: z.coerce.number().optional(),
     subscription_resume_at: z.enum(["now"]).optional(),
     subscription_start_date: z.coerce.number().optional(),
-    subscription_trial_end: z.object({}).optional(),
+    subscription_trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
     subscription_trial_from_plan: z.coerce.boolean().optional(),
   })
 
@@ -18237,9 +19663,35 @@ export function bootstrap(
     customer: z.coerce.string().optional(),
     customer_details: z
       .object({
-        address: z.object({}).optional(),
-        shipping: z.object({}).optional(),
-        tax: z.object({ ip_address: z.object({}).optional() }).optional(),
+        address: z.union([
+          z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          z.enum([""]),
+        ]),
+        shipping: z.union([
+          z.object({
+            address: z.object({
+              city: z.coerce.string().optional(),
+              country: z.coerce.string().optional(),
+              line1: z.coerce.string().optional(),
+              line2: z.coerce.string().optional(),
+              postal_code: z.coerce.string().optional(),
+              state: z.coerce.string().optional(),
+            }),
+            name: z.coerce.string(),
+            phone: z.coerce.string().optional(),
+          }),
+          z.enum([""]),
+        ]),
+        tax: z
+          .object({ ip_address: z.union([z.coerce.string(), z.enum([""])]) })
+          .optional(),
         tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
         tax_ids: z
           .array(
@@ -18303,7 +19755,15 @@ export function bootstrap(
           .optional(),
       })
       .optional(),
-    discounts: z.object({}).optional(),
+    discounts: z.union([
+      z.array(
+        z.object({
+          coupon: z.coerce.string().optional(),
+          discount: z.coerce.string().optional(),
+        })
+      ),
+      z.enum([""]),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     invoice_items: z
@@ -18313,9 +19773,17 @@ export function bootstrap(
           currency: z.coerce.string().optional(),
           description: z.coerce.string().optional(),
           discountable: z.coerce.boolean().optional(),
-          discounts: z.object({}).optional(),
+          discounts: z.union([
+            z.array(
+              z.object({
+                coupon: z.coerce.string().optional(),
+                discount: z.coerce.string().optional(),
+              })
+            ),
+            z.enum([""]),
+          ]),
           invoiceitem: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           period: z
             .object({ end: z.coerce.number(), start: z.coerce.number() })
             .optional(),
@@ -18335,8 +19803,8 @@ export function bootstrap(
           tax_behavior: z
             .enum(["exclusive", "inclusive", "unspecified"])
             .optional(),
-          tax_code: z.object({}).optional(),
-          tax_rates: z.object({}).optional(),
+          tax_code: z.union([z.coerce.string(), z.enum([""])]),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
         })
@@ -18346,19 +19814,28 @@ export function bootstrap(
     schedule: z.coerce.string().optional(),
     starting_after: z.coerce.string().optional(),
     subscription: z.coerce.string().optional(),
-    subscription_billing_cycle_anchor: z.object({}).optional(),
-    subscription_cancel_at: z.object({}).optional(),
+    subscription_billing_cycle_anchor: z.union([
+      z.enum(["now", "unchanged"]),
+      z.coerce.number(),
+    ]),
+    subscription_cancel_at: z.union([z.coerce.number(), z.enum([""])]),
     subscription_cancel_at_period_end: z.coerce.boolean().optional(),
     subscription_cancel_now: z.coerce.boolean().optional(),
-    subscription_default_tax_rates: z.object({}).optional(),
+    subscription_default_tax_rates: z.union([
+      z.array(z.coerce.string()),
+      z.enum([""]),
+    ]),
     subscription_items: z
       .array(
         z.object({
-          billing_thresholds: z.object({}).optional(),
+          billing_thresholds: z.union([
+            z.object({ usage_gte: z.coerce.number() }),
+            z.enum([""]),
+          ]),
           clear_usage: z.coerce.boolean().optional(),
           deleted: z.coerce.boolean().optional(),
           id: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           price: z.coerce.string().optional(),
           price_data: z
             .object({
@@ -18376,7 +19853,7 @@ export function bootstrap(
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
         })
       )
       .optional(),
@@ -18386,7 +19863,7 @@ export function bootstrap(
     subscription_proration_date: z.coerce.number().optional(),
     subscription_resume_at: z.enum(["now"]).optional(),
     subscription_start_date: z.coerce.number().optional(),
-    subscription_trial_end: z.object({}).optional(),
+    subscription_trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
     subscription_trial_from_plan: z.coerce.boolean().optional(),
   })
 
@@ -18397,7 +19874,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_line_item),
+          data: z.array(z.lazy(() => s_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -18509,46 +19986,240 @@ export function bootstrap(
 
   const postInvoicesInvoiceBodySchema = z
     .object({
-      account_tax_ids: z.object({}).optional(),
+      account_tax_ids: z.union([z.array(z.coerce.string()), z.enum([""])]),
       application_fee_amount: z.coerce.number().optional(),
       auto_advance: z.coerce.boolean().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      custom_fields: z.object({}).optional(),
+      custom_fields: z.union([
+        z.array(
+          z.object({ name: z.coerce.string(), value: z.coerce.string() })
+        ),
+        z.enum([""]),
+      ]),
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.coerce.string().optional(),
       default_source: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       description: z.coerce.string().optional(),
-      discounts: z.object({}).optional(),
+      discounts: z.union([
+        z.array(
+          z.object({
+            coupon: z.coerce.string().optional(),
+            discount: z.coerce.string().optional(),
+          })
+        ),
+        z.enum([""]),
+      ]),
       due_date: z.coerce.number().optional(),
       expand: z.array(z.coerce.string()).optional(),
       footer: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
-      on_behalf_of: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
+      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
       payment_settings: z
         .object({
           default_mandate: z.coerce.string().optional(),
           payment_method_options: z
             .object({
-              acss_debit: z.object({}).optional(),
-              bancontact: z.object({}).optional(),
-              card: z.object({}).optional(),
-              customer_balance: z.object({}).optional(),
-              konbini: z.object({}).optional(),
-              us_bank_account: z.object({}).optional(),
+              acss_debit: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      transaction_type: z
+                        .enum(["business", "personal"])
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              bancontact: z.union([
+                z.object({
+                  preferred_language: z
+                    .enum(["de", "en", "fr", "nl"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              card: z.union([
+                z.object({
+                  installments: z
+                    .object({
+                      enabled: z.coerce.boolean().optional(),
+                      plan: z.union([
+                        z.object({
+                          count: z.coerce.number(),
+                          interval: z.enum(["month"]),
+                          type: z.enum(["fixed_count"]),
+                        }),
+                        z.enum([""]),
+                      ]),
+                    })
+                    .optional(),
+                  request_three_d_secure: z
+                    .enum(["any", "automatic"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              customer_balance: z.union([
+                z.object({
+                  bank_transfer: z
+                    .object({
+                      eu_bank_transfer: z
+                        .object({ country: z.coerce.string() })
+                        .optional(),
+                      type: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  funding_type: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              konbini: z.union([z.object({}), z.enum([""])]),
+              us_bank_account: z.union([
+                z.object({
+                  financial_connections: z
+                    .object({
+                      permissions: z
+                        .array(
+                          z.enum([
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                          ])
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
-          payment_method_types: z.object({}).optional(),
+          payment_method_types: z.union([
+            z.array(
+              z.enum([
+                "ach_credit_transfer",
+                "ach_debit",
+                "acss_debit",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "boleto",
+                "card",
+                "cashapp",
+                "customer_balance",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "konbini",
+                "link",
+                "paynow",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+              ])
+            ),
+            z.enum([""]),
+          ]),
         })
         .optional(),
-      rendering_options: z.object({}).optional(),
-      shipping_cost: z.object({}).optional(),
-      shipping_details: z.object({}).optional(),
+      rendering_options: z.union([
+        z.object({
+          amount_tax_display: z
+            .enum(["", "exclude_tax", "include_inclusive_tax"])
+            .optional(),
+        }),
+        z.enum([""]),
+      ]),
+      shipping_cost: z.union([
+        z.object({
+          shipping_rate: z.coerce.string().optional(),
+          shipping_rate_data: z
+            .object({
+              delivery_estimate: z
+                .object({
+                  maximum: z
+                    .object({
+                      unit: z.enum([
+                        "business_day",
+                        "day",
+                        "hour",
+                        "month",
+                        "week",
+                      ]),
+                      value: z.coerce.number(),
+                    })
+                    .optional(),
+                  minimum: z
+                    .object({
+                      unit: z.enum([
+                        "business_day",
+                        "day",
+                        "hour",
+                        "month",
+                        "week",
+                      ]),
+                      value: z.coerce.number(),
+                    })
+                    .optional(),
+                })
+                .optional(),
+              display_name: z.coerce.string(),
+              fixed_amount: z
+                .object({
+                  amount: z.coerce.number(),
+                  currency: z.coerce.string(),
+                  currency_options: z.object({}).optional(),
+                })
+                .optional(),
+              metadata: z.object({}).optional(),
+              tax_behavior: z
+                .enum(["exclusive", "inclusive", "unspecified"])
+                .optional(),
+              tax_code: z.coerce.string().optional(),
+              type: z.enum(["fixed_amount"]).optional(),
+            })
+            .optional(),
+        }),
+        z.enum([""]),
+      ]),
+      shipping_details: z.union([
+        z.object({
+          address: z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          name: z.coerce.string(),
+          phone: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       statement_descriptor: z.coerce.string().optional(),
-      transfer_data: z.object({}).optional(),
+      transfer_data: z.union([
+        z.object({
+          amount: z.coerce.number().optional(),
+          destination: z.coerce.string(),
+        }),
+        z.enum([""]),
+      ]),
     })
     .optional()
 
@@ -18640,7 +20311,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_line_item),
+          data: z.array(z.lazy(() => s_line_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -18847,7 +20518,15 @@ export function bootstrap(
   const getIssuingAuthorizationsQuerySchema = z.object({
     card: z.coerce.string().optional(),
     cardholder: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -18862,7 +20541,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_issuing_authorization),
+          data: z.array(z.lazy(() => s_issuing_authorization)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -18952,7 +20631,7 @@ export function bootstrap(
   const postIssuingAuthorizationsAuthorizationBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -18995,7 +20674,7 @@ export function bootstrap(
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -19040,7 +20719,7 @@ export function bootstrap(
   const postIssuingAuthorizationsAuthorizationDeclineBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -19079,7 +20758,15 @@ export function bootstrap(
   )
 
   const getIssuingCardholdersQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     email: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -19097,7 +20784,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_issuing_cardholder),
+          data: z.array(z.lazy(() => s_issuing_cardholder)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -21193,7 +22880,15 @@ export function bootstrap(
 
   const getIssuingCardsQuerySchema = z.object({
     cardholder: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     exp_month: z.coerce.number().optional(),
     exp_year: z.coerce.number().optional(),
@@ -21212,7 +22907,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_issuing_card),
+          data: z.array(z.lazy(() => s_issuing_card)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -22254,7 +23949,7 @@ export function bootstrap(
     .object({
       cancellation_reason: z.enum(["lost", "stolen"]).optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       pin: z
         .object({ encrypted_number: z.coerce.string().optional() })
         .optional(),
@@ -23214,7 +24909,15 @@ export function bootstrap(
   )
 
   const getIssuingDisputesQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -23232,7 +24935,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_issuing_dispute),
+          data: z.array(z.lazy(() => s_issuing_dispute)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -23268,12 +24971,94 @@ export function bootstrap(
       amount: z.coerce.number().optional(),
       evidence: z
         .object({
-          canceled: z.object({}).optional(),
-          duplicate: z.object({}).optional(),
-          fraudulent: z.object({}).optional(),
-          merchandise_not_as_described: z.object({}).optional(),
-          not_received: z.object({}).optional(),
-          other: z.object({}).optional(),
+          canceled: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              canceled_at: z.union([z.coerce.number(), z.enum([""])]),
+              cancellation_policy_provided: z.union([
+                z.coerce.boolean(),
+                z.enum([""]),
+              ]),
+              cancellation_reason: z.coerce.string().optional(),
+              expected_at: z.union([z.coerce.number(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+              return_status: z
+                .enum(["", "merchant_rejected", "successful"])
+                .optional(),
+              returned_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
+          duplicate: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              card_statement: z.union([z.coerce.string(), z.enum([""])]),
+              cash_receipt: z.union([z.coerce.string(), z.enum([""])]),
+              check_image: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              original_transaction: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          fraudulent: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          merchandise_not_as_described: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+              received_at: z.union([z.coerce.number(), z.enum([""])]),
+              return_description: z.coerce.string().optional(),
+              return_status: z
+                .enum(["", "merchant_rejected", "successful"])
+                .optional(),
+              returned_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
+          not_received: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              expected_at: z.union([z.coerce.number(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          other: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
           reason: z
             .enum([
               "canceled",
@@ -23285,7 +25070,19 @@ export function bootstrap(
               "service_not_as_described",
             ])
             .optional(),
-          service_not_as_described: z.object({}).optional(),
+          service_not_as_described: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              canceled_at: z.union([z.coerce.number(), z.enum([""])]),
+              cancellation_reason: z.coerce.string().optional(),
+              explanation: z.coerce.string().optional(),
+              received_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
@@ -23378,12 +25175,94 @@ export function bootstrap(
       amount: z.coerce.number().optional(),
       evidence: z
         .object({
-          canceled: z.object({}).optional(),
-          duplicate: z.object({}).optional(),
-          fraudulent: z.object({}).optional(),
-          merchandise_not_as_described: z.object({}).optional(),
-          not_received: z.object({}).optional(),
-          other: z.object({}).optional(),
+          canceled: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              canceled_at: z.union([z.coerce.number(), z.enum([""])]),
+              cancellation_policy_provided: z.union([
+                z.coerce.boolean(),
+                z.enum([""]),
+              ]),
+              cancellation_reason: z.coerce.string().optional(),
+              expected_at: z.union([z.coerce.number(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+              return_status: z
+                .enum(["", "merchant_rejected", "successful"])
+                .optional(),
+              returned_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
+          duplicate: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              card_statement: z.union([z.coerce.string(), z.enum([""])]),
+              cash_receipt: z.union([z.coerce.string(), z.enum([""])]),
+              check_image: z.union([z.coerce.string(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              original_transaction: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          fraudulent: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          merchandise_not_as_described: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+              received_at: z.union([z.coerce.number(), z.enum([""])]),
+              return_description: z.coerce.string().optional(),
+              return_status: z
+                .enum(["", "merchant_rejected", "successful"])
+                .optional(),
+              returned_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
+          not_received: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              expected_at: z.union([z.coerce.number(), z.enum([""])]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          other: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              explanation: z.coerce.string().optional(),
+              product_description: z.coerce.string().optional(),
+              product_type: z.enum(["", "merchandise", "service"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
           reason: z
             .enum([
               "canceled",
@@ -23395,11 +25274,23 @@ export function bootstrap(
               "service_not_as_described",
             ])
             .optional(),
-          service_not_as_described: z.object({}).optional(),
+          service_not_as_described: z.union([
+            z.object({
+              additional_documentation: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              canceled_at: z.union([z.coerce.number(), z.enum([""])]),
+              cancellation_reason: z.coerce.string().optional(),
+              explanation: z.coerce.string().optional(),
+              received_at: z.union([z.coerce.number(), z.enum([""])]),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -23442,7 +25333,7 @@ export function bootstrap(
   const postIssuingDisputesDisputeSubmitBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -23475,7 +25366,15 @@ export function bootstrap(
   )
 
   const getIssuingSettlementsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -23606,7 +25505,15 @@ export function bootstrap(
   const getIssuingTransactionsQuerySchema = z.object({
     card: z.coerce.string().optional(),
     cardholder: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -23621,7 +25528,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_issuing_transaction),
+          data: z.array(z.lazy(() => s_issuing_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -23706,7 +25613,7 @@ export function bootstrap(
   const postIssuingTransactionsTransactionBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -23849,7 +25756,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_financial_connections_account),
+          data: z.array(z.lazy(() => s_financial_connections_account)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -24093,7 +26000,15 @@ export function bootstrap(
   )
 
   const getPaymentIntentsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -24108,7 +26023,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_payment_intent),
+          data: z.array(z.lazy(() => s_payment_intent)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -24165,7 +26080,10 @@ export function bootstrap(
       })
       .optional(),
     metadata: z.object({}).optional(),
-    off_session: z.object({}).optional(),
+    off_session: z.union([
+      z.coerce.boolean(),
+      z.enum(["one_off", "recurring"]),
+    ]),
     on_behalf_of: z.coerce.string().optional(),
     payment_method: z.coerce.string().optional(),
     payment_method_data: z
@@ -24195,8 +26113,18 @@ export function bootstrap(
         bancontact: z.object({}).optional(),
         billing_details: z
           .object({
-            address: z.object({}).optional(),
-            email: z.object({}).optional(),
+            address: z.union([
+              z.object({
+                city: z.coerce.string().optional(),
+                country: z.coerce.string().optional(),
+                line1: z.coerce.string().optional(),
+                line2: z.coerce.string().optional(),
+                postal_code: z.coerce.string().optional(),
+                state: z.coerce.string().optional(),
+              }),
+              z.enum([""]),
+            ]),
+            email: z.union([z.coerce.string(), z.enum([""])]),
             name: z.coerce.string().optional(),
             phone: z.coerce.string().optional(),
           })
@@ -24396,37 +26324,372 @@ export function bootstrap(
       .optional(),
     payment_method_options: z
       .object({
-        acss_debit: z.object({}).optional(),
-        affirm: z.object({}).optional(),
-        afterpay_clearpay: z.object({}).optional(),
-        alipay: z.object({}).optional(),
-        au_becs_debit: z.object({}).optional(),
-        bacs_debit: z.object({}).optional(),
-        bancontact: z.object({}).optional(),
-        blik: z.object({}).optional(),
-        boleto: z.object({}).optional(),
-        card: z.object({}).optional(),
-        card_present: z.object({}).optional(),
-        cashapp: z.object({}).optional(),
-        customer_balance: z.object({}).optional(),
-        eps: z.object({}).optional(),
-        fpx: z.object({}).optional(),
-        giropay: z.object({}).optional(),
-        grabpay: z.object({}).optional(),
-        ideal: z.object({}).optional(),
-        interac_present: z.object({}).optional(),
-        klarna: z.object({}).optional(),
-        konbini: z.object({}).optional(),
-        link: z.object({}).optional(),
-        oxxo: z.object({}).optional(),
-        p24: z.object({}).optional(),
-        paynow: z.object({}).optional(),
-        pix: z.object({}).optional(),
-        promptpay: z.object({}).optional(),
-        sepa_debit: z.object({}).optional(),
-        sofort: z.object({}).optional(),
-        us_bank_account: z.object({}).optional(),
-        wechat_pay: z.object({}).optional(),
+        acss_debit: z.union([
+          z.object({
+            mandate_options: z
+              .object({
+                custom_mandate_url: z.union([z.coerce.string(), z.enum([""])]),
+                interval_description: z.coerce.string().optional(),
+                payment_schedule: z
+                  .enum(["combined", "interval", "sporadic"])
+                  .optional(),
+                transaction_type: z.enum(["business", "personal"]).optional(),
+              })
+              .optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+            verification_method: z
+              .enum(["automatic", "instant", "microdeposits"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        affirm: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            preferred_locale: z.coerce.string().optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        afterpay_clearpay: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            reference: z.coerce.string().optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        alipay: z.union([
+          z.object({
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        au_becs_debit: z.union([
+          z.object({
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        bacs_debit: z.union([
+          z.object({
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        bancontact: z.union([
+          z.object({
+            preferred_language: z.enum(["de", "en", "fr", "nl"]).optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        blik: z.union([
+          z.object({ code: z.coerce.string().optional() }),
+          z.enum([""]),
+        ]),
+        boleto: z.union([
+          z.object({
+            expires_after_days: z.coerce.number().optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        card: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            cvc_token: z.coerce.string().optional(),
+            installments: z
+              .object({
+                enabled: z.coerce.boolean().optional(),
+                plan: z.union([
+                  z.object({
+                    count: z.coerce.number(),
+                    interval: z.enum(["month"]),
+                    type: z.enum(["fixed_count"]),
+                  }),
+                  z.enum([""]),
+                ]),
+              })
+              .optional(),
+            mandate_options: z
+              .object({
+                amount: z.coerce.number(),
+                amount_type: z.enum(["fixed", "maximum"]),
+                description: z.coerce.string().optional(),
+                end_date: z.coerce.number().optional(),
+                interval: z.enum(["day", "month", "sporadic", "week", "year"]),
+                interval_count: z.coerce.number().optional(),
+                reference: z.coerce.string(),
+                start_date: z.coerce.number(),
+                supported_types: z.array(z.enum(["india"])).optional(),
+              })
+              .optional(),
+            network: z
+              .enum([
+                "amex",
+                "cartes_bancaires",
+                "diners",
+                "discover",
+                "interac",
+                "jcb",
+                "mastercard",
+                "unionpay",
+                "unknown",
+                "visa",
+              ])
+              .optional(),
+            request_three_d_secure: z.enum(["any", "automatic"]).optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+            statement_descriptor_suffix_kana: z.union([
+              z.coerce.string(),
+              z.enum([""]),
+            ]),
+            statement_descriptor_suffix_kanji: z.union([
+              z.coerce.string(),
+              z.enum([""]),
+            ]),
+          }),
+          z.enum([""]),
+        ]),
+        card_present: z.union([
+          z.object({
+            request_extended_authorization: z.coerce.boolean().optional(),
+            request_incremental_authorization_support: z.coerce
+              .boolean()
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        cashapp: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        customer_balance: z.union([
+          z.object({
+            bank_transfer: z
+              .object({
+                eu_bank_transfer: z
+                  .object({ country: z.coerce.string() })
+                  .optional(),
+                requested_address_types: z
+                  .array(
+                    z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                  )
+                  .optional(),
+                type: z.enum([
+                  "eu_bank_transfer",
+                  "gb_bank_transfer",
+                  "jp_bank_transfer",
+                  "mx_bank_transfer",
+                ]),
+              })
+              .optional(),
+            funding_type: z.enum(["bank_transfer"]).optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        eps: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        fpx: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        giropay: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        grabpay: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        ideal: z.union([
+          z.object({
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        interac_present: z.union([z.object({}), z.enum([""])]),
+        klarna: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            preferred_locale: z
+              .enum([
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "sv-FI",
+                "sv-SE",
+              ])
+              .optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        konbini: z.union([
+          z.object({
+            confirmation_number: z.coerce.string().optional(),
+            expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
+            expires_at: z.union([z.coerce.number(), z.enum([""])]),
+            product_description: z.coerce.string().optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        link: z.union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            persistent_token: z.coerce.string().optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        oxxo: z.union([
+          z.object({
+            expires_after_days: z.coerce.number().optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        p24: z.union([
+          z.object({
+            setup_future_usage: z.enum(["none"]).optional(),
+            tos_shown_and_accepted: z.coerce.boolean().optional(),
+          }),
+          z.enum([""]),
+        ]),
+        paynow: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        pix: z.union([
+          z.object({
+            expires_after_seconds: z.coerce.number().optional(),
+            expires_at: z.coerce.number().optional(),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        promptpay: z.union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ]),
+        sepa_debit: z.union([
+          z.object({
+            mandate_options: z.object({}).optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        sofort: z.union([
+          z.object({
+            preferred_language: z
+              .enum(["", "de", "en", "es", "fr", "it", "nl", "pl"])
+              .optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
+        us_bank_account: z.union([
+          z.object({
+            financial_connections: z
+              .object({
+                permissions: z
+                  .array(
+                    z.enum([
+                      "balances",
+                      "ownership",
+                      "payment_method",
+                      "transactions",
+                    ])
+                  )
+                  .optional(),
+                return_url: z.coerce.string().optional(),
+              })
+              .optional(),
+            networks: z
+              .object({
+                requested: z
+                  .array(z.enum(["ach", "us_domestic_wire"]))
+                  .optional(),
+              })
+              .optional(),
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+            verification_method: z
+              .enum(["automatic", "instant", "microdeposits"])
+              .optional(),
+          }),
+          z.enum([""]),
+        ]),
+        wechat_pay: z.union([
+          z.object({
+            app_id: z.coerce.string().optional(),
+            client: z.enum(["android", "ios", "web"]),
+            setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ]),
       })
       .optional(),
     payment_method_types: z.array(z.coerce.string()).optional(),
@@ -24504,7 +26767,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_payment_intent),
+          data: z.array(z.lazy(() => s_payment_intent)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -24590,7 +26853,7 @@ export function bootstrap(
   const postPaymentIntentsIntentBodySchema = z
     .object({
       amount: z.coerce.number().optional(),
-      application_fee_amount: z.object({}).optional(),
+      application_fee_amount: z.union([z.coerce.number(), z.enum([""])]),
       capture_method: z
         .enum(["automatic", "automatic_async", "manual"])
         .optional(),
@@ -24598,7 +26861,7 @@ export function bootstrap(
       customer: z.coerce.string().optional(),
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       payment_method: z.coerce.string().optional(),
       payment_method_data: z
         .object({
@@ -24627,8 +26890,18 @@ export function bootstrap(
           bancontact: z.object({}).optional(),
           billing_details: z
             .object({
-              address: z.object({}).optional(),
-              email: z.object({}).optional(),
+              address: z.union([
+                z.object({
+                  city: z.coerce.string().optional(),
+                  country: z.coerce.string().optional(),
+                  line1: z.coerce.string().optional(),
+                  line2: z.coerce.string().optional(),
+                  postal_code: z.coerce.string().optional(),
+                  state: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              email: z.union([z.coerce.string(), z.enum([""])]),
               name: z.coerce.string().optional(),
               phone: z.coerce.string().optional(),
             })
@@ -24828,43 +27101,413 @@ export function bootstrap(
         .optional(),
       payment_method_options: z
         .object({
-          acss_debit: z.object({}).optional(),
-          affirm: z.object({}).optional(),
-          afterpay_clearpay: z.object({}).optional(),
-          alipay: z.object({}).optional(),
-          au_becs_debit: z.object({}).optional(),
-          bacs_debit: z.object({}).optional(),
-          bancontact: z.object({}).optional(),
-          blik: z.object({}).optional(),
-          boleto: z.object({}).optional(),
-          card: z.object({}).optional(),
-          card_present: z.object({}).optional(),
-          cashapp: z.object({}).optional(),
-          customer_balance: z.object({}).optional(),
-          eps: z.object({}).optional(),
-          fpx: z.object({}).optional(),
-          giropay: z.object({}).optional(),
-          grabpay: z.object({}).optional(),
-          ideal: z.object({}).optional(),
-          interac_present: z.object({}).optional(),
-          klarna: z.object({}).optional(),
-          konbini: z.object({}).optional(),
-          link: z.object({}).optional(),
-          oxxo: z.object({}).optional(),
-          p24: z.object({}).optional(),
-          paynow: z.object({}).optional(),
-          pix: z.object({}).optional(),
-          promptpay: z.object({}).optional(),
-          sepa_debit: z.object({}).optional(),
-          sofort: z.object({}).optional(),
-          us_bank_account: z.object({}).optional(),
-          wechat_pay: z.object({}).optional(),
+          acss_debit: z.union([
+            z.object({
+              mandate_options: z
+                .object({
+                  custom_mandate_url: z.union([
+                    z.coerce.string(),
+                    z.enum([""]),
+                  ]),
+                  interval_description: z.coerce.string().optional(),
+                  payment_schedule: z
+                    .enum(["combined", "interval", "sporadic"])
+                    .optional(),
+                  transaction_type: z.enum(["business", "personal"]).optional(),
+                })
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              verification_method: z
+                .enum(["automatic", "instant", "microdeposits"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          affirm: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              preferred_locale: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          afterpay_clearpay: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              reference: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          alipay: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          au_becs_debit: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          bacs_debit: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          bancontact: z.union([
+            z.object({
+              preferred_language: z.enum(["de", "en", "fr", "nl"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          blik: z.union([
+            z.object({ code: z.coerce.string().optional() }),
+            z.enum([""]),
+          ]),
+          boleto: z.union([
+            z.object({
+              expires_after_days: z.coerce.number().optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          card: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              cvc_token: z.coerce.string().optional(),
+              installments: z
+                .object({
+                  enabled: z.coerce.boolean().optional(),
+                  plan: z.union([
+                    z.object({
+                      count: z.coerce.number(),
+                      interval: z.enum(["month"]),
+                      type: z.enum(["fixed_count"]),
+                    }),
+                    z.enum([""]),
+                  ]),
+                })
+                .optional(),
+              mandate_options: z
+                .object({
+                  amount: z.coerce.number(),
+                  amount_type: z.enum(["fixed", "maximum"]),
+                  description: z.coerce.string().optional(),
+                  end_date: z.coerce.number().optional(),
+                  interval: z.enum([
+                    "day",
+                    "month",
+                    "sporadic",
+                    "week",
+                    "year",
+                  ]),
+                  interval_count: z.coerce.number().optional(),
+                  reference: z.coerce.string(),
+                  start_date: z.coerce.number(),
+                  supported_types: z.array(z.enum(["india"])).optional(),
+                })
+                .optional(),
+              network: z
+                .enum([
+                  "amex",
+                  "cartes_bancaires",
+                  "diners",
+                  "discover",
+                  "interac",
+                  "jcb",
+                  "mastercard",
+                  "unionpay",
+                  "unknown",
+                  "visa",
+                ])
+                .optional(),
+              request_three_d_secure: z.enum(["any", "automatic"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              statement_descriptor_suffix_kana: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              statement_descriptor_suffix_kanji: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+            }),
+            z.enum([""]),
+          ]),
+          card_present: z.union([
+            z.object({
+              request_extended_authorization: z.coerce.boolean().optional(),
+              request_incremental_authorization_support: z.coerce
+                .boolean()
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          cashapp: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          customer_balance: z.union([
+            z.object({
+              bank_transfer: z
+                .object({
+                  eu_bank_transfer: z
+                    .object({ country: z.coerce.string() })
+                    .optional(),
+                  requested_address_types: z
+                    .array(
+                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                    )
+                    .optional(),
+                  type: z.enum([
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                  ]),
+                })
+                .optional(),
+              funding_type: z.enum(["bank_transfer"]).optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          eps: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          fpx: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          giropay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          grabpay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          ideal: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          interac_present: z.union([z.object({}), z.enum([""])]),
+          klarna: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              preferred_locale: z
+                .enum([
+                  "cs-CZ",
+                  "da-DK",
+                  "de-AT",
+                  "de-CH",
+                  "de-DE",
+                  "el-GR",
+                  "en-AT",
+                  "en-AU",
+                  "en-BE",
+                  "en-CA",
+                  "en-CH",
+                  "en-CZ",
+                  "en-DE",
+                  "en-DK",
+                  "en-ES",
+                  "en-FI",
+                  "en-FR",
+                  "en-GB",
+                  "en-GR",
+                  "en-IE",
+                  "en-IT",
+                  "en-NL",
+                  "en-NO",
+                  "en-NZ",
+                  "en-PL",
+                  "en-PT",
+                  "en-SE",
+                  "en-US",
+                  "es-ES",
+                  "es-US",
+                  "fi-FI",
+                  "fr-BE",
+                  "fr-CA",
+                  "fr-CH",
+                  "fr-FR",
+                  "it-CH",
+                  "it-IT",
+                  "nb-NO",
+                  "nl-BE",
+                  "nl-NL",
+                  "pl-PL",
+                  "pt-PT",
+                  "sv-FI",
+                  "sv-SE",
+                ])
+                .optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          konbini: z.union([
+            z.object({
+              confirmation_number: z.coerce.string().optional(),
+              expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
+              expires_at: z.union([z.coerce.number(), z.enum([""])]),
+              product_description: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          link: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              persistent_token: z.coerce.string().optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          oxxo: z.union([
+            z.object({
+              expires_after_days: z.coerce.number().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          p24: z.union([
+            z.object({
+              setup_future_usage: z.enum(["none"]).optional(),
+              tos_shown_and_accepted: z.coerce.boolean().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          paynow: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          pix: z.union([
+            z.object({
+              expires_after_seconds: z.coerce.number().optional(),
+              expires_at: z.coerce.number().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          promptpay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          sepa_debit: z.union([
+            z.object({
+              mandate_options: z.object({}).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          sofort: z.union([
+            z.object({
+              preferred_language: z
+                .enum(["", "de", "en", "es", "fr", "it", "nl", "pl"])
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          us_bank_account: z.union([
+            z.object({
+              financial_connections: z
+                .object({
+                  permissions: z
+                    .array(
+                      z.enum([
+                        "balances",
+                        "ownership",
+                        "payment_method",
+                        "transactions",
+                      ])
+                    )
+                    .optional(),
+                  return_url: z.coerce.string().optional(),
+                })
+                .optional(),
+              networks: z
+                .object({
+                  requested: z
+                    .array(z.enum(["ach", "us_domestic_wire"]))
+                    .optional(),
+                })
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              verification_method: z
+                .enum(["automatic", "instant", "microdeposits"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          wechat_pay: z.union([
+            z.object({
+              app_id: z.coerce.string().optional(),
+              client: z.enum(["android", "ios", "web"]),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       payment_method_types: z.array(z.coerce.string()).optional(),
-      receipt_email: z.object({}).optional(),
+      receipt_email: z.union([z.coerce.string(), z.enum([""])]),
       setup_future_usage: z.enum(["", "off_session", "on_session"]).optional(),
-      shipping: z.object({}).optional(),
+      shipping: z.union([
+        z.object({
+          address: z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          carrier: z.coerce.string().optional(),
+          name: z.coerce.string(),
+          phone: z.coerce.string().optional(),
+          tracking_number: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       statement_descriptor: z.coerce.string().optional(),
       statement_descriptor_suffix: z.coerce.string().optional(),
       transfer_data: z
@@ -25002,7 +27645,7 @@ export function bootstrap(
       amount_to_capture: z.coerce.number().optional(),
       application_fee_amount: z.coerce.number().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       statement_descriptor: z.coerce.string().optional(),
       statement_descriptor_suffix: z.coerce.string().optional(),
       transfer_data: z
@@ -25052,8 +27695,34 @@ export function bootstrap(
       error_on_requires_action: z.coerce.boolean().optional(),
       expand: z.array(z.coerce.string()).optional(),
       mandate: z.coerce.string().optional(),
-      mandate_data: z.object({}).optional(),
-      off_session: z.object({}).optional(),
+      mandate_data: z.union([
+        z.object({
+          customer_acceptance: z.object({
+            accepted_at: z.coerce.number().optional(),
+            offline: z.object({}).optional(),
+            online: z
+              .object({
+                ip_address: z.coerce.string(),
+                user_agent: z.coerce.string(),
+              })
+              .optional(),
+            type: z.enum(["offline", "online"]),
+          }),
+        }),
+        z.object({
+          customer_acceptance: z.object({
+            online: z.object({
+              ip_address: z.coerce.string().optional(),
+              user_agent: z.coerce.string().optional(),
+            }),
+            type: z.enum(["online"]),
+          }),
+        }),
+      ]),
+      off_session: z.union([
+        z.coerce.boolean(),
+        z.enum(["one_off", "recurring"]),
+      ]),
       payment_method: z.coerce.string().optional(),
       payment_method_data: z
         .object({
@@ -25082,8 +27751,18 @@ export function bootstrap(
           bancontact: z.object({}).optional(),
           billing_details: z
             .object({
-              address: z.object({}).optional(),
-              email: z.object({}).optional(),
+              address: z.union([
+                z.object({
+                  city: z.coerce.string().optional(),
+                  country: z.coerce.string().optional(),
+                  line1: z.coerce.string().optional(),
+                  line2: z.coerce.string().optional(),
+                  postal_code: z.coerce.string().optional(),
+                  state: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              email: z.union([z.coerce.string(), z.enum([""])]),
               name: z.coerce.string().optional(),
               phone: z.coerce.string().optional(),
             })
@@ -25283,47 +27962,417 @@ export function bootstrap(
         .optional(),
       payment_method_options: z
         .object({
-          acss_debit: z.object({}).optional(),
-          affirm: z.object({}).optional(),
-          afterpay_clearpay: z.object({}).optional(),
-          alipay: z.object({}).optional(),
-          au_becs_debit: z.object({}).optional(),
-          bacs_debit: z.object({}).optional(),
-          bancontact: z.object({}).optional(),
-          blik: z.object({}).optional(),
-          boleto: z.object({}).optional(),
-          card: z.object({}).optional(),
-          card_present: z.object({}).optional(),
-          cashapp: z.object({}).optional(),
-          customer_balance: z.object({}).optional(),
-          eps: z.object({}).optional(),
-          fpx: z.object({}).optional(),
-          giropay: z.object({}).optional(),
-          grabpay: z.object({}).optional(),
-          ideal: z.object({}).optional(),
-          interac_present: z.object({}).optional(),
-          klarna: z.object({}).optional(),
-          konbini: z.object({}).optional(),
-          link: z.object({}).optional(),
-          oxxo: z.object({}).optional(),
-          p24: z.object({}).optional(),
-          paynow: z.object({}).optional(),
-          pix: z.object({}).optional(),
-          promptpay: z.object({}).optional(),
-          sepa_debit: z.object({}).optional(),
-          sofort: z.object({}).optional(),
-          us_bank_account: z.object({}).optional(),
-          wechat_pay: z.object({}).optional(),
+          acss_debit: z.union([
+            z.object({
+              mandate_options: z
+                .object({
+                  custom_mandate_url: z.union([
+                    z.coerce.string(),
+                    z.enum([""]),
+                  ]),
+                  interval_description: z.coerce.string().optional(),
+                  payment_schedule: z
+                    .enum(["combined", "interval", "sporadic"])
+                    .optional(),
+                  transaction_type: z.enum(["business", "personal"]).optional(),
+                })
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              verification_method: z
+                .enum(["automatic", "instant", "microdeposits"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          affirm: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              preferred_locale: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          afterpay_clearpay: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              reference: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          alipay: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          au_becs_debit: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          bacs_debit: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          bancontact: z.union([
+            z.object({
+              preferred_language: z.enum(["de", "en", "fr", "nl"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          blik: z.union([
+            z.object({ code: z.coerce.string().optional() }),
+            z.enum([""]),
+          ]),
+          boleto: z.union([
+            z.object({
+              expires_after_days: z.coerce.number().optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          card: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              cvc_token: z.coerce.string().optional(),
+              installments: z
+                .object({
+                  enabled: z.coerce.boolean().optional(),
+                  plan: z.union([
+                    z.object({
+                      count: z.coerce.number(),
+                      interval: z.enum(["month"]),
+                      type: z.enum(["fixed_count"]),
+                    }),
+                    z.enum([""]),
+                  ]),
+                })
+                .optional(),
+              mandate_options: z
+                .object({
+                  amount: z.coerce.number(),
+                  amount_type: z.enum(["fixed", "maximum"]),
+                  description: z.coerce.string().optional(),
+                  end_date: z.coerce.number().optional(),
+                  interval: z.enum([
+                    "day",
+                    "month",
+                    "sporadic",
+                    "week",
+                    "year",
+                  ]),
+                  interval_count: z.coerce.number().optional(),
+                  reference: z.coerce.string(),
+                  start_date: z.coerce.number(),
+                  supported_types: z.array(z.enum(["india"])).optional(),
+                })
+                .optional(),
+              network: z
+                .enum([
+                  "amex",
+                  "cartes_bancaires",
+                  "diners",
+                  "discover",
+                  "interac",
+                  "jcb",
+                  "mastercard",
+                  "unionpay",
+                  "unknown",
+                  "visa",
+                ])
+                .optional(),
+              request_three_d_secure: z.enum(["any", "automatic"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              statement_descriptor_suffix_kana: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+              statement_descriptor_suffix_kanji: z.union([
+                z.coerce.string(),
+                z.enum([""]),
+              ]),
+            }),
+            z.enum([""]),
+          ]),
+          card_present: z.union([
+            z.object({
+              request_extended_authorization: z.coerce.boolean().optional(),
+              request_incremental_authorization_support: z.coerce
+                .boolean()
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          cashapp: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          customer_balance: z.union([
+            z.object({
+              bank_transfer: z
+                .object({
+                  eu_bank_transfer: z
+                    .object({ country: z.coerce.string() })
+                    .optional(),
+                  requested_address_types: z
+                    .array(
+                      z.enum(["iban", "sepa", "sort_code", "spei", "zengin"])
+                    )
+                    .optional(),
+                  type: z.enum([
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                  ]),
+                })
+                .optional(),
+              funding_type: z.enum(["bank_transfer"]).optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          eps: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          fpx: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          giropay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          grabpay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          ideal: z.union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          interac_present: z.union([z.object({}), z.enum([""])]),
+          klarna: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              preferred_locale: z
+                .enum([
+                  "cs-CZ",
+                  "da-DK",
+                  "de-AT",
+                  "de-CH",
+                  "de-DE",
+                  "el-GR",
+                  "en-AT",
+                  "en-AU",
+                  "en-BE",
+                  "en-CA",
+                  "en-CH",
+                  "en-CZ",
+                  "en-DE",
+                  "en-DK",
+                  "en-ES",
+                  "en-FI",
+                  "en-FR",
+                  "en-GB",
+                  "en-GR",
+                  "en-IE",
+                  "en-IT",
+                  "en-NL",
+                  "en-NO",
+                  "en-NZ",
+                  "en-PL",
+                  "en-PT",
+                  "en-SE",
+                  "en-US",
+                  "es-ES",
+                  "es-US",
+                  "fi-FI",
+                  "fr-BE",
+                  "fr-CA",
+                  "fr-CH",
+                  "fr-FR",
+                  "it-CH",
+                  "it-IT",
+                  "nb-NO",
+                  "nl-BE",
+                  "nl-NL",
+                  "pl-PL",
+                  "pt-PT",
+                  "sv-FI",
+                  "sv-SE",
+                ])
+                .optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          konbini: z.union([
+            z.object({
+              confirmation_number: z.coerce.string().optional(),
+              expires_after_days: z.union([z.coerce.number(), z.enum([""])]),
+              expires_at: z.union([z.coerce.number(), z.enum([""])]),
+              product_description: z.coerce.string().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          link: z.union([
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              persistent_token: z.coerce.string().optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          oxxo: z.union([
+            z.object({
+              expires_after_days: z.coerce.number().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          p24: z.union([
+            z.object({
+              setup_future_usage: z.enum(["none"]).optional(),
+              tos_shown_and_accepted: z.coerce.boolean().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          paynow: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          pix: z.union([
+            z.object({
+              expires_after_seconds: z.coerce.number().optional(),
+              expires_at: z.coerce.number().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
+          promptpay: z.union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ]),
+          sepa_debit: z.union([
+            z.object({
+              mandate_options: z.object({}).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          sofort: z.union([
+            z.object({
+              preferred_language: z
+                .enum(["", "de", "en", "es", "fr", "it", "nl", "pl"])
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          us_bank_account: z.union([
+            z.object({
+              financial_connections: z
+                .object({
+                  permissions: z
+                    .array(
+                      z.enum([
+                        "balances",
+                        "ownership",
+                        "payment_method",
+                        "transactions",
+                      ])
+                    )
+                    .optional(),
+                  return_url: z.coerce.string().optional(),
+                })
+                .optional(),
+              networks: z
+                .object({
+                  requested: z
+                    .array(z.enum(["ach", "us_domestic_wire"]))
+                    .optional(),
+                })
+                .optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              verification_method: z
+                .enum(["automatic", "instant", "microdeposits"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ]),
+          wechat_pay: z.union([
+            z.object({
+              app_id: z.coerce.string().optional(),
+              client: z.enum(["android", "ios", "web"]),
+              setup_future_usage: z.enum(["none"]).optional(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       payment_method_types: z.array(z.coerce.string()).optional(),
       radar_options: z
         .object({ session: z.coerce.string().optional() })
         .optional(),
-      receipt_email: z.object({}).optional(),
+      receipt_email: z.union([z.coerce.string(), z.enum([""])]),
       return_url: z.coerce.string().optional(),
       setup_future_usage: z.enum(["", "off_session", "on_session"]).optional(),
-      shipping: z.object({}).optional(),
+      shipping: z.union([
+        z.object({
+          address: z.object({
+            city: z.coerce.string().optional(),
+            country: z.coerce.string().optional(),
+            line1: z.coerce.string().optional(),
+            line2: z.coerce.string().optional(),
+            postal_code: z.coerce.string().optional(),
+            state: z.coerce.string().optional(),
+          }),
+          carrier: z.coerce.string().optional(),
+          name: z.coerce.string(),
+          phone: z.coerce.string().optional(),
+          tracking_number: z.coerce.string().optional(),
+        }),
+        z.enum([""]),
+      ]),
       use_stripe_sdk: z.coerce.boolean().optional(),
     })
     .optional()
@@ -25469,7 +28518,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_payment_link),
+          data: z.array(z.lazy(() => s_payment_link)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -25537,8 +28586,14 @@ export function bootstrap(
       .optional(),
     custom_text: z
       .object({
-        shipping_address: z.object({}).optional(),
-        submit: z.object({}).optional(),
+        shipping_address: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
+        submit: z.union([
+          z.object({ message: z.coerce.string() }),
+          z.enum([""]),
+        ]),
       })
       .optional(),
     customer_creation: z.enum(["always", "if_required"]).optional(),
@@ -25548,12 +28603,27 @@ export function bootstrap(
         enabled: z.coerce.boolean(),
         invoice_data: z
           .object({
-            account_tax_ids: z.object({}).optional(),
-            custom_fields: z.object({}).optional(),
+            account_tax_ids: z.union([
+              z.array(z.coerce.string()),
+              z.enum([""]),
+            ]),
+            custom_fields: z.union([
+              z.array(
+                z.object({ name: z.coerce.string(), value: z.coerce.string() })
+              ),
+              z.enum([""]),
+            ]),
             description: z.coerce.string().optional(),
             footer: z.coerce.string().optional(),
-            metadata: z.object({}).optional(),
-            rendering_options: z.object({}).optional(),
+            metadata: z.union([z.object({}), z.enum([""])]),
+            rendering_options: z.union([
+              z.object({
+                amount_tax_display: z
+                  .enum(["", "exclude_tax", "include_inclusive_tax"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ]),
           })
           .optional(),
       })
@@ -25965,11 +29035,40 @@ export function bootstrap(
       allow_promotion_codes: z.coerce.boolean().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       billing_address_collection: z.enum(["auto", "required"]).optional(),
-      custom_fields: z.object({}).optional(),
+      custom_fields: z.union([
+        z.array(
+          z.object({
+            dropdown: z
+              .object({
+                options: z.array(
+                  z.object({
+                    label: z.coerce.string(),
+                    value: z.coerce.string(),
+                  })
+                ),
+              })
+              .optional(),
+            key: z.coerce.string(),
+            label: z.object({
+              custom: z.coerce.string(),
+              type: z.enum(["custom"]),
+            }),
+            optional: z.coerce.boolean().optional(),
+            type: z.enum(["dropdown", "numeric", "text"]),
+          })
+        ),
+        z.enum([""]),
+      ]),
       custom_text: z
         .object({
-          shipping_address: z.object({}).optional(),
-          submit: z.object({}).optional(),
+          shipping_address: z.union([
+            z.object({ message: z.coerce.string() }),
+            z.enum([""]),
+          ]),
+          submit: z.union([
+            z.object({ message: z.coerce.string() }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       customer_creation: z.enum(["always", "if_required"]).optional(),
@@ -25979,12 +29078,30 @@ export function bootstrap(
           enabled: z.coerce.boolean(),
           invoice_data: z
             .object({
-              account_tax_ids: z.object({}).optional(),
-              custom_fields: z.object({}).optional(),
+              account_tax_ids: z.union([
+                z.array(z.coerce.string()),
+                z.enum([""]),
+              ]),
+              custom_fields: z.union([
+                z.array(
+                  z.object({
+                    name: z.coerce.string(),
+                    value: z.coerce.string(),
+                  })
+                ),
+                z.enum([""]),
+              ]),
               description: z.coerce.string().optional(),
               footer: z.coerce.string().optional(),
-              metadata: z.object({}).optional(),
-              rendering_options: z.object({}).optional(),
+              metadata: z.union([z.object({}), z.enum([""])]),
+              rendering_options: z.union([
+                z.object({
+                  amount_tax_display: z
+                    .enum(["", "exclude_tax", "include_inclusive_tax"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
         })
@@ -26006,8 +29123,286 @@ export function bootstrap(
         .optional(),
       metadata: z.object({}).optional(),
       payment_method_collection: z.enum(["always", "if_required"]).optional(),
-      payment_method_types: z.object({}).optional(),
-      shipping_address_collection: z.object({}).optional(),
+      payment_method_types: z.union([
+        z.array(
+          z.enum([
+            "affirm",
+            "afterpay_clearpay",
+            "alipay",
+            "au_becs_debit",
+            "bacs_debit",
+            "bancontact",
+            "blik",
+            "boleto",
+            "card",
+            "cashapp",
+            "eps",
+            "fpx",
+            "giropay",
+            "grabpay",
+            "ideal",
+            "klarna",
+            "konbini",
+            "link",
+            "oxxo",
+            "p24",
+            "paynow",
+            "pix",
+            "promptpay",
+            "sepa_debit",
+            "sofort",
+            "us_bank_account",
+            "wechat_pay",
+          ])
+        ),
+        z.enum([""]),
+      ]),
+      shipping_address_collection: z.union([
+        z.object({
+          allowed_countries: z.array(
+            z.enum([
+              "AC",
+              "AD",
+              "AE",
+              "AF",
+              "AG",
+              "AI",
+              "AL",
+              "AM",
+              "AO",
+              "AQ",
+              "AR",
+              "AT",
+              "AU",
+              "AW",
+              "AX",
+              "AZ",
+              "BA",
+              "BB",
+              "BD",
+              "BE",
+              "BF",
+              "BG",
+              "BH",
+              "BI",
+              "BJ",
+              "BL",
+              "BM",
+              "BN",
+              "BO",
+              "BQ",
+              "BR",
+              "BS",
+              "BT",
+              "BV",
+              "BW",
+              "BY",
+              "BZ",
+              "CA",
+              "CD",
+              "CF",
+              "CG",
+              "CH",
+              "CI",
+              "CK",
+              "CL",
+              "CM",
+              "CN",
+              "CO",
+              "CR",
+              "CV",
+              "CW",
+              "CY",
+              "CZ",
+              "DE",
+              "DJ",
+              "DK",
+              "DM",
+              "DO",
+              "DZ",
+              "EC",
+              "EE",
+              "EG",
+              "EH",
+              "ER",
+              "ES",
+              "ET",
+              "FI",
+              "FJ",
+              "FK",
+              "FO",
+              "FR",
+              "GA",
+              "GB",
+              "GD",
+              "GE",
+              "GF",
+              "GG",
+              "GH",
+              "GI",
+              "GL",
+              "GM",
+              "GN",
+              "GP",
+              "GQ",
+              "GR",
+              "GS",
+              "GT",
+              "GU",
+              "GW",
+              "GY",
+              "HK",
+              "HN",
+              "HR",
+              "HT",
+              "HU",
+              "ID",
+              "IE",
+              "IL",
+              "IM",
+              "IN",
+              "IO",
+              "IQ",
+              "IS",
+              "IT",
+              "JE",
+              "JM",
+              "JO",
+              "JP",
+              "KE",
+              "KG",
+              "KH",
+              "KI",
+              "KM",
+              "KN",
+              "KR",
+              "KW",
+              "KY",
+              "KZ",
+              "LA",
+              "LB",
+              "LC",
+              "LI",
+              "LK",
+              "LR",
+              "LS",
+              "LT",
+              "LU",
+              "LV",
+              "LY",
+              "MA",
+              "MC",
+              "MD",
+              "ME",
+              "MF",
+              "MG",
+              "MK",
+              "ML",
+              "MM",
+              "MN",
+              "MO",
+              "MQ",
+              "MR",
+              "MS",
+              "MT",
+              "MU",
+              "MV",
+              "MW",
+              "MX",
+              "MY",
+              "MZ",
+              "NA",
+              "NC",
+              "NE",
+              "NG",
+              "NI",
+              "NL",
+              "NO",
+              "NP",
+              "NR",
+              "NU",
+              "NZ",
+              "OM",
+              "PA",
+              "PE",
+              "PF",
+              "PG",
+              "PH",
+              "PK",
+              "PL",
+              "PM",
+              "PN",
+              "PR",
+              "PS",
+              "PT",
+              "PY",
+              "QA",
+              "RE",
+              "RO",
+              "RS",
+              "RU",
+              "RW",
+              "SA",
+              "SB",
+              "SC",
+              "SE",
+              "SG",
+              "SH",
+              "SI",
+              "SJ",
+              "SK",
+              "SL",
+              "SM",
+              "SN",
+              "SO",
+              "SR",
+              "SS",
+              "ST",
+              "SV",
+              "SX",
+              "SZ",
+              "TA",
+              "TC",
+              "TD",
+              "TF",
+              "TG",
+              "TH",
+              "TJ",
+              "TK",
+              "TL",
+              "TM",
+              "TN",
+              "TO",
+              "TR",
+              "TT",
+              "TV",
+              "TW",
+              "TZ",
+              "UA",
+              "UG",
+              "US",
+              "UY",
+              "UZ",
+              "VA",
+              "VC",
+              "VE",
+              "VG",
+              "VN",
+              "VU",
+              "WF",
+              "WS",
+              "XK",
+              "YE",
+              "YT",
+              "ZA",
+              "ZM",
+              "ZW",
+              "ZZ",
+            ])
+          ),
+        }),
+        z.enum([""]),
+      ]),
     })
     .optional()
 
@@ -26060,7 +29455,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_item),
+            data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -26149,7 +29544,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_payment_method),
+          data: z.array(z.lazy(() => s_payment_method)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -26200,15 +29595,33 @@ export function bootstrap(
       bancontact: z.object({}).optional(),
       billing_details: z
         .object({
-          address: z.object({}).optional(),
-          email: z.object({}).optional(),
+          address: z.union([
+            z.object({
+              city: z.coerce.string().optional(),
+              country: z.coerce.string().optional(),
+              line1: z.coerce.string().optional(),
+              line2: z.coerce.string().optional(),
+              postal_code: z.coerce.string().optional(),
+              state: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          email: z.union([z.coerce.string(), z.enum([""])]),
           name: z.coerce.string().optional(),
           phone: z.coerce.string().optional(),
         })
         .optional(),
       blik: z.object({}).optional(),
       boleto: z.object({ tax_id: z.coerce.string() }).optional(),
-      card: z.object({}).optional(),
+      card: z.union([
+        z.object({
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.number(),
+          exp_year: z.coerce.number(),
+          number: z.coerce.string(),
+        }),
+        z.object({ token: z.coerce.string() }),
+      ]),
       cashapp: z.object({}).optional(),
       customer: z.coerce.string().optional(),
       customer_balance: z.object({}).optional(),
@@ -26482,8 +29895,18 @@ export function bootstrap(
     .object({
       billing_details: z
         .object({
-          address: z.object({}).optional(),
-          email: z.object({}).optional(),
+          address: z.union([
+            z.object({
+              city: z.coerce.string().optional(),
+              country: z.coerce.string().optional(),
+              line1: z.coerce.string().optional(),
+              line2: z.coerce.string().optional(),
+              postal_code: z.coerce.string().optional(),
+              state: z.coerce.string().optional(),
+            }),
+            z.enum([""]),
+          ]),
+          email: z.union([z.coerce.string(), z.enum([""])]),
           name: z.coerce.string().optional(),
           phone: z.coerce.string().optional(),
         })
@@ -26496,7 +29919,7 @@ export function bootstrap(
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
       link: z.object({}).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       us_bank_account: z
         .object({
           account_holder_type: z.enum(["company", "individual"]).optional(),
@@ -26613,8 +30036,24 @@ export function bootstrap(
   )
 
   const getPayoutsQuerySchema = z.object({
-    arrival_date: z.object({}).optional(),
-    created: z.object({}).optional(),
+    arrival_date: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     destination: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -26630,7 +30069,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_payout),
+          data: z.array(z.lazy(() => s_payout)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -26717,7 +30156,7 @@ export function bootstrap(
   const postPayoutsPayoutBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -26825,7 +30264,15 @@ export function bootstrap(
 
   const getPlansQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -26840,7 +30287,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_plan),
+          data: z.array(z.lazy(() => s_plan)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -26877,9 +30324,20 @@ export function bootstrap(
     id: z.coerce.string().optional(),
     interval: z.enum(["day", "month", "week", "year"]),
     interval_count: z.coerce.number().optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     nickname: z.coerce.string().optional(),
-    product: z.object({}).optional(),
+    product: z.union([
+      z.object({
+        active: z.coerce.boolean().optional(),
+        id: z.coerce.string().optional(),
+        metadata: z.object({}).optional(),
+        name: z.coerce.string(),
+        statement_descriptor: z.coerce.string().optional(),
+        tax_code: z.coerce.string().optional(),
+        unit_label: z.coerce.string().optional(),
+      }),
+      z.coerce.string(),
+    ]),
     tiers: z
       .array(
         z.object({
@@ -26887,7 +30345,7 @@ export function bootstrap(
           flat_amount_decimal: z.coerce.string().optional(),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-          up_to: z.object({}),
+          up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
         })
       )
       .optional(),
@@ -26974,7 +30432,7 @@ export function bootstrap(
     .object({
       active: z.coerce.boolean().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nickname: z.coerce.string().optional(),
       product: z.coerce.string().optional(),
       trial_period_days: z.coerce.number().optional(),
@@ -27002,7 +30460,15 @@ export function bootstrap(
 
   const getPricesQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     currency: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -27026,7 +30492,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_price),
+          data: z.array(z.lazy(() => s_price)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -27097,7 +30563,7 @@ export function bootstrap(
           flat_amount_decimal: z.coerce.string().optional(),
           unit_amount: z.coerce.number().optional(),
           unit_amount_decimal: z.coerce.string().optional(),
-          up_to: z.object({}),
+          up_to: z.union([z.enum(["inf"]), z.coerce.number()]),
         })
       )
       .optional(),
@@ -27143,7 +30609,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_price),
+          data: z.array(z.lazy(() => s_price)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -27201,10 +30667,10 @@ export function bootstrap(
   const postPricesPriceBodySchema = z
     .object({
       active: z.coerce.boolean().optional(),
-      currency_options: z.object({}).optional(),
+      currency_options: z.union([z.object({}), z.enum([""])]),
       expand: z.array(z.coerce.string()).optional(),
       lookup_key: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       nickname: z.coerce.string().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -27234,7 +30700,15 @@ export function bootstrap(
 
   const getProductsQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     ids: z.array(z.coerce.string()).optional(),
@@ -27251,7 +30725,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_product),
+          data: z.array(z.lazy(() => s_product)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -27348,7 +30822,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_product),
+          data: z.array(z.lazy(() => s_product)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -27432,15 +30906,23 @@ export function bootstrap(
       default_price: z.coerce.string().optional(),
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      images: z.object({}).optional(),
-      metadata: z.object({}).optional(),
+      images: z.union([z.array(z.coerce.string()), z.enum([""])]),
+      metadata: z.union([z.object({}), z.enum([""])]),
       name: z.coerce.string().optional(),
-      package_dimensions: z.object({}).optional(),
+      package_dimensions: z.union([
+        z.object({
+          height: z.coerce.number(),
+          length: z.coerce.number(),
+          weight: z.coerce.number(),
+          width: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ]),
       shippable: z.coerce.boolean().optional(),
       statement_descriptor: z.coerce.string().optional(),
-      tax_code: z.object({}).optional(),
+      tax_code: z.union([z.coerce.string(), z.enum([""])]),
       unit_label: z.coerce.string().optional(),
-      url: z.object({}).optional(),
+      url: z.union([z.coerce.string(), z.enum([""])]),
     })
     .optional()
 
@@ -27467,7 +30949,15 @@ export function bootstrap(
     active: z.coerce.boolean().optional(),
     code: z.coerce.string().optional(),
     coupon: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -27482,7 +30972,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_promotion_code),
+          data: z.array(z.lazy(() => s_promotion_code)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -27600,7 +31090,7 @@ export function bootstrap(
     .object({
       active: z.coerce.boolean().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       restrictions: z
         .object({ currency_options: z.object({}).optional() })
         .optional(),
@@ -27652,7 +31142,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_quote),
+          data: z.array(z.lazy(() => s_quote)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -27678,16 +31168,24 @@ export function bootstrap(
 
   const postQuotesBodySchema = z
     .object({
-      application_fee_amount: z.object({}).optional(),
-      application_fee_percent: z.object({}).optional(),
+      application_fee_amount: z.union([z.coerce.number(), z.enum([""])]),
+      application_fee_percent: z.union([z.coerce.number(), z.enum([""])]),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
       customer: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       description: z.coerce.string().optional(),
-      discounts: z.object({}).optional(),
+      discounts: z.union([
+        z.array(
+          z.object({
+            coupon: z.coerce.string().optional(),
+            discount: z.coerce.string().optional(),
+          })
+        ),
+        z.enum([""]),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
       expires_at: z.coerce.number().optional(),
       footer: z.coerce.string().optional(),
@@ -27723,21 +31221,32 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
       metadata: z.object({}).optional(),
-      on_behalf_of: z.object({}).optional(),
+      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
       subscription_data: z
         .object({
           description: z.coerce.string().optional(),
-          effective_date: z.object({}).optional(),
-          trial_period_days: z.object({}).optional(),
+          effective_date: z.union([
+            z.enum(["current_period_end"]),
+            z.coerce.number(),
+            z.enum([""]),
+          ]),
+          trial_period_days: z.union([z.coerce.number(), z.enum([""])]),
         })
         .optional(),
       test_clock: z.coerce.string().optional(),
-      transfer_data: z.object({}).optional(),
+      transfer_data: z.union([
+        z.object({
+          amount: z.coerce.number().optional(),
+          amount_percent: z.coerce.number().optional(),
+          destination: z.coerce.string(),
+        }),
+        z.enum([""]),
+      ]),
     })
     .optional()
 
@@ -27791,16 +31300,24 @@ export function bootstrap(
 
   const postQuotesQuoteBodySchema = z
     .object({
-      application_fee_amount: z.object({}).optional(),
-      application_fee_percent: z.object({}).optional(),
+      application_fee_amount: z.union([z.coerce.number(), z.enum([""])]),
+      application_fee_percent: z.union([z.coerce.number(), z.enum([""])]),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
       customer: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       description: z.coerce.string().optional(),
-      discounts: z.object({}).optional(),
+      discounts: z.union([
+        z.array(
+          z.object({
+            coupon: z.coerce.string().optional(),
+            discount: z.coerce.string().optional(),
+          })
+        ),
+        z.enum([""]),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
       expires_at: z.coerce.number().optional(),
       footer: z.coerce.string().optional(),
@@ -27831,20 +31348,31 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
       metadata: z.object({}).optional(),
-      on_behalf_of: z.object({}).optional(),
+      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
       subscription_data: z
         .object({
           description: z.coerce.string().optional(),
-          effective_date: z.object({}).optional(),
-          trial_period_days: z.object({}).optional(),
+          effective_date: z.union([
+            z.enum(["current_period_end"]),
+            z.coerce.number(),
+            z.enum([""]),
+          ]),
+          trial_period_days: z.union([z.coerce.number(), z.enum([""])]),
         })
         .optional(),
-      transfer_data: z.object({}).optional(),
+      transfer_data: z.union([
+        z.object({
+          amount: z.coerce.number().optional(),
+          amount_percent: z.coerce.number().optional(),
+          destination: z.coerce.string(),
+        }),
+        z.enum([""]),
+      ]),
     })
     .optional()
 
@@ -27962,7 +31490,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_item),
+            data: z.array(z.lazy(() => s_item)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -28064,7 +31592,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_item),
+          data: z.array(z.lazy(() => s_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -28151,7 +31679,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_radar_early_fraud_warning),
+          data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -28238,7 +31766,15 @@ export function bootstrap(
   )
 
   const getRadarValueListItemsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -28408,7 +31944,15 @@ export function bootstrap(
   const getRadarValueListsQuerySchema = z.object({
     alias: z.coerce.string().optional(),
     contains: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -28621,7 +32165,15 @@ export function bootstrap(
 
   const getRefundsQuerySchema = z.object({
     charge: z.coerce.string().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -28636,7 +32188,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_refund),
+          data: z.array(z.lazy(() => s_refund)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -28668,7 +32220,7 @@ export function bootstrap(
       customer: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
       instructions_email: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.coerce.string().optional(),
       reason: z
@@ -28730,7 +32282,7 @@ export function bootstrap(
   const postRefundsRefundBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -28794,7 +32346,15 @@ export function bootstrap(
   )
 
   const getReportingReportRunsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -28808,7 +32368,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_reporting_report_run),
+          data: z.array(z.lazy(() => s_reporting_report_run)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -29657,7 +33217,15 @@ export function bootstrap(
   )
 
   const getReviewsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -29671,7 +33239,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_review),
+          data: z.array(z.lazy(() => s_review)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -29763,7 +33331,15 @@ export function bootstrap(
   )
 
   const getSetupAttemptsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -29778,7 +33354,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_setup_attempt),
+          data: z.array(z.lazy(() => s_setup_attempt)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -29804,7 +33380,15 @@ export function bootstrap(
 
   const getSetupIntentsQuerySchema = z.object({
     attach_to_self: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -29820,7 +33404,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_setup_intent),
+          data: z.array(z.lazy(() => s_setup_intent)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -29900,8 +33484,18 @@ export function bootstrap(
           bancontact: z.object({}).optional(),
           billing_details: z
             .object({
-              address: z.object({}).optional(),
-              email: z.object({}).optional(),
+              address: z.union([
+                z.object({
+                  city: z.coerce.string().optional(),
+                  country: z.coerce.string().optional(),
+                  line1: z.coerce.string().optional(),
+                  line2: z.coerce.string().optional(),
+                  postal_code: z.coerce.string().optional(),
+                  state: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              email: z.union([z.coerce.string(), z.enum([""])]),
               name: z.coerce.string().optional(),
               phone: z.coerce.string().optional(),
             })
@@ -30106,7 +33700,10 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.object({}).optional(),
+                  custom_mandate_url: z.union([
+                    z.coerce.string(),
+                    z.enum([""]),
+                  ]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
@@ -30278,7 +33875,7 @@ export function bootstrap(
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
       flow_directions: z.array(z.enum(["inbound", "outbound"])).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       payment_method: z.coerce.string().optional(),
       payment_method_data: z
         .object({
@@ -30307,8 +33904,18 @@ export function bootstrap(
           bancontact: z.object({}).optional(),
           billing_details: z
             .object({
-              address: z.object({}).optional(),
-              email: z.object({}).optional(),
+              address: z.union([
+                z.object({
+                  city: z.coerce.string().optional(),
+                  country: z.coerce.string().optional(),
+                  line1: z.coerce.string().optional(),
+                  line2: z.coerce.string().optional(),
+                  postal_code: z.coerce.string().optional(),
+                  state: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              email: z.union([z.coerce.string(), z.enum([""])]),
               name: z.coerce.string().optional(),
               phone: z.coerce.string().optional(),
             })
@@ -30513,7 +34120,10 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.object({}).optional(),
+                  custom_mandate_url: z.union([
+                    z.coerce.string(),
+                    z.enum([""]),
+                  ]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
@@ -30691,7 +34301,30 @@ export function bootstrap(
     .object({
       client_secret: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      mandate_data: z.object({}).optional(),
+      mandate_data: z.union([
+        z.object({
+          customer_acceptance: z.object({
+            accepted_at: z.coerce.number().optional(),
+            offline: z.object({}).optional(),
+            online: z
+              .object({
+                ip_address: z.coerce.string(),
+                user_agent: z.coerce.string(),
+              })
+              .optional(),
+            type: z.enum(["offline", "online"]),
+          }),
+        }),
+        z.object({
+          customer_acceptance: z.object({
+            online: z.object({
+              ip_address: z.coerce.string().optional(),
+              user_agent: z.coerce.string().optional(),
+            }),
+            type: z.enum(["online"]),
+          }),
+        }),
+      ]),
       payment_method: z.coerce.string().optional(),
       payment_method_data: z
         .object({
@@ -30720,8 +34353,18 @@ export function bootstrap(
           bancontact: z.object({}).optional(),
           billing_details: z
             .object({
-              address: z.object({}).optional(),
-              email: z.object({}).optional(),
+              address: z.union([
+                z.object({
+                  city: z.coerce.string().optional(),
+                  country: z.coerce.string().optional(),
+                  line1: z.coerce.string().optional(),
+                  line2: z.coerce.string().optional(),
+                  postal_code: z.coerce.string().optional(),
+                  state: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              email: z.union([z.coerce.string(), z.enum([""])]),
               name: z.coerce.string().optional(),
               phone: z.coerce.string().optional(),
             })
@@ -30926,7 +34569,10 @@ export function bootstrap(
               currency: z.enum(["cad", "usd"]).optional(),
               mandate_options: z
                 .object({
-                  custom_mandate_url: z.object({}).optional(),
+                  custom_mandate_url: z.union([
+                    z.coerce.string(),
+                    z.enum([""]),
+                  ]),
                   default_for: z
                     .array(z.enum(["invoice", "subscription"]))
                     .optional(),
@@ -31100,7 +34746,15 @@ export function bootstrap(
 
   const getShippingRatesQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     currency: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -31245,7 +34899,7 @@ export function bootstrap(
       fixed_amount: z
         .object({ currency_options: z.object({}).optional() })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
@@ -31297,7 +34951,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_scheduled_query_run),
+          data: z.array(z.lazy(() => s_scheduled_query_run)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -31413,7 +35067,7 @@ export function bootstrap(
               user_agent: z.coerce.string().optional(),
             })
             .optional(),
-          amount: z.object({}).optional(),
+          amount: z.union([z.coerce.number(), z.enum([""])]),
           currency: z.coerce.string().optional(),
           interval: z.enum(["one_time", "scheduled", "variable"]).optional(),
           notification_method: z
@@ -31567,7 +35221,7 @@ export function bootstrap(
               user_agent: z.coerce.string().optional(),
             })
             .optional(),
-          amount: z.object({}).optional(),
+          amount: z.union([z.coerce.number(), z.enum([""])]),
           currency: z.coerce.string().optional(),
           interval: z.enum(["one_time", "scheduled", "variable"]).optional(),
           notification_method: z
@@ -31581,7 +35235,7 @@ export function bootstrap(
             .optional(),
         })
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       owner: z
         .object({
           address: z
@@ -31871,7 +35525,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_subscription_item),
+          data: z.array(z.lazy(() => s_subscription_item)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -31906,7 +35560,10 @@ export function bootstrap(
   )
 
   const postSubscriptionItemsBodySchema = z.object({
-    billing_thresholds: z.object({}).optional(),
+    billing_thresholds: z.union([
+      z.object({ usage_gte: z.coerce.number() }),
+      z.enum([""]),
+    ]),
     expand: z.array(z.coerce.string()).optional(),
     metadata: z.object({}).optional(),
     payment_behavior: z
@@ -31939,7 +35596,7 @@ export function bootstrap(
     proration_date: z.coerce.number().optional(),
     quantity: z.coerce.number().optional(),
     subscription: z.coerce.string(),
-    tax_rates: z.object({}).optional(),
+    tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
   })
 
   const postSubscriptionItemsResponseValidator = responseValidationFactory(
@@ -32066,9 +35723,12 @@ export function bootstrap(
 
   const postSubscriptionItemsItemBodySchema = z
     .object({
-      billing_thresholds: z.object({}).optional(),
+      billing_thresholds: z.union([
+        z.object({ usage_gte: z.coerce.number() }),
+        z.enum([""]),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
       payment_behavior: z
         .enum([
@@ -32099,7 +35759,7 @@ export function bootstrap(
         .optional(),
       proration_date: z.coerce.number().optional(),
       quantity: z.coerce.number().optional(),
-      tax_rates: z.object({}).optional(),
+      tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
     })
     .optional()
 
@@ -32209,7 +35869,7 @@ export function bootstrap(
     action: z.enum(["increment", "set"]).optional(),
     expand: z.array(z.coerce.string()).optional(),
     quantity: z.coerce.number(),
-    timestamp: z.object({}).optional(),
+    timestamp: z.union([z.enum(["now"]), z.coerce.number()]),
   })
 
   const postSubscriptionItemsSubscriptionItemUsageRecordsResponseValidator =
@@ -32248,14 +35908,46 @@ export function bootstrap(
   )
 
   const getSubscriptionSchedulesQuerySchema = z.object({
-    canceled_at: z.object({}).optional(),
-    completed_at: z.object({}).optional(),
-    created: z.object({}).optional(),
+    canceled_at: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    completed_at: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
-    released_at: z.object({}).optional(),
+    released_at: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     scheduled: z.coerce.boolean().optional(),
     starting_after: z.coerce.string().optional(),
   })
@@ -32267,7 +35959,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_subscription_schedule),
+          data: z.array(z.lazy(() => s_subscription_schedule)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -32312,7 +36004,13 @@ export function bootstrap(
           application_fee_percent: z.coerce.number().optional(),
           automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-          billing_thresholds: z.object({}).optional(),
+          billing_thresholds: z.union([
+            z.object({
+              amount_gte: z.coerce.number().optional(),
+              reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+            }),
+            z.enum([""]),
+          ]),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -32321,14 +36019,20 @@ export function bootstrap(
           invoice_settings: z
             .object({ days_until_due: z.coerce.number().optional() })
             .optional(),
-          on_behalf_of: z.object({}).optional(),
-          transfer_data: z.object({}).optional(),
+          on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+          transfer_data: z.union([
+            z.object({
+              amount_percent: z.coerce.number().optional(),
+              destination: z.coerce.string(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.coerce.string()).optional(),
       from_subscription: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       phases: z
         .array(
           z.object({
@@ -32348,7 +36052,10 @@ export function bootstrap(
                     })
                     .optional(),
                   quantity: z.coerce.number().optional(),
-                  tax_rates: z.object({}).optional(),
+                  tax_rates: z.union([
+                    z.array(z.coerce.string()),
+                    z.enum([""]),
+                  ]),
                 })
               )
               .optional(),
@@ -32357,14 +36064,23 @@ export function bootstrap(
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
-            billing_thresholds: z.object({}).optional(),
+            billing_thresholds: z.union([
+              z.object({
+                amount_gte: z.coerce.number().optional(),
+                reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+              }),
+              z.enum([""]),
+            ]),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
             coupon: z.coerce.string().optional(),
             currency: z.coerce.string().optional(),
             default_payment_method: z.coerce.string().optional(),
-            default_tax_rates: z.object({}).optional(),
+            default_tax_rates: z.union([
+              z.array(z.coerce.string()),
+              z.enum([""]),
+            ]),
             description: z.coerce.string().optional(),
             end_date: z.coerce.number().optional(),
             invoice_settings: z
@@ -32372,7 +36088,10 @@ export function bootstrap(
               .optional(),
             items: z.array(
               z.object({
-                billing_thresholds: z.object({}).optional(),
+                billing_thresholds: z.union([
+                  z.object({ usage_gte: z.coerce.number() }),
+                  z.enum([""]),
+                ]),
                 metadata: z.object({}).optional(),
                 price: z.coerce.string().optional(),
                 price_data: z
@@ -32391,7 +36110,7 @@ export function bootstrap(
                   })
                   .optional(),
                 quantity: z.coerce.number().optional(),
-                tax_rates: z.object({}).optional(),
+                tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
               })
             ),
             iterations: z.coerce.number().optional(),
@@ -32411,7 +36130,7 @@ export function bootstrap(
           })
         )
         .optional(),
-      start_date: z.object({}).optional(),
+      start_date: z.union([z.coerce.number(), z.enum(["now"])]),
     })
     .optional()
 
@@ -32496,7 +36215,13 @@ export function bootstrap(
           application_fee_percent: z.coerce.number().optional(),
           automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-          billing_thresholds: z.object({}).optional(),
+          billing_thresholds: z.union([
+            z.object({
+              amount_gte: z.coerce.number().optional(),
+              reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+            }),
+            z.enum([""]),
+          ]),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -32505,13 +36230,19 @@ export function bootstrap(
           invoice_settings: z
             .object({ days_until_due: z.coerce.number().optional() })
             .optional(),
-          on_behalf_of: z.object({}).optional(),
-          transfer_data: z.object({}).optional(),
+          on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+          transfer_data: z.union([
+            z.object({
+              amount_percent: z.coerce.number().optional(),
+              destination: z.coerce.string(),
+            }),
+            z.enum([""]),
+          ]),
         })
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       phases: z
         .array(
           z.object({
@@ -32531,7 +36262,10 @@ export function bootstrap(
                     })
                     .optional(),
                   quantity: z.coerce.number().optional(),
-                  tax_rates: z.object({}).optional(),
+                  tax_rates: z.union([
+                    z.array(z.coerce.string()),
+                    z.enum([""]),
+                  ]),
                 })
               )
               .optional(),
@@ -32540,21 +36274,33 @@ export function bootstrap(
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
-            billing_thresholds: z.object({}).optional(),
+            billing_thresholds: z.union([
+              z.object({
+                amount_gte: z.coerce.number().optional(),
+                reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+              }),
+              z.enum([""]),
+            ]),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
             coupon: z.coerce.string().optional(),
             default_payment_method: z.coerce.string().optional(),
-            default_tax_rates: z.object({}).optional(),
+            default_tax_rates: z.union([
+              z.array(z.coerce.string()),
+              z.enum([""]),
+            ]),
             description: z.coerce.string().optional(),
-            end_date: z.object({}).optional(),
+            end_date: z.union([z.coerce.number(), z.enum(["now"])]),
             invoice_settings: z
               .object({ days_until_due: z.coerce.number().optional() })
               .optional(),
             items: z.array(
               z.object({
-                billing_thresholds: z.object({}).optional(),
+                billing_thresholds: z.union([
+                  z.object({ usage_gte: z.coerce.number() }),
+                  z.enum([""]),
+                ]),
                 metadata: z.object({}).optional(),
                 price: z.coerce.string().optional(),
                 price_data: z
@@ -32573,7 +36319,7 @@ export function bootstrap(
                   })
                   .optional(),
                 quantity: z.coerce.number().optional(),
-                tax_rates: z.object({}).optional(),
+                tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
               })
             ),
             iterations: z.coerce.number().optional(),
@@ -32582,7 +36328,7 @@ export function bootstrap(
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
               .optional(),
-            start_date: z.object({}).optional(),
+            start_date: z.union([z.coerce.number(), z.enum(["now"])]),
             transfer_data: z
               .object({
                 amount_percent: z.coerce.number().optional(),
@@ -32590,7 +36336,7 @@ export function bootstrap(
               })
               .optional(),
             trial: z.coerce.boolean().optional(),
-            trial_end: z.object({}).optional(),
+            trial_end: z.union([z.coerce.number(), z.enum(["now"])]),
           })
         )
         .optional(),
@@ -32723,9 +36469,33 @@ export function bootstrap(
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    created: z.object({}).optional(),
-    current_period_end: z.object({}).optional(),
-    current_period_start: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    current_period_end: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    current_period_start: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     customer: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -32756,7 +36526,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_subscription),
+          data: z.array(z.lazy(() => s_subscription)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -32797,7 +36567,7 @@ export function bootstrap(
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
         })
       )
       .optional(),
@@ -32805,7 +36575,13 @@ export function bootstrap(
     automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
     backdate_start_date: z.coerce.number().optional(),
     billing_cycle_anchor: z.coerce.number().optional(),
-    billing_thresholds: z.object({}).optional(),
+    billing_thresholds: z.union([
+      z.object({
+        amount_gte: z.coerce.number().optional(),
+        reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+      }),
+      z.enum([""]),
+    ]),
     cancel_at: z.coerce.number().optional(),
     cancel_at_period_end: z.coerce.boolean().optional(),
     collection_method: z
@@ -32817,13 +36593,16 @@ export function bootstrap(
     days_until_due: z.coerce.number().optional(),
     default_payment_method: z.coerce.string().optional(),
     default_source: z.coerce.string().optional(),
-    default_tax_rates: z.object({}).optional(),
+    default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
     description: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     items: z
       .array(
         z.object({
-          billing_thresholds: z.object({}).optional(),
+          billing_thresholds: z.union([
+            z.object({ usage_gte: z.coerce.number() }),
+            z.enum([""]),
+          ]),
           metadata: z.object({}).optional(),
           price: z.coerce.string().optional(),
           price_data: z
@@ -32842,13 +36621,13 @@ export function bootstrap(
             })
             .optional(),
           quantity: z.coerce.number().optional(),
-          tax_rates: z.object({}).optional(),
+          tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
         })
       )
       .optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     off_session: z.coerce.boolean().optional(),
-    on_behalf_of: z.object({}).optional(),
+    on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
     payment_behavior: z
       .enum([
         "allow_incomplete",
@@ -32861,21 +36640,134 @@ export function bootstrap(
       .object({
         payment_method_options: z
           .object({
-            acss_debit: z.object({}).optional(),
-            bancontact: z.object({}).optional(),
-            card: z.object({}).optional(),
-            customer_balance: z.object({}).optional(),
-            konbini: z.object({}).optional(),
-            us_bank_account: z.object({}).optional(),
+            acss_debit: z.union([
+              z.object({
+                mandate_options: z
+                  .object({
+                    transaction_type: z
+                      .enum(["business", "personal"])
+                      .optional(),
+                  })
+                  .optional(),
+                verification_method: z
+                  .enum(["automatic", "instant", "microdeposits"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ]),
+            bancontact: z.union([
+              z.object({
+                preferred_language: z.enum(["de", "en", "fr", "nl"]).optional(),
+              }),
+              z.enum([""]),
+            ]),
+            card: z.union([
+              z.object({
+                mandate_options: z
+                  .object({
+                    amount: z.coerce.number().optional(),
+                    amount_type: z.enum(["fixed", "maximum"]).optional(),
+                    description: z.coerce.string().optional(),
+                  })
+                  .optional(),
+                network: z
+                  .enum([
+                    "amex",
+                    "cartes_bancaires",
+                    "diners",
+                    "discover",
+                    "interac",
+                    "jcb",
+                    "mastercard",
+                    "unionpay",
+                    "unknown",
+                    "visa",
+                  ])
+                  .optional(),
+                request_three_d_secure: z.enum(["any", "automatic"]).optional(),
+              }),
+              z.enum([""]),
+            ]),
+            customer_balance: z.union([
+              z.object({
+                bank_transfer: z
+                  .object({
+                    eu_bank_transfer: z
+                      .object({ country: z.coerce.string() })
+                      .optional(),
+                    type: z.coerce.string().optional(),
+                  })
+                  .optional(),
+                funding_type: z.coerce.string().optional(),
+              }),
+              z.enum([""]),
+            ]),
+            konbini: z.union([z.object({}), z.enum([""])]),
+            us_bank_account: z.union([
+              z.object({
+                financial_connections: z
+                  .object({
+                    permissions: z
+                      .array(
+                        z.enum([
+                          "balances",
+                          "ownership",
+                          "payment_method",
+                          "transactions",
+                        ])
+                      )
+                      .optional(),
+                  })
+                  .optional(),
+                verification_method: z
+                  .enum(["automatic", "instant", "microdeposits"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ]),
           })
           .optional(),
-        payment_method_types: z.object({}).optional(),
+        payment_method_types: z.union([
+          z.array(
+            z.enum([
+              "ach_credit_transfer",
+              "ach_debit",
+              "acss_debit",
+              "au_becs_debit",
+              "bacs_debit",
+              "bancontact",
+              "boleto",
+              "card",
+              "cashapp",
+              "customer_balance",
+              "fpx",
+              "giropay",
+              "grabpay",
+              "ideal",
+              "konbini",
+              "link",
+              "paynow",
+              "promptpay",
+              "sepa_debit",
+              "sofort",
+              "us_bank_account",
+              "wechat_pay",
+            ])
+          ),
+          z.enum([""]),
+        ]),
         save_default_payment_method: z
           .enum(["off", "on_subscription"])
           .optional(),
       })
       .optional(),
-    pending_invoice_item_interval: z.object({}).optional(),
+    pending_invoice_item_interval: z.union([
+      z.object({
+        interval: z.enum(["day", "month", "week", "year"]),
+        interval_count: z.coerce.number().optional(),
+      }),
+      z.enum([""]),
+    ]),
     promotion_code: z.coerce.string().optional(),
     proration_behavior: z
       .enum(["always_invoice", "create_prorations", "none"])
@@ -32886,7 +36778,7 @@ export function bootstrap(
         destination: z.coerce.string(),
       })
       .optional(),
-    trial_end: z.object({}).optional(),
+    trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
     trial_from_plan: z.coerce.boolean().optional(),
     trial_period_days: z.coerce.number().optional(),
     trial_settings: z
@@ -32931,7 +36823,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_subscription),
+          data: z.array(z.lazy(() => s_subscription)),
           has_more: z.coerce.boolean(),
           next_page: z.coerce.string().optional().nullable(),
           object: z.enum(["search_result"]),
@@ -33099,15 +36991,21 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
       application_fee_percent: z.coerce.number().optional(),
       automatic_tax: z.object({ enabled: z.coerce.boolean() }).optional(),
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-      billing_thresholds: z.object({}).optional(),
-      cancel_at: z.object({}).optional(),
+      billing_thresholds: z.union([
+        z.object({
+          amount_gte: z.coerce.number().optional(),
+          reset_billing_cycle_anchor: z.coerce.boolean().optional(),
+        }),
+        z.enum([""]),
+      ]),
+      cancel_at: z.union([z.coerce.number(), z.enum([""])]),
       cancel_at_period_end: z.coerce.boolean().optional(),
       cancellation_details: z
         .object({
@@ -33134,17 +37032,20 @@ export function bootstrap(
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.coerce.string().optional(),
       default_source: z.coerce.string().optional(),
-      default_tax_rates: z.object({}).optional(),
+      default_tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
       items: z
         .array(
           z.object({
-            billing_thresholds: z.object({}).optional(),
+            billing_thresholds: z.union([
+              z.object({ usage_gte: z.coerce.number() }),
+              z.enum([""]),
+            ]),
             clear_usage: z.coerce.boolean().optional(),
             deleted: z.coerce.boolean().optional(),
             id: z.coerce.string().optional(),
-            metadata: z.object({}).optional(),
+            metadata: z.union([z.object({}), z.enum([""])]),
             price: z.coerce.string().optional(),
             price_data: z
               .object({
@@ -33162,14 +37063,20 @@ export function bootstrap(
               })
               .optional(),
             quantity: z.coerce.number().optional(),
-            tax_rates: z.object({}).optional(),
+            tax_rates: z.union([z.array(z.coerce.string()), z.enum([""])]),
           })
         )
         .optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       off_session: z.coerce.boolean().optional(),
-      on_behalf_of: z.object({}).optional(),
-      pause_collection: z.object({}).optional(),
+      on_behalf_of: z.union([z.coerce.string(), z.enum([""])]),
+      pause_collection: z.union([
+        z.object({
+          behavior: z.enum(["keep_as_draft", "mark_uncollectible", "void"]),
+          resumes_at: z.coerce.number().optional(),
+        }),
+        z.enum([""]),
+      ]),
       payment_behavior: z
         .enum([
           "allow_incomplete",
@@ -33182,28 +37089,151 @@ export function bootstrap(
         .object({
           payment_method_options: z
             .object({
-              acss_debit: z.object({}).optional(),
-              bancontact: z.object({}).optional(),
-              card: z.object({}).optional(),
-              customer_balance: z.object({}).optional(),
-              konbini: z.object({}).optional(),
-              us_bank_account: z.object({}).optional(),
+              acss_debit: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      transaction_type: z
+                        .enum(["business", "personal"])
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              bancontact: z.union([
+                z.object({
+                  preferred_language: z
+                    .enum(["de", "en", "fr", "nl"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              card: z.union([
+                z.object({
+                  mandate_options: z
+                    .object({
+                      amount: z.coerce.number().optional(),
+                      amount_type: z.enum(["fixed", "maximum"]).optional(),
+                      description: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  network: z
+                    .enum([
+                      "amex",
+                      "cartes_bancaires",
+                      "diners",
+                      "discover",
+                      "interac",
+                      "jcb",
+                      "mastercard",
+                      "unionpay",
+                      "unknown",
+                      "visa",
+                    ])
+                    .optional(),
+                  request_three_d_secure: z
+                    .enum(["any", "automatic"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
+              customer_balance: z.union([
+                z.object({
+                  bank_transfer: z
+                    .object({
+                      eu_bank_transfer: z
+                        .object({ country: z.coerce.string() })
+                        .optional(),
+                      type: z.coerce.string().optional(),
+                    })
+                    .optional(),
+                  funding_type: z.coerce.string().optional(),
+                }),
+                z.enum([""]),
+              ]),
+              konbini: z.union([z.object({}), z.enum([""])]),
+              us_bank_account: z.union([
+                z.object({
+                  financial_connections: z
+                    .object({
+                      permissions: z
+                        .array(
+                          z.enum([
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                          ])
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  verification_method: z
+                    .enum(["automatic", "instant", "microdeposits"])
+                    .optional(),
+                }),
+                z.enum([""]),
+              ]),
             })
             .optional(),
-          payment_method_types: z.object({}).optional(),
+          payment_method_types: z.union([
+            z.array(
+              z.enum([
+                "ach_credit_transfer",
+                "ach_debit",
+                "acss_debit",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "boleto",
+                "card",
+                "cashapp",
+                "customer_balance",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "konbini",
+                "link",
+                "paynow",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+              ])
+            ),
+            z.enum([""]),
+          ]),
           save_default_payment_method: z
             .enum(["off", "on_subscription"])
             .optional(),
         })
         .optional(),
-      pending_invoice_item_interval: z.object({}).optional(),
+      pending_invoice_item_interval: z.union([
+        z.object({
+          interval: z.enum(["day", "month", "week", "year"]),
+          interval_count: z.coerce.number().optional(),
+        }),
+        z.enum([""]),
+      ]),
       promotion_code: z.coerce.string().optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
       proration_date: z.coerce.number().optional(),
-      transfer_data: z.object({}).optional(),
-      trial_end: z.object({}).optional(),
+      transfer_data: z.union([
+        z.object({
+          amount_percent: z.coerce.number().optional(),
+          destination: z.coerce.string(),
+        }),
+        z.enum([""]),
+      ]),
+      trial_end: z.union([z.enum(["now"]), z.coerce.number()]),
       trial_from_plan: z.coerce.boolean().optional(),
       trial_settings: z
         .object({
@@ -33793,7 +37823,15 @@ export function bootstrap(
 
   const getTaxRatesQuerySchema = z.object({
     active: z.coerce.boolean().optional(),
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     inclusive: z.coerce.boolean().optional(),
@@ -33926,7 +37964,7 @@ export function bootstrap(
       display_name: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
       jurisdiction: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       state: z.coerce.string().optional(),
       tax_type: z
         .enum([
@@ -33989,7 +38027,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_terminal_configuration),
+          data: z.array(z.lazy(() => s_terminal_configuration)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -34029,12 +38067,114 @@ export function bootstrap(
   const postTerminalConfigurationsBodySchema = z
     .object({
       bbpos_wisepos_e: z
-        .object({ splashscreen: z.object({}).optional() })
+        .object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) })
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
-      tipping: z.object({}).optional(),
+      tipping: z.union([
+        z.object({
+          aud: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          cad: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          chf: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          czk: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          dkk: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          eur: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          gbp: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          hkd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          myr: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          nok: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          nzd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          sek: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          sgd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          usd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+        }),
+        z.enum([""]),
+      ]),
       verifone_p400: z
-        .object({ splashscreen: z.object({}).optional() })
+        .object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) })
         .optional(),
     })
     .optional()
@@ -34126,7 +38266,18 @@ export function bootstrap(
     .optional()
 
   const getTerminalConfigurationsConfigurationResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([
+            z.lazy(() => s_terminal_configuration),
+            s_deleted_terminal_configuration,
+          ]),
+        ],
+      ],
+      s_error
+    )
 
   router.get(
     "getTerminalConfigurationsConfiguration",
@@ -34165,15 +38316,134 @@ export function bootstrap(
 
   const postTerminalConfigurationsConfigurationBodySchema = z
     .object({
-      bbpos_wisepos_e: z.object({}).optional(),
+      bbpos_wisepos_e: z.union([
+        z.object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) }),
+        z.enum([""]),
+      ]),
       expand: z.array(z.coerce.string()).optional(),
-      tipping: z.object({}).optional(),
-      verifone_p400: z.object({}).optional(),
+      tipping: z.union([
+        z.object({
+          aud: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          cad: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          chf: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          czk: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          dkk: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          eur: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          gbp: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          hkd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          myr: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          nok: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          nzd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          sek: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          sgd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          usd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+        }),
+        z.enum([""]),
+      ]),
+      verifone_p400: z.union([
+        z.object({ splashscreen: z.union([z.coerce.string(), z.enum([""])]) }),
+        z.enum([""]),
+      ]),
     })
     .optional()
 
   const postTerminalConfigurationsConfigurationResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.union([
+            z.lazy(() => s_terminal_configuration),
+            s_deleted_terminal_configuration,
+          ]),
+        ],
+      ],
+      s_error
+    )
 
   router.post(
     "postTerminalConfigurationsConfiguration",
@@ -34295,7 +38565,7 @@ export function bootstrap(
     configuration_overrides: z.coerce.string().optional(),
     display_name: z.coerce.string(),
     expand: z.array(z.coerce.string()).optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
   })
 
   const postTerminalLocationsResponseValidator = responseValidationFactory(
@@ -34372,7 +38642,10 @@ export function bootstrap(
   const getTerminalLocationsLocationBodySchema = z.object({}).optional()
 
   const getTerminalLocationsLocationResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
+      s_error
+    )
 
   router.get(
     "getTerminalLocationsLocation",
@@ -34421,12 +38694,15 @@ export function bootstrap(
       configuration_overrides: z.coerce.string().optional(),
       display_name: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
   const postTerminalLocationsLocationResponseValidator =
-    responseValidationFactory([["200", z.object({})]], s_error)
+    responseValidationFactory(
+      [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
+      s_error
+    )
 
   router.post(
     "postTerminalLocationsLocation",
@@ -34479,7 +38755,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_terminal_reader),
+          data: z.array(z.lazy(() => s_terminal_reader)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -34514,7 +38790,7 @@ export function bootstrap(
     expand: z.array(z.coerce.string()).optional(),
     label: z.coerce.string().optional(),
     location: z.coerce.string().optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     registration_code: z.coerce.string(),
   })
 
@@ -34594,7 +38870,12 @@ export function bootstrap(
   const getTerminalReadersReaderBodySchema = z.object({}).optional()
 
   const getTerminalReadersReaderResponseValidator = responseValidationFactory(
-    [["200", z.object({})]],
+    [
+      [
+        "200",
+        z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
+      ],
+    ],
     s_error
   )
 
@@ -34636,12 +38917,17 @@ export function bootstrap(
     .object({
       expand: z.array(z.coerce.string()).optional(),
       label: z.coerce.string().optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
   const postTerminalReadersReaderResponseValidator = responseValidationFactory(
-    [["200", z.object({})]],
+    [
+      [
+        "200",
+        z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
+      ],
+    ],
     s_error
   )
 
@@ -36108,12 +40394,22 @@ export function bootstrap(
                   town: z.coerce.string().optional(),
                 })
                 .optional(),
-              dob: z.object({}).optional(),
+              dob: z.union([
+                z.object({
+                  day: z.coerce.number(),
+                  month: z.coerce.number(),
+                  year: z.coerce.number(),
+                }),
+                z.enum([""]),
+              ]),
               email: z.coerce.string().optional(),
               first_name: z.coerce.string().optional(),
               first_name_kana: z.coerce.string().optional(),
               first_name_kanji: z.coerce.string().optional(),
-              full_name_aliases: z.object({}).optional(),
+              full_name_aliases: z.union([
+                z.array(z.coerce.string()),
+                z.enum([""]),
+              ]),
               gender: z.coerce.string().optional(),
               id_number: z.coerce.string().optional(),
               id_number_secondary: z.coerce.string().optional(),
@@ -36121,7 +40417,7 @@ export function bootstrap(
               last_name_kana: z.coerce.string().optional(),
               last_name_kanji: z.coerce.string().optional(),
               maiden_name: z.coerce.string().optional(),
-              metadata: z.object({}).optional(),
+              metadata: z.union([z.object({}), z.enum([""])]),
               phone: z.coerce.string().optional(),
               political_exposure: z.enum(["existing", "none"]).optional(),
               registered_address: z
@@ -36169,7 +40465,23 @@ export function bootstrap(
           routing_number: z.coerce.string().optional(),
         })
         .optional(),
-      card: z.object({}).optional(),
+      card: z.union([
+        z.object({
+          address_city: z.coerce.string().optional(),
+          address_country: z.coerce.string().optional(),
+          address_line1: z.coerce.string().optional(),
+          address_line2: z.coerce.string().optional(),
+          address_state: z.coerce.string().optional(),
+          address_zip: z.coerce.string().optional(),
+          currency: z.coerce.string().optional(),
+          cvc: z.coerce.string().optional(),
+          exp_month: z.coerce.string(),
+          exp_year: z.coerce.string(),
+          name: z.coerce.string().optional(),
+          number: z.coerce.string(),
+        }),
+        z.coerce.string(),
+      ]),
       customer: z.coerce.string().optional(),
       cvc_update: z.object({ cvc: z.coerce.string() }).optional(),
       expand: z.array(z.coerce.string()).optional(),
@@ -36207,7 +40519,14 @@ export function bootstrap(
               town: z.coerce.string().optional(),
             })
             .optional(),
-          dob: z.object({}).optional(),
+          dob: z.union([
+            z.object({
+              day: z.coerce.number(),
+              month: z.coerce.number(),
+              year: z.coerce.number(),
+            }),
+            z.enum([""]),
+          ]),
           documents: z
             .object({
               company_authorization: z
@@ -36225,7 +40544,10 @@ export function bootstrap(
           first_name: z.coerce.string().optional(),
           first_name_kana: z.coerce.string().optional(),
           first_name_kanji: z.coerce.string().optional(),
-          full_name_aliases: z.object({}).optional(),
+          full_name_aliases: z.union([
+            z.array(z.coerce.string()),
+            z.enum([""]),
+          ]),
           gender: z.coerce.string().optional(),
           id_number: z.coerce.string().optional(),
           id_number_secondary: z.coerce.string().optional(),
@@ -36233,7 +40555,7 @@ export function bootstrap(
           last_name_kana: z.coerce.string().optional(),
           last_name_kanji: z.coerce.string().optional(),
           maiden_name: z.coerce.string().optional(),
-          metadata: z.object({}).optional(),
+          metadata: z.union([z.object({}), z.enum([""])]),
           nationality: z.coerce.string().optional(),
           phone: z.coerce.string().optional(),
           political_exposure: z.coerce.string().optional(),
@@ -36252,7 +40574,7 @@ export function bootstrap(
               director: z.coerce.boolean().optional(),
               executive: z.coerce.boolean().optional(),
               owner: z.coerce.boolean().optional(),
-              percent_ownership: z.object({}).optional(),
+              percent_ownership: z.union([z.coerce.number(), z.enum([""])]),
               representative: z.coerce.boolean().optional(),
               title: z.coerce.string().optional(),
             })
@@ -36327,8 +40649,24 @@ export function bootstrap(
   })
 
   const getTopupsQuerySchema = z.object({
-    amount: z.object({}).optional(),
-    created: z.object({}).optional(),
+    amount: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -36343,7 +40681,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_topup),
+          data: z.array(z.lazy(() => s_topup)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -36372,7 +40710,7 @@ export function bootstrap(
     currency: z.coerce.string(),
     description: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     source: z.coerce.string().optional(),
     statement_descriptor: z.coerce.string().optional(),
     transfer_group: z.coerce.string().optional(),
@@ -36430,7 +40768,7 @@ export function bootstrap(
     .object({
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -36491,7 +40829,15 @@ export function bootstrap(
   )
 
   const getTransfersQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     destination: z.coerce.string().optional(),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
@@ -36507,7 +40853,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_transfer),
+          data: z.array(z.lazy(() => s_transfer)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -36578,7 +40924,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_transfer_reversal),
+          data: z.array(z.lazy(() => s_transfer_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -36624,7 +40970,7 @@ export function bootstrap(
       amount: z.coerce.number().optional(),
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       refund_application_fee: z.coerce.boolean().optional(),
     })
     .optional()
@@ -36708,7 +41054,7 @@ export function bootstrap(
     .object({
       description: z.coerce.string().optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -36791,7 +41137,7 @@ export function bootstrap(
   const postTransfersTransferReversalsIdBodySchema = z
     .object({
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
     })
     .optional()
 
@@ -36840,7 +41186,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_treasury_credit_reversal),
+          data: z.array(z.lazy(() => s_treasury_credit_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -36977,7 +41323,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_treasury_debit_reversal),
+          data: z.array(z.lazy(() => s_treasury_debit_reversal)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -37096,7 +41442,15 @@ export function bootstrap(
   )
 
   const getTreasuryFinancialAccountsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     limit: z.coerce.number().optional(),
@@ -37501,7 +41855,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_treasury_inbound_transfer),
+            data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -37678,7 +42032,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_treasury_outbound_payment),
+            data: z.array(z.lazy(() => s_treasury_outbound_payment)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -37725,8 +42079,18 @@ export function bootstrap(
       .object({
         billing_details: z
           .object({
-            address: z.object({}).optional(),
-            email: z.object({}).optional(),
+            address: z.union([
+              z.object({
+                city: z.coerce.string().optional(),
+                country: z.coerce.string().optional(),
+                line1: z.coerce.string().optional(),
+                line2: z.coerce.string().optional(),
+                postal_code: z.coerce.string().optional(),
+                state: z.coerce.string().optional(),
+              }),
+              z.enum([""]),
+            ]),
+            email: z.union([z.coerce.string(), z.enum([""])]),
             name: z.coerce.string().optional(),
             phone: z.coerce.string().optional(),
           })
@@ -37746,7 +42110,12 @@ export function bootstrap(
       })
       .optional(),
     destination_payment_method_options: z
-      .object({ us_bank_account: z.object({}).optional() })
+      .object({
+        us_bank_account: z.union([
+          z.object({ network: z.enum(["ach", "us_domestic_wire"]).optional() }),
+          z.enum([""]),
+        ]),
+      })
       .optional(),
     end_user_details: z
       .object({
@@ -37884,7 +42253,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_treasury_outbound_transfer),
+            data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -37925,7 +42294,12 @@ export function bootstrap(
     description: z.coerce.string().optional(),
     destination_payment_method: z.coerce.string().optional(),
     destination_payment_method_options: z
-      .object({ us_bank_account: z.object({}).optional() })
+      .object({
+        us_bank_account: z.union([
+          z.object({ network: z.enum(["ach", "us_domestic_wire"]).optional() }),
+          z.enum([""]),
+        ]),
+      })
       .optional(),
     expand: z.array(z.coerce.string()).optional(),
     financial_account: z.coerce.string(),
@@ -38075,7 +42449,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_treasury_received_credit),
+          data: z.array(z.lazy(() => s_treasury_received_credit)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -38169,7 +42543,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_treasury_received_debit),
+          data: z.array(z.lazy(() => s_treasury_received_debit)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -38250,8 +42624,24 @@ export function bootstrap(
   )
 
   const getTreasuryTransactionEntriesQuerySchema = z.object({
-    created: z.object({}).optional(),
-    effective_at: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
+    effective_at: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     financial_account: z.coerce.string(),
@@ -38269,7 +42659,7 @@ export function bootstrap(
         [
           "200",
           z.object({
-            data: z.array(s_treasury_transaction_entry),
+            data: z.array(z.lazy(() => s_treasury_transaction_entry)),
             has_more: z.coerce.boolean(),
             object: z.enum(["list"]),
             url: z.coerce.string(),
@@ -38346,7 +42736,15 @@ export function bootstrap(
   )
 
   const getTreasuryTransactionsQuerySchema = z.object({
-    created: z.object({}).optional(),
+    created: z.union([
+      z.object({
+        gt: z.coerce.number().optional(),
+        gte: z.coerce.number().optional(),
+        lt: z.coerce.number().optional(),
+        lte: z.coerce.number().optional(),
+      }),
+      z.coerce.number(),
+    ]),
     ending_before: z.coerce.string().optional(),
     expand: z.array(z.coerce.string()).optional(),
     financial_account: z.coerce.string(),
@@ -38355,7 +42753,17 @@ export function bootstrap(
     starting_after: z.coerce.string().optional(),
     status: z.enum(["open", "posted", "void"]).optional(),
     status_transitions: z
-      .object({ posted_at: z.object({}).optional() })
+      .object({
+        posted_at: z.union([
+          z.object({
+            gt: z.coerce.number().optional(),
+            gte: z.coerce.number().optional(),
+            lt: z.coerce.number().optional(),
+            lte: z.coerce.number().optional(),
+          }),
+          z.coerce.number(),
+        ]),
+      })
       .optional(),
   })
 
@@ -38366,7 +42774,7 @@ export function bootstrap(
       [
         "200",
         z.object({
-          data: z.array(s_treasury_transaction),
+          data: z.array(z.lazy(() => s_treasury_transaction)),
           has_more: z.coerce.boolean(),
           object: z.enum(["list"]),
           url: z.coerce.string(),
@@ -38826,7 +43234,7 @@ export function bootstrap(
       ])
     ),
     expand: z.array(z.coerce.string()).optional(),
-    metadata: z.object({}).optional(),
+    metadata: z.union([z.object({}), z.enum([""])]),
     url: z.coerce.string(),
   })
 
@@ -39180,7 +43588,7 @@ export function bootstrap(
         )
         .optional(),
       expand: z.array(z.coerce.string()).optional(),
-      metadata: z.object({}).optional(),
+      metadata: z.union([z.object({}), z.enum([""])]),
       url: z.coerce.string().optional(),
     })
     .optional()

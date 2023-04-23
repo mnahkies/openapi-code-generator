@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_account,
   t_account_link,
   t_apple_pay_domain,
@@ -184,9 +185,7 @@ export class ApiClient {
   getAccount(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<t_account | t_error> {
     const headers = this._headers({
@@ -249,9 +248,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -587,7 +584,7 @@ export class ApiClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           phone?: string
@@ -614,7 +611,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         settings?: {
@@ -699,9 +696,7 @@ export class ApiClient {
 
   deleteAccountsAccount(p: {
     account: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -723,9 +718,7 @@ export class ApiClient {
   getAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1028,7 +1021,7 @@ export class ApiClient {
         maiden_name?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         phone?: string
@@ -1055,7 +1048,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       settings?: {
@@ -1160,7 +1153,7 @@ export class ApiClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_external_account | t_error> {
@@ -1184,9 +1177,7 @@ export class ApiClient {
   deleteAccountsAccountBankAccountsId(p: {
     account: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_external_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1210,9 +1201,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_external_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1258,7 +1247,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -1285,9 +1274,7 @@ export class ApiClient {
   getAccountsAccountCapabilities(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_capability[]
@@ -1320,9 +1307,7 @@ export class ApiClient {
     account: string
     capability: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_capability | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1376,9 +1361,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: (t_bank_account | t_card)[]
@@ -1436,7 +1419,7 @@ export class ApiClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_external_account | t_error> {
@@ -1460,9 +1443,7 @@ export class ApiClient {
   deleteAccountsAccountExternalAccountsId(p: {
     account: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_external_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1486,9 +1467,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_external_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1534,7 +1513,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -1593,9 +1572,7 @@ export class ApiClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_person[]
@@ -1692,7 +1669,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -1748,9 +1725,7 @@ export class ApiClient {
   deleteAccountsAccountPeoplePerson(p: {
     account: string
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_person | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1774,9 +1749,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_person | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1861,7 +1834,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -1927,9 +1900,7 @@ export class ApiClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_person[]
@@ -2026,7 +1997,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -2082,9 +2053,7 @@ export class ApiClient {
   deleteAccountsAccountPersonsPerson(p: {
     account: string
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_person | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2108,9 +2077,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_person | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2195,7 +2162,7 @@ export class ApiClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -2280,9 +2247,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -2343,9 +2308,7 @@ export class ApiClient {
 
   deleteApplePayDomainsDomain(p: {
     domain: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_apple_pay_domain | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2367,9 +2330,7 @@ export class ApiClient {
   getApplePayDomainsDomain(p: {
     domain: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_apple_pay_domain | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2405,9 +2366,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -2448,9 +2407,7 @@ export class ApiClient {
     expand?: string[]
     fee: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_fee_refund | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2479,7 +2436,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -2505,9 +2462,7 @@ export class ApiClient {
   getApplicationFeesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_application_fee | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2559,9 +2514,7 @@ export class ApiClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_fee_refund[]
@@ -2601,7 +2554,7 @@ export class ApiClient {
       amount?: number
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_fee_refund | t_error> {
@@ -2631,9 +2584,7 @@ export class ApiClient {
       user?: string
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_apps_secret[]
@@ -2731,9 +2682,7 @@ export class ApiClient {
       type: "account" | "user"
       user?: string
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_apps_secret | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2761,9 +2710,7 @@ export class ApiClient {
   getBalance(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<t_balance | t_error> {
     const headers = this._headers({
@@ -2803,9 +2750,7 @@ export class ApiClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -2848,9 +2793,7 @@ export class ApiClient {
   getBalanceHistoryId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_balance_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2889,9 +2832,7 @@ export class ApiClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -2934,9 +2875,7 @@ export class ApiClient {
   getBalanceTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_balance_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2965,9 +2904,7 @@ export class ApiClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -3067,7 +3004,7 @@ export class ApiClient {
         enabled: boolean
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_billing_portal_configuration | t_error> {
@@ -3091,9 +3028,7 @@ export class ApiClient {
   getBillingPortalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_billing_portal_configuration | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3181,7 +3116,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -3310,9 +3245,7 @@ export class ApiClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -3370,7 +3303,7 @@ export class ApiClient {
               exp_month: number
               exp_year: number
               metadata?: {
-                [key: string]: unknown
+                [key: string]: string
               }
               name?: string
               number: string
@@ -3389,7 +3322,7 @@ export class ApiClient {
         expand?: string[]
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         on_behalf_of?: string
@@ -3444,9 +3377,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_charge[]
@@ -3485,9 +3416,7 @@ export class ApiClient {
   getChargesCharge(p: {
     charge: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_charge | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3519,7 +3448,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       receipt_email?: string
@@ -3593,9 +3522,7 @@ export class ApiClient {
   getChargesChargeDispute(p: {
     charge: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_dispute | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3651,7 +3578,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       submit?: boolean
@@ -3705,7 +3632,7 @@ export class ApiClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_intent?: string
@@ -3737,9 +3664,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_refund[]
@@ -3783,7 +3708,7 @@ export class ApiClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       origin?: "customer_balance"
@@ -3814,9 +3739,7 @@ export class ApiClient {
     charge: string
     expand?: string[]
     refund: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_refund | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3845,7 +3768,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -3881,9 +3804,7 @@ export class ApiClient {
       paymentLink?: string
       startingAfter?: string
       subscription?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -3997,7 +3918,7 @@ export class ApiClient {
           description?: string
           footer?: string
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           rendering_options?:
             | {
@@ -4024,7 +3945,7 @@ export class ApiClient {
             description?: string
             images?: string[]
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name: string
             tax_code?: string
@@ -4083,7 +4004,7 @@ export class ApiClient {
         | "zh-HK"
         | "zh-TW"
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       mode?: "payment" | "setup" | "subscription"
       payment_intent_data?: {
@@ -4091,7 +4012,7 @@ export class ApiClient {
         capture_method?: "automatic" | "automatic_async" | "manual"
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         receipt_email?: string
@@ -4283,7 +4204,7 @@ export class ApiClient {
       setup_intent_data?: {
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
       }
@@ -4546,11 +4467,14 @@ export class ApiClient {
             amount: number
             currency: string
             currency_options?: {
-              [key: string]: unknown
+              [key: string]: {
+                amount: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
             }
           }
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           tax_behavior?: "exclusive" | "inclusive" | "unspecified"
           tax_code?: string
@@ -4563,7 +4487,7 @@ export class ApiClient {
         default_tax_rates?: string[]
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         transfer_data?: {
@@ -4604,9 +4528,7 @@ export class ApiClient {
   getCheckoutSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_checkout_session | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4656,9 +4578,7 @@ export class ApiClient {
     limit?: number
     session: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_item[]
@@ -4698,9 +4618,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -4738,9 +4656,7 @@ export class ApiClient {
   getCountrySpecsCountry(p: {
     country: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_country_spec | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4775,9 +4691,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -4822,7 +4736,9 @@ export class ApiClient {
         }
         currency?: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount_off: number
+          }
         }
         duration?: "forever" | "once" | "repeating"
         duration_in_months?: number
@@ -4831,7 +4747,7 @@ export class ApiClient {
         max_redemptions?: number
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         name?: string
@@ -4859,9 +4775,7 @@ export class ApiClient {
 
   deleteCouponsCoupon(p: {
     coupon: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_coupon | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4883,9 +4797,7 @@ export class ApiClient {
   getCouponsCoupon(p: {
     coupon: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_coupon | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4910,12 +4822,14 @@ export class ApiClient {
     coupon: string
     requestBody?: {
       currency_options?: {
-        [key: string]: unknown
+        [key: string]: {
+          amount_off: number
+        }
       }
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -4946,9 +4860,7 @@ export class ApiClient {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -5003,7 +4915,7 @@ export class ApiClient {
       }[]
       memo?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       out_of_band_amount?: number
       reason?:
@@ -5052,7 +4964,7 @@ export class ApiClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     outOfBandAmount?: number
     reason?:
@@ -5065,9 +4977,7 @@ export class ApiClient {
     shippingCost?: {
       shipping_rate?: string
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_credit_note | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5120,7 +5030,7 @@ export class ApiClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     outOfBandAmount?: number
     reason?:
@@ -5134,9 +5044,7 @@ export class ApiClient {
       shipping_rate?: string
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_credit_note_line_item[]
@@ -5187,9 +5095,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_credit_note_line_item[]
@@ -5226,9 +5132,7 @@ export class ApiClient {
   getCreditNotesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_credit_note | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5255,7 +5159,7 @@ export class ApiClient {
       expand?: string[]
       memo?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_credit_note | t_error> {
@@ -5315,9 +5219,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -5399,7 +5301,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         name?: string
@@ -5508,9 +5410,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_customer[]
@@ -5548,9 +5448,7 @@ export class ApiClient {
 
   deleteCustomersCustomer(p: {
     customer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_customer | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5572,9 +5470,7 @@ export class ApiClient {
   getCustomersCustomer(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<(t_customer | t_deleted_customer) | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5632,7 +5528,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -5670,7 +5566,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -5722,9 +5618,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_customer_balance_transaction[]
@@ -5768,7 +5662,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -5795,9 +5689,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_customer_balance_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5827,7 +5719,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -5856,9 +5748,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_bank_account[]
@@ -5919,7 +5809,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -5928,7 +5818,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -5979,9 +5869,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_bank_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6020,7 +5908,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -6089,9 +5977,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_card[]
@@ -6152,7 +6038,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -6161,7 +6047,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -6211,9 +6097,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_card | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6251,7 +6135,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -6290,9 +6174,7 @@ export class ApiClient {
   getCustomersCustomerCashBalance(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_cash_balance | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6345,9 +6227,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_customer_cash_balance_transaction[]
@@ -6386,9 +6266,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_customer_cash_balance_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6412,9 +6290,7 @@ export class ApiClient {
 
   deleteCustomersCustomerDiscount(p: {
     customer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_discount | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6436,9 +6312,7 @@ export class ApiClient {
   getCustomersCustomerDiscount(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_discount | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6532,9 +6406,7 @@ export class ApiClient {
       | "sofort"
       | "us_bank_account"
       | "wechat_pay"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_payment_method[]
@@ -6573,9 +6445,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     paymentMethod: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payment_method | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6604,9 +6474,7 @@ export class ApiClient {
     limit?: number
     object?: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: (t_bank_account | t_card | t_source)[]
@@ -6668,7 +6536,7 @@ export class ApiClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -6677,7 +6545,7 @@ export class ApiClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -6728,9 +6596,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payment_source | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6769,7 +6635,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -6838,9 +6704,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_subscription[]
@@ -6918,7 +6782,7 @@ export class ApiClient {
             }
           | ""
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         price?: string
         price_data?: {
@@ -6937,7 +6801,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -6993,11 +6857,7 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -7110,9 +6970,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_subscription | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7194,7 +7052,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -7214,7 +7072,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -7276,11 +7134,7 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -7368,9 +7222,7 @@ export class ApiClient {
   deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(p: {
     customer: string
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_discount | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7394,9 +7246,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_discount | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7424,9 +7274,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_tax_id[]
@@ -7539,9 +7387,7 @@ export class ApiClient {
   deleteCustomersCustomerTaxIdsId(p: {
     customer: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_tax_id | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7565,9 +7411,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_tax_id | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7605,9 +7449,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -7648,9 +7490,7 @@ export class ApiClient {
   getDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_dispute | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7706,7 +7546,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       submit?: boolean
@@ -7819,9 +7659,7 @@ export class ApiClient {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -7863,9 +7701,7 @@ export class ApiClient {
   getEventsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_event | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7892,9 +7728,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -7932,9 +7766,7 @@ export class ApiClient {
   getExchangeRatesRateId(p: {
     expand?: string[]
     rateId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_exchange_rate | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7971,9 +7803,7 @@ export class ApiClient {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8018,7 +7848,7 @@ export class ApiClient {
       file: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -8043,9 +7873,7 @@ export class ApiClient {
   getFileLinksLink(p: {
     expand?: string[]
     link: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_file_link | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8073,7 +7901,7 @@ export class ApiClient {
       expires_at?: "now" | number | ""
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -8125,9 +7953,7 @@ export class ApiClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8173,7 +7999,7 @@ export class ApiClient {
         expires_at?: number
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
       }
@@ -8208,9 +8034,7 @@ export class ApiClient {
   getFilesFile(p: {
     expand?: string[]
     file: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_file | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8242,9 +8066,7 @@ export class ApiClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8284,9 +8106,7 @@ export class ApiClient {
   getFinancialConnectionsAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_financial_connections_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8339,9 +8159,7 @@ export class ApiClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_financial_connections_account_owner[]
@@ -8442,9 +8260,7 @@ export class ApiClient {
   getFinancialConnectionsSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_financial_connections_session | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8482,9 +8298,7 @@ export class ApiClient {
       startingAfter?: string
       type?: "document" | "id_number"
       verificationSession?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8525,9 +8339,7 @@ export class ApiClient {
   getIdentityVerificationReportsReport(p: {
     expand?: string[]
     report: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_identity_verification_report | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8563,9 +8375,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8606,7 +8416,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       options?: {
         document?:
@@ -8642,9 +8452,7 @@ export class ApiClient {
   getIdentityVerificationSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_identity_verification_session | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8671,7 +8479,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       options?: {
         document?:
@@ -8769,9 +8577,7 @@ export class ApiClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -8827,7 +8633,7 @@ export class ApiClient {
       invoice?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       period?: {
@@ -8870,9 +8676,7 @@ export class ApiClient {
 
   deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_invoiceitem | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8894,9 +8698,7 @@ export class ApiClient {
   getInvoiceitemsInvoiceitem(p: {
     expand?: string[]
     invoiceitem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_invoiceitem | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8932,7 +8734,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       period?: {
@@ -8998,9 +8800,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -9079,7 +8879,7 @@ export class ApiClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         on_behalf_of?: string
@@ -9128,11 +8928,7 @@ export class ApiClient {
                   funding_type?: string
                 }
               | ""
-            konbini?:
-              | {
-                  [key: string]: never
-                }
-              | ""
+            konbini?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -9204,11 +9000,14 @@ export class ApiClient {
               amount: number
               currency: string
               currency_options?: {
-                [key: string]: unknown
+                [key: string]: {
+                  amount: number
+                  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                }
               }
             }
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             tax_behavior?: "exclusive" | "inclusive" | "unspecified"
             tax_code?: string
@@ -9258,9 +9057,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_invoice[]
@@ -9410,7 +9207,7 @@ export class ApiClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         period?: {
@@ -9450,7 +9247,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -9477,9 +9274,7 @@ export class ApiClient {
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<t_invoice | t_error> {
     const headers = this._headers({
@@ -9639,7 +9434,7 @@ export class ApiClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         period?: {
@@ -9681,7 +9476,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -9708,9 +9503,7 @@ export class ApiClient {
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -9768,9 +9561,7 @@ export class ApiClient {
 
   deleteInvoicesInvoice(p: {
     invoice: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_invoice | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9792,9 +9583,7 @@ export class ApiClient {
   getInvoicesInvoice(p: {
     expand?: string[]
     invoice: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_invoice | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9847,7 +9636,7 @@ export class ApiClient {
       footer?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       on_behalf_of?: string | ""
@@ -9893,11 +9682,7 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -9963,11 +9748,14 @@ export class ApiClient {
                 amount: number
                 currency: string
                 currency_options?: {
-                  [key: string]: unknown
+                  [key: string]: {
+                    amount: number
+                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                  }
                 }
               }
               metadata?: {
-                [key: string]: unknown
+                [key: string]: string
               }
               tax_behavior?: "exclusive" | "inclusive" | "unspecified"
               tax_code?: string
@@ -10045,9 +9833,7 @@ export class ApiClient {
     invoice: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_line_item[]
@@ -10196,9 +9982,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -10240,9 +10024,7 @@ export class ApiClient {
   getIssuingAuthorizationsAuthorization(p: {
     authorization: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_authorization | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10269,7 +10051,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -10298,7 +10080,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -10327,7 +10109,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -10368,9 +10150,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -10450,7 +10230,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
       phone_number?: string
@@ -11382,9 +11162,7 @@ export class ApiClient {
   getIssuingCardholdersCardholder(p: {
     cardholder: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_cardholder | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -11446,7 +11224,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       phone_number?: string
       spending_controls?: {
@@ -12393,9 +12171,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -12444,7 +12220,7 @@ export class ApiClient {
       expand?: string[]
       financial_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       replacement_for?: string
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
@@ -13393,9 +13169,7 @@ export class ApiClient {
   getIssuingCardsCard(p: {
     card: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_card | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -13423,7 +13197,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       pin?: {
@@ -14368,9 +14142,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -14490,7 +14262,7 @@ export class ApiClient {
         }
         expand?: string[]
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         transaction?: string
         treasury?: {
@@ -14519,9 +14291,7 @@ export class ApiClient {
   getIssuingDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_dispute | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14625,7 +14395,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -14653,7 +14423,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -14689,9 +14459,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -14730,9 +14498,7 @@ export class ApiClient {
   getIssuingSettlementsSettlement(p: {
     expand?: string[]
     settlement: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_settlement | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14758,7 +14524,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_issuing_settlement | t_error> {
@@ -14796,9 +14562,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -14840,9 +14604,7 @@ export class ApiClient {
   getIssuingTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_issuing_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14869,7 +14631,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -14931,9 +14693,7 @@ export class ApiClient {
   getLinkAccountSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_financial_connections_session | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14965,9 +14725,7 @@ export class ApiClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -15007,9 +14765,7 @@ export class ApiClient {
   getLinkedAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_financial_connections_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15060,9 +14816,7 @@ export class ApiClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_financial_connections_account_owner[]
@@ -15124,9 +14878,7 @@ export class ApiClient {
   getMandatesMandate(p: {
     expand?: string[]
     mandate: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_mandate | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15162,9 +14914,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -15220,9 +14970,7 @@ export class ApiClient {
       mandate_data?: {
         customer_acceptance: {
           accepted_at?: number
-          offline?: {
-            [key: string]: never
-          }
+          offline?: EmptyObject
           online?: {
             ip_address: string
             user_agent: string
@@ -15231,7 +14979,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       off_session?: boolean | "one_off" | "recurring"
       on_behalf_of?: string
@@ -15242,15 +14990,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -15259,9 +15001,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -15277,18 +15017,12 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -15345,12 +15079,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -15368,9 +15098,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -15378,18 +15106,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -15418,15 +15140,9 @@ export class ApiClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -15472,9 +15188,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -15637,11 +15351,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -15740,9 +15450,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -15839,9 +15547,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_payment_intent[]
@@ -15881,9 +15587,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payment_intent | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15919,7 +15623,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_method?: string
@@ -15929,15 +15633,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -15946,9 +15644,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -15964,18 +15660,12 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -16032,12 +15722,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -16055,9 +15741,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -16065,18 +15749,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -16105,15 +15783,9 @@ export class ApiClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -16159,9 +15831,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -16324,11 +15994,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -16427,9 +16093,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -16579,7 +16243,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       statement_descriptor?: string
@@ -16618,9 +16282,7 @@ export class ApiClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: {
-                [key: string]: never
-              }
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -16645,15 +16307,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -16662,9 +16318,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -16680,18 +16334,12 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -16748,12 +16396,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -16771,9 +16415,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -16781,18 +16423,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -16821,15 +16457,9 @@ export class ApiClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -16875,9 +16505,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -17040,11 +16668,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -17143,9 +16767,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -17240,7 +16862,7 @@ export class ApiClient {
       description?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
       transfer_data?: {
@@ -17300,9 +16922,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -17404,7 +17024,7 @@ export class ApiClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           rendering_options?:
@@ -17427,7 +17047,7 @@ export class ApiClient {
         quantity: number
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       on_behalf_of?: string
       payment_intent_data?: {
@@ -17745,9 +17365,7 @@ export class ApiClient {
   getPaymentLinksPaymentLink(p: {
     expand?: string[]
     paymentLink: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payment_link | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17831,7 +17449,7 @@ export class ApiClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           rendering_options?:
@@ -17854,7 +17472,7 @@ export class ApiClient {
         quantity?: number
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_method_collection?: "always" | "if_required"
       payment_method_types?:
@@ -18156,9 +17774,7 @@ export class ApiClient {
     limit?: number
     paymentLink: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_item[]
@@ -18229,9 +17845,7 @@ export class ApiClient {
         | "sofort"
         | "us_bank_account"
         | "wechat_pay"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -18276,15 +17890,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -18293,9 +17901,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -18311,9 +17917,7 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
@@ -18327,13 +17931,9 @@ export class ApiClient {
           | {
               token: string
             }
-        cashapp?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
         customer?: string
-        customer_balance?: {
-          [key: string]: never
-        }
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -18391,12 +17991,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -18414,9 +18010,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -18424,18 +18018,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -18465,15 +18053,9 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         payment_method?: string
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -18520,9 +18102,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
     } = {}
   ): Observable<t_payment_method | t_error> {
@@ -18546,9 +18126,7 @@ export class ApiClient {
   getPaymentMethodsPaymentMethod(p: {
     expand?: string[]
     paymentMethod: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payment_method | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18592,12 +18170,10 @@ export class ApiClient {
         exp_year?: number
       }
       expand?: string[]
-      link?: {
-        [key: string]: never
-      }
+      link?: EmptyObject
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       us_bank_account?: {
@@ -18693,9 +18269,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -18742,7 +18316,7 @@ export class ApiClient {
       destination?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       method?: "instant" | "standard"
       source_type?: "bank_account" | "card" | "fpx"
@@ -18769,9 +18343,7 @@ export class ApiClient {
   getPayoutsPayout(p: {
     expand?: string[]
     payout: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_payout | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18798,7 +18370,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -18848,7 +18420,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Observable<t_payout | t_error> {
@@ -18885,9 +18457,7 @@ export class ApiClient {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -18939,7 +18509,7 @@ export class ApiClient {
       interval_count?: number
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -18948,7 +18518,7 @@ export class ApiClient {
             active?: boolean
             id?: string
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name: string
             statement_descriptor?: string
@@ -18991,9 +18561,7 @@ export class ApiClient {
 
   deletePlansPlan(p: {
     plan: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_plan | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19015,9 +18583,7 @@ export class ApiClient {
   getPlansPlan(p: {
     expand?: string[]
     plan: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_plan | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19045,7 +18611,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -19093,9 +18659,7 @@ export class ApiClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -19143,7 +18707,24 @@ export class ApiClient {
       billing_scheme?: "per_unit" | "tiered"
       currency: string
       currency_options?: {
-        [key: string]: unknown
+        [key: string]: {
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          tiers?: {
+            flat_amount?: number
+            flat_amount_decimal?: string
+            unit_amount?: number
+            unit_amount_decimal?: string
+            up_to: "inf" | number
+          }[]
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
       }
       custom_unit_amount?: {
         enabled: boolean
@@ -19154,7 +18735,7 @@ export class ApiClient {
       expand?: string[]
       lookup_key?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       nickname?: string
       product?: string
@@ -19162,7 +18743,7 @@ export class ApiClient {
         active?: boolean
         id?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         name: string
         statement_descriptor?: string
@@ -19215,9 +18796,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_price[]
@@ -19256,9 +18835,7 @@ export class ApiClient {
   getPricesPrice(p: {
     expand?: string[]
     price: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_price | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19285,14 +18862,31 @@ export class ApiClient {
       active?: boolean
       currency_options?:
         | {
-            [key: string]: unknown
+            [key: string]: {
+              custom_unit_amount?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+                preset?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              tiers?: {
+                flat_amount?: number
+                flat_amount_decimal?: string
+                unit_amount?: number
+                unit_amount_decimal?: string
+                up_to: "inf" | number
+              }[]
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
           }
         | ""
       expand?: string[]
       lookup_key?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -19335,9 +18929,7 @@ export class ApiClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -19383,7 +18975,24 @@ export class ApiClient {
       default_price_data?: {
         currency: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            custom_unit_amount?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+              preset?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            tiers?: {
+              flat_amount?: number
+              flat_amount_decimal?: string
+              unit_amount?: number
+              unit_amount_decimal?: string
+              up_to: "inf" | number
+            }[]
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
         }
         recurring?: {
           interval: "day" | "month" | "week" | "year"
@@ -19398,7 +19007,7 @@ export class ApiClient {
       id?: string
       images?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
       package_dimensions?: {
@@ -19436,9 +19045,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_product[]
@@ -19476,9 +19083,7 @@ export class ApiClient {
 
   deleteProductsId(p: {
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_product | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19500,9 +19105,7 @@ export class ApiClient {
   getProductsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_product | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19533,7 +19136,7 @@ export class ApiClient {
       images?: string[] | ""
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -19587,9 +19190,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -19639,11 +19240,13 @@ export class ApiClient {
       expires_at?: number
       max_redemptions?: number
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       restrictions?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            minimum_amount?: number
+          }
         }
         first_time_transaction?: boolean
         minimum_amount?: number
@@ -19671,9 +19274,7 @@ export class ApiClient {
   getPromotionCodesPromotionCode(p: {
     expand?: string[]
     promotionCode: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_promotion_code | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19701,12 +19302,14 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       restrictions?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            minimum_amount?: number
+          }
         }
       }
     }
@@ -19737,9 +19340,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -19823,7 +19424,7 @@ export class ApiClient {
           tax_rates?: string[] | ""
         }[]
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string | ""
         subscription_data?: {
@@ -19862,9 +19463,7 @@ export class ApiClient {
   getQuotesQuote(p: {
     expand?: string[]
     quote: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_quote | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19928,7 +19527,7 @@ export class ApiClient {
         tax_rates?: string[] | ""
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       on_behalf_of?: string | ""
       subscription_data?: {
@@ -20014,9 +19613,7 @@ export class ApiClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_item[]
@@ -20081,9 +19678,7 @@ export class ApiClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_item[]
@@ -20120,9 +19715,7 @@ export class ApiClient {
   getQuotesQuotePdf(p: {
     expand?: string[]
     quote: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<string | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20151,9 +19744,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -20193,9 +19784,7 @@ export class ApiClient {
   getRadarEarlyFraudWarningsEarlyFraudWarning(p: {
     earlyFraudWarning: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_radar_early_fraud_warning | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20232,9 +19821,7 @@ export class ApiClient {
     startingAfter?: string
     value?: string
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_radar_value_list_item[]
@@ -20297,9 +19884,7 @@ export class ApiClient {
 
   deleteRadarValueListItemsItem(p: {
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_radar_value_list_item | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20321,9 +19906,7 @@ export class ApiClient {
   getRadarValueListItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_radar_value_list_item | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20360,9 +19943,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -20414,7 +19995,7 @@ export class ApiClient {
         | "ip_address"
         | "string"
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
     }
@@ -20438,9 +20019,7 @@ export class ApiClient {
 
   deleteRadarValueListsValueList(p: {
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_radar_value_list | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20462,9 +20041,7 @@ export class ApiClient {
   getRadarValueListsValueList(p: {
     expand?: string[]
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_radar_value_list | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20491,7 +20068,7 @@ export class ApiClient {
       alias?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name?: string
     }
@@ -20529,9 +20106,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -20580,7 +20155,7 @@ export class ApiClient {
         instructions_email?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         origin?: "customer_balance"
@@ -20611,9 +20186,7 @@ export class ApiClient {
   getRefundsRefund(p: {
     expand?: string[]
     refund: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_refund | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20640,7 +20213,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -20699,9 +20272,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -21405,9 +20976,7 @@ export class ApiClient {
   getReportingReportRunsReportRun(p: {
     expand?: string[]
     reportRun: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_reporting_report_run | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21431,9 +21000,7 @@ export class ApiClient {
   getReportingReportTypes(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -21466,9 +21033,7 @@ export class ApiClient {
   getReportingReportTypesReportType(p: {
     expand?: string[]
     reportType: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_reporting_report_type | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21503,9 +21068,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -21544,9 +21107,7 @@ export class ApiClient {
   getReviewsReview(p: {
     expand?: string[]
     review: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_review | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21604,9 +21165,7 @@ export class ApiClient {
     limit?: number
     setupIntent: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_setup_attempt[]
@@ -21659,9 +21218,7 @@ export class ApiClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -21715,9 +21272,7 @@ export class ApiClient {
         mandate_data?: {
           customer_acceptance: {
             accepted_at?: number
-            offline?: {
-              [key: string]: never
-            }
+            offline?: EmptyObject
             online?: {
               ip_address: string
               user_agent: string
@@ -21726,7 +21281,7 @@ export class ApiClient {
           }
         }
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         payment_method?: string
@@ -21736,15 +21291,9 @@ export class ApiClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: {
-            [key: string]: never
-          }
-          afterpay_clearpay?: {
-            [key: string]: never
-          }
-          alipay?: {
-            [key: string]: never
-          }
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -21753,9 +21302,7 @@ export class ApiClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: {
-            [key: string]: never
-          }
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -21771,18 +21318,12 @@ export class ApiClient {
             name?: string
             phone?: string
           }
-          blik?: {
-            [key: string]: never
-          }
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: {
-            [key: string]: never
-          }
-          customer_balance?: {
-            [key: string]: never
-          }
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -21839,12 +21380,8 @@ export class ApiClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: {
-            [key: string]: never
-          }
-          grabpay?: {
-            [key: string]: never
-          }
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -21862,9 +21399,7 @@ export class ApiClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: {
-            [key: string]: never
-          }
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -21872,18 +21407,12 @@ export class ApiClient {
               year: number
             }
           }
-          konbini?: {
-            [key: string]: never
-          }
-          link?: {
-            [key: string]: never
-          }
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
-          oxxo?: {
-            [key: string]: never
-          }
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -21912,15 +21441,9 @@ export class ApiClient {
               | "toyota_bank"
               | "volkswagen_bank"
           }
-          paynow?: {
-            [key: string]: never
-          }
-          pix?: {
-            [key: string]: never
-          }
-          promptpay?: {
-            [key: string]: never
-          }
+          paynow?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
@@ -21966,9 +21489,7 @@ export class ApiClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: {
-            [key: string]: never
-          }
+          wechat_pay?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -22015,9 +21536,7 @@ export class ApiClient {
             persistent_token?: string
           }
           sepa_debit?: {
-            mandate_options?: {
-              [key: string]: never
-            }
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -22066,9 +21585,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_setup_intent | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22102,7 +21619,7 @@ export class ApiClient {
       flow_directions?: ("inbound" | "outbound")[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_method?: string
@@ -22112,15 +21629,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -22129,9 +21640,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -22147,18 +21656,12 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -22215,12 +21718,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -22238,9 +21737,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -22248,18 +21745,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -22288,15 +21779,9 @@ export class ApiClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -22342,9 +21827,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -22391,9 +21874,7 @@ export class ApiClient {
           persistent_token?: string
         }
         sepa_debit?: {
-          mandate_options?: {
-            [key: string]: never
-          }
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -22464,9 +21945,7 @@ export class ApiClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: {
-                [key: string]: never
-              }
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -22490,15 +21969,9 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -22507,9 +21980,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -22525,18 +21996,12 @@ export class ApiClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -22593,12 +22058,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -22616,9 +22077,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -22626,18 +22085,12 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -22666,15 +22119,9 @@ export class ApiClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -22720,9 +22167,7 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -22769,9 +22214,7 @@ export class ApiClient {
           persistent_token?: string
         }
         sepa_debit?: {
-          mandate_options?: {
-            [key: string]: never
-          }
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -22852,9 +22295,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -22910,11 +22351,14 @@ export class ApiClient {
         amount: number
         currency: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       tax_code?: string
@@ -22941,9 +22385,7 @@ export class ApiClient {
   getShippingRatesShippingRateToken(p: {
     expand?: string[]
     shippingRateToken: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_shipping_rate | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22971,12 +22413,15 @@ export class ApiClient {
       expand?: string[]
       fixed_amount?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount?: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
         }
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -23005,9 +22450,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -23045,9 +22488,7 @@ export class ApiClient {
   getSigmaScheduledQueryRunsScheduledQueryRun(p: {
     expand?: string[]
     scheduledQueryRun: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_scheduled_query_run | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23104,7 +22545,7 @@ export class ApiClient {
             | "stripe_email"
         }
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         original_source?: string
         owner?: {
@@ -23178,9 +22619,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     source: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_source | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23237,7 +22676,7 @@ export class ApiClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       owner?: {
@@ -23300,9 +22739,7 @@ export class ApiClient {
     expand?: string[]
     mandateNotification: string
     source: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_source_mandate_notification | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23330,9 +22767,7 @@ export class ApiClient {
     limit?: number
     source: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_source_transaction[]
@@ -23370,9 +22805,7 @@ export class ApiClient {
     expand?: string[]
     source: string
     sourceTransaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_source_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23424,9 +22857,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     subscription: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_subscription_item[]
@@ -23470,7 +22901,7 @@ export class ApiClient {
         | ""
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_behavior?:
         | "allow_incomplete"
@@ -23541,9 +22972,7 @@ export class ApiClient {
   getSubscriptionItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_subscription_item | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23575,7 +23004,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -23625,9 +23054,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     subscriptionItem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_usage_record_summary[]
@@ -23729,9 +23156,7 @@ export class ApiClient {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -23807,7 +23232,7 @@ export class ApiClient {
         from_subscription?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         phases?: {
@@ -23851,7 +23276,7 @@ export class ApiClient {
                 }
               | ""
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             price?: string
             price_data?: {
@@ -23870,7 +23295,7 @@ export class ApiClient {
           }[]
           iterations?: number
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           on_behalf_of?: string
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -23905,9 +23330,7 @@ export class ApiClient {
   getSubscriptionSchedulesSchedule(p: {
     expand?: string[]
     schedule: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_subscription_schedule | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23961,7 +23384,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       phases?: {
@@ -24004,7 +23427,7 @@ export class ApiClient {
               }
             | ""
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           price?: string
           price_data?: {
@@ -24023,7 +23446,7 @@ export class ApiClient {
         }[]
         iterations?: number
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -24151,9 +23574,7 @@ export class ApiClient {
         | "trialing"
         | "unpaid"
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -24241,7 +23662,7 @@ export class ApiClient {
             }
           | ""
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         price?: string
         price_data?: {
@@ -24260,7 +23681,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -24317,11 +23738,7 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -24408,9 +23825,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_subscription[]
@@ -24487,9 +23902,7 @@ export class ApiClient {
   getSubscriptionsSubscriptionExposedId(p: {
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_subscription | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24570,7 +23983,7 @@ export class ApiClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -24590,7 +24003,7 @@ export class ApiClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -24653,11 +24066,7 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -24743,9 +24152,7 @@ export class ApiClient {
 
   deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_discount | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24904,9 +24311,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_tax_calculation_line_item[]
@@ -24946,7 +24351,7 @@ export class ApiClient {
       calculation: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       reference: string
     }
@@ -24975,14 +24380,14 @@ export class ApiClient {
         amount: number
         amount_tax: number
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         original_line_item: string
         quantity?: number
         reference: string
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       mode: "full" | "partial"
       original_transaction: string
@@ -25013,9 +24418,7 @@ export class ApiClient {
   getTaxTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_tax_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25042,9 +24445,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_tax_transaction_line_item[]
@@ -25085,9 +24486,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -25125,9 +24524,7 @@ export class ApiClient {
   getTaxCodesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_tax_code | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25164,9 +24561,7 @@ export class ApiClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -25214,7 +24609,7 @@ export class ApiClient {
       inclusive: boolean
       jurisdiction?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       percentage: number
       state?: string
@@ -25251,9 +24646,7 @@ export class ApiClient {
   getTaxRatesTaxRate(p: {
     expand?: string[]
     taxRate: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_tax_rate | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25285,7 +24678,7 @@ export class ApiClient {
       jurisdiction?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       state?: string
@@ -25326,9 +24719,7 @@ export class ApiClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -25470,9 +24861,7 @@ export class ApiClient {
 
   deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_terminal_configuration | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25495,9 +24884,7 @@ export class ApiClient {
   getTerminalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     (t_terminal_configuration | t_deleted_terminal_configuration) | t_error
   > {
@@ -25662,9 +25049,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -25714,7 +25099,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -25738,9 +25123,7 @@ export class ApiClient {
 
   deleteTerminalLocationsLocation(p: {
     location: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_terminal_location | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25762,9 +25145,7 @@ export class ApiClient {
   getTerminalLocationsLocation(p: {
     expand?: string[]
     location: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     (t_terminal_location | t_deleted_terminal_location) | t_error
   > {
@@ -25803,7 +25184,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -25842,9 +25223,7 @@ export class ApiClient {
       location?: string
       startingAfter?: string
       status?: "offline" | "online"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -25889,7 +25268,7 @@ export class ApiClient {
       location?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       registration_code: string
@@ -25914,9 +25293,7 @@ export class ApiClient {
 
   deleteTerminalReadersReader(p: {
     reader: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_terminal_reader | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25938,9 +25315,7 @@ export class ApiClient {
   getTerminalReadersReader(p: {
     expand?: string[]
     reader: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<(t_terminal_reader | t_deleted_terminal_reader) | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25968,7 +25343,7 @@ export class ApiClient {
       label?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -26078,7 +25453,7 @@ export class ApiClient {
       charge?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_intent?: string
       refund_application_fee?: boolean
@@ -26322,9 +25697,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -26385,9 +25758,7 @@ export class ApiClient {
 
   deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_test_helpers_test_clock | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26409,9 +25780,7 @@ export class ApiClient {
   getTestHelpersTestClocksTestClock(p: {
     expand?: string[]
     testClock: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_test_helpers_test_clock | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26917,7 +26286,7 @@ export class ApiClient {
             maiden_name?: string
             metadata?:
               | {
-                  [key: string]: unknown
+                  [key: string]: string
                 }
               | ""
             phone?: string
@@ -27033,7 +26402,7 @@ export class ApiClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           nationality?: string
@@ -27093,9 +26462,7 @@ export class ApiClient {
   getTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_token | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27139,9 +26506,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -27187,7 +26552,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       source?: string
@@ -27215,9 +26580,7 @@ export class ApiClient {
   getTopupsTopup(p: {
     expand?: string[]
     topup: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_topup | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27245,7 +26608,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -27306,9 +26669,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -27354,7 +26715,7 @@ export class ApiClient {
       destination: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source_transaction?: string
       source_type?: "bank_account" | "card" | "fpx"
@@ -27384,9 +26745,7 @@ export class ApiClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_transfer_reversal[]
@@ -27428,7 +26787,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       refund_application_fee?: boolean
@@ -27454,9 +26813,7 @@ export class ApiClient {
   getTransfersTransfer(p: {
     expand?: string[]
     transfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_transfer | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27484,7 +26841,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -27510,9 +26867,7 @@ export class ApiClient {
     expand?: string[]
     id: string
     transfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_transfer_reversal | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27541,7 +26896,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -27572,9 +26927,7 @@ export class ApiClient {
     receivedCredit?: string
     startingAfter?: string
     status?: "canceled" | "posted" | "processing"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_credit_reversal[]
@@ -27615,7 +26968,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       received_credit: string
     }
@@ -27640,9 +26993,7 @@ export class ApiClient {
   getTreasuryCreditReversalsCreditReversal(p: {
     creditReversal: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_credit_reversal | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27673,9 +27024,7 @@ export class ApiClient {
     resolution?: "lost" | "won"
     startingAfter?: string
     status?: "canceled" | "completed" | "processing"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_debit_reversal[]
@@ -27717,7 +27066,7 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       received_debit: string
     }
@@ -27742,9 +27091,7 @@ export class ApiClient {
   getTreasuryDebitReversalsDebitReversal(p: {
     debitReversal: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_debit_reversal | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27780,9 +27127,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -27859,7 +27204,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -27888,9 +27233,7 @@ export class ApiClient {
   getTreasuryFinancialAccountsFinancialAccount(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_financial_account | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27954,7 +27297,7 @@ export class ApiClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -27983,9 +27326,7 @@ export class ApiClient {
   getTreasuryFinancialAccountsFinancialAccountFeatures(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_financial_account_features | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28073,9 +27414,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "processing" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_inbound_transfer[]
@@ -28119,7 +27458,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       origin_payment_method: string
       statement_descriptor?: string
@@ -28145,9 +27484,7 @@ export class ApiClient {
   getTreasuryInboundTransfersId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_inbound_transfer | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28200,9 +27537,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_outbound_payment[]
@@ -28264,7 +27599,7 @@ export class ApiClient {
         }
         financial_account?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         type: "financial_account" | "us_bank_account"
         us_bank_account?: {
@@ -28289,7 +27624,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
     }
@@ -28314,9 +27649,7 @@ export class ApiClient {
   getTreasuryOutboundPaymentsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_outbound_payment | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28367,9 +27700,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_outbound_transfer[]
@@ -28421,7 +27752,7 @@ export class ApiClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
     }
@@ -28446,9 +27777,7 @@ export class ApiClient {
   getTreasuryOutboundTransfersOutboundTransfer(p: {
     expand?: string[]
     outboundTransfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_outbound_transfer | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28508,9 +27837,7 @@ export class ApiClient {
     }
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_received_credit[]
@@ -28550,9 +27877,7 @@ export class ApiClient {
   getTreasuryReceivedCreditsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_received_credit | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28580,9 +27905,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_received_debit[]
@@ -28621,9 +27944,7 @@ export class ApiClient {
   getTreasuryReceivedDebitsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_received_debit | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28668,9 +27989,7 @@ export class ApiClient {
     orderBy?: "created" | "effective_at"
     startingAfter?: string
     transaction?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_transaction_entry[]
@@ -28712,9 +28031,7 @@ export class ApiClient {
   getTreasuryTransactionEntriesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_transaction_entry | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28761,9 +28078,7 @@ export class ApiClient {
           }
         | number
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<
     | {
         data: t_treasury_transaction[]
@@ -28805,9 +28120,7 @@ export class ApiClient {
   getTreasuryTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_treasury_transaction | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28834,9 +28147,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Observable<
     | {
@@ -29202,7 +28513,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       url: string
@@ -29227,9 +28538,7 @@ export class ApiClient {
 
   deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_deleted_webhook_endpoint | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -29251,9 +28560,7 @@ export class ApiClient {
   getWebhookEndpointsWebhookEndpoint(p: {
     expand?: string[]
     webhookEndpoint: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Observable<t_webhook_endpoint | t_error> {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -29507,7 +28814,7 @@ export class ApiClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       url?: string

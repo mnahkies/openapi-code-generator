@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_account,
   t_account_link,
   t_apple_pay_domain,
@@ -154,9 +155,7 @@ export class ApiClient extends AbstractFetchClient {
   async getAccount(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<Response<200, t_account> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account`
@@ -206,9 +205,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -540,7 +537,7 @@ export class ApiClient extends AbstractFetchClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           phone?: string
@@ -567,7 +564,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         settings?: {
@@ -646,9 +643,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteAccountsAccount(p: {
     account: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_account> | Response<StatusCode, t_error>
   > {
@@ -666,9 +661,7 @@ export class ApiClient extends AbstractFetchClient {
   async getAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_account> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers({
@@ -964,7 +957,7 @@ export class ApiClient extends AbstractFetchClient {
         maiden_name?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         phone?: string
@@ -991,7 +984,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       settings?: {
@@ -1090,7 +1083,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<
@@ -1110,9 +1103,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccountBankAccountsId(p: {
     account: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
   > {
@@ -1132,9 +1123,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_external_account> | Response<StatusCode, t_error>
   > {
@@ -1175,7 +1164,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -1198,9 +1187,7 @@ export class ApiClient extends AbstractFetchClient {
   async getAccountsAccountCapabilities(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -1229,9 +1216,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     capability: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_capability> | Response<StatusCode, t_error>> {
     const url =
       this.basePath +
@@ -1274,9 +1259,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -1330,7 +1313,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       external_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<
@@ -1350,9 +1333,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccountExternalAccountsId(p: {
     account: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_external_account> | Response<StatusCode, t_error>
   > {
@@ -1373,9 +1354,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_external_account> | Response<StatusCode, t_error>
   > {
@@ -1417,7 +1396,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -1467,9 +1446,7 @@ export class ApiClient extends AbstractFetchClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -1562,7 +1539,7 @@ export class ApiClient extends AbstractFetchClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -1612,9 +1589,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccountPeoplePerson(p: {
     account: string
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
@@ -1632,9 +1607,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_person> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
@@ -1712,7 +1685,7 @@ export class ApiClient extends AbstractFetchClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -1772,9 +1745,7 @@ export class ApiClient extends AbstractFetchClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -1867,7 +1838,7 @@ export class ApiClient extends AbstractFetchClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -1917,9 +1888,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccountPersonsPerson(p: {
     account: string
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_deleted_person> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
@@ -1937,9 +1906,7 @@ export class ApiClient extends AbstractFetchClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_person> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
@@ -2017,7 +1984,7 @@ export class ApiClient extends AbstractFetchClient {
       maiden_name?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nationality?: string
@@ -2090,9 +2057,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -2145,9 +2110,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteApplePayDomainsDomain(p: {
     domain: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_apple_pay_domain> | Response<StatusCode, t_error>
   > {
@@ -2165,9 +2128,7 @@ export class ApiClient extends AbstractFetchClient {
   async getApplePayDomainsDomain(p: {
     domain: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_apple_pay_domain> | Response<StatusCode, t_error>
   > {
@@ -2198,9 +2159,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -2237,9 +2196,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     fee: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
@@ -2261,7 +2218,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -2281,9 +2238,7 @@ export class ApiClient extends AbstractFetchClient {
   async getApplicationFeesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_application_fee> | Response<StatusCode, t_error>
   > {
@@ -2326,9 +2281,7 @@ export class ApiClient extends AbstractFetchClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -2364,7 +2317,7 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<Response<200, t_fee_refund> | Response<StatusCode, t_error>> {
@@ -2388,9 +2341,7 @@ export class ApiClient extends AbstractFetchClient {
       user?: string
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -2472,9 +2423,7 @@ export class ApiClient extends AbstractFetchClient {
       type: "account" | "user"
       user?: string
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_apps_secret> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/find`
     const headers = this._headers({
@@ -2495,9 +2444,7 @@ export class ApiClient extends AbstractFetchClient {
   async getBalance(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<Response<200, t_balance> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance`
@@ -2530,9 +2477,7 @@ export class ApiClient extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -2571,9 +2516,7 @@ export class ApiClient extends AbstractFetchClient {
   async getBalanceHistoryId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_balance_transaction> | Response<StatusCode, t_error>
   > {
@@ -2607,9 +2550,7 @@ export class ApiClient extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -2648,9 +2589,7 @@ export class ApiClient extends AbstractFetchClient {
   async getBalanceTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_balance_transaction> | Response<StatusCode, t_error>
   > {
@@ -2674,9 +2613,7 @@ export class ApiClient extends AbstractFetchClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -2772,7 +2709,7 @@ export class ApiClient extends AbstractFetchClient {
         enabled: boolean
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<
@@ -2793,9 +2730,7 @@ export class ApiClient extends AbstractFetchClient {
   async getBillingPortalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_billing_portal_configuration>
     | Response<StatusCode, t_error>
@@ -2879,7 +2814,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -3001,9 +2936,7 @@ export class ApiClient extends AbstractFetchClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -3057,7 +2990,7 @@ export class ApiClient extends AbstractFetchClient {
               exp_month: number
               exp_year: number
               metadata?: {
-                [key: string]: unknown
+                [key: string]: string
               }
               name?: string
               number: string
@@ -3076,7 +3009,7 @@ export class ApiClient extends AbstractFetchClient {
         expand?: string[]
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         on_behalf_of?: string
@@ -3125,9 +3058,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -3162,9 +3093,7 @@ export class ApiClient extends AbstractFetchClient {
   async getChargesCharge(p: {
     charge: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_charge> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers({
@@ -3189,7 +3118,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       receipt_email?: string
@@ -3251,9 +3180,7 @@ export class ApiClient extends AbstractFetchClient {
   async getChargesChargeDispute(p: {
     charge: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers({
@@ -3302,7 +3229,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       submit?: boolean
@@ -3344,7 +3271,7 @@ export class ApiClient extends AbstractFetchClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_intent?: string
@@ -3370,9 +3297,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -3412,7 +3337,7 @@ export class ApiClient extends AbstractFetchClient {
       instructions_email?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       origin?: "customer_balance"
@@ -3437,9 +3362,7 @@ export class ApiClient extends AbstractFetchClient {
     charge: string
     expand?: string[]
     refund: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
@@ -3461,7 +3384,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -3491,9 +3414,7 @@ export class ApiClient extends AbstractFetchClient {
       paymentLink?: string
       startingAfter?: string
       subscription?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -3603,7 +3524,7 @@ export class ApiClient extends AbstractFetchClient {
           description?: string
           footer?: string
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           rendering_options?:
             | {
@@ -3630,7 +3551,7 @@ export class ApiClient extends AbstractFetchClient {
             description?: string
             images?: string[]
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name: string
             tax_code?: string
@@ -3689,7 +3610,7 @@ export class ApiClient extends AbstractFetchClient {
         | "zh-HK"
         | "zh-TW"
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       mode?: "payment" | "setup" | "subscription"
       payment_intent_data?: {
@@ -3697,7 +3618,7 @@ export class ApiClient extends AbstractFetchClient {
         capture_method?: "automatic" | "automatic_async" | "manual"
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         receipt_email?: string
@@ -3889,7 +3810,7 @@ export class ApiClient extends AbstractFetchClient {
       setup_intent_data?: {
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
       }
@@ -4152,11 +4073,14 @@ export class ApiClient extends AbstractFetchClient {
             amount: number
             currency: string
             currency_options?: {
-              [key: string]: unknown
+              [key: string]: {
+                amount: number
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              }
             }
           }
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           tax_behavior?: "exclusive" | "inclusive" | "unspecified"
           tax_code?: string
@@ -4169,7 +4093,7 @@ export class ApiClient extends AbstractFetchClient {
         default_tax_rates?: string[]
         description?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         transfer_data?: {
@@ -4206,9 +4130,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCheckoutSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_checkout_session> | Response<StatusCode, t_error>
   > {
@@ -4249,9 +4171,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     session: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -4288,9 +4208,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -4324,9 +4242,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCountrySpecsCountry(p: {
     country: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_country_spec> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
     const headers = this._headers({
@@ -4354,9 +4270,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -4397,7 +4311,9 @@ export class ApiClient extends AbstractFetchClient {
         }
         currency?: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount_off: number
+          }
         }
         duration?: "forever" | "once" | "repeating"
         duration_in_months?: number
@@ -4406,7 +4322,7 @@ export class ApiClient extends AbstractFetchClient {
         max_redemptions?: number
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         name?: string
@@ -4428,9 +4344,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteCouponsCoupon(p: {
     coupon: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_deleted_coupon> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({
@@ -4446,9 +4360,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCouponsCoupon(p: {
     coupon: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_coupon> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({
@@ -4466,12 +4378,14 @@ export class ApiClient extends AbstractFetchClient {
     coupon: string
     requestBody?: {
       currency_options?: {
-        [key: string]: unknown
+        [key: string]: {
+          amount_off: number
+        }
       }
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -4496,9 +4410,7 @@ export class ApiClient extends AbstractFetchClient {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -4549,7 +4461,7 @@ export class ApiClient extends AbstractFetchClient {
       }[]
       memo?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       out_of_band_amount?: number
       reason?:
@@ -4592,7 +4504,7 @@ export class ApiClient extends AbstractFetchClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     outOfBandAmount?: number
     reason?:
@@ -4605,9 +4517,7 @@ export class ApiClient extends AbstractFetchClient {
     shippingCost?: {
       shipping_rate?: string
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/preview`
     const headers = this._headers({
@@ -4653,7 +4563,7 @@ export class ApiClient extends AbstractFetchClient {
     }[]
     memo?: string
     metadata?: {
-      [key: string]: unknown
+      [key: string]: string
     }
     outOfBandAmount?: number
     reason?:
@@ -4667,9 +4577,7 @@ export class ApiClient extends AbstractFetchClient {
       shipping_rate?: string
     }
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -4716,9 +4624,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -4751,9 +4657,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCreditNotesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers({
@@ -4773,7 +4677,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       memo?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<Response<200, t_credit_note> | Response<StatusCode, t_error>> {
@@ -4821,9 +4725,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -4901,7 +4803,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         name?: string
@@ -5004,9 +4906,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5040,9 +4940,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteCustomersCustomer(p: {
     customer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_customer> | Response<StatusCode, t_error>
   > {
@@ -5060,9 +4958,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCustomersCustomer(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_customer | t_deleted_customer>
     | Response<StatusCode, t_error>
@@ -5116,7 +5012,7 @@ export class ApiClient extends AbstractFetchClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -5154,7 +5050,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -5200,9 +5096,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5242,7 +5136,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -5266,9 +5160,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_customer_balance_transaction>
     | Response<StatusCode, t_error>
@@ -5295,7 +5187,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -5322,9 +5214,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5381,7 +5271,7 @@ export class ApiClient extends AbstractFetchClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -5390,7 +5280,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -5432,9 +5322,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_bank_account> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
@@ -5466,7 +5354,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -5527,9 +5415,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5586,7 +5472,7 @@ export class ApiClient extends AbstractFetchClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -5595,7 +5481,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -5637,9 +5523,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_card> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -5671,7 +5555,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -5708,9 +5592,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCustomersCustomerCashBalance(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_cash_balance> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers({
@@ -5750,9 +5632,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5787,9 +5667,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_customer_cash_balance_transaction>
     | Response<StatusCode, t_error>
@@ -5810,9 +5688,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteCustomersCustomerDiscount(p: {
     customer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
   > {
@@ -5830,9 +5706,7 @@ export class ApiClient extends AbstractFetchClient {
   async getCustomersCustomerDiscount(p: {
     customer: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_discount> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers({
@@ -5915,9 +5789,7 @@ export class ApiClient extends AbstractFetchClient {
       | "sofort"
       | "us_bank_account"
       | "wechat_pay"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -5952,9 +5824,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     paymentMethod: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>> {
     const url =
       this.basePath +
@@ -5977,9 +5847,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     object?: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -6037,7 +5905,7 @@ export class ApiClient extends AbstractFetchClient {
             exp_month: number
             exp_year: number
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name?: string
             number: string
@@ -6046,7 +5914,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source?: string
     }
@@ -6088,9 +5956,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payment_source> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
@@ -6122,7 +5988,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -6182,9 +6048,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -6258,7 +6122,7 @@ export class ApiClient extends AbstractFetchClient {
             }
           | ""
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         price?: string
         price_data?: {
@@ -6277,7 +6141,7 @@ export class ApiClient extends AbstractFetchClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -6333,11 +6197,7 @@ export class ApiClient extends AbstractFetchClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -6439,9 +6299,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_subscription> | Response<StatusCode, t_error>> {
     const url =
       this.basePath +
@@ -6517,7 +6375,7 @@ export class ApiClient extends AbstractFetchClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -6537,7 +6395,7 @@ export class ApiClient extends AbstractFetchClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -6599,11 +6457,7 @@ export class ApiClient extends AbstractFetchClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -6686,9 +6540,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(p: {
     customer: string
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
   > {
@@ -6709,9 +6561,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_discount> | Response<StatusCode, t_error>> {
     const url =
       this.basePath +
@@ -6733,9 +6583,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -6838,9 +6686,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomerTaxIdsId(p: {
     customer: string
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_deleted_tax_id> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
@@ -6858,9 +6704,7 @@ export class ApiClient extends AbstractFetchClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_tax_id> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
@@ -6891,9 +6735,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -6930,9 +6772,7 @@ export class ApiClient extends AbstractFetchClient {
   async getDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_dispute> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers({
@@ -6981,7 +6821,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       submit?: boolean
@@ -7070,9 +6910,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7110,9 +6948,7 @@ export class ApiClient extends AbstractFetchClient {
   async getEventsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_event> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
     const headers = this._headers({
@@ -7132,9 +6968,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7168,9 +7002,7 @@ export class ApiClient extends AbstractFetchClient {
   async getExchangeRatesRateId(p: {
     expand?: string[]
     rateId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_exchange_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers({
@@ -7200,9 +7032,7 @@ export class ApiClient extends AbstractFetchClient {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7243,7 +7073,7 @@ export class ApiClient extends AbstractFetchClient {
       file: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -7262,9 +7092,7 @@ export class ApiClient extends AbstractFetchClient {
   async getFileLinksLink(p: {
     expand?: string[]
     link: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_file_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers({
@@ -7285,7 +7113,7 @@ export class ApiClient extends AbstractFetchClient {
       expires_at?: "now" | number | ""
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -7331,9 +7159,7 @@ export class ApiClient extends AbstractFetchClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7375,7 +7201,7 @@ export class ApiClient extends AbstractFetchClient {
         expires_at?: number
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
       }
@@ -7404,9 +7230,7 @@ export class ApiClient extends AbstractFetchClient {
   async getFilesFile(p: {
     expand?: string[]
     file: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_file> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
     const headers = this._headers({
@@ -7431,9 +7255,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7469,9 +7291,7 @@ export class ApiClient extends AbstractFetchClient {
   async getFinancialConnectionsAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_financial_connections_account>
     | Response<StatusCode, t_error>
@@ -7518,9 +7338,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -7613,9 +7431,7 @@ export class ApiClient extends AbstractFetchClient {
   async getFinancialConnectionsSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_financial_connections_session>
     | Response<StatusCode, t_error>
@@ -7649,9 +7465,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: "document" | "id_number"
       verificationSession?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7688,9 +7502,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIdentityVerificationReportsReport(p: {
     expand?: string[]
     report: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_identity_verification_report>
     | Response<StatusCode, t_error>
@@ -7723,9 +7535,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7762,7 +7572,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       options?: {
         document?:
@@ -7795,9 +7605,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIdentityVerificationSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_identity_verification_session>
     | Response<StatusCode, t_error>
@@ -7820,7 +7628,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       options?: {
         document?:
@@ -7911,9 +7719,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -7965,7 +7771,7 @@ export class ApiClient extends AbstractFetchClient {
       invoice?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       period?: {
@@ -8002,9 +7808,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_invoiceitem> | Response<StatusCode, t_error>
   > {
@@ -8022,9 +7826,7 @@ export class ApiClient extends AbstractFetchClient {
   async getInvoiceitemsInvoiceitem(p: {
     expand?: string[]
     invoiceitem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_invoiceitem> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({
@@ -8053,7 +7855,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       period?: {
@@ -8113,9 +7915,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -8190,7 +7990,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         on_behalf_of?: string
@@ -8239,11 +8039,7 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?:
-              | {
-                  [key: string]: never
-                }
-              | ""
+            konbini?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -8315,11 +8111,14 @@ export class ApiClient extends AbstractFetchClient {
               amount: number
               currency: string
               currency_options?: {
-                [key: string]: unknown
+                [key: string]: {
+                  amount: number
+                  tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                }
               }
             }
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             tax_behavior?: "exclusive" | "inclusive" | "unspecified"
             tax_code?: string
@@ -8363,9 +8162,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -8511,7 +8308,7 @@ export class ApiClient extends AbstractFetchClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         period?: {
@@ -8551,7 +8348,7 @@ export class ApiClient extends AbstractFetchClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -8578,9 +8375,7 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<Response<200, t_invoice> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/upcoming`
@@ -8733,7 +8528,7 @@ export class ApiClient extends AbstractFetchClient {
         invoiceitem?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         period?: {
@@ -8775,7 +8570,7 @@ export class ApiClient extends AbstractFetchClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -8802,9 +8597,7 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
       subscriptionTrialFromPlan?: boolean
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -8858,9 +8651,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteInvoicesInvoice(p: {
     invoice: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_invoice> | Response<StatusCode, t_error>
   > {
@@ -8878,9 +8669,7 @@ export class ApiClient extends AbstractFetchClient {
   async getInvoicesInvoice(p: {
     expand?: string[]
     invoice: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_invoice> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({
@@ -8926,7 +8715,7 @@ export class ApiClient extends AbstractFetchClient {
       footer?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       on_behalf_of?: string | ""
@@ -8972,11 +8761,7 @@ export class ApiClient extends AbstractFetchClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -9042,11 +8827,14 @@ export class ApiClient extends AbstractFetchClient {
                 amount: number
                 currency: string
                 currency_options?: {
-                  [key: string]: unknown
+                  [key: string]: {
+                    amount: number
+                    tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                  }
                 }
               }
               metadata?: {
-                [key: string]: unknown
+                [key: string]: string
               }
               tax_behavior?: "exclusive" | "inclusive" | "unspecified"
               tax_code?: string
@@ -9112,9 +8900,7 @@ export class ApiClient extends AbstractFetchClient {
     invoice: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -9236,9 +9022,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -9276,9 +9060,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingAuthorizationsAuthorization(p: {
     authorization: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_issuing_authorization> | Response<StatusCode, t_error>
   > {
@@ -9301,7 +9083,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -9327,7 +9109,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -9352,7 +9134,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -9389,9 +9171,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -9467,7 +9247,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
       phone_number?: string
@@ -10395,9 +10175,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingCardholdersCardholder(p: {
     cardholder: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_issuing_cardholder> | Response<StatusCode, t_error>
   > {
@@ -10454,7 +10232,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       phone_number?: string
       spending_controls?: {
@@ -11397,9 +11175,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -11444,7 +11220,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       financial_account?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       replacement_for?: string
       replacement_reason?: "damaged" | "expired" | "lost" | "stolen"
@@ -12387,9 +12163,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingCardsCard(p: {
     card: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_issuing_card> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers({
@@ -12410,7 +12184,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       pin?: {
@@ -13349,9 +13123,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -13467,7 +13239,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         expand?: string[]
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         transaction?: string
         treasury?: {
@@ -13490,9 +13262,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_issuing_dispute> | Response<StatusCode, t_error>
   > {
@@ -13591,7 +13361,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -13615,7 +13385,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -13647,9 +13417,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -13684,9 +13452,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingSettlementsSettlement(p: {
     expand?: string[]
     settlement: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_issuing_settlement> | Response<StatusCode, t_error>
   > {
@@ -13707,7 +13473,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<
@@ -13741,9 +13507,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -13781,9 +13545,7 @@ export class ApiClient extends AbstractFetchClient {
   async getIssuingTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_issuing_transaction> | Response<StatusCode, t_error>
   > {
@@ -13805,7 +13567,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -13860,9 +13622,7 @@ export class ApiClient extends AbstractFetchClient {
   async getLinkAccountSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_financial_connections_session>
     | Response<StatusCode, t_error>
@@ -13890,9 +13650,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -13928,9 +13686,7 @@ export class ApiClient extends AbstractFetchClient {
   async getLinkedAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_financial_connections_account>
     | Response<StatusCode, t_error>
@@ -13974,9 +13730,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -14031,9 +13785,7 @@ export class ApiClient extends AbstractFetchClient {
   async getMandatesMandate(p: {
     expand?: string[]
     mandate: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_mandate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
     const headers = this._headers({
@@ -14062,9 +13814,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -14116,9 +13866,7 @@ export class ApiClient extends AbstractFetchClient {
       mandate_data?: {
         customer_acceptance: {
           accepted_at?: number
-          offline?: {
-            [key: string]: never
-          }
+          offline?: EmptyObject
           online?: {
             ip_address: string
             user_agent: string
@@ -14127,7 +13875,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       off_session?: boolean | "one_off" | "recurring"
       on_behalf_of?: string
@@ -14138,15 +13886,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -14155,9 +13897,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -14173,18 +13913,12 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -14241,12 +13975,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -14264,9 +13994,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -14274,18 +14002,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -14314,15 +14036,9 @@ export class ApiClient extends AbstractFetchClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -14368,9 +14084,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -14533,11 +14247,7 @@ export class ApiClient extends AbstractFetchClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -14636,9 +14346,7 @@ export class ApiClient extends AbstractFetchClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -14729,9 +14437,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -14767,9 +14473,7 @@ export class ApiClient extends AbstractFetchClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payment_intent> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers({
@@ -14798,7 +14502,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_method?: string
@@ -14808,15 +14512,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -14825,9 +14523,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -14843,18 +14539,12 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -14911,12 +14601,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -14934,9 +14620,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -14944,18 +14628,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -14984,15 +14662,9 @@ export class ApiClient extends AbstractFetchClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -15038,9 +14710,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -15203,11 +14873,7 @@ export class ApiClient extends AbstractFetchClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -15306,9 +14972,7 @@ export class ApiClient extends AbstractFetchClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -15441,7 +15105,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       statement_descriptor?: string
@@ -15474,9 +15138,7 @@ export class ApiClient extends AbstractFetchClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: {
-                [key: string]: never
-              }
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -15501,15 +15163,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -15518,9 +15174,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -15536,18 +15190,12 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -15604,12 +15252,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -15627,9 +15271,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -15637,18 +15279,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -15677,15 +15313,9 @@ export class ApiClient extends AbstractFetchClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -15731,9 +15361,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -15896,11 +15524,7 @@ export class ApiClient extends AbstractFetchClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?:
-          | {
-              [key: string]: never
-            }
-          | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -15999,9 +15623,7 @@ export class ApiClient extends AbstractFetchClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: {
-                [key: string]: never
-              }
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -16090,7 +15712,7 @@ export class ApiClient extends AbstractFetchClient {
       description?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
       transfer_data?: {
@@ -16139,9 +15761,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -16239,7 +15859,7 @@ export class ApiClient extends AbstractFetchClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           rendering_options?:
@@ -16262,7 +15882,7 @@ export class ApiClient extends AbstractFetchClient {
         quantity: number
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       on_behalf_of?: string
       payment_intent_data?: {
@@ -16574,9 +16194,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPaymentLinksPaymentLink(p: {
     expand?: string[]
     paymentLink: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payment_link> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers({
@@ -16653,7 +16271,7 @@ export class ApiClient extends AbstractFetchClient {
           footer?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           rendering_options?:
@@ -16676,7 +16294,7 @@ export class ApiClient extends AbstractFetchClient {
         quantity?: number
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_method_collection?: "always" | "if_required"
       payment_method_types?:
@@ -16972,9 +16590,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     paymentLink: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -17042,9 +16658,7 @@ export class ApiClient extends AbstractFetchClient {
         | "sofort"
         | "us_bank_account"
         | "wechat_pay"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -17085,15 +16699,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -17102,9 +16710,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -17120,9 +16726,7 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
@@ -17136,13 +16740,9 @@ export class ApiClient extends AbstractFetchClient {
           | {
               token: string
             }
-        cashapp?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
         customer?: string
-        customer_balance?: {
-          [key: string]: never
-        }
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -17200,12 +16800,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -17223,9 +16819,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -17233,18 +16827,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -17274,15 +16862,9 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         payment_method?: string
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -17329,9 +16911,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
     } = {}
   ): Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>> {
@@ -17349,9 +16929,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPaymentMethodsPaymentMethod(p: {
     expand?: string[]
     paymentMethod: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payment_method> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({
@@ -17388,12 +16966,10 @@ export class ApiClient extends AbstractFetchClient {
         exp_year?: number
       }
       expand?: string[]
-      link?: {
-        [key: string]: never
-      }
+      link?: EmptyObject
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       us_bank_account?: {
@@ -17473,9 +17049,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -17518,7 +17092,7 @@ export class ApiClient extends AbstractFetchClient {
       destination?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       method?: "instant" | "standard"
       source_type?: "bank_account" | "card" | "fpx"
@@ -17539,9 +17113,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPayoutsPayout(p: {
     expand?: string[]
     payout: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_payout> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers({
@@ -17561,7 +17133,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -17599,7 +17171,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody?: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
     }
   }): Promise<Response<200, t_payout> | Response<StatusCode, t_error>> {
@@ -17630,9 +17202,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -17680,7 +17250,7 @@ export class ApiClient extends AbstractFetchClient {
       interval_count?: number
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -17689,7 +17259,7 @@ export class ApiClient extends AbstractFetchClient {
             active?: boolean
             id?: string
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             name: string
             statement_descriptor?: string
@@ -17726,9 +17296,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deletePlansPlan(p: {
     plan: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_deleted_plan> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
@@ -17744,9 +17312,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPlansPlan(p: {
     expand?: string[]
     plan: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_plan> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
@@ -17767,7 +17333,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -17809,9 +17375,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -17855,7 +17419,24 @@ export class ApiClient extends AbstractFetchClient {
       billing_scheme?: "per_unit" | "tiered"
       currency: string
       currency_options?: {
-        [key: string]: unknown
+        [key: string]: {
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          tiers?: {
+            flat_amount?: number
+            flat_amount_decimal?: string
+            unit_amount?: number
+            unit_amount_decimal?: string
+            up_to: "inf" | number
+          }[]
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
       }
       custom_unit_amount?: {
         enabled: boolean
@@ -17866,7 +17447,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       lookup_key?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       nickname?: string
       product?: string
@@ -17874,7 +17455,7 @@ export class ApiClient extends AbstractFetchClient {
         active?: boolean
         id?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         name: string
         statement_descriptor?: string
@@ -17921,9 +17502,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -17958,9 +17537,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPricesPrice(p: {
     expand?: string[]
     price: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_price> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({
@@ -17980,14 +17557,31 @@ export class ApiClient extends AbstractFetchClient {
       active?: boolean
       currency_options?:
         | {
-            [key: string]: unknown
+            [key: string]: {
+              custom_unit_amount?: {
+                enabled: boolean
+                maximum?: number
+                minimum?: number
+                preset?: number
+              }
+              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+              tiers?: {
+                flat_amount?: number
+                flat_amount_decimal?: string
+                unit_amount?: number
+                unit_amount_decimal?: string
+                up_to: "inf" | number
+              }[]
+              unit_amount?: number
+              unit_amount_decimal?: string
+            }
           }
         | ""
       expand?: string[]
       lookup_key?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       nickname?: string
@@ -18024,9 +17618,7 @@ export class ApiClient extends AbstractFetchClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -18068,7 +17660,24 @@ export class ApiClient extends AbstractFetchClient {
       default_price_data?: {
         currency: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            custom_unit_amount?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+              preset?: number
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            tiers?: {
+              flat_amount?: number
+              flat_amount_decimal?: string
+              unit_amount?: number
+              unit_amount_decimal?: string
+              up_to: "inf" | number
+            }[]
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
         }
         recurring?: {
           interval: "day" | "month" | "week" | "year"
@@ -18083,7 +17692,7 @@ export class ApiClient extends AbstractFetchClient {
       id?: string
       images?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
       package_dimensions?: {
@@ -18115,9 +17724,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -18151,9 +17758,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteProductsId(p: {
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_product> | Response<StatusCode, t_error>
   > {
@@ -18171,9 +17776,7 @@ export class ApiClient extends AbstractFetchClient {
   async getProductsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_product> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers({
@@ -18197,7 +17800,7 @@ export class ApiClient extends AbstractFetchClient {
       images?: string[] | ""
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       name?: string
@@ -18245,9 +17848,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -18293,11 +17894,13 @@ export class ApiClient extends AbstractFetchClient {
       expires_at?: number
       max_redemptions?: number
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       restrictions?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            minimum_amount?: number
+          }
         }
         first_time_transaction?: boolean
         minimum_amount?: number
@@ -18319,9 +17922,7 @@ export class ApiClient extends AbstractFetchClient {
   async getPromotionCodesPromotionCode(p: {
     expand?: string[]
     promotionCode: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_promotion_code> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers({
@@ -18342,12 +17943,14 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       restrictions?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            minimum_amount?: number
+          }
         }
       }
     }
@@ -18372,9 +17975,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -18454,7 +18055,7 @@ export class ApiClient extends AbstractFetchClient {
           tax_rates?: string[] | ""
         }[]
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string | ""
         subscription_data?: {
@@ -18487,9 +18088,7 @@ export class ApiClient extends AbstractFetchClient {
   async getQuotesQuote(p: {
     expand?: string[]
     quote: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_quote> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({
@@ -18546,7 +18145,7 @@ export class ApiClient extends AbstractFetchClient {
         tax_rates?: string[] | ""
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       on_behalf_of?: string | ""
       subscription_data?: {
@@ -18614,9 +18213,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -18671,9 +18268,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -18706,9 +18301,7 @@ export class ApiClient extends AbstractFetchClient {
   async getQuotesQuotePdf(p: {
     expand?: string[]
     quote: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, string> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({
@@ -18730,9 +18323,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -18768,9 +18359,7 @@ export class ApiClient extends AbstractFetchClient {
   async getRadarEarlyFraudWarningsEarlyFraudWarning(p: {
     earlyFraudWarning: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_radar_early_fraud_warning> | Response<StatusCode, t_error>
   > {
@@ -18802,9 +18391,7 @@ export class ApiClient extends AbstractFetchClient {
     startingAfter?: string
     value?: string
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -18859,9 +18446,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteRadarValueListItemsItem(p: {
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_deleted_radar_value_list_item>
     | Response<StatusCode, t_error>
@@ -18880,9 +18465,7 @@ export class ApiClient extends AbstractFetchClient {
   async getRadarValueListItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_radar_value_list_item> | Response<StatusCode, t_error>
   > {
@@ -18914,9 +18497,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -18964,7 +18545,7 @@ export class ApiClient extends AbstractFetchClient {
         | "ip_address"
         | "string"
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name: string
     }
@@ -18984,9 +18565,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteRadarValueListsValueList(p: {
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_radar_value_list> | Response<StatusCode, t_error>
   > {
@@ -19004,9 +18583,7 @@ export class ApiClient extends AbstractFetchClient {
   async getRadarValueListsValueList(p: {
     expand?: string[]
     valueList: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_radar_value_list> | Response<StatusCode, t_error>
   > {
@@ -19028,7 +18605,7 @@ export class ApiClient extends AbstractFetchClient {
       alias?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       name?: string
     }
@@ -19062,9 +18639,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -19109,7 +18684,7 @@ export class ApiClient extends AbstractFetchClient {
         instructions_email?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         origin?: "customer_balance"
@@ -19134,9 +18709,7 @@ export class ApiClient extends AbstractFetchClient {
   async getRefundsRefund(p: {
     expand?: string[]
     refund: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_refund> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers({
@@ -19156,7 +18729,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -19203,9 +18776,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -19901,9 +19472,7 @@ export class ApiClient extends AbstractFetchClient {
   async getReportingReportRunsReportRun(p: {
     expand?: string[]
     reportRun: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_reporting_report_run> | Response<StatusCode, t_error>
   > {
@@ -19922,9 +19491,7 @@ export class ApiClient extends AbstractFetchClient {
   async getReportingReportTypes(
     p: {
       expand?: string[]
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -19953,9 +19520,7 @@ export class ApiClient extends AbstractFetchClient {
   async getReportingReportTypesReportType(p: {
     expand?: string[]
     reportType: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_reporting_report_type> | Response<StatusCode, t_error>
   > {
@@ -19985,9 +19550,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -20022,9 +19585,7 @@ export class ApiClient extends AbstractFetchClient {
   async getReviewsReview(p: {
     expand?: string[]
     review: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_review> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
     const headers = this._headers({
@@ -20069,9 +19630,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     setupIntent: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -20120,9 +19679,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -20172,9 +19729,7 @@ export class ApiClient extends AbstractFetchClient {
         mandate_data?: {
           customer_acceptance: {
             accepted_at?: number
-            offline?: {
-              [key: string]: never
-            }
+            offline?: EmptyObject
             online?: {
               ip_address: string
               user_agent: string
@@ -20183,7 +19738,7 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         payment_method?: string
@@ -20193,15 +19748,9 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: {
-            [key: string]: never
-          }
-          afterpay_clearpay?: {
-            [key: string]: never
-          }
-          alipay?: {
-            [key: string]: never
-          }
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -20210,9 +19759,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: {
-            [key: string]: never
-          }
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -20228,18 +19775,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string
             phone?: string
           }
-          blik?: {
-            [key: string]: never
-          }
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: {
-            [key: string]: never
-          }
-          customer_balance?: {
-            [key: string]: never
-          }
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -20296,12 +19837,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: {
-            [key: string]: never
-          }
-          grabpay?: {
-            [key: string]: never
-          }
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -20319,9 +19856,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: {
-            [key: string]: never
-          }
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -20329,18 +19864,12 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: {
-            [key: string]: never
-          }
-          link?: {
-            [key: string]: never
-          }
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
-          oxxo?: {
-            [key: string]: never
-          }
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -20369,15 +19898,9 @@ export class ApiClient extends AbstractFetchClient {
               | "toyota_bank"
               | "volkswagen_bank"
           }
-          paynow?: {
-            [key: string]: never
-          }
-          pix?: {
-            [key: string]: never
-          }
-          promptpay?: {
-            [key: string]: never
-          }
+          paynow?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
@@ -20423,9 +19946,7 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: {
-            [key: string]: never
-          }
+          wechat_pay?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -20472,9 +19993,7 @@ export class ApiClient extends AbstractFetchClient {
             persistent_token?: string
           }
           sepa_debit?: {
-            mandate_options?: {
-              [key: string]: never
-            }
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -20517,9 +20036,7 @@ export class ApiClient extends AbstractFetchClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_setup_intent> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers({
@@ -20546,7 +20063,7 @@ export class ApiClient extends AbstractFetchClient {
       flow_directions?: ("inbound" | "outbound")[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       payment_method?: string
@@ -20556,15 +20073,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -20573,9 +20084,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -20591,18 +20100,12 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -20659,12 +20162,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -20682,9 +20181,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -20692,18 +20189,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -20732,15 +20223,9 @@ export class ApiClient extends AbstractFetchClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -20786,9 +20271,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -20835,9 +20318,7 @@ export class ApiClient extends AbstractFetchClient {
           persistent_token?: string
         }
         sepa_debit?: {
-          mandate_options?: {
-            [key: string]: never
-          }
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -20896,9 +20377,7 @@ export class ApiClient extends AbstractFetchClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: {
-                [key: string]: never
-              }
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -20922,15 +20401,9 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: {
-          [key: string]: never
-        }
-        afterpay_clearpay?: {
-          [key: string]: never
-        }
-        alipay?: {
-          [key: string]: never
-        }
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -20939,9 +20412,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: {
-          [key: string]: never
-        }
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -20957,18 +20428,12 @@ export class ApiClient extends AbstractFetchClient {
           name?: string
           phone?: string
         }
-        blik?: {
-          [key: string]: never
-        }
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: {
-          [key: string]: never
-        }
-        customer_balance?: {
-          [key: string]: never
-        }
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -21025,12 +20490,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: {
-          [key: string]: never
-        }
-        grabpay?: {
-          [key: string]: never
-        }
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -21048,9 +20509,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: {
-          [key: string]: never
-        }
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -21058,18 +20517,12 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: {
-          [key: string]: never
-        }
-        link?: {
-          [key: string]: never
-        }
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
-        oxxo?: {
-          [key: string]: never
-        }
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -21098,15 +20551,9 @@ export class ApiClient extends AbstractFetchClient {
             | "toyota_bank"
             | "volkswagen_bank"
         }
-        paynow?: {
-          [key: string]: never
-        }
-        pix?: {
-          [key: string]: never
-        }
-        promptpay?: {
-          [key: string]: never
-        }
+        paynow?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
@@ -21152,9 +20599,7 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: {
-          [key: string]: never
-        }
+        wechat_pay?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -21201,9 +20646,7 @@ export class ApiClient extends AbstractFetchClient {
           persistent_token?: string
         }
         sepa_debit?: {
-          mandate_options?: {
-            [key: string]: never
-          }
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -21272,9 +20715,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -21326,11 +20767,14 @@ export class ApiClient extends AbstractFetchClient {
         amount: number
         currency: string
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       tax_code?: string
@@ -21351,9 +20795,7 @@ export class ApiClient extends AbstractFetchClient {
   async getShippingRatesShippingRateToken(p: {
     expand?: string[]
     shippingRateToken: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_shipping_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers({
@@ -21374,12 +20816,15 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       fixed_amount?: {
         currency_options?: {
-          [key: string]: unknown
+          [key: string]: {
+            amount?: number
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          }
         }
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
@@ -21402,9 +20847,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -21438,9 +20881,7 @@ export class ApiClient extends AbstractFetchClient {
   async getSigmaScheduledQueryRunsScheduledQueryRun(p: {
     expand?: string[]
     scheduledQueryRun: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_scheduled_query_run> | Response<StatusCode, t_error>
   > {
@@ -21492,7 +20933,7 @@ export class ApiClient extends AbstractFetchClient {
             | "stripe_email"
         }
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         original_source?: string
         owner?: {
@@ -21560,9 +21001,7 @@ export class ApiClient extends AbstractFetchClient {
     clientSecret?: string
     expand?: string[]
     source: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_source> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers({
@@ -21612,7 +21051,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       owner?: {
@@ -21669,9 +21108,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     mandateNotification: string
     source: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_source_mandate_notification> | Response<StatusCode, t_error>
   > {
@@ -21695,9 +21132,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     source: string
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -21731,9 +21166,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     source: string
     sourceTransaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_source_transaction> | Response<StatusCode, t_error>
   > {
@@ -21775,9 +21208,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     subscription: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -21817,7 +21248,7 @@ export class ApiClient extends AbstractFetchClient {
         | ""
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_behavior?:
         | "allow_incomplete"
@@ -21880,9 +21311,7 @@ export class ApiClient extends AbstractFetchClient {
   async getSubscriptionItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_subscription_item> | Response<StatusCode, t_error>
   > {
@@ -21909,7 +21338,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -21955,9 +21384,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     subscriptionItem: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -22051,9 +21478,7 @@ export class ApiClient extends AbstractFetchClient {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -22125,7 +21550,7 @@ export class ApiClient extends AbstractFetchClient {
         from_subscription?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         phases?: {
@@ -22169,7 +21594,7 @@ export class ApiClient extends AbstractFetchClient {
                 }
               | ""
             metadata?: {
-              [key: string]: unknown
+              [key: string]: string
             }
             price?: string
             price_data?: {
@@ -22188,7 +21613,7 @@ export class ApiClient extends AbstractFetchClient {
           }[]
           iterations?: number
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           on_behalf_of?: string
           proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -22219,9 +21644,7 @@ export class ApiClient extends AbstractFetchClient {
   async getSubscriptionSchedulesSchedule(p: {
     expand?: string[]
     schedule: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_subscription_schedule> | Response<StatusCode, t_error>
   > {
@@ -22270,7 +21693,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       phases?: {
@@ -22313,7 +21736,7 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
           metadata?: {
-            [key: string]: unknown
+            [key: string]: string
           }
           price?: string
           price_data?: {
@@ -22332,7 +21755,7 @@ export class ApiClient extends AbstractFetchClient {
         }[]
         iterations?: number
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         on_behalf_of?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
@@ -22448,9 +21871,7 @@ export class ApiClient extends AbstractFetchClient {
         | "trialing"
         | "unpaid"
       testClock?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -22534,7 +21955,7 @@ export class ApiClient extends AbstractFetchClient {
             }
           | ""
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         price?: string
         price_data?: {
@@ -22553,7 +21974,7 @@ export class ApiClient extends AbstractFetchClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -22610,11 +22031,7 @@ export class ApiClient extends AbstractFetchClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -22695,9 +22112,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -22765,9 +22180,7 @@ export class ApiClient extends AbstractFetchClient {
   async getSubscriptionsSubscriptionExposedId(p: {
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_subscription> | Response<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
@@ -22842,7 +22255,7 @@ export class ApiClient extends AbstractFetchClient {
         id?: string
         metadata?:
           | {
-              [key: string]: unknown
+              [key: string]: string
             }
           | ""
         price?: string
@@ -22862,7 +22275,7 @@ export class ApiClient extends AbstractFetchClient {
       }[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       off_session?: boolean
@@ -22925,11 +22338,7 @@ export class ApiClient extends AbstractFetchClient {
                 funding_type?: string
               }
             | ""
-          konbini?:
-            | {
-                [key: string]: never
-              }
-            | ""
+          konbini?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -23010,9 +22419,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_discount> | Response<StatusCode, t_error>
   > {
@@ -23157,9 +22564,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -23195,7 +22600,7 @@ export class ApiClient extends AbstractFetchClient {
       calculation: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       reference: string
     }
@@ -23220,14 +22625,14 @@ export class ApiClient extends AbstractFetchClient {
         amount: number
         amount_tax: number
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         original_line_item: string
         quantity?: number
         reference: string
       }[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       mode: "full" | "partial"
       original_transaction: string
@@ -23254,9 +22659,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTaxTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_tax_transaction> | Response<StatusCode, t_error>
   > {
@@ -23278,9 +22681,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     transaction: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -23317,9 +22718,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -23353,9 +22752,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTaxCodesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_tax_code> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
     const headers = this._headers({
@@ -23385,9 +22782,7 @@ export class ApiClient extends AbstractFetchClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -23431,7 +22826,7 @@ export class ApiClient extends AbstractFetchClient {
       inclusive: boolean
       jurisdiction?: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       percentage: number
       state?: string
@@ -23462,9 +22857,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTaxRatesTaxRate(p: {
     expand?: string[]
     taxRate: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_tax_rate> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers({
@@ -23489,7 +22882,7 @@ export class ApiClient extends AbstractFetchClient {
       jurisdiction?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       state?: string
@@ -23524,9 +22917,7 @@ export class ApiClient extends AbstractFetchClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -23660,9 +23051,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_deleted_terminal_configuration>
     | Response<StatusCode, t_error>
@@ -23682,9 +23071,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTerminalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
     | Response<StatusCode, t_error>
@@ -23834,9 +23221,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -23882,7 +23267,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -23902,9 +23287,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteTerminalLocationsLocation(p: {
     location: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_terminal_location> | Response<StatusCode, t_error>
   > {
@@ -23922,9 +23305,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTerminalLocationsLocation(p: {
     expand?: string[]
     location: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_terminal_location | t_deleted_terminal_location>
     | Response<StatusCode, t_error>
@@ -23957,7 +23338,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -23991,9 +23372,7 @@ export class ApiClient extends AbstractFetchClient {
       location?: string
       startingAfter?: string
       status?: "offline" | "online"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -24034,7 +23413,7 @@ export class ApiClient extends AbstractFetchClient {
       location?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       registration_code: string
@@ -24055,9 +23434,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteTerminalReadersReader(p: {
     reader: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_terminal_reader> | Response<StatusCode, t_error>
   > {
@@ -24075,9 +23452,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTerminalReadersReader(p: {
     expand?: string[]
     reader: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_terminal_reader | t_deleted_terminal_reader>
     | Response<StatusCode, t_error>
@@ -24101,7 +23476,7 @@ export class ApiClient extends AbstractFetchClient {
       label?: string
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -24197,7 +23572,7 @@ export class ApiClient extends AbstractFetchClient {
       charge?: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       payment_intent?: string
       refund_application_fee?: boolean
@@ -24402,9 +23777,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -24457,9 +23830,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_deleted_test_helpers_test_clock>
     | Response<StatusCode, t_error>
@@ -24478,9 +23849,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTestHelpersTestClocksTestClock(p: {
     expand?: string[]
     testClock: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_test_helpers_test_clock> | Response<StatusCode, t_error>
   > {
@@ -24942,7 +24311,7 @@ export class ApiClient extends AbstractFetchClient {
             maiden_name?: string
             metadata?:
               | {
-                  [key: string]: unknown
+                  [key: string]: string
                 }
               | ""
             phone?: string
@@ -25058,7 +24427,7 @@ export class ApiClient extends AbstractFetchClient {
           maiden_name?: string
           metadata?:
             | {
-                [key: string]: unknown
+                [key: string]: string
               }
             | ""
           nationality?: string
@@ -25112,9 +24481,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_token> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
     const headers = this._headers({
@@ -25151,9 +24518,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -25195,7 +24560,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       source?: string
@@ -25217,9 +24582,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTopupsTopup(p: {
     expand?: string[]
     topup: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_topup> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({
@@ -25240,7 +24603,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -25289,9 +24652,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -25333,7 +24694,7 @@ export class ApiClient extends AbstractFetchClient {
       destination: string
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       source_transaction?: string
       source_type?: "bank_account" | "card" | "fpx"
@@ -25357,9 +24718,7 @@ export class ApiClient extends AbstractFetchClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -25397,7 +24756,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       refund_application_fee?: boolean
@@ -25419,9 +24778,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTransfersTransfer(p: {
     expand?: string[]
     transfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<Response<200, t_transfer> | Response<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers({
@@ -25442,7 +24799,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -25462,9 +24819,7 @@ export class ApiClient extends AbstractFetchClient {
     expand?: string[]
     id: string
     transfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_transfer_reversal> | Response<StatusCode, t_error>
   > {
@@ -25488,7 +24843,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
     }
@@ -25515,9 +24870,7 @@ export class ApiClient extends AbstractFetchClient {
     receivedCredit?: string
     startingAfter?: string
     status?: "canceled" | "posted" | "processing"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -25554,7 +24907,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       received_credit: string
     }
@@ -25575,9 +24928,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryCreditReversalsCreditReversal(p: {
     creditReversal: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_credit_reversal> | Response<StatusCode, t_error>
   > {
@@ -25603,9 +24954,7 @@ export class ApiClient extends AbstractFetchClient {
     resolution?: "lost" | "won"
     startingAfter?: string
     status?: "canceled" | "completed" | "processing"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -25643,7 +24992,7 @@ export class ApiClient extends AbstractFetchClient {
     requestBody: {
       expand?: string[]
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       received_debit: string
     }
@@ -25664,9 +25013,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryDebitReversalsDebitReversal(p: {
     debitReversal: string
     expand?: string[]
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_debit_reversal> | Response<StatusCode, t_error>
   > {
@@ -25697,9 +25044,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -25772,7 +25117,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -25797,9 +25142,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryFinancialAccountsFinancialAccount(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_financial_account> | Response<StatusCode, t_error>
   > {
@@ -25858,7 +25201,7 @@ export class ApiClient extends AbstractFetchClient {
         }
       }
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       platform_restrictions?: {
         inbound_flows?: "restricted" | "unrestricted"
@@ -25883,9 +25226,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryFinancialAccountsFinancialAccountFeatures(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<200, t_treasury_financial_account_features>
     | Response<StatusCode, t_error>
@@ -25968,9 +25309,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "processing" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26010,7 +25349,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       origin_payment_method: string
       statement_descriptor?: string
@@ -26032,9 +25371,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryInboundTransfersId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_inbound_transfer> | Response<StatusCode, t_error>
   > {
@@ -26079,9 +25416,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26139,7 +25474,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         financial_account?: string
         metadata?: {
-          [key: string]: unknown
+          [key: string]: string
         }
         type: "financial_account" | "us_bank_account"
         us_bank_account?: {
@@ -26164,7 +25499,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
     }
@@ -26185,9 +25520,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryOutboundPaymentsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_outbound_payment> | Response<StatusCode, t_error>
   > {
@@ -26230,9 +25563,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26280,7 +25611,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       financial_account: string
       metadata?: {
-        [key: string]: unknown
+        [key: string]: string
       }
       statement_descriptor?: string
     }
@@ -26301,9 +25632,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryOutboundTransfersOutboundTransfer(p: {
     expand?: string[]
     outboundTransfer: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_outbound_transfer> | Response<StatusCode, t_error>
   > {
@@ -26355,9 +25684,7 @@ export class ApiClient extends AbstractFetchClient {
     }
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26393,9 +25720,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryReceivedCreditsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_received_credit> | Response<StatusCode, t_error>
   > {
@@ -26418,9 +25743,7 @@ export class ApiClient extends AbstractFetchClient {
     limit?: number
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26455,9 +25778,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryReceivedDebitsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_received_debit> | Response<StatusCode, t_error>
   > {
@@ -26497,9 +25818,7 @@ export class ApiClient extends AbstractFetchClient {
     orderBy?: "created" | "effective_at"
     startingAfter?: string
     transaction?: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26537,9 +25856,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryTransactionEntriesId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_transaction_entry> | Response<StatusCode, t_error>
   > {
@@ -26581,9 +25898,7 @@ export class ApiClient extends AbstractFetchClient {
           }
         | number
     }
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     | Response<
         200,
@@ -26621,9 +25936,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTreasuryTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_treasury_transaction> | Response<StatusCode, t_error>
   > {
@@ -26645,9 +25958,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: {
-        [key: string]: never
-      }
+      requestBody?: EmptyObject
     } = {}
   ): Promise<
     | Response<
@@ -27009,7 +26320,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       url: string
@@ -27030,9 +26341,7 @@ export class ApiClient extends AbstractFetchClient {
 
   async deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_deleted_webhook_endpoint> | Response<StatusCode, t_error>
   > {
@@ -27050,9 +26359,7 @@ export class ApiClient extends AbstractFetchClient {
   async getWebhookEndpointsWebhookEndpoint(p: {
     expand?: string[]
     webhookEndpoint: string
-    requestBody?: {
-      [key: string]: never
-    }
+    requestBody?: EmptyObject
   }): Promise<
     Response<200, t_webhook_endpoint> | Response<StatusCode, t_error>
   > {
@@ -27301,7 +26608,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       metadata?:
         | {
-            [key: string]: unknown
+            [key: string]: string
           }
         | ""
       url?: string
