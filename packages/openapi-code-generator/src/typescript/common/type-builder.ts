@@ -5,7 +5,7 @@
 import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
-import {getNameFromRef, isRef} from "../../core/openapi-utils"
+import {getTypeNameFromRef, isRef} from "../../core/openapi-utils"
 import {ImportBuilder} from "./import-builder"
 import {
   array,
@@ -16,6 +16,7 @@ import {
   toString,
   union,
 } from "./type-utils"
+import {logger} from "../../core/logger"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",
@@ -45,7 +46,7 @@ export class TypeBuilder {
   private add({$ref}: Reference): string {
     this.referenced.add($ref)
 
-    const name = getNameFromRef({$ref}, "t_")
+    const name = getTypeNameFromRef({$ref})
 
     if (this.imports) {
       this.imports.addSingle(name, this.filename)
@@ -71,6 +72,8 @@ export class TypeBuilder {
   }
 
   toString(): string {
+    logger.time(`generate ${this.filename}`)
+
     const generate = () => {
       return this.staticTypes().concat(
         Array.from(this.referenced.values())
@@ -93,7 +96,7 @@ export class TypeBuilder {
   }
 
   private generateModelFromRef($ref: string): string {
-    const name = getNameFromRef({$ref}, "t_")
+    const name = getTypeNameFromRef({$ref})
     const schemaObject = this.input.schema({$ref})
 
     return `export type ${name} = ${this.schemaObjectToType(schemaObject)}`

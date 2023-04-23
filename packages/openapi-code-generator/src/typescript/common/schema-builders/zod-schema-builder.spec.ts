@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {describe, it, expect} from "@jest/globals"
 import {ZodBuilder} from "./zod-schema-builder"
 import {unitTestInput} from "../../../test/input.test-utils"
@@ -6,9 +10,7 @@ import {formatOutput} from "../output-utils"
 
 describe("typescript/common/schema-builders/zod-schema-builder", () => {
   it("supports the SimpleObject", async () => {
-    const {model, schemas} = await getActual(
-      "components/schemas/SimpleObject"
-    )
+    const {model, schemas} = await getActual("components/schemas/SimpleObject")
 
     expect(model).toMatchInlineSnapshot(`
       "s_SimpleObject
@@ -83,6 +85,24 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
     `)
   })
 
+  it("supports recursion", async () => {
+    const {model, schemas} = await getActual("components/schemas/Recursive")
+
+    expect(model).toMatchInlineSnapshot(`
+      "z.lazy(() => s_Recursive)
+      "
+    `)
+    expect(schemas).toMatchInlineSnapshot(`
+      "import { t_Recursive } from "./models"
+      import { z } from "zod"
+
+      export const s_Recursive: z.ZodType<t_Recursive> = z.object({
+        child: z.lazy(() => s_Recursive),
+      })
+      "
+    `)
+  })
+
   it("orders schemas such that dependencies are defined first", async () => {
     const {model, schemas} = await getActual("components/schemas/Ordering")
 
@@ -115,7 +135,7 @@ describe("typescript/common/schema-builders/zod-schema-builder", () => {
       "z",
       "schemas.ts",
       input,
-      new ImportBuilder()
+      new ImportBuilder(),
     )
 
     const model = builder.fromModel({$ref: `${file}#${path}`}, true)

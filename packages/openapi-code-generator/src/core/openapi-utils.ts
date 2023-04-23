@@ -18,3 +18,11 @@ export function getNameFromRef({$ref}: Reference, prefix: string): string {
   //       can likely improve to selectively apply when a reserved word is used.
   return prefix + name.replace(/[-.]+/g, "_")
 }
+
+export function getTypeNameFromRef(reference: Reference) {
+  return getNameFromRef(reference, "t_")
+}
+
+export function getSchemaNameFromRef(reference: Reference) {
+  return getNameFromRef(reference, "s_")
+}

@@ -78,7 +78,7 @@ export class ServerBuilder {
 
     const {requestBodyParameter} = requestBodyAsParameter(operation)
     const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
-    const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required) : undefined
+    const bodyParamSchema = requestBodyParameter ? schemaBuilder.fromModel(requestBodyParameter.schema, requestBodyParameter.required, true) : undefined
     let bodyParamsType = "void"
 
     if (paramSchema) {
@@ -108,7 +108,7 @@ export class ServerBuilder {
 
       if (status === "default") {
         acc.defaultResponse = {
-          schema: content ? schemaBuilder.fromModel(content.schema, true) : schemaBuilder.void(),
+          schema: content ? schemaBuilder.fromModel(content.schema, true, true) : schemaBuilder.void(),
           type: content ? types.schemaObjectToType(content.schema) : "void",
         }
       } else {
@@ -116,7 +116,7 @@ export class ServerBuilder {
           statusString: status,
           statusType: statusStringToType(status),
           type: content ? types.schemaObjectToType(content.schema) : "void",
-          schema: content ? schemaBuilder.fromModel(content.schema, true) : schemaBuilder.void(),
+          schema: content ? schemaBuilder.fromModel(content.schema, true, true) : schemaBuilder.void(),
         })
       }
 

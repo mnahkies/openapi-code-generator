@@ -20,8 +20,6 @@ async function main() {
 
   const input = new Input(loader)
 
-  logger.time("generation")
-
   await config.generator({
     input,
     dest: config.output,

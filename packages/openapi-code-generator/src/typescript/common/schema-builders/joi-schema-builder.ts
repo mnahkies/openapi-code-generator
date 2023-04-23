@@ -3,6 +3,8 @@ import {IRModelString} from "../../../core/openapi-types-normalized"
 import {isDefined} from "../../../core/utils"
 import {AbstractSchemaBuilder} from "./abstract-schema-builder"
 import {ImportBuilder} from "../import-builder"
+import {Reference} from "../../../core/openapi-types"
+import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 
 enum JoiFn {
   Object = "object()",
@@ -48,13 +50,29 @@ export class JoiBuilder extends AbstractSchemaBuilder {
     ].filter(isDefined).join(".")
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected schemaFromRef(reference: Reference, imports: ImportBuilder): {name: string, type: string, value: string} {
+    const name = getSchemaNameFromRef(reference)
+    const schemaObject = this.input.schema(reference)
+
+    const value = this.fromModel(schemaObject, true)
+
+    return {
+      name,
+      type: "",
+      value: value + `.id("${name}")`
+    }
+  }
+
+  protected lazy(schema: string): string {
+    return [this.joi, `link('#${schema}')`].join(".")
+  }
 
   protected intersect(schemas: string[]): string {
     return schemas.filter(isDefined).reduce((acc, it) => {
       return `${acc}\n.concat(${it})`
     })
   }
-
 
   protected union(schemas: string[]): string {
     return [

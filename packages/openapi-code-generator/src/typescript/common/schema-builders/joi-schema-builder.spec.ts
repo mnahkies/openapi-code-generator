@@ -7,6 +7,7 @@ describe("typescript/common/schema-builders/joi-schema-builder", () => {
     schema(it: unknown) {
       return it
     },
+    allSchemas: () => []
   } as any, new ImportBuilder())
 
   describe("for a string", () => {
