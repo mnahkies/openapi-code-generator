@@ -82,6 +82,7 @@ export const object = wrap((properties: MaybeString[]): string => {
 
   return "{\n" + definedProperties.join("\n") + "\n}"
 })
+
 export const array = (type: string): string => `(${type})[]`
 
 export const toString = (it: string | number): string => it.toString()
