@@ -46,6 +46,7 @@ export class ClientOperationBuilder {
   queryString(): string {
     const {parameters} = this.operation
 
+    // todo: consider style / explode / allowReserved etc here
     return parameters.filter(it => it.in === "query")
       .map(it => "'" + it.name + "': " + this.paramName(it.name))
       .join(",\n")

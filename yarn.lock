@@ -2509,6 +2509,9 @@ __metadata:
 "@nahkies/typescript-fetch-runtime@0.0.1, @nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime":
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-fetch-runtime@workspace:packages/typescript-fetch-runtime"
+  dependencies:
+    "@types/qs": ^6.9.7
+    qs: ^6.11.1
   languageName: unknown
   linkType: soft
 
@@ -3606,7 +3609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:*":
+"@types/qs@npm:*, @types/qs@npm:^6.9.7":
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
   checksum: 7fd6f9c25053e9b5bb6bc9f9f76c1d89e6c04f7707a7ba0e44cc01f17ef5284adb82f230f542c2d5557d69407c9a40f0f3515e8319afd14e1e16b5543ac6cdba
@@ -12356,7 +12359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.0, qs@npm:^6.5.2":
+"qs@npm:^6.11.0, qs@npm:^6.11.1, qs@npm:^6.5.2":
   version: 6.11.1
   resolution: "qs@npm:6.11.1"
   dependencies:

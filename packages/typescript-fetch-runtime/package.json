@@ -11,5 +11,11 @@
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
+  },
+  "dependencies": {
+    "qs": "^6.11.1"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.7"
   }
 }
