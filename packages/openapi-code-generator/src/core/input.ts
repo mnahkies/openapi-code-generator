@@ -6,19 +6,25 @@ import {
   Reference,
   RequestBody,
   Responses,
-  Schema
+  Schema,
 } from "./openapi-types"
 import {OpenapiLoader} from "./openapi-loader"
 import {generationLib} from "./generation-lib"
 import {isHttpMethod} from "./utils"
 import {
   IRModel,
-  IRModelArray, IRModelBase, IRModelBoolean, IRModelNumeric, IRModelObject,
+  IRModelArray,
+  IRModelBase,
+  IRModelBoolean,
+  IRModelNumeric,
+  IRModelObject,
   IRModelString,
   IROperation,
-  IRParameter, IRRef,
-  IRRequestBody, IRResponse,
-  MaybeIRModel
+  IRParameter,
+  IRRef,
+  IRRequestBody,
+  IRResponse,
+  MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 import {logger} from "./logger"
@@ -50,7 +56,6 @@ export class Input {
 
       // eslint-disable-next-line prefer-const
       for (let [method, definition] of Object.entries(methods)) {
-
         if (!definition) {
           continue
         }
@@ -74,7 +79,6 @@ export class Input {
     }
 
     return result
-
   }
 
   operationsByFirstTag(): Record<string, IROperation[]> {
@@ -149,7 +153,6 @@ export class Input {
 
     return _.camelCase([method, ...route.split("/")].join("-"))
   }
-
 }
 
 function normalizeRequestBodyObject(requestBodyObject: RequestBody): IRRequestBody | undefined {
