@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {Input} from "../../core/input"
 import {Reference} from "../../core/openapi-types"
@@ -19,8 +23,7 @@ export class TypeBuilder {
     private readonly input: Input,
     private readonly referenced = new Set<string>(),
     private readonly imports?: ImportBuilder
-  ) {
-  }
+  ) {}
 
   withImports(imports: ImportBuilder): TypeBuilder {
     return new TypeBuilder(this.filename, this.input, this.referenced, imports)
@@ -129,14 +132,27 @@ export class TypeBuilder {
             })
 
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
-          const additionalProperties =
-            schemaObject.additionalProperties
-              ? "[key: string]: unknown"
+
+          const additionalPropertiesType = schemaObject.additionalProperties
+            ? typeof schemaObject.additionalProperties === "boolean"
+              ? "unknown"
+              : this.schemaObjectToType(schemaObject.additionalProperties)
+            : ""
+
+          const additionalProperties = additionalPropertiesType
+            ? `[key: string]: ${additionalPropertiesType}`
+            : ""
+
+          const emptyObject =
+            !additionalProperties && properties.length === 0
+              ? "[key: string]:  never"
               : ""
 
-          const emptyObject = !additionalProperties && properties.length === 0 ? "[key: string]:  never" : ""
-
-          result.push(object([...properties, additionalProperties, emptyObject]))
+          result.push(
+            object(properties),
+            object(additionalProperties),
+            object(emptyObject)
+          )
           break
         }
 

@@ -6,7 +6,7 @@ import {
   Reference,
   RequestBody,
   Responses,
-  Schema,
+  Schema
 } from "./openapi-types"
 import {OpenapiLoader} from "./openapi-loader"
 import {generationLib} from "./generation-lib"
@@ -18,14 +18,14 @@ import {
   IROperation,
   IRParameter, IRRef,
   IRRequestBody, IRResponse,
-  MaybeIRModel,
+  MaybeIRModel
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 import {logger} from "./logger"
 
 export class Input {
   constructor(
-    readonly loader: OpenapiLoader,
+    readonly loader: OpenapiLoader
   ) {
   }
 
@@ -68,7 +68,7 @@ export class Input {
           responses: this.normalizeResponsesObject(definition.responses),
           summary: definition.summary,
           description: definition.description,
-          deprecated: definition.deprecated ?? false,
+          deprecated: definition.deprecated ?? false
         })
       }
     }
@@ -117,7 +117,7 @@ export class Input {
     return normalizeRequestBodyObject(this.loader.requestBody(requestBody))
   }
 
-  private normalizeResponsesObject(responses?: Responses): { [statusCode: string]: IRResponse } | undefined {
+  private normalizeResponsesObject(responses?: Responses): {[statusCode: string]: IRResponse} | undefined {
     if (!responses) {
       return undefined
     }
@@ -130,8 +130,8 @@ export class Input {
         {
           headers: {},
           description: response.description,
-          content: normalizeMediaType(response.content),
-        },
+          content: normalizeMediaType(response.content)
+        }
       ]
     }))
   }
@@ -156,18 +156,18 @@ function normalizeRequestBodyObject(requestBodyObject: RequestBody): IRRequestBo
   return {
     description: requestBodyObject.description,
     required: requestBodyObject.required ?? true,
-    content: normalizeMediaType(requestBodyObject.content),
+    content: normalizeMediaType(requestBodyObject.content)
   }
 }
 
-function normalizeMediaType(mediaTypes: { [contentType: string]: MediaType } = {}) {
+function normalizeMediaType(mediaTypes: {[contentType: string]: MediaType} = {}) {
   return Object.fromEntries(Object.entries(mediaTypes).map(([contentType, mediaType]) => {
     return [
       contentType,
       {
         schema: normalizeSchemaObject(mediaType.schema),
-        encoding: mediaType.encoding,
-      },
+        encoding: mediaType.encoding
+      }
     ]
   }))
 }
@@ -180,18 +180,18 @@ function normalizeParameterObject(parameterObject: Parameter): IRParameter {
     description: parameterObject.description,
     required: parameterObject.required ?? false,
     deprecated: parameterObject.deprecated ?? false,
-    allowEmptyValue: parameterObject.allowEmptyValue ?? false,
+    allowEmptyValue: parameterObject.allowEmptyValue ?? false
   }
 }
 
 function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
   if (isRef(schemaObject)) {
-    return type<IRRef>(schemaObject)
+    return schemaObject satisfies IRRef
   }
 
   const base: IRModelBase = {
     nullable: schemaObject.nullable || false,
-    readOnly: schemaObject.readOnly || false,
+    readOnly: schemaObject.readOnly || false
   }
 
   switch (schemaObject.type) {
@@ -212,14 +212,9 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         return include
       })
 
-      let additionalProperties = schemaObject.additionalProperties || false
+      const additionalProperties = normalizeAdditionalProperties(schemaObject.additionalProperties)
 
-      if (typeof additionalProperties !== "boolean") {
-        logger.error("skipping object additionalProperties as not yet supported")
-        additionalProperties = true
-      }
-
-      return type<IRModelObject>({
+      return {
         ...base,
         type: "object",
         allOf,
@@ -227,8 +222,8 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         anyOf,
         required,
         properties,
-        additionalProperties,
-      })
+        additionalProperties
+      } satisfies IRModelObject
     }
     case "array": {
       let items = schemaObject.items
@@ -238,45 +233,41 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         items = {$ref: generationLib.UnknownObject$Ref}
       }
 
-      return type<IRModelArray>({
+      return {
         ...base,
         type: schemaObject.type,
-        items: normalizeSchemaObject(items),
-      })
+        items: normalizeSchemaObject(items)
+      } satisfies IRModelArray
     }
     case "number":
     case "integer": {
       const enumValues = ((schemaObject.enum ?? []) as any[])
         .filter((it): it is number => isFinite(it))
-      return type<IRModelNumeric>({
+      return {
         ...base,
         type: "number",
         // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
         format: schemaObject.format as any,
-        enum: enumValues.length ? enumValues : undefined,
-      })
+        enum: enumValues.length ? enumValues : undefined
+      } satisfies IRModelNumeric
     }
     case "string": {
       const enumValues = ((schemaObject.enum ?? []) as any[])
         .map((it) => String(it))
-      return type<IRModelString>({
+      return {
         ...base,
         type: schemaObject.type,
         format: schemaObject.format as any,
-        enum: enumValues.length ? enumValues : undefined,
-      })
+        enum: enumValues.length ? enumValues : undefined
+      } satisfies IRModelString
     }
     case "boolean":
-      return type<IRModelBoolean>({
+      return {
         ...base,
-        type: schemaObject.type,
-      })
+        type: schemaObject.type
+      } satisfies IRModelBoolean
     default:
       throw new Error(`unsupported type '${schemaObject.type}'`)
-  }
-
-  function type<T>(it: T) {
-    return it
   }
 
   function normalizeProperties(properties: Schema["properties"] = {}): Record<string, MaybeIRModel> {
@@ -286,6 +277,14 @@ function normalizeSchemaObject(schemaObject: Schema | Reference): MaybeIRModel {
         result[name] = normalizeSchemaObject(schemaObject)
         return result
       }, {} as Record<string, MaybeIRModel>)
+  }
+
+  function normalizeAdditionalProperties(additionalProperties: Schema["additionalProperties"] = false): boolean | MaybeIRModel {
+    if (typeof additionalProperties === "boolean") {
+      return additionalProperties
+    }
+
+    return normalizeSchemaObject(additionalProperties)
   }
 
   function normalizeAllOf(allOf: Schema["allOf"] = []): MaybeIRModel[] {

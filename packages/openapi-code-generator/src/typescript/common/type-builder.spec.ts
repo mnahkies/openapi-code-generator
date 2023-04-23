@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import {describe, it, expect} from "@jest/globals"
 import {unitTestInput} from "../../test/input.test-utils"
 import {TypeBuilder} from "./type-builder"
@@ -88,9 +92,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for a oneOf correctly", async () => {
-    const {type, schemas, imports} = await getActual(
-      "components/schemas/OneOf"
-    )
+    const {type, schemas, imports} = await getActual("components/schemas/OneOf")
 
     expect(type).toMatchInlineSnapshot(`
       "const x: t_OneOf
@@ -114,9 +116,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for a anyOf correctly", async () => {
-    const {type, schemas, imports} = await getActual(
-      "components/schemas/AnyOf"
-    )
+    const {type, schemas, imports} = await getActual("components/schemas/AnyOf")
 
     expect(type).toMatchInlineSnapshot(`
       "const x: t_AnyOf
@@ -135,9 +135,7 @@ describe("typescript/common/type-builder", () => {
   })
 
   it("can build a type for a allOf correctly", async () => {
-    const {type, schemas, imports} = await getActual(
-      "components/schemas/AllOf"
-    )
+    const {type, schemas, imports} = await getActual("components/schemas/AllOf")
 
     expect(type).toMatchInlineSnapshot(`
       "const x: t_AllOf
@@ -158,6 +156,58 @@ describe("typescript/common/type-builder", () => {
 
     expect(imports).toMatchInlineSnapshot(`
       "import { t_AllOf, t_Base } from "models"
+      "
+    `)
+  })
+
+  it("handles additionalProperties set to true", async () => {
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/AdditionalPropertiesBool"
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesBool
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_AdditionalPropertiesBool = {
+        [key: string]: unknown
+      }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesBool } from "models"
+      "
+    `)
+  })
+
+  it("handles additionalProperties specifying a schema", async () => {
+    const {type, schemas, imports} = await getActual(
+      "components/schemas/AdditionalPropertiesSchema"
+    )
+
+    expect(type).toMatchInlineSnapshot(`
+      "const x: t_AdditionalPropertiesSchema
+      "
+    `)
+
+    expect(schemas).toMatchInlineSnapshot(`
+      "export type t_NamedNullableStringEnum = "" | "one" | "two" | "three" | null
+
+      export type t_AdditionalPropertiesSchema =
+        | {
+            name?: string
+          }
+        | {
+            [key: string]: t_NamedNullableStringEnum
+          }
+      "
+    `)
+
+    expect(imports).toMatchInlineSnapshot(`
+      "import { t_AdditionalPropertiesSchema, t_NamedNullableStringEnum } from "models"
       "
     `)
   })

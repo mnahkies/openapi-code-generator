@@ -112,3 +112,7 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+*.json
+*.yaml
+integration-tests
