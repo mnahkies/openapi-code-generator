@@ -16,6 +16,7 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
         "HttpClient",
         "HttpHeaders",
         "HttpParams",
+        "HttpResponse",
       )
 
     imports.from("rxjs")
@@ -32,9 +33,10 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
     const headers = builder.headers()
 
     const returnType = builder.returnType()
-      .map(({responseType}) => {
-        return `${responseType}`
+      .map(({statusType, responseType}) => {
+        return `(HttpResponse<${responseType}> & {status: ${statusType}})`
       })
+      .concat(["HttpResponse<unknown>"])
       .join(" | ")
 
     const url = routeToTemplateString(route)
@@ -62,7 +64,7 @@ return this.httpClient.request<any>(
             .filter(Boolean)
             .join("\n")
     }
-    observe: 'body',
+    observe: "response",
     reportProgress: false,
   });
 `
@@ -82,10 +84,31 @@ export class ${clientName}Config {
   defaultHeaders: Record<string, string> = {}
 }
 
-export interface Res<StatusCode, Body> {
-    status: StatusCode,
-    body: Body
-}
+// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
+type Enumerate<
+  N extends number,
+  Acc extends number[] = []
+> = Acc["length"] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc["length"]]>
+
+type IntRange<F extends number, T extends number> = F extends T
+  ? F
+  : Exclude<Enumerate<T>, Enumerate<F>> extends never
+  ? never
+  : Exclude<Enumerate<T>, Enumerate<F>> | T
+
+export type StatusCode1xx = IntRange<100, 199>
+export type StatusCode2xx = IntRange<200, 299>
+export type StatusCode3xx = IntRange<300, 399>
+export type StatusCode4xx = IntRange<400, 499>
+export type StatusCode5xx = IntRange<500, 599>
+export type StatusCode =
+  | StatusCode1xx
+  | StatusCode2xx
+  | StatusCode3xx
+  | StatusCode4xx
+  | StatusCode5xx
 
 export type QueryParams = {
   [name: string]:

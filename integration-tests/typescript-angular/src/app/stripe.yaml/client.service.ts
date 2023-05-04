@@ -134,7 +134,12 @@ import {
   t_usage_record_summary,
   t_webhook_endpoint,
 } from "./models"
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
@@ -143,10 +148,31 @@ export class ApiClientConfig {
   defaultHeaders: Record<string, string> = {}
 }
 
-export interface Res<StatusCode, Body> {
-  status: StatusCode
-  body: Body
-}
+// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
+type Enumerate<
+  N extends number,
+  Acc extends number[] = []
+> = Acc["length"] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc["length"]]>
+
+type IntRange<F extends number, T extends number> = F extends T
+  ? F
+  : Exclude<Enumerate<T>, Enumerate<F>> extends never
+  ? never
+  : Exclude<Enumerate<T>, Enumerate<F>> | T
+
+export type StatusCode1xx = IntRange<100, 199>
+export type StatusCode2xx = IntRange<200, 299>
+export type StatusCode3xx = IntRange<300, 399>
+export type StatusCode4xx = IntRange<400, 499>
+export type StatusCode5xx = IntRange<500, 599>
+export type StatusCode =
+  | StatusCode1xx
+  | StatusCode2xx
+  | StatusCode3xx
+  | StatusCode4xx
+  | StatusCode5xx
 
 export type QueryParams = {
   [name: string]:
@@ -201,7 +227,11 @@ export class ApiClient {
       expand?: string[]
       requestBody?: EmptyObject
     } = {}
-  ): Observable<t_account | t_error> {
+  ): Observable<
+    | (HttpResponse<t_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -215,7 +245,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -230,7 +260,11 @@ export class ApiClient {
       return_url?: string
       type: "account_onboarding" | "account_update"
     }
-  }): Observable<t_account_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_account_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -242,7 +276,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -265,13 +299,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_account[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -292,7 +327,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -690,7 +725,11 @@ export class ApiClient {
         type?: "custom" | "express" | "standard"
       }
     } = {}
-  ): Observable<t_account | t_error> {
+  ): Observable<
+    | (HttpResponse<t_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -702,7 +741,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -711,7 +750,11 @@ export class ApiClient {
   deleteAccountsAccount(p: {
     account: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -723,7 +766,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -733,7 +776,11 @@ export class ApiClient {
     account: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -747,7 +794,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1125,7 +1172,11 @@ export class ApiClient {
         user_agent?: string
       }
     }
-  }): Observable<t_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1137,7 +1188,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1170,7 +1221,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1182,7 +1237,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1192,7 +1247,11 @@ export class ApiClient {
     account: string
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1205,7 +1264,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1216,7 +1275,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1231,7 +1294,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1266,7 +1329,11 @@ export class ApiClient {
         | ""
       name?: string
     }
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1279,7 +1346,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1290,13 +1357,14 @@ export class ApiClient {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_capability[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1311,7 +1379,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1322,7 +1390,11 @@ export class ApiClient {
     capability: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_capability | t_error> {
+  }): Observable<
+    | (HttpResponse<t_capability> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1337,7 +1409,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1350,7 +1422,11 @@ export class ApiClient {
       expand?: string[]
       requested?: boolean
     }
-  }): Observable<t_capability | t_error> {
+  }): Observable<
+    | (HttpResponse<t_capability> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1363,7 +1439,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1377,13 +1453,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: (t_bank_account | t_card)[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1403,7 +1480,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1436,7 +1513,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1448,7 +1529,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1458,7 +1539,11 @@ export class ApiClient {
     account: string
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1471,7 +1556,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1482,7 +1567,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1497,7 +1586,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1532,7 +1621,11 @@ export class ApiClient {
         | ""
       name?: string
     }
-  }): Observable<t_external_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_external_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1545,7 +1638,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1556,7 +1649,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_login_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_login_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1568,7 +1665,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1588,13 +1685,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_person[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1615,7 +1713,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1718,7 +1816,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1730,7 +1832,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1740,7 +1842,11 @@ export class ApiClient {
     account: string
     person: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1753,7 +1859,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1764,7 +1870,11 @@ export class ApiClient {
     expand?: string[]
     person: string
     requestBody?: EmptyObject
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1779,7 +1889,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1883,7 +1993,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -1896,7 +2010,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -1916,13 +2030,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_person[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1943,7 +2058,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2046,7 +2161,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2058,7 +2177,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2068,7 +2187,11 @@ export class ApiClient {
     account: string
     person: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2081,7 +2204,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2092,7 +2215,11 @@ export class ApiClient {
     expand?: string[]
     person: string
     requestBody?: EmptyObject
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2107,7 +2234,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2211,7 +2338,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_person | t_error> {
+  }): Observable<
+    | (HttpResponse<t_person> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2224,7 +2355,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2236,7 +2367,11 @@ export class ApiClient {
       expand?: string[]
       reason: string
     }
-  }): Observable<t_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2248,7 +2383,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2264,13 +2399,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_apple_pay_domain[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2291,7 +2427,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2302,7 +2438,11 @@ export class ApiClient {
       domain_name: string
       expand?: string[]
     }
-  }): Observable<t_apple_pay_domain | t_error> {
+  }): Observable<
+    | (HttpResponse<t_apple_pay_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2314,7 +2454,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2323,7 +2463,11 @@ export class ApiClient {
   deleteApplePayDomainsDomain(p: {
     domain: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_apple_pay_domain | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_apple_pay_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2335,7 +2479,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2345,7 +2489,11 @@ export class ApiClient {
     domain: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_apple_pay_domain | t_error> {
+  }): Observable<
+    | (HttpResponse<t_apple_pay_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2359,7 +2507,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2383,13 +2531,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_application_fee[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2411,7 +2560,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2422,7 +2571,11 @@ export class ApiClient {
     fee: string
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_fee_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_fee_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2437,7 +2590,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2454,7 +2607,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_fee_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_fee_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2467,7 +2624,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2477,7 +2634,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_application_fee | t_error> {
+  }): Observable<
+    | (HttpResponse<t_application_fee> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2491,7 +2652,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2504,7 +2665,11 @@ export class ApiClient {
       directive?: string
       expand?: string[]
     }
-  }): Observable<t_application_fee | t_error> {
+  }): Observable<
+    | (HttpResponse<t_application_fee> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2516,7 +2681,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2530,13 +2695,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_fee_refund[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2556,7 +2722,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2571,7 +2737,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_fee_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_fee_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2583,7 +2753,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2600,13 +2770,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_apps_secret[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2627,7 +2798,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2644,7 +2815,11 @@ export class ApiClient {
         user?: string
       }
     }
-  }): Observable<t_apps_secret | t_error> {
+  }): Observable<
+    | (HttpResponse<t_apps_secret> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2656,7 +2831,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2671,7 +2846,11 @@ export class ApiClient {
         user?: string
       }
     }
-  }): Observable<t_apps_secret | t_error> {
+  }): Observable<
+    | (HttpResponse<t_apps_secret> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2683,7 +2862,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2697,7 +2876,11 @@ export class ApiClient {
       user?: string
     }
     requestBody?: EmptyObject
-  }): Observable<t_apps_secret | t_error> {
+  }): Observable<
+    | (HttpResponse<t_apps_secret> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2715,7 +2898,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2726,7 +2909,11 @@ export class ApiClient {
       expand?: string[]
       requestBody?: EmptyObject
     } = {}
-  ): Observable<t_balance | t_error> {
+  ): Observable<
+    | (HttpResponse<t_balance> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2740,7 +2927,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2767,13 +2954,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_balance_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2798,7 +2986,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2808,7 +2996,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2822,7 +3014,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2849,13 +3041,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_balance_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2880,7 +3073,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2890,7 +3083,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -2904,7 +3101,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -2921,13 +3118,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_billing_portal_configuration[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2949,7 +3147,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3021,7 +3219,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_billing_portal_configuration | t_error> {
+  }): Observable<
+    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3033,7 +3235,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3043,7 +3245,11 @@ export class ApiClient {
     configuration: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_billing_portal_configuration | t_error> {
+  }): Observable<
+    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3058,7 +3264,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3134,7 +3340,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_billing_portal_configuration | t_error> {
+  }): Observable<
+    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3147,7 +3357,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3224,7 +3434,11 @@ export class ApiClient {
       on_behalf_of?: string
       return_url?: string
     }
-  }): Observable<t_billing_portal_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_billing_portal_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3236,7 +3450,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3262,13 +3476,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_charge[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3292,7 +3507,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3368,7 +3583,11 @@ export class ApiClient {
         transfer_group?: string
       }
     } = {}
-  ): Observable<t_charge | t_error> {
+  ): Observable<
+    | (HttpResponse<t_charge> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3380,7 +3599,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3393,15 +3612,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_charge[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3421,7 +3641,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3431,7 +3651,11 @@ export class ApiClient {
     charge: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_charge | t_error> {
+  }): Observable<
+    | (HttpResponse<t_charge> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3445,7 +3669,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3482,7 +3706,11 @@ export class ApiClient {
       }
       transfer_group?: string
     }
-  }): Observable<t_charge | t_error> {
+  }): Observable<
+    | (HttpResponse<t_charge> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3494,7 +3722,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3515,7 +3743,11 @@ export class ApiClient {
       }
       transfer_group?: string
     }
-  }): Observable<t_charge | t_error> {
+  }): Observable<
+    | (HttpResponse<t_charge> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3527,7 +3759,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3537,7 +3769,11 @@ export class ApiClient {
     charge: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3551,7 +3787,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3597,7 +3833,11 @@ export class ApiClient {
         | ""
       submit?: boolean
     }
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3609,7 +3849,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3620,7 +3860,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3632,7 +3876,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3654,7 +3898,11 @@ export class ApiClient {
       refund_application_fee?: boolean
       reverse_transfer?: boolean
     }
-  }): Observable<t_charge | t_error> {
+  }): Observable<
+    | (HttpResponse<t_charge> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3666,7 +3914,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3680,13 +3928,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_refund[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3706,7 +3955,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3731,7 +3980,11 @@ export class ApiClient {
       refund_application_fee?: boolean
       reverse_transfer?: boolean
     }
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3743,7 +3996,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3754,7 +4007,11 @@ export class ApiClient {
     expand?: string[]
     refund: string
     requestBody?: EmptyObject
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3769,7 +4026,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3786,7 +4043,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -3799,7 +4060,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -3821,13 +4082,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_checkout_session[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3852,7 +4114,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4521,7 +4783,11 @@ export class ApiClient {
         enabled: boolean
       }
     }
-  }): Observable<t_checkout_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_checkout_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4533,7 +4799,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4543,7 +4809,11 @@ export class ApiClient {
     expand?: string[]
     session: string
     requestBody?: EmptyObject
-  }): Observable<t_checkout_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_checkout_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4557,7 +4827,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4568,7 +4838,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_checkout_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_checkout_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4580,7 +4854,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4594,13 +4868,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4620,7 +4895,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4635,13 +4910,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_country_spec[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4661,7 +4937,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4671,7 +4947,11 @@ export class ApiClient {
     country: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_country_spec | t_error> {
+  }): Observable<
+    | (HttpResponse<t_country_spec> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4685,7 +4965,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4708,13 +4988,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_coupon[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4735,7 +5016,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4769,7 +5050,11 @@ export class ApiClient {
         redeem_by?: number
       }
     } = {}
-  ): Observable<t_coupon | t_error> {
+  ): Observable<
+    | (HttpResponse<t_coupon> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4781,7 +5066,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4790,7 +5075,11 @@ export class ApiClient {
   deleteCouponsCoupon(p: {
     coupon: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_coupon | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_coupon> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4802,7 +5091,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4812,7 +5101,11 @@ export class ApiClient {
     coupon: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_coupon | t_error> {
+  }): Observable<
+    | (HttpResponse<t_coupon> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4826,7 +5119,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4848,7 +5141,11 @@ export class ApiClient {
         | ""
       name?: string
     }
-  }): Observable<t_coupon | t_error> {
+  }): Observable<
+    | (HttpResponse<t_coupon> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4860,7 +5157,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4877,13 +5174,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_credit_note[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4905,7 +5203,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4943,7 +5241,11 @@ export class ApiClient {
         shipping_rate?: string
       }
     }
-  }): Observable<t_credit_note | t_error> {
+  }): Observable<
+    | (HttpResponse<t_credit_note> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -4955,7 +5257,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -4992,7 +5294,11 @@ export class ApiClient {
       shipping_rate?: string
     }
     requestBody?: EmptyObject
-  }): Observable<t_credit_note | t_error> {
+  }): Observable<
+    | (HttpResponse<t_credit_note> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5019,7 +5325,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5060,13 +5366,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_credit_note_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5097,7 +5404,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5111,13 +5418,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_credit_note_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5137,7 +5445,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5147,7 +5455,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_credit_note | t_error> {
+  }): Observable<
+    | (HttpResponse<t_credit_note> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5161,7 +5473,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5176,7 +5488,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_credit_note | t_error> {
+  }): Observable<
+    | (HttpResponse<t_credit_note> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5188,7 +5504,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5199,7 +5515,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_credit_note | t_error> {
+  }): Observable<
+    | (HttpResponse<t_credit_note> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5211,7 +5531,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5236,13 +5556,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_customer[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5265,7 +5586,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5401,7 +5722,11 @@ export class ApiClient {
         test_clock?: string
       }
     } = {}
-  ): Observable<t_customer | t_error> {
+  ): Observable<
+    | (HttpResponse<t_customer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5413,7 +5738,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5426,15 +5751,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_customer[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5454,7 +5780,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5463,7 +5789,11 @@ export class ApiClient {
   deleteCustomersCustomer(p: {
     customer: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_customer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_customer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5475,7 +5805,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5485,7 +5815,11 @@ export class ApiClient {
     customer: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<(t_customer | t_deleted_customer) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer | t_deleted_customer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5499,7 +5833,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5608,7 +5942,11 @@ export class ApiClient {
       }
       tax_exempt?: "" | "exempt" | "none" | "reverse"
     }
-  }): Observable<t_customer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5620,7 +5958,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5634,13 +5972,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_customer_balance_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5661,7 +6000,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5680,7 +6019,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_customer_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5693,7 +6036,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5704,7 +6047,11 @@ export class ApiClient {
     expand?: string[]
     transaction: string
     requestBody?: EmptyObject
-  }): Observable<t_customer_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5719,7 +6066,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5737,7 +6084,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_customer_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5750,7 +6101,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5764,13 +6115,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_bank_account[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5790,7 +6142,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5836,7 +6188,11 @@ export class ApiClient {
       }
       source?: string
     }
-  }): Observable<t_payment_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5848,7 +6204,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5860,7 +6216,13 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<(t_payment_source | t_deleted_payment_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5873,7 +6235,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5884,7 +6246,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_bank_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_bank_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5899,7 +6265,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5940,7 +6306,11 @@ export class ApiClient {
         phone?: string
       }
     }
-  }): Observable<(t_card | t_bank_account | t_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5953,7 +6323,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5966,7 +6336,11 @@ export class ApiClient {
       amounts?: number[]
       expand?: string[]
     }
-  }): Observable<t_bank_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_bank_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -5979,7 +6353,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -5993,13 +6367,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_card[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6019,7 +6394,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6065,7 +6440,11 @@ export class ApiClient {
       }
       source?: string
     }
-  }): Observable<t_payment_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6077,7 +6456,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6089,7 +6468,13 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<(t_payment_source | t_deleted_payment_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6101,7 +6486,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6112,7 +6497,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6126,7 +6515,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6167,7 +6556,11 @@ export class ApiClient {
         phone?: string
       }
     }
-  }): Observable<(t_card | t_bank_account | t_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6179,7 +6572,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6189,7 +6582,11 @@ export class ApiClient {
     customer: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_cash_balance | t_error> {
+  }): Observable<
+    | (HttpResponse<t_cash_balance> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6203,7 +6600,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6217,7 +6614,11 @@ export class ApiClient {
         reconciliation_mode?: "automatic" | "manual" | "merchant_default"
       }
     }
-  }): Observable<t_cash_balance | t_error> {
+  }): Observable<
+    | (HttpResponse<t_cash_balance> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6229,7 +6630,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6243,13 +6644,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_customer_cash_balance_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6270,7 +6672,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6281,7 +6683,11 @@ export class ApiClient {
     expand?: string[]
     transaction: string
     requestBody?: EmptyObject
-  }): Observable<t_customer_cash_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer_cash_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6296,7 +6702,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6305,7 +6711,11 @@ export class ApiClient {
   deleteCustomersCustomerDiscount(p: {
     customer: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_discount | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_discount> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6317,7 +6727,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6327,7 +6737,11 @@ export class ApiClient {
     customer: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_discount | t_error> {
+  }): Observable<
+    | (HttpResponse<t_discount> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6341,7 +6755,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6365,7 +6779,11 @@ export class ApiClient {
       expand?: string[]
       funding_type: "bank_transfer"
     }
-  }): Observable<t_funding_instructions | t_error> {
+  }): Observable<
+    | (HttpResponse<t_funding_instructions> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6378,7 +6796,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6422,13 +6840,14 @@ export class ApiClient {
       | "wechat_pay"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payment_method[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6449,7 +6868,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6460,7 +6879,11 @@ export class ApiClient {
     expand?: string[]
     paymentMethod: string
     requestBody?: EmptyObject
-  }): Observable<t_payment_method | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6475,7 +6898,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6490,13 +6913,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: (t_bank_account | t_card | t_source)[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6517,7 +6941,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6563,7 +6987,11 @@ export class ApiClient {
       }
       source?: string
     }
-  }): Observable<t_payment_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6575,7 +7003,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6587,7 +7015,13 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<(t_payment_source | t_deleted_payment_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6600,7 +7034,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6611,7 +7045,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_payment_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6626,7 +7064,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6667,7 +7105,11 @@ export class ApiClient {
         phone?: string
       }
     }
-  }): Observable<(t_card | t_bank_account | t_source) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6680,7 +7122,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6693,7 +7135,11 @@ export class ApiClient {
       amounts?: number[]
       expand?: string[]
     }
-  }): Observable<t_bank_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_bank_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6706,7 +7152,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6720,13 +7166,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_subscription[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6746,7 +7193,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6935,7 +7382,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6947,7 +7398,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6961,7 +7412,11 @@ export class ApiClient {
       invoice_now?: boolean
       prorate?: boolean
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -6974,7 +7429,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -6985,7 +7440,11 @@ export class ApiClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: EmptyObject
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7000,7 +7459,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7214,7 +7673,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7227,7 +7690,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7237,7 +7700,11 @@ export class ApiClient {
     customer: string
     subscriptionExposedId: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_discount | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_discount> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7250,7 +7717,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7261,7 +7728,11 @@ export class ApiClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: EmptyObject
-  }): Observable<t_discount | t_error> {
+  }): Observable<
+    | (HttpResponse<t_discount> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7276,7 +7747,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7290,13 +7761,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_tax_id[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7316,7 +7788,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7380,7 +7852,11 @@ export class ApiClient {
         | "za_vat"
       value: string
     }
-  }): Observable<t_tax_id | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7392,7 +7868,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7402,7 +7878,11 @@ export class ApiClient {
     customer: string
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_tax_id | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7415,7 +7895,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7426,7 +7906,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_tax_id | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_id> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7441,7 +7925,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7466,13 +7950,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_dispute[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7495,7 +7980,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7505,7 +7990,11 @@ export class ApiClient {
     dispute: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7519,7 +8008,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7565,7 +8054,11 @@ export class ApiClient {
         | ""
       submit?: boolean
     }
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7577,7 +8070,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7588,7 +8081,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7600,7 +8097,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7615,7 +8112,11 @@ export class ApiClient {
         verification_session?: string
       }
     } = {}
-  ): Observable<t_ephemeral_key | t_error> {
+  ): Observable<
+    | (HttpResponse<t_ephemeral_key> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7627,7 +8128,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7638,7 +8139,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_ephemeral_key | t_error> {
+  }): Observable<
+    | (HttpResponse<t_ephemeral_key> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7650,7 +8155,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7676,13 +8181,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_event[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7706,7 +8212,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7716,7 +8222,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_event | t_error> {
+  }): Observable<
+    | (HttpResponse<t_event> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7730,7 +8240,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7745,13 +8255,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_exchange_rate[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7771,7 +8282,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7781,7 +8292,11 @@ export class ApiClient {
     expand?: string[]
     rateId: string
     requestBody?: EmptyObject
-  }): Observable<t_exchange_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_exchange_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7795,7 +8310,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7820,13 +8335,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_file_link[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7849,7 +8365,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7866,7 +8382,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_file_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_file_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7878,7 +8398,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7888,7 +8408,11 @@ export class ApiClient {
     expand?: string[]
     link: string
     requestBody?: EmptyObject
-  }): Observable<t_file_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_file_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7902,7 +8426,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7919,7 +8443,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_file_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_file_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -7931,7 +8459,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -7970,13 +8498,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_file[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7998,7 +8527,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8029,7 +8558,11 @@ export class ApiClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
     }
-  }): Observable<t_file | t_error> {
+  }): Observable<
+    | (HttpResponse<t_file> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = p["requestBody"]
 
@@ -8039,7 +8572,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8049,7 +8582,11 @@ export class ApiClient {
     expand?: string[]
     file: string
     requestBody?: EmptyObject
-  }): Observable<t_file | t_error> {
+  }): Observable<
+    | (HttpResponse<t_file> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8063,7 +8600,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8083,13 +8620,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_financial_connections_account[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8111,7 +8649,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8121,7 +8659,11 @@ export class ApiClient {
     account: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8136,7 +8678,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8147,7 +8689,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8160,7 +8706,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8175,13 +8721,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_financial_connections_account_owner[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8203,7 +8750,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8215,7 +8762,11 @@ export class ApiClient {
       expand?: string[]
       features: ("balance" | "ownership")[]
     }
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8228,7 +8779,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8253,7 +8804,11 @@ export class ApiClient {
       )[]
       return_url?: string
     }
-  }): Observable<t_financial_connections_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8265,7 +8820,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8275,7 +8830,11 @@ export class ApiClient {
     expand?: string[]
     session: string
     requestBody?: EmptyObject
-  }): Observable<t_financial_connections_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8290,7 +8849,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8315,13 +8874,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_identity_verification_report[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8344,7 +8904,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8354,7 +8914,11 @@ export class ApiClient {
     expand?: string[]
     report: string
     requestBody?: EmptyObject
-  }): Observable<t_identity_verification_report | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_report> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8368,7 +8932,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8392,13 +8956,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_identity_verification_session[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8420,7 +8985,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8445,7 +9010,11 @@ export class ApiClient {
       return_url?: string
       type: "document" | "id_number"
     }
-  }): Observable<t_identity_verification_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8457,7 +9026,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8467,7 +9036,11 @@ export class ApiClient {
     expand?: string[]
     session: string
     requestBody?: EmptyObject
-  }): Observable<t_identity_verification_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8482,7 +9055,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8507,7 +9080,11 @@ export class ApiClient {
       }
       type?: "document" | "id_number"
     }
-  }): Observable<t_identity_verification_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8520,7 +9097,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8531,7 +9108,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_identity_verification_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8544,7 +9125,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8555,7 +9136,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_identity_verification_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_identity_verification_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8568,7 +9153,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8594,13 +9179,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_invoiceitem[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8624,7 +9210,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8670,7 +9256,11 @@ export class ApiClient {
       unit_amount?: number
       unit_amount_decimal?: string
     }
-  }): Observable<t_invoiceitem | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoiceitem> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8682,7 +9272,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8691,7 +9281,11 @@ export class ApiClient {
   deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_invoiceitem | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_invoiceitem> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8703,7 +9297,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8713,7 +9307,11 @@ export class ApiClient {
     expand?: string[]
     invoiceitem: string
     requestBody?: EmptyObject
-  }): Observable<t_invoiceitem | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoiceitem> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8727,7 +9325,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8770,7 +9368,11 @@ export class ApiClient {
       unit_amount?: number
       unit_amount_decimal?: string
     }
-  }): Observable<t_invoiceitem | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoiceitem> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -8782,7 +9384,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -8817,13 +9419,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_invoice[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8849,7 +9452,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9048,7 +9651,11 @@ export class ApiClient {
         }
       }
     } = {}
-  ): Observable<t_invoice | t_error> {
+  ): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9060,7 +9667,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9073,15 +9680,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_invoice[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9101,7 +9709,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9290,7 +9898,11 @@ export class ApiClient {
       subscriptionTrialFromPlan?: boolean
       requestBody?: EmptyObject
     } = {}
-  ): Observable<t_invoice | t_error> {
+  ): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9327,7 +9939,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9520,13 +10132,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9567,7 +10180,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9576,7 +10189,11 @@ export class ApiClient {
   deleteInvoicesInvoice(p: {
     invoice: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9588,7 +10205,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9598,7 +10215,11 @@ export class ApiClient {
     expand?: string[]
     invoice: string
     requestBody?: EmptyObject
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9612,7 +10233,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9799,7 +10420,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9811,7 +10436,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9823,7 +10448,11 @@ export class ApiClient {
       auto_advance?: boolean
       expand?: string[]
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9835,7 +10464,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9849,13 +10478,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9875,7 +10505,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9886,7 +10516,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9898,7 +10532,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9915,7 +10549,11 @@ export class ApiClient {
       payment_method?: string
       source?: string
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9927,7 +10565,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9938,7 +10576,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9950,7 +10592,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9961,7 +10603,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_invoice | t_error> {
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -9973,7 +10619,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -9999,13 +10645,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_authorization[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10029,7 +10676,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -10039,7 +10686,11 @@ export class ApiClient {
     authorization: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_issuing_authorization | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -10053,7 +10704,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -10069,7 +10720,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_authorization | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -10081,7 +10736,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -10098,7 +10753,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_authorization | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -10111,7 +10770,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -10127,7 +10786,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_authorization | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -10140,7 +10803,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -10167,13 +10830,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_cardholder[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10198,7 +10862,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -11155,7 +11819,11 @@ export class ApiClient {
       status?: "active" | "inactive"
       type?: "company" | "individual"
     }
-  }): Observable<t_issuing_cardholder | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -11167,7 +11835,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -11177,7 +11845,11 @@ export class ApiClient {
     cardholder: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_issuing_cardholder | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -11191,7 +11863,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -12147,7 +12819,11 @@ export class ApiClient {
       }
       status?: "active" | "inactive"
     }
-  }): Observable<t_issuing_cardholder | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -12159,7 +12835,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -12188,13 +12864,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_card[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -12221,7 +12898,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -13162,7 +13839,11 @@ export class ApiClient {
       status?: "active" | "inactive"
       type: "physical" | "virtual"
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -13174,7 +13855,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -13184,7 +13865,11 @@ export class ApiClient {
     card: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -13198,7 +13883,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14122,7 +14807,11 @@ export class ApiClient {
       }
       status?: "active" | "canceled" | "inactive"
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14134,7 +14823,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14159,13 +14848,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_dispute[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14188,7 +14878,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14284,7 +14974,11 @@ export class ApiClient {
         }
       }
     } = {}
-  ): Observable<t_issuing_dispute | t_error> {
+  ): Observable<
+    | (HttpResponse<t_issuing_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14296,7 +14990,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14306,7 +15000,11 @@ export class ApiClient {
     dispute: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_issuing_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14320,7 +15018,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14413,7 +15111,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14425,7 +15127,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14441,7 +15143,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_dispute | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_dispute> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14453,7 +15159,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14476,13 +15182,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_settlement[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14503,7 +15210,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14513,7 +15220,11 @@ export class ApiClient {
     expand?: string[]
     settlement: string
     requestBody?: EmptyObject
-  }): Observable<t_issuing_settlement | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_settlement> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14527,7 +15238,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14541,7 +15252,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_issuing_settlement | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_settlement> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14553,7 +15268,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14579,13 +15294,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_issuing_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14609,7 +15325,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14619,7 +15335,11 @@ export class ApiClient {
     expand?: string[]
     transaction: string
     requestBody?: EmptyObject
-  }): Observable<t_issuing_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14633,7 +15353,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14649,7 +15369,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_issuing_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14661,7 +15385,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14686,7 +15410,11 @@ export class ApiClient {
       )[]
       return_url?: string
     }
-  }): Observable<t_financial_connections_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14698,7 +15426,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14708,7 +15436,11 @@ export class ApiClient {
     expand?: string[]
     session: string
     requestBody?: EmptyObject
-  }): Observable<t_financial_connections_session | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14722,7 +15454,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14742,13 +15474,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_financial_connections_account[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14770,7 +15503,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14780,7 +15513,11 @@ export class ApiClient {
     account: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14794,7 +15531,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14805,7 +15542,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14817,7 +15558,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14832,13 +15573,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_financial_connections_account_owner[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14859,7 +15601,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14871,7 +15613,11 @@ export class ApiClient {
       expand?: string[]
       features: ("balance" | "ownership")[]
     }
-  }): Observable<t_financial_connections_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_financial_connections_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14883,7 +15629,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14893,7 +15639,11 @@ export class ApiClient {
     expand?: string[]
     mandate: string
     requestBody?: EmptyObject
-  }): Observable<t_mandate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_mandate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -14907,7 +15657,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -14931,13 +15681,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payment_intent[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14959,7 +15710,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -15538,7 +16289,11 @@ export class ApiClient {
       transfer_group?: string
       use_stripe_sdk?: boolean
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -15550,7 +16305,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -15563,15 +16318,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payment_intent[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15591,7 +16347,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -15602,7 +16358,11 @@ export class ApiClient {
     expand?: string[]
     intent: string
     requestBody?: EmptyObject
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -15619,7 +16379,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16177,7 +16937,11 @@ export class ApiClient {
       }
       transfer_group?: string
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16189,7 +16953,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16202,7 +16966,11 @@ export class ApiClient {
       currency?: string
       expand?: string[]
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16215,7 +16983,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16231,7 +16999,11 @@ export class ApiClient {
         | "requested_by_customer"
       expand?: string[]
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16243,7 +17015,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16266,7 +17038,11 @@ export class ApiClient {
         amount?: number
       }
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16278,7 +17054,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16850,7 +17626,11 @@ export class ApiClient {
         | ""
       use_stripe_sdk?: boolean
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16862,7 +17642,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16883,7 +17663,11 @@ export class ApiClient {
         amount?: number
       }
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16896,7 +17680,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16910,7 +17694,11 @@ export class ApiClient {
       descriptor_code?: string
       expand?: string[]
     }
-  }): Observable<t_payment_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -16923,7 +17711,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -16939,13 +17727,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payment_link[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -16966,7 +17755,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -17358,7 +18147,11 @@ export class ApiClient {
         destination: string
       }
     }
-  }): Observable<t_payment_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -17370,7 +18163,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -17380,7 +18173,11 @@ export class ApiClient {
     expand?: string[]
     paymentLink: string
     requestBody?: EmptyObject
-  }): Observable<t_payment_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -17394,7 +18191,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -17764,7 +18561,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_payment_link | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_link> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -17776,7 +18577,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -17790,13 +18591,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17816,7 +18618,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -17862,13 +18664,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payment_method[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17890,7 +18693,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18119,7 +18922,11 @@ export class ApiClient {
         wechat_pay?: EmptyObject
       }
     } = {}
-  ): Observable<t_payment_method | t_error> {
+  ): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18131,7 +18938,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18141,7 +18948,11 @@ export class ApiClient {
     expand?: string[]
     paymentMethod: string
     requestBody?: EmptyObject
-  }): Observable<t_payment_method | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18155,7 +18966,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18194,7 +19005,11 @@ export class ApiClient {
         account_holder_type?: "company" | "individual"
       }
     }
-  }): Observable<t_payment_method | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18206,7 +19021,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18218,7 +19033,11 @@ export class ApiClient {
       customer: string
       expand?: string[]
     }
-  }): Observable<t_payment_method | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18230,7 +19049,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18241,7 +19060,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_payment_method | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payment_method> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18253,7 +19076,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18286,13 +19109,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_payout[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18316,7 +19140,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18336,7 +19160,11 @@ export class ApiClient {
       source_type?: "bank_account" | "card" | "fpx"
       statement_descriptor?: string
     }
-  }): Observable<t_payout | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payout> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18348,7 +19176,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18358,7 +19186,11 @@ export class ApiClient {
     expand?: string[]
     payout: string
     requestBody?: EmptyObject
-  }): Observable<t_payout | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payout> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18372,7 +19204,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18388,7 +19220,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_payout | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payout> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18400,7 +19236,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18411,7 +19247,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_payout | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payout> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18423,7 +19263,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18437,7 +19277,11 @@ export class ApiClient {
         [key: string]: string
       }
     }
-  }): Observable<t_payout | t_error> {
+  }): Observable<
+    | (HttpResponse<t_payout> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18449,7 +19293,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18474,13 +19318,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_plan[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18503,7 +19348,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18555,7 +19400,11 @@ export class ApiClient {
       trial_period_days?: number
       usage_type?: "licensed" | "metered"
     }
-  }): Observable<t_plan | t_error> {
+  }): Observable<
+    | (HttpResponse<t_plan> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18567,7 +19416,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18576,7 +19425,11 @@ export class ApiClient {
   deletePlansPlan(p: {
     plan: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_plan | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_plan> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18588,7 +19441,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18598,7 +19451,11 @@ export class ApiClient {
     expand?: string[]
     plan: string
     requestBody?: EmptyObject
-  }): Observable<t_plan | t_error> {
+  }): Observable<
+    | (HttpResponse<t_plan> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18612,7 +19469,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18632,7 +19489,11 @@ export class ApiClient {
       product?: string
       trial_period_days?: number
     }
-  }): Observable<t_plan | t_error> {
+  }): Observable<
+    | (HttpResponse<t_plan> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18644,7 +19505,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18676,13 +19537,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_price[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18709,7 +19571,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18787,7 +19649,11 @@ export class ApiClient {
       unit_amount?: number
       unit_amount_decimal?: string
     }
-  }): Observable<t_price | t_error> {
+  }): Observable<
+    | (HttpResponse<t_price> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18799,7 +19665,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18812,15 +19678,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_price[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18840,7 +19707,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18850,7 +19717,11 @@ export class ApiClient {
     expand?: string[]
     price: string
     requestBody?: EmptyObject
-  }): Observable<t_price | t_error> {
+  }): Observable<
+    | (HttpResponse<t_price> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18864,7 +19735,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18907,7 +19778,11 @@ export class ApiClient {
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
       transfer_lookup_key?: boolean
     }
-  }): Observable<t_price | t_error> {
+  }): Observable<
+    | (HttpResponse<t_price> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -18919,7 +19794,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -18946,13 +19821,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_product[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18977,7 +19853,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19036,7 +19912,11 @@ export class ApiClient {
       unit_label?: string
       url?: string
     }
-  }): Observable<t_product | t_error> {
+  }): Observable<
+    | (HttpResponse<t_product> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19048,7 +19928,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19061,15 +19941,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_product[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19089,7 +19970,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19098,7 +19979,11 @@ export class ApiClient {
   deleteProductsId(p: {
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_product | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_product> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19110,7 +19995,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19120,7 +20005,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_product | t_error> {
+  }): Observable<
+    | (HttpResponse<t_product> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19134,7 +20023,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19168,7 +20057,11 @@ export class ApiClient {
       unit_label?: string
       url?: string | ""
     }
-  }): Observable<t_product | t_error> {
+  }): Observable<
+    | (HttpResponse<t_product> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19180,7 +20073,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19207,13 +20100,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_promotion_code[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19238,7 +20132,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19267,7 +20161,11 @@ export class ApiClient {
         minimum_amount_currency?: string
       }
     }
-  }): Observable<t_promotion_code | t_error> {
+  }): Observable<
+    | (HttpResponse<t_promotion_code> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19279,7 +20177,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19289,7 +20187,11 @@ export class ApiClient {
     expand?: string[]
     promotionCode: string
     requestBody?: EmptyObject
-  }): Observable<t_promotion_code | t_error> {
+  }): Observable<
+    | (HttpResponse<t_promotion_code> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19303,7 +20205,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19327,7 +20229,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_promotion_code | t_error> {
+  }): Observable<
+    | (HttpResponse<t_promotion_code> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19339,7 +20245,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19357,13 +20263,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_quote[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19386,7 +20293,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19456,7 +20363,11 @@ export class ApiClient {
           | ""
       }
     } = {}
-  ): Observable<t_quote | t_error> {
+  ): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19468,7 +20379,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19478,7 +20389,11 @@ export class ApiClient {
     expand?: string[]
     quote: string
     requestBody?: EmptyObject
-  }): Observable<t_quote | t_error> {
+  }): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19492,7 +20407,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19557,7 +20472,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_quote | t_error> {
+  }): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19569,7 +20488,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19580,7 +20499,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_quote | t_error> {
+  }): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19592,7 +20515,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19603,7 +20526,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_quote | t_error> {
+  }): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19615,7 +20542,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19629,13 +20556,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19656,7 +20584,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19668,7 +20596,11 @@ export class ApiClient {
       expand?: string[]
       expires_at?: number
     }
-  }): Observable<t_quote | t_error> {
+  }): Observable<
+    | (HttpResponse<t_quote> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19680,7 +20612,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19694,13 +20626,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19720,7 +20653,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19730,7 +20663,11 @@ export class ApiClient {
     expand?: string[]
     quote: string
     requestBody?: EmptyObject
-  }): Observable<string | t_error> {
+  }): Observable<
+    | (HttpResponse<string> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19744,7 +20681,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19761,13 +20698,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_radar_early_fraud_warning[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19789,7 +20727,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19799,7 +20737,11 @@ export class ApiClient {
     earlyFraudWarning: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_radar_early_fraud_warning | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_early_fraud_warning> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19814,7 +20756,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19837,13 +20779,14 @@ export class ApiClient {
     valueList: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_radar_value_list_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19866,7 +20809,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19878,7 +20821,11 @@ export class ApiClient {
       value: string
       value_list: string
     }
-  }): Observable<t_radar_value_list_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_value_list_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19890,7 +20837,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19899,7 +20846,11 @@ export class ApiClient {
   deleteRadarValueListItemsItem(p: {
     item: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_radar_value_list_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_radar_value_list_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19911,7 +20862,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19921,7 +20872,11 @@ export class ApiClient {
     expand?: string[]
     item: string
     requestBody?: EmptyObject
-  }): Observable<t_radar_value_list_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_value_list_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -19935,7 +20890,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -19960,13 +20915,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_radar_value_list[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19989,7 +20945,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20013,7 +20969,11 @@ export class ApiClient {
       }
       name: string
     }
-  }): Observable<t_radar_value_list | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_value_list> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20025,7 +20985,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20034,7 +20994,11 @@ export class ApiClient {
   deleteRadarValueListsValueList(p: {
     valueList: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_radar_value_list | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_radar_value_list> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20046,7 +21010,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20056,7 +21020,11 @@ export class ApiClient {
     expand?: string[]
     valueList: string
     requestBody?: EmptyObject
-  }): Observable<t_radar_value_list | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_value_list> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20070,7 +21038,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20086,7 +21054,11 @@ export class ApiClient {
       }
       name?: string
     }
-  }): Observable<t_radar_value_list | t_error> {
+  }): Observable<
+    | (HttpResponse<t_radar_value_list> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20098,7 +21070,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20123,13 +21095,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_refund[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20152,7 +21125,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20179,7 +21152,11 @@ export class ApiClient {
         reverse_transfer?: boolean
       }
     } = {}
-  ): Observable<t_refund | t_error> {
+  ): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20191,7 +21168,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20201,7 +21178,11 @@ export class ApiClient {
     expand?: string[]
     refund: string
     requestBody?: EmptyObject
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20215,7 +21196,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20231,7 +21212,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20243,7 +21228,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20254,7 +21239,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20266,7 +21255,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20289,13 +21278,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_reporting_report_run[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20316,7 +21306,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20969,7 +21959,11 @@ export class ApiClient {
       }
       report_type: string
     }
-  }): Observable<t_reporting_report_run | t_error> {
+  }): Observable<
+    | (HttpResponse<t_reporting_report_run> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -20981,7 +21975,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -20991,7 +21985,11 @@ export class ApiClient {
     expand?: string[]
     reportRun: string
     requestBody?: EmptyObject
-  }): Observable<t_reporting_report_run | t_error> {
+  }): Observable<
+    | (HttpResponse<t_reporting_report_run> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21005,7 +22003,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21017,13 +22015,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_reporting_report_type[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21038,7 +22037,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21048,7 +22047,11 @@ export class ApiClient {
     expand?: string[]
     reportType: string
     requestBody?: EmptyObject
-  }): Observable<t_reporting_report_type | t_error> {
+  }): Observable<
+    | (HttpResponse<t_reporting_report_type> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21062,7 +22065,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21085,13 +22088,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_review[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21112,7 +22116,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21122,7 +22126,11 @@ export class ApiClient {
     expand?: string[]
     review: string
     requestBody?: EmptyObject
-  }): Observable<t_review | t_error> {
+  }): Observable<
+    | (HttpResponse<t_review> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21136,7 +22144,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21147,7 +22155,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_review | t_error> {
+  }): Observable<
+    | (HttpResponse<t_review> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21159,7 +22171,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21181,13 +22193,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_setup_attempt[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21209,7 +22222,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21235,13 +22248,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_setup_intent[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21265,7 +22279,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21577,7 +22591,11 @@ export class ApiClient {
         usage?: "off_session" | "on_session"
       }
     } = {}
-  ): Observable<t_setup_intent | t_error> {
+  ): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21589,7 +22607,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21600,7 +22618,11 @@ export class ApiClient {
     expand?: string[]
     intent: string
     requestBody?: EmptyObject
-  }): Observable<t_setup_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21617,7 +22639,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21908,7 +22930,11 @@ export class ApiClient {
       }
       payment_method_types?: string[]
     }
-  }): Observable<t_setup_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21920,7 +22946,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -21932,7 +22958,11 @@ export class ApiClient {
       cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer"
       expand?: string[]
     }
-  }): Observable<t_setup_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -21944,7 +22974,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22248,7 +23278,11 @@ export class ApiClient {
       }
       return_url?: string
     }
-  }): Observable<t_setup_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22260,7 +23294,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22274,7 +23308,11 @@ export class ApiClient {
       descriptor_code?: string
       expand?: string[]
     }
-  }): Observable<t_setup_intent | t_error> {
+  }): Observable<
+    | (HttpResponse<t_setup_intent> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22287,7 +23325,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22312,13 +23350,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_shipping_rate[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22341,7 +23380,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22378,7 +23417,11 @@ export class ApiClient {
       tax_code?: string
       type?: "fixed_amount"
     }
-  }): Observable<t_shipping_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_shipping_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22390,7 +23433,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22400,7 +23443,11 @@ export class ApiClient {
     expand?: string[]
     shippingRateToken: string
     requestBody?: EmptyObject
-  }): Observable<t_shipping_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_shipping_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22414,7 +23461,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22440,7 +23487,11 @@ export class ApiClient {
         | ""
       tax_behavior?: "exclusive" | "inclusive" | "unspecified"
     }
-  }): Observable<t_shipping_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_shipping_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22452,7 +23503,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22467,13 +23518,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_scheduled_query_run[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22493,7 +23545,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22503,7 +23555,11 @@ export class ApiClient {
     expand?: string[]
     scheduledQueryRun: string
     requestBody?: EmptyObject
-  }): Observable<t_scheduled_query_run | t_error> {
+  }): Observable<
+    | (HttpResponse<t_scheduled_query_run> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22518,7 +23574,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22611,7 +23667,11 @@ export class ApiClient {
         usage?: "reusable" | "single_use"
       }
     } = {}
-  ): Observable<t_source | t_error> {
+  ): Observable<
+    | (HttpResponse<t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22623,7 +23683,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22634,7 +23694,11 @@ export class ApiClient {
     expand?: string[]
     source: string
     requestBody?: EmptyObject
-  }): Observable<t_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22651,7 +23715,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22731,7 +23795,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22743,7 +23811,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22754,7 +23822,11 @@ export class ApiClient {
     mandateNotification: string
     source: string
     requestBody?: EmptyObject
-  }): Observable<t_source_mandate_notification | t_error> {
+  }): Observable<
+    | (HttpResponse<t_source_mandate_notification> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22769,7 +23841,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22783,13 +23855,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_source_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22809,7 +23882,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22820,7 +23893,11 @@ export class ApiClient {
     source: string
     sourceTransaction: string
     requestBody?: EmptyObject
-  }): Observable<t_source_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_source_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22835,7 +23912,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22847,7 +23924,11 @@ export class ApiClient {
       expand?: string[]
       values: string[]
     }
-  }): Observable<t_source | t_error> {
+  }): Observable<
+    | (HttpResponse<t_source> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22859,7 +23940,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22873,13 +23954,14 @@ export class ApiClient {
     subscription: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_subscription_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22900,7 +23982,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22940,7 +24022,11 @@ export class ApiClient {
       subscription: string
       tax_rates?: string[] | ""
     }
-  }): Observable<t_subscription_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22952,7 +24038,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22965,7 +24051,11 @@ export class ApiClient {
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       proration_date?: number
     }
-  }): Observable<t_deleted_subscription_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_subscription_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -22977,7 +24067,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -22987,7 +24077,11 @@ export class ApiClient {
     expand?: string[]
     item: string
     requestBody?: EmptyObject
-  }): Observable<t_subscription_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23001,7 +24095,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23044,7 +24138,11 @@ export class ApiClient {
       quantity?: number
       tax_rates?: string[] | ""
     }
-  }): Observable<t_subscription_item | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_item> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23056,7 +24154,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23070,13 +24168,14 @@ export class ApiClient {
     subscriptionItem: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_usage_record_summary[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23097,7 +24196,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23111,7 +24210,11 @@ export class ApiClient {
       quantity: number
       timestamp?: "now" | number
     }
-  }): Observable<t_usage_record | t_error> {
+  }): Observable<
+    | (HttpResponse<t_usage_record> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23124,7 +24227,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23173,13 +24276,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_subscription_schedule[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23205,7 +24309,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23323,7 +24427,11 @@ export class ApiClient {
         start_date?: number | "now"
       }
     } = {}
-  ): Observable<t_subscription_schedule | t_error> {
+  ): Observable<
+    | (HttpResponse<t_subscription_schedule> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23335,7 +24443,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23345,7 +24453,11 @@ export class ApiClient {
     expand?: string[]
     schedule: string
     requestBody?: EmptyObject
-  }): Observable<t_subscription_schedule | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_schedule> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23359,7 +24471,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23474,7 +24586,11 @@ export class ApiClient {
       }[]
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
     }
-  }): Observable<t_subscription_schedule | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_schedule> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23486,7 +24602,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23499,7 +24615,11 @@ export class ApiClient {
       invoice_now?: boolean
       prorate?: boolean
     }
-  }): Observable<t_subscription_schedule | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_schedule> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23512,7 +24632,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23524,7 +24644,11 @@ export class ApiClient {
       expand?: string[]
       preserve_cancel_date?: boolean
     }
-  }): Observable<t_subscription_schedule | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription_schedule> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23537,7 +24661,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23591,13 +24715,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_subscription[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23625,7 +24750,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23816,7 +24941,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23828,7 +24957,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23841,15 +24970,16 @@ export class ApiClient {
     query: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_subscription[]
         has_more: boolean
         next_page?: string | null
         object: "search_result"
         total_count?: number
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23869,7 +24999,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23895,7 +25025,11 @@ export class ApiClient {
       invoice_now?: boolean
       prorate?: boolean
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23907,7 +25041,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -23917,7 +25051,11 @@ export class ApiClient {
     expand?: string[]
     subscriptionExposedId: string
     requestBody?: EmptyObject
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -23931,7 +25069,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24146,7 +25284,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24158,7 +25300,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24167,7 +25309,11 @@ export class ApiClient {
   deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_discount | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_discount> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24180,7 +25326,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24194,7 +25340,11 @@ export class ApiClient {
       proration_behavior?: "always_invoice" | "create_prorations" | "none"
       proration_date?: number
     }
-  }): Observable<t_subscription | t_error> {
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24206,7 +25356,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24301,7 +25451,11 @@ export class ApiClient {
       }
       tax_date?: number
     }
-  }): Observable<t_tax_calculation | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_calculation> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24313,7 +25467,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24327,13 +25481,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_tax_calculation_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24354,7 +25509,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24369,7 +25524,11 @@ export class ApiClient {
       }
       reference: string
     }
-  }): Observable<t_tax_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24381,7 +25540,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24411,7 +25570,11 @@ export class ApiClient {
         amount_tax: number
       }
     }
-  }): Observable<t_tax_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24423,7 +25586,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24433,7 +25596,11 @@ export class ApiClient {
     expand?: string[]
     transaction: string
     requestBody?: EmptyObject
-  }): Observable<t_tax_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24447,7 +25614,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24461,13 +25628,14 @@ export class ApiClient {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_tax_transaction_line_item[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24488,7 +25656,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24503,13 +25671,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_tax_code[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24529,7 +25698,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24539,7 +25708,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_tax_code | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_code> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24553,7 +25726,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24578,13 +25751,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_tax_rate[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24607,7 +25781,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24639,7 +25813,11 @@ export class ApiClient {
         | "sales_tax"
         | "vat"
     }
-  }): Observable<t_tax_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24651,7 +25829,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24661,7 +25839,11 @@ export class ApiClient {
     expand?: string[]
     taxRate: string
     requestBody?: EmptyObject
-  }): Observable<t_tax_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24675,7 +25857,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24708,7 +25890,11 @@ export class ApiClient {
         | "sales_tax"
         | "vat"
     }
-  }): Observable<t_tax_rate | t_error> {
+  }): Observable<
+    | (HttpResponse<t_tax_rate> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24720,7 +25906,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24736,13 +25922,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_terminal_configuration[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24763,7 +25950,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24855,7 +26042,11 @@ export class ApiClient {
         }
       }
     } = {}
-  ): Observable<t_terminal_configuration | t_error> {
+  ): Observable<
+    | (HttpResponse<t_terminal_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24867,7 +26058,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24876,7 +26067,11 @@ export class ApiClient {
   deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_terminal_configuration | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_terminal_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -24889,7 +26084,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -24900,7 +26095,11 @@ export class ApiClient {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    (t_terminal_configuration | t_deleted_terminal_configuration) | t_error
+    | (HttpResponse<
+        t_terminal_configuration | t_deleted_terminal_configuration
+      > & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24916,7 +26115,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25012,7 +26211,11 @@ export class ApiClient {
         | ""
     }
   }): Observable<
-    (t_terminal_configuration | t_deleted_terminal_configuration) | t_error
+    | (HttpResponse<
+        t_terminal_configuration | t_deleted_terminal_configuration
+      > & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25026,7 +26229,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25039,7 +26242,11 @@ export class ApiClient {
         location?: string
       }
     } = {}
-  ): Observable<t_terminal_connection_token | t_error> {
+  ): Observable<
+    | (HttpResponse<t_terminal_connection_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25051,7 +26258,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25066,13 +26273,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_terminal_location[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25092,7 +26300,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25117,7 +26325,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_terminal_location | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_location> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25129,7 +26341,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25138,7 +26350,11 @@ export class ApiClient {
   deleteTerminalLocationsLocation(p: {
     location: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_terminal_location | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_terminal_location> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25150,7 +26366,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25161,7 +26377,11 @@ export class ApiClient {
     location: string
     requestBody?: EmptyObject
   }): Observable<
-    (t_terminal_location | t_deleted_terminal_location) | t_error
+    | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25176,7 +26396,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25203,7 +26423,11 @@ export class ApiClient {
         | ""
     }
   }): Observable<
-    (t_terminal_location | t_deleted_terminal_location) | t_error
+    | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25216,7 +26440,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25240,13 +26464,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_terminal_reader[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25269,7 +26494,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25287,7 +26512,11 @@ export class ApiClient {
         | ""
       registration_code: string
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25299,7 +26528,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25308,7 +26537,11 @@ export class ApiClient {
   deleteTerminalReadersReader(p: {
     reader: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25320,7 +26553,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25330,7 +26563,13 @@ export class ApiClient {
     expand?: string[]
     reader: string
     requestBody?: EmptyObject
-  }): Observable<(t_terminal_reader | t_deleted_terminal_reader) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25344,7 +26583,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25361,7 +26600,13 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<(t_terminal_reader | t_deleted_terminal_reader) | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
+        status: 200
+      })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25373,7 +26618,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25384,7 +26629,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25397,7 +26646,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25415,7 +26664,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25428,7 +26681,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25441,7 +26694,11 @@ export class ApiClient {
       expand?: string[]
       setup_intent: string
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25454,7 +26711,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25473,7 +26730,11 @@ export class ApiClient {
       refund_application_fee?: boolean
       reverse_transfer?: boolean
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25486,7 +26747,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25508,7 +26769,11 @@ export class ApiClient {
       expand?: string[]
       type: "cart"
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25521,7 +26786,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25535,7 +26800,11 @@ export class ApiClient {
       expand?: string[]
       reference?: string
     }
-  }): Observable<t_customer_cash_balance_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_customer_cash_balance_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25548,7 +26817,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25559,7 +26828,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25572,7 +26845,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25583,7 +26856,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25596,7 +26873,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25607,7 +26884,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25620,7 +26901,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25631,7 +26912,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_issuing_card | t_error> {
+  }): Observable<
+    | (HttpResponse<t_issuing_card> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25644,7 +26929,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25655,7 +26940,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_refund | t_error> {
+  }): Observable<
+    | (HttpResponse<t_refund> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25667,7 +26956,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25686,7 +26975,11 @@ export class ApiClient {
       }
       type?: "card_present" | "interac_present"
     }
-  }): Observable<t_terminal_reader | t_error> {
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25699,7 +26992,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25714,13 +27007,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_test_helpers_test_clock[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25740,7 +27034,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25752,7 +27046,11 @@ export class ApiClient {
       frozen_time: number
       name?: string
     }
-  }): Observable<t_test_helpers_test_clock | t_error> {
+  }): Observable<
+    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25764,7 +27062,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25773,7 +27071,11 @@ export class ApiClient {
   deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_test_helpers_test_clock | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_test_helpers_test_clock> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25785,7 +27087,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25795,7 +27097,11 @@ export class ApiClient {
     expand?: string[]
     testClock: string
     requestBody?: EmptyObject
-  }): Observable<t_test_helpers_test_clock | t_error> {
+  }): Observable<
+    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25809,7 +27115,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25821,7 +27127,11 @@ export class ApiClient {
       expand?: string[]
       frozen_time: number
     }
-  }): Observable<t_test_helpers_test_clock | t_error> {
+  }): Observable<
+    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25834,7 +27144,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25861,7 +27171,11 @@ export class ApiClient {
           | "other"
       }
     }
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25874,7 +27188,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25885,7 +27199,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25898,7 +27216,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25909,7 +27227,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25922,7 +27244,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25933,7 +27255,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25946,7 +27272,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25957,7 +27283,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -25970,7 +27300,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -25994,7 +27324,11 @@ export class ApiClient {
           | "other"
       }
     }
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26007,7 +27341,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26018,7 +27352,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26031,7 +27369,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26042,7 +27380,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26055,7 +27397,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26079,7 +27421,11 @@ export class ApiClient {
           | "other"
       }
     }
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26092,7 +27438,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26115,7 +27461,11 @@ export class ApiClient {
       }
       network: "ach" | "us_domestic_wire"
     }
-  }): Observable<t_treasury_received_credit | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_received_credit> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26127,7 +27477,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26150,7 +27500,11 @@ export class ApiClient {
       }
       network: "ach"
     }
-  }): Observable<t_treasury_received_debit | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_received_debit> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26162,7 +27516,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26455,7 +27809,11 @@ export class ApiClient {
         }
       }
     } = {}
-  ): Observable<t_token | t_error> {
+  ): Observable<
+    | (HttpResponse<t_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26467,7 +27825,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26477,7 +27835,11 @@ export class ApiClient {
     expand?: string[]
     token: string
     requestBody?: EmptyObject
-  }): Observable<t_token | t_error> {
+  }): Observable<
+    | (HttpResponse<t_token> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26491,7 +27853,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26523,13 +27885,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_topup[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26552,7 +27915,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26573,7 +27936,11 @@ export class ApiClient {
       statement_descriptor?: string
       transfer_group?: string
     }
-  }): Observable<t_topup | t_error> {
+  }): Observable<
+    | (HttpResponse<t_topup> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26585,7 +27952,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26595,7 +27962,11 @@ export class ApiClient {
     expand?: string[]
     topup: string
     requestBody?: EmptyObject
-  }): Observable<t_topup | t_error> {
+  }): Observable<
+    | (HttpResponse<t_topup> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26609,7 +27980,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26626,7 +27997,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_topup | t_error> {
+  }): Observable<
+    | (HttpResponse<t_topup> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26638,7 +28013,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26649,7 +28024,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_topup | t_error> {
+  }): Observable<
+    | (HttpResponse<t_topup> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26661,7 +28040,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26686,13 +28065,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_transfer[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26715,7 +28095,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26735,7 +28115,11 @@ export class ApiClient {
       source_type?: "bank_account" | "card" | "fpx"
       transfer_group?: string
     }
-  }): Observable<t_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26747,7 +28131,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26761,13 +28145,14 @@ export class ApiClient {
     startingAfter?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_transfer_reversal[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26787,7 +28172,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26806,7 +28191,11 @@ export class ApiClient {
         | ""
       refund_application_fee?: boolean
     }
-  }): Observable<t_transfer_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26818,7 +28207,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26828,7 +28217,11 @@ export class ApiClient {
     expand?: string[]
     transfer: string
     requestBody?: EmptyObject
-  }): Observable<t_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26842,7 +28235,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26859,7 +28252,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26871,7 +28268,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26882,7 +28279,11 @@ export class ApiClient {
     id: string
     transfer: string
     requestBody?: EmptyObject
-  }): Observable<t_transfer_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26897,7 +28298,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26914,7 +28315,11 @@ export class ApiClient {
           }
         | ""
     }
-  }): Observable<t_transfer_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_transfer_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26927,7 +28332,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26943,13 +28348,14 @@ export class ApiClient {
     status?: "canceled" | "posted" | "processing"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_credit_reversal[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26972,7 +28378,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -26986,7 +28392,11 @@ export class ApiClient {
       }
       received_credit: string
     }
-  }): Observable<t_treasury_credit_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_credit_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -26998,7 +28408,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27008,7 +28418,11 @@ export class ApiClient {
     creditReversal: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_treasury_credit_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_credit_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27023,7 +28437,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27040,13 +28454,14 @@ export class ApiClient {
     status?: "canceled" | "completed" | "processing"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_debit_reversal[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27070,7 +28485,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27084,7 +28499,11 @@ export class ApiClient {
       }
       received_debit: string
     }
-  }): Observable<t_treasury_debit_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_debit_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27096,7 +28515,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27106,7 +28525,11 @@ export class ApiClient {
     debitReversal: string
     expand?: string[]
     requestBody?: EmptyObject
-  }): Observable<t_treasury_debit_reversal | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_debit_reversal> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27121,7 +28544,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27144,13 +28567,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_financial_account[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27171,7 +28595,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27226,7 +28650,11 @@ export class ApiClient {
       }
       supported_currencies: string[]
     }
-  }): Observable<t_treasury_financial_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27238,7 +28666,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27248,7 +28676,11 @@ export class ApiClient {
     expand?: string[]
     financialAccount: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_financial_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27263,7 +28695,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27318,7 +28750,11 @@ export class ApiClient {
         outbound_flows?: "restricted" | "unrestricted"
       }
     }
-  }): Observable<t_treasury_financial_account | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27331,7 +28767,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27341,7 +28777,11 @@ export class ApiClient {
     expand?: string[]
     financialAccount: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_financial_account_features | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_financial_account_features> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27356,7 +28796,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27402,7 +28842,11 @@ export class ApiClient {
         }
       }
     }
-  }): Observable<t_treasury_financial_account_features | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_financial_account_features> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27415,7 +28859,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27430,13 +28874,14 @@ export class ApiClient {
     status?: "canceled" | "failed" | "processing" | "succeeded"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_inbound_transfer[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27458,7 +28903,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27477,7 +28922,11 @@ export class ApiClient {
       origin_payment_method: string
       statement_descriptor?: string
     }
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27489,7 +28938,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27499,7 +28948,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27513,7 +28966,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27524,7 +28977,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_inbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27537,7 +28994,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27553,13 +29010,14 @@ export class ApiClient {
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_outbound_payment[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27582,7 +29040,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27642,7 +29100,11 @@ export class ApiClient {
       }
       statement_descriptor?: string
     }
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27654,7 +29116,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27664,7 +29126,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27678,7 +29144,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27689,7 +29155,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_payment | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27701,7 +29171,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27716,13 +29186,14 @@ export class ApiClient {
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_outbound_transfer[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27744,7 +29215,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27770,7 +29241,11 @@ export class ApiClient {
       }
       statement_descriptor?: string
     }
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27782,7 +29257,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27792,7 +29267,11 @@ export class ApiClient {
     expand?: string[]
     outboundTransfer: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27807,7 +29286,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27818,7 +29297,11 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
     }
-  }): Observable<t_treasury_outbound_transfer | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27831,7 +29314,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27853,13 +29336,14 @@ export class ApiClient {
     status?: "failed" | "succeeded"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_received_credit[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27882,7 +29366,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27892,7 +29376,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_received_credit | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_received_credit> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27906,7 +29394,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27921,13 +29409,14 @@ export class ApiClient {
     status?: "failed" | "succeeded"
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_received_debit[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27949,7 +29438,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -27959,7 +29448,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_received_debit | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_received_debit> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -27973,7 +29466,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28005,13 +29498,14 @@ export class ApiClient {
     transaction?: string
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_transaction_entry[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28036,7 +29530,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28046,7 +29540,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_transaction_entry | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_transaction_entry> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28060,7 +29558,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28094,13 +29592,14 @@ export class ApiClient {
     }
     requestBody?: EmptyObject
   }): Observable<
-    | {
+    | (HttpResponse<{
         data: t_treasury_transaction[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28125,7 +29624,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28135,7 +29634,11 @@ export class ApiClient {
     expand?: string[]
     id: string
     requestBody?: EmptyObject
-  }): Observable<t_treasury_transaction | t_error> {
+  }): Observable<
+    | (HttpResponse<t_treasury_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28149,7 +29652,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28164,13 +29667,14 @@ export class ApiClient {
       requestBody?: EmptyObject
     } = {}
   ): Observable<
-    | {
+    | (HttpResponse<{
         data: t_webhook_endpoint[]
         has_more: boolean
         object: "list"
         url: string
-      }
-    | t_error
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -28190,7 +29694,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28532,7 +30036,11 @@ export class ApiClient {
         | ""
       url: string
     }
-  }): Observable<t_webhook_endpoint | t_error> {
+  }): Observable<
+    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28544,7 +30052,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28553,7 +30061,11 @@ export class ApiClient {
   deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
     requestBody?: EmptyObject
-  }): Observable<t_deleted_webhook_endpoint | t_error> {
+  }): Observable<
+    | (HttpResponse<t_deleted_webhook_endpoint> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28565,7 +30077,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28575,7 +30087,11 @@ export class ApiClient {
     expand?: string[]
     webhookEndpoint: string
     requestBody?: EmptyObject
-  }): Observable<t_webhook_endpoint | t_error> {
+  }): Observable<
+    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28589,7 +30105,7 @@ export class ApiClient {
         params,
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -28833,7 +30349,11 @@ export class ApiClient {
         | ""
       url?: string
     }
-  }): Observable<t_webhook_endpoint | t_error> {
+  }): Observable<
+    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -28845,7 +30365,7 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )

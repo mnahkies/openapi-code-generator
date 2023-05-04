@@ -3,7 +3,12 @@
 /* eslint-disable */
 
 import { t_Error, t_NewPet, t_Pet } from "./models"
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
@@ -12,10 +17,31 @@ export class ApiClientConfig {
   defaultHeaders: Record<string, string> = {}
 }
 
-export interface Res<StatusCode, Body> {
-  status: StatusCode
-  body: Body
-}
+// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
+type Enumerate<
+  N extends number,
+  Acc extends number[] = []
+> = Acc["length"] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc["length"]]>
+
+type IntRange<F extends number, T extends number> = F extends T
+  ? F
+  : Exclude<Enumerate<T>, Enumerate<F>> extends never
+  ? never
+  : Exclude<Enumerate<T>, Enumerate<F>> | T
+
+export type StatusCode1xx = IntRange<100, 199>
+export type StatusCode2xx = IntRange<200, 299>
+export type StatusCode3xx = IntRange<300, 399>
+export type StatusCode4xx = IntRange<400, 499>
+export type StatusCode5xx = IntRange<500, 599>
+export type StatusCode =
+  | StatusCode1xx
+  | StatusCode2xx
+  | StatusCode3xx
+  | StatusCode4xx
+  | StatusCode5xx
 
 export type QueryParams = {
   [name: string]:
@@ -70,17 +96,27 @@ export class ApiClient {
       tags?: string[]
       limit?: number
     } = {}
-  ): Observable<t_Pet[] | t_Error> {
+  ): Observable<
+    | (HttpResponse<t_Pet[]> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const params = this._queryParams({ tags: p["tags"], limit: p["limit"] })
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/pets`, {
       params,
-      observe: "body",
+      observe: "response",
       reportProgress: false,
     })
   }
 
-  addPet(p: { requestBody: t_NewPet }): Observable<t_Pet | t_Error> {
+  addPet(p: {
+    requestBody: t_NewPet
+  }): Observable<
+    | (HttpResponse<t_Pet> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = p["requestBody"]
 
@@ -90,29 +126,41 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
   }
 
-  findPetById(p: { id: number }): Observable<t_Pet | t_Error> {
+  findPetById(p: {
+    id: number
+  }): Observable<
+    | (HttpResponse<t_Pet> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/pets/${p["id"]}`,
       {
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
   }
 
-  deletePet(p: { id: number }): Observable<void | t_Error> {
+  deletePet(p: {
+    id: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/pets/${p["id"]}`,
       {
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
