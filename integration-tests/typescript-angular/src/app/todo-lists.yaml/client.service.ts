@@ -17,6 +17,18 @@ export interface Res<StatusCode, Body> {
   body: Body
 }
 
+export type QueryParams = {
+  [name: string]:
+    | string
+    | number
+    | boolean
+    | string[]
+    | undefined
+    | null
+    | QueryParams
+    | QueryParams[]
+}
+
 @Injectable({
   providedIn: "root",
 })
@@ -36,19 +48,21 @@ export class ApiClient {
     )
   }
 
-  private _queryParams(
-    queryParams: Record<
-      string,
-      boolean | number | string | string[] | undefined | null
-    >
-  ): HttpParams {
-    const result = new HttpParams()
-    Object.entries(queryParams).forEach(([name, value]) => {
-      if (value !== undefined && value !== null) {
-        result.set(name, String(value))
+  private _queryParams(queryParams: QueryParams): HttpParams {
+    return Object.entries(queryParams).reduce((result, [name, value]) => {
+      if (
+        typeof value === "string" ||
+        typeof value === "boolean" ||
+        typeof value === "number"
+      ) {
+        return result.set(name, value)
+      } else if (value === null || value === undefined) {
+        return result
       }
-    })
-    return result
+      throw new Error(
+        `query parameter '${name}' with value '${value}' is not yet supported`
+      )
+    }, new HttpParams())
   }
 
   getTodoLists(
