@@ -3,7 +3,12 @@
 /* eslint-disable */
 
 import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
@@ -12,10 +17,31 @@ export class ApiClientConfig {
   defaultHeaders: Record<string, string> = {}
 }
 
-export interface Res<StatusCode, Body> {
-  status: StatusCode
-  body: Body
-}
+// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
+type Enumerate<
+  N extends number,
+  Acc extends number[] = []
+> = Acc["length"] extends N
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc["length"]]>
+
+type IntRange<F extends number, T extends number> = F extends T
+  ? F
+  : Exclude<Enumerate<T>, Enumerate<F>> extends never
+  ? never
+  : Exclude<Enumerate<T>, Enumerate<F>> | T
+
+export type StatusCode1xx = IntRange<100, 199>
+export type StatusCode2xx = IntRange<200, 299>
+export type StatusCode3xx = IntRange<300, 399>
+export type StatusCode4xx = IntRange<400, 499>
+export type StatusCode5xx = IntRange<500, 599>
+export type StatusCode =
+  | StatusCode1xx
+  | StatusCode2xx
+  | StatusCode3xx
+  | StatusCode4xx
+  | StatusCode5xx
 
 export type QueryParams = {
   [name: string]:
@@ -70,7 +96,9 @@ export class ApiClient {
       created?: string
       status?: "incomplete" | "complete"
     } = {}
-  ): Observable<t_TodoList[]> {
+  ): Observable<
+    (HttpResponse<t_TodoList[]> & { status: 200 }) | HttpResponse<unknown>
+  > {
     const params = this._queryParams({
       created: p["created"],
       status: p["status"],
@@ -78,19 +106,24 @@ export class ApiClient {
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {
       params,
-      observe: "body",
+      observe: "response",
       reportProgress: false,
     })
   }
 
   getTodoListById(p: {
     listId: string
-  }): Observable<t_TodoList | t_Error | void> {
+  }): Observable<
+    | (HttpResponse<t_TodoList> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: StatusCode4xx })
+    | (HttpResponse<void> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/list/${p["listId"]}`,
       {
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
@@ -99,7 +132,12 @@ export class ApiClient {
   updateTodoListById(p: {
     listId: string
     requestBody: t_CreateUpdateTodoList
-  }): Observable<t_TodoList | t_Error | void> {
+  }): Observable<
+    | (HttpResponse<t_TodoList> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: StatusCode4xx })
+    | (HttpResponse<void> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = p["requestBody"]
 
@@ -109,18 +147,25 @@ export class ApiClient {
       {
         headers,
         body,
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
   }
 
-  deleteTodoListById(p: { listId: string }): Observable<void | t_Error | void> {
+  deleteTodoListById(p: {
+    listId: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: StatusCode4xx })
+    | (HttpResponse<void> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/list/${p["listId"]}`,
       {
-        observe: "body",
+        observe: "response",
         reportProgress: false,
       }
     )
