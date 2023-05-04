@@ -4405,6 +4405,9 @@ export class ApiClient {
           expires_after_days?: number
           setup_future_usage?: "none"
         }
+        link?: {
+          setup_future_usage?: "none" | "off_session"
+        }
         oxxo?: {
           expires_after_days?: number
           setup_future_usage?: "none"
@@ -4760,12 +4763,14 @@ export class ApiClient {
       submit_type?: "auto" | "book" | "donate" | "pay"
       subscription_data?: {
         application_fee_percent?: number
+        billing_cycle_anchor?: number
         default_tax_rates?: string[]
         description?: string
         metadata?: {
           [key: string]: string
         }
         on_behalf_of?: string
+        proration_behavior?: "create_prorations" | "none"
         transfer_data?: {
           amount_percent?: number
           destination: string

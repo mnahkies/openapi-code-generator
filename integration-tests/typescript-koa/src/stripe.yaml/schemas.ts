@@ -478,6 +478,10 @@ export const s_checkout_konbini_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
+export const s_checkout_link_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
 export const s_checkout_oxxo_payment_method_options = z.object({
   expires_after_days: z.coerce.number(),
   setup_future_usage: z.enum(["none"]).optional(),
@@ -1036,6 +1040,7 @@ export const s_issuing_authorization_merchant_data = z.object({
   network_id: z.coerce.string(),
   postal_code: z.coerce.string().optional().nullable(),
   state: z.coerce.string().optional().nullable(),
+  terminal_id: z.coerce.string().optional().nullable(),
 })
 
 export const s_issuing_authorization_network_data = z.object({
@@ -4165,14 +4170,6 @@ export const s_tax_product_resource_postal_address = z.object({
   state: z.coerce.string().optional().nullable(),
 })
 
-export const s_tax_product_resource_shipping_cost = z.object({
-  amount: z.coerce.number(),
-  amount_tax: z.coerce.number(),
-  shipping_rate: z.coerce.string().optional(),
-  tax_behavior: z.enum(["exclusive", "inclusive"]),
-  tax_code: z.coerce.string(),
-})
-
 export const s_tax_product_resource_tax_rate_details = z.object({
   country: z.coerce.string().optional().nullable(),
   percentage_decimal: z.coerce.string(),
@@ -4199,6 +4196,13 @@ export const s_tax_product_resource_tax_transaction_line_item_resource_reversal 
 
 export const s_tax_product_resource_tax_transaction_resource_reversal =
   z.object({ original_transaction: z.coerce.string().optional().nullable() })
+
+export const s_tax_product_resource_tax_transaction_shipping_cost = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_code: z.coerce.string(),
+})
 
 export const s_tax_rate = z.object({
   active: z.coerce.boolean(),
@@ -6532,9 +6536,10 @@ export const s_refund_next_action_display_details = z.object({
   expires_at: z.coerce.number(),
 })
 
-export const s_setup_attempt_payment_method_details_card = z.object({
-  checks: s_payment_method_details_card_checks.nullable(),
-  three_d_secure: s_three_d_secure_details.nullable(),
+export const s_setup_attempt_payment_method_details_card_wallet = z.object({
+  apple_pay: s_payment_method_details_card_wallet_apple_pay,
+  google_pay: s_payment_method_details_card_wallet_google_pay,
+  type: z.enum(["apple_pay", "google_pay", "link"]),
 })
 
 export const s_setup_intent_payment_method_options_acss_debit = z.object({
@@ -7084,6 +7089,20 @@ export const s_refund_next_action = z.object({
   type: z.coerce.string(),
 })
 
+export const s_setup_attempt_payment_method_details_card = z.object({
+  brand: z.coerce.string().optional().nullable(),
+  checks: s_payment_method_details_card_checks.nullable(),
+  country: z.coerce.string().optional().nullable(),
+  exp_month: z.coerce.number().optional().nullable(),
+  exp_year: z.coerce.number().optional().nullable(),
+  fingerprint: z.coerce.string().optional().nullable(),
+  funding: z.coerce.string().optional().nullable(),
+  last4: z.coerce.string().optional().nullable(),
+  network: z.coerce.string().optional().nullable(),
+  three_d_secure: s_three_d_secure_details.nullable(),
+  wallet: s_setup_attempt_payment_method_details_card_wallet.nullable(),
+})
+
 export const s_setup_intent_next_action = z.object({
   cashapp_handle_redirect_or_display_qr_code:
     s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code,
@@ -7141,6 +7160,17 @@ export const s_tax_calculation_line_item = z.object({
   tax_code: z.coerce.string(),
 })
 
+export const s_tax_product_resource_tax_calculation_shipping_cost = z.object({
+  amount: z.coerce.number(),
+  amount_tax: z.coerce.number(),
+  shipping_rate: z.coerce.string().optional(),
+  tax_behavior: z.enum(["exclusive", "inclusive"]),
+  tax_breakdown: z
+    .array(s_tax_product_resource_line_item_tax_breakdown)
+    .optional(),
+  tax_code: z.coerce.string(),
+})
+
 export const s_tax_transaction = z.object({
   created: z.coerce.number(),
   currency: z.coerce.string(),
@@ -7161,7 +7191,8 @@ export const s_tax_transaction = z.object({
   object: z.enum(["tax.transaction"]),
   reference: z.coerce.string(),
   reversal: s_tax_product_resource_tax_transaction_resource_reversal.nullable(),
-  shipping_cost: s_tax_product_resource_shipping_cost.nullable(),
+  shipping_cost:
+    s_tax_product_resource_tax_transaction_shipping_cost.nullable(),
   tax_date: z.coerce.number(),
   type: z.enum(["reversal", "transaction"]),
 })
@@ -7254,6 +7285,7 @@ export const s_checkout_session_payment_method_options = z.object({
   ideal: s_checkout_ideal_payment_method_options,
   klarna: s_checkout_klarna_payment_method_options,
   konbini: s_checkout_konbini_payment_method_options,
+  link: s_checkout_link_payment_method_options,
   oxxo: s_checkout_oxxo_payment_method_options,
   p24: s_checkout_p24_payment_method_options,
   paynow: s_checkout_paynow_payment_method_options,
@@ -7607,7 +7639,8 @@ export const s_tax_calculation = z.object({
     .nullable(),
   livemode: z.coerce.boolean(),
   object: z.enum(["tax.calculation"]),
-  shipping_cost: s_tax_product_resource_shipping_cost.nullable(),
+  shipping_cost:
+    s_tax_product_resource_tax_calculation_shipping_cost.nullable(),
   tax_amount_exclusive: z.coerce.number(),
   tax_amount_inclusive: z.coerce.number(),
   tax_breakdown: z.array(s_tax_product_resource_tax_breakdown),
@@ -9173,7 +9206,7 @@ export const s_line_item: z.ZodType<t_line_item> = z.object({
     .optional()
     .nullable(),
   id: z.coerce.string(),
-  invoice_item: z.coerce.string().optional(),
+  invoice_item: z.union([z.coerce.string(), z.lazy(() => s_invoiceitem)]),
   livemode: z.coerce.boolean(),
   metadata: z.object({}),
   object: z.enum(["line_item"]),
@@ -9182,8 +9215,13 @@ export const s_line_item: z.ZodType<t_line_item> = z.object({
   proration: z.coerce.boolean(),
   proration_details: s_invoices_line_items_proration_details.nullable(),
   quantity: z.coerce.number().optional().nullable(),
-  subscription: z.coerce.string().optional().nullable(),
-  subscription_item: z.coerce.string().optional(),
+  subscription: z
+    .union([z.coerce.string(), z.lazy(() => s_subscription)])
+    .nullable(),
+  subscription_item: z.union([
+    z.coerce.string(),
+    z.lazy(() => s_subscription_item),
+  ]),
   tax_amounts: z.array(s_invoice_tax_amount).optional(),
   tax_rates: z.array(s_tax_rate).optional(),
   type: z.enum(["invoiceitem", "subscription"]),
