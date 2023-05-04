@@ -11298,6 +11298,7 @@ export class ApiClient {
       client_ip?: string
       devcontainer_path?: string
       display_name?: string
+      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
       idle_timeout_minutes?: number
       location?: string
       machine?: string
@@ -13482,7 +13483,6 @@ export class ApiClient {
     owner: string
     repo: string
     requestBody: {
-      key?: string
       ref: string
       sha: string
     }
@@ -16414,6 +16414,7 @@ export class ApiClient {
       client_ip?: string
       devcontainer_path?: string
       display_name?: string
+      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
       idle_timeout_minutes?: number
       location?: string
       machine?: string
@@ -16491,7 +16492,7 @@ export class ApiClient {
       body: string
       commit_id: string
       in_reply_to?: number
-      line: number
+      line?: number
       path: string
       position?: number
       side?: "LEFT" | "RIGHT"
@@ -20064,6 +20065,7 @@ export class ApiClient {
           client_ip?: string
           devcontainer_path?: string
           display_name?: string
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
           idle_timeout_minutes?: number
           location?: string
           machine?: string
@@ -20075,6 +20077,7 @@ export class ApiClient {
         }
       | {
           devcontainer_path?: string
+          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
           idle_timeout_minutes?: number
           location?: string
           machine?: string

@@ -1051,6 +1051,7 @@ import {
   t_checkout_ideal_payment_method_options,
   t_checkout_klarna_payment_method_options,
   t_checkout_konbini_payment_method_options,
+  t_checkout_link_payment_method_options,
   t_checkout_oxxo_payment_method_options,
   t_checkout_p24_payment_method_options,
   t_checkout_paynow_payment_method_options,
@@ -1563,6 +1564,7 @@ import {
   t_setup_attempt_payment_method_details_boleto,
   t_setup_attempt_payment_method_details_card,
   t_setup_attempt_payment_method_details_card_present,
+  t_setup_attempt_payment_method_details_card_wallet,
   t_setup_attempt_payment_method_details_cashapp,
   t_setup_attempt_payment_method_details_ideal,
   t_setup_attempt_payment_method_details_klarna,
@@ -1661,11 +1663,12 @@ import {
   t_tax_product_resource_line_item_tax_breakdown,
   t_tax_product_resource_line_item_tax_rate_details,
   t_tax_product_resource_postal_address,
-  t_tax_product_resource_shipping_cost,
   t_tax_product_resource_tax_breakdown,
+  t_tax_product_resource_tax_calculation_shipping_cost,
   t_tax_product_resource_tax_rate_details,
   t_tax_product_resource_tax_transaction_line_item_resource_reversal,
   t_tax_product_resource_tax_transaction_resource_reversal,
+  t_tax_product_resource_tax_transaction_shipping_cost,
   t_tax_rate,
   t_tax_transaction,
   t_tax_transaction_line_item,
@@ -12801,6 +12804,11 @@ export function bootstrap(
             setup_future_usage: z.enum(["none"]).optional(),
           })
           .optional(),
+        link: z
+          .object({
+            setup_future_usage: z.enum(["none", "off_session"]).optional(),
+          })
+          .optional(),
         oxxo: z
           .object({
             expires_after_days: z.coerce.number().optional(),
@@ -13207,10 +13215,12 @@ export function bootstrap(
     subscription_data: z
       .object({
         application_fee_percent: z.coerce.number().optional(),
+        billing_cycle_anchor: z.coerce.number().optional(),
         default_tax_rates: z.array(z.coerce.string()).optional(),
         description: z.coerce.string().optional(),
         metadata: z.object({}).optional(),
         on_behalf_of: z.coerce.string().optional(),
+        proration_behavior: z.enum(["create_prorations", "none"]).optional(),
         transfer_data: z
           .object({
             amount_percent: z.coerce.number().optional(),

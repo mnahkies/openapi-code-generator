@@ -8609,6 +8609,7 @@ export type t_CodespacesCreateForAuthenticatedUserBodySchema =
       client_ip?: string
       devcontainer_path?: string
       display_name?: string
+      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
       idle_timeout_minutes?: number
       location?: string
       machine?: string
@@ -8620,6 +8621,7 @@ export type t_CodespacesCreateForAuthenticatedUserBodySchema =
     }
   | {
       devcontainer_path?: string
+      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
       idle_timeout_minutes?: number
       location?: string
       machine?: string
@@ -8667,6 +8669,7 @@ export type t_CodespacesCreateWithPrForAuthenticatedUserBodySchema = {
   client_ip?: string
   devcontainer_path?: string
   display_name?: string
+  geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
   idle_timeout_minutes?: number
   location?: string
   machine?: string
@@ -8685,6 +8688,7 @@ export type t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema = {
   client_ip?: string
   devcontainer_path?: string
   display_name?: string
+  geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
   idle_timeout_minutes?: number
   location?: string
   machine?: string
@@ -9353,7 +9357,6 @@ export type t_GitCreateCommitParamSchema = {
 }
 
 export type t_GitCreateRefBodySchema = {
-  key?: string
   ref: string
   sha: string
 }
@@ -11074,7 +11077,7 @@ export type t_PullsCreateReviewCommentBodySchema = {
   body: string
   commit_id: string
   in_reply_to?: number
-  line: number
+  line?: number
   path: string
   position?: number
   side?: "LEFT" | "RIGHT"

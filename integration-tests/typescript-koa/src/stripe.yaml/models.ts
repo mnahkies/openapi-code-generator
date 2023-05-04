@@ -987,6 +987,10 @@ export type t_checkout_konbini_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_link_payment_method_options = {
+  setup_future_usage?: "none" | "off_session"
+}
+
 export type t_checkout_oxxo_payment_method_options = {
   expires_after_days: number
   setup_future_usage?: "none"
@@ -1027,6 +1031,7 @@ export type t_checkout_session_payment_method_options = {
   ideal?: t_checkout_ideal_payment_method_options
   klarna?: t_checkout_klarna_payment_method_options
   konbini?: t_checkout_konbini_payment_method_options
+  link?: t_checkout_link_payment_method_options
   oxxo?: t_checkout_oxxo_payment_method_options
   p24?: t_checkout_p24_payment_method_options
   paynow?: t_checkout_paynow_payment_method_options
@@ -2559,6 +2564,7 @@ export type t_issuing_authorization_merchant_data = {
   network_id: string
   postal_code?: string | null
   state?: string | null
+  terminal_id?: string | null
 }
 
 export type t_issuing_authorization_network_data = {
@@ -4800,7 +4806,7 @@ export type t_line_item = {
   discountable: boolean
   discounts?: (string | t_discount)[] | null
   id: string
-  invoice_item?: string
+  invoice_item?: string | t_invoiceitem
   livemode: boolean
   metadata: {
     [key: string]: string
@@ -4811,8 +4817,8 @@ export type t_line_item = {
   proration: boolean
   proration_details?: t_invoices_line_items_proration_details | null
   quantity?: number | null
-  subscription?: string | null
-  subscription_item?: string
+  subscription?: string | t_subscription | null
+  subscription_item?: string | t_subscription_item
   tax_amounts?: t_invoice_tax_amount[]
   tax_rates?: t_tax_rate[]
   type: "invoiceitem" | "subscription"
@@ -7982,12 +7988,27 @@ export type t_setup_attempt_payment_method_details_blik = EmptyObject
 export type t_setup_attempt_payment_method_details_boleto = EmptyObject
 
 export type t_setup_attempt_payment_method_details_card = {
+  brand?: string | null
   checks?: t_payment_method_details_card_checks | null
+  country?: string | null
+  exp_month?: number | null
+  exp_year?: number | null
+  fingerprint?: string | null
+  funding?: string | null
+  last4?: string | null
+  network?: string | null
   three_d_secure?: t_three_d_secure_details | null
+  wallet?: t_setup_attempt_payment_method_details_card_wallet | null
 }
 
 export type t_setup_attempt_payment_method_details_card_present = {
   generated_card?: string | t_payment_method | null
+}
+
+export type t_setup_attempt_payment_method_details_card_wallet = {
+  apple_pay?: t_payment_method_details_card_wallet_apple_pay
+  google_pay?: t_payment_method_details_card_wallet_google_pay
+  type: "apple_pay" | "google_pay" | "link"
 }
 
 export type t_setup_attempt_payment_method_details_cashapp = EmptyObject
@@ -8946,7 +8967,7 @@ export type t_tax_calculation = {
   } | null
   livemode: boolean
   object: "tax.calculation"
-  shipping_cost?: t_tax_product_resource_shipping_cost | null
+  shipping_cost?: t_tax_product_resource_tax_calculation_shipping_cost | null
   tax_amount_exclusive: number
   tax_amount_inclusive: number
   tax_breakdown: t_tax_product_resource_tax_breakdown[]
@@ -8986,7 +9007,7 @@ export type t_tax_transaction = {
   object: "tax.transaction"
   reference: string
   reversal?: t_tax_product_resource_tax_transaction_resource_reversal | null
-  shipping_cost?: t_tax_product_resource_shipping_cost | null
+  shipping_cost?: t_tax_product_resource_tax_transaction_shipping_cost | null
   tax_date: number
   type: "reversal" | "transaction"
 }
@@ -9214,19 +9235,20 @@ export type t_tax_product_resource_postal_address = {
   state?: string | null
 }
 
-export type t_tax_product_resource_shipping_cost = {
-  amount: number
-  amount_tax: number
-  shipping_rate?: string
-  tax_behavior: "exclusive" | "inclusive"
-  tax_code: string
-}
-
 export type t_tax_product_resource_tax_breakdown = {
   amount: number
   inclusive: boolean
   tax_rate_details: t_tax_product_resource_tax_rate_details
   taxable_amount: number
+}
+
+export type t_tax_product_resource_tax_calculation_shipping_cost = {
+  amount: number
+  amount_tax: number
+  shipping_rate?: string
+  tax_behavior: "exclusive" | "inclusive"
+  tax_breakdown?: t_tax_product_resource_line_item_tax_breakdown[]
+  tax_code: string
 }
 
 export type t_tax_product_resource_tax_rate_details = {
@@ -9254,6 +9276,13 @@ export type t_tax_product_resource_tax_transaction_line_item_resource_reversal =
 
 export type t_tax_product_resource_tax_transaction_resource_reversal = {
   original_transaction?: string | null
+}
+
+export type t_tax_product_resource_tax_transaction_shipping_cost = {
+  amount: number
+  amount_tax: number
+  tax_behavior: "exclusive" | "inclusive"
+  tax_code: string
 }
 
 export type t_tax_rate = {
@@ -15786,6 +15815,9 @@ export type t_PostCheckoutSessionsBodySchema = {
       expires_after_days?: number
       setup_future_usage?: "none"
     }
+    link?: {
+      setup_future_usage?: "none" | "off_session"
+    }
     oxxo?: {
       expires_after_days?: number
       setup_future_usage?: "none"
@@ -16141,12 +16173,14 @@ export type t_PostCheckoutSessionsBodySchema = {
   submit_type?: "auto" | "book" | "donate" | "pay"
   subscription_data?: {
     application_fee_percent?: number
+    billing_cycle_anchor?: number
     default_tax_rates?: string[]
     description?: string
     metadata?: {
       [key: string]: string
     }
     on_behalf_of?: string
+    proration_behavior?: "create_prorations" | "none"
     transfer_data?: {
       amount_percent?: number
       destination: string

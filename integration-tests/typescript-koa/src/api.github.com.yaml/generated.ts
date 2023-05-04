@@ -30086,6 +30086,9 @@ export function bootstrap(
     .object({
       ref: z.coerce.string().optional(),
       location: z.coerce.string().optional(),
+      geo: z
+        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
+        .optional(),
       client_ip: z.coerce.string().optional(),
       machine: z.coerce.string().optional(),
       devcontainer_path: z.coerce.string().optional(),
@@ -33584,7 +33587,6 @@ export function bootstrap(
   const gitCreateRefBodySchema = z.object({
     ref: z.coerce.string(),
     sha: z.coerce.string(),
-    key: z.coerce.string().optional(),
   })
 
   const gitCreateRefResponseValidator = responseValidationFactory(
@@ -38109,6 +38111,9 @@ export function bootstrap(
   const codespacesCreateWithPrForAuthenticatedUserBodySchema = z
     .object({
       location: z.coerce.string().optional(),
+      geo: z
+        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
+        .optional(),
       client_ip: z.coerce.string().optional(),
       machine: z.coerce.string().optional(),
       devcontainer_path: z.coerce.string().optional(),
@@ -38226,7 +38231,7 @@ export function bootstrap(
     path: z.coerce.string(),
     position: z.coerce.number().optional(),
     side: z.enum(["LEFT", "RIGHT"]).optional(),
-    line: z.coerce.number(),
+    line: z.coerce.number().optional(),
     start_line: z.coerce.number().optional(),
     start_side: z.enum(["LEFT", "RIGHT", "side"]).optional(),
     in_reply_to: z.coerce.number().optional(),
@@ -43870,6 +43875,9 @@ export function bootstrap(
       repository_id: z.coerce.number(),
       ref: z.coerce.string().optional(),
       location: z.coerce.string().optional(),
+      geo: z
+        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
+        .optional(),
       client_ip: z.coerce.string().optional(),
       machine: z.coerce.string().optional(),
       devcontainer_path: z.coerce.string().optional(),
@@ -43885,6 +43893,9 @@ export function bootstrap(
         repository_id: z.coerce.number(),
       }),
       location: z.coerce.string().optional(),
+      geo: z
+        .enum(["EuropeWest", "SoutheastAsia", "UsEast", "UsWest"])
+        .optional(),
       machine: z.coerce.string().optional(),
       devcontainer_path: z.coerce.string().optional(),
       working_directory: z.coerce.string().optional(),
