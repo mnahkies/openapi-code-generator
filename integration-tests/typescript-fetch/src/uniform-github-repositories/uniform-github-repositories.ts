@@ -42,11 +42,13 @@ async function getAllRepos(page = 1): Promise<t_repository[]> {
     throw new Error("failed to fetch repositories, page: " + page)
   }
 
-  if (res.body.length >= perPage) {
-    return res.body.concat(await getAllRepos(page + 1))
+  const body = await res.json()
+
+  if (body.length >= perPage) {
+    return body.concat(await getAllRepos(page + 1))
   }
 
-  return res.body
+  return body
 }
 
 async function updateRepoConfig(owner: string, repo: string) {

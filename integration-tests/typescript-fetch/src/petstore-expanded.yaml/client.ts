@@ -6,12 +6,13 @@ import { t_Error, t_NewPet, t_Pet } from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
-  Response,
+  Res,
   StatusCode,
   StatusCode2xx,
   StatusCode3xx,
   StatusCode4xx,
   StatusCode5xx,
+  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
@@ -21,51 +22,59 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  async findPets(
+  findPets(
     p: {
       tags?: string[]
       limit?: number
-    } = {}
-  ): Promise<Response<200, t_Pet[]> | Response<StatusCode, t_Error>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async addPet(p: {
-    requestBody: t_NewPet
-  }): Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>> {
+  addPet(
+    p: {
+      requestBody: t_NewPet
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async findPetById(p: {
-    id: number
-  }): Promise<Response<200, t_Pet> | Response<StatusCode, t_Error>> {
+  findPetById(
+    p: {
+      id: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async deletePet(p: {
-    id: number
-  }): Promise<Response<204, void> | Response<StatusCode, t_Error>> {
+  deletePet(
+    p: {
+      id: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 }
