@@ -1,7 +1,7 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
 import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
+import {buildMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
@@ -11,7 +11,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .add(
         "AbstractFetchClientConfig",
         "AbstractFetchClient",
-        "Response",
+        "Res",
+        "TypedFetchResponse",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
@@ -31,7 +32,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
     const returnType = builder.returnType()
       .map(({statusType, responseType}) => {
-        return `Response<${statusType},${responseType}>`
+        return `Res<${statusType},${responseType}>`
       })
       .join(" | ")
 
@@ -46,25 +47,23 @@ const url = this.basePath + \`${routeToTemplateString(route)}\`
         .filter(Boolean)
         .join("\n")
     }
-const res = await fetch(url ${queryString ? "+ query" : ""},
+
+    return this._fetch(url ${queryString ? "+ query" : ""},
     {${
       [
         `method: "${method}",`,
         headers ? "headers," : "",
-        requestBodyParameter ? "body," : ""
+        requestBodyParameter ? "body," : "",
+        "...(opts ?? {})"
       ]
         .filter(Boolean)
         .join("\n")
-    }})
-
-// TODO: this is a poor assumption
-return {status: res.status as any, body: (await res.json() as any)};
+    }}, timeout)
 `
-
-    return asyncMethod({
+    return buildMethod({
       name: operationId,
-      parameters: [operationParameter],
-      returnType,
+      parameters: [operationParameter, {name: "timeout", type: "number", required: false}, {name: "opts", type: "RequestInit", required: false}],
+      returnType: `TypedFetchResponse<${returnType}>`,
       body,
     })
   }
