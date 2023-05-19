@@ -84,9 +84,9 @@ export abstract class AbstractFetchClient {
     // if a timeout is provided, set a timeout signal and connect to main abort controller
     if (timeout && timeout > 0) {
       const timeoutSignal = AbortSignal.timeout(timeout)
-      timeoutSignal.addEventListener("abort", () =>
-        cancelRequest.abort(timeoutSignal.reason),
-      )
+      timeoutSignal.addEventListener("abort", () => {
+        cancelRequest.abort(timeoutSignal.reason)
+      })
     }
 
     // if we were provided a signal connect it to the main abort controller
@@ -98,23 +98,21 @@ export abstract class AbstractFetchClient {
       )
     }
 
+    const headers = opts.headers ?? this._headers({})
+
     const res = fetch(url, {
       ...opts,
+      headers,
       signal: cancelRequest.signal,
+    }).catch((err) => {
+      // workaround bug where eg: TimeoutError gets converted to an AbortError
+      // https://stackoverflow.com/a/75973817/1445636
+      if (err?.name === "AbortError") {
+        cancelRequest.signal.throwIfAborted()
+      }
+      // if not aborted just throw
+      throw err
     })
-      .then((res) => {
-        cancelRequest.abort()
-        return res
-      })
-      .catch((err) => {
-        // workaround bug where eg: TimeoutError gets converted to an AbortError
-        // https://stackoverflow.com/a/75973817/1445636
-        if (err?.name === "AbortError") {
-          cancelRequest.signal.throwIfAborted()
-        }
-        // if not aborted just throw
-        throw err
-      })
 
     // decorate the Promise with itself and the AbortController, this allows the
     // caller to choose between:

@@ -5,13 +5,17 @@ dotenv.config()
 import {ApiClient} from "../api.github.com.yaml/client";
 import {t_repository} from "../api.github.com.yaml/models";
 
+const { writeHeapSnapshot } = require('node:v8');
+
 const client = new ApiClient({
   basePath: 'https://api.github.com',
   defaultHeaders: {'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`},
+  defaultTimeout: 5_000
 })
 
 async function main() {
   console.info(client)
+  writeHeapSnapshot()
   await checkAuth()
 
   const repos = await getAllRepos()
@@ -22,6 +26,15 @@ async function main() {
     console.info("updating: " + repo.full_name)
     await updateRepoConfig(repo.owner.login, repo.name)
   }
+
+  if(Reflect.has(global, 'gc')){
+    // @ts-ignore
+    global.gc()
+  }
+
+  setTimeout(() => {
+    writeHeapSnapshot()
+  }, 10000)
 }
 
 async function checkAuth() {
