@@ -22,27 +22,27 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  findPets(
+  async findPets(
     p: {
       tags?: string[]
       limit?: number
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  addPet(
+  async addPet(
     p: {
       requestBody: t_NewPet
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -54,25 +54,25 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  findPetById(
+  async findPetById(
     p: {
       id: number
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  deletePet(
+  async deletePet(
     p: {
       id: number
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>> {
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
 
     return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)

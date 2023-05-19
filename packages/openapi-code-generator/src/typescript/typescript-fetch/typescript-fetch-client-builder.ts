@@ -1,7 +1,7 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
 import {ImportBuilder} from "../common/import-builder"
 import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {buildMethod, routeToTemplateString} from "../common/typescript-common"
+import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
@@ -60,7 +60,7 @@ const url = this.basePath + \`${routeToTemplateString(route)}\`
         .join("\n")
     }}, timeout)
 `
-    return buildMethod({
+    return asyncMethod({
       name: operationId,
       parameters: [operationParameter, {name: "timeout", type: "number", required: false}, {name: "opts", type: "RequestInit", required: false}],
       returnType: `TypedFetchResponse<${returnType}>`,

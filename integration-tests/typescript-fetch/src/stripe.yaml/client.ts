@@ -153,14 +153,16 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  getAccount(
+  async getAccount(
     p: {
       expand?: string[]
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/account`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -175,7 +177,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountLinks(
+  async postAccountLinks(
     p: {
       requestBody: {
         account: string
@@ -188,7 +190,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/account_links`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -202,7 +206,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccounts(
+  async getAccounts(
     p: {
       created?:
         | {
@@ -220,17 +224,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_account[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_account[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/accounts`
     const headers = this._headers({
@@ -252,7 +258,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccounts(
+  async postAccounts(
     p: {
       requestBody?: {
         account_token?: string
@@ -646,7 +652,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -660,15 +668,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteAccountsAccount(
+  async deleteAccountsAccount(
     p: {
       account: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers({
@@ -683,7 +691,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccount(
+  async getAccountsAccount(
     p: {
       account: string
       expand?: string[]
@@ -691,7 +699,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -706,7 +716,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccount(
+  async postAccountsAccount(
     p: {
       account: string
       requestBody?: {
@@ -1082,7 +1092,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1096,7 +1108,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountBankAccounts(
+  async postAccountsAccountBankAccounts(
     p: {
       account: string
       requestBody?: {
@@ -1127,8 +1139,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/bank_accounts`
     const headers = this._headers({
@@ -1143,7 +1155,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteAccountsAccountBankAccountsId(
+  async deleteAccountsAccountBankAccountsId(
     p: {
       account: string
       id: string
@@ -1151,8 +1163,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
@@ -1168,7 +1182,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountBankAccountsId(
+  async getAccountsAccountBankAccountsId(
     p: {
       account: string
       expand?: string[]
@@ -1177,8 +1191,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
@@ -1195,7 +1209,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountBankAccountsId(
+  async postAccountsAccountBankAccountsId(
     p: {
       account: string
       id: string
@@ -1228,8 +1242,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
@@ -1245,7 +1259,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountCapabilities(
+  async getAccountsAccountCapabilities(
     p: {
       account: string
       expand?: string[]
@@ -1253,17 +1267,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_capability[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_capability[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
     const headers = this._headers({
@@ -1279,7 +1295,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountCapabilitiesCapability(
+  async getAccountsAccountCapabilitiesCapability(
     p: {
       account: string
       capability: string
@@ -1288,7 +1304,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
@@ -1305,7 +1323,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountCapabilitiesCapability(
+  async postAccountsAccountCapabilitiesCapability(
     p: {
       account: string
       capability: string
@@ -1316,7 +1334,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
@@ -1332,7 +1352,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountExternalAccounts(
+  async getAccountsAccountExternalAccounts(
     p: {
       account: string
       endingBefore?: string
@@ -1343,17 +1363,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: (t_bank_account | t_card)[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: (t_bank_account | t_card)[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers({
@@ -1374,7 +1396,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountExternalAccounts(
+  async postAccountsAccountExternalAccounts(
     p: {
       account: string
       requestBody?: {
@@ -1405,8 +1427,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers({
@@ -1421,7 +1443,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteAccountsAccountExternalAccountsId(
+  async deleteAccountsAccountExternalAccountsId(
     p: {
       account: string
       id: string
@@ -1429,8 +1451,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -1447,7 +1471,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountExternalAccountsId(
+  async getAccountsAccountExternalAccountsId(
     p: {
       account: string
       expand?: string[]
@@ -1456,8 +1480,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath +
@@ -1475,7 +1499,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountExternalAccountsId(
+  async postAccountsAccountExternalAccountsId(
     p: {
       account: string
       id: string
@@ -1508,8 +1532,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_external_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath +
@@ -1526,7 +1550,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountLoginLinks(
+  async postAccountsAccountLoginLinks(
     p: {
       account: string
       requestBody?: {
@@ -1535,7 +1559,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/login_links`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1549,7 +1575,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountPeople(
+  async getAccountsAccountPeople(
     p: {
       account: string
       endingBefore?: string
@@ -1566,17 +1592,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_person[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_person[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
     const headers = this._headers({
@@ -1598,7 +1626,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountPeople(
+  async postAccountsAccountPeople(
     p: {
       account: string
       requestBody?: {
@@ -1699,7 +1727,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -1713,7 +1743,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteAccountsAccountPeoplePerson(
+  async deleteAccountsAccountPeoplePerson(
     p: {
       account: string
       person: string
@@ -1721,7 +1751,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers({
@@ -1736,7 +1768,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountPeoplePerson(
+  async getAccountsAccountPeoplePerson(
     p: {
       account: string
       expand?: string[]
@@ -1745,7 +1777,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers({
@@ -1761,7 +1795,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountPeoplePerson(
+  async postAccountsAccountPeoplePerson(
     p: {
       account: string
       person: string
@@ -1863,7 +1897,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers({
@@ -1878,7 +1914,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountPersons(
+  async getAccountsAccountPersons(
     p: {
       account: string
       endingBefore?: string
@@ -1895,17 +1931,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_person[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_person[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers({
@@ -1927,7 +1965,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountPersons(
+  async postAccountsAccountPersons(
     p: {
       account: string
       requestBody?: {
@@ -2028,7 +2066,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2042,7 +2082,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteAccountsAccountPersonsPerson(
+  async deleteAccountsAccountPersonsPerson(
     p: {
       account: string
       person: string
@@ -2050,7 +2090,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers({
@@ -2065,7 +2107,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAccountsAccountPersonsPerson(
+  async getAccountsAccountPersonsPerson(
     p: {
       account: string
       expand?: string[]
@@ -2074,7 +2116,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers({
@@ -2090,7 +2134,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountPersonsPerson(
+  async postAccountsAccountPersonsPerson(
     p: {
       account: string
       person: string
@@ -2192,7 +2236,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers({
@@ -2207,7 +2253,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAccountsAccountReject(
+  async postAccountsAccountReject(
     p: {
       account: string
       requestBody: {
@@ -2217,7 +2263,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/reject`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2231,7 +2279,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplePayDomains(
+  async getApplePayDomains(
     p: {
       domainName?: string
       endingBefore?: string
@@ -2242,17 +2290,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_apple_pay_domain[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_apple_pay_domain[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
     const headers = this._headers({
@@ -2274,7 +2324,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postApplePayDomains(
+  async postApplePayDomains(
     p: {
       requestBody: {
         domain_name: string
@@ -2283,8 +2333,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
     const headers = this._headers({
@@ -2299,15 +2349,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteApplePayDomainsDomain(
+  async deleteApplePayDomainsDomain(
     p: {
       domain: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers({
@@ -2322,7 +2374,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplePayDomainsDomain(
+  async getApplePayDomainsDomain(
     p: {
       domain: string
       expand?: string[]
@@ -2330,8 +2382,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers({
@@ -2347,7 +2399,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplicationFees(
+  async getApplicationFees(
     p: {
       charge?: string
       created?:
@@ -2366,17 +2418,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_application_fee[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_application_fee[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/application_fees`
     const headers = this._headers({
@@ -2399,7 +2453,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplicationFeesFeeRefundsId(
+  async getApplicationFeesFeeRefundsId(
     p: {
       expand?: string[]
       fee: string
@@ -2408,7 +2462,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers({
@@ -2424,7 +2480,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postApplicationFeesFeeRefundsId(
+  async postApplicationFeesFeeRefundsId(
     p: {
       fee: string
       id: string
@@ -2439,7 +2495,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers({
@@ -2454,7 +2512,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplicationFeesId(
+  async getApplicationFeesId(
     p: {
       expand?: string[]
       id: string
@@ -2462,8 +2520,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_application_fee> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
     const headers = this._headers({
@@ -2479,7 +2537,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postApplicationFeesIdRefund(
+  async postApplicationFeesIdRefund(
     p: {
       id: string
       requestBody?: {
@@ -2490,8 +2548,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_application_fee> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refund`
     const headers = this._headers({
@@ -2506,7 +2564,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getApplicationFeesIdRefunds(
+  async getApplicationFeesIdRefunds(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -2517,17 +2575,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_fee_refund[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_fee_refund[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers({
@@ -2548,7 +2608,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postApplicationFeesIdRefunds(
+  async postApplicationFeesIdRefunds(
     p: {
       id: string
       requestBody?: {
@@ -2561,7 +2621,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2575,7 +2637,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAppsSecrets(
+  async getAppsSecrets(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -2589,17 +2651,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_apps_secret[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_apps_secret[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/apps/secrets`
     const headers = this._headers({
@@ -2621,7 +2685,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAppsSecrets(
+  async postAppsSecrets(
     p: {
       requestBody: {
         expand?: string[]
@@ -2636,7 +2700,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/apps/secrets`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2650,7 +2716,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postAppsSecretsDelete(
+  async postAppsSecretsDelete(
     p: {
       requestBody: {
         expand?: string[]
@@ -2663,7 +2729,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/apps/secrets/delete`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2677,7 +2745,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getAppsSecretsFind(
+  async getAppsSecretsFind(
     p: {
       expand?: string[]
       name: string
@@ -2689,7 +2757,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/apps/secrets/find`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2708,14 +2778,16 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBalance(
+  async getBalance(
     p: {
       expand?: string[]
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/balance`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -2730,7 +2802,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBalanceHistory(
+  async getBalanceHistory(
     p: {
       created?:
         | {
@@ -2752,17 +2824,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_balance_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_balance_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/balance/history`
     const headers = this._headers({
@@ -2788,7 +2862,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBalanceHistoryId(
+  async getBalanceHistoryId(
     p: {
       expand?: string[]
       id: string
@@ -2796,8 +2870,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
     const headers = this._headers({
@@ -2813,7 +2889,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBalanceTransactions(
+  async getBalanceTransactions(
     p: {
       created?:
         | {
@@ -2835,17 +2911,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_balance_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_balance_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/balance_transactions`
     const headers = this._headers({
@@ -2871,7 +2949,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBalanceTransactionsId(
+  async getBalanceTransactionsId(
     p: {
       expand?: string[]
       id: string
@@ -2879,8 +2957,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
     const headers = this._headers({
@@ -2896,7 +2976,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBillingPortalConfigurations(
+  async getBillingPortalConfigurations(
     p: {
       active?: boolean
       endingBefore?: string
@@ -2908,17 +2988,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_billing_portal_configuration[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_billing_portal_configuration[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
     const headers = this._headers({
@@ -2941,7 +3023,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postBillingPortalConfigurations(
+  async postBillingPortalConfigurations(
     p: {
       requestBody: {
         business_profile: {
@@ -3018,8 +3100,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
     const headers = this._headers({
@@ -3034,7 +3118,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getBillingPortalConfigurationsConfiguration(
+  async getBillingPortalConfigurationsConfiguration(
     p: {
       configuration: string
       expand?: string[]
@@ -3042,8 +3126,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
@@ -3060,7 +3146,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postBillingPortalConfigurationsConfiguration(
+  async postBillingPortalConfigurationsConfiguration(
     p: {
       configuration: string
       requestBody?: {
@@ -3141,8 +3227,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
@@ -3158,7 +3246,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postBillingPortalSessions(
+  async postBillingPortalSessions(
     p: {
       requestBody: {
         configuration?: string
@@ -3233,8 +3321,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_billing_portal_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_billing_portal_session> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/billing_portal/sessions`
     const headers = this._headers({
@@ -3249,7 +3339,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCharges(
+  async getCharges(
     p: {
       created?:
         | {
@@ -3270,17 +3360,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_charge[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_charge[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/charges`
     const headers = this._headers({
@@ -3305,7 +3397,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCharges(
+  async postCharges(
     p: {
       requestBody?: {
         amount?: number
@@ -3377,7 +3469,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3391,7 +3485,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getChargesSearch(
+  async getChargesSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -3401,19 +3495,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_charge[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_charge[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/charges/search`
     const headers = this._headers({
@@ -3434,7 +3530,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getChargesCharge(
+  async getChargesCharge(
     p: {
       charge: string
       expand?: string[]
@@ -3442,7 +3538,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3457,7 +3555,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesCharge(
+  async postChargesCharge(
     p: {
       charge: string
       requestBody?: {
@@ -3492,7 +3590,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3506,7 +3606,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeCapture(
+  async postChargesChargeCapture(
     p: {
       charge: string
       requestBody?: {
@@ -3525,7 +3625,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/capture`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3539,7 +3641,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getChargesChargeDispute(
+  async getChargesChargeDispute(
     p: {
       charge: string
       expand?: string[]
@@ -3547,7 +3649,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3562,7 +3666,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeDispute(
+  async postChargesChargeDispute(
     p: {
       charge: string
       requestBody?: {
@@ -3606,7 +3710,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3620,7 +3726,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeDisputeClose(
+  async postChargesChargeDisputeClose(
     p: {
       charge: string
       requestBody?: {
@@ -3629,7 +3735,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute/close`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3643,7 +3751,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeRefund(
+  async postChargesChargeRefund(
     p: {
       charge: string
       requestBody?: {
@@ -3663,7 +3771,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refund`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3677,7 +3787,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getChargesChargeRefunds(
+  async getChargesChargeRefunds(
     p: {
       charge: string
       endingBefore?: string
@@ -3688,17 +3798,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_refund[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_refund[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers({
@@ -3719,7 +3831,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeRefunds(
+  async postChargesChargeRefunds(
     p: {
       charge: string
       requestBody?: {
@@ -3742,7 +3854,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -3756,7 +3870,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getChargesChargeRefundsRefund(
+  async getChargesChargeRefundsRefund(
     p: {
       charge: string
       expand?: string[]
@@ -3765,7 +3879,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers({
@@ -3781,7 +3897,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postChargesChargeRefundsRefund(
+  async postChargesChargeRefundsRefund(
     p: {
       charge: string
       refund: string
@@ -3796,7 +3912,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers({
@@ -3811,7 +3929,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCheckoutSessions(
+  async getCheckoutSessions(
     p: {
       customer?: string
       customerDetails?: {
@@ -3828,17 +3946,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_checkout_session[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_checkout_session[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/checkout/sessions`
     const headers = this._headers({
@@ -3864,7 +3984,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCheckoutSessions(
+  async postCheckoutSessions(
     p: {
       requestBody: {
         after_expiration?: {
@@ -4536,8 +4656,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_checkout_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions`
     const headers = this._headers({
@@ -4552,7 +4672,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCheckoutSessionsSession(
+  async getCheckoutSessionsSession(
     p: {
       expand?: string[]
       session: string
@@ -4560,8 +4680,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_checkout_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers({
@@ -4577,7 +4697,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCheckoutSessionsSessionExpire(
+  async postCheckoutSessionsSessionExpire(
     p: {
       session: string
       requestBody?: {
@@ -4586,8 +4706,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_checkout_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}/expire`
     const headers = this._headers({
@@ -4602,7 +4722,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCheckoutSessionsSessionLineItems(
+  async getCheckoutSessionsSessionLineItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -4613,17 +4733,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`
@@ -4645,7 +4767,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCountrySpecs(
+  async getCountrySpecs(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -4655,17 +4777,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_country_spec[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_country_spec[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/country_specs`
     const headers = this._headers({
@@ -4686,7 +4810,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCountrySpecsCountry(
+  async getCountrySpecsCountry(
     p: {
       country: string
       expand?: string[]
@@ -4694,7 +4818,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4709,7 +4835,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCoupons(
+  async getCoupons(
     p: {
       created?:
         | {
@@ -4727,17 +4853,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_coupon[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_coupon[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/coupons`
     const headers = this._headers({
@@ -4759,7 +4887,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCoupons(
+  async postCoupons(
     p: {
       requestBody?: {
         amount_off?: number
@@ -4789,7 +4917,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/coupons`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4803,14 +4933,16 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCouponsCoupon(
+  async deleteCouponsCoupon(
     p: {
       coupon: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4824,7 +4956,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCouponsCoupon(
+  async getCouponsCoupon(
     p: {
       coupon: string
       expand?: string[]
@@ -4832,7 +4964,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4847,7 +4981,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCouponsCoupon(
+  async postCouponsCoupon(
     p: {
       coupon: string
       requestBody?: {
@@ -4867,7 +5001,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4881,7 +5017,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCreditNotes(
+  async getCreditNotes(
     p: {
       customer?: string
       endingBefore?: string
@@ -4893,17 +5029,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_credit_note[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_credit_note[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/credit_notes`
     const headers = this._headers({
@@ -4926,7 +5064,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCreditNotes(
+  async postCreditNotes(
     p: {
       requestBody: {
         amount?: number
@@ -4962,7 +5100,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/credit_notes`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -4976,7 +5116,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCreditNotesPreview(
+  async getCreditNotesPreview(
     p: {
       amount?: number
       creditAmount?: number
@@ -5011,7 +5151,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/credit_notes/preview`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5039,7 +5181,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCreditNotesPreviewLines(
+  async getCreditNotesPreviewLines(
     p: {
       amount?: number
       creditAmount?: number
@@ -5077,17 +5219,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_credit_note_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_credit_note_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/credit_notes/preview/lines`
     const headers = this._headers({
@@ -5119,7 +5263,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCreditNotesCreditNoteLines(
+  async getCreditNotesCreditNoteLines(
     p: {
       creditNote: string
       endingBefore?: string
@@ -5130,17 +5274,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_credit_note_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_credit_note_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`
     const headers = this._headers({
@@ -5161,7 +5307,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCreditNotesId(
+  async getCreditNotesId(
     p: {
       expand?: string[]
       id: string
@@ -5169,7 +5315,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5184,7 +5332,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCreditNotesId(
+  async postCreditNotesId(
     p: {
       id: string
       requestBody?: {
@@ -5197,7 +5345,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5211,7 +5361,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCreditNotesIdVoid(
+  async postCreditNotesIdVoid(
     p: {
       id: string
       requestBody?: {
@@ -5220,7 +5370,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}/void`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5234,7 +5386,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomers(
+  async getCustomers(
     p: {
       created?:
         | {
@@ -5254,17 +5406,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_customer[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_customer[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers`
     const headers = this._headers({
@@ -5288,7 +5442,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomers(
+  async postCustomers(
     p: {
       requestBody?: {
         address?:
@@ -5420,7 +5574,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5434,7 +5590,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersSearch(
+  async getCustomersSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -5444,19 +5600,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_customer[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_customer[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/search`
     const headers = this._headers({
@@ -5477,15 +5635,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomer(
+  async deleteCustomersCustomer(
     p: {
       customer: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_customer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_customer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers({
@@ -5500,7 +5658,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomer(
+  async getCustomersCustomer(
     p: {
       customer: string
       expand?: string[]
@@ -5508,8 +5666,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers({
@@ -5525,7 +5685,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomer(
+  async postCustomersCustomer(
     p: {
       customer: string
       requestBody?: {
@@ -5635,7 +5795,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5649,7 +5811,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerBalanceTransactions(
+  async getCustomersCustomerBalanceTransactions(
     p: {
       customer: string
       endingBefore?: string
@@ -5660,17 +5822,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_customer_balance_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_customer_balance_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
@@ -5692,7 +5856,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerBalanceTransactions(
+  async postCustomersCustomerBalanceTransactions(
     p: {
       customer: string
       requestBody: {
@@ -5709,8 +5873,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
@@ -5726,7 +5892,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerBalanceTransactionsTransaction(
+  async getCustomersCustomerBalanceTransactionsTransaction(
     p: {
       customer: string
       expand?: string[]
@@ -5735,8 +5901,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -5754,7 +5922,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerBalanceTransactionsTransaction(
+  async postCustomersCustomerBalanceTransactionsTransaction(
     p: {
       customer: string
       transaction: string
@@ -5770,8 +5938,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -5788,7 +5958,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerBankAccounts(
+  async getCustomersCustomerBankAccounts(
     p: {
       customer: string
       endingBefore?: string
@@ -5799,17 +5969,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_bank_account[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_bank_account[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers({
@@ -5830,7 +6002,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerBankAccounts(
+  async postCustomersCustomerBankAccounts(
     p: {
       customer: string
       requestBody?: {
@@ -5874,7 +6046,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -5888,7 +6062,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerBankAccountsId(
+  async deleteCustomersCustomerBankAccountsId(
     p: {
       customer: string
       id: string
@@ -5898,9 +6072,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_payment_source | t_deleted_payment_source>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_payment_source | t_deleted_payment_source>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
@@ -5916,7 +6092,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerBankAccountsId(
+  async getCustomersCustomerBankAccountsId(
     p: {
       customer: string
       expand?: string[]
@@ -5925,7 +6101,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers({
@@ -5941,7 +6119,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerBankAccountsId(
+  async postCustomersCustomerBankAccountsId(
     p: {
       customer: string
       id: string
@@ -5980,8 +6158,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
@@ -5997,7 +6177,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerBankAccountsIdVerify(
+  async postCustomersCustomerBankAccountsIdVerify(
     p: {
       customer: string
       id: string
@@ -6008,7 +6188,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}/verify`
@@ -6024,7 +6206,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerCards(
+  async getCustomersCustomerCards(
     p: {
       customer: string
       endingBefore?: string
@@ -6035,17 +6217,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_card[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_card[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers({
@@ -6066,7 +6250,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerCards(
+  async postCustomersCustomerCards(
     p: {
       customer: string
       requestBody?: {
@@ -6110,7 +6294,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6124,7 +6310,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerCardsId(
+  async deleteCustomersCustomerCardsId(
     p: {
       customer: string
       id: string
@@ -6134,9 +6320,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_payment_source | t_deleted_payment_source>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_payment_source | t_deleted_payment_source>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -6152,7 +6340,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerCardsId(
+  async getCustomersCustomerCardsId(
     p: {
       customer: string
       expand?: string[]
@@ -6161,7 +6349,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers({
@@ -6177,7 +6365,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerCardsId(
+  async postCustomersCustomerCardsId(
     p: {
       customer: string
       id: string
@@ -6216,8 +6404,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -6233,7 +6423,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerCashBalance(
+  async getCustomersCustomerCashBalance(
     p: {
       customer: string
       expand?: string[]
@@ -6241,7 +6431,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6256,7 +6448,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerCashBalance(
+  async postCustomersCustomerCashBalance(
     p: {
       customer: string
       requestBody?: {
@@ -6268,7 +6460,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6282,7 +6476,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerCashBalanceTransactions(
+  async getCustomersCustomerCashBalanceTransactions(
     p: {
       customer: string
       endingBefore?: string
@@ -6293,17 +6487,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_customer_cash_balance_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_customer_cash_balance_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cash_balance_transactions`
@@ -6325,7 +6521,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerCashBalanceTransactionsTransaction(
+  async getCustomersCustomerCashBalanceTransactionsTransaction(
     p: {
       customer: string
       expand?: string[]
@@ -6334,8 +6530,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -6353,15 +6551,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerDiscount(
+  async deleteCustomersCustomerDiscount(
     p: {
       customer: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_discount> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers({
@@ -6376,7 +6574,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerDiscount(
+  async getCustomersCustomerDiscount(
     p: {
       customer: string
       expand?: string[]
@@ -6384,7 +6582,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6399,7 +6599,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerFundingInstructions(
+  async postCustomersCustomerFundingInstructions(
     p: {
       customer: string
       requestBody: {
@@ -6421,8 +6621,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_funding_instructions> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_funding_instructions> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/funding_instructions`
@@ -6438,7 +6640,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerPaymentMethods(
+  async getCustomersCustomerPaymentMethods(
     p: {
       customer: string
       endingBefore?: string
@@ -6479,17 +6681,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payment_method[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payment_method[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/payment_methods`
     const headers = this._headers({
@@ -6511,7 +6715,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerPaymentMethodsPaymentMethod(
+  async getCustomersCustomerPaymentMethodsPaymentMethod(
     p: {
       customer: string
       expand?: string[]
@@ -6520,7 +6724,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
@@ -6537,7 +6743,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerSources(
+  async getCustomersCustomerSources(
     p: {
       customer: string
       endingBefore?: string
@@ -6549,17 +6755,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: (t_bank_account | t_card | t_source)[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: (t_bank_account | t_card | t_source)[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers({
@@ -6581,7 +6789,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerSources(
+  async postCustomersCustomerSources(
     p: {
       customer: string
       requestBody?: {
@@ -6625,7 +6833,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -6639,7 +6849,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerSourcesId(
+  async deleteCustomersCustomerSourcesId(
     p: {
       customer: string
       id: string
@@ -6649,9 +6859,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_payment_source | t_deleted_payment_source>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_payment_source | t_deleted_payment_source>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
@@ -6667,7 +6879,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerSourcesId(
+  async getCustomersCustomerSourcesId(
     p: {
       customer: string
       expand?: string[]
@@ -6676,7 +6888,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers({
@@ -6692,7 +6906,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerSourcesId(
+  async postCustomersCustomerSourcesId(
     p: {
       customer: string
       id: string
@@ -6731,8 +6945,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
@@ -6748,7 +6964,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerSourcesIdVerify(
+  async postCustomersCustomerSourcesIdVerify(
     p: {
       customer: string
       id: string
@@ -6759,7 +6975,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}/verify`
     const headers = this._headers({
@@ -6774,7 +6992,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerSubscriptions(
+  async getCustomersCustomerSubscriptions(
     p: {
       customer: string
       endingBefore?: string
@@ -6785,17 +7003,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_subscription[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_subscription[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers({
@@ -6816,7 +7036,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerSubscriptions(
+  async postCustomersCustomerSubscriptions(
     p: {
       customer: string
       requestBody?: {
@@ -7009,7 +7229,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7023,7 +7245,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
+  async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
     p: {
       customer: string
       subscriptionExposedId: string
@@ -7035,7 +7257,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -7051,7 +7275,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerSubscriptionsSubscriptionExposedId(
+  async getCustomersCustomerSubscriptionsSubscriptionExposedId(
     p: {
       customer: string
       expand?: string[]
@@ -7060,7 +7284,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -7077,7 +7303,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerSubscriptionsSubscriptionExposedId(
+  async postCustomersCustomerSubscriptionsSubscriptionExposedId(
     p: {
       customer: string
       subscriptionExposedId: string
@@ -7295,7 +7521,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -7311,7 +7539,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
+  async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       customer: string
       subscriptionExposedId: string
@@ -7319,8 +7547,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_discount> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath +
@@ -7337,7 +7565,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
+  async getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       customer: string
       expand?: string[]
@@ -7346,7 +7574,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
@@ -7363,7 +7593,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerTaxIds(
+  async getCustomersCustomerTaxIds(
     p: {
       customer: string
       endingBefore?: string
@@ -7374,17 +7604,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_tax_id[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_tax_id[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers({
@@ -7405,7 +7637,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postCustomersCustomerTaxIds(
+  async postCustomersCustomerTaxIds(
     p: {
       customer: string
       requestBody: {
@@ -7467,7 +7699,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7481,7 +7715,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteCustomersCustomerTaxIdsId(
+  async deleteCustomersCustomerTaxIdsId(
     p: {
       customer: string
       id: string
@@ -7489,7 +7723,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers({
@@ -7504,7 +7740,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getCustomersCustomerTaxIdsId(
+  async getCustomersCustomerTaxIdsId(
     p: {
       customer: string
       expand?: string[]
@@ -7513,7 +7749,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers({
@@ -7529,7 +7767,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getDisputes(
+  async getDisputes(
     p: {
       charge?: string
       created?:
@@ -7549,17 +7787,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_dispute[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_dispute[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/disputes`
     const headers = this._headers({
@@ -7583,7 +7823,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getDisputesDispute(
+  async getDisputesDispute(
     p: {
       dispute: string
       expand?: string[]
@@ -7591,7 +7831,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7606,7 +7848,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postDisputesDispute(
+  async postDisputesDispute(
     p: {
       dispute: string
       requestBody?: {
@@ -7650,7 +7892,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7664,7 +7908,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postDisputesDisputeClose(
+  async postDisputesDisputeClose(
     p: {
       dispute: string
       requestBody?: {
@@ -7673,7 +7917,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}/close`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7687,7 +7933,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postEphemeralKeys(
+  async postEphemeralKeys(
     p: {
       requestBody?: {
         customer?: string
@@ -7698,7 +7944,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/ephemeral_keys`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7712,7 +7960,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteEphemeralKeysKey(
+  async deleteEphemeralKeysKey(
     p: {
       key: string
       requestBody?: {
@@ -7721,7 +7969,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/ephemeral_keys/${p["key"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7735,7 +7985,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getEvents(
+  async getEvents(
     p: {
       created?:
         | {
@@ -7756,17 +8006,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_event[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_event[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/events`
     const headers = this._headers({
@@ -7791,7 +8043,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getEventsId(
+  async getEventsId(
     p: {
       expand?: string[]
       id: string
@@ -7799,7 +8051,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7814,7 +8066,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getExchangeRates(
+  async getExchangeRates(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -7824,17 +8076,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_exchange_rate[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_exchange_rate[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/exchange_rates`
     const headers = this._headers({
@@ -7855,7 +8109,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getExchangeRatesRateId(
+  async getExchangeRatesRateId(
     p: {
       expand?: string[]
       rateId: string
@@ -7863,7 +8117,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7878,7 +8134,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFileLinks(
+  async getFileLinks(
     p: {
       created?:
         | {
@@ -7898,17 +8154,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_file_link[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_file_link[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/file_links`
     const headers = this._headers({
@@ -7932,7 +8190,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFileLinks(
+  async postFileLinks(
     p: {
       requestBody: {
         expand?: string[]
@@ -7947,7 +8205,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/file_links`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7961,7 +8221,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFileLinksLink(
+  async getFileLinksLink(
     p: {
       expand?: string[]
       link: string
@@ -7969,7 +8229,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -7984,7 +8246,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFileLinksLink(
+  async postFileLinksLink(
     p: {
       link: string
       requestBody?: {
@@ -7999,7 +8261,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8013,7 +8277,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFiles(
+  async getFiles(
     p: {
       created?:
         | {
@@ -8047,17 +8311,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_file[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_file[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/files`
     const headers = this._headers({
@@ -8080,7 +8346,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFiles(
+  async postFiles(
     p: {
       requestBody: {
         expand?: string[]
@@ -8109,7 +8375,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files`
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = JSON.stringify(p.requestBody)
@@ -8121,7 +8387,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFilesFile(
+  async getFilesFile(
     p: {
       expand?: string[]
       file: string
@@ -8129,7 +8395,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8144,7 +8410,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFinancialConnectionsAccounts(
+  async getFinancialConnectionsAccounts(
     p: {
       accountHolder?: {
         account?: string
@@ -8159,17 +8425,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_financial_connections_account[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_financial_connections_account[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/financial_connections/accounts`
     const headers = this._headers({
@@ -8192,7 +8460,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFinancialConnectionsAccountsAccount(
+  async getFinancialConnectionsAccountsAccount(
     p: {
       account: string
       expand?: string[]
@@ -8200,8 +8468,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
@@ -8218,7 +8488,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFinancialConnectionsAccountsAccountDisconnect(
+  async postFinancialConnectionsAccountsAccountDisconnect(
     p: {
       account: string
       requestBody?: {
@@ -8227,8 +8497,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -8245,7 +8517,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFinancialConnectionsAccountsAccountOwners(
+  async getFinancialConnectionsAccountsAccountOwners(
     p: {
       account: string
       endingBefore?: string
@@ -8257,17 +8529,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_financial_connections_account_owner[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_financial_connections_account_owner[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -8291,7 +8565,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFinancialConnectionsAccountsAccountRefresh(
+  async postFinancialConnectionsAccountsAccountRefresh(
     p: {
       account: string
       requestBody: {
@@ -8301,8 +8575,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -8319,7 +8595,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postFinancialConnectionsSessions(
+  async postFinancialConnectionsSessions(
     p: {
       requestBody: {
         account_holder: {
@@ -8342,8 +8618,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/financial_connections/sessions`
     const headers = this._headers({
@@ -8358,7 +8636,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getFinancialConnectionsSessionsSession(
+  async getFinancialConnectionsSessionsSession(
     p: {
       expand?: string[]
       session: string
@@ -8366,8 +8644,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
@@ -8384,7 +8664,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIdentityVerificationReports(
+  async getIdentityVerificationReports(
     p: {
       created?:
         | {
@@ -8404,17 +8684,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_identity_verification_report[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_identity_verification_report[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/identity/verification_reports`
     const headers = this._headers({
@@ -8438,7 +8720,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIdentityVerificationReportsReport(
+  async getIdentityVerificationReportsReport(
     p: {
       expand?: string[]
       report: string
@@ -8446,8 +8728,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
@@ -8464,7 +8748,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIdentityVerificationSessions(
+  async getIdentityVerificationSessions(
     p: {
       created?:
         | {
@@ -8483,17 +8767,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_identity_verification_session[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_identity_verification_session[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
     const headers = this._headers({
@@ -8516,7 +8802,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIdentityVerificationSessions(
+  async postIdentityVerificationSessions(
     p: {
       requestBody: {
         expand?: string[]
@@ -8539,8 +8825,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
     const headers = this._headers({
@@ -8555,7 +8843,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIdentityVerificationSessionsSession(
+  async getIdentityVerificationSessionsSession(
     p: {
       expand?: string[]
       session: string
@@ -8563,8 +8851,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
@@ -8581,7 +8871,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIdentityVerificationSessionsSession(
+  async postIdentityVerificationSessionsSession(
     p: {
       session: string
       requestBody?: {
@@ -8604,8 +8894,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
@@ -8621,7 +8913,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIdentityVerificationSessionsSessionCancel(
+  async postIdentityVerificationSessionsSessionCancel(
     p: {
       session: string
       requestBody?: {
@@ -8630,8 +8922,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -8648,7 +8942,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIdentityVerificationSessionsSessionRedact(
+  async postIdentityVerificationSessionsSessionRedact(
     p: {
       session: string
       requestBody?: {
@@ -8657,8 +8951,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -8675,7 +8971,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoiceitems(
+  async getInvoiceitems(
     p: {
       created?:
         | {
@@ -8696,17 +8992,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_invoiceitem[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_invoiceitem[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoiceitems`
     const headers = this._headers({
@@ -8731,7 +9029,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoiceitems(
+  async postInvoiceitems(
     p: {
       requestBody: {
         amount?: number
@@ -8775,7 +9073,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoiceitems`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8789,15 +9089,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteInvoiceitemsInvoiceitem(
+  async deleteInvoiceitemsInvoiceitem(
     p: {
       invoiceitem: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({
@@ -8812,7 +9114,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoiceitemsInvoiceitem(
+  async getInvoiceitemsInvoiceitem(
     p: {
       expand?: string[]
       invoiceitem: string
@@ -8820,7 +9122,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8835,7 +9139,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoiceitemsInvoiceitem(
+  async postInvoiceitemsInvoiceitem(
     p: {
       invoiceitem: string
       requestBody?: {
@@ -8876,7 +9180,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -8890,7 +9196,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoices(
+  async getInvoices(
     p: {
       collectionMethod?: "charge_automatically" | "send_invoice"
       created?:
@@ -8920,17 +9226,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_invoice[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_invoice[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoices`
     const headers = this._headers({
@@ -8957,7 +9265,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoices(
+  async postInvoices(
     p: {
       requestBody?: {
         account_tax_ids?: string[] | ""
@@ -9152,7 +9460,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9166,7 +9476,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoicesSearch(
+  async getInvoicesSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -9176,19 +9486,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_invoice[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_invoice[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoices/search`
     const headers = this._headers({
@@ -9209,7 +9521,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoicesUpcoming(
+  async getInvoicesUpcoming(
     p: {
       automaticTax?: {
         enabled: boolean
@@ -9394,7 +9706,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/upcoming`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9432,7 +9746,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoicesUpcomingLines(
+  async getInvoicesUpcomingLines(
     p: {
       automaticTax?: {
         enabled: boolean
@@ -9620,17 +9934,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoices/upcoming/lines`
     const headers = this._headers({
@@ -9672,15 +9988,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteInvoicesInvoice(
+  async deleteInvoicesInvoice(
     p: {
       invoice: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_invoice> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({
@@ -9695,7 +10011,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoicesInvoice(
+  async getInvoicesInvoice(
     p: {
       expand?: string[]
       invoice: string
@@ -9703,7 +10019,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9718,7 +10036,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoice(
+  async postInvoicesInvoice(
     p: {
       invoice: string
       requestBody?: {
@@ -9909,7 +10227,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9923,7 +10243,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoiceFinalize(
+  async postInvoicesInvoiceFinalize(
     p: {
       invoice: string
       requestBody?: {
@@ -9933,7 +10253,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/finalize`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -9947,7 +10269,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getInvoicesInvoiceLines(
+  async getInvoicesInvoiceLines(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -9958,17 +10280,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/lines`
     const headers = this._headers({
@@ -9989,7 +10313,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoiceMarkUncollectible(
+  async postInvoicesInvoiceMarkUncollectible(
     p: {
       invoice: string
       requestBody?: {
@@ -9998,7 +10322,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/mark_uncollectible`
     const headers = this._headers({
@@ -10013,7 +10339,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoicePay(
+  async postInvoicesInvoicePay(
     p: {
       invoice: string
       requestBody?: {
@@ -10028,7 +10354,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/pay`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10042,7 +10370,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoiceSend(
+  async postInvoicesInvoiceSend(
     p: {
       invoice: string
       requestBody?: {
@@ -10051,7 +10379,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/send`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10065,7 +10395,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postInvoicesInvoiceVoid(
+  async postInvoicesInvoiceVoid(
     p: {
       invoice: string
       requestBody?: {
@@ -10074,7 +10404,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/void`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -10088,7 +10420,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingAuthorizations(
+  async getIssuingAuthorizations(
     p: {
       card?: string
       cardholder?: string
@@ -10109,17 +10441,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_authorization[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_authorization[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/authorizations`
     const headers = this._headers({
@@ -10144,7 +10478,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingAuthorizationsAuthorization(
+  async getIssuingAuthorizationsAuthorization(
     p: {
       authorization: string
       expand?: string[]
@@ -10152,8 +10486,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
@@ -10170,7 +10506,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingAuthorizationsAuthorization(
+  async postIssuingAuthorizationsAuthorization(
     p: {
       authorization: string
       requestBody?: {
@@ -10184,8 +10520,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
@@ -10201,7 +10539,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingAuthorizationsAuthorizationApprove(
+  async postIssuingAuthorizationsAuthorizationApprove(
     p: {
       authorization: string
       requestBody?: {
@@ -10216,8 +10554,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/approve`
@@ -10233,7 +10573,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingAuthorizationsAuthorizationDecline(
+  async postIssuingAuthorizationsAuthorizationDecline(
     p: {
       authorization: string
       requestBody?: {
@@ -10247,8 +10587,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/decline`
@@ -10264,7 +10606,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingCardholders(
+  async getIssuingCardholders(
     p: {
       created?:
         | {
@@ -10286,17 +10628,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_cardholder[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_cardholder[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
     const headers = this._headers({
@@ -10322,7 +10666,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingCardholders(
+  async postIssuingCardholders(
     p: {
       requestBody: {
         billing: {
@@ -11277,8 +11621,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
     const headers = this._headers({
@@ -11293,7 +11639,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingCardholdersCardholder(
+  async getIssuingCardholdersCardholder(
     p: {
       cardholder: string
       expand?: string[]
@@ -11301,8 +11647,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers({
@@ -11318,7 +11666,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingCardholdersCardholder(
+  async postIssuingCardholdersCardholder(
     p: {
       cardholder: string
       requestBody?: {
@@ -12272,8 +12620,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers({
@@ -12288,7 +12638,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingCards(
+  async getIssuingCards(
     p: {
       cardholder?: string
       created?:
@@ -12312,17 +12662,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_card[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_card[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/cards`
     const headers = this._headers({
@@ -12350,7 +12702,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingCards(
+  async postIssuingCards(
     p: {
       requestBody: {
         cardholder?: string
@@ -13289,7 +13641,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/issuing/cards`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -13303,7 +13657,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingCardsCard(
+  async getIssuingCardsCard(
     p: {
       card: string
       expand?: string[]
@@ -13311,7 +13665,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -13326,7 +13682,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingCardsCard(
+  async postIssuingCardsCard(
     p: {
       card: string
       requestBody?: {
@@ -14248,7 +14604,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -14262,7 +14620,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingDisputes(
+  async getIssuingDisputes(
     p: {
       created?:
         | {
@@ -14282,17 +14640,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_dispute[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_dispute[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/disputes`
     const headers = this._headers({
@@ -14316,7 +14676,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingDisputes(
+  async postIssuingDisputes(
     p: {
       requestBody?: {
         amount?: number
@@ -14408,8 +14768,8 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_dispute> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes`
     const headers = this._headers({
@@ -14424,7 +14784,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingDisputesDispute(
+  async getIssuingDisputesDispute(
     p: {
       dispute: string
       expand?: string[]
@@ -14432,8 +14792,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_dispute> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers({
@@ -14449,7 +14809,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingDisputesDispute(
+  async postIssuingDisputesDispute(
     p: {
       dispute: string
       requestBody?: {
@@ -14540,8 +14900,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_dispute> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers({
@@ -14556,7 +14916,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingDisputesDisputeSubmit(
+  async postIssuingDisputesDisputeSubmit(
     p: {
       dispute: string
       requestBody?: {
@@ -14570,8 +14930,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_dispute> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}/submit`
     const headers = this._headers({
@@ -14586,7 +14946,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingSettlements(
+  async getIssuingSettlements(
     p: {
       created?:
         | {
@@ -14604,17 +14964,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_settlement[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_settlement[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/settlements`
     const headers = this._headers({
@@ -14636,7 +14998,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingSettlementsSettlement(
+  async getIssuingSettlementsSettlement(
     p: {
       expand?: string[]
       settlement: string
@@ -14644,8 +15006,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers({
@@ -14661,7 +15025,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingSettlementsSettlement(
+  async postIssuingSettlementsSettlement(
     p: {
       settlement: string
       requestBody?: {
@@ -14673,8 +15037,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers({
@@ -14689,7 +15055,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingTransactions(
+  async getIssuingTransactions(
     p: {
       card?: string
       cardholder?: string
@@ -14710,17 +15076,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_issuing_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_issuing_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/transactions`
     const headers = this._headers({
@@ -14745,7 +15113,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getIssuingTransactionsTransaction(
+  async getIssuingTransactionsTransaction(
     p: {
       expand?: string[]
       transaction: string
@@ -14753,8 +15121,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers({
@@ -14770,7 +15140,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postIssuingTransactionsTransaction(
+  async postIssuingTransactionsTransaction(
     p: {
       transaction: string
       requestBody?: {
@@ -14784,8 +15154,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers({
@@ -14800,7 +15172,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postLinkAccountSessions(
+  async postLinkAccountSessions(
     p: {
       requestBody: {
         account_holder: {
@@ -14823,8 +15195,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/link_account_sessions`
     const headers = this._headers({
@@ -14839,7 +15213,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getLinkAccountSessionsSession(
+  async getLinkAccountSessionsSession(
     p: {
       expand?: string[]
       session: string
@@ -14847,8 +15221,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
     const headers = this._headers({
@@ -14864,7 +15240,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getLinkedAccounts(
+  async getLinkedAccounts(
     p: {
       accountHolder?: {
         account?: string
@@ -14879,17 +15255,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_financial_connections_account[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_financial_connections_account[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/linked_accounts`
     const headers = this._headers({
@@ -14912,7 +15290,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getLinkedAccountsAccount(
+  async getLinkedAccountsAccount(
     p: {
       account: string
       expand?: string[]
@@ -14920,8 +15298,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
     const headers = this._headers({
@@ -14937,7 +15317,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postLinkedAccountsAccountDisconnect(
+  async postLinkedAccountsAccountDisconnect(
     p: {
       account: string
       requestBody?: {
@@ -14946,8 +15326,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/disconnect`
     const headers = this._headers({
@@ -14962,7 +15344,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getLinkedAccountsAccountOwners(
+  async getLinkedAccountsAccountOwners(
     p: {
       account: string
       endingBefore?: string
@@ -14974,17 +15356,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_financial_connections_account_owner[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_financial_connections_account_owner[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/owners`
     const headers = this._headers({
@@ -15006,7 +15390,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postLinkedAccountsAccountRefresh(
+  async postLinkedAccountsAccountRefresh(
     p: {
       account: string
       requestBody: {
@@ -15016,8 +15400,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/refresh`
     const headers = this._headers({
@@ -15032,7 +15418,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getMandatesMandate(
+  async getMandatesMandate(
     p: {
       expand?: string[]
       mandate: string
@@ -15040,7 +15426,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15055,7 +15443,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentIntents(
+  async getPaymentIntents(
     p: {
       created?:
         | {
@@ -15074,17 +15462,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payment_intent[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payment_intent[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/payment_intents`
     const headers = this._headers({
@@ -15107,7 +15497,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntents(
+  async postPaymentIntents(
     p: {
       requestBody: {
         amount: number
@@ -15684,7 +16074,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15698,7 +16090,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentIntentsSearch(
+  async getPaymentIntentsSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -15708,19 +16100,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payment_intent[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payment_intent[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/payment_intents/search`
     const headers = this._headers({
@@ -15741,7 +16135,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentIntentsIntent(
+  async getPaymentIntentsIntent(
     p: {
       clientSecret?: string
       expand?: string[]
@@ -15750,7 +16144,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -15768,7 +16164,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntent(
+  async postPaymentIntentsIntent(
     p: {
       intent: string
       requestBody?: {
@@ -16324,7 +16720,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -16338,7 +16736,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentApplyCustomerBalance(
+  async postPaymentIntentsIntentApplyCustomerBalance(
     p: {
       intent: string
       requestBody?: {
@@ -16349,7 +16747,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/apply_customer_balance`
@@ -16365,7 +16765,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentCancel(
+  async postPaymentIntentsIntentCancel(
     p: {
       intent: string
       requestBody?: {
@@ -16379,7 +16779,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -16393,7 +16795,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentCapture(
+  async postPaymentIntentsIntentCapture(
     p: {
       intent: string
       requestBody?: {
@@ -16414,7 +16816,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/capture`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -16428,7 +16832,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentConfirm(
+  async postPaymentIntentsIntentConfirm(
     p: {
       intent: string
       requestBody?: {
@@ -16998,7 +17402,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/confirm`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17012,7 +17418,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentIncrementAuthorization(
+  async postPaymentIntentsIntentIncrementAuthorization(
     p: {
       intent: string
       requestBody: {
@@ -17031,7 +17437,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/increment_authorization`
@@ -17047,7 +17455,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentIntentsIntentVerifyMicrodeposits(
+  async postPaymentIntentsIntentVerifyMicrodeposits(
     p: {
       intent: string
       requestBody?: {
@@ -17059,7 +17467,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/payment_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers({
@@ -17074,7 +17484,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentLinks(
+  async getPaymentLinks(
     p: {
       active?: boolean
       endingBefore?: string
@@ -17085,17 +17495,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payment_link[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payment_link[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/payment_links`
     const headers = this._headers({
@@ -17117,7 +17529,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentLinks(
+  async postPaymentLinks(
     p: {
       requestBody: {
         after_completion?: {
@@ -17507,7 +17919,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_links`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17521,7 +17935,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentLinksPaymentLink(
+  async getPaymentLinksPaymentLink(
     p: {
       expand?: string[]
       paymentLink: string
@@ -17529,7 +17943,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17544,7 +17960,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentLinksPaymentLink(
+  async postPaymentLinksPaymentLink(
     p: {
       paymentLink: string
       requestBody?: {
@@ -17912,7 +18328,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -17926,7 +18344,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentLinksPaymentLinkLineItems(
+  async getPaymentLinksPaymentLinkLineItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -17937,17 +18355,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`
@@ -17969,7 +18389,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentMethods(
+  async getPaymentMethods(
     p: {
       customer?: string
       endingBefore?: string
@@ -18010,17 +18430,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payment_method[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payment_method[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/payment_methods`
     const headers = this._headers({
@@ -18043,7 +18465,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentMethods(
+  async postPaymentMethods(
     p: {
       requestBody?: {
         acss_debit?: {
@@ -18268,7 +18690,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_methods`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18282,7 +18706,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPaymentMethodsPaymentMethod(
+  async getPaymentMethodsPaymentMethod(
     p: {
       expand?: string[]
       paymentMethod: string
@@ -18290,7 +18714,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18305,7 +18731,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentMethodsPaymentMethod(
+  async postPaymentMethodsPaymentMethod(
     p: {
       paymentMethod: string
       requestBody?: {
@@ -18342,7 +18768,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18356,7 +18784,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentMethodsPaymentMethodAttach(
+  async postPaymentMethodsPaymentMethodAttach(
     p: {
       paymentMethod: string
       requestBody: {
@@ -18366,7 +18794,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/attach`
     const headers = this._headers({
@@ -18381,7 +18811,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPaymentMethodsPaymentMethodDetach(
+  async postPaymentMethodsPaymentMethodDetach(
     p: {
       paymentMethod: string
       requestBody?: {
@@ -18390,7 +18820,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/detach`
     const headers = this._headers({
@@ -18405,7 +18837,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPayouts(
+  async getPayouts(
     p: {
       arrivalDate?:
         | {
@@ -18433,17 +18865,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_payout[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_payout[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/payouts`
     const headers = this._headers({
@@ -18468,7 +18902,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPayouts(
+  async postPayouts(
     p: {
       requestBody: {
         amount: number
@@ -18486,7 +18920,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payouts`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18500,7 +18936,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPayoutsPayout(
+  async getPayoutsPayout(
     p: {
       expand?: string[]
       payout: string
@@ -18508,7 +18944,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18523,7 +18961,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPayoutsPayout(
+  async postPayoutsPayout(
     p: {
       payout: string
       requestBody?: {
@@ -18537,7 +18975,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18551,7 +18991,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPayoutsPayoutCancel(
+  async postPayoutsPayoutCancel(
     p: {
       payout: string
       requestBody?: {
@@ -18560,7 +19000,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18574,7 +19016,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPayoutsPayoutReverse(
+  async postPayoutsPayoutReverse(
     p: {
       payout: string
       requestBody?: {
@@ -18586,7 +19028,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/reverse`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18600,7 +19044,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPlans(
+  async getPlans(
     p: {
       active?: boolean
       created?:
@@ -18620,17 +19064,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_plan[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_plan[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/plans`
     const headers = this._headers({
@@ -18654,7 +19100,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPlans(
+  async postPlans(
     p: {
       requestBody: {
         active?: boolean
@@ -18704,7 +19150,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18718,14 +19164,16 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deletePlansPlan(
+  async deletePlansPlan(
     p: {
       plan: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18739,7 +19187,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPlansPlan(
+  async getPlansPlan(
     p: {
       expand?: string[]
       plan: string
@@ -18747,7 +19195,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18762,7 +19210,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPlansPlan(
+  async postPlansPlan(
     p: {
       plan: string
       requestBody?: {
@@ -18780,7 +19228,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18794,7 +19242,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPrices(
+  async getPrices(
     p: {
       active?: boolean
       created?:
@@ -18821,17 +19269,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_price[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_price[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/prices`
     const headers = this._headers({
@@ -18859,7 +19309,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPrices(
+  async postPrices(
     p: {
       requestBody: {
         active?: boolean
@@ -18935,7 +19385,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -18949,7 +19399,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPricesSearch(
+  async getPricesSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -18959,19 +19409,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_price[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_price[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/prices/search`
     const headers = this._headers({
@@ -18992,7 +19444,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPricesPrice(
+  async getPricesPrice(
     p: {
       expand?: string[]
       price: string
@@ -19000,7 +19452,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19015,7 +19467,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPricesPrice(
+  async postPricesPrice(
     p: {
       price: string
       requestBody?: {
@@ -19056,7 +19508,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19070,7 +19522,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getProducts(
+  async getProducts(
     p: {
       active?: boolean
       created?:
@@ -19092,17 +19544,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_product[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_product[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/products`
     const headers = this._headers({
@@ -19128,7 +19582,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postProducts(
+  async postProducts(
     p: {
       requestBody: {
         active?: boolean
@@ -19185,7 +19639,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/products`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19199,7 +19655,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getProductsSearch(
+  async getProductsSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -19209,19 +19665,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_product[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_product[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/products/search`
     const headers = this._headers({
@@ -19242,15 +19700,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteProductsId(
+  async deleteProductsId(
     p: {
       id: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_product> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers({
@@ -19265,7 +19723,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getProductsId(
+  async getProductsId(
     p: {
       expand?: string[]
       id: string
@@ -19273,7 +19731,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19288,7 +19748,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postProductsId(
+  async postProductsId(
     p: {
       id: string
       requestBody?: {
@@ -19320,7 +19780,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19334,7 +19796,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPromotionCodes(
+  async getPromotionCodes(
     p: {
       active?: boolean
       code?: string
@@ -19356,17 +19818,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_promotion_code[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_promotion_code[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/promotion_codes`
     const headers = this._headers({
@@ -19392,7 +19856,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPromotionCodes(
+  async postPromotionCodes(
     p: {
       requestBody: {
         active?: boolean
@@ -19419,7 +19883,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/promotion_codes`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19433,7 +19899,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getPromotionCodesPromotionCode(
+  async getPromotionCodesPromotionCode(
     p: {
       expand?: string[]
       promotionCode: string
@@ -19441,7 +19907,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19456,7 +19924,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postPromotionCodesPromotionCode(
+  async postPromotionCodesPromotionCode(
     p: {
       promotionCode: string
       requestBody?: {
@@ -19478,7 +19946,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19492,7 +19962,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getQuotes(
+  async getQuotes(
     p: {
       customer?: string
       endingBefore?: string
@@ -19505,17 +19975,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_quote[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_quote[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/quotes`
     const headers = this._headers({
@@ -19539,7 +20011,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postQuotes(
+  async postQuotes(
     p: {
       requestBody?: {
         application_fee_amount?: number | ""
@@ -19605,7 +20077,7 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19619,7 +20091,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getQuotesQuote(
+  async getQuotesQuote(
     p: {
       expand?: string[]
       quote: string
@@ -19627,7 +20099,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19642,7 +20114,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postQuotesQuote(
+  async postQuotesQuote(
     p: {
       quote: string
       requestBody?: {
@@ -19705,7 +20177,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19719,7 +20191,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postQuotesQuoteAccept(
+  async postQuotesQuoteAccept(
     p: {
       quote: string
       requestBody?: {
@@ -19728,7 +20200,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/accept`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19742,7 +20214,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postQuotesQuoteCancel(
+  async postQuotesQuoteCancel(
     p: {
       quote: string
       requestBody?: {
@@ -19751,7 +20223,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19765,7 +20237,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getQuotesQuoteComputedUpfrontLineItems(
+  async getQuotesQuoteComputedUpfrontLineItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -19776,17 +20248,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
@@ -19808,7 +20282,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postQuotesQuoteFinalize(
+  async postQuotesQuoteFinalize(
     p: {
       quote: string
       requestBody?: {
@@ -19818,7 +20292,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/finalize`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19832,7 +20306,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getQuotesQuoteLineItems(
+  async getQuotesQuoteLineItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -19843,17 +20317,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/line_items`
     const headers = this._headers({
@@ -19874,7 +20350,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getQuotesQuotePdf(
+  async getQuotesQuotePdf(
     p: {
       expand?: string[]
       quote: string
@@ -19882,7 +20358,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19897,7 +20373,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarEarlyFraudWarnings(
+  async getRadarEarlyFraudWarnings(
     p: {
       charge?: string
       endingBefore?: string
@@ -19909,17 +20385,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_radar_early_fraud_warning[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_radar_early_fraud_warning[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/early_fraud_warnings`
     const headers = this._headers({
@@ -19942,7 +20420,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarEarlyFraudWarningsEarlyFraudWarning(
+  async getRadarEarlyFraudWarningsEarlyFraudWarning(
     p: {
       earlyFraudWarning: string
       expand?: string[]
@@ -19950,8 +20428,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
@@ -19968,7 +20448,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarValueListItems(
+  async getRadarValueListItems(
     p: {
       created?:
         | {
@@ -19988,17 +20468,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_radar_value_list_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_radar_value_list_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
     const headers = this._headers({
@@ -20022,7 +20504,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRadarValueListItems(
+  async postRadarValueListItems(
     p: {
       requestBody: {
         expand?: string[]
@@ -20032,8 +20514,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
     const headers = this._headers({
@@ -20048,15 +20532,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteRadarValueListItemsItem(
+  async deleteRadarValueListItemsItem(
     p: {
       item: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers({
@@ -20071,7 +20557,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarValueListItemsItem(
+  async getRadarValueListItemsItem(
     p: {
       expand?: string[]
       item: string
@@ -20079,8 +20565,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers({
@@ -20096,7 +20584,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarValueLists(
+  async getRadarValueLists(
     p: {
       alias?: string
       contains?: string
@@ -20116,17 +20604,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_radar_value_list[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_radar_value_list[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_lists`
     const headers = this._headers({
@@ -20150,7 +20640,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRadarValueLists(
+  async postRadarValueLists(
     p: {
       requestBody: {
         alias: string
@@ -20172,8 +20662,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_value_list> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists`
     const headers = this._headers({
@@ -20188,15 +20678,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteRadarValueListsValueList(
+  async deleteRadarValueListsValueList(
     p: {
       valueList: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers({
@@ -20211,7 +20703,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRadarValueListsValueList(
+  async getRadarValueListsValueList(
     p: {
       expand?: string[]
       valueList: string
@@ -20219,8 +20711,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_value_list> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers({
@@ -20236,7 +20728,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRadarValueListsValueList(
+  async postRadarValueListsValueList(
     p: {
       valueList: string
       requestBody?: {
@@ -20250,8 +20742,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_radar_value_list> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers({
@@ -20266,7 +20758,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRefunds(
+  async getRefunds(
     p: {
       charge?: string
       created?:
@@ -20286,17 +20778,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_refund[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_refund[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/refunds`
     const headers = this._headers({
@@ -20320,7 +20814,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRefunds(
+  async postRefunds(
     p: {
       requestBody?: {
         amount?: number
@@ -20343,7 +20837,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/refunds`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20357,7 +20853,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getRefundsRefund(
+  async getRefundsRefund(
     p: {
       expand?: string[]
       refund: string
@@ -20365,7 +20861,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20380,7 +20878,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRefundsRefund(
+  async postRefundsRefund(
     p: {
       refund: string
       requestBody?: {
@@ -20394,7 +20892,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20408,7 +20908,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postRefundsRefundCancel(
+  async postRefundsRefundCancel(
     p: {
       refund: string
       requestBody?: {
@@ -20417,7 +20917,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -20431,7 +20933,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReportingReportRuns(
+  async getReportingReportRuns(
     p: {
       created?:
         | {
@@ -20449,17 +20951,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_reporting_report_run[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_reporting_report_run[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
     const headers = this._headers({
@@ -20481,7 +20985,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postReportingReportRuns(
+  async postReportingReportRuns(
     p: {
       requestBody: {
         expand?: string[]
@@ -21132,8 +21636,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
     const headers = this._headers({
@@ -21148,7 +21654,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReportingReportRunsReportRun(
+  async getReportingReportRunsReportRun(
     p: {
       expand?: string[]
       reportRun: string
@@ -21156,8 +21662,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
     const headers = this._headers({
@@ -21173,24 +21681,26 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReportingReportTypes(
+  async getReportingReportTypes(
     p: {
       expand?: string[]
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_reporting_report_type[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_reporting_report_type[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reporting/report_types`
     const headers = this._headers({
@@ -21206,7 +21716,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReportingReportTypesReportType(
+  async getReportingReportTypesReportType(
     p: {
       expand?: string[]
       reportType: string
@@ -21214,8 +21724,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_reporting_report_type> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reporting_report_type> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
     const headers = this._headers({
@@ -21231,7 +21743,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReviews(
+  async getReviews(
     p: {
       created?:
         | {
@@ -21249,17 +21761,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_review[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_review[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/reviews`
     const headers = this._headers({
@@ -21281,7 +21795,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getReviewsReview(
+  async getReviewsReview(
     p: {
       expand?: string[]
       review: string
@@ -21289,7 +21803,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21304,7 +21820,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postReviewsReviewApprove(
+  async postReviewsReviewApprove(
     p: {
       review: string
       requestBody?: {
@@ -21313,7 +21829,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/reviews/${p["review"]}/approve`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21327,7 +21845,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSetupAttempts(
+  async getSetupAttempts(
     p: {
       created?:
         | {
@@ -21346,17 +21864,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_setup_attempt[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_setup_attempt[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/setup_attempts`
     const headers = this._headers({
@@ -21379,7 +21899,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSetupIntents(
+  async getSetupIntents(
     p: {
       attachToSelf?: boolean
       created?:
@@ -21400,17 +21920,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_setup_intent[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_setup_intent[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/setup_intents`
     const headers = this._headers({
@@ -21435,7 +21957,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSetupIntents(
+  async postSetupIntents(
     p: {
       requestBody?: {
         attach_to_self?: boolean
@@ -21743,7 +22265,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/setup_intents`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21757,7 +22281,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSetupIntentsIntent(
+  async getSetupIntentsIntent(
     p: {
       clientSecret?: string
       expand?: string[]
@@ -21766,7 +22290,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -21784,7 +22310,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSetupIntentsIntent(
+  async postSetupIntentsIntent(
     p: {
       intent: string
       requestBody?: {
@@ -22073,7 +22599,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22087,7 +22615,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSetupIntentsIntentCancel(
+  async postSetupIntentsIntentCancel(
     p: {
       intent: string
       requestBody?: {
@@ -22100,7 +22628,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22114,7 +22644,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSetupIntentsIntentConfirm(
+  async postSetupIntentsIntentConfirm(
     p: {
       intent: string
       requestBody?: {
@@ -22416,7 +22946,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/confirm`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22430,7 +22962,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSetupIntentsIntentVerifyMicrodeposits(
+  async postSetupIntentsIntentVerifyMicrodeposits(
     p: {
       intent: string
       requestBody?: {
@@ -22442,7 +22974,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/setup_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers({
@@ -22457,7 +22991,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getShippingRates(
+  async getShippingRates(
     p: {
       active?: boolean
       created?:
@@ -22477,17 +23011,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_shipping_rate[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_shipping_rate[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/shipping_rates`
     const headers = this._headers({
@@ -22511,7 +23047,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postShippingRates(
+  async postShippingRates(
     p: {
       requestBody: {
         delivery_estimate?: {
@@ -22546,7 +23082,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/shipping_rates`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22560,7 +23098,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getShippingRatesShippingRateToken(
+  async getShippingRatesShippingRateToken(
     p: {
       expand?: string[]
       shippingRateToken: string
@@ -22568,7 +23106,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22583,7 +23123,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postShippingRatesShippingRateToken(
+  async postShippingRatesShippingRateToken(
     p: {
       shippingRateToken: string
       requestBody?: {
@@ -22607,7 +23147,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22621,7 +23163,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSigmaScheduledQueryRuns(
+  async getSigmaScheduledQueryRuns(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -22631,17 +23173,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_scheduled_query_run[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_scheduled_query_run[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/sigma/scheduled_query_runs`
     const headers = this._headers({
@@ -22662,7 +23206,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSigmaScheduledQueryRunsScheduledQueryRun(
+  async getSigmaScheduledQueryRunsScheduledQueryRun(
     p: {
       expand?: string[]
       scheduledQueryRun: string
@@ -22670,8 +23214,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
@@ -22688,7 +23234,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSources(
+  async postSources(
     p: {
       requestBody?: {
         amount?: number
@@ -22777,7 +23323,9 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/sources`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22791,7 +23339,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSourcesSource(
+  async getSourcesSource(
     p: {
       clientSecret?: string
       expand?: string[]
@@ -22800,7 +23348,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22818,7 +23368,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSourcesSource(
+  async postSourcesSource(
     p: {
       source: string
       requestBody?: {
@@ -22896,7 +23446,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -22910,7 +23462,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSourcesSourceMandateNotificationsMandateNotification(
+  async getSourcesSourceMandateNotificationsMandateNotification(
     p: {
       expand?: string[]
       mandateNotification: string
@@ -22919,8 +23471,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -22938,7 +23492,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSourcesSourceSourceTransactions(
+  async getSourcesSourceSourceTransactions(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -22949,17 +23503,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_source_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_source_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/source_transactions`
     const headers = this._headers({
@@ -22980,7 +23536,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSourcesSourceSourceTransactionsSourceTransaction(
+  async getSourcesSourceSourceTransactionsSourceTransaction(
     p: {
       expand?: string[]
       source: string
@@ -22989,8 +23545,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_source_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_source_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -23008,7 +23566,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSourcesSourceVerify(
+  async postSourcesSourceVerify(
     p: {
       source: string
       requestBody: {
@@ -23018,7 +23576,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/sources/${p["source"]}/verify`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23032,7 +23592,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionItems(
+  async getSubscriptionItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -23043,17 +23603,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_subscription_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_subscription_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_items`
     const headers = this._headers({
@@ -23075,7 +23637,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionItems(
+  async postSubscriptionItems(
     p: {
       requestBody: {
         billing_thresholds?:
@@ -23113,8 +23675,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items`
     const headers = this._headers({
@@ -23129,7 +23691,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteSubscriptionItemsItem(
+  async deleteSubscriptionItemsItem(
     p: {
       item: string
       requestBody?: {
@@ -23140,8 +23702,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers({
@@ -23156,7 +23720,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionItemsItem(
+  async getSubscriptionItemsItem(
     p: {
       expand?: string[]
       item: string
@@ -23164,8 +23728,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers({
@@ -23181,7 +23745,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionItemsItem(
+  async postSubscriptionItemsItem(
     p: {
       item: string
       requestBody?: {
@@ -23222,8 +23786,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_item> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers({
@@ -23238,7 +23802,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
+  async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -23249,17 +23813,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_usage_record_summary[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_usage_record_summary[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -23282,7 +23848,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionItemsSubscriptionItemUsageRecords(
+  async postSubscriptionItemsSubscriptionItemUsageRecords(
     p: {
       subscriptionItem: string
       requestBody: {
@@ -23294,7 +23860,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_usage_record> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_usage_record> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/subscription_items/${p["subscriptionItem"]}/usage_records`
@@ -23310,7 +23878,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionSchedules(
+  async getSubscriptionSchedules(
     p: {
       canceledAt?:
         | {
@@ -23354,17 +23922,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_subscription_schedule[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_subscription_schedule[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_schedules`
     const headers = this._headers({
@@ -23391,7 +23961,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionSchedules(
+  async postSubscriptionSchedules(
     p: {
       requestBody?: {
         customer?: string
@@ -23505,8 +24075,10 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_schedules`
     const headers = this._headers({
@@ -23521,7 +24093,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionSchedulesSchedule(
+  async getSubscriptionSchedulesSchedule(
     p: {
       expand?: string[]
       schedule: string
@@ -23529,8 +24101,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers({
@@ -23546,7 +24120,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionSchedulesSchedule(
+  async postSubscriptionSchedulesSchedule(
     p: {
       schedule: string
       requestBody?: {
@@ -23659,8 +24233,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers({
@@ -23675,7 +24251,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionSchedulesScheduleCancel(
+  async postSubscriptionSchedulesScheduleCancel(
     p: {
       schedule: string
       requestBody?: {
@@ -23686,8 +24262,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/cancel`
@@ -23703,7 +24281,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionSchedulesScheduleRelease(
+  async postSubscriptionSchedulesScheduleRelease(
     p: {
       schedule: string
       requestBody?: {
@@ -23713,8 +24291,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/release`
@@ -23730,7 +24310,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptions(
+  async getSubscriptions(
     p: {
       collectionMethod?: "charge_automatically" | "send_invoice"
       created?:
@@ -23779,17 +24359,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_subscription[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_subscription[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscriptions`
     const headers = this._headers({
@@ -23818,7 +24400,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptions(
+  async postSubscriptions(
     p: {
       requestBody: {
         add_invoice_items?: {
@@ -24013,7 +24595,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/subscriptions`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24027,7 +24611,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionsSearch(
+  async getSubscriptionsSearch(
     p: {
       expand?: string[]
       limit?: number
@@ -24037,19 +24621,21 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_subscription[]
-          has_more: boolean
-          next_page?: string | null
-          object: "search_result"
-          total_count?: number
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_subscription[]
+            has_more: boolean
+            next_page?: string | null
+            object: "search_result"
+            total_count?: number
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/subscriptions/search`
     const headers = this._headers({
@@ -24070,7 +24656,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteSubscriptionsSubscriptionExposedId(
+  async deleteSubscriptionsSubscriptionExposedId(
     p: {
       subscriptionExposedId: string
       requestBody?: {
@@ -24094,7 +24680,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({
@@ -24109,7 +24697,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getSubscriptionsSubscriptionExposedId(
+  async getSubscriptionsSubscriptionExposedId(
     p: {
       expand?: string[]
       subscriptionExposedId: string
@@ -24117,7 +24705,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({
@@ -24133,7 +24723,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionsSubscriptionExposedId(
+  async postSubscriptionsSubscriptionExposedId(
     p: {
       subscriptionExposedId: string
       requestBody?: {
@@ -24352,7 +24942,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers({
@@ -24367,15 +24959,15 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteSubscriptionsSubscriptionExposedIdDiscount(
+  async deleteSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       subscriptionExposedId: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_discount> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
@@ -24391,7 +24983,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postSubscriptionsSubscriptionResume(
+  async postSubscriptionsSubscriptionResume(
     p: {
       subscription: string
       requestBody?: {
@@ -24403,7 +24995,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/subscriptions/${p["subscription"]}/resume`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24417,7 +25011,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTaxCalculations(
+  async postTaxCalculations(
     p: {
       requestBody: {
         currency: string
@@ -24510,8 +25104,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_tax_calculation> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/calculations`
     const headers = this._headers({
@@ -24526,7 +25120,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxCalculationsCalculationLineItems(
+  async getTaxCalculationsCalculationLineItems(
     p: {
       calculation: string
       endingBefore?: string
@@ -24537,17 +25131,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_tax_calculation_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_tax_calculation_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/tax/calculations/${p["calculation"]}/line_items`
@@ -24569,7 +25165,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTaxTransactionsCreateFromCalculation(
+  async postTaxTransactionsCreateFromCalculation(
     p: {
       requestBody: {
         calculation: string
@@ -24582,8 +25178,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_tax_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/create_from_calculation`
     const headers = this._headers({
@@ -24598,7 +25194,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTaxTransactionsCreateReversal(
+  async postTaxTransactionsCreateReversal(
     p: {
       requestBody: {
         expand?: string[]
@@ -24626,8 +25222,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_tax_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/create_reversal`
     const headers = this._headers({
@@ -24642,7 +25238,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxTransactionsTransaction(
+  async getTaxTransactionsTransaction(
     p: {
       expand?: string[]
       transaction: string
@@ -24650,8 +25246,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_tax_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
     const headers = this._headers({
@@ -24667,7 +25263,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxTransactionsTransactionLineItems(
+  async getTaxTransactionsTransactionLineItems(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -24678,17 +25274,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_tax_transaction_line_item[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_tax_transaction_line_item[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/tax/transactions/${p["transaction"]}/line_items`
@@ -24710,7 +25308,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxCodes(
+  async getTaxCodes(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -24720,17 +25318,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_tax_code[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_tax_code[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/tax_codes`
     const headers = this._headers({
@@ -24751,7 +25351,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxCodesId(
+  async getTaxCodesId(
     p: {
       expand?: string[]
       id: string
@@ -24759,7 +25359,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24774,7 +25376,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxRates(
+  async getTaxRates(
     p: {
       active?: boolean
       created?:
@@ -24794,17 +25396,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_tax_rate[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_tax_rate[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/tax_rates`
     const headers = this._headers({
@@ -24828,7 +25432,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTaxRates(
+  async postTaxRates(
     p: {
       requestBody: {
         active?: boolean
@@ -24858,7 +25462,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/tax_rates`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24872,7 +25478,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTaxRatesTaxRate(
+  async getTaxRatesTaxRate(
     p: {
       expand?: string[]
       taxRate: string
@@ -24880,7 +25486,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24895,7 +25503,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTaxRatesTaxRate(
+  async postTaxRatesTaxRate(
     p: {
       taxRate: string
       requestBody?: {
@@ -24926,7 +25534,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24940,7 +25550,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalConfigurations(
+  async getTerminalConfigurations(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -24951,17 +25561,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_terminal_configuration[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_terminal_configuration[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/configurations`
     const headers = this._headers({
@@ -24983,7 +25595,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalConfigurations(
+  async postTerminalConfigurations(
     p: {
       requestBody?: {
         bbpos_wisepos_e?: {
@@ -25071,8 +25683,10 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_configuration> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_terminal_configuration> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/configurations`
     const headers = this._headers({
@@ -25087,15 +25701,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteTerminalConfigurationsConfiguration(
+  async deleteTerminalConfigurationsConfiguration(
     p: {
       configuration: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -25111,7 +25727,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalConfigurationsConfiguration(
+  async getTerminalConfigurationsConfiguration(
     p: {
       configuration: string
       expand?: string[]
@@ -25119,9 +25735,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -25138,7 +25756,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalConfigurationsConfiguration(
+  async postTerminalConfigurationsConfiguration(
     p: {
       configuration: string
       requestBody?: {
@@ -25231,9 +25849,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -25249,7 +25869,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalConnectionTokens(
+  async postTerminalConnectionTokens(
     p: {
       requestBody?: {
         expand?: string[]
@@ -25258,8 +25878,10 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/connection_tokens`
     const headers = this._headers({
@@ -25274,7 +25896,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalLocations(
+  async getTerminalLocations(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -25284,17 +25906,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_terminal_location[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_terminal_location[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/locations`
     const headers = this._headers({
@@ -25315,7 +25939,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalLocations(
+  async postTerminalLocations(
     p: {
       requestBody: {
         address: {
@@ -25338,8 +25962,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_location> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_location> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/terminal/locations`
     const headers = this._headers({
@@ -25354,15 +25978,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteTerminalLocationsLocation(
+  async deleteTerminalLocationsLocation(
     p: {
       location: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers({
@@ -25377,7 +26003,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalLocationsLocation(
+  async getTerminalLocationsLocation(
     p: {
       expand?: string[]
       location: string
@@ -25385,9 +26011,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_location | t_deleted_terminal_location>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_location | t_deleted_terminal_location>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers({
@@ -25403,7 +26031,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalLocationsLocation(
+  async postTerminalLocationsLocation(
     p: {
       location: string
       requestBody?: {
@@ -25427,9 +26055,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_location | t_deleted_terminal_location>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_location | t_deleted_terminal_location>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers({
@@ -25444,7 +26074,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalReaders(
+  async getTerminalReaders(
     p: {
       deviceType?:
         | "bbpos_chipper2x"
@@ -25463,17 +26093,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_terminal_reader[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_terminal_reader[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/readers`
     const headers = this._headers({
@@ -25497,7 +26129,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReaders(
+  async postTerminalReaders(
     p: {
       requestBody: {
         expand?: string[]
@@ -25513,8 +26145,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/terminal/readers`
     const headers = this._headers({
@@ -25529,15 +26161,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteTerminalReadersReader(
+  async deleteTerminalReadersReader(
     p: {
       reader: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers({
@@ -25552,7 +26186,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTerminalReadersReader(
+  async getTerminalReadersReader(
     p: {
       expand?: string[]
       reader: string
@@ -25560,9 +26194,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers({
@@ -25578,7 +26214,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReader(
+  async postTerminalReadersReader(
     p: {
       reader: string
       requestBody?: {
@@ -25593,9 +26229,11 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers({
@@ -25610,7 +26248,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReaderCancelAction(
+  async postTerminalReadersReaderCancelAction(
     p: {
       reader: string
       requestBody?: {
@@ -25619,8 +26257,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/cancel_action`
@@ -25636,7 +26274,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReaderProcessPaymentIntent(
+  async postTerminalReadersReaderProcessPaymentIntent(
     p: {
       reader: string
       requestBody: {
@@ -25652,8 +26290,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath +
@@ -25670,7 +26308,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReaderProcessSetupIntent(
+  async postTerminalReadersReaderProcessSetupIntent(
     p: {
       reader: string
       requestBody: {
@@ -25681,8 +26319,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/process_setup_intent`
@@ -25698,7 +26336,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReaderRefundPayment(
+  async postTerminalReadersReaderRefundPayment(
     p: {
       reader: string
       requestBody?: {
@@ -25715,8 +26353,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/refund_payment`
@@ -25732,7 +26370,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTerminalReadersReaderSetReaderDisplay(
+  async postTerminalReadersReaderSetReaderDisplay(
     p: {
       reader: string
       requestBody: {
@@ -25752,8 +26390,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/set_reader_display`
@@ -25769,7 +26407,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersCustomersCustomerFundCashBalance(
+  async postTestHelpersCustomersCustomerFundCashBalance(
     p: {
       customer: string
       requestBody: {
@@ -25781,8 +26419,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -25799,7 +26439,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersIssuingCardsCardShippingDeliver(
+  async postTestHelpersIssuingCardsCardShippingDeliver(
     p: {
       card: string
       requestBody?: {
@@ -25808,7 +26448,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/deliver`
@@ -25824,7 +26466,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersIssuingCardsCardShippingFail(
+  async postTestHelpersIssuingCardsCardShippingFail(
     p: {
       card: string
       requestBody?: {
@@ -25833,7 +26475,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/fail`
@@ -25849,7 +26493,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersIssuingCardsCardShippingReturn(
+  async postTestHelpersIssuingCardsCardShippingReturn(
     p: {
       card: string
       requestBody?: {
@@ -25858,7 +26502,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/return`
@@ -25874,7 +26520,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersIssuingCardsCardShippingShip(
+  async postTestHelpersIssuingCardsCardShippingShip(
     p: {
       card: string
       requestBody?: {
@@ -25883,7 +26529,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
+  > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
@@ -25899,7 +26547,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersRefundsRefundExpire(
+  async postTestHelpersRefundsRefundExpire(
     p: {
       refund: string
       requestBody?: {
@@ -25908,7 +26556,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/test_helpers/refunds/${p["refund"]}/expire`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -25922,7 +26572,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTerminalReadersReaderPresentPaymentMethod(
+  async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
     p: {
       reader: string
       requestBody?: {
@@ -25939,8 +26589,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_terminal_reader> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath +
@@ -25957,7 +26607,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTestHelpersTestClocks(
+  async getTestHelpersTestClocks(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -25967,17 +26617,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_test_helpers_test_clock[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_test_helpers_test_clock[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
     const headers = this._headers({
@@ -25998,7 +26650,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTestClocks(
+  async postTestHelpersTestClocks(
     p: {
       requestBody: {
         expand?: string[]
@@ -26008,8 +26660,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
     const headers = this._headers({
@@ -26024,15 +26678,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteTestHelpersTestClocksTestClock(
+  async deleteTestHelpersTestClocksTestClock(
     p: {
       testClock: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers({
@@ -26047,7 +26703,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTestHelpersTestClocksTestClock(
+  async getTestHelpersTestClocksTestClock(
     p: {
       expand?: string[]
       testClock: string
@@ -26055,8 +26711,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers({
@@ -26072,7 +26730,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTestClocksTestClockAdvance(
+  async postTestHelpersTestClocksTestClockAdvance(
     p: {
       testClock: string
       requestBody: {
@@ -26082,8 +26740,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}/advance`
@@ -26099,7 +26759,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryInboundTransfersIdFail(
+  async postTestHelpersTreasuryInboundTransfersIdFail(
     p: {
       id: string
       requestBody?: {
@@ -26124,8 +26784,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26142,7 +26804,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryInboundTransfersIdReturn(
+  async postTestHelpersTreasuryInboundTransfersIdReturn(
     p: {
       id: string
       requestBody?: {
@@ -26151,8 +26813,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26169,7 +26833,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryInboundTransfersIdSucceed(
+  async postTestHelpersTreasuryInboundTransfersIdSucceed(
     p: {
       id: string
       requestBody?: {
@@ -26178,8 +26842,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26196,7 +26862,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundPaymentsIdFail(
+  async postTestHelpersTreasuryOutboundPaymentsIdFail(
     p: {
       id: string
       requestBody?: {
@@ -26205,8 +26871,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26223,7 +26891,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundPaymentsIdPost(
+  async postTestHelpersTreasuryOutboundPaymentsIdPost(
     p: {
       id: string
       requestBody?: {
@@ -26232,8 +26900,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26250,7 +26920,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundPaymentsIdReturn(
+  async postTestHelpersTreasuryOutboundPaymentsIdReturn(
     p: {
       id: string
       requestBody?: {
@@ -26272,8 +26942,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26290,7 +26962,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
+  async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
     p: {
       outboundTransfer: string
       requestBody?: {
@@ -26299,8 +26971,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26317,7 +26991,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
+  async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
     p: {
       outboundTransfer: string
       requestBody?: {
@@ -26326,8 +27000,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26344,7 +27020,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
+  async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
     p: {
       outboundTransfer: string
       requestBody?: {
@@ -26366,8 +27042,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -26384,7 +27062,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryReceivedCredits(
+  async postTestHelpersTreasuryReceivedCredits(
     p: {
       requestBody: {
         amount: number
@@ -26405,8 +27083,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/treasury/received_credits`
     const headers = this._headers({
@@ -26421,7 +27101,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTestHelpersTreasuryReceivedDebits(
+  async postTestHelpersTreasuryReceivedDebits(
     p: {
       requestBody: {
         amount: number
@@ -26442,8 +27122,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/test_helpers/treasury/received_debits`
     const headers = this._headers({
@@ -26458,7 +27140,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTokens(
+  async postTokens(
     p: {
       requestBody?: {
         account?: {
@@ -26747,7 +27429,7 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26761,7 +27443,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTokensToken(
+  async getTokensToken(
     p: {
       expand?: string[]
       token: string
@@ -26769,7 +27451,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26784,7 +27466,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTopups(
+  async getTopups(
     p: {
       amount?:
         | {
@@ -26811,17 +27493,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_topup[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_topup[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/topups`
     const headers = this._headers({
@@ -26845,7 +27529,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTopups(
+  async postTopups(
     p: {
       requestBody: {
         amount: number
@@ -26864,7 +27548,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26878,7 +27562,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTopupsTopup(
+  async getTopupsTopup(
     p: {
       expand?: string[]
       topup: string
@@ -26886,7 +27570,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26901,7 +27585,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTopupsTopup(
+  async postTopupsTopup(
     p: {
       topup: string
       requestBody?: {
@@ -26916,7 +27600,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26930,7 +27614,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTopupsTopupCancel(
+  async postTopupsTopupCancel(
     p: {
       topup: string
       requestBody?: {
@@ -26939,7 +27623,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>> {
+  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}/cancel`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -26953,7 +27637,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTransfers(
+  async getTransfers(
     p: {
       created?:
         | {
@@ -26973,17 +27657,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_transfer[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_transfer[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/transfers`
     const headers = this._headers({
@@ -27007,7 +27693,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTransfers(
+  async postTransfers(
     p: {
       requestBody: {
         amount?: number
@@ -27025,7 +27711,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/transfers`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27039,7 +27727,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTransfersIdReversals(
+  async getTransfersIdReversals(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -27050,17 +27738,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_transfer_reversal[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_transfer_reversal[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers({
@@ -27081,7 +27771,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTransfersIdReversals(
+  async postTransfersIdReversals(
     p: {
       id: string
       requestBody?: {
@@ -27098,8 +27788,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_transfer_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers({
@@ -27114,7 +27804,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTransfersTransfer(
+  async getTransfersTransfer(
     p: {
       expand?: string[]
       transfer: string
@@ -27122,7 +27812,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27137,7 +27829,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTransfersTransfer(
+  async postTransfersTransfer(
     p: {
       transfer: string
       requestBody?: {
@@ -27152,7 +27844,9 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>> {
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
+  > {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -27166,7 +27860,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTransfersTransferReversalsId(
+  async getTransfersTransferReversalsId(
     p: {
       expand?: string[]
       id: string
@@ -27175,8 +27869,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_transfer_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
@@ -27193,7 +27887,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTransfersTransferReversalsId(
+  async postTransfersTransferReversalsId(
     p: {
       id: string
       transfer: string
@@ -27208,8 +27902,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_transfer_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
@@ -27225,7 +27919,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryCreditReversals(
+  async getTreasuryCreditReversals(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -27238,17 +27932,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_credit_reversal[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_credit_reversal[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
     const headers = this._headers({
@@ -27272,7 +27968,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryCreditReversals(
+  async postTreasuryCreditReversals(
     p: {
       requestBody: {
         expand?: string[]
@@ -27284,8 +27980,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
     const headers = this._headers({
@@ -27300,7 +27998,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryCreditReversalsCreditReversal(
+  async getTreasuryCreditReversalsCreditReversal(
     p: {
       creditReversal: string
       expand?: string[]
@@ -27308,8 +28006,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
@@ -27326,7 +28026,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryDebitReversals(
+  async getTreasuryDebitReversals(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -27340,17 +28040,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_debit_reversal[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_debit_reversal[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
     const headers = this._headers({
@@ -27375,7 +28077,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryDebitReversals(
+  async postTreasuryDebitReversals(
     p: {
       requestBody: {
         expand?: string[]
@@ -27387,8 +28089,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
     const headers = this._headers({
@@ -27403,7 +28107,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryDebitReversalsDebitReversal(
+  async getTreasuryDebitReversalsDebitReversal(
     p: {
       debitReversal: string
       expand?: string[]
@@ -27411,8 +28115,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
@@ -27429,7 +28135,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryFinancialAccounts(
+  async getTreasuryFinancialAccounts(
     p: {
       created?:
         | {
@@ -27447,17 +28153,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_financial_account[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_financial_account[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
     const headers = this._headers({
@@ -27479,7 +28187,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryFinancialAccounts(
+  async postTreasuryFinancialAccounts(
     p: {
       requestBody: {
         expand?: string[]
@@ -27532,8 +28240,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
     const headers = this._headers({
@@ -27548,7 +28258,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryFinancialAccountsFinancialAccount(
+  async getTreasuryFinancialAccountsFinancialAccount(
     p: {
       expand?: string[]
       financialAccount: string
@@ -27556,8 +28266,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
@@ -27574,7 +28286,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryFinancialAccountsFinancialAccount(
+  async postTreasuryFinancialAccountsFinancialAccount(
     p: {
       financialAccount: string
       requestBody?: {
@@ -27627,8 +28339,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
@@ -27644,7 +28358,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryFinancialAccountsFinancialAccountFeatures(
+  async getTreasuryFinancialAccountsFinancialAccountFeatures(
     p: {
       expand?: string[]
       financialAccount: string
@@ -27652,8 +28366,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -27671,7 +28387,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryFinancialAccountsFinancialAccountFeatures(
+  async postTreasuryFinancialAccountsFinancialAccountFeatures(
     p: {
       financialAccount: string
       requestBody?: {
@@ -27715,8 +28431,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -27733,7 +28451,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryInboundTransfers(
+  async getTreasuryInboundTransfers(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -27745,17 +28463,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_inbound_transfer[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_inbound_transfer[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
     const headers = this._headers({
@@ -27778,7 +28498,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryInboundTransfers(
+  async postTreasuryInboundTransfers(
     p: {
       requestBody: {
         amount: number
@@ -27795,8 +28515,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
     const headers = this._headers({
@@ -27811,7 +28533,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryInboundTransfersId(
+  async getTreasuryInboundTransfersId(
     p: {
       expand?: string[]
       id: string
@@ -27819,8 +28541,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
     const headers = this._headers({
@@ -27836,7 +28560,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryInboundTransfersInboundTransferCancel(
+  async postTreasuryInboundTransfersInboundTransferCancel(
     p: {
       inboundTransfer: string
       requestBody?: {
@@ -27845,8 +28569,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -27863,7 +28589,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryOutboundPayments(
+  async getTreasuryOutboundPayments(
     p: {
       customer?: string
       endingBefore?: string
@@ -27876,17 +28602,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_outbound_payment[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_outbound_payment[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
     const headers = this._headers({
@@ -27910,7 +28638,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryOutboundPayments(
+  async postTreasuryOutboundPayments(
     p: {
       requestBody: {
         amount: number
@@ -27968,8 +28696,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
     const headers = this._headers({
@@ -27984,7 +28714,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryOutboundPaymentsId(
+  async getTreasuryOutboundPaymentsId(
     p: {
       expand?: string[]
       id: string
@@ -27992,8 +28722,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers({
@@ -28009,7 +28741,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryOutboundPaymentsIdCancel(
+  async postTreasuryOutboundPaymentsIdCancel(
     p: {
       id: string
       requestBody?: {
@@ -28018,8 +28750,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_payments/${p["id"]}/cancel`
@@ -28035,7 +28769,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryOutboundTransfers(
+  async getTreasuryOutboundTransfers(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -28047,17 +28781,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_outbound_transfer[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_outbound_transfer[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
     const headers = this._headers({
@@ -28080,7 +28816,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryOutboundTransfers(
+  async postTreasuryOutboundTransfers(
     p: {
       requestBody: {
         amount: number
@@ -28104,8 +28840,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
     const headers = this._headers({
@@ -28120,7 +28858,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryOutboundTransfersOutboundTransfer(
+  async getTreasuryOutboundTransfersOutboundTransfer(
     p: {
       expand?: string[]
       outboundTransfer: string
@@ -28128,8 +28866,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
@@ -28146,7 +28886,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postTreasuryOutboundTransfersOutboundTransferCancel(
+  async postTreasuryOutboundTransfersOutboundTransferCancel(
     p: {
       outboundTransfer: string
       requestBody?: {
@@ -28155,8 +28895,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
   > {
     const url =
       this.basePath +
@@ -28173,7 +28915,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryReceivedCredits(
+  async getTreasuryReceivedCredits(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -28192,17 +28934,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_received_credit[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_received_credit[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/received_credits`
     const headers = this._headers({
@@ -28226,7 +28970,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryReceivedCreditsId(
+  async getTreasuryReceivedCreditsId(
     p: {
       expand?: string[]
       id: string
@@ -28234,8 +28978,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
     const headers = this._headers({
@@ -28251,7 +28997,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryReceivedDebits(
+  async getTreasuryReceivedDebits(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -28263,17 +29009,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_received_debit[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_received_debit[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/received_debits`
     const headers = this._headers({
@@ -28296,7 +29044,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryReceivedDebitsId(
+  async getTreasuryReceivedDebitsId(
     p: {
       expand?: string[]
       id: string
@@ -28304,8 +29052,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
     const headers = this._headers({
@@ -28321,7 +29071,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryTransactionEntries(
+  async getTreasuryTransactionEntries(
     p: {
       created?:
         | {
@@ -28350,17 +29100,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_transaction_entry[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_transaction_entry[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries`
     const headers = this._headers({
@@ -28386,7 +29138,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryTransactionEntriesId(
+  async getTreasuryTransactionEntriesId(
     p: {
       expand?: string[]
       id: string
@@ -28394,8 +29146,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
     const headers = this._headers({
@@ -28411,7 +29165,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryTransactions(
+  async getTreasuryTransactions(
     p: {
       created?:
         | {
@@ -28442,17 +29196,19 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_treasury_transaction[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_treasury_transaction[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/transactions`
     const headers = this._headers({
@@ -28478,7 +29234,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getTreasuryTransactionsId(
+  async getTreasuryTransactionsId(
     p: {
       expand?: string[]
       id: string
@@ -28486,8 +29242,10 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_treasury_transaction> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_transaction> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
     const headers = this._headers({
@@ -28503,7 +29261,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getWebhookEndpoints(
+  async getWebhookEndpoints(
     p: {
       endingBefore?: string
       expand?: string[]
@@ -28513,17 +29271,19 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    | Res<
-        200,
-        {
-          data: t_webhook_endpoint[]
-          has_more: boolean
-          object: "list"
-          url: string
-        }
-      >
-    | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_webhook_endpoint[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
     const headers = this._headers({
@@ -28544,7 +29304,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postWebhookEndpoints(
+  async postWebhookEndpoints(
     p: {
       requestBody: {
         api_version?:
@@ -28884,8 +29644,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
     const headers = this._headers({
@@ -28900,15 +29660,17 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteWebhookEndpointsWebhookEndpoint(
+  async deleteWebhookEndpointsWebhookEndpoint(
     p: {
       webhookEndpoint: string
       requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>
+    >
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers({
@@ -28923,7 +29685,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  getWebhookEndpointsWebhookEndpoint(
+  async getWebhookEndpointsWebhookEndpoint(
     p: {
       expand?: string[]
       webhookEndpoint: string
@@ -28931,8 +29693,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers({
@@ -28948,7 +29710,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  postWebhookEndpointsWebhookEndpoint(
+  async postWebhookEndpointsWebhookEndpoint(
     p: {
       webhookEndpoint: string
       requestBody?: {
@@ -29190,8 +29952,8 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>
+  ): Promise<
+    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers({

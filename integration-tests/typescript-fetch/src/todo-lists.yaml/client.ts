@@ -22,43 +22,47 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  getTodoLists(
+  async getTodoLists(
     p: {
       created?: string
       status?: "incomplete" | "complete"
     } = {},
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<Res<200, t_TodoList[]>> {
+  ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
     const url = this.basePath + `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  getTodoListById(
+  async getTodoListById(
     p: {
       listId: string
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  updateTodoListById(
+  async updateTodoListById(
     p: {
       listId: string
       requestBody: t_CreateUpdateTodoList
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -71,14 +75,16 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  deleteTodoListById(
+  async deleteTodoListById(
     p: {
       listId: string
     },
     timeout?: number,
     opts?: RequestInit
-  ): TypedFetchResponse<
-    Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
 
