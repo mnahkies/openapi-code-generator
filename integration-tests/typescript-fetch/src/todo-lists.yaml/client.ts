@@ -6,12 +6,13 @@ import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
-  Response,
+  Res,
   StatusCode,
   StatusCode2xx,
   StatusCode3xx,
   StatusCode4xx,
   StatusCode5xx,
+  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
@@ -25,60 +26,68 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       created?: string
       status?: "incomplete" | "complete"
-    } = {}
-  ): Promise<Response<200, t_TodoList[]>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
     const url = this.basePath + `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async getTodoListById(p: {
-    listId: string
-  }): Promise<
-    | Response<200, t_TodoList>
-    | Response<StatusCode4xx, t_Error>
-    | Response<StatusCode, void>
+  async getTodoListById(
+    p: {
+      listId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async updateTodoListById(p: {
-    listId: string
-    requestBody: t_CreateUpdateTodoList
-  }): Promise<
-    | Response<200, t_TodoList>
-    | Response<StatusCode4xx, t_Error>
-    | Response<StatusCode, void>
+  async updateTodoListById(
+    p: {
+      listId: string
+      requestBody: t_CreateUpdateTodoList
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async deleteTodoListById(p: {
-    listId: string
-  }): Promise<
-    | Response<204, void>
-    | Response<StatusCode4xx, t_Error>
-    | Response<StatusCode, void>
+  async deleteTodoListById(
+    p: {
+      listId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
+    >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 }

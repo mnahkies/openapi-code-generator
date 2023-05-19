@@ -275,12 +275,13 @@ import {
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
-  Response,
+  Res,
   StatusCode,
   StatusCode2xx,
   StatusCode3xx,
   StatusCode4xx,
   StatusCode5xx,
+  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
@@ -290,75 +291,86 @@ export class ApiClient extends AbstractFetchClient {
     super(config)
   }
 
-  async metaRoot(): Promise<Response<200, t_root>> {
+  async metaRoot(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_root>>> {
     const url = this.basePath + `/`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetAuthenticated(): Promise<Response<200, t_integration>> {
+  async appsGetAuthenticated(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_integration>>> {
     const url = this.basePath + `/app`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsCreateFromManifest(p: { code: string }): Promise<
-    | Response<
-        201,
-        t_integration &
-          (
-            | {
-                client_id: string
-                client_secret: string
-                pem: string
-                webhook_secret: string | null
-              }
-            | {
-                [key: string]: unknown
-              }
-          )
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async appsCreateFromManifest(
+    p: {
+      code: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          201,
+          t_integration &
+            (
+              | {
+                  client_id: string
+                  client_secret: string
+                  pem: string
+                  webhook_secret: string | null
+                }
+              | {
+                  [key: string]: unknown
+                }
+            )
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/app-manifests/${p["code"]}/conversions`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetWebhookConfigForApp(): Promise<Response<200, t_webhook_config>> {
+  async appsGetWebhookConfigForApp(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsUpdateWebhookConfigForApp(p: {
-    requestBody: {
-      content_type?: t_webhook_config_content_type
-      insecure_ssl?: t_webhook_config_insecure_ssl
-      secret?: t_webhook_config_secret
-      url?: t_webhook_config_url
-    }
-  }): Promise<Response<200, t_webhook_config>> {
+  async appsUpdateWebhookConfigForApp(
+    p: {
+      requestBody: {
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
+        secret?: t_webhook_config_secret
+        url?: t_webhook_config_url
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async appsListWebhookDeliveries(
@@ -366,11 +378,15 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       cursor?: string
       redelivery?: boolean
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_hook_delivery_item[]>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery_item[]>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/app/hook/deliveries`
     const query = this._query({
@@ -378,59 +394,65 @@ export class ApiClient extends AbstractFetchClient {
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetWebhookDelivery(p: {
-    deliveryId: number
-  }): Promise<
-    | Response<200, t_hook_delivery>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async appsGetWebhookDelivery(
+    p: {
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/app/hook/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsRedeliverWebhookDelivery(p: {
-    deliveryId: number
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async appsRedeliverWebhookDelivery(
+    p: {
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
   async appsListInstallationRequestsForAuthenticatedApp(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_integration_installation_request[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_integration_installation_request[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+    >
   > {
     const url = this.basePath + `/app/installation-requests`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async appsListInstallations(
@@ -439,8 +461,10 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
       since?: string
       outdated?: string
-    } = {}
-  ): Promise<Response<200, t_installation[]>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_installation[]>>> {
     const url = this.basePath + `/app/installations`
     const query = this._query({
       per_page: p["perPage"],
@@ -448,252 +472,314 @@ export class ApiClient extends AbstractFetchClient {
       since: p["since"],
       outdated: p["outdated"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetInstallation(p: {
-    installationId: number
-  }): Promise<Response<200, t_installation> | Response<404, t_basic_error>> {
+  async appsGetInstallation(
+    p: {
+      installationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_installation> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/app/installations/${p["installationId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsDeleteInstallation(p: {
-    installationId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async appsDeleteInstallation(
+    p: {
+      installationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/app/installations/${p["installationId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async appsCreateInstallationAccessToken(p: {
-    installationId: number
-    requestBody?: {
-      permissions?: t_app_permissions
-      repositories?: string[]
-      repository_ids?: number[]
-    }
-  }): Promise<
-    | Response<201, t_installation_token>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async appsCreateInstallationAccessToken(
+    p: {
+      installationId: number
+      requestBody?: {
+        permissions?: t_app_permissions
+        repositories?: string[]
+        repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_installation_token>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/access_tokens`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsSuspendInstallation(p: {
-    installationId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async appsSuspendInstallation(
+    p: {
+      installationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async appsUnsuspendInstallation(p: {
-    installationId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async appsUnsuspendInstallation(
+    p: {
+      installationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async appsDeleteAuthorization(p: {
-    clientId: string
-    requestBody: {
-      access_token: string
-    }
-  }): Promise<Response<204, void> | Response<422, t_validation_error>> {
+  async appsDeleteAuthorization(
+    p: {
+      clientId: string
+      requestBody: {
+        access_token: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/applications/${p["clientId"]}/grant`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsCheckToken(p: {
-    clientId: string
-    requestBody: {
-      access_token: string
-    }
-  }): Promise<
-    | Response<200, t_authorization>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async appsCheckToken(
+    p: {
+      clientId: string
+      requestBody: {
+        access_token: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_authorization>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsResetToken(p: {
-    clientId: string
-    requestBody: {
-      access_token: string
-    }
-  }): Promise<
-    Response<200, t_authorization> | Response<422, t_validation_error>
+  async appsResetToken(
+    p: {
+      clientId: string
+      requestBody: {
+        access_token: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_authorization> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsDeleteToken(p: {
-    clientId: string
-    requestBody: {
-      access_token: string
-    }
-  }): Promise<Response<204, void> | Response<422, t_validation_error>> {
+  async appsDeleteToken(
+    p: {
+      clientId: string
+      requestBody: {
+        access_token: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsScopeToken(p: {
-    clientId: string
-    requestBody: {
-      access_token: string
-      permissions?: t_app_permissions
-      repositories?: string[]
-      repository_ids?: number[]
-      target?: string
-      target_id?: number
-    }
-  }): Promise<
-    | Response<200, t_authorization>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async appsScopeToken(
+    p: {
+      clientId: string
+      requestBody: {
+        access_token: string
+        permissions?: t_app_permissions
+        repositories?: string[]
+        repository_ids?: number[]
+        target?: string
+        target_id?: number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_authorization>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token/scoped`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsGetBySlug(p: {
-    appSlug: string
-  }): Promise<
-    | Response<200, t_integration>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsGetBySlug(
+    p: {
+      appSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_integration>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/apps/${p["appSlug"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codesOfConductGetAllCodesOfConduct(): Promise<
-    Response<200, t_code_of_conduct[]> | Response<304, void>
+  async codesOfConductGetAllCodesOfConduct(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_code_of_conduct[]> | Res<304, void>>
   > {
     const url = this.basePath + `/codes_of_conduct`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codesOfConductGetConductCode(p: {
-    key: string
-  }): Promise<
-    | Response<200, t_code_of_conduct>
-    | Response<304, void>
-    | Response<404, t_basic_error>
+  async codesOfConductGetConductCode(
+    p: {
+      key: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_code_of_conduct> | Res<304, void> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/codes_of_conduct/${p["key"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async emojisGet(): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: string
-        }
-      >
-    | Response<304, void>
+  async emojisGet(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            [key: string]: string
+          }
+        >
+      | Res<304, void>
+    >
   > {
     const url = this.basePath + `/emojis`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotListAlertsForEnterprise(p: {
-    enterprise: string
-    state?: string
-    severity?: string
-    ecosystem?: string
-    package?: string
-    scope?: "development" | "runtime"
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    before?: string
-    after?: string
-    first?: number
-    last?: number
-    perPage?: number
-  }): Promise<
-    | Response<200, t_dependabot_alert_with_repository[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async dependabotListAlertsForEnterprise(
+    p: {
+      enterprise: string
+      state?: string
+      severity?: string
+      ecosystem?: string
+      package?: string
+      scope?: "development" | "runtime"
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      before?: string
+      after?: string
+      first?: number
+      last?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependabot_alert_with_repository[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath + `/enterprises/${p["enterprise"]}/dependabot/alerts`
@@ -711,33 +797,37 @@ export class ApiClient extends AbstractFetchClient {
       last: p["last"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async secretScanningListAlertsForEnterprise(p: {
-    enterprise: string
-    state?: "open" | "resolved"
-    secretType?: string
-    resolution?: string
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    before?: string
-    after?: string
-  }): Promise<
-    | Response<200, t_organization_secret_scanning_alert[]>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningListAlertsForEnterprise(
+    p: {
+      enterprise: string
+      state?: "open" | "resolved"
+      secretType?: string
+      resolution?: string
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_secret_scanning_alert[]>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
@@ -751,45 +841,45 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async activityListPublicEvents(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_event[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+    TypedFetchResponse<
+      | Res<200, t_event[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityGetFeeds(): Promise<Response<200, t_feed>> {
+  async activityGetFeeds(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_feed>>> {
     const url = this.basePath + `/feeds`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async gistsList(
@@ -797,11 +887,13 @@ export class ApiClient extends AbstractFetchClient {
       since?: string
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_base_gist[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      Res<200, t_base_gist[]> | Res<304, void> | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists`
     const query = this._query({
@@ -809,36 +901,42 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsCreate(p: {
-    requestBody: {
-      description?: string
-      files: {
-        [key: string]: {
-          content: string
+  async gistsCreate(
+    p: {
+      requestBody: {
+        description?: string
+        files: {
+          [key: string]: {
+            content: string
+          }
         }
+        public?: boolean | "true" | "false"
       }
-      public?: boolean | "true" | "false"
-    }
-  }): Promise<
-    | Response<201, t_gist_simple>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_gist_simple>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/gists`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async gistsListPublic(
@@ -846,12 +944,16 @@ export class ApiClient extends AbstractFetchClient {
       since?: string
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_base_gist[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_base_gist[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/gists/public`
     const query = this._query({
@@ -859,10 +961,8 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async gistsListStarred(
@@ -870,12 +970,16 @@ export class ApiClient extends AbstractFetchClient {
       since?: string
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_base_gist[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_base_gist[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/starred`
     const query = this._query({
@@ -883,347 +987,416 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsGet(p: { gistId: string }): Promise<
-    | Response<200, t_gist_simple>
-    | Response<304, void>
-    | Response<
-        403,
-        {
-          block?: {
-            created_at?: string
-            html_url?: string | null
-            reason?: string
+  async gistsGet(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_simple>
+      | Res<304, void>
+      | Res<
+          403,
+          {
+            block?: {
+              created_at?: string
+              html_url?: string | null
+              reason?: string
+            }
+            documentation_url?: string
+            message?: string
           }
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsUpdate(p: {
-    gistId: string
-    requestBody: {
-      description?: string
-      files?: {
-        [key: string]: EmptyObject | null
-      }
-    } | null
-  }): Promise<
-    | Response<200, t_gist_simple>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gistsUpdate(
+    p: {
+      gistId: string
+      requestBody: {
+        description?: string
+        files?: {
+          [key: string]: EmptyObject | null
+        }
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_simple>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gistsDelete(p: {
-    gistId: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsDelete(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsListComments(p: {
-    gistId: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_gist_comment[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsListComments(
+    p: {
+      gistId: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_comment[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsCreateComment(p: {
-    gistId: string
-    requestBody: {
-      body: string
-    }
-  }): Promise<
-    | Response<201, t_gist_comment>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsCreateComment(
+    p: {
+      gistId: string
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_gist_comment>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gistsGetComment(p: { gistId: string; commentId: number }): Promise<
-    | Response<200, t_gist_comment>
-    | Response<304, void>
-    | Response<
-        403,
-        {
-          block?: {
-            created_at?: string
-            html_url?: string | null
-            reason?: string
+  async gistsGetComment(
+    p: {
+      gistId: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_comment>
+      | Res<304, void>
+      | Res<
+          403,
+          {
+            block?: {
+              created_at?: string
+              html_url?: string | null
+              reason?: string
+            }
+            documentation_url?: string
+            message?: string
           }
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsUpdateComment(p: {
-    gistId: string
-    commentId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<200, t_gist_comment> | Response<404, t_basic_error>> {
+  async gistsUpdateComment(
+    p: {
+      gistId: string
+      commentId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_gist_comment> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gistsDeleteComment(p: {
-    gistId: string
-    commentId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsDeleteComment(
+    p: {
+      gistId: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsListCommits(p: {
-    gistId: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_gist_commit[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsListCommits(
+    p: {
+      gistId: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_commit[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsListForks(p: {
-    gistId: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_gist_simple[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsListForks(
+    p: {
+      gistId: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_simple[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/forks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsFork(p: {
-    gistId: string
-  }): Promise<
-    | Response<201, t_base_gist>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gistsFork(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_base_gist>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/forks`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsCheckIsStarred(p: {
-    gistId: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, EmptyObject>
+  async gistsCheckIsStarred(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, EmptyObject>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsStar(p: {
-    gistId: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsStar(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsUnstar(p: {
-    gistId: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async gistsUnstar(
+    p: {
+      gistId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsGetRevision(p: {
-    gistId: string
-    sha: string
-  }): Promise<
-    | Response<200, t_gist_simple>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gistsGetRevision(
+    p: {
+      gistId: string
+      sha: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gist_simple>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/${p["sha"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitignoreGetAllTemplates(): Promise<
-    Response<200, string[]> | Response<304, void>
-  > {
+  async gitignoreGetAllTemplates(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string[]> | Res<304, void>>> {
     const url = this.basePath + `/gitignore/templates`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitignoreGetTemplate(p: {
-    name: string
-  }): Promise<Response<200, t_gitignore_template> | Response<304, void>> {
+  async gitignoreGetTemplate(
+    p: {
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_gitignore_template> | Res<304, void>>
+  > {
     const url = this.basePath + `/gitignore/templates/${p["name"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async appsListReposAccessibleToInstallation(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<
-        200,
-        {
-          repositories: t_repository[]
-          repository_selection?: string
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_repository[]
+            repository_selection?: string
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/installation/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsRevokeInstallationAccessToken(): Promise<Response<204, void>> {
+  async appsRevokeInstallationAccessToken(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/installation/token`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async issuesList(
@@ -1246,12 +1419,16 @@ export class ApiClient extends AbstractFetchClient {
       pulls?: boolean
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_issue[]>
-    | Response<304, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_issue[]>
+      | Res<304, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/issues`
     const query = this._query({
@@ -1268,10 +1445,8 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async licensesGetAllCommonlyUsed(
@@ -1279,111 +1454,137 @@ export class ApiClient extends AbstractFetchClient {
       featured?: boolean
       perPage?: number
       page?: number
-    } = {}
-  ): Promise<Response<200, t_license_simple[]> | Response<304, void>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_license_simple[]> | Res<304, void>>
+  > {
     const url = this.basePath + `/licenses`
     const query = this._query({
       featured: p["featured"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async licensesGet(p: {
-    license: string
-  }): Promise<
-    | Response<200, t_license>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async licensesGet(
+    p: {
+      license: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_license>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/licenses/${p["license"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async markdownRender(p: {
-    requestBody: {
-      context?: string
-      mode?: "markdown" | "gfm"
-      text: string
-    }
-  }): Promise<Response<200, string> | Response<304, void>> {
+  async markdownRender(
+    p: {
+      requestBody: {
+        context?: string
+        mode?: "markdown" | "gfm"
+        text: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async markdownRenderRaw(
     p: {
       requestBody?: string
-    } = {}
-  ): Promise<Response<200, string> | Response<304, void>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown/raw`
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsGetSubscriptionPlanForAccount(p: {
-    accountId: number
-  }): Promise<
-    | Response<200, t_marketplace_purchase>
-    | Response<401, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsGetSubscriptionPlanForAccount(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_marketplace_purchase>
+      | Res<401, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/marketplace_listing/accounts/${p["accountId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async appsListPlans(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_marketplace_listing_plan[]>
-    | Response<401, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_marketplace_listing_plan[]>
+      | Res<401, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/marketplace_listing/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsListAccountsForPlan(p: {
-    planId: number
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_marketplace_purchase[]>
-    | Response<401, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async appsListAccountsForPlan(
+    p: {
+      planId: number
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_marketplace_purchase[]>
+      | Res<401, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/marketplace_listing/plans/${p["planId"]}/accounts`
@@ -1393,52 +1594,61 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetSubscriptionPlanForAccountStubbed(p: {
-    accountId: number
-  }): Promise<
-    | Response<200, t_marketplace_purchase>
-    | Response<401, t_basic_error>
-    | Response<404, void>
+  async appsGetSubscriptionPlanForAccountStubbed(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_marketplace_purchase>
+      | Res<401, t_basic_error>
+      | Res<404, void>
+    >
   > {
     const url =
       this.basePath + `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async appsListPlansStubbed(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    Response<200, t_marketplace_listing_plan[]> | Response<401, t_basic_error>
+    TypedFetchResponse<
+      Res<200, t_marketplace_listing_plan[]> | Res<401, t_basic_error>
+    >
   > {
     const url = this.basePath + `/marketplace_listing/stubbed/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsListAccountsForPlanStubbed(p: {
-    planId: number
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_marketplace_purchase[]> | Response<401, t_basic_error>
+  async appsListAccountsForPlanStubbed(
+    p: {
+      planId: number
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_marketplace_purchase[]> | Res<401, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -1449,41 +1659,41 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async metaGet(): Promise<
-    Response<200, t_api_overview> | Response<304, void>
-  > {
+  async metaGet(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_api_overview> | Res<304, void>>> {
     const url = this.basePath + `/meta`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListPublicEventsForRepoNetwork(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_event[]>
-    | Response<301, t_basic_error>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async activityListPublicEventsForRepoNetwork(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_event[]>
+      | Res<301, t_basic_error>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async activityListNotificationsForAuthenticatedUser(
@@ -1494,13 +1704,17 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
       page?: number
       perPage?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_thread[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_thread[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/notifications`
     const query = this._query({
@@ -1511,10 +1725,8 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async activityMarkNotificationsAsRead(
@@ -1523,156 +1735,190 @@ export class ApiClient extends AbstractFetchClient {
         last_read_at?: string
         read?: boolean
       }
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<
-        202,
-        {
-          message?: string
-        }
-      >
-    | Response<205, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<
+          202,
+          {
+            message?: string
+          }
+        >
+      | Res<205, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/notifications`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async activityGetThread(p: {
-    threadId: number
-  }): Promise<
-    | Response<200, t_thread>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async activityGetThread(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_thread>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityMarkThreadAsRead(p: {
-    threadId: number
-  }): Promise<
-    Response<205, void> | Response<304, void> | Response<403, t_basic_error>
+  async activityMarkThreadAsRead(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<205, void> | Res<304, void> | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
 
-    const res = await fetch(url, { method: "PATCH" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PATCH", ...(opts ?? {}) }, timeout)
   }
 
-  async activityGetThreadSubscriptionForAuthenticatedUser(p: {
-    threadId: number
-  }): Promise<
-    | Response<200, t_thread_subscription>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async activityGetThreadSubscriptionForAuthenticatedUser(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_thread_subscription>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activitySetThreadSubscription(p: {
-    threadId: number
-    requestBody?: {
-      ignored?: boolean
-    }
-  }): Promise<
-    | Response<200, t_thread_subscription>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async activitySetThreadSubscription(
+    p: {
+      threadId: number
+      requestBody?: {
+        ignored?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_thread_subscription>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async activityDeleteThreadSubscription(p: {
-    threadId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async activityDeleteThreadSubscription(
+    p: {
+      threadId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async metaGetOctocat(
     p: {
       s?: string
-    } = {}
-  ): Promise<Response<200, string>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/octocat`
     const query = this._query({ s: p["s"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async orgsList(
     p: {
       since?: number
       perPage?: number
-    } = {}
-  ): Promise<Response<200, t_organization_simple[]> | Response<304, void>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_organization_simple[]> | Res<304, void>>
+  > {
     const url = this.basePath + `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListPatGrantRequests(p: {
-    org: string
-    perPage?: number
-    page?: number
-    sort?: "created_at"
-    direction?: "asc" | "desc"
-    owner?: string[]
-    repository?: string
-    permission?: string
-    lastUsedBefore?: string
-    lastUsedAfter?: string
-  }): Promise<
-    | Response<200, t_organization_programmatic_access_grant_request[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsListPatGrantRequests(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      sort?: "created_at"
+      direction?: "asc" | "desc"
+      owner?: string[]
+      repository?: string
+      permission?: string
+      lastUsedBefore?: string
+      lastUsedAfter?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_programmatic_access_grant_request[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -1688,100 +1934,124 @@ export class ApiClient extends AbstractFetchClient {
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsReviewPatGrantRequestsInBulk(p: {
-    org: string
-    requestBody: {
-      action: "approve" | "deny"
-      pat_request_ids?: number[]
-      reason?: string | null
-    }
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsReviewPatGrantRequestsInBulk(
+    p: {
+      org: string
+      requestBody: {
+        action: "approve" | "deny"
+        pat_request_ids?: number[]
+        reason?: string | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/organizations/${p["org"]}/personal-access-token-requests`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsReviewPatGrantRequest(p: {
-    org: string
-    patRequestId: number
-    requestBody: {
-      action: "approve" | "deny"
-      reason?: string | null
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsReviewPatGrantRequest(
+    p: {
+      org: string
+      patRequestId: number
+      requestBody: {
+        action: "approve" | "deny"
+        reason?: string | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsListPatGrantRequestRepositories(p: {
-    org: string
-    patRequestId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_minimal_repository[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async orgsListPatGrantRequestRepositories(
+    p: {
+      org: string
+      patRequestId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_minimal_repository[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListPatGrants(p: {
-    org: string
-    perPage?: number
-    page?: number
-    sort?: "created_at"
-    direction?: "asc" | "desc"
-    owner?: string[]
-    repository?: string
-    permission?: string
-    lastUsedBefore?: string
-    lastUsedAfter?: string
-  }): Promise<
-    | Response<200, t_organization_programmatic_access_grant[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsListPatGrants(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      sort?: "created_at"
+      direction?: "asc" | "desc"
+      owner?: string[]
+      repository?: string
+      permission?: string
+      lastUsedBefore?: string
+      lastUsedAfter?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_programmatic_access_grant[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/organizations/${p["org"]}/personal-access-tokens`
@@ -1796,1114 +2066,1330 @@ export class ApiClient extends AbstractFetchClient {
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUpdatePatAccesses(p: {
-    org: string
-    requestBody: {
-      action: "revoke"
-      pat_ids: number[]
-    }
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsUpdatePatAccesses(
+    p: {
+      org: string
+      requestBody: {
+        action: "revoke"
+        pat_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/organizations/${p["org"]}/personal-access-tokens`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsUpdatePatAccess(p: {
-    org: string
-    patId: number
-    requestBody: {
-      action: "revoke"
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async orgsUpdatePatAccess(
+    p: {
+      org: string
+      patId: number
+      requestBody: {
+        action: "revoke"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsListPatGrantRepositories(p: {
-    org: string
-    patId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_minimal_repository[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async orgsListPatGrantRepositories(
+    p: {
+      org: string
+      patId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_minimal_repository[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsGet(p: {
-    org: string
-  }): Promise<
-    Response<200, t_organization_full> | Response<404, t_basic_error>
+  async orgsGet(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_organization_full> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUpdate(p: {
-    org: string
-    requestBody?: {
-      advanced_security_enabled_for_new_repositories?: boolean
-      billing_email?: string
-      blog?: string
-      company?: string
-      default_repository_permission?: "read" | "write" | "admin" | "none"
-      dependabot_alerts_enabled_for_new_repositories?: boolean
-      dependabot_security_updates_enabled_for_new_repositories?: boolean
-      dependency_graph_enabled_for_new_repositories?: boolean
-      description?: string
-      email?: string
-      has_organization_projects?: boolean
-      has_repository_projects?: boolean
-      location?: string
-      members_allowed_repository_creation_type?: "all" | "private" | "none"
-      members_can_create_internal_repositories?: boolean
-      members_can_create_pages?: boolean
-      members_can_create_private_pages?: boolean
-      members_can_create_private_repositories?: boolean
-      members_can_create_public_pages?: boolean
-      members_can_create_public_repositories?: boolean
-      members_can_create_repositories?: boolean
-      members_can_fork_private_repositories?: boolean
-      name?: string
-      secret_scanning_enabled_for_new_repositories?: boolean
-      secret_scanning_push_protection_custom_link?: string
-      secret_scanning_push_protection_custom_link_enabled?: boolean
-      secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-      twitter_username?: string
-      web_commit_signoff_required?: boolean
-    }
-  }): Promise<
-    | Response<200, t_organization_full>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error | t_validation_error_simple>
+  async orgsUpdate(
+    p: {
+      org: string
+      requestBody?: {
+        advanced_security_enabled_for_new_repositories?: boolean
+        billing_email?: string
+        blog?: string
+        company?: string
+        default_repository_permission?: "read" | "write" | "admin" | "none"
+        dependabot_alerts_enabled_for_new_repositories?: boolean
+        dependabot_security_updates_enabled_for_new_repositories?: boolean
+        dependency_graph_enabled_for_new_repositories?: boolean
+        description?: string
+        email?: string
+        has_organization_projects?: boolean
+        has_repository_projects?: boolean
+        location?: string
+        members_allowed_repository_creation_type?: "all" | "private" | "none"
+        members_can_create_internal_repositories?: boolean
+        members_can_create_pages?: boolean
+        members_can_create_private_pages?: boolean
+        members_can_create_private_repositories?: boolean
+        members_can_create_public_pages?: boolean
+        members_can_create_public_repositories?: boolean
+        members_can_create_repositories?: boolean
+        members_can_fork_private_repositories?: boolean
+        name?: string
+        secret_scanning_enabled_for_new_repositories?: boolean
+        secret_scanning_push_protection_custom_link?: string
+        secret_scanning_push_protection_custom_link_enabled?: boolean
+        secret_scanning_push_protection_enabled_for_new_repositories?: boolean
+        twitter_username?: string
+        web_commit_signoff_required?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_full>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error | t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsDelete(p: {
-    org: string
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async orgsDelete(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<202, EmptyObject> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetActionsCacheUsageForOrg(p: {
-    org: string
-  }): Promise<Response<200, t_actions_cache_usage_org_enterprise>> {
+  async actionsGetActionsCacheUsageForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_actions_cache_usage_org_enterprise>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/cache/usage`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetActionsCacheUsageByRepoForOrg(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        repository_cache_usages: t_actions_cache_usage_by_repository[]
-        total_count: number
-      }
+  async actionsGetActionsCacheUsageByRepoForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          repository_cache_usages: t_actions_cache_usage_by_repository[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async oidcGetOidcCustomSubTemplateForOrg(p: {
-    org: string
-  }): Promise<Response<200, t_oidc_custom_sub>> {
+  async oidcGetOidcCustomSubTemplateForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_oidc_custom_sub>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async oidcUpdateOidcCustomSubTemplateForOrg(p: {
-    org: string
-    requestBody: t_oidc_custom_sub
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async oidcUpdateOidcCustomSubTemplateForOrg(
+    p: {
+      org: string
+      requestBody: t_oidc_custom_sub
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsGetGithubActionsPermissionsOrganization(p: {
-    org: string
-  }): Promise<Response<200, t_actions_organization_permissions>> {
+  async actionsGetGithubActionsPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_organization_permissions>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsSetGithubActionsPermissionsOrganization(p: {
-    org: string
-    requestBody: {
-      allowed_actions?: t_allowed_actions
-      enabled_repositories: t_enabled_repositories
-    }
-  }): Promise<Response<204, void>> {
+  async actionsSetGithubActionsPermissionsOrganization(
+    p: {
+      org: string
+      requestBody: {
+        allowed_actions?: t_allowed_actions
+        enabled_repositories: t_enabled_repositories
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        repositories: t_repository[]
-        total_count: number
-      }
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(p: {
-    org: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsEnableSelectedRepositoryGithubActionsOrganization(p: {
-    org: string
-    repositoryId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
-
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDisableSelectedRepositoryGithubActionsOrganization(p: {
-    org: string
-    repositoryId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetAllowedActionsOrganization(p: {
-    org: string
-  }): Promise<Response<200, t_selected_actions>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetAllowedActionsOrganization(p: {
-    org: string
-    requestBody?: t_selected_actions
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
-    org: string
-  }): Promise<Response<200, t_actions_get_default_workflow_permissions>> {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
-    org: string
-    requestBody?: t_actions_set_default_workflow_permissions
-  }): Promise<Response<204, void>> {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListRequiredWorkflows(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        required_workflows: t_required_workflow[]
-        total_count: number
-      }
-    >
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsCreateRequiredWorkflow(p: {
-    org: string
-    requestBody: {
-      repository_id: string
-      scope?: "selected" | "all"
-      selected_repository_ids?: number[]
-      workflow_file_path: string
-    }
-  }): Promise<
-    | Response<201, t_required_workflow>
-    | Response<422, t_validation_error_simple>
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Promise<Response<200, t_required_workflow>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsUpdateRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    requestBody: {
-      repository_id?: string
-      scope?: "selected" | "all"
-      selected_repository_ids?: number[]
-      workflow_file_path?: string
-    }
-  }): Promise<
-    | Response<200, t_required_workflow>
-    | Response<422, t_validation_error_simple>
-  > {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDeleteRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListSelectedRepositoriesRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Promise<
-    | Response<
+  async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
         200,
         {
           repositories: t_repository[]
           total_count: number
         }
       >
-    | Response<404, void>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
+    p: {
+      org: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsEnableSelectedRepositoryGithubActionsOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsDisableSelectedRepositoryGithubActionsOrganization(
+    p: {
+      org: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsGetAllowedActionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetAllowedActionsOrganization(
+    p: {
+      org: string
+      requestBody?: t_selected_actions
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
+    p: {
+      org: string
+      requestBody?: t_actions_set_default_workflow_permissions
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsListRequiredWorkflows(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          required_workflows: t_required_workflow[]
+          total_count: number
+        }
+      >
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsCreateRequiredWorkflow(
+    p: {
+      org: string
+      requestBody: {
+        repository_id: string
+        scope?: "selected" | "all"
+        selected_repository_ids?: number[]
+        workflow_file_path: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_required_workflow> | Res<422, t_validation_error_simple>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/required_workflows`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_required_workflow>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsUpdateRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+      requestBody: {
+        repository_id?: string
+        scope?: "selected" | "all"
+        selected_repository_ids?: number[]
+        workflow_file_path?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_required_workflow> | Res<422, t_validation_error_simple>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsDeleteRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsListSelectedRepositoriesRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_repository[]
+            total_count: number
+          }
+        >
+      | Res<404, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsSetSelectedReposToRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void>> {
+  async actionsSetSelectedReposToRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsAddSelectedRepoToRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<404, void> | Response<422, void>> {
+  async actionsAddSelectedRepoToRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
+  > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsRemoveSelectedRepoFromRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<404, void> | Response<422, void>> {
+  async actionsRemoveSelectedRepoFromRequiredWorkflow(
+    p: {
+      org: string
+      requiredWorkflowId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
+  > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListSelfHostedRunnersForOrg(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        runners: t_runner[]
-        total_count: number
-      }
+  async actionsListSelfHostedRunnersForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          runners: t_runner[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRunnerApplicationsForOrg(p: {
-    org: string
-  }): Promise<Response<200, t_runner_application[]>> {
+  async actionsListRunnerApplicationsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/downloads`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateRegistrationTokenForOrg(p: {
-    org: string
-  }): Promise<Response<201, t_authentication_token>> {
+  async actionsCreateRegistrationTokenForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/registration-token`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateRemoveTokenForOrg(p: {
-    org: string
-  }): Promise<Response<201, t_authentication_token>> {
+  async actionsCreateRemoveTokenForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-  }): Promise<Response<200, t_runner>> {
+  async actionsGetSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteSelfHostedRunnerFromOrg(p: {
-    org: string
-    runnerId: number
-  }): Promise<Response<204, void>> {
+  async actionsDeleteSelfHostedRunnerFromOrg(
+    p: {
+      org: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListLabelsForSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async actionsListLabelsForSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsAddCustomLabelsToSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsAddCustomLabelsToSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+      requestBody: {
+        labels: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsSetCustomLabelsForSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsSetCustomLabelsForSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+      requestBody: {
+        labels: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(p: {
-    org: string
-    runnerId: number
-    name: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
+    p: {
+      org: string
+      runnerId: number
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListOrgSecrets(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_organization_actions_secret[]
-        total_count: number
-      }
+  async actionsListOrgSecrets(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_organization_actions_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetOrgPublicKey(p: {
-    org: string
-  }): Promise<Response<200, t_actions_public_key>> {
+  async actionsGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<200, t_organization_actions_secret>> {
+  async actionsGetOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_actions_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateOrUpdateOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-      selected_repository_ids?: number[]
-      visibility: "all" | "private" | "selected"
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDeleteOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        repositories: t_minimal_repository[]
-        total_count: number
+  async actionsCreateOrUpdateOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+        selected_repository_ids?: number[]
+        visibility: "all" | "private" | "selected"
       }
-    >
-  > {
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsAddSelectedRepoToOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async actionsDeleteOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+      this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsRemoveSelectedRepoFromOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListOrgVariables(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        variables: t_organization_actions_variable[]
-      }
-    >
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsCreateOrgVariable(p: {
-    org: string
-    requestBody: {
-      name: string
-      selected_repository_ids?: number[]
-      value: string
-      visibility: "all" | "private" | "selected"
-    }
-  }): Promise<Response<201, t_empty_object>> {
-    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetOrgVariable(p: {
-    org: string
-    name: string
-  }): Promise<Response<200, t_organization_actions_variable>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsUpdateOrgVariable(p: {
-    org: string
-    name: string
-    requestBody: {
-      name?: string
-      selected_repository_ids?: number[]
-      value?: string
-      visibility?: "all" | "private" | "selected"
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDeleteOrgVariable(p: {
-    org: string
-    name: string
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListSelectedReposForOrgVariable(p: {
-    org: string
-    name: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    | Response<
+  async actionsListSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
         200,
         {
           repositories: t_minimal_repository[]
           total_count: number
         }
       >
-    | Response<409, void>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsAddSelectedRepoToOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsRemoveSelectedRepoFromOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsListOrgVariables(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          variables: t_organization_actions_variable[]
+        }
+      >
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsCreateOrgVariable(
+    p: {
+      org: string
+      requestBody: {
+        name: string
+        selected_repository_ids?: number[]
+        value: string
+        visibility: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_actions_variable>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsUpdateOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: {
+        name?: string
+        selected_repository_ids?: number[]
+        value?: string
+        visibility?: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsDeleteOrgVariable(
+    p: {
+      org: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsListSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_minimal_repository[]
+            total_count: number
+          }
+        >
+      | Res<409, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsSetSelectedReposForOrgVariable(p: {
-    org: string
-    name: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async actionsSetSelectedReposForOrgVariable(
+    p: {
+      org: string
+      name: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsAddSelectedRepoToOrgVariable(p: {
-    org: string
-    name: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async actionsAddSelectedRepoToOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsRemoveSelectedRepoFromOrgVariable(p: {
-    org: string
-    name: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async actionsRemoveSelectedRepoFromOrgVariable(
+    p: {
+      org: string
+      name: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListBlockedUsers(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async orgsListBlockedUsers(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsCheckBlockedUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async orgsCheckBlockedUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsBlockUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<422, t_validation_error>> {
+  async orgsBlockUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUnblockUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void>> {
+  async orgsUnblockUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningListAlertsForOrg(p: {
-    org: string
-    toolName?: t_code_scanning_analysis_tool_name
-    toolGuid?: t_code_scanning_analysis_tool_guid
-    before?: string
-    after?: string
-    page?: number
-    perPage?: number
-    direction?: "asc" | "desc"
-    state?: t_code_scanning_alert_state
-    sort?: "created" | "updated"
-    severity?: t_code_scanning_alert_severity
-  }): Promise<
-    | Response<200, t_code_scanning_organization_alert_items[]>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningListAlertsForOrg(
+    p: {
+      org: string
+      toolName?: t_code_scanning_analysis_tool_name
+      toolGuid?: t_code_scanning_analysis_tool_guid
+      before?: string
+      after?: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      state?: t_code_scanning_alert_state
+      sort?: "created" | "updated"
+      severity?: t_code_scanning_alert_severity
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_organization_alert_items[]>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/code-scanning/alerts`
     const query = this._query({
@@ -2918,301 +3404,366 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
       severity: p["severity"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesListInOrganization(p: {
-    perPage?: number
-    page?: number
-    org: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          codespaces: t_codespace[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesListInOrganization(
+    p: {
+      perPage?: number
+      page?: number
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            codespaces: t_codespace[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesSetCodespacesBilling(p: {
-    org: string
-    requestBody: {
-      selected_usernames?: string[]
-      visibility:
-        | "disabled"
-        | "selected_members"
-        | "all_members"
-        | "all_members_and_outside_collaborators"
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<400, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async codespacesSetCodespacesBilling(
+    p: {
+      org: string
+      requestBody: {
+        selected_usernames?: string[]
+        visibility:
+          | "disabled"
+          | "selected_members"
+          | "all_members"
+          | "all_members_and_outside_collaborators"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<400, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/billing`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesSetCodespacesBillingUsers(p: {
-    org: string
-    requestBody: {
-      selected_usernames: string[]
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<400, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async codespacesDeleteCodespacesBillingUsers(p: {
-    org: string
-    requestBody: {
-      selected_usernames: string[]
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<400, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async codespacesListOrgSecrets(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_codespaces_org_secret[]
-        total_count: number
+  async codespacesSetCodespacesBillingUsers(
+    p: {
+      org: string
+      requestBody: {
+        selected_usernames: string[]
       }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<400, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async codespacesDeleteCodespacesBillingUsers(
+    p: {
+      org: string
+      requestBody: {
+        selected_usernames: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<400, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/codespaces/billing/selected_users`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async codespacesListOrgSecrets(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_codespaces_org_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetOrgPublicKey(p: {
-    org: string
-  }): Promise<Response<200, t_codespaces_public_key>> {
+  async codespacesGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<200, t_codespaces_org_secret>> {
+  async codespacesGetOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_codespaces_org_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCreateOrUpdateOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-      selected_repository_ids?: number[]
-      visibility: "all" | "private" | "selected"
-    }
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async codespacesCreateOrUpdateOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+        selected_repository_ids?: number[]
+        visibility: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesDeleteOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async codespacesDeleteOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesListSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          repositories: t_minimal_repository[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async codespacesListSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_minimal_repository[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesSetSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<
-    Response<204, void> | Response<404, t_basic_error> | Response<409, void>
+  async codespacesSetSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<409, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesAddSelectedRepoToOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<409, void>
-    | Response<422, t_validation_error>
+  async codespacesAddSelectedRepoToOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<409, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesRemoveSelectedRepoFromOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<409, void>
-    | Response<422, t_validation_error>
+  async codespacesRemoveSelectedRepoFromOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<409, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotListAlertsForOrg(p: {
-    org: string
-    state?: string
-    severity?: string
-    ecosystem?: string
-    package?: string
-    scope?: "development" | "runtime"
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    before?: string
-    after?: string
-    first?: number
-    last?: number
-    perPage?: number
-  }): Promise<
-    | Response<200, t_dependabot_alert_with_repository[]>
-    | Response<304, void>
-    | Response<400, t_scim_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async dependabotListAlertsForOrg(
+    p: {
+      org: string
+      state?: string
+      severity?: string
+      ecosystem?: string
+      package?: string
+      scope?: "development" | "runtime"
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      before?: string
+      after?: string
+      first?: number
+      last?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependabot_alert_with_repository[]>
+      | Res<304, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/alerts`
     const query = this._query({
@@ -3229,341 +3780,408 @@ export class ApiClient extends AbstractFetchClient {
       last: p["last"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotListOrgSecrets(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_organization_dependabot_secret[]
-        total_count: number
-      }
+  async dependabotListOrgSecrets(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_organization_dependabot_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotGetOrgPublicKey(p: {
-    org: string
-  }): Promise<Response<200, t_dependabot_public_key>> {
+  async dependabotGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotGetOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<200, t_organization_dependabot_secret>> {
+  async dependabotGetOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_dependabot_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotCreateOrUpdateOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-      selected_repository_ids?: string[]
-      visibility: "all" | "private" | "selected"
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
+  async dependabotCreateOrUpdateOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+        selected_repository_ids?: string[]
+        visibility: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async dependabotDeleteOrgSecret(p: {
-    org: string
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async dependabotDeleteOrgSecret(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotListSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        repositories: t_minimal_repository[]
-        total_count: number
-      }
+  async dependabotListSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          repositories: t_minimal_repository[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotSetSelectedReposForOrgSecret(p: {
-    org: string
-    secretName: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<Response<204, void>> {
+  async dependabotSetSelectedReposForOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async dependabotAddSelectedRepoToOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async dependabotAddSelectedRepoToOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotRemoveSelectedRepoFromOrgSecret(p: {
-    org: string
-    secretName: string
-    repositoryId: number
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async dependabotRemoveSelectedRepoFromOrgSecret(
+    p: {
+      org: string
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListDockerMigrationConflictingPackagesForOrganization(p: {
-    org: string
-  }): Promise<
-    | Response<200, t_package[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async packagesListDockerMigrationConflictingPackagesForOrganization(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/docker/conflicts`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListPublicOrgEvents(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListPublicOrgEvents(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListFailedInvitations(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
+  async orgsListFailedInvitations(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/failed_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListWebhooks(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_org_hook[]> | Response<404, t_basic_error>> {
+  async orgsListWebhooks(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_org_hook[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsCreateWebhook(p: {
-    org: string
-    requestBody: {
-      active?: boolean
-      config: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        password?: string
-        secret?: t_webhook_config_secret
-        url: t_webhook_config_url
-        username?: string
+  async orgsCreateWebhook(
+    p: {
+      org: string
+      requestBody: {
+        active?: boolean
+        config: {
+          content_type?: t_webhook_config_content_type
+          insecure_ssl?: t_webhook_config_insecure_ssl
+          password?: string
+          secret?: t_webhook_config_secret
+          url: t_webhook_config_url
+          username?: string
+        }
+        events?: string[]
+        name: string
       }
-      events?: string[]
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_org_hook>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_org_hook>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsGetWebhook(p: {
-    org: string
-    hookId: number
-  }): Promise<Response<200, t_org_hook> | Response<404, t_basic_error>> {
+  async orgsGetWebhook(
+    p: {
+      org: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_org_hook> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUpdateWebhook(p: {
-    org: string
-    hookId: number
-    requestBody?: {
-      active?: boolean
-      config?: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url: t_webhook_config_url
+  async orgsUpdateWebhook(
+    p: {
+      org: string
+      hookId: number
+      requestBody?: {
+        active?: boolean
+        config?: {
+          content_type?: t_webhook_config_content_type
+          insecure_ssl?: t_webhook_config_insecure_ssl
+          secret?: t_webhook_config_secret
+          url: t_webhook_config_url
+        }
+        events?: string[]
+        name?: string
       }
-      events?: string[]
-      name?: string
-    }
-  }): Promise<
-    | Response<200, t_org_hook>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_hook>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsDeleteWebhook(p: {
-    org: string
-    hookId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async orgsDeleteWebhook(
+    p: {
+      org: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsGetWebhookConfigForOrg(p: {
-    org: string
-    hookId: number
-  }): Promise<Response<200, t_webhook_config>> {
+  async orgsGetWebhookConfigForOrg(
+    p: {
+      org: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUpdateWebhookConfigForOrg(p: {
-    org: string
-    hookId: number
-    requestBody?: {
-      content_type?: t_webhook_config_content_type
-      insecure_ssl?: t_webhook_config_insecure_ssl
-      secret?: t_webhook_config_secret
-      url?: t_webhook_config_url
-    }
-  }): Promise<Response<200, t_webhook_config>> {
+  async orgsUpdateWebhookConfigForOrg(
+    p: {
+      org: string
+      hookId: number
+      requestBody?: {
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
+        secret?: t_webhook_config_secret
+        url?: t_webhook_config_url
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsListWebhookDeliveries(p: {
-    org: string
-    hookId: number
-    perPage?: number
-    cursor?: string
-    redelivery?: boolean
-  }): Promise<
-    | Response<200, t_hook_delivery_item[]>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async orgsListWebhookDeliveries(
+    p: {
+      org: string
+      hookId: number
+      perPage?: number
+      cursor?: string
+      redelivery?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery_item[]>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
@@ -3572,145 +4190,172 @@ export class ApiClient extends AbstractFetchClient {
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsGetWebhookDelivery(p: {
-    org: string
-    hookId: number
-    deliveryId: number
-  }): Promise<
-    | Response<200, t_hook_delivery>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async orgsGetWebhookDelivery(
+    p: {
+      org: string
+      hookId: number
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsRedeliverWebhookDelivery(p: {
-    org: string
-    hookId: number
-    deliveryId: number
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async orgsRedeliverWebhookDelivery(
+    p: {
+      org: string
+      hookId: number
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsPingWebhook(p: {
-    org: string
-    hookId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async orgsPingWebhook(
+    p: {
+      org: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetOrgInstallation(p: {
-    org: string
-  }): Promise<Response<200, t_installation>> {
+  async appsGetOrgInstallation(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/orgs/${p["org"]}/installation`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListAppInstallations(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        installations: t_installation[]
-        total_count: number
-      }
+  async orgsListAppInstallations(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          installations: t_installation[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsGetRestrictionsForOrg(p: {
-    org: string
-  }): Promise<Response<200, t_interaction_limit_response | EmptyObject>> {
+  async interactionsGetRestrictionsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsSetRestrictionsForOrg(p: {
-    org: string
-    requestBody: t_interaction_limit
-  }): Promise<
-    | Response<200, t_interaction_limit_response>
-    | Response<422, t_validation_error>
+  async interactionsSetRestrictionsForOrg(
+    p: {
+      org: string
+      requestBody: t_interaction_limit
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async interactionsRemoveRestrictionsForOrg(p: {
-    org: string
-  }): Promise<Response<204, void>> {
+  async interactionsRemoveRestrictionsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListPendingInvitations(p: {
-    org: string
-    perPage?: number
-    page?: number
-    role?:
-      | "all"
-      | "admin"
-      | "direct_member"
-      | "billing_manager"
-      | "hiring_manager"
-    invitationSource?: "all" | "member" | "scim"
-  }): Promise<
-    Response<200, t_organization_invitation[]> | Response<404, t_basic_error>
+  async orgsListPendingInvitations(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      role?:
+        | "all"
+        | "admin"
+        | "direct_member"
+        | "billing_manager"
+        | "hiring_manager"
+      invitationSource?: "all" | "member" | "scim"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const query = this._query({
@@ -3719,83 +4364,98 @@ export class ApiClient extends AbstractFetchClient {
       role: p["role"],
       invitation_source: p["invitationSource"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsCreateInvitation(p: {
-    org: string
-    requestBody?: {
-      email?: string
-      invitee_id?: number
-      role?: "admin" | "direct_member" | "billing_manager"
-      team_ids?: number[]
-    }
-  }): Promise<
-    | Response<201, t_organization_invitation>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async orgsCreateInvitation(
+    p: {
+      org: string
+      requestBody?: {
+        email?: string
+        invitee_id?: number
+        role?: "admin" | "direct_member" | "billing_manager"
+        team_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_organization_invitation>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsCancelInvitation(p: {
-    org: string
-    invitationId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async orgsCancelInvitation(
+    p: {
+      org: string
+      invitationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListInvitationTeams(p: {
-    org: string
-    invitationId: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team[]> | Response<404, t_basic_error>> {
+  async orgsListInvitationTeams(
+    p: {
+      org: string
+      invitationId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListForOrg(p: {
-    org: string
-    filter?:
-      | "assigned"
-      | "created"
-      | "mentioned"
-      | "subscribed"
-      | "repos"
-      | "all"
-    state?: "open" | "closed" | "all"
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_issue[]> | Response<404, t_basic_error>> {
+  async issuesListForOrg(
+    p: {
+      org: string
+      filter?:
+        | "assigned"
+        | "created"
+        | "mentioned"
+        | "subscribed"
+        | "repos"
+        | "all"
+      state?: "open" | "closed" | "all"
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issue[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/issues`
     const query = this._query({
       filter: p["filter"],
@@ -3807,20 +4467,22 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListMembers(p: {
-    org: string
-    filter?: "2fa_disabled" | "all"
-    role?: "all" | "admin" | "member"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_simple_user[]> | Response<422, t_validation_error>
+  async orgsListMembers(
+    p: {
+      org: string
+      filter?: "2fa_disabled" | "all"
+      role?: "all" | "admin" | "member"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/members`
     const query = this._query({
@@ -3829,351 +4491,421 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsCheckMembershipForUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<302, void> | Response<404, void>> {
+  async orgsCheckMembershipForUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<302, void> | Res<404, void>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsRemoveMember(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<403, t_basic_error>> {
+  async orgsRemoveMember(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetCodespacesForUserInOrg(p: {
-    perPage?: number
-    page?: number
-    org: string
-    username: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          codespaces: t_codespace[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesGetCodespacesForUserInOrg(
+    p: {
+      perPage?: number
+      page?: number
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            codespaces: t_codespace[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesDeleteFromOrganization(p: {
-    org: string
-    username: string
-    codespaceName: string
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesDeleteFromOrganization(
+    p: {
+      org: string
+      username: string
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesStopInOrganization(p: {
-    org: string
-    username: string
-    codespaceName: string
-  }): Promise<
-    | Response<200, t_codespace>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesStopInOrganization(
+    p: {
+      org: string
+      username: string
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespace>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsGetMembershipForUser(p: {
-    org: string
-    username: string
-  }): Promise<
-    | Response<200, t_org_membership>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async orgsGetMembershipForUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_membership>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsSetMembershipForUser(p: {
-    org: string
-    username: string
-    requestBody?: {
-      role?: "admin" | "member"
-    }
-  }): Promise<
-    | Response<200, t_org_membership>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async orgsSetMembershipForUser(
+    p: {
+      org: string
+      username: string
+      requestBody?: {
+        role?: "admin" | "member"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_membership>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsRemoveMembershipForUser(p: {
-    org: string
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async orgsRemoveMembershipForUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsListForOrg(p: {
-    org: string
-    perPage?: number
-    page?: number
-    exclude?: "repositories"[]
-  }): Promise<Response<200, t_migration[]>> {
+  async migrationsListForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      exclude?: "repositories"[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_migration[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       exclude: p["exclude"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsStartForOrg(p: {
-    org: string
-    requestBody: {
-      exclude?: "repositories"[]
-      exclude_attachments?: boolean
-      exclude_git_data?: boolean
-      exclude_metadata?: boolean
-      exclude_owner_projects?: boolean
-      exclude_releases?: boolean
-      lock_repositories?: boolean
-      org_metadata_only?: boolean
-      repositories: string[]
-    }
-  }): Promise<
-    | Response<201, t_migration>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async migrationsStartForOrg(
+    p: {
+      org: string
+      requestBody: {
+        exclude?: "repositories"[]
+        exclude_attachments?: boolean
+        exclude_git_data?: boolean
+        exclude_metadata?: boolean
+        exclude_owner_projects?: boolean
+        exclude_releases?: boolean
+        lock_repositories?: boolean
+        org_metadata_only?: boolean
+        repositories: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_migration>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async migrationsGetStatusForOrg(p: {
-    org: string
-    migrationId: number
-    exclude?: "repositories"[]
-  }): Promise<Response<200, t_migration> | Response<404, t_basic_error>> {
+  async migrationsGetStatusForOrg(
+    p: {
+      org: string
+      migrationId: number
+      exclude?: "repositories"[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_migration> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsDownloadArchiveForOrg(p: {
-    org: string
-    migrationId: number
-  }): Promise<Response<302, void> | Response<404, t_basic_error>> {
+  async migrationsDownloadArchiveForOrg(
+    p: {
+      org: string
+      migrationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsDeleteArchiveForOrg(p: {
-    org: string
-    migrationId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async migrationsDeleteArchiveForOrg(
+    p: {
+      org: string
+      migrationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsUnlockRepoForOrg(p: {
-    org: string
-    migrationId: number
-    repoName: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async migrationsUnlockRepoForOrg(
+    p: {
+      org: string
+      migrationId: number
+      repoName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsListReposForOrg(p: {
-    org: string
-    migrationId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
+  async migrationsListReposForOrg(
+    p: {
+      org: string
+      migrationId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListOutsideCollaborators(p: {
-    org: string
-    filter?: "2fa_disabled" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async orgsListOutsideCollaborators(
+    p: {
+      org: string
+      filter?: "2fa_disabled" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/outside_collaborators`
     const query = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsConvertMemberToOutsideCollaborator(p: {
-    org: string
-    username: string
-    requestBody?: {
-      async?: boolean
-    }
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<204, void>
-    | Response<403, void>
-    | Response<404, t_basic_error>
+  async orgsConvertMemberToOutsideCollaborator(
+    p: {
+      org: string
+      username: string
+      requestBody?: {
+        async?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<204, void>
+      | Res<403, void>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsRemoveOutsideCollaborator(p: {
-    org: string
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<
-        422,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async orgsRemoveOutsideCollaborator(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<
+          422,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListPackagesForOrganization(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    org: string
-    visibility?: "public" | "private" | "internal"
-    page?: number
-    perPage?: number
-  }): Promise<
-    | Response<200, t_package[]>
-    | Response<400, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async packagesListPackagesForOrganization(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      org: string
+      visibility?: "public" | "private" | "internal"
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_package[]>
+      | Res<400, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/packages`
     const query = this._query({
@@ -4182,80 +4914,120 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageForOrganization(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-  }): Promise<Response<200, t_package>> {
+  async packagesGetPackageForOrganization(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageForOrg(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageForOrg(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageForOrg(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-    token?: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageForOrg(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+      token?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(url + query, { method: "POST" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "POST", ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async packagesGetAllPackageVersionsForPackageOwnedByOrg(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-    page?: number
-    perPage?: number
-    state?: "active" | "deleted"
-  }): Promise<
-    | Response<200, t_package_version[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesGetAllPackageVersionsForPackageOwnedByOrg(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+      page?: number
+      perPage?: number
+      state?: "active" | "deleted"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_package_version[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -4265,77 +5037,106 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       state: p["state"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageVersionForOrganization(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-    packageVersionId: number
-  }): Promise<Response<200, t_package_version>> {
+  async packagesGetPackageVersionForOrganization(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageVersionForOrg(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageVersionForOrg(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageVersionForOrg(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    org: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageVersionForOrg(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      org: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListForOrg(p: {
-    org: string
-    state?: "open" | "closed" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_project[]> | Response<422, t_validation_error_simple>
+  async projectsListForOrg(
+    p: {
+      org: string
+      state?: "open" | "closed" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_project[]> | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/projects`
     const query = this._query({
@@ -4343,95 +5144,110 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsCreateForOrg(p: {
-    org: string
-    requestBody: {
-      body?: string
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_project>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsCreateForOrg(
+    p: {
+      org: string
+      requestBody: {
+        body?: string
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_project>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async orgsListPublicMembers(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async orgsListPublicMembers(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsCheckPublicMembershipForUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async orgsCheckPublicMembershipForUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsSetPublicMembershipForAuthenticatedUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void> | Response<403, t_basic_error>> {
+  async orgsSetPublicMembershipForAuthenticatedUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsRemovePublicMembershipForAuthenticatedUser(p: {
-    org: string
-    username: string
-  }): Promise<Response<204, void>> {
+  async orgsRemovePublicMembershipForAuthenticatedUser(
+    p: {
+      org: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListForOrg(p: {
-    org: string
-    type?: "all" | "public" | "private" | "forks" | "sources" | "member"
-    sort?: "created" | "updated" | "pushed" | "full_name"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_minimal_repository[]>> {
+  async reposListForOrg(
+    p: {
+      org: string
+      type?: "all" | "public" | "private" | "forks" | "sources" | "member"
+      sort?: "created" | "updated" | "pushed" | "full_name"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
     const query = this._query({
       type: p["type"],
@@ -4440,172 +5256,207 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateInOrg(p: {
-    org: string
-    requestBody: {
-      allow_auto_merge?: boolean
-      allow_merge_commit?: boolean
-      allow_rebase_merge?: boolean
-      allow_squash_merge?: boolean
-      auto_init?: boolean
-      delete_branch_on_merge?: boolean
-      description?: string
-      gitignore_template?: string
-      has_downloads?: boolean
-      has_issues?: boolean
-      has_projects?: boolean
-      has_wiki?: boolean
-      homepage?: string
-      is_template?: boolean
-      license_template?: string
-      merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-      merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
-      name: string
-      private?: boolean
-      squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-      squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-      team_id?: number
-      use_squash_pr_title_as_default?: boolean
-      visibility?: "public" | "private"
-    }
-  }): Promise<
-    | Response<201, t_repository>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateInOrg(
+    p: {
+      org: string
+      requestBody: {
+        allow_auto_merge?: boolean
+        allow_merge_commit?: boolean
+        allow_rebase_merge?: boolean
+        allow_squash_merge?: boolean
+        auto_init?: boolean
+        delete_branch_on_merge?: boolean
+        description?: string
+        gitignore_template?: string
+        has_downloads?: boolean
+        has_issues?: boolean
+        has_projects?: boolean
+        has_wiki?: boolean
+        homepage?: string
+        is_template?: boolean
+        license_template?: string
+        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
+        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        name: string
+        private?: boolean
+        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
+        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        team_id?: number
+        use_squash_pr_title_as_default?: boolean
+        visibility?: "public" | "private"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetOrgRulesets(p: {
-    org: string
-  }): Promise<
-    | Response<200, t_repository_ruleset[]>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposGetOrgRulesets(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset[]>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateOrgRuleset(p: {
-    org: string
-    requestBody: {
-      bypass_actors?: t_repository_ruleset_bypass_actor[]
-      conditions?: t_org_ruleset_conditions
-      enforcement: t_repository_rule_enforcement
-      name: string
-      rules?: t_repository_rule[]
-      target?: "branch" | "tag"
-    }
-  }): Promise<
-    | Response<201, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposCreateOrgRuleset(
+    p: {
+      org: string
+      requestBody: {
+        bypass_actors?: t_repository_ruleset_bypass_actor[]
+        conditions?: t_org_ruleset_conditions
+        enforcement: t_repository_rule_enforcement
+        name: string
+        rules?: t_repository_rule[]
+        target?: "branch" | "tag"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetOrgRuleset(p: {
-    org: string
-    rulesetId: number
-  }): Promise<
-    | Response<200, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposGetOrgRuleset(
+    p: {
+      org: string
+      rulesetId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateOrgRuleset(p: {
-    org: string
-    rulesetId: number
-    requestBody?: {
-      bypass_actors?: t_repository_ruleset_bypass_actor[]
-      conditions?: t_org_ruleset_conditions
-      enforcement?: t_repository_rule_enforcement
-      name?: string
-      rules?: t_repository_rule[]
-      target?: "branch" | "tag"
-    }
-  }): Promise<
-    | Response<200, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposUpdateOrgRuleset(
+    p: {
+      org: string
+      rulesetId: number
+      requestBody?: {
+        bypass_actors?: t_repository_ruleset_bypass_actor[]
+        conditions?: t_org_ruleset_conditions
+        enforcement?: t_repository_rule_enforcement
+        name?: string
+        rules?: t_repository_rule[]
+        target?: "branch" | "tag"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteOrgRuleset(p: {
-    org: string
-    rulesetId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposDeleteOrgRuleset(
+    p: {
+      org: string
+      rulesetId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async secretScanningListAlertsForOrg(p: {
-    org: string
-    state?: "open" | "resolved"
-    secretType?: string
-    resolution?: string
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    page?: number
-    perPage?: number
-    before?: string
-    after?: string
-  }): Promise<
-    | Response<200, t_organization_secret_scanning_alert[]>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningListAlertsForOrg(
+    p: {
+      org: string
+      state?: "open" | "resolved"
+      secretType?: string
+      resolution?: string
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      page?: number
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_organization_secret_scanning_alert[]>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`
     const query = this._query({
@@ -4619,183 +5470,217 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListSecurityManagerTeams(p: {
-    org: string
-  }): Promise<Response<200, t_team_simple[]>> {
+  async orgsListSecurityManagerTeams(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_simple[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/security-managers`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsAddSecurityManagerTeam(p: {
-    org: string
-    teamSlug: string
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async orgsAddSecurityManagerTeam(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsRemoveSecurityManagerTeam(p: {
-    org: string
-    teamSlug: string
-  }): Promise<Response<204, void>> {
+  async orgsRemoveSecurityManagerTeam(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetGithubActionsBillingOrg(p: {
-    org: string
-  }): Promise<Response<200, t_actions_billing_usage>> {
+  async billingGetGithubActionsBillingOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/actions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetGithubPackagesBillingOrg(p: {
-    org: string
-  }): Promise<Response<200, t_packages_billing_usage>> {
+  async billingGetGithubPackagesBillingOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/packages`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetSharedStorageBillingOrg(p: {
-    org: string
-  }): Promise<Response<200, t_combined_billing_usage>> {
+  async billingGetSharedStorageBillingOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsList(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team[]> | Response<403, t_basic_error>> {
+  async teamsList(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCreate(p: {
-    org: string
-    requestBody: {
-      description?: string
-      maintainers?: string[]
-      name: string
-      notification_setting?: "notifications_enabled" | "notifications_disabled"
-      parent_team_id?: number
-      permission?: "pull" | "push"
-      privacy?: "secret" | "closed"
-      repo_names?: string[]
-    }
-  }): Promise<
-    | Response<201, t_team_full>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsCreate(
+    p: {
+      org: string
+      requestBody: {
+        description?: string
+        maintainers?: string[]
+        name: string
+        notification_setting?:
+          | "notifications_enabled"
+          | "notifications_disabled"
+        parent_team_id?: number
+        permission?: "pull" | "push"
+        privacy?: "secret" | "closed"
+        repo_names?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_team_full>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsGetByName(p: {
-    org: string
-    teamSlug: string
-  }): Promise<Response<200, t_team_full> | Response<404, t_basic_error>> {
+  async teamsGetByName(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateInOrg(p: {
-    org: string
-    teamSlug: string
-    requestBody?: {
-      description?: string
-      name?: string
-      notification_setting?: "notifications_enabled" | "notifications_disabled"
-      parent_team_id?: number | null
-      permission?: "pull" | "push" | "admin"
-      privacy?: "secret" | "closed"
-    }
-  }): Promise<
-    | Response<200, t_team_full>
-    | Response<201, t_team_full>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsUpdateInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      requestBody?: {
+        description?: string
+        name?: string
+        notification_setting?:
+          | "notifications_enabled"
+          | "notifications_disabled"
+        parent_team_id?: number | null
+        permission?: "pull" | "push" | "admin"
+        privacy?: "secret" | "closed"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_team_full>
+      | Res<201, t_team_full>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteInOrg(p: {
-    org: string
-    teamSlug: string
-  }): Promise<Response<204, void>> {
+  async teamsDeleteInOrg(
+    p: {
+      org: string
+      teamSlug: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListDiscussionsInOrg(p: {
-    org: string
-    teamSlug: string
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-    pinned?: string
-  }): Promise<Response<200, t_team_discussion[]>> {
+  async teamsListDiscussionsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+      pinned?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const query = this._query({
@@ -4804,89 +5689,105 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       pinned: p["pinned"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCreateDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    requestBody: {
-      body: string
-      private?: boolean
-      title: string
-    }
-  }): Promise<Response<201, t_team_discussion>> {
+  async teamsCreateDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      requestBody: {
+        body: string
+        private?: boolean
+        title: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsGetDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-  }): Promise<Response<200, t_team_discussion>> {
+  async teamsGetDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    requestBody?: {
-      body?: string
-      title?: string
-    }
-  }): Promise<Response<200, t_team_discussion>> {
+  async teamsUpdateDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      requestBody?: {
+        body?: string
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-  }): Promise<Response<204, void>> {
+  async teamsDeleteDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListDiscussionCommentsInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team_discussion_comment[]>> {
+  async teamsListDiscussionCommentsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
@@ -4895,121 +5796,102 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCreateDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<201, t_team_discussion_comment>> {
+  async teamsCreateDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsGetDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-  }): Promise<Response<200, t_team_discussion_comment>> {
+  async teamsGetDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<200, t_team_discussion_comment>> {
+  async teamsUpdateDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-  }): Promise<Response<204, void>> {
+  async teamsDeleteDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForTeamDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForTeamDiscussionCommentInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-    requestBody: {
-      content:
+  async reactionsListForTeamDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -5018,72 +5900,82 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<Response<200, t_reaction> | Response<201, t_reaction>> {
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForTeamDiscussionCommentInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForTeamDiscussionComment(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    commentNumber: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForTeamDiscussionComment(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      commentNumber: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForTeamDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForTeamDiscussionInOrg(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    requestBody: {
-      content:
+  async reactionsListForTeamDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -5092,57 +5984,102 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<Response<200, t_reaction> | Response<201, t_reaction>> {
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForTeamDiscussionInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForTeamDiscussion(p: {
-    org: string
-    teamSlug: string
-    discussionNumber: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForTeamDiscussion(
+    p: {
+      org: string
+      teamSlug: string
+      discussionNumber: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListPendingInvitationsInOrg(p: {
-    org: string
-    teamSlug: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_organization_invitation[]>> {
+  async teamsListPendingInvitationsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListMembersInOrg(p: {
-    org: string
-    teamSlug: string
-    role?: "member" | "maintainer" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async teamsListMembersInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      role?: "member" | "maintainer" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
     const query = this._query({
@@ -5150,411 +6087,490 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsGetMembershipForUserInOrg(p: {
-    org: string
-    teamSlug: string
-    username: string
-  }): Promise<Response<200, t_team_membership> | Response<404, void>> {
+  async teamsGetMembershipForUserInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_membership> | Res<404, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateMembershipForUserInOrg(p: {
-    org: string
-    teamSlug: string
-    username: string
-    requestBody?: {
-      role?: "member" | "maintainer"
-    }
-  }): Promise<
-    Response<200, t_team_membership> | Response<403, void> | Response<422, void>
+  async teamsAddOrUpdateMembershipForUserInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      username: string
+      requestBody?: {
+        role?: "member" | "maintainer"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_team_membership> | Res<403, void> | Res<422, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveMembershipForUserInOrg(p: {
-    org: string
-    teamSlug: string
-    username: string
-  }): Promise<Response<204, void> | Response<403, void>> {
+  async teamsRemoveMembershipForUserInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListProjectsInOrg(p: {
-    org: string
-    teamSlug: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team_project[]>> {
+  async teamsListProjectsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_project[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCheckPermissionsForProjectInOrg(p: {
-    org: string
-    teamSlug: string
-    projectId: number
-  }): Promise<Response<200, t_team_project> | Response<404, void>> {
+  async teamsCheckPermissionsForProjectInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateProjectPermissionsInOrg(p: {
-    org: string
-    teamSlug: string
-    projectId: number
-    requestBody?: {
-      permission?: "read" | "write" | "admin"
-    } | null
-  }): Promise<
-    | Response<204, void>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async teamsAddOrUpdateProjectPermissionsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      projectId: number
+      requestBody?: {
+        permission?: "read" | "write" | "admin"
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveProjectInOrg(p: {
-    org: string
-    teamSlug: string
-    projectId: number
-  }): Promise<Response<204, void>> {
+  async teamsRemoveProjectInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListReposInOrg(p: {
-    org: string
-    teamSlug: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_minimal_repository[]>> {
+  async teamsListReposInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCheckPermissionsForRepoInOrg(p: {
-    org: string
-    teamSlug: string
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_team_repository> | Response<204, void> | Response<404, void>
+  async teamsCheckPermissionsForRepoInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_team_repository> | Res<204, void> | Res<404, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateRepoPermissionsInOrg(p: {
-    org: string
-    teamSlug: string
-    owner: string
-    repo: string
-    requestBody?: {
-      permission?: string
-    }
-  }): Promise<Response<204, void>> {
+  async teamsAddOrUpdateRepoPermissionsInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      owner: string
+      repo: string
+      requestBody?: {
+        permission?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveRepoInOrg(p: {
-    org: string
-    teamSlug: string
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async teamsRemoveRepoInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListChildInOrg(p: {
-    org: string
-    teamSlug: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team[]>> {
+  async teamsListChildInOrg(
+    p: {
+      org: string
+      teamSlug: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsEnableOrDisableSecurityProductOnAllOrgRepos(p: {
-    org: string
-    securityProduct:
-      | "dependency_graph"
-      | "dependabot_alerts"
-      | "dependabot_security_updates"
-      | "advanced_security"
-      | "code_scanning_default_setup"
-      | "secret_scanning"
-      | "secret_scanning_push_protection"
-    enablement: "enable_all" | "disable_all"
-  }): Promise<Response<204, void> | Response<422, void>> {
+  async orgsEnableOrDisableSecurityProductOnAllOrgRepos(
+    p: {
+      org: string
+      securityProduct:
+        | "dependency_graph"
+        | "dependabot_alerts"
+        | "dependabot_security_updates"
+        | "advanced_security"
+        | "code_scanning_default_setup"
+        | "secret_scanning"
+        | "secret_scanning_push_protection"
+      enablement: "enable_all" | "disable_all"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<422, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsGetCard(p: {
-    cardId: number
-  }): Promise<
-    | Response<200, t_project_card>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async projectsGetCard(
+    p: {
+      cardId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_card>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsUpdateCard(p: {
-    cardId: number
-    requestBody?: {
-      archived?: boolean
-      note?: string | null
-    }
-  }): Promise<
-    | Response<200, t_project_card>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsUpdateCard(
+    p: {
+      cardId: number
+      requestBody?: {
+        archived?: boolean
+        note?: string | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_card>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsDeleteCard(p: { cardId: number }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
+  async projectsDeleteCard(
+    p: {
+      cardId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            errors?: string[]
+            message?: string
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsMoveCard(p: {
-    cardId: number
-    requestBody: {
-      column_id?: number
-      position: string
-    }
-  }): Promise<
-    | Response<201, EmptyObject>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          errors?: {
-            code?: string
-            field?: string
+  async projectsMoveCard(
+    p: {
+      cardId: number
+      requestBody: {
+        column_id?: number
+        position: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, EmptyObject>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            errors?: {
+              code?: string
+              field?: string
+              message?: string
+              resource?: string
+            }[]
             message?: string
-            resource?: string
-          }[]
-          message?: string
-        }
-      >
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          errors?: {
+          }
+        >
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
             code?: string
+            documentation_url?: string
+            errors?: {
+              code?: string
+              message?: string
+            }[]
             message?: string
-          }[]
-          message?: string
-        }
-      >
+          }
+        >
+    >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsGetColumn(p: {
-    columnId: number
-  }): Promise<
-    | Response<200, t_project_column>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async projectsGetColumn(
+    p: {
+      columnId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_column>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsUpdateColumn(p: {
-    columnId: number
-    requestBody: {
-      name: string
-    }
-  }): Promise<
-    | Response<200, t_project_column>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async projectsUpdateColumn(
+    p: {
+      columnId: number
+      requestBody: {
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_column>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsDeleteColumn(p: {
-    columnId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async projectsDeleteColumn(
+    p: {
+      columnId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListCards(p: {
-    columnId: number
-    archivedState?: "all" | "archived" | "not_archived"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_project_card[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async projectsListCards(
+    p: {
+      columnId: number
+      archivedState?: "all" | "archived" | "not_archived"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_card[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
     const query = this._query({
@@ -5562,156 +6578,192 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsCreateCard(p: {
-    columnId: number
-    requestBody:
-      | {
-          note: string | null
-        }
-      | {
-          content_id: number
-          content_type: string
-        }
-  }): Promise<
-    | Response<201, t_project_card>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error | t_validation_error_simple>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          errors?: {
+  async projectsCreateCard(
+    p: {
+      columnId: number
+      requestBody:
+        | {
+            note: string | null
+          }
+        | {
+            content_id: number
+            content_type: string
+          }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_project_card>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error | t_validation_error_simple>
+      | Res<
+          503,
+          {
             code?: string
+            documentation_url?: string
+            errors?: {
+              code?: string
+              message?: string
+            }[]
             message?: string
-          }[]
-          message?: string
-        }
-      >
+          }
+        >
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsMoveColumn(p: {
-    columnId: number
-    requestBody: {
-      position: string
-    }
-  }): Promise<
-    | Response<201, EmptyObject>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsMoveColumn(
+    p: {
+      columnId: number
+      requestBody: {
+        position: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, EmptyObject>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsGet(p: {
-    projectId: number
-  }): Promise<
-    | Response<200, t_project>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async projectsGet(
+    p: {
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsUpdate(p: {
-    projectId: number
-    requestBody?: {
-      body?: string | null
-      name?: string
-      organization_permission?: "read" | "write" | "admin" | "none"
-      private?: boolean
-      state?: string
-    }
-  }): Promise<
-    | Response<200, t_project>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Response<404, void>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsUpdate(
+    p: {
+      projectId: number
+      requestBody?: {
+        body?: string | null
+        name?: string
+        organization_permission?: "read" | "write" | "admin" | "none"
+        private?: boolean
+        state?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            errors?: string[]
+            message?: string
+          }
+        >
+      | Res<404, void>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsDelete(p: { projectId: number }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async projectsDelete(
+    p: {
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            errors?: string[]
+            message?: string
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListCollaborators(p: {
-    projectId: number
-    affiliation?: "outside" | "direct" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_simple_user[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async projectsListCollaborators(
+    p: {
+      projectId: number
+      affiliation?: "outside" | "direct" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_simple_user[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/collaborators`
     const query = this._query({
@@ -5719,294 +6771,351 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsAddCollaborator(p: {
-    projectId: number
-    username: string
-    requestBody?: {
-      permission?: "read" | "write" | "admin"
-    } | null
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async projectsAddCollaborator(
+    p: {
+      projectId: number
+      username: string
+      requestBody?: {
+        permission?: "read" | "write" | "admin"
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async projectsRemoveCollaborator(p: {
-    projectId: number
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async projectsRemoveCollaborator(
+    p: {
+      projectId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsGetPermissionForUser(p: {
-    projectId: number
-    username: string
-  }): Promise<
-    | Response<200, t_project_collaborator_permission>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async projectsGetPermissionForUser(
+    p: {
+      projectId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_collaborator_permission>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListColumns(p: {
-    projectId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_project_column[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async projectsListColumns(
+    p: {
+      projectId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project_column[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/columns`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsCreateColumn(p: {
-    projectId: number
-    requestBody: {
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_project_column>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsCreateColumn(
+    p: {
+      projectId: number
+      requestBody: {
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_project_column>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/columns`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async rateLimitGet(): Promise<
-    | Response<200, t_rate_limit_overview>
-    | Response<304, void>
-    | Response<404, t_basic_error>
+  async rateLimitGet(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_rate_limit_overview> | Res<304, void> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/rate_limit`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRepoRequiredWorkflows(p: {
-    org: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          required_workflows: t_repo_required_workflow[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async actionsListRepoRequiredWorkflows(
+    p: {
+      org: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            required_workflows: t_repo_required_workflow[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetRepoRequiredWorkflow(p: {
-    org: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-  }): Promise<
-    Response<200, t_repo_required_workflow> | Response<404, t_basic_error>
+  async actionsGetRepoRequiredWorkflow(
+    p: {
+      org: string
+      repo: string
+      requiredWorkflowIdForRepo: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_repo_required_workflow> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetRepoRequiredWorkflowUsage(p: {
-    org: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-  }): Promise<Response<200, t_workflow_usage> | Response<404, t_basic_error>> {
+  async actionsGetRepoRequiredWorkflowUsage(
+    p: {
+      org: string
+      repo: string
+      requiredWorkflowIdForRepo: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_workflow_usage> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/timing`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGet(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_full_repository>
-    | Response<301, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposGet(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_full_repository>
+      | Res<301, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdate(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      allow_auto_merge?: boolean
-      allow_forking?: boolean
-      allow_merge_commit?: boolean
-      allow_rebase_merge?: boolean
-      allow_squash_merge?: boolean
-      allow_update_branch?: boolean
-      archived?: boolean
-      default_branch?: string
-      delete_branch_on_merge?: boolean
-      description?: string
-      has_issues?: boolean
-      has_projects?: boolean
-      has_wiki?: boolean
-      homepage?: string
-      is_template?: boolean
-      merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-      merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
-      name?: string
-      private?: boolean
-      security_and_analysis?: {
-        advanced_security?: {
-          status?: string
-        }
-        secret_scanning?: {
-          status?: string
-        }
-        secret_scanning_push_protection?: {
-          status?: string
-        }
-      } | null
-      squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-      squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-      use_squash_pr_title_as_default?: boolean
-      visibility?: "public" | "private"
-      web_commit_signoff_required?: boolean
-    }
-  }): Promise<
-    | Response<200, t_full_repository>
-    | Response<307, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposUpdate(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        allow_auto_merge?: boolean
+        allow_forking?: boolean
+        allow_merge_commit?: boolean
+        allow_rebase_merge?: boolean
+        allow_squash_merge?: boolean
+        allow_update_branch?: boolean
+        archived?: boolean
+        default_branch?: string
+        delete_branch_on_merge?: boolean
+        description?: string
+        has_issues?: boolean
+        has_projects?: boolean
+        has_wiki?: boolean
+        homepage?: string
+        is_template?: boolean
+        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
+        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        name?: string
+        private?: boolean
+        security_and_analysis?: {
+          advanced_security?: {
+            status?: string
+          }
+          secret_scanning?: {
+            status?: string
+          }
+          secret_scanning_push_protection?: {
+            status?: string
+          }
+        } | null
+        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
+        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        use_squash_pr_title_as_default?: boolean
+        visibility?: "public" | "private"
+        web_commit_signoff_required?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_full_repository>
+      | Res<307, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDelete(p: { owner: string; repo: string }): Promise<
-    | Response<204, void>
-    | Response<307, t_basic_error>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
+  async reposDelete(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<307, t_basic_error>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListArtifactsForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-    name?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        artifacts: t_artifact[]
-        total_count: number
-      }
+  async actionsListArtifactsForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      name?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          artifacts: t_artifact[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
@@ -6016,81 +7125,89 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       name: p["name"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetArtifact(p: {
-    owner: string
-    repo: string
-    artifactId: number
-  }): Promise<Response<200, t_artifact>> {
+  async actionsGetArtifact(
+    p: {
+      owner: string
+      repo: string
+      artifactId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_artifact>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteArtifact(p: {
-    owner: string
-    repo: string
-    artifactId: number
-  }): Promise<Response<204, void>> {
+  async actionsDeleteArtifact(
+    p: {
+      owner: string
+      repo: string
+      artifactId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDownloadArtifact(p: {
-    owner: string
-    repo: string
-    artifactId: number
-    archiveFormat: string
-  }): Promise<Response<302, void> | Response<410, t_basic_error>> {
+  async actionsDownloadArtifact(
+    p: {
+      owner: string
+      repo: string
+      artifactId: number
+      archiveFormat: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void> | Res<410, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetActionsCacheUsage(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_actions_cache_usage_by_repository>> {
+  async actionsGetActionsCacheUsage(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_actions_cache_usage_by_repository>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetActionsCacheList(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-    ref?: string
-    key?: string
-    sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
-    direction?: "asc" | "desc"
-  }): Promise<Response<200, t_actions_cache_list>> {
+  async actionsGetActionsCacheList(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      ref?: string
+      key?: string
+      sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
+      direction?: "asc" | "desc"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({
@@ -6101,337 +7218,409 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
       direction: p["direction"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteActionsCacheByKey(p: {
-    owner: string
-    repo: string
-    key: string
-    ref?: string
-  }): Promise<Response<200, t_actions_cache_list>> {
+  async actionsDeleteActionsCacheByKey(
+    p: {
+      owner: string
+      repo: string
+      key: string
+      ref?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({ key: p["key"], ref: p["ref"] })
-    const res = await fetch(url + query, { method: "DELETE" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "DELETE", ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsDeleteActionsCacheById(p: {
-    owner: string
-    repo: string
-    cacheId: number
-  }): Promise<Response<204, void>> {
+  async actionsDeleteActionsCacheById(
+    p: {
+      owner: string
+      repo: string
+      cacheId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetJobForWorkflowRun(p: {
-    owner: string
-    repo: string
-    jobId: number
-  }): Promise<Response<200, t_job>> {
+  async actionsGetJobForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      jobId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_job>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDownloadJobLogsForWorkflowRun(p: {
-    owner: string
-    repo: string
-    jobId: number
-  }): Promise<Response<302, void>> {
+  async actionsDownloadJobLogsForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      jobId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsReRunJobForWorkflowRun(p: {
-    owner: string
-    repo: string
-    jobId: number
-    requestBody?: {
-      enable_debug_logging?: boolean
-    } | null
-  }): Promise<Response<201, t_empty_object> | Response<403, t_basic_error>> {
+  async actionsReRunJobForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      jobId: number
+      requestBody?: {
+        enable_debug_logging?: boolean
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<201, t_empty_object> | Res<403, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsGetCustomOidcSubClaimForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_oidc_custom_sub_repo>
-    | Response<400, t_scim_error>
-    | Response<404, t_basic_error>
+  async actionsGetCustomOidcSubClaimForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_oidc_custom_sub_repo>
+      | Res<400, t_scim_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsSetCustomOidcSubClaimForRepo(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      include_claim_keys?: string[]
-      use_default: boolean
-    }
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<400, t_scim_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsSetCustomOidcSubClaimForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        include_claim_keys?: string[]
+        use_default: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<400, t_scim_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsListRepoOrganizationSecrets(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_actions_secret[]
-        total_count: number
-      }
+  async actionsListRepoOrganizationSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_actions_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRepoOrganizationVariables(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        variables: t_actions_variable[]
-      }
+  async actionsListRepoOrganizationVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          variables: t_actions_variable[]
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetGithubActionsPermissionsRepository(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_actions_repository_permissions>> {
+  async actionsGetGithubActionsPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_repository_permissions>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsSetGithubActionsPermissionsRepository(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      allowed_actions?: t_allowed_actions
-      enabled: t_actions_enabled
-    }
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetWorkflowAccessToRepository(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_actions_workflow_access_to_repository>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetWorkflowAccessToRepository(p: {
-    owner: string
-    repo: string
-    requestBody: t_actions_workflow_access_to_repository
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetAllowedActionsRepository(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_selected_actions>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetAllowedActionsRepository(p: {
-    owner: string
-    repo: string
-    requestBody?: t_selected_actions
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_actions_get_default_workflow_permissions>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(p: {
-    owner: string
-    repo: string
-    requestBody: t_actions_set_default_workflow_permissions
-  }): Promise<Response<204, void> | Response<409, void>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListRequiredWorkflowRuns(p: {
-    owner: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-    actor?: string
-    branch?: string
-    event?: string
-    status?:
-      | "completed"
-      | "action_required"
-      | "cancelled"
-      | "failure"
-      | "neutral"
-      | "skipped"
-      | "stale"
-      | "success"
-      | "timed_out"
-      | "in_progress"
-      | "queued"
-      | "requested"
-      | "waiting"
-      | "pending"
-    perPage?: number
-    page?: number
-    created?: string
-    excludePullRequests?: boolean
-    checkSuiteId?: number
-    headSha?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        workflow_runs: t_workflow_run[]
+  async actionsSetGithubActionsPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        allowed_actions?: t_allowed_actions
+        enabled: t_actions_enabled
       }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetWorkflowAccessToRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_actions_workflow_access_to_repository>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetWorkflowAccessToRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_workflow_access_to_repository
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetAllowedActionsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetAllowedActionsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: t_selected_actions
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_actions_set_default_workflow_permissions
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsListRequiredWorkflowRuns(
+    p: {
+      owner: string
+      repo: string
+      requiredWorkflowIdForRepo: number
+      actor?: string
+      branch?: string
+      event?: string
+      status?:
+        | "completed"
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "skipped"
+        | "stale"
+        | "success"
+        | "timed_out"
+        | "in_progress"
+        | "queued"
+        | "requested"
+        | "waiting"
+        | "pending"
+      perPage?: number
+      page?: number
+      created?: string
+      excludePullRequests?: boolean
+      checkSuiteId?: number
+      headSha?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          workflow_runs: t_workflow_run[]
+        }
+      >
     >
   > {
     const url =
@@ -6449,273 +7638,311 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListSelfHostedRunnersForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        runners: t_runner[]
-        total_count: number
-      }
+  async actionsListSelfHostedRunnersForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          runners: t_runner[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runners`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRunnerApplicationsForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_runner_application[]>> {
+  async actionsListRunnerApplicationsForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateRegistrationTokenForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<201, t_authentication_token>> {
+  async actionsCreateRegistrationTokenForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateRemoveTokenForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<201, t_authentication_token>> {
+  async actionsCreateRemoveTokenForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-  }): Promise<Response<200, t_runner>> {
+  async actionsGetSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteSelfHostedRunnerFromRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-  }): Promise<Response<204, void>> {
+  async actionsDeleteSelfHostedRunnerFromRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListLabelsForSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async actionsListLabelsForSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsAddCustomLabelsToSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsAddCustomLabelsToSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+      requestBody: {
+        labels: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsSetCustomLabelsForSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-    requestBody: {
-      labels: string[]
-    }
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsSetCustomLabelsForSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+      requestBody: {
+        labels: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
+  async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(p: {
-    owner: string
-    repo: string
-    runnerId: number
-    name: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          labels: t_runner_label[]
-          total_count: number
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
+    p: {
+      owner: string
+      repo: string
+      runnerId: number
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            labels: t_runner_label[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListWorkflowRunsForRepo(p: {
-    owner: string
-    repo: string
-    actor?: string
-    branch?: string
-    event?: string
-    status?:
-      | "completed"
-      | "action_required"
-      | "cancelled"
-      | "failure"
-      | "neutral"
-      | "skipped"
-      | "stale"
-      | "success"
-      | "timed_out"
-      | "in_progress"
-      | "queued"
-      | "requested"
-      | "waiting"
-      | "pending"
-    perPage?: number
-    page?: number
-    created?: string
-    excludePullRequests?: boolean
-    checkSuiteId?: number
-    headSha?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        workflow_runs: t_workflow_run[]
-      }
+  async actionsListWorkflowRunsForRepo(
+    p: {
+      owner: string
+      repo: string
+      actor?: string
+      branch?: string
+      event?: string
+      status?:
+        | "completed"
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "skipped"
+        | "stale"
+        | "success"
+        | "timed_out"
+        | "in_progress"
+        | "queued"
+        | "requested"
+        | "waiting"
+        | "pending"
+      perPage?: number
+      page?: number
+      created?: string
+      excludePullRequests?: boolean
+      checkSuiteId?: number
+      headSha?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          workflow_runs: t_workflow_run[]
+        }
+      >
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`
@@ -6731,214 +7958,245 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetWorkflowRun(p: {
-    owner: string
-    repo: string
-    runId: number
-    excludePullRequests?: boolean
-  }): Promise<Response<200, t_workflow_run>> {
+  async actionsGetWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      excludePullRequests?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteWorkflowRun(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<204, void>> {
+  async actionsDeleteWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetReviewsForRun(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<200, t_environment_approvals[]>> {
+  async actionsGetReviewsForRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_environment_approvals[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsApproveWorkflowRun(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async actionsApproveWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListWorkflowRunArtifacts(p: {
-    owner: string
-    repo: string
-    runId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        artifacts: t_artifact[]
-        total_count: number
-      }
+  async actionsListWorkflowRunArtifacts(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          artifacts: t_artifact[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetWorkflowRunAttempt(p: {
-    owner: string
-    repo: string
-    runId: number
-    attemptNumber: number
-    excludePullRequests?: boolean
-  }): Promise<Response<200, t_workflow_run>> {
+  async actionsGetWorkflowRunAttempt(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      attemptNumber: number
+      excludePullRequests?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListJobsForWorkflowRunAttempt(p: {
-    owner: string
-    repo: string
-    runId: number
-    attemptNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
+  async actionsListJobsForWorkflowRunAttempt(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      attemptNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            jobs: t_job[]
+            total_count: number
+          }
+        >
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsDownloadWorkflowRunAttemptLogs(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      attemptNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsCancelWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<202, t_empty_object> | Res<409, t_basic_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+  }
+
+  async actionsReviewCustomGatesForRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      requestBody:
+        | t_review_custom_gates_comment_required
+        | t_review_custom_gates_state_required
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async actionsListJobsForWorkflowRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      filter?: "latest" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
         200,
         {
           jobs: t_job[]
           total_count: number
         }
       >
-    | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsDownloadWorkflowRunAttemptLogs(p: {
-    owner: string
-    repo: string
-    runId: number
-    attemptNumber: number
-  }): Promise<Response<302, void>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsCancelWorkflowRun(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<202, t_empty_object> | Response<409, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
-
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsReviewCustomGatesForRun(p: {
-    owner: string
-    repo: string
-    runId: number
-    requestBody:
-      | t_review_custom_gates_comment_required
-      | t_review_custom_gates_state_required
-  }): Promise<Response<204, void>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async actionsListJobsForWorkflowRun(p: {
-    owner: string
-    repo: string
-    runId: number
-    filter?: "latest" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        jobs: t_job[]
-        total_count: number
-      }
     >
   > {
     const url =
@@ -6949,438 +8207,508 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDownloadWorkflowRunLogs(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<302, void>> {
+  async actionsDownloadWorkflowRunLogs(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDeleteWorkflowRunLogs(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<500, t_basic_error>
+  async actionsDeleteWorkflowRunLogs(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetPendingDeploymentsForRun(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<200, t_pending_deployment[]>> {
+  async actionsGetPendingDeploymentsForRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pending_deployment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsReviewPendingDeploymentsForRun(p: {
-    owner: string
-    repo: string
-    runId: number
-    requestBody: {
-      comment: string
-      environment_ids: number[]
-      state: "approved" | "rejected"
-    }
-  }): Promise<Response<200, t_deployment[]>> {
+  async actionsReviewPendingDeploymentsForRun(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      requestBody: {
+        comment: string
+        environment_ids: number[]
+        state: "approved" | "rejected"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsReRunWorkflow(p: {
-    owner: string
-    repo: string
-    runId: number
-    requestBody?: {
-      enable_debug_logging?: boolean
-    } | null
-  }): Promise<Response<201, t_empty_object>> {
+  async actionsReRunWorkflow(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      requestBody?: {
+        enable_debug_logging?: boolean
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsReRunWorkflowFailedJobs(p: {
-    owner: string
-    repo: string
-    runId: number
-    requestBody?: {
-      enable_debug_logging?: boolean
-    } | null
-  }): Promise<Response<201, t_empty_object>> {
+  async actionsReRunWorkflowFailedJobs(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+      requestBody?: {
+        enable_debug_logging?: boolean
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsGetWorkflowRunUsage(p: {
-    owner: string
-    repo: string
-    runId: number
-  }): Promise<Response<200, t_workflow_run_usage>> {
+  async actionsGetWorkflowRunUsage(
+    p: {
+      owner: string
+      repo: string
+      runId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_workflow_run_usage>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRepoSecrets(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_actions_secret[]
-        total_count: number
-      }
+  async actionsListRepoSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_actions_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetRepoPublicKey(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_actions_public_key>> {
+  async actionsGetRepoPublicKey(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<200, t_actions_secret>> {
+  async actionsGetRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateOrUpdateRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
+  async actionsCreateOrUpdateRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsDeleteRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async actionsDeleteRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRepoVariables(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        variables: t_actions_variable[]
-      }
+  async actionsListRepoVariables(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          variables: t_actions_variable[]
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateRepoVariable(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      name: string
-      value: string
-    }
-  }): Promise<Response<201, t_empty_object>> {
+  async actionsCreateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        name: string
+        value: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsGetRepoVariable(p: {
-    owner: string
-    repo: string
-    name: string
-  }): Promise<Response<200, t_actions_variable>> {
+  async actionsGetRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsUpdateRepoVariable(p: {
-    owner: string
-    repo: string
-    name: string
-    requestBody: {
-      name?: string
-      value?: string
-    }
-  }): Promise<Response<204, void>> {
+  async actionsUpdateRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      requestBody: {
+        name?: string
+        value?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsDeleteRepoVariable(p: {
-    owner: string
-    repo: string
-    name: string
-  }): Promise<Response<204, void>> {
+  async actionsDeleteRepoVariable(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListRepoWorkflows(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        workflows: t_workflow[]
-      }
+  async actionsListRepoWorkflows(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          workflows: t_workflow[]
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetWorkflow(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-  }): Promise<Response<200, t_workflow>> {
+  async actionsGetWorkflow(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_workflow>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsDisableWorkflow(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-  }): Promise<Response<204, void>> {
+  async actionsDisableWorkflow(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateWorkflowDispatch(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-    requestBody: {
-      inputs?: {
-        [key: string]: unknown
+  async actionsCreateWorkflowDispatch(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+      requestBody: {
+        inputs?: {
+          [key: string]: unknown
+        }
+        ref: string
       }
-      ref: string
-    }
-  }): Promise<Response<204, void>> {
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsEnableWorkflow(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-  }): Promise<Response<204, void>> {
+  async actionsEnableWorkflow(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListWorkflowRuns(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-    actor?: string
-    branch?: string
-    event?: string
-    status?:
-      | "completed"
-      | "action_required"
-      | "cancelled"
-      | "failure"
-      | "neutral"
-      | "skipped"
-      | "stale"
-      | "success"
-      | "timed_out"
-      | "in_progress"
-      | "queued"
-      | "requested"
-      | "waiting"
-      | "pending"
-    perPage?: number
-    page?: number
-    created?: string
-    excludePullRequests?: boolean
-    checkSuiteId?: number
-    headSha?: string
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        workflow_runs: t_workflow_run[]
-      }
+  async actionsListWorkflowRuns(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+      actor?: string
+      branch?: string
+      event?: string
+      status?:
+        | "completed"
+        | "action_required"
+        | "cancelled"
+        | "failure"
+        | "neutral"
+        | "skipped"
+        | "stale"
+        | "success"
+        | "timed_out"
+        | "in_progress"
+        | "queued"
+        | "requested"
+        | "waiting"
+        | "pending"
+      perPage?: number
+      page?: number
+      created?: string
+      excludePullRequests?: boolean
+      checkSuiteId?: number
+      headSha?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          workflow_runs: t_workflow_run[]
+        }
+      >
     >
   > {
     const url =
@@ -7398,214 +8726,384 @@ export class ApiClient extends AbstractFetchClient {
       check_suite_id: p["checkSuiteId"],
       head_sha: p["headSha"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetWorkflowUsage(p: {
-    owner: string
-    repo: string
-    workflowId: number | string
-  }): Promise<Response<200, t_workflow_usage>> {
+  async actionsGetWorkflowUsage(
+    p: {
+      owner: string
+      repo: string
+      workflowId: number | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_workflow_usage>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListAssignees(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
+  async issuesListAssignees(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesCheckUserCanBeAssigned(p: {
-    owner: string
-    repo: string
-    assignee: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async issuesCheckUserCanBeAssigned(
+    p: {
+      owner: string
+      repo: string
+      assignee: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListAutolinks(p: {
-    owner: string
-    repo: string
-    page?: number
-  }): Promise<Response<200, t_autolink[]>> {
+  async reposListAutolinks(
+    p: {
+      owner: string
+      repo: string
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_autolink[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const query = this._query({ page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateAutolink(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      is_alphanumeric?: boolean
-      key_prefix: string
-      url_template: string
-    }
-  }): Promise<Response<201, t_autolink> | Response<422, t_validation_error>> {
+  async reposCreateAutolink(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        is_alphanumeric?: boolean
+        key_prefix: string
+        url_template: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<201, t_autolink> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetAutolink(p: {
-    owner: string
-    repo: string
-    autolinkId: number
-  }): Promise<Response<200, t_autolink> | Response<404, t_basic_error>> {
+  async reposGetAutolink(
+    p: {
+      owner: string
+      repo: string
+      autolinkId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_autolink> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDeleteAutolink(p: {
-    owner: string
-    repo: string
-    autolinkId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async reposDeleteAutolink(
+    p: {
+      owner: string
+      repo: string
+      autolinkId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposEnableAutomatedSecurityFixes(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async reposEnableAutomatedSecurityFixes(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDisableAutomatedSecurityFixes(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async reposDisableAutomatedSecurityFixes(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListBranches(p: {
-    owner: string
-    repo: string
-    protected?: boolean
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_short_branch[]> | Response<404, t_basic_error>> {
+  async reposListBranches(
+    p: {
+      owner: string
+      repo: string
+      protected?: boolean
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_short_branch[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`
     const query = this._query({
       protected: p["protected"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetBranch(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    | Response<200, t_branch_with_protection>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposGetBranch(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_branch_with_protection>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    Response<200, t_branch_protection> | Response<404, t_basic_error>
+  async reposGetBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_branch_protection> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody: {
-      allow_deletions?: boolean
-      allow_force_pushes?: boolean | null
-      allow_fork_syncing?: boolean
-      block_creations?: boolean
-      enforce_admins: boolean | null
-      lock_branch?: boolean
-      required_conversation_resolution?: boolean
-      required_linear_history?: boolean
-      required_pull_request_reviews: {
+  async reposUpdateBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody: {
+        allow_deletions?: boolean
+        allow_force_pushes?: boolean | null
+        allow_fork_syncing?: boolean
+        block_creations?: boolean
+        enforce_admins: boolean | null
+        lock_branch?: boolean
+        required_conversation_resolution?: boolean
+        required_linear_history?: boolean
+        required_pull_request_reviews: {
+          bypass_pull_request_allowances?: {
+            apps?: string[]
+            teams?: string[]
+            users?: string[]
+          }
+          dismiss_stale_reviews?: boolean
+          dismissal_restrictions?: {
+            apps?: string[]
+            teams?: string[]
+            users?: string[]
+          }
+          require_code_owner_reviews?: boolean
+          require_last_push_approval?: boolean
+          required_approving_review_count?: number
+        } | null
+        required_status_checks: {
+          checks?: {
+            app_id?: number
+            context: string
+          }[]
+          contexts: string[]
+          strict: boolean
+        } | null
+        restrictions: {
+          apps?: string[]
+          teams: string[]
+          users: string[]
+        } | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_protected_branch>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reposDeleteBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetAdminBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposSetAdminBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposDeleteAdminBranchProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetPullRequestReviewProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_protected_branch_pull_request_review>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposUpdatePullRequestReviewProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?: {
         bypass_pull_request_allowances?: {
           apps?: string[]
           teams?: string[]
@@ -7620,869 +9118,911 @@ export class ApiClient extends AbstractFetchClient {
         require_code_owner_reviews?: boolean
         require_last_push_approval?: boolean
         required_approving_review_count?: number
-      } | null
-      required_status_checks: {
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_protected_branch_pull_request_review>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reposDeletePullRequestReviewProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetCommitSignatureProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposCreateCommitSignatureProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposDeleteCommitSignatureProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposGetStatusChecksProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_status_check_policy> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposUpdateStatusCheckProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?: {
         checks?: {
           app_id?: number
           context: string
         }[]
-        contexts: string[]
-        strict: boolean
-      } | null
-      restrictions: {
-        apps?: string[]
-        teams: string[]
-        users: string[]
-      } | null
-    }
-  }): Promise<
-    | Response<200, t_protected_branch>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeleteBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void> | Response<403, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposGetAdminBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_protected_branch_admin_enforced>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposSetAdminBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_protected_branch_admin_enforced>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
-
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeleteAdminBranchProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposGetPullRequestReviewProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_protected_branch_pull_request_review>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposUpdatePullRequestReviewProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?: {
-      bypass_pull_request_allowances?: {
-        apps?: string[]
-        teams?: string[]
-        users?: string[]
+        contexts?: string[]
+        strict?: boolean
       }
-      dismiss_stale_reviews?: boolean
-      dismissal_restrictions?: {
-        apps?: string[]
-        teams?: string[]
-        users?: string[]
-      }
-      require_code_owner_reviews?: boolean
-      require_last_push_approval?: boolean
-      required_approving_review_count?: number
-    }
-  }): Promise<
-    | Response<200, t_protected_branch_pull_request_review>
-    | Response<422, t_validation_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeletePullRequestReviewProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposGetCommitSignatureProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    | Response<200, t_protected_branch_admin_enforced>
-    | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposCreateCommitSignatureProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    | Response<200, t_protected_branch_admin_enforced>
-    | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
-
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeleteCommitSignatureProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
-
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposGetStatusChecksProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    Response<200, t_status_check_policy> | Response<404, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposUpdateStatusCheckProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?: {
-      checks?: {
-        app_id?: number
-        context: string
-      }[]
-      contexts?: string[]
-      strict?: boolean
-    }
-  }): Promise<
-    | Response<200, t_status_check_policy>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_status_check_policy>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveStatusCheckProtection(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void>> {
+  async reposRemoveStatusCheckProtection(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetAllStatusCheckContexts(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, string[]> | Response<404, t_basic_error>> {
+  async reposGetAllStatusCheckContexts(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposAddStatusCheckContexts(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          contexts: string[]
-        }
-      | string[]
-  }): Promise<
-    | Response<200, string[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposAddStatusCheckContexts(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            contexts: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, string[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposSetStatusCheckContexts(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          contexts: string[]
-        }
-      | string[]
-  }): Promise<
-    | Response<200, string[]>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposSetStatusCheckContexts(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            contexts: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, string[]>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveStatusCheckContexts(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody:
-      | {
-          contexts: string[]
-        }
-      | string[]
-  }): Promise<
-    | Response<200, string[]>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposRemoveStatusCheckContexts(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody:
+        | {
+            contexts: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, string[]>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<
-    Response<200, t_branch_restriction_policy> | Response<404, t_basic_error>
+  async reposGetAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_branch_restriction_policy> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDeleteAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<204, void>> {
+  async reposDeleteAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetAppsWithAccessToProtectedBranch(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_integration[]> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposAddAppAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          apps: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_integration[]> | Response<422, t_validation_error>
+  async reposGetAppsWithAccessToProtectedBranch(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_integration[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposSetAppAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          apps: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_integration[]> | Response<422, t_validation_error>
+  async reposAddAppAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            apps: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveAppAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody:
-      | {
-          apps: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_integration[]> | Response<422, t_validation_error>
+  async reposSetAppAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            apps: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetTeamsWithAccessToProtectedBranch(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_team[]> | Response<404, t_basic_error>> {
+  async reposRemoveAppAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody:
+        | {
+            apps: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reposGetTeamsWithAccessToProtectedBranch(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposAddTeamAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          teams: string[]
-        }
-      | string[]
-  }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
+  async reposAddTeamAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            teams: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposSetTeamAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          teams: string[]
-        }
-      | string[]
-  }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
+  async reposSetTeamAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            teams: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveTeamAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody:
-      | {
-          teams: string[]
-        }
-      | string[]
-  }): Promise<Response<200, t_team[]> | Response<422, t_validation_error>> {
+  async reposRemoveTeamAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody:
+        | {
+            teams: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetUsersWithAccessToProtectedBranch(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
+  async reposGetUsersWithAccessToProtectedBranch(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposAddUserAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          users: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_simple_user[]> | Response<422, t_validation_error>
+  async reposAddUserAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            users: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposSetUserAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody?:
-      | {
-          users: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_simple_user[]> | Response<422, t_validation_error>
+  async reposSetUserAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody?:
+        | {
+            users: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveUserAccessRestrictions(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody:
-      | {
-          users: string[]
-        }
-      | string[]
-  }): Promise<
-    Response<200, t_simple_user[]> | Response<422, t_validation_error>
+  async reposRemoveUserAccessRestrictions(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody:
+        | {
+            users: string[]
+          }
+        | string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRenameBranch(p: {
-    owner: string
-    repo: string
-    branch: string
-    requestBody: {
-      new_name: string
-    }
-  }): Promise<
-    | Response<201, t_branch_with_protection>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposRenameBranch(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+      requestBody: {
+        new_name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_branch_with_protection>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async checksCreate(p: {
-    owner: string
-    repo: string
-    requestBody:
-      | {
-          status: EmptyObject
-        }
-      | {
-          [key: string]: unknown
-        }
-      | {
-          status?: EmptyObject
-        }
-  }): Promise<Response<201, t_check_run>> {
+  async checksCreate(
+    p: {
+      owner: string
+      repo: string
+      requestBody:
+        | {
+            status: EmptyObject
+          }
+        | {
+            [key: string]: unknown
+          }
+        | {
+            status?: EmptyObject
+          }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_check_run>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async checksGet(p: {
-    owner: string
-    repo: string
-    checkRunId: number
-  }): Promise<Response<200, t_check_run>> {
+  async checksGet(
+    p: {
+      owner: string
+      repo: string
+      checkRunId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksUpdate(p: {
-    owner: string
-    repo: string
-    checkRunId: number
-    requestBody: {
-      actions?: {
-        description: string
-        identifier: string
-        label: string
-      }[]
-      completed_at?: string
-      conclusion?:
-        | "action_required"
-        | "cancelled"
-        | "failure"
-        | "neutral"
-        | "success"
-        | "skipped"
-        | "stale"
-        | "timed_out"
-      details_url?: string
-      external_id?: string
-      name?: string
-      output?: {
-        annotations?: {
-          annotation_level: "notice" | "warning" | "failure"
-          end_column?: number
-          end_line: number
-          message: string
-          path: string
-          raw_details?: string
-          start_column?: number
-          start_line: number
+  async checksUpdate(
+    p: {
+      owner: string
+      repo: string
+      checkRunId: number
+      requestBody: {
+        actions?: {
+          description: string
+          identifier: string
+          label: string
+        }[]
+        completed_at?: string
+        conclusion?:
+          | "action_required"
+          | "cancelled"
+          | "failure"
+          | "neutral"
+          | "success"
+          | "skipped"
+          | "stale"
+          | "timed_out"
+        details_url?: string
+        external_id?: string
+        name?: string
+        output?: {
+          annotations?: {
+            annotation_level: "notice" | "warning" | "failure"
+            end_column?: number
+            end_line: number
+            message: string
+            path: string
+            raw_details?: string
+            start_column?: number
+            start_line: number
+            title?: string
+          }[]
+          images?: {
+            alt: string
+            caption?: string
+            image_url: string
+          }[]
+          summary: string
+          text?: string
           title?: string
-        }[]
-        images?: {
-          alt: string
-          caption?: string
-          image_url: string
-        }[]
-        summary: string
-        text?: string
-        title?: string
+        }
+        started_at?: string
+        status?: "queued" | "in_progress" | "completed"
       }
-      started_at?: string
-      status?: "queued" | "in_progress" | "completed"
-    }
-  }): Promise<Response<200, t_check_run>> {
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async checksListAnnotations(p: {
-    owner: string
-    repo: string
-    checkRunId: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_check_annotation[]>> {
+  async checksListAnnotations(
+    p: {
+      owner: string
+      repo: string
+      checkRunId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_check_annotation[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksRerequestRun(p: {
-    owner: string
-    repo: string
-    checkRunId: number
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_basic_error>
+  async checksRerequestRun(
+    p: {
+      owner: string
+      repo: string
+      checkRunId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async checksCreateSuite(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      head_sha: string
-    }
-  }): Promise<Response<200, t_check_suite> | Response<201, t_check_suite>> {
+  async checksCreateSuite(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        head_sha: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_check_suite> | Res<201, t_check_suite>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async checksSetSuitesPreferences(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      auto_trigger_checks?: {
-        app_id: number
-        setting: boolean
-      }[]
-    }
-  }): Promise<Response<200, t_check_suite_preference>> {
+  async checksSetSuitesPreferences(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        auto_trigger_checks?: {
+          app_id: number
+          setting: boolean
+        }[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_check_suite_preference>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async checksGetSuite(p: {
-    owner: string
-    repo: string
-    checkSuiteId: number
-  }): Promise<Response<200, t_check_suite>> {
+  async checksGetSuite(
+    p: {
+      owner: string
+      repo: string
+      checkSuiteId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_check_suite>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksListForSuite(p: {
-    owner: string
-    repo: string
-    checkSuiteId: number
-    checkName?: string
-    status?: "queued" | "in_progress" | "completed"
-    filter?: "latest" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        check_runs: t_check_run[]
-        total_count: number
-      }
+  async checksListForSuite(
+    p: {
+      owner: string
+      repo: string
+      checkSuiteId: number
+      checkName?: string
+      status?: "queued" | "in_progress" | "completed"
+      filter?: "latest" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          check_runs: t_check_run[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
@@ -8495,52 +10035,57 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksRerequestSuite(p: {
-    owner: string
-    repo: string
-    checkSuiteId: number
-  }): Promise<Response<201, t_empty_object>> {
+  async checksRerequestSuite(
+    p: {
+      owner: string
+      repo: string
+      checkSuiteId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningListAlertsForRepo(p: {
-    owner: string
-    repo: string
-    toolName?: t_code_scanning_analysis_tool_name
-    toolGuid?: t_code_scanning_analysis_tool_guid
-    page?: number
-    perPage?: number
-    ref?: t_code_scanning_ref
-    direction?: "asc" | "desc"
-    sort?: "created" | "updated"
-    state?: t_code_scanning_alert_state
-    severity?: t_code_scanning_alert_severity
-  }): Promise<
-    | Response<200, t_code_scanning_alert_items[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningListAlertsForRepo(
+    p: {
+      owner: string
+      repo: string
+      toolName?: t_code_scanning_analysis_tool_name
+      toolGuid?: t_code_scanning_analysis_tool_guid
+      page?: number
+      perPage?: number
+      ref?: t_code_scanning_ref
+      direction?: "asc" | "desc"
+      sort?: "created" | "updated"
+      state?: t_code_scanning_alert_state
+      severity?: t_code_scanning_alert_severity
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_alert_items[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`
@@ -8555,92 +10100,107 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
       severity: p["severity"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningGetAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-  }): Promise<
-    | Response<200, t_code_scanning_alert>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningGetAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_alert>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningUpdateAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-    requestBody: {
-      dismissed_comment?: t_code_scanning_alert_dismissed_comment
-      dismissed_reason?: t_code_scanning_alert_dismissed_reason
-      state: t_code_scanning_alert_set_state
-    }
-  }): Promise<
-    | Response<200, t_code_scanning_alert>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningUpdateAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      requestBody: {
+        dismissed_comment?: t_code_scanning_alert_dismissed_comment
+        dismissed_reason?: t_code_scanning_alert_dismissed_reason
+        state: t_code_scanning_alert_set_state
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_alert>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codeScanningListAlertInstances(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-    page?: number
-    perPage?: number
-    ref?: t_code_scanning_ref
-  }): Promise<
-    | Response<200, t_code_scanning_alert_instance[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningListAlertInstances(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      page?: number
+      perPage?: number
+      ref?: t_code_scanning_ref
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_alert_instance[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
@@ -8650,35 +10210,39 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       ref: p["ref"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningListRecentAnalyses(p: {
-    owner: string
-    repo: string
-    toolName?: t_code_scanning_analysis_tool_name
-    toolGuid?: t_code_scanning_analysis_tool_guid
-    page?: number
-    perPage?: number
-    ref?: t_code_scanning_ref
-    sarifId?: t_code_scanning_analysis_sarif_id
-    direction?: "asc" | "desc"
-    sort?: "created"
-  }): Promise<
-    | Response<200, t_code_scanning_analysis[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningListRecentAnalyses(
+    p: {
+      owner: string
+      repo: string
+      toolName?: t_code_scanning_analysis_tool_name
+      toolGuid?: t_code_scanning_analysis_tool_guid
+      page?: number
+      perPage?: number
+      ref?: t_code_scanning_ref
+      sarifId?: t_code_scanning_analysis_sarif_id
+      direction?: "asc" | "desc"
+      sort?: "created"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_analysis[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`
@@ -8692,379 +10256,442 @@ export class ApiClient extends AbstractFetchClient {
       direction: p["direction"],
       sort: p["sort"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningGetAnalysis(p: {
-    owner: string
-    repo: string
-    analysisId: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          [key: string]: unknown
-        }
-      >
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningGetAnalysis(
+    p: {
+      owner: string
+      repo: string
+      analysisId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            [key: string]: unknown
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningDeleteAnalysis(p: {
-    owner: string
-    repo: string
-    analysisId: number
-    confirmDelete?: string | null
-  }): Promise<
-    | Response<200, t_code_scanning_analysis_deletion>
-    | Response<400, t_scim_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningDeleteAnalysis(
+    p: {
+      owner: string
+      repo: string
+      analysisId: number
+      confirmDelete?: string | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_analysis_deletion>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const query = this._query({ confirm_delete: p["confirmDelete"] })
-    const res = await fetch(url + query, { method: "DELETE" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "DELETE", ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codeScanningListCodeqlDatabases(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_code_scanning_codeql_database[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningListCodeqlDatabases(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_codeql_database[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningGetCodeqlDatabase(p: {
-    owner: string
-    repo: string
-    language: string
-  }): Promise<
-    | Response<200, t_code_scanning_codeql_database>
-    | Response<302, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningGetCodeqlDatabase(
+    p: {
+      owner: string
+      repo: string
+      language: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_codeql_database>
+      | Res<302, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningGetDefaultSetup(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_code_scanning_default_setup>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningGetDefaultSetup(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_default_setup>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codeScanningUpdateDefaultSetup(p: {
-    owner: string
-    repo: string
-    requestBody: t_code_scanning_default_setup_update
-  }): Promise<
-    | Response<200, t_empty_object>
-    | Response<202, t_code_scanning_default_setup_update_response>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningUpdateDefaultSetup(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_code_scanning_default_setup_update
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_empty_object>
+      | Res<202, t_code_scanning_default_setup_update_response>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codeScanningUploadSarif(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      checkout_uri?: string
-      commit_sha: t_code_scanning_analysis_commit_sha
-      ref: t_code_scanning_ref
-      sarif: t_code_scanning_analysis_sarif_file
-      started_at?: string
-      tool_name?: string
-      validate?: boolean
-    }
-  }): Promise<
-    | Response<202, t_code_scanning_sarifs_receipt>
-    | Response<400, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<413, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningUploadSarif(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        checkout_uri?: string
+        commit_sha: t_code_scanning_analysis_commit_sha
+        ref: t_code_scanning_ref
+        sarif: t_code_scanning_analysis_sarif_file
+        started_at?: string
+        tool_name?: string
+        validate?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, t_code_scanning_sarifs_receipt>
+      | Res<400, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<413, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codeScanningGetSarif(p: {
-    owner: string
-    repo: string
-    sarifId: string
-  }): Promise<
-    | Response<200, t_code_scanning_sarifs_status>
-    | Response<403, t_basic_error>
-    | Response<404, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codeScanningGetSarif(
+    p: {
+      owner: string
+      repo: string
+      sarifId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_sarifs_status>
+      | Res<403, t_basic_error>
+      | Res<404, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCodeownersErrors(p: {
-    owner: string
-    repo: string
-    ref?: string
-  }): Promise<Response<200, t_codeowners_errors> | Response<404, void>> {
+  async reposCodeownersErrors(
+    p: {
+      owner: string
+      repo: string
+      ref?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_codeowners_errors> | Res<404, void>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesListInRepositoryForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          codespaces: t_codespace[]
-          total_count: number
-        }
-      >
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesListInRepositoryForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            codespaces: t_codespace[]
+            total_count: number
+          }
+        >
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCreateWithRepoForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      client_ip?: string
-      devcontainer_path?: string
-      display_name?: string
-      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-      idle_timeout_minutes?: number
-      location?: string
-      machine?: string
-      multi_repo_permissions_opt_out?: boolean
-      ref?: string
-      retention_period_minutes?: number
-      working_directory?: string
-    } | null
-  }): Promise<
-    | Response<201, t_codespace>
-    | Response<202, t_codespace>
-    | Response<400, t_scim_error>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codespacesCreateWithRepoForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        client_ip?: string
+        devcontainer_path?: string
+        display_name?: string
+        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+        idle_timeout_minutes?: number
+        location?: string
+        machine?: string
+        multi_repo_permissions_opt_out?: boolean
+        ref?: string
+        retention_period_minutes?: number
+        working_directory?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_codespace>
+      | Res<202, t_codespace>
+      | Res<400, t_scim_error>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesListDevcontainersInRepositoryForAuthenticatedUser(p: {
-    perPage?: number
-    page?: number
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          devcontainers: {
-            display_name?: string
-            name?: string
-            path: string
-          }[]
-          total_count: number
-        }
-      >
-    | Response<400, t_scim_error>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesListDevcontainersInRepositoryForAuthenticatedUser(
+    p: {
+      perPage?: number
+      page?: number
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            devcontainers: {
+              display_name?: string
+              name?: string
+              path: string
+            }[]
+            total_count: number
+          }
+        >
+      | Res<400, t_scim_error>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesRepoMachinesForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-    location?: string
-    clientIp?: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          machines: t_codespace_machine[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesRepoMachinesForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+      location?: string
+      clientIp?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            machines: t_codespace_machine[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`
@@ -9072,136 +10699,157 @@ export class ApiClient extends AbstractFetchClient {
       location: p["location"],
       client_ip: p["clientIp"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesPreFlightWithRepoForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-    ref?: string
-    clientIp?: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          billable_owner?: t_simple_user
-          defaults?: {
-            devcontainer_path: string | null
-            location: string
+  async codespacesPreFlightWithRepoForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+      ref?: string
+      clientIp?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            billable_owner?: t_simple_user
+            defaults?: {
+              devcontainer_path: string | null
+              location: string
+            }
           }
-        }
-      >
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+        >
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesListRepoSecrets(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_repo_codespaces_secret[]
-        total_count: number
-      }
+  async codespacesListRepoSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_repo_codespaces_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetRepoPublicKey(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_codespaces_public_key>> {
+  async codespacesGetRepoPublicKey(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<200, t_repo_codespaces_secret>> {
+  async codespacesGetRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_repo_codespaces_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCreateOrUpdateRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
+  async codespacesCreateOrUpdateRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesDeleteRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async codespacesDeleteRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListCollaborators(p: {
-    owner: string
-    repo: string
-    affiliation?: "outside" | "direct" | "all"
-    permission?: "pull" | "triage" | "push" | "maintain" | "admin"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_collaborator[]> | Response<404, t_basic_error>> {
+  async reposListCollaborators(
+    p: {
+      owner: string
+      repo: string
+      affiliation?: "outside" | "direct" | "all"
+      permission?: "pull" | "triage" | "push" | "maintain" | "admin"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_collaborator[]> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`
     const query = this._query({
@@ -9210,183 +10858,177 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCheckCollaborator(p: {
-    owner: string
-    repo: string
-    username: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async reposCheckCollaborator(
+    p: {
+      owner: string
+      repo: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposAddCollaborator(p: {
-    owner: string
-    repo: string
-    username: string
-    requestBody?: {
-      permission?: string
-    }
-  }): Promise<
-    | Response<201, t_repository_invitation>
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposAddCollaborator(
+    p: {
+      owner: string
+      repo: string
+      username: string
+      requestBody?: {
+        permission?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository_invitation>
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposRemoveCollaborator(p: {
-    owner: string
-    repo: string
-    username: string
-  }): Promise<Response<204, void>> {
+  async reposRemoveCollaborator(
+    p: {
+      owner: string
+      repo: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCollaboratorPermissionLevel(p: {
-    owner: string
-    repo: string
-    username: string
-  }): Promise<
-    | Response<200, t_repository_collaborator_permission>
-    | Response<404, t_basic_error>
+  async reposGetCollaboratorPermissionLevel(
+    p: {
+      owner: string
+      repo: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_repository_collaborator_permission> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListCommitCommentsForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_commit_comment[]>> {
+  async reposListCommitCommentsForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>> {
+  async reposGetCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<200, t_commit_comment> | Response<404, t_basic_error>> {
+  async reposUpdateCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async reposDeleteCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      content:
+  async reactionsListForCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -9395,56 +11037,103 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<
-    | Response<200, t_reaction>
-    | Response<201, t_reaction>
-    | Response<422, t_validation_error>
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForCommitComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListCommits(p: {
-    owner: string
-    repo: string
-    sha?: string
-    path?: string
-    author?: string
-    committer?: string
-    since?: string
-    until?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_commit[]>
-    | Response<400, t_scim_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposListCommits(
+    p: {
+      owner: string
+      repo: string
+      sha?: string
+      path?: string
+      author?: string
+      committer?: string
+      since?: string
+      until?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_commit[]>
+      | Res<400, t_scim_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits`
     const query = this._query({
@@ -9457,135 +11146,158 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListBranchesForHeadCommit(p: {
-    owner: string
-    repo: string
-    commitSha: string
-  }): Promise<
-    Response<200, t_branch_short[]> | Response<422, t_validation_error>
+  async reposListBranchesForHeadCommit(
+    p: {
+      owner: string
+      repo: string
+      commitSha: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_branch_short[]> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListCommentsForCommit(p: {
-    owner: string
-    repo: string
-    commitSha: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_commit_comment[]>> {
+  async reposListCommentsForCommit(
+    p: {
+      owner: string
+      repo: string
+      commitSha: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateCommitComment(p: {
-    owner: string
-    repo: string
-    commitSha: string
-    requestBody: {
-      body: string
-      line?: number
-      path?: string
-      position?: number
-    }
-  }): Promise<
-    | Response<201, t_commit_comment>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateCommitComment(
+    p: {
+      owner: string
+      repo: string
+      commitSha: string
+      requestBody: {
+        body: string
+        line?: number
+        path?: string
+        position?: number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_commit_comment>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposListPullRequestsAssociatedWithCommit(p: {
-    owner: string
-    repo: string
-    commitSha: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_pull_request_simple[]>> {
+  async reposListPullRequestsAssociatedWithCommit(
+    p: {
+      owner: string
+      repo: string
+      commitSha: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_simple[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCommit(p: {
-    owner: string
-    repo: string
-    page?: number
-    perPage?: number
-    ref: string
-  }): Promise<
-    | Response<200, t_commit>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async reposGetCommit(
+    p: {
+      owner: string
+      repo: string
+      page?: number
+      perPage?: number
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_commit>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksListForRef(p: {
-    owner: string
-    repo: string
-    ref: string
-    checkName?: string
-    status?: "queued" | "in_progress" | "completed"
-    filter?: "latest" | "all"
-    perPage?: number
-    page?: number
-    appId?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        check_runs: t_check_run[]
-        total_count: number
-      }
+  async checksListForRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      checkName?: string
+      status?: "queued" | "in_progress" | "completed"
+      filter?: "latest" | "all"
+      perPage?: number
+      page?: number
+      appId?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          check_runs: t_check_run[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
@@ -9599,27 +11311,31 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       app_id: p["appId"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async checksListSuitesForRef(p: {
-    owner: string
-    repo: string
-    ref: string
-    appId?: number
-    checkName?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        check_suites: t_check_suite[]
-        total_count: number
-      }
+  async checksListSuitesForRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      appId?: number
+      checkName?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          check_suites: t_check_suite[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
@@ -9631,205 +11347,242 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCombinedStatusForRef(p: {
-    owner: string
-    repo: string
-    ref: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_combined_commit_status> | Response<404, t_basic_error>
+  async reposGetCombinedStatusForRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_combined_commit_status> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListCommitStatusesForRef(p: {
-    owner: string
-    repo: string
-    ref: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_status[]> | Response<301, t_basic_error>> {
+  async reposListCommitStatusesForRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_status[]> | Res<301, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCommunityProfileMetrics(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_community_profile>> {
+  async reposGetCommunityProfileMetrics(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_community_profile>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/community/profile`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCompareCommits(p: {
-    owner: string
-    repo: string
-    page?: number
-    perPage?: number
-    basehead: string
-  }): Promise<
-    | Response<200, t_commit_comparison>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async reposCompareCommits(
+    p: {
+      owner: string
+      repo: string
+      page?: number
+      perPage?: number
+      basehead: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_commit_comparison>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetContent(p: {
-    owner: string
-    repo: string
-    path: string
-    ref?: string
-  }): Promise<
-    | Response<
-        200,
-        | t_content_directory
-        | t_content_file
-        | t_content_symlink
-        | t_content_submodule
-      >
-    | Response<302, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposGetContent(
+    p: {
+      owner: string
+      repo: string
+      path: string
+      ref?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          | t_content_directory
+          | t_content_file
+          | t_content_symlink
+          | t_content_submodule
+        >
+      | Res<302, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateOrUpdateFileContents(p: {
-    owner: string
-    repo: string
-    path: string
-    requestBody: {
-      author?: {
-        date?: string
-        email: string
-        name: string
-      }
-      branch?: string
-      committer?: {
-        date?: string
-        email: string
-        name: string
-      }
-      content: string
-      message: string
-      sha?: string
-    }
-  }): Promise<
-    | Response<200, t_file_commit>
-    | Response<201, t_file_commit>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
-  > {
-    const url =
-      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeleteFile(p: {
-    owner: string
-    repo: string
-    path: string
-    requestBody: {
-      author?: {
-        email?: string
-        name?: string
-      }
-      branch?: string
-      committer?: {
-        email?: string
-        name?: string
-      }
-      message: string
-      sha: string
-    }
-  }): Promise<
-    | Response<200, t_file_commit>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
+  async reposCreateOrUpdateFileContents(
+    p: {
+      owner: string
+      repo: string
+      path: string
+      requestBody: {
+        author?: {
+          date?: string
+          email: string
+          name: string
         }
-      >
+        branch?: string
+        committer?: {
+          date?: string
+          email: string
+          name: string
+        }
+        content: string
+        message: string
+        sha?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_file_commit>
+      | Res<201, t_file_commit>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposListContributors(p: {
-    owner: string
-    repo: string
-    anon?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_contributor[]>
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposDeleteFile(
+    p: {
+      owner: string
+      repo: string
+      path: string
+      requestBody: {
+        author?: {
+          email?: string
+          name?: string
+        }
+        branch?: string
+        committer?: {
+          email?: string
+          name?: string
+        }
+        message: string
+        sha: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_file_commit>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reposListContributors(
+    p: {
+      owner: string
+      repo: string
+      anon?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_contributor[]>
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contributors`
     const query = this._query({
@@ -9837,36 +11590,40 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotListAlertsForRepo(p: {
-    owner: string
-    repo: string
-    state?: string
-    severity?: string
-    ecosystem?: string
-    package?: string
-    manifest?: string
-    scope?: "development" | "runtime"
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    page?: number
-    perPage?: number
-    before?: string
-    after?: string
-    first?: number
-    last?: number
-  }): Promise<
-    | Response<200, t_dependabot_alert[]>
-    | Response<304, void>
-    | Response<400, t_scim_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async dependabotListAlertsForRepo(
+    p: {
+      owner: string
+      repo: string
+      state?: string
+      severity?: string
+      ecosystem?: string
+      package?: string
+      manifest?: string
+      scope?: "development" | "runtime"
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      page?: number
+      perPage?: number
+      before?: string
+      after?: string
+      first?: number
+      last?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependabot_alert[]>
+      | Res<304, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
@@ -9886,202 +11643,237 @@ export class ApiClient extends AbstractFetchClient {
       first: p["first"],
       last: p["last"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotGetAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-  }): Promise<
-    | Response<200, t_dependabot_alert>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async dependabotGetAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependabot_alert>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotUpdateAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-    requestBody: {
-      dismissed_comment?: string
-      dismissed_reason?:
-        | "fix_started"
-        | "inaccurate"
-        | "no_bandwidth"
-        | "not_used"
-        | "tolerable_risk"
-      state: "dismissed" | "open"
-    }
-  }): Promise<
-    | Response<200, t_dependabot_alert>
-    | Response<400, t_scim_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async dependabotUpdateAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      requestBody: {
+        dismissed_comment?: string
+        dismissed_reason?:
+          | "fix_started"
+          | "inaccurate"
+          | "no_bandwidth"
+          | "not_used"
+          | "tolerable_risk"
+        state: "dismissed" | "open"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependabot_alert>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async dependabotListRepoSecrets(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_dependabot_secret[]
-        total_count: number
-      }
+  async dependabotListRepoSecrets(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_dependabot_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotGetRepoPublicKey(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_dependabot_public_key>> {
+  async dependabotGetRepoPublicKey(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotGetRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<200, t_dependabot_secret>> {
+  async dependabotGetRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_dependabot_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependabotCreateOrUpdateRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id?: string
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
+  async dependabotCreateOrUpdateRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async dependabotDeleteRepoSecret(p: {
-    owner: string
-    repo: string
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async dependabotDeleteRepoSecret(
+    p: {
+      owner: string
+      repo: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async dependencyGraphDiffRange(p: {
-    owner: string
-    repo: string
-    basehead: string
-    name?: string
-  }): Promise<
-    | Response<200, t_dependency_graph_diff>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async dependencyGraphDiffRange(
+    p: {
+      owner: string
+      repo: string
+      basehead: string
+      name?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependency_graph_diff>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependencyGraphExportSbom(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_dependency_graph_spdx_sbom>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async dependencyGraphExportSbom(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_dependency_graph_spdx_sbom>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async dependencyGraphCreateRepositorySnapshot(p: {
-    owner: string
-    repo: string
-    requestBody: t_snapshot
-  }): Promise<
-    Response<
-      201,
-      {
-        created_at: string
-        id: number
-        message: string
-        result: string
-      }
+  async dependencyGraphCreateRepositorySnapshot(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_snapshot
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        201,
+        {
+          created_at: string
+          id: number
+          message: string
+          result: string
+        }
+      >
     >
   > {
     const url =
@@ -10089,22 +11881,28 @@ export class ApiClient extends AbstractFetchClient {
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposListDeployments(p: {
-    owner: string
-    repo: string
-    sha?: string
-    ref?: string
-    task?: string
-    environment?: string | null
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_deployment[]>> {
+  async reposListDeployments(
+    p: {
+      owner: string
+      repo: string
+      sha?: string
+      ref?: string
+      task?: string
+      environment?: string | null
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const query = this._query({
       sha: p["sha"],
@@ -10114,469 +11912,557 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDeployment(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      auto_merge?: boolean
-      description?: string | null
-      environment?: string
-      payload?:
-        | {
-            [key: string]: unknown
+  async reposCreateDeployment(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        auto_merge?: boolean
+        description?: string | null
+        environment?: string
+        payload?:
+          | {
+              [key: string]: unknown
+            }
+          | string
+        production_environment?: boolean
+        ref: string
+        required_contexts?: string[]
+        task?: string
+        transient_environment?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_deployment>
+      | Res<
+          202,
+          {
+            message?: string
           }
-        | string
-      production_environment?: boolean
-      ref: string
-      required_contexts?: string[]
-      task?: string
-      transient_environment?: boolean
-    }
-  }): Promise<
-    | Response<201, t_deployment>
-    | Response<
-        202,
-        {
-          message?: string
-        }
-      >
-    | Response<409, void>
-    | Response<422, t_validation_error>
+        >
+      | Res<409, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetDeployment(p: {
-    owner: string
-    repo: string
-    deploymentId: number
-  }): Promise<Response<200, t_deployment> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
-
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeleteDeployment(p: {
-    owner: string
-    repo: string
-    deploymentId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async reposGetDeployment(
+    p: {
+      owner: string
+      repo: string
+      deploymentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deployment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListDeploymentStatuses(p: {
-    owner: string
-    repo: string
-    deploymentId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_deployment_status[]> | Response<404, t_basic_error>
+  async reposDeleteDeployment(
+    p: {
+      owner: string
+      repo: string
+      deploymentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposListDeploymentStatuses(
+    p: {
+      owner: string
+      repo: string
+      deploymentId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deployment_status[]> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDeploymentStatus(p: {
-    owner: string
-    repo: string
-    deploymentId: number
-    requestBody: {
-      auto_inactive?: boolean
-      description?: string
-      environment?: "production" | "staging" | "qa"
-      environment_url?: string
-      log_url?: string
-      state:
-        | "error"
-        | "failure"
-        | "inactive"
-        | "in_progress"
-        | "queued"
-        | "pending"
-        | "success"
-      target_url?: string
-    }
-  }): Promise<
-    Response<201, t_deployment_status> | Response<422, t_validation_error>
+  async reposCreateDeploymentStatus(
+    p: {
+      owner: string
+      repo: string
+      deploymentId: number
+      requestBody: {
+        auto_inactive?: boolean
+        description?: string
+        environment?: "production" | "staging" | "qa"
+        environment_url?: string
+        log_url?: string
+        state:
+          | "error"
+          | "failure"
+          | "inactive"
+          | "in_progress"
+          | "queued"
+          | "pending"
+          | "success"
+        target_url?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_deployment_status> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetDeploymentStatus(p: {
-    owner: string
-    repo: string
-    deploymentId: number
-    statusId: number
-  }): Promise<
-    Response<200, t_deployment_status> | Response<404, t_basic_error>
+  async reposGetDeploymentStatus(
+    p: {
+      owner: string
+      repo: string
+      deploymentId: number
+      statusId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deployment_status> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDispatchEvent(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      client_payload?: {
-        [key: string]: unknown
+  async reposCreateDispatchEvent(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        client_payload?: {
+          [key: string]: unknown
+        }
+        event_type: string
       }
-      event_type: string
-    }
-  }): Promise<Response<204, void> | Response<422, t_validation_error>> {
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetAllEnvironments(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        environments?: t_environment[]
-        total_count?: number
-      }
+  async reposGetAllEnvironments(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          environments?: t_environment[]
+          total_count?: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetEnvironment(p: {
-    owner: string
-    repo: string
-    environmentName: string
-  }): Promise<Response<200, t_environment>> {
+  async reposGetEnvironment(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_environment>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateOrUpdateEnvironment(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    requestBody?: {
-      deployment_branch_policy?: t_deployment_branch_policy_settings
-      reviewers?:
-        | {
-            id?: number
-            type?: t_deployment_reviewer_type
-          }[]
-        | null
-      wait_timer?: t_wait_timer
-    } | null
-  }): Promise<Response<200, t_environment> | Response<422, t_basic_error>> {
+  async reposCreateOrUpdateEnvironment(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      requestBody?: {
+        deployment_branch_policy?: t_deployment_branch_policy_settings
+        reviewers?:
+          | {
+              id?: number
+              type?: t_deployment_reviewer_type
+            }[]
+          | null
+        wait_timer?: t_wait_timer
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_environment> | Res<422, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteAnEnvironment(p: {
-    owner: string
-    repo: string
-    environmentName: string
-  }): Promise<Response<204, void>> {
+  async reposDeleteAnEnvironment(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListDeploymentBranchPolicies(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        branch_policies: t_deployment_branch_policy[]
-        total_count: number
-      }
+  async reposListDeploymentBranchPolicies(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          branch_policies: t_deployment_branch_policy[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDeploymentBranchPolicy(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    requestBody: t_deployment_branch_policy_name_pattern
-  }): Promise<
-    | Response<200, t_deployment_branch_policy>
-    | Response<303, void>
-    | Response<404, void>
+  async reposCreateDeploymentBranchPolicy(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      requestBody: t_deployment_branch_policy_name_pattern
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_deployment_branch_policy> | Res<303, void> | Res<404, void>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetDeploymentBranchPolicy(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    branchPolicyId: number
-  }): Promise<Response<200, t_deployment_branch_policy>> {
+  async reposGetDeploymentBranchPolicy(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      branchPolicyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateDeploymentBranchPolicy(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    branchPolicyId: number
-    requestBody: t_deployment_branch_policy_name_pattern
-  }): Promise<Response<200, t_deployment_branch_policy>> {
+  async reposUpdateDeploymentBranchPolicy(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      branchPolicyId: number
+      requestBody: t_deployment_branch_policy_name_pattern
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteDeploymentBranchPolicy(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    branchPolicyId: number
-  }): Promise<Response<204, void>> {
+  async reposDeleteDeploymentBranchPolicy(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      branchPolicyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetAllDeploymentProtectionRules(p: {
-    environmentName: string
-    repo: string
-    owner: string
-  }): Promise<
-    Response<
-      200,
-      {
-        custom_deployment_protection_rules?: t_deployment_protection_rule[]
-        total_count?: number
-      }
+  async reposGetAllDeploymentProtectionRules(
+    p: {
+      environmentName: string
+      repo: string
+      owner: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          custom_deployment_protection_rules?: t_deployment_protection_rule[]
+          total_count?: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDeploymentProtectionRule(p: {
-    environmentName: string
-    repo: string
-    owner: string
-    requestBody: {
-      integration_id?: number
-    }
-  }): Promise<Response<201, t_deployment_protection_rule>> {
+  async reposCreateDeploymentProtectionRule(
+    p: {
+      environmentName: string
+      repo: string
+      owner: string
+      requestBody: {
+        integration_id?: number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposListCustomDeploymentRuleIntegrations(p: {
-    environmentName: string
-    repo: string
-    owner: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
-        total_count?: number
-      }
+  async reposListCustomDeploymentRuleIntegrations(
+    p: {
+      environmentName: string
+      repo: string
+      owner: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
+          total_count?: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCustomDeploymentProtectionRule(p: {
-    owner: string
-    repo: string
-    environmentName: string
-    protectionRuleId: number
-  }): Promise<Response<200, t_deployment_protection_rule>> {
+  async reposGetCustomDeploymentProtectionRule(
+    p: {
+      owner: string
+      repo: string
+      environmentName: string
+      protectionRuleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDisableDeploymentProtectionRule(p: {
-    environmentName: string
-    repo: string
-    owner: string
-    protectionRuleId: number
-  }): Promise<Response<204, void>> {
+  async reposDisableDeploymentProtectionRule(
+    p: {
+      environmentName: string
+      repo: string
+      owner: string
+      protectionRuleId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListRepoEvents(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListRepoEvents(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListForks(p: {
-    owner: string
-    repo: string
-    sort?: "newest" | "oldest" | "stargazers" | "watchers"
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_minimal_repository[]> | Response<400, t_scim_error>
+  async reposListForks(
+    p: {
+      owner: string
+      repo: string
+      sort?: "newest" | "oldest" | "stargazers" | "watchers"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_minimal_repository[]> | Res<400, t_scim_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const query = this._query({
@@ -10584,447 +12470,552 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateFork(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      default_branch_only?: boolean
-      name?: string
-      organization?: string
-    } | null
-  }): Promise<
-    | Response<202, t_full_repository>
-    | Response<400, t_scim_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateFork(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        default_branch_only?: boolean
+        name?: string
+        organization?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, t_full_repository>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitCreateBlob(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      content: string
-      encoding?: string
-    }
-  }): Promise<
-    | Response<201, t_short_blob>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
+  async gitCreateBlob(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        content: string
+        encoding?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_short_blob>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitGetBlob(p: {
-    owner: string
-    repo: string
-    fileSha: string
-  }): Promise<
-    | Response<200, t_blob>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gitGetBlob(
+    p: {
+      owner: string
+      repo: string
+      fileSha: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_blob>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitCreateCommit(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      author?: {
-        date?: string
-        email: string
-        name: string
+  async gitCreateCommit(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        author?: {
+          date?: string
+          email: string
+          name: string
+        }
+        committer?: {
+          date?: string
+          email?: string
+          name?: string
+        }
+        message: string
+        parents?: string[]
+        signature?: string
+        tree: string
       }
-      committer?: {
-        date?: string
-        email?: string
-        name?: string
-      }
-      message: string
-      parents?: string[]
-      signature?: string
-      tree: string
-    }
-  }): Promise<
-    | Response<201, t_git_commit>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_git_commit>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitGetCommit(p: {
-    owner: string
-    repo: string
-    commitSha: string
-  }): Promise<Response<200, t_git_commit> | Response<404, t_basic_error>> {
+  async gitGetCommit(
+    p: {
+      owner: string
+      repo: string
+      commitSha: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_git_commit> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitListMatchingRefs(p: {
-    owner: string
-    repo: string
-    ref: string
-  }): Promise<Response<200, t_git_ref[]>> {
+  async gitListMatchingRefs(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_git_ref[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitGetRef(p: {
-    owner: string
-    repo: string
-    ref: string
-  }): Promise<Response<200, t_git_ref> | Response<404, t_basic_error>> {
+  async gitGetRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_git_ref> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitCreateRef(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      ref: string
-      sha: string
-    }
-  }): Promise<Response<201, t_git_ref> | Response<422, t_validation_error>> {
+  async gitCreateRef(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        ref: string
+        sha: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<201, t_git_ref> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitUpdateRef(p: {
-    owner: string
-    repo: string
-    ref: string
-    requestBody: {
-      force?: boolean
-      sha: string
-    }
-  }): Promise<Response<200, t_git_ref> | Response<422, t_validation_error>> {
+  async gitUpdateRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+      requestBody: {
+        force?: boolean
+        sha: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_git_ref> | Res<422, t_validation_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitDeleteRef(p: {
-    owner: string
-    repo: string
-    ref: string
-  }): Promise<Response<204, void> | Response<422, t_validation_error>> {
+  async gitDeleteRef(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async gitCreateTag(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      message: string
-      object: string
-      tag: string
-      tagger?: {
-        date?: string
-        email: string
-        name: string
+  async gitCreateTag(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        message: string
+        object: string
+        tag: string
+        tagger?: {
+          date?: string
+          email: string
+          name: string
+        }
+        type: "commit" | "tree" | "blob"
       }
-      type: "commit" | "tree" | "blob"
-    }
-  }): Promise<Response<201, t_git_tag> | Response<422, t_validation_error>> {
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<201, t_git_tag> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitGetTag(p: {
-    owner: string
-    repo: string
-    tagSha: string
-  }): Promise<Response<200, t_git_tag> | Response<404, t_basic_error>> {
+  async gitGetTag(
+    p: {
+      owner: string
+      repo: string
+      tagSha: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_git_tag> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gitCreateTree(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      base_tree?: string
-      tree: {
-        content?: string
-        mode?: "100644" | "100755" | "040000" | "160000" | "120000"
-        path?: string
-        sha?: string | null
-        type?: "blob" | "tree" | "commit"
-      }[]
-    }
-  }): Promise<
-    | Response<201, t_git_tree>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gitCreateTree(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        base_tree?: string
+        tree: {
+          content?: string
+          mode?: "100644" | "100755" | "040000" | "160000" | "120000"
+          path?: string
+          sha?: string | null
+          type?: "blob" | "tree" | "commit"
+        }[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_git_tree>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async gitGetTree(p: {
-    owner: string
-    repo: string
-    treeSha: string
-    recursive?: string
-  }): Promise<
-    | Response<200, t_git_tree>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async gitGetTree(
+    p: {
+      owner: string
+      repo: string
+      treeSha: string
+      recursive?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_git_tree>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const query = this._query({ recursive: p["recursive"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListWebhooks(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_hook[]> | Response<404, t_basic_error>> {
+  async reposListWebhooks(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_hook[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateWebhook(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      active?: boolean
-      config?: {
-        content_type?: t_webhook_config_content_type
-        digest?: string
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        token?: string
-        url?: t_webhook_config_url
-      }
-      events?: string[]
-      name?: string
-    } | null
-  }): Promise<
-    | Response<201, t_hook>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateWebhook(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        active?: boolean
+        config?: {
+          content_type?: t_webhook_config_content_type
+          digest?: string
+          insecure_ssl?: t_webhook_config_insecure_ssl
+          secret?: t_webhook_config_secret
+          token?: string
+          url?: t_webhook_config_url
+        }
+        events?: string[]
+        name?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_hook>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetWebhook(p: {
-    owner: string
-    repo: string
-    hookId: number
-  }): Promise<Response<200, t_hook> | Response<404, t_basic_error>> {
+  async reposGetWebhook(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_hook> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateWebhook(p: {
-    owner: string
-    repo: string
-    hookId: number
-    requestBody: {
-      active?: boolean
-      add_events?: string[]
-      config?: {
-        address?: string
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        room?: string
-        secret?: t_webhook_config_secret
-        url: t_webhook_config_url
+  async reposUpdateWebhook(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+      requestBody: {
+        active?: boolean
+        add_events?: string[]
+        config?: {
+          address?: string
+          content_type?: t_webhook_config_content_type
+          insecure_ssl?: t_webhook_config_insecure_ssl
+          room?: string
+          secret?: t_webhook_config_secret
+          url: t_webhook_config_url
+        }
+        events?: string[]
+        remove_events?: string[]
       }
-      events?: string[]
-      remove_events?: string[]
-    }
-  }): Promise<
-    | Response<200, t_hook>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_hook> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteWebhook(p: {
-    owner: string
-    repo: string
-    hookId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async reposDeleteWebhook(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetWebhookConfigForRepo(p: {
-    owner: string
-    repo: string
-    hookId: number
-  }): Promise<Response<200, t_webhook_config>> {
+  async reposGetWebhookConfigForRepo(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateWebhookConfigForRepo(p: {
-    owner: string
-    repo: string
-    hookId: number
-    requestBody?: {
-      content_type?: t_webhook_config_content_type
-      insecure_ssl?: t_webhook_config_insecure_ssl
-      secret?: t_webhook_config_secret
-      url?: t_webhook_config_url
-    }
-  }): Promise<Response<200, t_webhook_config>> {
+  async reposUpdateWebhookConfigForRepo(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+      requestBody?: {
+        content_type?: t_webhook_config_content_type
+        insecure_ssl?: t_webhook_config_insecure_ssl
+        secret?: t_webhook_config_secret
+        url?: t_webhook_config_url
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposListWebhookDeliveries(p: {
-    owner: string
-    repo: string
-    hookId: number
-    perPage?: number
-    cursor?: string
-    redelivery?: boolean
-  }): Promise<
-    | Response<200, t_hook_delivery_item[]>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async reposListWebhookDeliveries(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+      perPage?: number
+      cursor?: string
+      redelivery?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery_item[]>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
@@ -11034,358 +13025,431 @@ export class ApiClient extends AbstractFetchClient {
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetWebhookDelivery(p: {
-    owner: string
-    repo: string
-    hookId: number
-    deliveryId: number
-  }): Promise<
-    | Response<200, t_hook_delivery>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async reposGetWebhookDelivery(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hook_delivery>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposRedeliverWebhookDelivery(p: {
-    owner: string
-    repo: string
-    hookId: number
-    deliveryId: number
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<400, t_scim_error>
-    | Response<422, t_validation_error>
+  async reposRedeliverWebhookDelivery(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+      deliveryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<400, t_scim_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async reposPingWebhook(p: {
-    owner: string
-    repo: string
-    hookId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async reposPingWebhook(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async reposTestPushWebhook(p: {
-    owner: string
-    repo: string
-    hookId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async reposTestPushWebhook(
+    p: {
+      owner: string
+      repo: string
+      hookId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsGetImportStatus(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_import>
-    | Response<404, t_basic_error>
-    | Response<503, t_basic_error>
+  async migrationsGetImportStatus(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_import> | Res<404, t_basic_error> | Res<503, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsStartImport(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      tfvc_project?: string
-      vcs?: "subversion" | "git" | "mercurial" | "tfvc"
-      vcs_password?: string
-      vcs_url: string
-      vcs_username?: string
-    }
-  }): Promise<
-    | Response<201, t_import>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<503, t_basic_error>
+  async migrationsStartImport(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        tfvc_project?: string
+        vcs?: "subversion" | "git" | "mercurial" | "tfvc"
+        vcs_password?: string
+        vcs_url: string
+        vcs_username?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_import>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<503, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async migrationsUpdateImport(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      tfvc_project?: string
-      vcs?: "subversion" | "tfvc" | "git" | "mercurial"
-      vcs_password?: string
-      vcs_username?: string
-    } | null
-  }): Promise<Response<200, t_import> | Response<503, t_basic_error>> {
+  async migrationsUpdateImport(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        tfvc_project?: string
+        vcs?: "subversion" | "tfvc" | "git" | "mercurial"
+        vcs_password?: string
+        vcs_username?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_import> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async migrationsCancelImport(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void> | Response<503, t_basic_error>> {
+  async migrationsCancelImport(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsGetCommitAuthors(p: {
-    owner: string
-    repo: string
-    since?: number
-  }): Promise<
-    | Response<200, t_porter_author[]>
-    | Response<404, t_basic_error>
-    | Response<503, t_basic_error>
+  async migrationsGetCommitAuthors(
+    p: {
+      owner: string
+      repo: string
+      since?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_porter_author[]>
+      | Res<404, t_basic_error>
+      | Res<503, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const query = this._query({ since: p["since"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsMapCommitAuthor(p: {
-    owner: string
-    repo: string
-    authorId: number
-    requestBody?: {
-      email?: string
-      name?: string
-    }
-  }): Promise<
-    | Response<200, t_porter_author>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<503, t_basic_error>
+  async migrationsMapCommitAuthor(
+    p: {
+      owner: string
+      repo: string
+      authorId: number
+      requestBody?: {
+        email?: string
+        name?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_porter_author>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<503, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async migrationsGetLargeFiles(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_porter_large_file[]> | Response<503, t_basic_error>
+  async migrationsGetLargeFiles(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_porter_large_file[]> | Res<503, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsSetLfsPreference(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      use_lfs: "opt_in" | "opt_out"
-    }
-  }): Promise<
-    | Response<200, t_import>
-    | Response<422, t_validation_error>
-    | Response<503, t_basic_error>
+  async migrationsSetLfsPreference(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        use_lfs: "opt_in" | "opt_out"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_import>
+      | Res<422, t_validation_error>
+      | Res<503, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async appsGetRepoInstallation(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_installation>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsGetRepoInstallation(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_installation>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsGetRestrictionsForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_interaction_limit_response | EmptyObject>> {
+  async interactionsGetRestrictionsForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsSetRestrictionsForRepo(p: {
-    owner: string
-    repo: string
-    requestBody: t_interaction_limit
-  }): Promise<
-    Response<200, t_interaction_limit_response> | Response<409, void>
+  async interactionsSetRestrictionsForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_interaction_limit
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_interaction_limit_response> | Res<409, void>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async interactionsRemoveRestrictionsForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void> | Response<409, void>> {
+  async interactionsRemoveRestrictionsForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListInvitations(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_repository_invitation[]>> {
+  async reposListInvitations(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_repository_invitation[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateInvitation(p: {
-    owner: string
-    repo: string
-    invitationId: number
-    requestBody?: {
-      permissions?: "read" | "write" | "maintain" | "triage" | "admin"
-    }
-  }): Promise<Response<200, t_repository_invitation>> {
+  async reposUpdateInvitation(
+    p: {
+      owner: string
+      repo: string
+      invitationId: number
+      requestBody?: {
+        permissions?: "read" | "write" | "maintain" | "triage" | "admin"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_repository_invitation>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteInvitation(p: {
-    owner: string
-    repo: string
-    invitationId: number
-  }): Promise<Response<204, void>> {
+  async reposDeleteInvitation(
+    p: {
+      owner: string
+      repo: string
+      invitationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListForRepo(p: {
-    owner: string
-    repo: string
-    milestone?: string
-    state?: "open" | "closed" | "all"
-    assignee?: string
-    creator?: string
-    mentioned?: string
-    labels?: string
-    sort?: "created" | "updated" | "comments"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_issue[]>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesListForRepo(
+    p: {
+      owner: string
+      repo: string
+      milestone?: string
+      state?: "open" | "closed" | "all"
+      assignee?: string
+      creator?: string
+      mentioned?: string
+      labels?: string
+      sort?: "created" | "updated" | "comments"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue[]>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
     const query = this._query({
@@ -11401,67 +13465,79 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesCreate(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      assignee?: string | null
-      assignees?: string[]
-      body?: string
-      labels?: (
-        | string
-        | {
-            color?: string | null
-            description?: string | null
-            id?: number
-            name?: string
+  async issuesCreate(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        assignee?: string | null
+        assignees?: string[]
+        body?: string
+        labels?: (
+          | string
+          | {
+              color?: string | null
+              description?: string | null
+              id?: number
+              name?: string
+            }
+        )[]
+        milestone?: string | number | null
+        title: string | number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_issue>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
           }
-      )[]
-      milestone?: string | number | null
-      title: string | number
-    }
-  }): Promise<
-    | Response<201, t_issue>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+        >
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesListCommentsForRepo(p: {
-    owner: string
-    repo: string
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_issue_comment[]>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesListCommentsForRepo(
+    p: {
+      owner: string
+      repo: string
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue_comment[]>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/comments`
@@ -11472,99 +13548,77 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesGetComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<Response<200, t_issue_comment> | Response<404, t_basic_error>> {
+  async issuesGetComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issue_comment> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesUpdateComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<
-    Response<200, t_issue_comment> | Response<422, t_validation_error>
+  async issuesUpdateComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issue_comment> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesDeleteComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<Response<204, void>> {
+  async issuesDeleteComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForIssueComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForIssueComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      content:
+  async reactionsListForIssueComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -11573,211 +13627,287 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<
-    | Response<200, t_reaction>
-    | Response<201, t_reaction>
-    | Response<422, t_validation_error>
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForIssueComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForIssueComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForIssueComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListEventsForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_issue_event[]> | Response<422, t_validation_error>
+  async issuesListEventsForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_issue_event[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesGetEvent(p: {
-    owner: string
-    repo: string
-    eventId: number
-  }): Promise<
-    | Response<200, t_issue_event>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesGetEvent(
+    p: {
+      owner: string
+      repo: string
+      eventId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue_event>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesGet(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-  }): Promise<
-    | Response<200, t_issue>
-    | Response<301, t_basic_error>
-    | Response<304, void>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesGet(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue>
+      | Res<301, t_basic_error>
+      | Res<304, void>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesUpdate(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody?: {
-      assignee?: string | null
-      assignees?: string[]
-      body?: string | null
-      labels?: (
-        | string
-        | {
-            color?: string | null
-            description?: string | null
-            id?: number
-            name?: string
+  async issuesUpdate(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody?: {
+        assignee?: string | null
+        assignees?: string[]
+        body?: string | null
+        labels?: (
+          | string
+          | {
+              color?: string | null
+              description?: string | null
+              id?: number
+              name?: string
+            }
+        )[]
+        milestone?: string | number | null
+        state?: "open" | "closed"
+        state_reason?: "completed" | "not_planned" | "reopened" | null
+        title?: string | number | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue>
+      | Res<301, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
           }
-      )[]
-      milestone?: string | number | null
-      state?: "open" | "closed"
-      state_reason?: "completed" | "not_planned" | "reopened" | null
-      title?: string | number | null
-    }
-  }): Promise<
-    | Response<200, t_issue>
-    | Response<301, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesAddAssignees(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody?: {
-      assignees?: string[]
-    }
-  }): Promise<Response<201, t_issue>> {
+  async issuesAddAssignees(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody?: {
+        assignees?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_issue>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesRemoveAssignees(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody: {
-      assignees?: string[]
-    }
-  }): Promise<Response<200, t_issue>> {
+  async issuesRemoveAssignees(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        assignees?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_issue>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesCheckUserCanBeAssignedToIssue(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    assignee: string
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async issuesCheckUserCanBeAssignedToIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      assignee: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListComments(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_issue_comment[]>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesListComments(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue_comment[]>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -11787,254 +13917,303 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesCreateComment(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<
-    | Response<201, t_issue_comment>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesCreateComment(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_issue_comment>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesListEvents(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_issue_event_for_issue[]> | Response<410, t_basic_error>
+  async issuesListEvents(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issue_event_for_issue[]> | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListLabelsOnIssue(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_label[]>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesListLabelsOnIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_label[]>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesAddLabels(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody?:
-      | {
-          labels?: string[]
-        }
-      | string[]
-      | {
-          labels?: {
+  async issuesAddLabels(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody?:
+        | {
+            labels?: string[]
+          }
+        | string[]
+        | {
+            labels?: {
+              name: string
+            }[]
+          }
+        | {
             name: string
           }[]
-        }
-      | {
-          name: string
-        }[]
-      | string
-  }): Promise<
-    | Response<200, t_label[]>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
+        | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_label[]>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesSetLabels(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody?:
-      | {
-          labels?: string[]
-        }
-      | string[]
-      | {
-          labels?: {
+  async issuesSetLabels(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody?:
+        | {
+            labels?: string[]
+          }
+        | string[]
+        | {
+            labels?: {
+              name: string
+            }[]
+          }
+        | {
             name: string
           }[]
-        }
-      | {
-          name: string
-        }[]
-      | string
-  }): Promise<
-    | Response<200, t_label[]>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
+        | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_label[]>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesRemoveAllLabels(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-  }): Promise<
-    | Response<204, void>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesRemoveAllLabels(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesRemoveLabel(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    name: string
-  }): Promise<
-    | Response<200, t_label[]>
-    | Response<301, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesRemoveLabel(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_label[]>
+      | Res<301, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesLock(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody?: {
-      lock_reason?: "off-topic" | "too heated" | "resolved" | "spam"
-    } | null
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesLock(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody?: {
+        lock_reason?: "off-topic" | "too heated" | "resolved" | "spam"
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesUnlock(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async issuesUnlock(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForIssue(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_reaction[]>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async reactionsListForIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      content?:
+        | "+1"
+        | "-1"
+        | "laugh"
+        | "confused"
+        | "heart"
+        | "hooray"
+        | "rocket"
+        | "eyes"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -12044,325 +14223,392 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsCreateForIssue(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    requestBody: {
-      content:
-        | "+1"
-        | "-1"
-        | "laugh"
-        | "confused"
-        | "heart"
-        | "hooray"
-        | "rocket"
-        | "eyes"
-    }
-  }): Promise<
-    | Response<200, t_reaction>
-    | Response<201, t_reaction>
-    | Response<422, t_validation_error>
+  async reactionsCreateForIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForIssue(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListEventsForTimeline(p: {
-    owner: string
-    repo: string
-    issueNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_timeline_issue_events[]>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
+  async issuesListEventsForTimeline(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_timeline_issue_events[]>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListDeployKeys(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_deploy_key[]>> {
+  async reposListDeployKeys(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_deploy_key[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateDeployKey(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      key: string
-      read_only?: boolean
-      title?: string
-    }
-  }): Promise<Response<201, t_deploy_key> | Response<422, t_validation_error>> {
+  async reposCreateDeployKey(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        key: string
+        read_only?: boolean
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<201, t_deploy_key> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetDeployKey(p: {
-    owner: string
-    repo: string
-    keyId: number
-  }): Promise<Response<200, t_deploy_key> | Response<404, t_basic_error>> {
+  async reposGetDeployKey(
+    p: {
+      owner: string
+      repo: string
+      keyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_deploy_key> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDeleteDeployKey(p: {
-    owner: string
-    repo: string
-    keyId: number
-  }): Promise<Response<204, void>> {
+  async reposDeleteDeployKey(
+    p: {
+      owner: string
+      repo: string
+      keyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListLabelsForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_label[]> | Response<404, t_basic_error>> {
+  async issuesListLabelsForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_label[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesCreateLabel(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      color?: string
-      description?: string
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_label>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesCreateLabel(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        color?: string
+        description?: string
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_label> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesGetLabel(p: {
-    owner: string
-    repo: string
-    name: string
-  }): Promise<Response<200, t_label> | Response<404, t_basic_error>> {
+  async issuesGetLabel(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_label> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesUpdateLabel(p: {
-    owner: string
-    repo: string
-    name: string
-    requestBody?: {
-      color?: string
-      description?: string
-      new_name?: string
-    }
-  }): Promise<Response<200, t_label>> {
+  async issuesUpdateLabel(
+    p: {
+      owner: string
+      repo: string
+      name: string
+      requestBody?: {
+        color?: string
+        description?: string
+        new_name?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_label>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesDeleteLabel(p: {
-    owner: string
-    repo: string
-    name: string
-  }): Promise<Response<204, void>> {
+  async issuesDeleteLabel(
+    p: {
+      owner: string
+      repo: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListLanguages(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_language>> {
+  async reposListLanguages(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_language>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposEnableLfsForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<202, EmptyObject> | Response<403, void>> {
+  async reposEnableLfsForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<202, EmptyObject> | Res<403, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDisableLfsForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async reposDisableLfsForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async licensesGetForRepo(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_license_content>> {
+  async licensesGetForRepo(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_license_content>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposMergeUpstream(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      branch: string
-    }
-  }): Promise<
-    Response<200, t_merged_upstream> | Response<409, void> | Response<422, void>
+  async reposMergeUpstream(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        branch: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_merged_upstream> | Res<409, void> | Res<422, void>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposMerge(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      base: string
-      commit_message?: string
-      head: string
-    }
-  }): Promise<
-    | Response<201, t_commit>
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, void>
-    | Response<409, void>
-    | Response<422, t_validation_error>
+  async reposMerge(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        base: string
+        commit_message?: string
+        head: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_commit>
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, void>
+      | Res<409, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesListMilestones(p: {
-    owner: string
-    repo: string
-    state?: "open" | "closed" | "all"
-    sort?: "due_on" | "completeness"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_milestone[]> | Response<404, t_basic_error>> {
+  async issuesListMilestones(
+    p: {
+      owner: string
+      repo: string
+      state?: "open" | "closed" | "all"
+      sort?: "due_on" | "completeness"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_milestone[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const query = this._query({
       state: p["state"],
@@ -12371,114 +14617,136 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesCreateMilestone(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      description?: string
-      due_on?: string
-      state?: "open" | "closed"
-      title: string
-    }
-  }): Promise<
-    | Response<201, t_milestone>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async issuesCreateMilestone(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        description?: string
+        due_on?: string
+        state?: "open" | "closed"
+        title: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_milestone>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesGetMilestone(p: {
-    owner: string
-    repo: string
-    milestoneNumber: number
-  }): Promise<Response<200, t_milestone> | Response<404, t_basic_error>> {
+  async issuesGetMilestone(
+    p: {
+      owner: string
+      repo: string
+      milestoneNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_milestone> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesUpdateMilestone(p: {
-    owner: string
-    repo: string
-    milestoneNumber: number
-    requestBody?: {
-      description?: string
-      due_on?: string
-      state?: "open" | "closed"
-      title?: string
-    }
-  }): Promise<Response<200, t_milestone>> {
+  async issuesUpdateMilestone(
+    p: {
+      owner: string
+      repo: string
+      milestoneNumber: number
+      requestBody?: {
+        description?: string
+        due_on?: string
+        state?: "open" | "closed"
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_milestone>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async issuesDeleteMilestone(p: {
-    owner: string
-    repo: string
-    milestoneNumber: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async issuesDeleteMilestone(
+    p: {
+      owner: string
+      repo: string
+      milestoneNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async issuesListLabelsForMilestone(p: {
-    owner: string
-    repo: string
-    milestoneNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_label[]>> {
+  async issuesListLabelsForMilestone(
+    p: {
+      owner: string
+      repo: string
+      milestoneNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_label[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListRepoNotificationsForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-    all?: boolean
-    participating?: boolean
-    since?: string
-    before?: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_thread[]>> {
+  async activityListRepoNotificationsForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+      all?: boolean
+      participating?: boolean
+      since?: string
+      before?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_thread[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const query = this._query({
@@ -12489,232 +14757,278 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityMarkRepoNotificationsAsRead(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      last_read_at?: string
-    }
-  }): Promise<
-    | Response<
-        202,
-        {
-          message?: string
-          url?: string
-        }
-      >
-    | Response<205, void>
+  async activityMarkRepoNotificationsAsRead(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        last_read_at?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          202,
+          {
+            message?: string
+            url?: string
+          }
+        >
+      | Res<205, void>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetPages(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_page> | Response<404, t_basic_error>> {
+  async reposGetPages(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_page> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreatePagesSite(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      build_type?: "legacy" | "workflow"
-      source?: {
-        branch: string
-        path?: "/" | "/docs"
+  async reposCreatePagesSite(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        build_type?: "legacy" | "workflow"
+        source?: {
+          branch: string
+          path?: "/" | "/docs"
+        }
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_page> | Res<409, t_basic_error> | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reposUpdateInformationAboutPagesSite(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        build_type?: "legacy" | "workflow"
+        cname?: string | null
+        https_enforced?: boolean
+        source?:
+          | "gh-pages"
+          | "master"
+          | "master /docs"
+          | {
+              branch: string
+              path: "/" | "/docs"
+            }
       }
-    } | null
-  }): Promise<
-    | Response<201, t_page>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<400, t_scim_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposUpdateInformationAboutPagesSite(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      build_type?: "legacy" | "workflow"
-      cname?: string | null
-      https_enforced?: boolean
-      source?:
-        | "gh-pages"
-        | "master"
-        | "master /docs"
-        | {
-            branch: string
-            path: "/" | "/docs"
-          }
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<400, t_scim_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
-  > {
-    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reposDeletePagesSite(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposDeletePagesSite(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListPagesBuilds(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_page_build[]>> {
+  async reposListPagesBuilds(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_page_build[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposRequestPagesBuild(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<201, t_page_build_status>> {
+  async reposRequestPagesBuild(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_page_build_status>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetLatestPagesBuild(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_page_build>> {
+  async reposGetLatestPagesBuild(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetPagesBuild(p: {
-    owner: string
-    repo: string
-    buildId: number
-  }): Promise<Response<200, t_page_build>> {
+  async reposGetPagesBuild(
+    p: {
+      owner: string
+      repo: string
+      buildId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreatePagesDeployment(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      artifact_url: string
-      environment?: string
-      oidc_token: string
-      pages_build_version: string
-    }
-  }): Promise<
-    | Response<200, t_page_deployment>
-    | Response<400, t_scim_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreatePagesDeployment(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        artifact_url: string
+        environment?: string
+        oidc_token: string
+        pages_build_version: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_page_deployment>
+      | Res<400, t_scim_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/deployment`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetPagesHealthCheck(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_pages_health_check>
-    | Response<202, t_empty_object>
-    | Response<400, void>
-    | Response<404, t_basic_error>
-    | Response<422, void>
+  async reposGetPagesHealthCheck(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pages_health_check>
+      | Res<202, t_empty_object>
+      | Res<400, void>
+      | Res<404, t_basic_error>
+      | Res<422, void>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListForRepo(p: {
-    owner: string
-    repo: string
-    state?: "open" | "closed" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_project[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsListForRepo(
+    p: {
+      owner: string
+      repo: string
+      state?: "open" | "closed" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_project[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
     const query = this._query({
@@ -12722,50 +15036,62 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsCreateForRepo(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      body?: string
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_project>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<410, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsCreateForRepo(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        body?: string
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_project>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsList(p: {
-    owner: string
-    repo: string
-    state?: "open" | "closed" | "all"
-    head?: string
-    base?: string
-    sort?: "created" | "updated" | "popularity" | "long-running"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_pull_request_simple[]>
-    | Response<304, void>
-    | Response<422, t_validation_error>
+  async pullsList(
+    p: {
+      owner: string
+      repo: string
+      state?: "open" | "closed" | "all"
+      head?: string
+      base?: string
+      sort?: "created" | "updated" | "popularity" | "long-running"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_simple[]>
+      | Res<304, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
     const query = this._query({
@@ -12777,48 +15103,58 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsCreate(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      base: string
-      body?: string
-      draft?: boolean
-      head: string
-      head_repo?: string
-      issue?: number
-      maintainer_can_modify?: boolean
-      title?: string
-    }
-  }): Promise<
-    | Response<201, t_pull_request>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async pullsCreate(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        base: string
+        body?: string
+        draft?: boolean
+        head: string
+        head_repo?: string
+        issue?: number
+        maintainer_can_modify?: boolean
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_pull_request>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsListReviewCommentsForRepo(p: {
-    owner: string
-    repo: string
-    sort?: "created" | "updated" | "created_at"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_pull_request_review_comment[]>> {
+  async pullsListReviewCommentsForRepo(
+    p: {
+      owner: string
+      repo: string
+      sort?: "created" | "updated" | "created_at"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
     const query = this._query({
@@ -12828,99 +15164,77 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsGetReviewComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<
-    Response<200, t_pull_request_review_comment> | Response<404, t_basic_error>
+  async pullsGetReviewComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pull_request_review_comment> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsUpdateReviewComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<200, t_pull_request_review_comment>> {
+  async pullsUpdateReviewComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsDeleteReviewComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-  }): Promise<Response<204, void> | Response<404, t_basic_error>> {
+  async pullsDeleteReviewComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForPullRequestReviewComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
-    const url =
-      this.basePath +
-      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForPullRequestReviewComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    requestBody: {
-      content:
+  async reactionsListForPullRequestReviewComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -12929,146 +15243,210 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<
-    | Response<200, t_reaction>
-    | Response<201, t_reaction>
-    | Response<422, t_validation_error>
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForPullRequestReviewComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForPullRequestComment(p: {
-    owner: string
-    repo: string
-    commentId: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForPullRequestComment(
+    p: {
+      owner: string
+      repo: string
+      commentId: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsGet(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-  }): Promise<
-    | Response<200, t_pull_request>
-    | Response<304, void>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async pullsGet(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request>
+      | Res<304, void>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsUpdate(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody?: {
-      base?: string
-      body?: string
-      maintainer_can_modify?: boolean
-      state?: "open" | "closed"
-      title?: string
-    }
-  }): Promise<
-    | Response<200, t_pull_request>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async pullsUpdate(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody?: {
+        base?: string
+        body?: string
+        maintainer_can_modify?: boolean
+        state?: "open" | "closed"
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesCreateWithPrForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody: {
-      client_ip?: string
-      devcontainer_path?: string
-      display_name?: string
-      geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-      idle_timeout_minutes?: number
-      location?: string
-      machine?: string
-      multi_repo_permissions_opt_out?: boolean
-      retention_period_minutes?: number
-      working_directory?: string
-    } | null
-  }): Promise<
-    | Response<201, t_codespace>
-    | Response<202, t_codespace>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async codespacesCreateWithPrForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody: {
+        client_ip?: string
+        devcontainer_path?: string
+        display_name?: string
+        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+        idle_timeout_minutes?: number
+        location?: string
+        machine?: string
+        multi_repo_permissions_opt_out?: boolean
+        retention_period_minutes?: number
+        working_directory?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_codespace>
+      | Res<202, t_codespace>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsListReviewComments(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_pull_request_review_comment[]>> {
+  async pullsListReviewComments(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
@@ -13079,706 +15457,857 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsCreateReviewComment(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody: {
-      body: string
-      commit_id: string
-      in_reply_to?: number
-      line?: number
-      path: string
-      position?: number
-      side?: "LEFT" | "RIGHT"
-      start_line?: number
-      start_side?: "LEFT" | "RIGHT" | "side"
-      subject_type?: "LINE" | "FILE"
-    }
-  }): Promise<
-    | Response<201, t_pull_request_review_comment>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async pullsCreateReviewComment(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody: {
+        body: string
+        commit_id: string
+        in_reply_to?: number
+        line?: number
+        path: string
+        position?: number
+        side?: "LEFT" | "RIGHT"
+        start_line?: number
+        start_side?: "LEFT" | "RIGHT" | "side"
+        subject_type?: "LINE" | "FILE"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_pull_request_review_comment>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsCreateReplyForReviewComment(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    commentId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<
-    Response<201, t_pull_request_review_comment> | Response<404, t_basic_error>
+  async pullsCreateReplyForReviewComment(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      commentId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_pull_request_review_comment> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsListCommits(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_commit[]>> {
+  async pullsListCommits(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_commit[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsListFiles(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_diff_entry[]>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async pullsListFiles(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_diff_entry[]>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsCheckIfMerged(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async pullsCheckIfMerged(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsMerge(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody?: {
-      commit_message?: string
-      commit_title?: string
-      merge_method?: "merge" | "squash" | "rebase"
-      sha?: string
-    } | null
-  }): Promise<
-    | Response<200, t_pull_request_merge_result>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        405,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<
-        409,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<422, t_validation_error>
+  async pullsMerge(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody?: {
+        commit_message?: string
+        commit_title?: string
+        merge_method?: "merge" | "squash" | "rebase"
+        sha?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_merge_result>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          405,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+      | Res<
+          409,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsListRequestedReviewers(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-  }): Promise<Response<200, t_pull_request_review_request>> {
+  async pullsListRequestedReviewers(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_request>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsRequestReviewers(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody?: {
-      reviewers?: string[]
-      team_reviewers?: string[]
-    }
-  }): Promise<
-    | Response<201, t_pull_request_simple>
-    | Response<403, t_basic_error>
-    | Response<422, void>
+  async pullsRequestReviewers(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody?: {
+        reviewers?: string[]
+        team_reviewers?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<201, t_pull_request_simple> | Res<403, t_basic_error> | Res<422, void>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsRemoveRequestedReviewers(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody: {
-      reviewers: string[]
-      team_reviewers?: string[]
-    }
-  }): Promise<
-    Response<200, t_pull_request_simple> | Response<422, t_validation_error>
+  async pullsRemoveRequestedReviewers(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody: {
+        reviewers: string[]
+        team_reviewers?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pull_request_simple> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsListReviews(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_pull_request_review[]>> {
+  async pullsListReviews(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_pull_request_review[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsCreateReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody?: {
-      body?: string
-      comments?: {
-        body: string
-        line?: number
-        path: string
-        position?: number
-        side?: string
-        start_line?: number
-        start_side?: string
-      }[]
-      commit_id?: string
-      event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
-    }
-  }): Promise<
-    | Response<200, t_pull_request_review>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async pullsCreateReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody?: {
+        body?: string
+        comments?: {
+          body: string
+          line?: number
+          path: string
+          position?: number
+          side?: string
+          start_line?: number
+          start_side?: string
+        }[]
+        commit_id?: string
+        event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_review>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsGetReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-  }): Promise<
-    Response<200, t_pull_request_review> | Response<404, t_basic_error>
+  async pullsGetReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pull_request_review> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsUpdateReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<
-    | Response<200, t_pull_request_review>
-    | Response<422, t_validation_error_simple>
+  async pullsUpdateReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_pull_request_review> | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsDeletePendingReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-  }): Promise<
-    | Response<200, t_pull_request_review>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async pullsDeletePendingReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_review>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsListCommentsForReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_review_comment[]> | Response<404, t_basic_error>
+  async pullsListCommentsForReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_review_comment[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async pullsDismissReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-    requestBody: {
-      event?: "DISMISS"
-      message: string
-    }
-  }): Promise<
-    | Response<200, t_pull_request_review>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async pullsDismissReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+      requestBody: {
+        event?: "DISMISS"
+        message: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_review>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsSubmitReview(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    reviewId: number
-    requestBody: {
-      body?: string
-      event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
-    }
-  }): Promise<
-    | Response<200, t_pull_request_review>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async pullsSubmitReview(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      reviewId: number
+      requestBody: {
+        body?: string
+        event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_pull_request_review>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async pullsUpdateBranch(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-    requestBody?: {
-      expected_head_sha?: string
-    } | null
-  }): Promise<
-    | Response<
-        202,
-        {
-          message?: string
-          url?: string
-        }
-      >
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async pullsUpdateBranch(
+    p: {
+      owner: string
+      repo: string
+      pullNumber: number
+      requestBody?: {
+        expected_head_sha?: string
+      } | null
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          202,
+          {
+            message?: string
+            url?: string
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetReadme(p: {
-    owner: string
-    repo: string
-    ref?: string
-  }): Promise<
-    | Response<200, t_content_file>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposGetReadme(
+    p: {
+      owner: string
+      repo: string
+      ref?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_content_file>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetReadmeInDirectory(p: {
-    owner: string
-    repo: string
-    dir: string
-    ref?: string
-  }): Promise<
-    | Response<200, t_content_file>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposGetReadmeInDirectory(
+    p: {
+      owner: string
+      repo: string
+      dir: string
+      ref?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_content_file>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const query = this._query({ ref: p["ref"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListReleases(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_release[]> | Response<404, t_basic_error>> {
+  async reposListReleases(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_release[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateRelease(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      body?: string
-      discussion_category_name?: string
-      draft?: boolean
-      generate_release_notes?: boolean
-      make_latest?: "true" | "false" | "legacy"
-      name?: string
-      prerelease?: boolean
-      tag_name: string
-      target_commitish?: string
-    }
-  }): Promise<
-    | Response<201, t_release>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateRelease(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        body?: string
+        discussion_category_name?: string
+        draft?: boolean
+        generate_release_notes?: boolean
+        make_latest?: "true" | "false" | "legacy"
+        name?: string
+        prerelease?: boolean
+        tag_name: string
+        target_commitish?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_release>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetReleaseAsset(p: {
-    owner: string
-    repo: string
-    assetId: number
-  }): Promise<
-    | Response<200, t_release_asset>
-    | Response<302, void>
-    | Response<404, t_basic_error>
+  async reposGetReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      assetId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_release_asset> | Res<302, void> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateReleaseAsset(p: {
-    owner: string
-    repo: string
-    assetId: number
-    requestBody?: {
-      label?: string
-      name?: string
-      state?: string
-    }
-  }): Promise<Response<200, t_release_asset>> {
+  async reposUpdateReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      assetId: number
+      requestBody?: {
+        label?: string
+        name?: string
+        state?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_release_asset>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteReleaseAsset(p: {
-    owner: string
-    repo: string
-    assetId: number
-  }): Promise<Response<204, void>> {
+  async reposDeleteReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      assetId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGenerateReleaseNotes(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      configuration_file_path?: string
-      previous_tag_name?: string
-      tag_name: string
-      target_commitish?: string
-    }
-  }): Promise<
-    Response<200, t_release_notes_content> | Response<404, t_basic_error>
+  async reposGenerateReleaseNotes(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        configuration_file_path?: string
+        previous_tag_name?: string
+        tag_name: string
+        target_commitish?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_release_notes_content> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetLatestRelease(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_release>> {
+  async reposGetLatestRelease(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_release>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetReleaseByTag(p: {
-    owner: string
-    repo: string
-    tag: string
-  }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
+  async reposGetReleaseByTag(
+    p: {
+      owner: string
+      repo: string
+      tag: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-  }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
+  async reposGetRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    requestBody?: {
-      body?: string
-      discussion_category_name?: string
-      draft?: boolean
-      make_latest?: "true" | "false" | "legacy"
-      name?: string
-      prerelease?: boolean
-      tag_name?: string
-      target_commitish?: string
-    }
-  }): Promise<Response<200, t_release> | Response<404, t_basic_error>> {
+  async reposUpdateRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      requestBody?: {
+        body?: string
+        discussion_category_name?: string
+        draft?: boolean
+        make_latest?: "true" | "false" | "legacy"
+        name?: string
+        prerelease?: boolean
+        tag_name?: string
+        target_commitish?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-  }): Promise<Response<204, void>> {
+  async reposDeleteRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListReleaseAssets(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_release_asset[]>> {
+  async reposListReleaseAssets(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_release_asset[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUploadReleaseAsset(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    name: string
-    label?: string
-    requestBody?: string
-  }): Promise<Response<201, t_release_asset> | Response<422, void>> {
+  async reposUploadReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      name: string
+      label?: string
+      requestBody?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
@@ -13787,20 +16316,28 @@ export class ApiClient extends AbstractFetchClient {
     })
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url + query, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsListForRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]> | Response<404, t_basic_error>> {
+  async reactionsListForRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
@@ -13809,200 +16346,237 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsCreateForRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    requestBody: {
-      content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
-    }
-  }): Promise<
-    | Response<200, t_reaction>
-    | Response<201, t_reaction>
-    | Response<422, t_validation_error>
+  async reactionsCreateForRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      requestBody: {
+        content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reactionsDeleteForRelease(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    reactionId: number
-  }): Promise<Response<204, void>> {
+  async reactionsDeleteForRelease(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      reactionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetBranchRules(p: {
-    owner: string
-    repo: string
-    branch: string
-  }): Promise<Response<200, t_repository_rule[]>> {
+  async reposGetBranchRules(
+    p: {
+      owner: string
+      repo: string
+      branch: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_repository_rule[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetRepoRulesets(p: {
-    owner: string
-    repo: string
-    includesParents?: boolean
-  }): Promise<
-    | Response<200, t_repository_ruleset[]>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposGetRepoRulesets(
+    p: {
+      owner: string
+      repo: string
+      includesParents?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset[]>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
     const query = this._query({ includes_parents: p["includesParents"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateRepoRuleset(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      bypass_actors?: t_repository_ruleset_bypass_actor[]
-      bypass_mode?: "none" | "repository" | "organization"
-      conditions?: t_repository_ruleset_conditions
-      enforcement: t_repository_rule_enforcement
-      name: string
-      rules?: t_repository_rule[]
-      target?: "branch" | "tag"
-    }
-  }): Promise<
-    | Response<201, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposCreateRepoRuleset(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        bypass_actors?: t_repository_ruleset_bypass_actor[]
+        bypass_mode?: "none" | "repository" | "organization"
+        conditions?: t_repository_ruleset_conditions
+        enforcement: t_repository_rule_enforcement
+        name: string
+        rules?: t_repository_rule[]
+        target?: "branch" | "tag"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetRepoRuleset(p: {
-    owner: string
-    repo: string
-    rulesetId: number
-    includesParents?: boolean
-  }): Promise<
-    | Response<200, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposGetRepoRuleset(
+    p: {
+      owner: string
+      repo: string
+      rulesetId: number
+      includesParents?: boolean
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const query = this._query({ includes_parents: p["includesParents"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposUpdateRepoRuleset(p: {
-    owner: string
-    repo: string
-    rulesetId: number
-    requestBody?: {
-      bypass_actors?: t_repository_ruleset_bypass_actor[]
-      bypass_mode?: "none" | "repository" | "organization"
-      conditions?: t_repository_ruleset_conditions
-      enforcement?: t_repository_rule_enforcement
-      name?: string
-      rules?: t_repository_rule[]
-      target?: "branch" | "tag"
-    }
-  }): Promise<
-    | Response<200, t_repository_ruleset>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposUpdateRepoRuleset(
+    p: {
+      owner: string
+      repo: string
+      rulesetId: number
+      requestBody?: {
+        bypass_actors?: t_repository_ruleset_bypass_actor[]
+        bypass_mode?: "none" | "repository" | "organization"
+        conditions?: t_repository_ruleset_conditions
+        enforcement?: t_repository_rule_enforcement
+        name?: string
+        rules?: t_repository_rule[]
+        target?: "branch" | "tag"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_ruleset>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteRepoRuleset(p: {
-    owner: string
-    repo: string
-    rulesetId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async reposDeleteRepoRuleset(
+    p: {
+      owner: string
+      repo: string
+      rulesetId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async secretScanningListAlertsForRepo(p: {
-    owner: string
-    repo: string
-    state?: "open" | "resolved"
-    secretType?: string
-    resolution?: string
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    page?: number
-    perPage?: number
-    before?: string
-    after?: string
-  }): Promise<
-    | Response<200, t_secret_scanning_alert[]>
-    | Response<404, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningListAlertsForRepo(
+    p: {
+      owner: string
+      repo: string
+      state?: "open" | "resolved"
+      secretType?: string
+      resolution?: string
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      page?: number
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_alert[]>
+      | Res<404, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`
@@ -14017,114 +16591,133 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async secretScanningGetAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-  }): Promise<
-    | Response<200, t_secret_scanning_alert>
-    | Response<304, void>
-    | Response<404, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningGetAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_alert>
+      | Res<304, void>
+      | Res<404, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async secretScanningUpdateAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-    requestBody: {
-      resolution?: t_secret_scanning_alert_resolution
-      resolution_comment?: t_secret_scanning_alert_resolution_comment
-      state: t_secret_scanning_alert_state
-    }
-  }): Promise<
-    | Response<200, t_secret_scanning_alert>
-    | Response<400, void>
-    | Response<404, void>
-    | Response<422, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningUpdateAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      requestBody: {
+        resolution?: t_secret_scanning_alert_resolution
+        resolution_comment?: t_secret_scanning_alert_resolution_comment
+        state: t_secret_scanning_alert_state
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_alert>
+      | Res<400, void>
+      | Res<404, void>
+      | Res<422, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async secretScanningListLocationsForAlert(p: {
-    owner: string
-    repo: string
-    alertNumber: t_alert_number
-    page?: number
-    perPage?: number
-  }): Promise<
-    | Response<200, t_secret_scanning_location[]>
-    | Response<404, void>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async secretScanningListLocationsForAlert(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_location[]>
+      | Res<404, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async securityAdvisoriesListRepositoryAdvisories(p: {
-    owner: string
-    repo: string
-    direction?: "asc" | "desc"
-    sort?: "created" | "updated" | "published"
-    before?: string
-    after?: string
-    perPage?: number
-    state?: "triage" | "draft" | "published" | "closed"
-  }): Promise<
-    | Response<200, t_repository_advisory[]>
-    | Response<400, t_scim_error>
-    | Response<404, t_basic_error>
+  async securityAdvisoriesListRepositoryAdvisories(
+    p: {
+      owner: string
+      repo: string
+      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "published"
+      before?: string
+      after?: string
+      perPage?: number
+      state?: "triage" | "draft" | "published" | "closed"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_advisory[]>
+      | Res<400, t_scim_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
@@ -14136,779 +16729,928 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       state: p["state"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async securityAdvisoriesCreateRepositoryAdvisory(p: {
-    owner: string
-    repo: string
-    requestBody: t_repository_advisory_create
-  }): Promise<
-    | Response<201, t_repository_advisory>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async securityAdvisoriesCreateRepositoryAdvisory(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_repository_advisory_create
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository_advisory>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async securityAdvisoriesCreatePrivateVulnerabilityReport(p: {
-    owner: string
-    repo: string
-    requestBody: t_private_vulnerability_report_create
-  }): Promise<
-    | Response<201, t_repository_advisory>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async securityAdvisoriesCreatePrivateVulnerabilityReport(
+    p: {
+      owner: string
+      repo: string
+      requestBody: t_private_vulnerability_report_create
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository_advisory>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/reports`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async securityAdvisoriesGetRepositoryAdvisory(p: {
-    owner: string
-    repo: string
-    ghsaId: string
-  }): Promise<
-    | Response<200, t_repository_advisory>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async securityAdvisoriesGetRepositoryAdvisory(
+    p: {
+      owner: string
+      repo: string
+      ghsaId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_advisory>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async securityAdvisoriesUpdateRepositoryAdvisory(p: {
-    owner: string
-    repo: string
-    ghsaId: string
-    requestBody: t_repository_advisory_update
-  }): Promise<
-    | Response<200, t_repository_advisory>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async securityAdvisoriesUpdateRepositoryAdvisory(
+    p: {
+      owner: string
+      repo: string
+      ghsaId: string
+      requestBody: t_repository_advisory_update
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_advisory>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async activityListStargazersForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_simple_user[] | t_stargazer[]>
-    | Response<422, t_validation_error>
+  async activityListStargazersForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_simple_user[] | t_stargazer[]> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCodeFrequencyStats(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_code_frequency_stat[]>
-    | Response<202, EmptyObject>
-    | Response<204, void>
+  async reposGetCodeFrequencyStats(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_code_frequency_stat[]> | Res<202, EmptyObject> | Res<204, void>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetCommitActivityStats(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_commit_activity[]>
-    | Response<202, EmptyObject>
-    | Response<204, void>
+  async reposGetCommitActivityStats(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_commit_activity[]> | Res<202, EmptyObject> | Res<204, void>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetContributorsStats(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_contributor_activity[]>
-    | Response<202, EmptyObject>
-    | Response<204, void>
+  async reposGetContributorsStats(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_contributor_activity[]>
+      | Res<202, EmptyObject>
+      | Res<204, void>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetParticipationStats(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_participation_stats> | Response<404, t_basic_error>
+  async reposGetParticipationStats(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_participation_stats> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetPunchCardStats(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<200, t_code_frequency_stat[]> | Response<204, void>> {
+  async reposGetPunchCardStats(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_code_frequency_stat[]> | Res<204, void>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateCommitStatus(p: {
-    owner: string
-    repo: string
-    sha: string
-    requestBody: {
-      context?: string
-      description?: string | null
-      state: "error" | "failure" | "pending" | "success"
-      target_url?: string | null
-    }
-  }): Promise<Response<201, t_status>> {
+  async reposCreateCommitStatus(
+    p: {
+      owner: string
+      repo: string
+      sha: string
+      requestBody: {
+        context?: string
+        description?: string | null
+        state: "error" | "failure" | "pending" | "success"
+        target_url?: string | null
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_status>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async activityListWatchersForRepo(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async activityListWatchersForRepo(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityGetRepoSubscription(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_repository_subscription>
-    | Response<403, t_basic_error>
-    | Response<404, void>
+  async activityGetRepoSubscription(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_repository_subscription>
+      | Res<403, t_basic_error>
+      | Res<404, void>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activitySetRepoSubscription(p: {
-    owner: string
-    repo: string
-    requestBody?: {
-      ignored?: boolean
-      subscribed?: boolean
-    }
-  }): Promise<Response<200, t_repository_subscription>> {
+  async activitySetRepoSubscription(
+    p: {
+      owner: string
+      repo: string
+      requestBody?: {
+        ignored?: boolean
+        subscribed?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_repository_subscription>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async activityDeleteRepoSubscription(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async activityDeleteRepoSubscription(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListTags(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_tag[]>> {
+  async reposListTags(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_tag[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListTagProtection(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<200, t_tag_protection[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposListTagProtection(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_tag_protection[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateTagProtection(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      pattern: string
-    }
-  }): Promise<
-    | Response<201, t_tag_protection>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposCreateTagProtection(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        pattern: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_tag_protection>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposDeleteTagProtection(p: {
-    owner: string
-    repo: string
-    tagProtectionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async reposDeleteTagProtection(
+    p: {
+      owner: string
+      repo: string
+      tagProtectionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDownloadTarballArchive(p: {
-    owner: string
-    repo: string
-    ref: string
-  }): Promise<Response<302, void>> {
+  async reposDownloadTarballArchive(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListTeams(p: {
-    owner: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team[]>> {
+  async reposListTeams(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetAllTopics(p: {
-    owner: string
-    repo: string
-    page?: number
-    perPage?: number
-  }): Promise<Response<200, t_topic> | Response<404, t_basic_error>> {
+  async reposGetAllTopics(
+    p: {
+      owner: string
+      repo: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_topic> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposReplaceAllTopics(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      names: string[]
-    }
-  }): Promise<
-    | Response<200, t_topic>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async reposReplaceAllTopics(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        names: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_topic>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposGetClones(p: {
-    owner: string
-    repo: string
-    per?: "day" | "week"
-  }): Promise<Response<200, t_clone_traffic> | Response<403, t_basic_error>> {
+  async reposGetClones(
+    p: {
+      owner: string
+      repo: string
+      per?: "day" | "week"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_clone_traffic> | Res<403, t_basic_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const query = this._query({ per: p["per"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetTopPaths(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_content_traffic[]> | Response<403, t_basic_error>
+  async reposGetTopPaths(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_content_traffic[]> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetTopReferrers(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_referrer_traffic[]> | Response<403, t_basic_error>
+  async reposGetTopReferrers(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_referrer_traffic[]> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposGetViews(p: {
-    owner: string
-    repo: string
-    per?: "day" | "week"
-  }): Promise<Response<200, t_view_traffic> | Response<403, t_basic_error>> {
+  async reposGetViews(
+    p: {
+      owner: string
+      repo: string
+      per?: "day" | "week"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_view_traffic> | Res<403, t_basic_error>>
+  > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const query = this._query({ per: p["per"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposTransfer(p: {
-    owner: string
-    repo: string
-    requestBody: {
-      new_name?: string
-      new_owner: string
-      team_ids?: number[]
-    }
-  }): Promise<Response<202, t_minimal_repository>> {
+  async reposTransfer(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        new_name?: string
+        new_owner: string
+        team_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<202, t_minimal_repository>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async reposCheckVulnerabilityAlerts(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async reposCheckVulnerabilityAlerts(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposEnableVulnerabilityAlerts(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async reposEnableVulnerabilityAlerts(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDisableVulnerabilityAlerts(p: {
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async reposDisableVulnerabilityAlerts(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDownloadZipballArchive(p: {
-    owner: string
-    repo: string
-    ref: string
-  }): Promise<Response<302, void>> {
+  async reposDownloadZipballArchive(
+    p: {
+      owner: string
+      repo: string
+      ref: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateUsingTemplate(p: {
-    templateOwner: string
-    templateRepo: string
-    requestBody: {
-      description?: string
-      include_all_branches?: boolean
-      name: string
-      owner?: string
-      private?: boolean
-    }
-  }): Promise<Response<201, t_repository>> {
+  async reposCreateUsingTemplate(
+    p: {
+      templateOwner: string
+      templateRepo: string
+      requestBody: {
+        description?: string
+        include_all_branches?: boolean
+        name: string
+        owner?: string
+        private?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_repository>>> {
     const url =
       this.basePath +
       `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async reposListPublic(
     p: {
       since?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_minimal_repository[]>
-    | Response<304, void>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_minimal_repository[]>
+      | Res<304, void>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/repositories`
     const query = this._query({ since: p["since"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListEnvironmentSecrets(p: {
-    repositoryId: number
-    environmentName: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        secrets: t_actions_secret[]
-        total_count: number
-      }
+  async actionsListEnvironmentSecrets(
+    p: {
+      repositoryId: number
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_actions_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetEnvironmentPublicKey(p: {
-    repositoryId: number
-    environmentName: string
-  }): Promise<Response<200, t_actions_public_key>> {
+  async actionsGetEnvironmentPublicKey(
+    p: {
+      repositoryId: number
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsGetEnvironmentSecret(p: {
-    repositoryId: number
-    environmentName: string
-    secretName: string
-  }): Promise<Response<200, t_actions_secret>> {
+  async actionsGetEnvironmentSecret(
+    p: {
+      repositoryId: number
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateOrUpdateEnvironmentSecret(p: {
-    repositoryId: number
-    environmentName: string
-    secretName: string
-    requestBody: {
-      encrypted_value: string
-      key_id: string
-    }
-  }): Promise<Response<201, t_empty_object> | Response<204, void>> {
+  async actionsCreateOrUpdateEnvironmentSecret(
+    p: {
+      repositoryId: number
+      environmentName: string
+      secretName: string
+      requestBody: {
+        encrypted_value: string
+        key_id: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsDeleteEnvironmentSecret(p: {
-    repositoryId: number
-    environmentName: string
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async actionsDeleteEnvironmentSecret(
+    p: {
+      repositoryId: number
+      environmentName: string
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsListEnvironmentVariables(p: {
-    repositoryId: number
-    environmentName: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<
-      200,
-      {
-        total_count: number
-        variables: t_actions_variable[]
-      }
+  async actionsListEnvironmentVariables(
+    p: {
+      repositoryId: number
+      environmentName: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          total_count: number
+          variables: t_actions_variable[]
+        }
+      >
     >
   > {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsCreateEnvironmentVariable(p: {
-    repositoryId: number
-    environmentName: string
-    requestBody: {
-      name: string
-      value: string
-    }
-  }): Promise<Response<201, t_empty_object>> {
+  async actionsCreateEnvironmentVariable(
+    p: {
+      repositoryId: number
+      environmentName: string
+      requestBody: {
+        name: string
+        value: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsGetEnvironmentVariable(p: {
-    repositoryId: number
-    environmentName: string
-    name: string
-  }): Promise<Response<200, t_actions_variable>> {
+  async actionsGetEnvironmentVariable(
+    p: {
+      repositoryId: number
+      environmentName: string
+      name: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async actionsUpdateEnvironmentVariable(p: {
-    repositoryId: number
-    name: string
-    environmentName: string
-    requestBody: {
-      name?: string
-      value?: string
-    }
-  }): Promise<Response<204, void>> {
+  async actionsUpdateEnvironmentVariable(
+    p: {
+      repositoryId: number
+      name: string
+      environmentName: string
+      requestBody: {
+        name?: string
+        value?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async actionsDeleteEnvironmentVariable(p: {
-    repositoryId: number
-    name: string
-    environmentName: string
-  }): Promise<Response<204, void>> {
+  async actionsDeleteEnvironmentVariable(
+    p: {
+      repositoryId: number
+      name: string
+      environmentName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repositories/${p["repositoryId"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async searchCode(p: {
-    q: string
-    sort?: "indexed"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_code_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async searchCode(
+    p: {
+      q: string
+      sort?: "indexed"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_code_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/search/code`
     const query = this._query({
@@ -14918,28 +17660,32 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchCommits(p: {
-    q: string
-    sort?: "author-date" | "committer-date"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_commit_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
+  async searchCommits(
+    p: {
+      q: string
+      sort?: "author-date" | "committer-date"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_commit_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+    >
   > {
     const url = this.basePath + `/search/commits`
     const query = this._query({
@@ -14949,49 +17695,53 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchIssuesAndPullRequests(p: {
-    q: string
-    sort?:
-      | "comments"
-      | "reactions"
-      | "reactions-+1"
-      | "reactions--1"
-      | "reactions-smile"
-      | "reactions-thinking_face"
-      | "reactions-heart"
-      | "reactions-tada"
-      | "interactions"
-      | "created"
-      | "updated"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_issue_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async searchIssuesAndPullRequests(
+    p: {
+      q: string
+      sort?:
+        | "comments"
+        | "reactions"
+        | "reactions-+1"
+        | "reactions--1"
+        | "reactions-smile"
+        | "reactions-thinking_face"
+        | "reactions-heart"
+        | "reactions-tada"
+        | "interactions"
+        | "created"
+        | "updated"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_issue_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/search/issues`
     const query = this._query({
@@ -15001,32 +17751,36 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchLabels(p: {
-    repositoryId: number
-    q: string
-    sort?: "created" | "updated"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_label_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async searchLabels(
+    p: {
+      repositoryId: number
+      q: string
+      sort?: "created" | "updated"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_label_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/search/labels`
     const query = this._query({
@@ -15037,37 +17791,41 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchRepos(p: {
-    q: string
-    sort?: "stars" | "forks" | "help-wanted-issues" | "updated"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_repo_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async searchRepos(
+    p: {
+      q: string
+      sort?: "stars" | "forks" | "help-wanted-issues" | "updated"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_repo_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/search/repositories`
     const query = this._query({
@@ -15077,26 +17835,30 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchTopics(p: {
-    q: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_topic_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
+  async searchTopics(
+    p: {
+      q: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_topic_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+    >
   > {
     const url = this.basePath + `/search/topics`
     const query = this._query({
@@ -15104,37 +17866,41 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async searchUsers(p: {
-    q: string
-    sort?: "followers" | "repositories" | "joined"
-    order?: "desc" | "asc"
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          incomplete_results: boolean
-          items: t_user_search_result_item[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<422, t_validation_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+  async searchUsers(
+    p: {
+      q: string
+      sort?: "followers" | "repositories" | "joined"
+      order?: "desc" | "asc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            incomplete_results: boolean
+            items: t_user_search_result_item[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<422, t_validation_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/search/users`
     const query = this._query({
@@ -15144,153 +17910,185 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsGetLegacy(p: {
-    teamId: number
-  }): Promise<Response<200, t_team_full> | Response<404, t_basic_error>> {
+  async teamsGetLegacy(
+    p: {
+      teamId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/teams/${p["teamId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateLegacy(p: {
-    teamId: number
-    requestBody: {
-      description?: string
-      name: string
-      notification_setting?: "notifications_enabled" | "notifications_disabled"
-      parent_team_id?: number | null
-      permission?: "pull" | "push" | "admin"
-      privacy?: "secret" | "closed"
-    }
-  }): Promise<
-    | Response<200, t_team_full>
-    | Response<201, t_team_full>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsUpdateLegacy(
+    p: {
+      teamId: number
+      requestBody: {
+        description?: string
+        name: string
+        notification_setting?:
+          | "notifications_enabled"
+          | "notifications_disabled"
+        parent_team_id?: number | null
+        permission?: "pull" | "push" | "admin"
+        privacy?: "secret" | "closed"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_team_full>
+      | Res<201, t_team_full>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteLegacy(p: {
-    teamId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsDeleteLegacy(
+    p: {
+      teamId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListDiscussionsLegacy(p: {
-    teamId: number
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team_discussion[]>> {
+  async teamsListDiscussionsLegacy(
+    p: {
+      teamId: number
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCreateDiscussionLegacy(p: {
-    teamId: number
-    requestBody: {
-      body: string
-      private?: boolean
-      title: string
-    }
-  }): Promise<Response<201, t_team_discussion>> {
+  async teamsCreateDiscussionLegacy(
+    p: {
+      teamId: number
+      requestBody: {
+        body: string
+        private?: boolean
+        title: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsGetDiscussionLegacy(p: {
-    teamId: number
-    discussionNumber: number
-  }): Promise<Response<200, t_team_discussion>> {
+  async teamsGetDiscussionLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateDiscussionLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    requestBody?: {
-      body?: string
-      title?: string
-    }
-  }): Promise<Response<200, t_team_discussion>> {
+  async teamsUpdateDiscussionLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      requestBody?: {
+        body?: string
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteDiscussionLegacy(p: {
-    teamId: number
-    discussionNumber: number
-  }): Promise<Response<204, void>> {
+  async teamsDeleteDiscussionLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListDiscussionCommentsLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team_discussion_comment[]>> {
+  async teamsListDiscussionCommentsLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
@@ -15299,115 +18097,97 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCreateDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<201, t_team_discussion_comment>> {
+  async teamsCreateDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsGetDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    commentNumber: number
-  }): Promise<Response<200, t_team_discussion_comment>> {
+  async teamsGetDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      commentNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsUpdateDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    commentNumber: number
-    requestBody: {
-      body: string
-    }
-  }): Promise<Response<200, t_team_discussion_comment>> {
+  async teamsUpdateDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      commentNumber: number
+      requestBody: {
+        body: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsDeleteDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    commentNumber: number
-  }): Promise<Response<204, void>> {
+  async teamsDeleteDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      commentNumber: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsListForTeamDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    commentNumber: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const query = this._query({
-      content: p["content"],
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-    const res = await fetch(url + query, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsCreateForTeamDiscussionCommentLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    commentNumber: number
-    requestBody: {
-      content:
+  async reactionsListForTeamDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      commentNumber: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -15416,53 +18196,62 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<Response<201, t_reaction>> {
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
-  }
-
-  async reactionsListForTeamDiscussionLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    content?:
-      | "+1"
-      | "-1"
-      | "laugh"
-      | "confused"
-      | "heart"
-      | "hooray"
-      | "rocket"
-      | "eyes"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_reaction[]>> {
-    const url =
-      this.basePath +
-      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reactionsCreateForTeamDiscussionLegacy(p: {
-    teamId: number
-    discussionNumber: number
-    requestBody: {
-      content:
+  async reactionsCreateForTeamDiscussionCommentLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      commentNumber: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
+  }
+
+  async reactionsListForTeamDiscussionLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      content?:
         | "+1"
         | "-1"
         | "laugh"
@@ -15471,307 +18260,398 @@ export class ApiClient extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
-    }
-  }): Promise<Response<201, t_reaction>> {
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
+    const url =
+      this.basePath +
+      `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
+    const query = this._query({
+      content: p["content"],
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reactionsCreateForTeamDiscussionLegacy(
+    p: {
+      teamId: number
+      discussionNumber: number
+      requestBody: {
+        content:
+          | "+1"
+          | "-1"
+          | "laugh"
+          | "confused"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsListPendingInvitationsLegacy(p: {
-    teamId: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_organization_invitation[]>> {
+  async teamsListPendingInvitationsLegacy(
+    p: {
+      teamId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListMembersLegacy(p: {
-    teamId: number
-    role?: "member" | "maintainer" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]> | Response<404, t_basic_error>> {
+  async teamsListMembersLegacy(
+    p: {
+      teamId: number
+      role?: "member" | "maintainer" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/teams/${p["teamId"]}/members`
     const query = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsGetMemberLegacy(p: {
-    teamId: number
-    username: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async teamsGetMemberLegacy(
+    p: {
+      teamId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddMemberLegacy(p: {
-    teamId: number
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<404, void>
-    | Response<422, void>
+  async teamsAddMemberLegacy(
+    p: {
+      teamId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<404, void> | Res<422, void>
+    >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsRemoveMemberLegacy(p: {
-    teamId: number
-    username: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async teamsRemoveMemberLegacy(
+    p: {
+      teamId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsGetMembershipForUserLegacy(p: {
-    teamId: number
-    username: string
-  }): Promise<Response<200, t_team_membership> | Response<404, t_basic_error>> {
+  async teamsGetMembershipForUserLegacy(
+    p: {
+      teamId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team_membership> | Res<404, t_basic_error>>
+  > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateMembershipForUserLegacy(p: {
-    teamId: number
-    username: string
-    requestBody?: {
-      role?: "member" | "maintainer"
-    }
-  }): Promise<
-    | Response<200, t_team_membership>
-    | Response<403, void>
-    | Response<404, t_basic_error>
-    | Response<422, void>
+  async teamsAddOrUpdateMembershipForUserLegacy(
+    p: {
+      teamId: number
+      username: string
+      requestBody?: {
+        role?: "member" | "maintainer"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_team_membership>
+      | Res<403, void>
+      | Res<404, t_basic_error>
+      | Res<422, void>
+    >
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveMembershipForUserLegacy(p: {
-    teamId: number
-    username: string
-  }): Promise<Response<204, void> | Response<403, void>> {
+  async teamsRemoveMembershipForUserLegacy(
+    p: {
+      teamId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListProjectsLegacy(p: {
-    teamId: number
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_team_project[]> | Response<404, t_basic_error>> {
+  async teamsListProjectsLegacy(
+    p: {
+      teamId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_team_project[]> | Res<404, t_basic_error>>
+  > {
     const url = this.basePath + `/teams/${p["teamId"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCheckPermissionsForProjectLegacy(p: {
-    teamId: number
-    projectId: number
-  }): Promise<Response<200, t_team_project> | Response<404, void>> {
+  async teamsCheckPermissionsForProjectLegacy(
+    p: {
+      teamId: number
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateProjectPermissionsLegacy(p: {
-    teamId: number
-    projectId: number
-    requestBody?: {
-      permission?: "read" | "write" | "admin"
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<
-        403,
-        {
-          documentation_url?: string
-          message?: string
-        }
-      >
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsAddOrUpdateProjectPermissionsLegacy(
+    p: {
+      teamId: number
+      projectId: number
+      requestBody?: {
+        permission?: "read" | "write" | "admin"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<
+          403,
+          {
+            documentation_url?: string
+            message?: string
+          }
+        >
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveProjectLegacy(p: {
-    teamId: number
-    projectId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsRemoveProjectLegacy(
+    p: {
+      teamId: number
+      projectId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListReposLegacy(p: {
-    teamId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
+  async teamsListReposLegacy(
+    p: {
+      teamId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsCheckPermissionsForRepoLegacy(p: {
-    teamId: number
-    owner: string
-    repo: string
-  }): Promise<
-    Response<200, t_team_repository> | Response<204, void> | Response<404, void>
+  async teamsCheckPermissionsForRepoLegacy(
+    p: {
+      teamId: number
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_team_repository> | Res<204, void> | Res<404, void>
+    >
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsAddOrUpdateRepoPermissionsLegacy(p: {
-    teamId: number
-    owner: string
-    repo: string
-    requestBody?: {
-      permission?: "pull" | "push" | "admin"
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsAddOrUpdateRepoPermissionsLegacy(
+    p: {
+      teamId: number
+      owner: string
+      repo: string
+      requestBody?: {
+        permission?: "pull" | "push" | "admin"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<403, t_basic_error> | Res<422, t_validation_error>
+    >
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async teamsRemoveRepoLegacy(p: {
-    teamId: number
-    owner: string
-    repo: string
-  }): Promise<Response<204, void>> {
+  async teamsRemoveRepoLegacy(
+    p: {
+      teamId: number
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async teamsListChildLegacy(p: {
-    teamId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<200, t_team[]>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async teamsListChildLegacy(
+    p: {
+      teamId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_team[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersGetAuthenticated(): Promise<
-    | Response<200, t_private_user | t_public_user>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async usersGetAuthenticated(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_private_user | t_public_user>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async usersUpdateAuthenticated(
@@ -15786,94 +18666,111 @@ export class ApiClient extends AbstractFetchClient {
         name?: string
         twitter_username?: string | null
       }
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_private_user>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_private_user>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async usersListBlockedByAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_simple_user[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_simple_user[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCheckBlocked(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersCheckBlocked(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersBlock(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersBlock(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async usersUnblock(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersUnblock(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async codespacesListForAuthenticatedUser(
@@ -15881,20 +18778,24 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       page?: number
       repositoryId?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<
-        200,
-        {
-          codespaces: t_codespace[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            codespaces: t_codespace[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces`
     const query = this._query({
@@ -15902,454 +18803,532 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       repository_id: p["repositoryId"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCreateForAuthenticatedUser(p: {
-    requestBody:
-      | {
-          client_ip?: string
-          devcontainer_path?: string
-          display_name?: string
-          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-          idle_timeout_minutes?: number
-          location?: string
-          machine?: string
-          multi_repo_permissions_opt_out?: boolean
-          ref?: string
-          repository_id: number
-          retention_period_minutes?: number
-          working_directory?: string
-        }
-      | {
-          devcontainer_path?: string
-          geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-          idle_timeout_minutes?: number
-          location?: string
-          machine?: string
-          pull_request: {
-            pull_request_number: number
+  async codespacesCreateForAuthenticatedUser(
+    p: {
+      requestBody:
+        | {
+            client_ip?: string
+            devcontainer_path?: string
+            display_name?: string
+            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+            idle_timeout_minutes?: number
+            location?: string
+            machine?: string
+            multi_repo_permissions_opt_out?: boolean
+            ref?: string
             repository_id: number
+            retention_period_minutes?: number
+            working_directory?: string
           }
-          working_directory?: string
-        }
-  }): Promise<
-    | Response<201, t_codespace>
-    | Response<202, t_codespace>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<
-        503,
-        {
-          code?: string
-          documentation_url?: string
-          message?: string
-        }
-      >
+        | {
+            devcontainer_path?: string
+            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+            idle_timeout_minutes?: number
+            location?: string
+            machine?: string
+            pull_request: {
+              pull_request_number: number
+              repository_id: number
+            }
+            working_directory?: string
+          }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_codespace>
+      | Res<202, t_codespace>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
   > {
     const url = this.basePath + `/user/codespaces`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async codespacesListSecretsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    Response<
-      200,
-      {
-        secrets: t_codespaces_secret[]
-        total_count: number
-      }
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          secrets: t_codespaces_secret[]
+          total_count: number
+        }
+      >
     >
   > {
     const url = this.basePath + `/user/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetPublicKeyForAuthenticatedUser(): Promise<
-    Response<200, t_codespaces_user_public_key>
-  > {
+  async codespacesGetPublicKeyForAuthenticatedUser(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_codespaces_user_public_key>>> {
     const url = this.basePath + `/user/codespaces/secrets/public-key`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetSecretForAuthenticatedUser(p: {
-    secretName: string
-  }): Promise<Response<200, t_codespaces_secret>> {
+  async codespacesGetSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_codespaces_secret>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCreateOrUpdateSecretForAuthenticatedUser(p: {
-    secretName: string
-    requestBody: {
-      encrypted_value?: string
-      key_id: string
-      selected_repository_ids?: (number | string)[]
-    }
-  }): Promise<
-    | Response<201, t_empty_object>
-    | Response<204, void>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async codespacesCreateOrUpdateSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id: string
+        selected_repository_ids?: (number | string)[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_empty_object>
+      | Res<204, void>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesDeleteSecretForAuthenticatedUser(p: {
-    secretName: string
-  }): Promise<Response<204, void>> {
+  async codespacesDeleteSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesListRepositoriesForSecretForAuthenticatedUser(p: {
-    secretName: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          repositories: t_minimal_repository[]
-          total_count: number
-        }
-      >
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesListRepositoriesForSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_minimal_repository[]
+            total_count: number
+          }
+        >
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesSetRepositoriesForSecretForAuthenticatedUser(p: {
-    secretName: string
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesSetRepositoriesForSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesAddRepositoryForSecretForAuthenticatedUser(p: {
-    secretName: string
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesAddRepositoryForSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesRemoveRepositoryForSecretForAuthenticatedUser(p: {
-    secretName: string
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesRemoveRepositoryForSecretForAuthenticatedUser(
+    p: {
+      secretName: string
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<200, t_codespace>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesGetForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespace>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesUpdateForAuthenticatedUser(p: {
-    codespaceName: string
-    requestBody?: {
-      display_name?: string
-      machine?: string
-      recent_folders?: string[]
-    }
-  }): Promise<
-    | Response<200, t_codespace>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async codespacesUpdateForAuthenticatedUser(
+    p: {
+      codespaceName: string
+      requestBody?: {
+        display_name?: string
+        machine?: string
+        recent_folders?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespace>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesDeleteForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<202, EmptyObject>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesDeleteForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, EmptyObject>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesExportForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<202, t_codespace_export_details>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
-    | Response<500, t_basic_error>
+  async codespacesExportForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<202, t_codespace_export_details>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/exports`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesGetExportDetailsForAuthenticatedUser(p: {
-    codespaceName: string
-    exportId: string
-  }): Promise<
-    Response<200, t_codespace_export_details> | Response<404, t_basic_error>
+  async codespacesGetExportDetailsForAuthenticatedUser(
+    p: {
+      codespaceName: string
+      exportId: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_codespace_export_details> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesCodespaceMachinesForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<
-        200,
-        {
-          machines: t_codespace_machine[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesCodespaceMachinesForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            machines: t_codespace_machine[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/codespaces/${p["codespaceName"]}/machines`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesPublishForAuthenticatedUser(p: {
-    codespaceName: string
-    requestBody: {
-      name?: string
-      private?: boolean
-    }
-  }): Promise<
-    | Response<201, t_codespace_with_full_repository>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async codespacesPublishForAuthenticatedUser(
+    p: {
+      codespaceName: string
+      requestBody: {
+        name?: string
+        private?: boolean
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_codespace_with_full_repository>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/publish`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async codespacesStartForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<200, t_codespace>
-    | Response<304, void>
-    | Response<400, t_scim_error>
-    | Response<401, t_basic_error>
-    | Response<402, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesStartForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespace>
+      | Res<304, void>
+      | Res<400, t_scim_error>
+      | Res<401, t_basic_error>
+      | Res<402, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/start`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async codespacesStopForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Promise<
-    | Response<200, t_codespace>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<500, t_basic_error>
+  async codespacesStopForAuthenticatedUser(
+    p: {
+      codespaceName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_codespace>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/stop`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(): Promise<
-    Response<200, t_package[]>
-  > {
+  async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package[]>>> {
     const url = this.basePath + `/user/docker/conflicts`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersSetPrimaryEmailVisibilityForAuthenticatedUser(p: {
-    requestBody: {
-      visibility: "public" | "private"
-    }
-  }): Promise<
-    | Response<200, t_email[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
+    p: {
+      requestBody: {
+        visibility: "public" | "private"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_email[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/email/visibility`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async usersListEmailsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_email[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_email[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async usersAddEmailForAuthenticatedUser(
@@ -16360,339 +19339,400 @@ export class ApiClient extends AbstractFetchClient {
           }
         | string[]
         | string
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<201, t_email[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<201, t_email[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/emails`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async usersDeleteEmailForAuthenticatedUser(p: {
-    requestBody:
-      | {
-          emails: string[]
-        }
-      | string[]
-      | string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersDeleteEmailForAuthenticatedUser(
+    p: {
+      requestBody:
+        | {
+            emails: string[]
+          }
+        | string[]
+        | string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/emails`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async usersListFollowersForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_simple_user[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_simple_user[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async usersListFollowedByAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_simple_user[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_simple_user[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCheckPersonIsFollowedByAuthenticated(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersCheckPersonIsFollowedByAuthenticated(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersFollow(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersFollow(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async usersUnfollow(p: {
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersUnfollow(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async usersListGpgKeysForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_gpg_key[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_gpg_key[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCreateGpgKeyForAuthenticatedUser(p: {
-    requestBody: {
-      armored_public_key: string
-      name?: string
-    }
-  }): Promise<
-    | Response<201, t_gpg_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersCreateGpgKeyForAuthenticatedUser(
+    p: {
+      requestBody: {
+        armored_public_key: string
+        name?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_gpg_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/gpg_keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async usersGetGpgKeyForAuthenticatedUser(p: {
-    gpgKeyId: number
-  }): Promise<
-    | Response<200, t_gpg_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersGetGpgKeyForAuthenticatedUser(
+    p: {
+      gpgKeyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_gpg_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersDeleteGpgKeyForAuthenticatedUser(p: {
-    gpgKeyId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersDeleteGpgKeyForAuthenticatedUser(
+    p: {
+      gpgKeyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async appsListInstallationsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<
-        200,
-        {
-          installations: t_installation[]
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            installations: t_installation[]
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsListInstallationReposForAuthenticatedUser(p: {
-    installationId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    | Response<
-        200,
-        {
-          repositories: t_repository[]
-          repository_selection?: string
-          total_count: number
-        }
-      >
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsListInstallationReposForAuthenticatedUser(
+    p: {
+      installationId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            repositories: t_repository[]
+            repository_selection?: string
+            total_count: number
+          }
+        >
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/installations/${p["installationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsAddRepoToInstallationForAuthenticatedUser(p: {
-    installationId: number
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsAddRepoToInstallationForAuthenticatedUser(
+    p: {
+      installationId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async appsRemoveRepoFromInstallationForAuthenticatedUser(p: {
-    installationId: number
-    repositoryId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async appsRemoveRepoFromInstallationForAuthenticatedUser(
+    p: {
+      installationId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsGetRestrictionsForAuthenticatedUser(): Promise<
-    | Response<200, t_interaction_limit_response | EmptyObject>
-    | Response<204, void>
+  async interactionsGetRestrictionsForAuthenticatedUser(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_interaction_limit_response | EmptyObject> | Res<204, void>
+    >
   > {
     const url = this.basePath + `/user/interaction-limits`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async interactionsSetRestrictionsForAuthenticatedUser(p: {
-    requestBody: t_interaction_limit
-  }): Promise<
-    | Response<200, t_interaction_limit_response>
-    | Response<422, t_validation_error>
+  async interactionsSetRestrictionsForAuthenticatedUser(
+    p: {
+      requestBody: t_interaction_limit
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/interaction-limits`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PUT", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async interactionsRemoveRestrictionsForAuthenticatedUser(): Promise<
-    Response<204, void>
-  > {
+  async interactionsRemoveRestrictionsForAuthenticatedUser(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/interaction-limits`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async issuesListForAuthenticatedUser(
@@ -16711,11 +19751,13 @@ export class ApiClient extends AbstractFetchClient {
       since?: string
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_issue[]>
-    | Response<304, void>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      Res<200, t_issue[]> | Res<304, void> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/issues`
     const query = this._query({
@@ -16728,123 +19770,141 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async usersListPublicSshKeysForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_key[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_key[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCreatePublicSshKeyForAuthenticatedUser(p: {
-    requestBody: {
-      key: string
-      title?: string
-    }
-  }): Promise<
-    | Response<201, t_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersCreatePublicSshKeyForAuthenticatedUser(
+    p: {
+      requestBody: {
+        key: string
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async usersGetPublicSshKeyForAuthenticatedUser(p: {
-    keyId: number
-  }): Promise<
-    | Response<200, t_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersGetPublicSshKeyForAuthenticatedUser(
+    p: {
+      keyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/keys/${p["keyId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersDeletePublicSshKeyForAuthenticatedUser(p: {
-    keyId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersDeletePublicSshKeyForAuthenticatedUser(
+    p: {
+      keyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/keys/${p["keyId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async appsListSubscriptionsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_user_marketplace_purchase[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_user_marketplace_purchase[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/marketplace_purchases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_user_marketplace_purchase[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_user_marketplace_purchase[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/marketplace_purchases/stubbed`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async orgsListMembershipsForAuthenticatedUser(
@@ -16852,13 +19912,17 @@ export class ApiClient extends AbstractFetchClient {
       state?: "active" | "pending"
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_org_membership[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_org_membership[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/memberships/orgs`
     const query = this._query({
@@ -16866,206 +19930,254 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsGetMembershipForAuthenticatedUser(p: {
-    org: string
-  }): Promise<
-    | Response<200, t_org_membership>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async orgsGetMembershipForAuthenticatedUser(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_membership>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsUpdateMembershipForAuthenticatedUser(p: {
-    org: string
-    requestBody: {
-      state: "active"
-    }
-  }): Promise<
-    | Response<200, t_org_membership>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async orgsUpdateMembershipForAuthenticatedUser(
+    p: {
+      org: string
+      requestBody: {
+        state: "active"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_org_membership>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "PATCH", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async migrationsListForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_migration[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_migration[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/migrations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsStartForAuthenticatedUser(p: {
-    requestBody: {
-      exclude?: "repositories"[]
-      exclude_attachments?: boolean
-      exclude_git_data?: boolean
-      exclude_metadata?: boolean
-      exclude_owner_projects?: boolean
-      exclude_releases?: boolean
-      lock_repositories?: boolean
-      org_metadata_only?: boolean
-      repositories: string[]
-    }
-  }): Promise<
-    | Response<201, t_migration>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+  async migrationsStartForAuthenticatedUser(
+    p: {
+      requestBody: {
+        exclude?: "repositories"[]
+        exclude_attachments?: boolean
+        exclude_git_data?: boolean
+        exclude_metadata?: boolean
+        exclude_owner_projects?: boolean
+        exclude_releases?: boolean
+        lock_repositories?: boolean
+        org_metadata_only?: boolean
+        repositories: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_migration>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/migrations`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async migrationsGetStatusForAuthenticatedUser(p: {
-    migrationId: number
-    exclude?: string[]
-  }): Promise<
-    | Response<200, t_migration>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async migrationsGetStatusForAuthenticatedUser(
+    p: {
+      migrationId: number
+      exclude?: string[]
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_migration>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsGetArchiveForAuthenticatedUser(p: {
-    migrationId: number
-  }): Promise<
-    | Response<302, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async migrationsGetArchiveForAuthenticatedUser(
+    p: {
+      migrationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<302, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsDeleteArchiveForAuthenticatedUser(p: {
-    migrationId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async migrationsDeleteArchiveForAuthenticatedUser(
+    p: {
+      migrationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsUnlockRepoForAuthenticatedUser(p: {
-    migrationId: number
-    repoName: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async migrationsUnlockRepoForAuthenticatedUser(
+    p: {
+      migrationId: number
+      repoName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async migrationsListReposForAuthenticatedUser(p: {
-    migrationId: number
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_minimal_repository[]> | Response<404, t_basic_error>
+  async migrationsListReposForAuthenticatedUser(
+    p: {
+      migrationId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async orgsListForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_organization_simple[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_organization_simple[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListPackagesForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    visibility?: "public" | "private" | "internal"
-    page?: number
-    perPage?: number
-  }): Promise<Response<200, t_package[]> | Response<400, void>> {
+  async packagesListPackagesForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      visibility?: "public" | "private" | "internal"
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package[]> | Res<400, void>>> {
     const url = this.basePath + `/user/packages`
     const query = this._query({
       package_type: p["packageType"],
@@ -17073,74 +20185,114 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-  }): Promise<Response<200, t_package>> {
+  async packagesGetPackageForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    token?: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      token?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(url + query, { method: "POST" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "POST", ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    page?: number
-    perPage?: number
-    state?: "active" | "deleted"
-  }): Promise<
-    | Response<200, t_package_version[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      page?: number
+      perPage?: number
+      state?: "active" | "deleted"
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_package_version[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
@@ -17150,106 +20302,139 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       state: p["state"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageVersionForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    packageVersionId: number
-  }): Promise<Response<200, t_package_version>> {
+  async packagesGetPackageVersionForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageVersionForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageVersionForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageVersionForAuthenticatedUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageVersionForAuthenticatedUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsCreateForAuthenticatedUser(p: {
-    requestBody: {
-      body?: string | null
-      name: string
-    }
-  }): Promise<
-    | Response<201, t_project>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error_simple>
+  async projectsCreateForAuthenticatedUser(
+    p: {
+      requestBody: {
+        body?: string | null
+        name: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_project>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error_simple>
+    >
   > {
     const url = this.basePath + `/user/projects`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async usersListPublicEmailsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_email[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_email[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/public_emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async reposListForAuthenticatedUser(
@@ -17263,13 +20448,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
       since?: string
       before?: string
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_repository[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<422, t_validation_error>
+    TypedFetchResponse<
+      | Res<200, t_repository[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/repos`
     const query = this._query({
@@ -17283,248 +20472,296 @@ export class ApiClient extends AbstractFetchClient {
       since: p["since"],
       before: p["before"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposCreateForAuthenticatedUser(p: {
-    requestBody: {
-      allow_auto_merge?: boolean
-      allow_merge_commit?: boolean
-      allow_rebase_merge?: boolean
-      allow_squash_merge?: boolean
-      auto_init?: boolean
-      delete_branch_on_merge?: boolean
-      description?: string
-      gitignore_template?: string
-      has_discussions?: boolean
-      has_downloads?: boolean
-      has_issues?: boolean
-      has_projects?: boolean
-      has_wiki?: boolean
-      homepage?: string
-      is_template?: boolean
-      license_template?: string
-      merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-      merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
-      name: string
-      private?: boolean
-      squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-      squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-      team_id?: number
-    }
-  }): Promise<
-    | Response<201, t_repository>
-    | Response<304, void>
-    | Response<400, t_scim_error>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async reposCreateForAuthenticatedUser(
+    p: {
+      requestBody: {
+        allow_auto_merge?: boolean
+        allow_merge_commit?: boolean
+        allow_rebase_merge?: boolean
+        allow_squash_merge?: boolean
+        auto_init?: boolean
+        delete_branch_on_merge?: boolean
+        description?: string
+        gitignore_template?: string
+        has_discussions?: boolean
+        has_downloads?: boolean
+        has_issues?: boolean
+        has_projects?: boolean
+        has_wiki?: boolean
+        homepage?: string
+        is_template?: boolean
+        license_template?: string
+        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
+        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        name: string
+        private?: boolean
+        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
+        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        team_id?: number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_repository>
+      | Res<304, void>
+      | Res<400, t_scim_error>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/repos`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async reposListInvitationsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_repository_invitation[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_repository_invitation[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/repository_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposAcceptInvitationForAuthenticatedUser(p: {
-    invitationId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
+  async reposAcceptInvitationForAuthenticatedUser(
+    p: {
+      invitationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await fetch(url, { method: "PATCH" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PATCH", ...(opts ?? {}) }, timeout)
   }
 
-  async reposDeclineInvitationForAuthenticatedUser(p: {
-    invitationId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<409, t_basic_error>
+  async reposDeclineInvitationForAuthenticatedUser(
+    p: {
+      invitationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
   > {
     const url =
       this.basePath + `/user/repository_invitations/${p["invitationId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async usersListSocialAccountsForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_social_account[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_social_account[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersAddSocialAccountForAuthenticatedUser(p: {
-    requestBody: {
-      account_urls: string[]
-    }
-  }): Promise<
-    | Response<201, t_social_account[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersAddSocialAccountForAuthenticatedUser(
+    p: {
+      requestBody: {
+        account_urls: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_social_account[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/social_accounts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async usersDeleteSocialAccountForAuthenticatedUser(p: {
-    requestBody: {
-      account_urls: string[]
-    }
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersDeleteSocialAccountForAuthenticatedUser(
+    p: {
+      requestBody: {
+        account_urls: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/social_accounts`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "DELETE", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
   async usersListSshSigningKeysForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_ssh_signing_key[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_ssh_signing_key[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCreateSshSigningKeyForAuthenticatedUser(p: {
-    requestBody: {
-      key: string
-      title?: string
-    }
-  }): Promise<
-    | Response<201, t_ssh_signing_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersCreateSshSigningKeyForAuthenticatedUser(
+    p: {
+      requestBody: {
+        key: string
+        title?: string
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_ssh_signing_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/user/ssh_signing_keys`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
-    const res = await fetch(url, { method: "POST", headers, body })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async usersGetSshSigningKeyForAuthenticatedUser(p: {
-    sshSigningKeyId: number
-  }): Promise<
-    | Response<200, t_ssh_signing_key>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersGetSshSigningKeyForAuthenticatedUser(
+    p: {
+      sshSigningKeyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_ssh_signing_key>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersDeleteSshSigningKeyForAuthenticatedUser(p: {
-    sshSigningKeyId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async usersDeleteSshSigningKeyForAuthenticatedUser(
+    p: {
+      sshSigningKeyId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async activityListReposStarredByAuthenticatedUser(
@@ -17533,12 +20770,16 @@ export class ApiClient extends AbstractFetchClient {
       direction?: "asc" | "desc"
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_starred_repository[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_starred_repository[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/starred`
     const query = this._query({
@@ -17547,233 +20788,263 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityCheckRepoIsStarredByAuthenticatedUser(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async activityCheckRepoIsStarredByAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityStarRepoForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async activityStarRepoForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "PUT" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
   }
 
-  async activityUnstarRepoForAuthenticatedUser(p: {
-    owner: string
-    repo: string
-  }): Promise<
-    | Response<204, void>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async activityUnstarRepoForAuthenticatedUser(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async activityListWatchedReposForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_minimal_repository[]>
-    | Response<304, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_minimal_repository[]>
+      | Res<304, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async teamsListForAuthenticatedUser(
     p: {
       perPage?: number
       page?: number
-    } = {}
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
   ): Promise<
-    | Response<200, t_team_full[]>
-    | Response<304, void>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+    TypedFetchResponse<
+      | Res<200, t_team_full[]>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/user/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async usersList(
     p: {
       since?: number
       perPage?: number
-    } = {}
-  ): Promise<Response<200, t_simple_user[]> | Response<304, void>> {
+    } = {},
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]> | Res<304, void>>> {
     const url = this.basePath + `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersGetByUsername(p: {
-    username: string
-  }): Promise<
-    Response<200, t_private_user | t_public_user> | Response<404, t_basic_error>
+  async usersGetByUsername(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
+    >
   > {
     const url = this.basePath + `/users/${p["username"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListDockerMigrationConflictingPackagesForUser(p: {
-    username: string
-  }): Promise<
-    | Response<200, t_package[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async packagesListDockerMigrationConflictingPackagesForUser(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/users/${p["username"]}/docker/conflicts`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListEventsForAuthenticatedUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListEventsForAuthenticatedUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListOrgEventsForAuthenticatedUser(p: {
-    username: string
-    org: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListOrgEventsForAuthenticatedUser(
+    p: {
+      username: string
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url =
       this.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListPublicEventsForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListPublicEventsForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListFollowersForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async usersListFollowersForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListFollowingForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_simple_user[]>> {
+  async usersListFollowingForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersCheckFollowingForUser(p: {
-    username: string
-    targetUser: string
-  }): Promise<Response<204, void> | Response<404, void>> {
+  async usersCheckFollowingForUser(
+    p: {
+      username: string
+      targetUser: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/users/${p["username"]}/following/${p["targetUser"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async gistsListForUser(p: {
-    username: string
-    since?: string
-    perPage?: number
-    page?: number
-  }): Promise<
-    Response<200, t_base_gist[]> | Response<422, t_validation_error>
+  async gistsListForUser(
+    p: {
+      username: string
+      since?: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_base_gist[]> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/users/${p["username"]}/gists`
     const query = this._query({
@@ -17781,93 +21052,114 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListGpgKeysForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_gpg_key[]>> {
+  async usersListGpgKeysForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_gpg_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersGetContextForUser(p: {
-    username: string
-    subjectType?: "organization" | "repository" | "issue" | "pull_request"
-    subjectId?: string
-  }): Promise<
-    | Response<200, t_hovercard>
-    | Response<404, t_basic_error>
-    | Response<422, t_validation_error>
+  async usersGetContextForUser(
+    p: {
+      username: string
+      subjectType?: "organization" | "repository" | "issue" | "pull_request"
+      subjectId?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_hovercard>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
+    >
   > {
     const url = this.basePath + `/users/${p["username"]}/hovercard`
     const query = this._query({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async appsGetUserInstallation(p: {
-    username: string
-  }): Promise<Response<200, t_installation>> {
+  async appsGetUserInstallation(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/users/${p["username"]}/installation`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListPublicKeysForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_key_simple[]>> {
+  async usersListPublicKeysForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_key_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_organization_simple[]>> {
+  async orgsListForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_organization_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesListPackagesForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    visibility?: "public" | "private" | "internal"
-    username: string
-    page?: number
-    perPage?: number
-  }): Promise<
-    | Response<200, t_package[]>
-    | Response<400, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
+  async packagesListPackagesForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      visibility?: "public" | "private" | "internal"
+      username: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_package[]>
+      | Res<400, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+    >
   > {
     const url = this.basePath + `/users/${p["username"]}/packages`
     const query = this._query({
@@ -17876,198 +21168,272 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-  }): Promise<Response<200, t_package>> {
+  async packagesGetPackageForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-    token?: string
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+      token?: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
-    const res = await fetch(url + query, { method: "POST" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(
+      url + query,
+      { method: "POST", ...(opts ?? {}) },
+      timeout
+    )
   }
 
-  async packagesGetAllPackageVersionsForPackageOwnedByUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-  }): Promise<
-    | Response<200, t_package_version[]>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesGetAllPackageVersionsForPackageOwnedByUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_package_version[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesGetPackageVersionForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    packageVersionId: number
-    username: string
-  }): Promise<Response<200, t_package_version>> {
+  async packagesGetPackageVersionForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      packageVersionId: number
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesDeletePackageVersionForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesDeletePackageVersionForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    const res = await fetch(url, { method: "DELETE" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
-  async packagesRestorePackageVersionForUser(p: {
-    packageType: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
-    packageName: string
-    username: string
-    packageVersionId: number
-  }): Promise<
-    | Response<204, void>
-    | Response<401, t_basic_error>
-    | Response<403, t_basic_error>
-    | Response<404, t_basic_error>
+  async packagesRestorePackageVersionForUser(
+    p: {
+      packageType:
+        | "npm"
+        | "maven"
+        | "rubygems"
+        | "docker"
+        | "nuget"
+        | "container"
+      packageName: string
+      username: string
+      packageVersionId: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
   > {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    const res = await fetch(url, { method: "POST" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
   }
 
-  async projectsListForUser(p: {
-    username: string
-    state?: "open" | "closed" | "all"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_project[]> | Response<422, t_validation_error>> {
+  async projectsListForUser(
+    p: {
+      username: string
+      state?: "open" | "closed" | "all"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_project[]> | Res<422, t_validation_error>>
+  > {
     const url = this.basePath + `/users/${p["username"]}/projects`
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListReceivedEventsForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListReceivedEventsForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListReceivedPublicEventsForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_event[]>> {
+  async activityListReceivedPublicEventsForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async reposListForUser(p: {
-    username: string
-    type?: "all" | "owner" | "member"
-    sort?: "created" | "updated" | "pushed" | "full_name"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_minimal_repository[]>> {
+  async reposListForUser(
+    p: {
+      username: string
+      type?: "all" | "owner" | "member"
+      sort?: "created" | "updated" | "pushed" | "full_name"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/repos`
     const query = this._query({
       type: p["type"],
@@ -18076,81 +21442,92 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetGithubActionsBillingUser(p: {
-    username: string
-  }): Promise<Response<200, t_actions_billing_usage>> {
+  async billingGetGithubActionsBillingUser(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/actions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetGithubPackagesBillingUser(p: {
-    username: string
-  }): Promise<Response<200, t_packages_billing_usage>> {
+  async billingGetGithubPackagesBillingUser(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/packages`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async billingGetSharedStorageBillingUser(p: {
-    username: string
-  }): Promise<Response<200, t_combined_billing_usage>> {
+  async billingGetSharedStorageBillingUser(
+    p: {
+      username: string
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListSocialAccountsForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_social_account[]>> {
+  async usersListSocialAccountsForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_social_account[]>>> {
     const url = this.basePath + `/users/${p["username"]}/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async usersListSshSigningKeysForUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_ssh_signing_key[]>> {
+  async usersListSshSigningKeysForUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_ssh_signing_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListReposStarredByUser(p: {
-    username: string
-    sort?: "created" | "updated"
-    direction?: "asc" | "desc"
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_starred_repository[] | t_repository[]>> {
+  async activityListReposStarredByUser(
+    p: {
+      username: string
+      sort?: "created" | "updated"
+      direction?: "asc" | "desc"
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<
+    TypedFetchResponse<Res<200, t_starred_repository[] | t_repository[]>>
+  > {
     const url = this.basePath + `/users/${p["username"]}/starred`
     const query = this._query({
       sort: p["sort"],
@@ -18158,42 +21535,40 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
     })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async activityListReposWatchedByUser(p: {
-    username: string
-    perPage?: number
-    page?: number
-  }): Promise<Response<200, t_minimal_repository[]>> {
+  async activityListReposWatchedByUser(
+    p: {
+      username: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
-    const res = await fetch(url + query, { method: "GET" })
 
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async metaGetAllVersions(): Promise<
-    Response<200, string[]> | Response<404, t_basic_error>
-  > {
+  async metaGetAllVersions(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/versions`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async metaGetZen(): Promise<Response<200, string>> {
+  async metaGetZen(
+    timeout?: number,
+    opts?: RequestInit
+  ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/zen`
 
-    const res = await fetch(url, { method: "GET" })
-
-    // TODO: this is a poor assumption
-    return { status: res.status as any, body: (await res.json()) as any }
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 }
