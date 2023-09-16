@@ -126,4 +126,11 @@ components:
         child:
           $ref: "#/components/schemas/Recursive"
 
+    OneOfAllOf:
+      type: object
+      oneOf:
+        - allOf:
+            - $ref: '#/components/schemas/AOrdering'
+            - $ref: '#/components/schemas/ZOrdering'
+
   parameters: { }

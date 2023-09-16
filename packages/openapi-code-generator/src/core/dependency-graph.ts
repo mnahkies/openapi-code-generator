@@ -36,19 +36,26 @@ const getDependenciesFromSchema = (
     if (isRef(it)) {
       acc.add(getNameForRef(it))
     } else if (it.type === "object") {
-      Object.values(it.properties).forEach((prop) => {
-        if (isRef(prop)) {
-          acc.add(getNameForRef(prop))
-        } else if (prop.type === "object") {
-          intersect(acc, getDependenciesFromSchema(prop, getNameForRef))
-        } else if (prop.type === "array") {
-          if (isRef(prop.items)) {
-            acc.add(getNameForRef(prop.items))
-          } else {
-            intersect(acc, getDependenciesFromSchema(prop.items, getNameForRef))
+      Object.values(it.properties)
+        .concat(Reflect.get(schema, "oneOf") ?? [])
+        .concat(Reflect.get(schema, "allOf") ?? [])
+        .concat(Reflect.get(schema, "anyOf") ?? [])
+        .forEach((prop) => {
+          if (isRef(prop)) {
+            acc.add(getNameForRef(prop))
+          } else if (prop.type === "object") {
+            intersect(acc, getDependenciesFromSchema(prop, getNameForRef))
+          } else if (prop.type === "array") {
+            if (isRef(prop.items)) {
+              acc.add(getNameForRef(prop.items))
+            } else {
+              intersect(
+                acc,
+                getDependenciesFromSchema(prop.items, getNameForRef),
+              )
+            }
           }
-        }
-      })
+        })
     }
 
     return acc
