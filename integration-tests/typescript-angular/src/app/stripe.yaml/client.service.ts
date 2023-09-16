@@ -6,6 +6,7 @@ import {
   EmptyObject,
   t_account,
   t_account_link,
+  t_account_session,
   t_apple_pay_domain,
   t_application_fee,
   t_apps_secret,
@@ -78,6 +79,8 @@ import {
   t_payment_intent,
   t_payment_link,
   t_payment_method,
+  t_payment_method_configuration,
+  t_payment_method_domain,
   t_payment_source,
   t_payout,
   t_person,
@@ -108,6 +111,7 @@ import {
   t_tax_code,
   t_tax_id,
   t_tax_rate,
+  t_tax_settings,
   t_tax_transaction,
   t_tax_transaction_line_item,
   t_terminal_configuration,
@@ -282,6 +286,38 @@ export class ApiClient {
     )
   }
 
+  postAccountSessions(p: {
+    requestBody: {
+      account: string
+      components: {
+        account_onboarding?: {
+          enabled: boolean
+        }
+      }
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_account_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/account_sessions`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getAccounts(
     p: {
       created?:
@@ -356,6 +392,10 @@ export class ApiClient {
           | string
         business_profile?: {
           mcc?: string
+          monthly_estimated_revenue?: {
+            amount: number
+            currency: string
+          }
           name?: string
           product_description?: string
           support_address?: {
@@ -482,6 +522,9 @@ export class ApiClient {
           us_bank_account_ach_payments?: {
             requested?: boolean
           }
+          zip_payments?: {
+            requested?: boolean
+          }
         }
         company?: {
           address?: {
@@ -532,6 +575,7 @@ export class ApiClient {
             | "government_instrumentality"
             | "governmental_unit"
             | "incorporated_non_profit"
+            | "incorporated_partnership"
             | "limited_liability_partnership"
             | "llc"
             | "multi_member_llc"
@@ -547,6 +591,7 @@ export class ApiClient {
             | "tax_exempt_government_instrumentality"
             | "unincorporated_association"
             | "unincorporated_non_profit"
+            | "unincorporated_partnership"
           tax_id?: string
           tax_id_registrar?: string
           vat_id?: string
@@ -674,7 +719,7 @@ export class ApiClient {
             tos_acceptance?: {
               date?: number
               ip?: string
-              user_agent?: string
+              user_agent?: string | ""
             }
           }
           card_payments?: {
@@ -712,7 +757,7 @@ export class ApiClient {
             tos_acceptance?: {
               date?: number
               ip?: string
-              user_agent?: string
+              user_agent?: string | ""
             }
           }
         }
@@ -806,6 +851,10 @@ export class ApiClient {
       account_token?: string
       business_profile?: {
         mcc?: string
+        monthly_estimated_revenue?: {
+          amount: number
+          currency: string
+        }
         name?: string
         product_description?: string
         support_address?: {
@@ -932,6 +981,9 @@ export class ApiClient {
         us_bank_account_ach_payments?: {
           requested?: boolean
         }
+        zip_payments?: {
+          requested?: boolean
+        }
       }
       company?: {
         address?: {
@@ -982,6 +1034,7 @@ export class ApiClient {
           | "government_instrumentality"
           | "governmental_unit"
           | "incorporated_non_profit"
+          | "incorporated_partnership"
           | "limited_liability_partnership"
           | "llc"
           | "multi_member_llc"
@@ -997,6 +1050,7 @@ export class ApiClient {
           | "tax_exempt_government_instrumentality"
           | "unincorporated_association"
           | "unincorporated_non_profit"
+          | "unincorporated_partnership"
         tax_id?: string
         tax_id_registrar?: string
         vat_id?: string
@@ -1123,7 +1177,7 @@ export class ApiClient {
           tos_acceptance?: {
             date?: number
             ip?: string
-            user_agent?: string
+            user_agent?: string | ""
           }
         }
         card_payments?: {
@@ -1161,7 +1215,7 @@ export class ApiClient {
           tos_acceptance?: {
             date?: number
             ip?: string
-            user_agent?: string
+            user_agent?: string | ""
           }
         }
       }
@@ -1757,13 +1811,13 @@ export class ApiClient {
         | ""
       documents?: {
         company_authorization?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         passport?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         visa?: {
-          files?: string[]
+          files?: (string | "")[]
         }
       }
       email?: string
@@ -1934,13 +1988,13 @@ export class ApiClient {
         | ""
       documents?: {
         company_authorization?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         passport?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         visa?: {
-          files?: string[]
+          files?: (string | "")[]
         }
       }
       email?: string
@@ -2102,13 +2156,13 @@ export class ApiClient {
         | ""
       documents?: {
         company_authorization?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         passport?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         visa?: {
-          files?: string[]
+          files?: (string | "")[]
         }
       }
       email?: string
@@ -2279,13 +2333,13 @@ export class ApiClient {
         | ""
       documents?: {
         company_authorization?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         passport?: {
-          files?: string[]
+          files?: (string | "")[]
         }
         visa?: {
-          files?: string[]
+          files?: (string | "")[]
         }
       }
       email?: string
@@ -3156,7 +3210,7 @@ export class ApiClient {
   postBillingPortalConfigurations(p: {
     requestBody: {
       business_profile: {
-        headline?: string
+        headline?: string | ""
         privacy_policy_url?: string
         terms_of_service_url?: string
       }
@@ -3275,7 +3329,7 @@ export class ApiClient {
     requestBody?: {
       active?: boolean
       business_profile?: {
-        headline?: string
+        headline?: string | ""
         privacy_policy_url?: string | ""
         terms_of_service_url?: string | ""
       }
@@ -3379,9 +3433,34 @@ export class ApiClient {
           type: "hosted_confirmation" | "portal_homepage" | "redirect"
         }
         subscription_cancel?: {
+          retention?: {
+            coupon_offer: {
+              coupon: string
+            }
+            type: "coupon_offer"
+          }
           subscription: string
         }
-        type: "payment_method_update" | "subscription_cancel"
+        subscription_update?: {
+          subscription: string
+        }
+        subscription_update_confirm?: {
+          discounts?: {
+            coupon?: string
+            promotion_code?: string
+          }[]
+          items: {
+            id: string
+            price?: string
+            quantity?: number
+          }[]
+          subscription: string
+        }
+        type:
+          | "payment_method_update"
+          | "subscription_cancel"
+          | "subscription_update"
+          | "subscription_update_confirm"
       }
       locale?:
         | "auto"
@@ -4152,7 +4231,15 @@ export class ApiClient {
           custom: string
           type: "custom"
         }
+        numeric?: {
+          maximum_length?: number
+          minimum_length?: number
+        }
         optional?: boolean
+        text?: {
+          maximum_length?: number
+          minimum_length?: number
+        }
         type: "dropdown" | "numeric" | "text"
       }[]
       custom_text?: {
@@ -4316,6 +4403,7 @@ export class ApiClient {
         transfer_group?: string
       }
       payment_method_collection?: "always" | "if_required"
+      payment_method_configuration?: string
       payment_method_options?: {
         acss_debit?: {
           currency?: "cad" | "usd"
@@ -4368,10 +4456,12 @@ export class ApiClient {
               country: string
             }
             requested_address_types?: (
+              | "aba"
               | "iban"
               | "sepa"
               | "sort_code"
               | "spei"
+              | "swift"
               | "zengin"
             )[]
             type:
@@ -4379,6 +4469,7 @@ export class ApiClient {
               | "gb_bank_transfer"
               | "jp_bank_transfer"
               | "mx_bank_transfer"
+              | "us_bank_transfer"
           }
           funding_type?: "bank_transfer"
           setup_future_usage?: "none"
@@ -4419,6 +4510,34 @@ export class ApiClient {
         paynow?: {
           setup_future_usage?: "none"
         }
+        paypal?: {
+          capture_method?: "" | "manual"
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-DE"
+            | "de-LU"
+            | "el-GR"
+            | "en-GB"
+            | "en-US"
+            | "es-ES"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-FR"
+            | "fr-LU"
+            | "hu-HU"
+            | "it-IT"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "sk-SK"
+            | "sv-SE"
+          reference?: string
+          risk_correlation_id?: string
+          setup_future_usage?: "" | "none" | "off_session"
+        }
         pix?: {
           expires_after_seconds?: number
         }
@@ -4436,6 +4555,7 @@ export class ApiClient {
               | "payment_method"
               | "transactions"
             )[]
+            prefetch?: "balances"[]
           }
           setup_future_usage?: "none" | "off_session" | "on_session"
           verification_method?: "automatic" | "instant"
@@ -4470,12 +4590,14 @@ export class ApiClient {
         | "oxxo"
         | "p24"
         | "paynow"
+        | "paypal"
         | "pix"
         | "promptpay"
         | "sepa_debit"
         | "sofort"
         | "us_bank_account"
         | "wechat_pay"
+        | "zip"
       )[]
       phone_number_collection?: {
         enabled: boolean
@@ -5218,6 +5340,7 @@ export class ApiClient {
     requestBody: {
       amount?: number
       credit_amount?: number
+      effective_at?: number
       expand?: string[]
       invoice: string
       lines?: {
@@ -5271,6 +5394,7 @@ export class ApiClient {
   getCreditNotesPreview(p: {
     amount?: number
     creditAmount?: number
+    effectiveAt?: number
     expand?: string[]
     invoice: string
     lines?: {
@@ -5310,6 +5434,7 @@ export class ApiClient {
     const params = this._queryParams({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
+      effective_at: p["effectiveAt"],
       expand: p["expand"],
       invoice: p["invoice"],
       lines: p["lines"],
@@ -5339,6 +5464,7 @@ export class ApiClient {
   getCreditNotesPreviewLines(p: {
     amount?: number
     creditAmount?: number
+    effectiveAt?: number
     endingBefore?: string
     expand?: string[]
     invoice: string
@@ -5386,6 +5512,7 @@ export class ApiClient {
     const params = this._queryParams({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
+      effective_at: p["effectiveAt"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       invoice: p["invoice"],
@@ -5671,10 +5798,13 @@ export class ApiClient {
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_id_data?: {
           type:
+            | "ad_nrt"
             | "ae_trn"
+            | "ar_cuit"
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
             | "ca_bn"
@@ -5685,6 +5815,11 @@ export class ApiClient {
             | "ca_qst"
             | "ch_vat"
             | "cl_tin"
+            | "cn_tin"
+            | "co_nit"
+            | "cr_tin"
+            | "do_rcn"
+            | "ec_ruc"
             | "eg_tin"
             | "es_cif"
             | "eu_oss_vat"
@@ -5709,18 +5844,25 @@ export class ApiClient {
             | "my_sst"
             | "no_vat"
             | "nz_gst"
+            | "pe_ruc"
             | "ph_tin"
+            | "ro_tin"
+            | "rs_pib"
             | "ru_inn"
             | "ru_kpp"
             | "sa_vat"
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sv_nit"
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
             | "ua_vat"
             | "us_ein"
+            | "uy_ruc"
+            | "ve_rif"
+            | "vn_tin"
             | "za_vat"
           value: string
         }[]
@@ -6779,6 +6921,7 @@ export class ApiClient {
           | "gb_bank_transfer"
           | "jp_bank_transfer"
           | "mx_bank_transfer"
+          | "us_bank_transfer"
       }
       currency: string
       expand?: string[]
@@ -6837,12 +6980,14 @@ export class ApiClient {
       | "oxxo"
       | "p24"
       | "paynow"
+      | "paypal"
       | "pix"
       | "promptpay"
       | "sepa_debit"
       | "sofort"
       | "us_bank_account"
       | "wechat_pay"
+      | "zip"
     requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
@@ -7303,6 +7448,7 @@ export class ApiClient {
                   | "cartes_bancaires"
                   | "diners"
                   | "discover"
+                  | "eftpos_au"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -7333,6 +7479,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
+                  prefetch?: "balances"[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -7357,6 +7504,7 @@ export class ApiClient {
               | "konbini"
               | "link"
               | "paynow"
+              | "paypal"
               | "promptpay"
               | "sepa_debit"
               | "sofort"
@@ -7500,7 +7648,7 @@ export class ApiClient {
       cancel_at?: number | ""
       cancel_at_period_end?: boolean
       cancellation_details?: {
-        comment?: string
+        comment?: string | ""
         feedback?:
           | ""
           | "customer_service"
@@ -7516,7 +7664,7 @@ export class ApiClient {
       coupon?: string
       days_until_due?: number
       default_payment_method?: string
-      default_source?: string
+      default_source?: string | ""
       default_tax_rates?: string[] | ""
       expand?: string[]
       items?: {
@@ -7592,6 +7740,7 @@ export class ApiClient {
                   | "cartes_bancaires"
                   | "diners"
                   | "discover"
+                  | "eftpos_au"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -7622,6 +7771,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
+                  prefetch?: "balances"[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -7646,6 +7796,7 @@ export class ApiClient {
               | "konbini"
               | "link"
               | "paynow"
+              | "paypal"
               | "promptpay"
               | "sepa_debit"
               | "sofort"
@@ -7804,10 +7955,13 @@ export class ApiClient {
     requestBody: {
       expand?: string[]
       type:
+        | "ad_nrt"
         | "ae_trn"
+        | "ar_cuit"
         | "au_abn"
         | "au_arn"
         | "bg_uic"
+        | "bo_tin"
         | "br_cnpj"
         | "br_cpf"
         | "ca_bn"
@@ -7818,6 +7972,11 @@ export class ApiClient {
         | "ca_qst"
         | "ch_vat"
         | "cl_tin"
+        | "cn_tin"
+        | "co_nit"
+        | "cr_tin"
+        | "do_rcn"
+        | "ec_ruc"
         | "eg_tin"
         | "es_cif"
         | "eu_oss_vat"
@@ -7842,18 +8001,25 @@ export class ApiClient {
         | "my_sst"
         | "no_vat"
         | "nz_gst"
+        | "pe_ruc"
         | "ph_tin"
+        | "ro_tin"
+        | "rs_pib"
         | "ru_inn"
         | "ru_kpp"
         | "sa_vat"
         | "sg_gst"
         | "sg_uen"
         | "si_tin"
+        | "sv_nit"
         | "th_vat"
         | "tr_tin"
         | "tw_vat"
         | "ua_vat"
         | "us_ein"
+        | "uy_ruc"
+        | "ve_rif"
+        | "vn_tin"
         | "za_vat"
       value: string
     }
@@ -8114,6 +8280,7 @@ export class ApiClient {
         customer?: string
         expand?: string[]
         issuing_card?: string
+        nonce?: string
         verification_session?: string
       }
     } = {},
@@ -8807,6 +8974,7 @@ export class ApiClient {
         | "payment_method"
         | "transactions"
       )[]
+      prefetch?: ("balances" | "ownership")[]
       return_url?: string
     }
   }): Observable<
@@ -9493,6 +9661,7 @@ export class ApiClient {
             }[]
           | ""
         due_date?: number
+        effective_at?: number
         expand?: string[]
         footer?: string
         from_invoice?: {
@@ -9506,7 +9675,7 @@ export class ApiClient {
           | ""
         on_behalf_of?: string
         payment_settings?: {
-          default_mandate?: string
+          default_mandate?: string | ""
           payment_method_options?: {
             acss_debit?:
               | {
@@ -9560,6 +9729,7 @@ export class ApiClient {
                       | "payment_method"
                       | "transactions"
                     )[]
+                    prefetch?: "balances"[]
                   }
                   verification_method?:
                     | "automatic"
@@ -9587,6 +9757,7 @@ export class ApiClient {
                 | "konbini"
                 | "link"
                 | "paynow"
+                | "paypal"
                 | "promptpay"
                 | "sepa_debit"
                 | "sofort"
@@ -9646,7 +9817,7 @@ export class ApiClient {
             state?: string
           }
           name: string
-          phone?: string
+          phone?: string | ""
         }
         statement_descriptor?: string
         subscription?: string
@@ -9759,10 +9930,13 @@ export class ApiClient {
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_ids?: {
           type:
+            | "ad_nrt"
             | "ae_trn"
+            | "ar_cuit"
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
             | "ca_bn"
@@ -9773,6 +9947,11 @@ export class ApiClient {
             | "ca_qst"
             | "ch_vat"
             | "cl_tin"
+            | "cn_tin"
+            | "co_nit"
+            | "cr_tin"
+            | "do_rcn"
+            | "ec_ruc"
             | "eg_tin"
             | "es_cif"
             | "eu_oss_vat"
@@ -9797,18 +9976,25 @@ export class ApiClient {
             | "my_sst"
             | "no_vat"
             | "nz_gst"
+            | "pe_ruc"
             | "ph_tin"
+            | "ro_tin"
+            | "rs_pib"
             | "ru_inn"
             | "ru_kpp"
             | "sa_vat"
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sv_nit"
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
             | "ua_vat"
             | "us_ein"
+            | "uy_ruc"
+            | "ve_rif"
+            | "vn_tin"
             | "za_vat"
           value: string
         }[]
@@ -9989,10 +10175,13 @@ export class ApiClient {
         tax_exempt?: "" | "exempt" | "none" | "reverse"
         tax_ids?: {
           type:
+            | "ad_nrt"
             | "ae_trn"
+            | "ar_cuit"
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
             | "ca_bn"
@@ -10003,6 +10192,11 @@ export class ApiClient {
             | "ca_qst"
             | "ch_vat"
             | "cl_tin"
+            | "cn_tin"
+            | "co_nit"
+            | "cr_tin"
+            | "do_rcn"
+            | "ec_ruc"
             | "eg_tin"
             | "es_cif"
             | "eu_oss_vat"
@@ -10027,18 +10221,25 @@ export class ApiClient {
             | "my_sst"
             | "no_vat"
             | "nz_gst"
+            | "pe_ruc"
             | "ph_tin"
+            | "ro_tin"
+            | "rs_pib"
             | "ru_inn"
             | "ru_kpp"
             | "sa_vat"
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sv_nit"
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
             | "ua_vat"
             | "us_ein"
+            | "uy_ruc"
+            | "ve_rif"
+            | "vn_tin"
             | "za_vat"
           value: string
         }[]
@@ -10262,7 +10463,7 @@ export class ApiClient {
         | ""
       days_until_due?: number
       default_payment_method?: string
-      default_source?: string
+      default_source?: string | ""
       default_tax_rates?: string[] | ""
       description?: string
       discounts?:
@@ -10272,6 +10473,7 @@ export class ApiClient {
           }[]
         | ""
       due_date?: number
+      effective_at?: number | ""
       expand?: string[]
       footer?: string
       metadata?:
@@ -10281,7 +10483,7 @@ export class ApiClient {
         | ""
       on_behalf_of?: string | ""
       payment_settings?: {
-        default_mandate?: string
+        default_mandate?: string | ""
         payment_method_options?: {
           acss_debit?:
             | {
@@ -10332,6 +10534,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
+                  prefetch?: "balances"[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -10356,6 +10559,7 @@ export class ApiClient {
               | "konbini"
               | "link"
               | "paynow"
+              | "paypal"
               | "promptpay"
               | "sepa_debit"
               | "sofort"
@@ -10414,7 +10618,7 @@ export class ApiClient {
               state?: string
             }
             name: string
-            phone?: string
+            phone?: string | ""
           }
         | ""
       statement_descriptor?: string
@@ -10548,7 +10752,7 @@ export class ApiClient {
     requestBody?: {
       expand?: string[]
       forgive?: boolean
-      mandate?: string
+      mandate?: string | ""
       off_session?: boolean
       paid_out_of_band?: boolean
       payment_method?: string
@@ -10895,7 +11099,7 @@ export class ApiClient {
           user_terms_acceptance?: {
             date?: number
             ip?: string
-            user_agent?: string
+            user_agent?: string | ""
           }
         }
         dob?: {
@@ -10917,6 +11121,7 @@ export class ApiClient {
       }
       name: string
       phone_number?: string
+      preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
       spending_controls?: {
         allowed_categories?: (
           | "ac_refrigeration_repair"
@@ -11897,7 +12102,7 @@ export class ApiClient {
           user_terms_acceptance?: {
             date?: number
             ip?: string
-            user_agent?: string
+            user_agent?: string | ""
           }
         }
         dob?: {
@@ -11918,6 +12123,7 @@ export class ApiClient {
         [key: string]: string
       }
       phone_number?: string
+      preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[]
       spending_controls?: {
         allowed_categories?: (
           | "ac_refrigeration_repair"
@@ -14899,10 +15105,10 @@ export class ApiClient {
                 additional_documentation?: string | ""
                 canceled_at?: number | ""
                 cancellation_policy_provided?: boolean | ""
-                cancellation_reason?: string
+                cancellation_reason?: string | ""
                 expected_at?: number | ""
-                explanation?: string
-                product_description?: string
+                explanation?: string | ""
+                product_description?: string | ""
                 product_type?: "" | "merchandise" | "service"
                 return_status?: "" | "merchant_rejected" | "successful"
                 returned_at?: number | ""
@@ -14914,22 +15120,22 @@ export class ApiClient {
                 card_statement?: string | ""
                 cash_receipt?: string | ""
                 check_image?: string | ""
-                explanation?: string
+                explanation?: string | ""
                 original_transaction?: string
               }
             | ""
           fraudulent?:
             | {
                 additional_documentation?: string | ""
-                explanation?: string
+                explanation?: string | ""
               }
             | ""
           merchandise_not_as_described?:
             | {
                 additional_documentation?: string | ""
-                explanation?: string
+                explanation?: string | ""
                 received_at?: number | ""
-                return_description?: string
+                return_description?: string | ""
                 return_status?: "" | "merchant_rejected" | "successful"
                 returned_at?: number | ""
               }
@@ -14938,16 +15144,16 @@ export class ApiClient {
             | {
                 additional_documentation?: string | ""
                 expected_at?: number | ""
-                explanation?: string
-                product_description?: string
+                explanation?: string | ""
+                product_description?: string | ""
                 product_type?: "" | "merchandise" | "service"
               }
             | ""
           other?:
             | {
                 additional_documentation?: string | ""
-                explanation?: string
-                product_description?: string
+                explanation?: string | ""
+                product_description?: string | ""
                 product_type?: "" | "merchandise" | "service"
               }
             | ""
@@ -14963,8 +15169,8 @@ export class ApiClient {
             | {
                 additional_documentation?: string | ""
                 canceled_at?: number | ""
-                cancellation_reason?: string
-                explanation?: string
+                cancellation_reason?: string | ""
+                explanation?: string | ""
                 received_at?: number | ""
               }
             | ""
@@ -15039,10 +15245,10 @@ export class ApiClient {
               additional_documentation?: string | ""
               canceled_at?: number | ""
               cancellation_policy_provided?: boolean | ""
-              cancellation_reason?: string
+              cancellation_reason?: string | ""
               expected_at?: number | ""
-              explanation?: string
-              product_description?: string
+              explanation?: string | ""
+              product_description?: string | ""
               product_type?: "" | "merchandise" | "service"
               return_status?: "" | "merchant_rejected" | "successful"
               returned_at?: number | ""
@@ -15054,22 +15260,22 @@ export class ApiClient {
               card_statement?: string | ""
               cash_receipt?: string | ""
               check_image?: string | ""
-              explanation?: string
+              explanation?: string | ""
               original_transaction?: string
             }
           | ""
         fraudulent?:
           | {
               additional_documentation?: string | ""
-              explanation?: string
+              explanation?: string | ""
             }
           | ""
         merchandise_not_as_described?:
           | {
               additional_documentation?: string | ""
-              explanation?: string
+              explanation?: string | ""
               received_at?: number | ""
-              return_description?: string
+              return_description?: string | ""
               return_status?: "" | "merchant_rejected" | "successful"
               returned_at?: number | ""
             }
@@ -15078,16 +15284,16 @@ export class ApiClient {
           | {
               additional_documentation?: string | ""
               expected_at?: number | ""
-              explanation?: string
-              product_description?: string
+              explanation?: string | ""
+              product_description?: string | ""
               product_type?: "" | "merchandise" | "service"
             }
           | ""
         other?:
           | {
               additional_documentation?: string | ""
-              explanation?: string
-              product_description?: string
+              explanation?: string | ""
+              product_description?: string | ""
               product_type?: "" | "merchandise" | "service"
             }
           | ""
@@ -15103,8 +15309,8 @@ export class ApiClient {
           | {
               additional_documentation?: string | ""
               canceled_at?: number | ""
-              cancellation_reason?: string
-              explanation?: string
+              cancellation_reason?: string | ""
+              explanation?: string | ""
               received_at?: number | ""
             }
           | ""
@@ -15413,6 +15619,7 @@ export class ApiClient {
         | "payment_method"
         | "transactions"
       )[]
+      prefetch?: ("balances" | "ownership")[]
       return_url?: string
     }
   }): Observable<
@@ -15726,6 +15933,7 @@ export class ApiClient {
       amount: number
       application_fee_amount?: number
       automatic_payment_methods?: {
+        allow_redirects?: "always" | "never"
         enabled: boolean
       }
       capture_method?: "automatic" | "automatic_async" | "manual"
@@ -15737,23 +15945,26 @@ export class ApiClient {
       error_on_requires_action?: boolean
       expand?: string[]
       mandate?: string
-      mandate_data?: {
-        customer_acceptance: {
-          accepted_at?: number
-          offline?: EmptyObject
-          online?: {
-            ip_address: string
-            user_agent: string
+      mandate_data?:
+        | {
+            customer_acceptance: {
+              accepted_at?: number
+              offline?: EmptyObject
+              online?: {
+                ip_address: string
+                user_agent: string
+              }
+              type: "offline" | "online"
+            }
           }
-          type: "offline" | "online"
-        }
-      }
+        | ""
       metadata?: {
         [key: string]: string
       }
       off_session?: boolean | "one_off" | "recurring"
       on_behalf_of?: string
       payment_method?: string
+      payment_method_configuration?: string
       payment_method_data?: {
         acss_debit?: {
           account_number: string
@@ -15784,8 +15995,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -15860,6 +16071,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -15911,6 +16123,7 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -15945,12 +16158,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -15959,6 +16174,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -16049,6 +16265,7 @@ export class ApiClient {
                 | "cartes_bancaires"
                 | "diners"
                 | "discover"
+                | "eftpos_au"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -16080,10 +16297,12 @@ export class ApiClient {
                   country: string
                 }
                 requested_address_types?: (
+                  | "aba"
                   | "iban"
                   | "sepa"
                   | "sort_code"
                   | "spei"
+                  | "swift"
                   | "zengin"
                 )[]
                 type:
@@ -16091,6 +16310,7 @@ export class ApiClient {
                   | "gb_bank_transfer"
                   | "jp_bank_transfer"
                   | "mx_bank_transfer"
+                  | "us_bank_transfer"
               }
               funding_type?: "bank_transfer"
               setup_future_usage?: "none"
@@ -16175,17 +16395,16 @@ export class ApiClient {
           | ""
         konbini?:
           | {
-              confirmation_number?: string
+              confirmation_number?: string | ""
               expires_after_days?: number | ""
               expires_at?: number | ""
-              product_description?: string
+              product_description?: string | ""
               setup_future_usage?: "none"
             }
           | ""
         link?:
           | {
               capture_method?: "" | "manual"
-              persistent_token?: string
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
@@ -16204,6 +16423,36 @@ export class ApiClient {
         paynow?:
           | {
               setup_future_usage?: "none"
+            }
+          | ""
+        paypal?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-DE"
+                | "de-LU"
+                | "el-GR"
+                | "en-GB"
+                | "en-US"
+                | "es-ES"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-FR"
+                | "fr-LU"
+                | "hu-HU"
+                | "it-IT"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sk-SK"
+                | "sv-SE"
+              reference?: string
+              risk_correlation_id?: string
+              setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
         pix?:
@@ -16247,11 +16496,13 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
+                prefetch?: "balances"[]
                 return_url?: string
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
               }
+              preferred_settlement_speed?: "" | "fastest" | "standard"
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               verification_method?: "automatic" | "instant" | "microdeposits"
             }
@@ -16260,6 +16511,11 @@ export class ApiClient {
           | {
               app_id?: string
               client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
+        zip?:
+          | {
               setup_future_usage?: "none"
             }
           | ""
@@ -16406,6 +16662,7 @@ export class ApiClient {
           }
         | ""
       payment_method?: string
+      payment_method_configuration?: string
       payment_method_data?: {
         acss_debit?: {
           account_number: string
@@ -16436,8 +16693,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -16512,6 +16769,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -16563,6 +16821,7 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -16597,12 +16856,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -16611,6 +16872,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -16701,6 +16963,7 @@ export class ApiClient {
                 | "cartes_bancaires"
                 | "diners"
                 | "discover"
+                | "eftpos_au"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -16732,10 +16995,12 @@ export class ApiClient {
                   country: string
                 }
                 requested_address_types?: (
+                  | "aba"
                   | "iban"
                   | "sepa"
                   | "sort_code"
                   | "spei"
+                  | "swift"
                   | "zengin"
                 )[]
                 type:
@@ -16743,6 +17008,7 @@ export class ApiClient {
                   | "gb_bank_transfer"
                   | "jp_bank_transfer"
                   | "mx_bank_transfer"
+                  | "us_bank_transfer"
               }
               funding_type?: "bank_transfer"
               setup_future_usage?: "none"
@@ -16827,17 +17093,16 @@ export class ApiClient {
           | ""
         konbini?:
           | {
-              confirmation_number?: string
+              confirmation_number?: string | ""
               expires_after_days?: number | ""
               expires_at?: number | ""
-              product_description?: string
+              product_description?: string | ""
               setup_future_usage?: "none"
             }
           | ""
         link?:
           | {
               capture_method?: "" | "manual"
-              persistent_token?: string
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
@@ -16856,6 +17121,36 @@ export class ApiClient {
         paynow?:
           | {
               setup_future_usage?: "none"
+            }
+          | ""
+        paypal?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-DE"
+                | "de-LU"
+                | "el-GR"
+                | "en-GB"
+                | "en-US"
+                | "es-ES"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-FR"
+                | "fr-LU"
+                | "hu-HU"
+                | "it-IT"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sk-SK"
+                | "sv-SE"
+              reference?: string
+              risk_correlation_id?: string
+              setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
         pix?:
@@ -16899,11 +17194,13 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
+                prefetch?: "balances"[]
                 return_url?: string
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
               }
+              preferred_settlement_speed?: "" | "fastest" | "standard"
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               verification_method?: "automatic" | "instant" | "microdeposits"
             }
@@ -16912,6 +17209,11 @@ export class ApiClient {
           | {
               app_id?: string
               client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
+        zip?:
+          | {
               setup_future_usage?: "none"
             }
           | ""
@@ -17085,6 +17387,7 @@ export class ApiClient {
               type: "offline" | "online"
             }
           }
+        | ""
         | {
             customer_acceptance: {
               online: {
@@ -17126,8 +17429,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -17202,6 +17505,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -17253,6 +17557,7 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -17287,12 +17592,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -17301,6 +17608,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -17391,6 +17699,7 @@ export class ApiClient {
                 | "cartes_bancaires"
                 | "diners"
                 | "discover"
+                | "eftpos_au"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -17422,10 +17731,12 @@ export class ApiClient {
                   country: string
                 }
                 requested_address_types?: (
+                  | "aba"
                   | "iban"
                   | "sepa"
                   | "sort_code"
                   | "spei"
+                  | "swift"
                   | "zengin"
                 )[]
                 type:
@@ -17433,6 +17744,7 @@ export class ApiClient {
                   | "gb_bank_transfer"
                   | "jp_bank_transfer"
                   | "mx_bank_transfer"
+                  | "us_bank_transfer"
               }
               funding_type?: "bank_transfer"
               setup_future_usage?: "none"
@@ -17517,17 +17829,16 @@ export class ApiClient {
           | ""
         konbini?:
           | {
-              confirmation_number?: string
+              confirmation_number?: string | ""
               expires_after_days?: number | ""
               expires_at?: number | ""
-              product_description?: string
+              product_description?: string | ""
               setup_future_usage?: "none"
             }
           | ""
         link?:
           | {
               capture_method?: "" | "manual"
-              persistent_token?: string
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
@@ -17546,6 +17857,36 @@ export class ApiClient {
         paynow?:
           | {
               setup_future_usage?: "none"
+            }
+          | ""
+        paypal?:
+          | {
+              capture_method?: "" | "manual"
+              preferred_locale?:
+                | "cs-CZ"
+                | "da-DK"
+                | "de-AT"
+                | "de-DE"
+                | "de-LU"
+                | "el-GR"
+                | "en-GB"
+                | "en-US"
+                | "es-ES"
+                | "fi-FI"
+                | "fr-BE"
+                | "fr-FR"
+                | "fr-LU"
+                | "hu-HU"
+                | "it-IT"
+                | "nl-BE"
+                | "nl-NL"
+                | "pl-PL"
+                | "pt-PT"
+                | "sk-SK"
+                | "sv-SE"
+              reference?: string
+              risk_correlation_id?: string
+              setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
         pix?:
@@ -17589,11 +17930,13 @@ export class ApiClient {
                   | "payment_method"
                   | "transactions"
                 )[]
+                prefetch?: "balances"[]
                 return_url?: string
               }
               networks?: {
                 requested?: ("ach" | "us_domestic_wire")[]
               }
+              preferred_settlement_speed?: "" | "fastest" | "standard"
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
               verification_method?: "automatic" | "instant" | "microdeposits"
             }
@@ -17602,6 +17945,11 @@ export class ApiClient {
           | {
               app_id?: string
               client: "android" | "ios" | "web"
+              setup_future_usage?: "none"
+            }
+          | ""
+        zip?:
+          | {
               setup_future_usage?: "none"
             }
           | ""
@@ -17801,7 +18149,15 @@ export class ApiClient {
           custom: string
           type: "custom"
         }
+        numeric?: {
+          maximum_length?: number
+          minimum_length?: number
+        }
         optional?: boolean
+        text?: {
+          maximum_length?: number
+          minimum_length?: number
+        }
         type: "dropdown" | "numeric" | "text"
       }[]
       custom_text?: {
@@ -17885,6 +18241,7 @@ export class ApiClient {
         | "oxxo"
         | "p24"
         | "paynow"
+        | "paypal"
         | "pix"
         | "promptpay"
         | "sepa_debit"
@@ -18233,7 +18590,15 @@ export class ApiClient {
               custom: string
               type: "custom"
             }
+            numeric?: {
+              maximum_length?: number
+              minimum_length?: number
+            }
             optional?: boolean
+            text?: {
+              maximum_length?: number
+              minimum_length?: number
+            }
             type: "dropdown" | "numeric" | "text"
           }[]
         | ""
@@ -18314,6 +18679,7 @@ export class ApiClient {
             | "oxxo"
             | "p24"
             | "paynow"
+            | "paypal"
             | "pix"
             | "promptpay"
             | "sepa_debit"
@@ -18629,6 +18995,623 @@ export class ApiClient {
     )
   }
 
+  getPaymentMethodConfigurations(
+    p: {
+      application?: string | ""
+      expand?: string[]
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_payment_method_configuration[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      application: p["application"],
+      expand: p["expand"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/payment_method_configurations`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentMethodConfigurations(
+    p: {
+      requestBody?: {
+        acss_debit?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        affirm?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        afterpay_clearpay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        alipay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        apple_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        apple_pay_later?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        au_becs_debit?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        bacs_debit?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        bancontact?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        blik?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        boleto?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        card?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        cartes_bancaires?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        cashapp?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        eps?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        expand?: string[]
+        fpx?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        giropay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        google_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        grabpay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        ideal?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        jcb?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        klarna?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        konbini?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        link?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        name?: string
+        oxxo?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        p24?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        parent?: string
+        paynow?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        paypal?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        promptpay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        sepa_debit?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        sofort?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        us_bank_account?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        wechat_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+      }
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/payment_method_configurations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentMethodConfigurationsConfiguration(p: {
+    configuration: string
+    expand?: string[]
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/payment_method_configurations/${p["configuration"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentMethodConfigurationsConfiguration(p: {
+    configuration: string
+    requestBody?: {
+      acss_debit?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      active?: boolean
+      affirm?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      afterpay_clearpay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      alipay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      apple_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      apple_pay_later?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      au_becs_debit?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      bacs_debit?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      bancontact?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      blik?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      boleto?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      card?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      cartes_bancaires?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      cashapp?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      eps?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      expand?: string[]
+      fpx?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      giropay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      google_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      grabpay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      ideal?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      jcb?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      klarna?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      konbini?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      link?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      name?: string
+      oxxo?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      p24?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      paynow?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      paypal?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      promptpay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      sepa_debit?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      sofort?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      us_bank_account?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      wechat_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_method_configurations/${p["configuration"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentMethodDomains(
+    p: {
+      domainName?: string
+      enabled?: boolean
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_payment_method_domain[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      domain_name: p["domainName"],
+      enabled: p["enabled"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/payment_method_domains`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentMethodDomains(p: {
+    requestBody: {
+      domain_name: string
+      enabled?: boolean
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_payment_method_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/payment_method_domains`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPaymentMethodDomainsPaymentMethodDomain(p: {
+    expand?: string[]
+    paymentMethodDomain: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_payment_method_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/v1/payment_method_domains/${p["paymentMethodDomain"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentMethodDomainsPaymentMethodDomain(p: {
+    paymentMethodDomain: string
+    requestBody?: {
+      enabled?: boolean
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_payment_method_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_method_domains/${p["paymentMethodDomain"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postPaymentMethodDomainsPaymentMethodDomainValidate(p: {
+    paymentMethodDomain: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_payment_method_domain> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/payment_method_domains/${p["paymentMethodDomain"]}/validate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getPaymentMethods(
     p: {
       customer?: string
@@ -18660,12 +19643,14 @@ export class ApiClient {
         | "oxxo"
         | "p24"
         | "paynow"
+        | "paypal"
         | "pix"
         | "promptpay"
         | "sepa_debit"
         | "sofort"
         | "us_bank_account"
         | "wechat_pay"
+        | "zip"
       requestBody?: EmptyObject
     } = {},
   ): Observable<
@@ -18736,8 +19721,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -18824,6 +19809,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -18876,6 +19862,7 @@ export class ApiClient {
         }
         payment_method?: string
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -18911,12 +19898,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -18925,6 +19914,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
     } = {},
   ): Observable<
@@ -18992,8 +19982,8 @@ export class ApiClient {
             }
           | ""
         email?: string | ""
-        name?: string
-        phone?: string
+        name?: string | ""
+        phone?: string | ""
       }
       card?: {
         exp_month?: number
@@ -19899,6 +20889,9 @@ export class ApiClient {
       }
       description?: string
       expand?: string[]
+      features?: {
+        name: string
+      }[]
       id?: string
       images?: string[]
       metadata?: {
@@ -20039,8 +21032,13 @@ export class ApiClient {
     requestBody?: {
       active?: boolean
       default_price?: string
-      description?: string
+      description?: string | ""
       expand?: string[]
+      features?:
+        | {
+            name: string
+          }[]
+        | ""
       images?: string[] | ""
       metadata?:
         | {
@@ -20059,7 +21057,7 @@ export class ApiClient {
       shippable?: boolean
       statement_descriptor?: string
       tax_code?: string | ""
-      unit_label?: string
+      unit_label?: string | ""
       url?: string | ""
     }
   }): Observable<
@@ -20315,7 +21313,7 @@ export class ApiClient {
         collection_method?: "charge_automatically" | "send_invoice"
         customer?: string
         default_tax_rates?: string[] | ""
-        description?: string
+        description?: string | ""
         discounts?:
           | {
               coupon?: string
@@ -20324,12 +21322,12 @@ export class ApiClient {
           | ""
         expand?: string[]
         expires_at?: number
-        footer?: string
+        footer?: string | ""
         from_quote?: {
           is_revision?: boolean
           quote: string
         }
-        header?: string
+        header?: string | ""
         invoice_settings?: {
           days_until_due?: number
         }
@@ -20429,7 +21427,7 @@ export class ApiClient {
       collection_method?: "charge_automatically" | "send_invoice"
       customer?: string
       default_tax_rates?: string[] | ""
-      description?: string
+      description?: string | ""
       discounts?:
         | {
             coupon?: string
@@ -20438,8 +21436,8 @@ export class ApiClient {
         | ""
       expand?: string[]
       expires_at?: number
-      footer?: string
-      header?: string
+      footer?: string | ""
+      header?: string | ""
       invoice_settings?: {
         days_until_due?: number
       }
@@ -20465,7 +21463,7 @@ export class ApiClient {
       }
       on_behalf_of?: string | ""
       subscription_data?: {
-        description?: string
+        description?: string | ""
         effective_date?: "current_period_end" | number | ""
         trial_period_days?: number | ""
       }
@@ -20968,7 +21966,9 @@ export class ApiClient {
         | "customer_id"
         | "email"
         | "ip_address"
+        | "sepa_debit_fingerprint"
         | "string"
+        | "us_bank_account_fingerprint"
       metadata?: {
         [key: string]: string
       }
@@ -21348,6 +22348,7 @@ export class ApiClient {
           | "issuing_dispute"
           | "issuing_transaction"
           | "network_cost"
+          | "obligation"
           | "other_adjustment"
           | "partial_capture_reversal"
           | "payout"
@@ -22295,6 +23296,7 @@ export class ApiClient {
       requestBody?: {
         attach_to_self?: boolean
         automatic_payment_methods?: {
+          allow_redirects?: "always" | "never"
           enabled: boolean
         }
         confirm?: boolean
@@ -22302,22 +23304,25 @@ export class ApiClient {
         description?: string
         expand?: string[]
         flow_directions?: ("inbound" | "outbound")[]
-        mandate_data?: {
-          customer_acceptance: {
-            accepted_at?: number
-            offline?: EmptyObject
-            online?: {
-              ip_address: string
-              user_agent: string
+        mandate_data?:
+          | {
+              customer_acceptance: {
+                accepted_at?: number
+                offline?: EmptyObject
+                online?: {
+                  ip_address: string
+                  user_agent: string
+                }
+                type: "offline" | "online"
+              }
             }
-            type: "offline" | "online"
-          }
-        }
+          | ""
         metadata?: {
           [key: string]: string
         }
         on_behalf_of?: string
         payment_method?: string
+        payment_method_configuration?: string
         payment_method_data?: {
           acss_debit?: {
             account_number: string
@@ -22348,8 +23353,8 @@ export class ApiClient {
                 }
               | ""
             email?: string | ""
-            name?: string
-            phone?: string
+            name?: string | ""
+            phone?: string | ""
           }
           blik?: EmptyObject
           boleto?: {
@@ -22424,6 +23429,7 @@ export class ApiClient {
               | "ing"
               | "knab"
               | "moneyou"
+              | "n26"
               | "rabobank"
               | "regiobank"
               | "revolut"
@@ -22475,6 +23481,7 @@ export class ApiClient {
               | "volkswagen_bank"
           }
           paynow?: EmptyObject
+          paypal?: EmptyObject
           pix?: EmptyObject
           promptpay?: EmptyObject
           radar_options?: {
@@ -22509,12 +23516,14 @@ export class ApiClient {
             | "oxxo"
             | "p24"
             | "paynow"
+            | "paypal"
             | "pix"
             | "promptpay"
             | "sepa_debit"
             | "sofort"
             | "us_bank_account"
             | "wechat_pay"
+            | "zip"
           us_bank_account?: {
             account_holder_type?: "company" | "individual"
             account_number?: string
@@ -22523,6 +23532,7 @@ export class ApiClient {
             routing_number?: string
           }
           wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -22535,9 +23545,6 @@ export class ApiClient {
               transaction_type?: "business" | "personal"
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
-          }
-          blik?: {
-            code?: string
           }
           card?: {
             mandate_options?: {
@@ -22557,6 +23564,7 @@ export class ApiClient {
               | "cartes_bancaires"
               | "diners"
               | "discover"
+              | "eftpos_au"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -22565,8 +23573,9 @@ export class ApiClient {
               | "visa"
             request_three_d_secure?: "any" | "automatic"
           }
-          link?: {
-            persistent_token?: string
+          link?: EmptyObject
+          paypal?: {
+            billing_agreement_id?: string
           }
           sepa_debit?: {
             mandate_options?: EmptyObject
@@ -22579,6 +23588,7 @@ export class ApiClient {
                 | "payment_method"
                 | "transactions"
               )[]
+              prefetch?: "balances"[]
               return_url?: string
             }
             networks?: {
@@ -22594,6 +23604,7 @@ export class ApiClient {
           currency: string
         }
         usage?: "off_session" | "on_session"
+        use_stripe_sdk?: boolean
       }
     } = {},
   ): Observable<
@@ -22664,6 +23675,7 @@ export class ApiClient {
           }
         | ""
       payment_method?: string
+      payment_method_configuration?: string
       payment_method_data?: {
         acss_debit?: {
           account_number: string
@@ -22694,8 +23706,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -22770,6 +23782,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -22821,6 +23834,7 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -22855,12 +23869,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -22869,6 +23885,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -22881,9 +23898,6 @@ export class ApiClient {
             transaction_type?: "business" | "personal"
           }
           verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-        blik?: {
-          code?: string
         }
         card?: {
           mandate_options?: {
@@ -22903,6 +23917,7 @@ export class ApiClient {
             | "cartes_bancaires"
             | "diners"
             | "discover"
+            | "eftpos_au"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -22911,8 +23926,9 @@ export class ApiClient {
             | "visa"
           request_three_d_secure?: "any" | "automatic"
         }
-        link?: {
-          persistent_token?: string
+        link?: EmptyObject
+        paypal?: {
+          billing_agreement_id?: string
         }
         sepa_debit?: {
           mandate_options?: EmptyObject
@@ -22925,6 +23941,7 @@ export class ApiClient {
               | "payment_method"
               | "transactions"
             )[]
+            prefetch?: "balances"[]
             return_url?: string
           }
           networks?: {
@@ -23002,6 +24019,7 @@ export class ApiClient {
               type: "offline" | "online"
             }
           }
+        | ""
         | {
             customer_acceptance: {
               online: {
@@ -23042,8 +24060,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         blik?: EmptyObject
         boleto?: {
@@ -23118,6 +24136,7 @@ export class ApiClient {
             | "ing"
             | "knab"
             | "moneyou"
+            | "n26"
             | "rabobank"
             | "regiobank"
             | "revolut"
@@ -23169,6 +24188,7 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         paynow?: EmptyObject
+        paypal?: EmptyObject
         pix?: EmptyObject
         promptpay?: EmptyObject
         radar_options?: {
@@ -23203,12 +24223,14 @@ export class ApiClient {
           | "oxxo"
           | "p24"
           | "paynow"
+          | "paypal"
           | "pix"
           | "promptpay"
           | "sepa_debit"
           | "sofort"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_number?: string
@@ -23217,6 +24239,7 @@ export class ApiClient {
           routing_number?: string
         }
         wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -23229,9 +24252,6 @@ export class ApiClient {
             transaction_type?: "business" | "personal"
           }
           verification_method?: "automatic" | "instant" | "microdeposits"
-        }
-        blik?: {
-          code?: string
         }
         card?: {
           mandate_options?: {
@@ -23251,6 +24271,7 @@ export class ApiClient {
             | "cartes_bancaires"
             | "diners"
             | "discover"
+            | "eftpos_au"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -23259,8 +24280,9 @@ export class ApiClient {
             | "visa"
           request_three_d_secure?: "any" | "automatic"
         }
-        link?: {
-          persistent_token?: string
+        link?: EmptyObject
+        paypal?: {
+          billing_agreement_id?: string
         }
         sepa_debit?: {
           mandate_options?: EmptyObject
@@ -23273,6 +24295,7 @@ export class ApiClient {
               | "payment_method"
               | "transactions"
             )[]
+            prefetch?: "balances"[]
             return_url?: string
           }
           networks?: {
@@ -23282,6 +24305,7 @@ export class ApiClient {
         }
       }
       return_url?: string
+      use_stripe_sdk?: boolean
     }
   }): Observable<
     | (HttpResponse<t_setup_intent> & { status: 200 })
@@ -24338,7 +25362,7 @@ export class ApiClient {
             | ""
           collection_method?: "charge_automatically" | "send_invoice"
           default_payment_method?: string
-          description?: string
+          description?: string | ""
           invoice_settings?: {
             days_until_due?: number
           }
@@ -24387,7 +25411,7 @@ export class ApiClient {
           currency?: string
           default_payment_method?: string
           default_tax_rates?: string[] | ""
-          description?: string
+          description?: string | ""
           end_date?: number
           invoice_settings?: {
             days_until_due?: number
@@ -24499,7 +25523,7 @@ export class ApiClient {
           | ""
         collection_method?: "charge_automatically" | "send_invoice"
         default_payment_method?: string
-        description?: string
+        description?: string | ""
         invoice_settings?: {
           days_until_due?: number
         }
@@ -24546,7 +25570,7 @@ export class ApiClient {
         coupon?: string
         default_payment_method?: string
         default_tax_rates?: string[] | ""
-        description?: string
+        description?: string | ""
         end_date?: number | "now"
         invoice_settings?: {
           days_until_due?: number
@@ -24674,6 +25698,9 @@ export class ApiClient {
 
   getSubscriptions(
     p: {
+      automaticTax?: {
+        enabled: boolean
+      }
       collectionMethod?: "charge_automatically" | "send_invoice"
       created?:
         | {
@@ -24733,6 +25760,7 @@ export class ApiClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const params = this._queryParams({
+      automatic_tax: p["automaticTax"],
       collection_method: p["collectionMethod"],
       created: p["created"],
       current_period_end: p["currentPeriodEnd"],
@@ -24862,6 +25890,7 @@ export class ApiClient {
                   | "cartes_bancaires"
                   | "diners"
                   | "discover"
+                  | "eftpos_au"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -24892,6 +25921,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
+                  prefetch?: "balances"[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -24916,6 +25946,7 @@ export class ApiClient {
               | "konbini"
               | "link"
               | "paynow"
+              | "paypal"
               | "promptpay"
               | "sepa_debit"
               | "sofort"
@@ -25014,7 +26045,7 @@ export class ApiClient {
     subscriptionExposedId: string
     requestBody?: {
       cancellation_details?: {
-        comment?: string
+        comment?: string | ""
         feedback?:
           | ""
           | "customer_service"
@@ -25109,7 +26140,7 @@ export class ApiClient {
       cancel_at?: number | ""
       cancel_at_period_end?: boolean
       cancellation_details?: {
-        comment?: string
+        comment?: string | ""
         feedback?:
           | ""
           | "customer_service"
@@ -25125,9 +26156,9 @@ export class ApiClient {
       coupon?: string
       days_until_due?: number
       default_payment_method?: string
-      default_source?: string
+      default_source?: string | ""
       default_tax_rates?: string[] | ""
-      description?: string
+      description?: string | ""
       expand?: string[]
       items?: {
         billing_thresholds?:
@@ -25203,6 +26234,7 @@ export class ApiClient {
                   | "cartes_bancaires"
                   | "diners"
                   | "discover"
+                  | "eftpos_au"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -25233,6 +26265,7 @@ export class ApiClient {
                     | "payment_method"
                     | "transactions"
                   )[]
+                  prefetch?: "balances"[]
                 }
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
@@ -25257,6 +26290,7 @@ export class ApiClient {
               | "konbini"
               | "link"
               | "paynow"
+              | "paypal"
               | "promptpay"
               | "sepa_debit"
               | "sofort"
@@ -25373,21 +26407,24 @@ export class ApiClient {
       customer?: string
       customer_details?: {
         address?: {
-          city?: string
+          city?: string | ""
           country: string
-          line1?: string
-          line2?: string
-          postal_code?: string
-          state?: string
+          line1?: string | ""
+          line2?: string | ""
+          postal_code?: string | ""
+          state?: string | ""
         }
         address_source?: "billing" | "shipping"
         ip_address?: string
         tax_ids?: {
           type:
+            | "ad_nrt"
             | "ae_trn"
+            | "ar_cuit"
             | "au_abn"
             | "au_arn"
             | "bg_uic"
+            | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
             | "ca_bn"
@@ -25398,6 +26435,11 @@ export class ApiClient {
             | "ca_qst"
             | "ch_vat"
             | "cl_tin"
+            | "cn_tin"
+            | "co_nit"
+            | "cr_tin"
+            | "do_rcn"
+            | "ec_ruc"
             | "eg_tin"
             | "es_cif"
             | "eu_oss_vat"
@@ -25422,18 +26464,25 @@ export class ApiClient {
             | "my_sst"
             | "no_vat"
             | "nz_gst"
+            | "pe_ruc"
             | "ph_tin"
+            | "ro_tin"
+            | "rs_pib"
             | "ru_inn"
             | "ru_kpp"
             | "sa_vat"
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sv_nit"
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
             | "ua_vat"
             | "us_ein"
+            | "uy_ruc"
+            | "ve_rif"
+            | "vn_tin"
             | "za_vat"
           value: string
         }[]
@@ -25520,6 +26569,77 @@ export class ApiClient {
     )
   }
 
+  getTaxSettings(
+    p: {
+      expand?: string[]
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_tax_settings> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax/settings`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTaxSettings(
+    p: {
+      requestBody?: {
+        defaults?: {
+          tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency"
+          tax_code?: string
+        }
+        expand?: string[]
+        head_office?: {
+          address: {
+            city?: string
+            country?: string
+            line1?: string
+            line2?: string
+            postal_code?: string
+            state?: string
+          }
+        }
+      }
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_tax_settings> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/tax/settings`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postTaxTransactionsCreateFromCalculation(p: {
     requestBody: {
       calculation: string
@@ -25554,6 +26674,7 @@ export class ApiClient {
   postTaxTransactionsCreateReversal(p: {
     requestBody: {
       expand?: string[]
+      flat_amount?: number
       line_items?: {
         amount: number
         amount_tax: number
@@ -25807,6 +26928,8 @@ export class ApiClient {
       percentage: number
       state?: string
       tax_type?:
+        | "amusement_tax"
+        | "communications_tax"
         | "gst"
         | "hst"
         | "igst"
@@ -25816,6 +26939,7 @@ export class ApiClient {
         | "qst"
         | "rst"
         | "sales_tax"
+        | "service_tax"
         | "vat"
     }
   }): Observable<
@@ -25884,6 +27008,8 @@ export class ApiClient {
         | ""
       state?: string
       tax_type?:
+        | "amusement_tax"
+        | "communications_tax"
         | "gst"
         | "hst"
         | "igst"
@@ -25893,6 +27019,7 @@ export class ApiClient {
         | "qst"
         | "rst"
         | "sales_tax"
+        | "service_tax"
         | "vat"
     }
   }): Observable<
@@ -26418,7 +27545,7 @@ export class ApiClient {
         postal_code?: string
         state?: string
       }
-      configuration_overrides?: string
+      configuration_overrides?: string | ""
       display_name?: string
       expand?: string[]
       metadata?:
@@ -26464,6 +27591,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       location?: string
+      serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online"
       requestBody?: EmptyObject
@@ -26487,6 +27615,7 @@ export class ApiClient {
       expand: p["expand"],
       limit: p["limit"],
       location: p["location"],
+      serial_number: p["serialNumber"],
       starting_after: p["startingAfter"],
       status: p["status"],
     })
@@ -26598,7 +27727,7 @@ export class ApiClient {
     reader: string
     requestBody?: {
       expand?: string[]
-      label?: string
+      label?: string | ""
       metadata?:
         | {
             [key: string]: string
@@ -26697,6 +27826,7 @@ export class ApiClient {
     requestBody: {
       customer_consent_collected: boolean
       expand?: string[]
+      process_config?: EmptyObject
       setup_intent: string
     }
   }): Observable<
@@ -26828,6 +27958,515 @@ export class ApiClient {
     )
   }
 
+  postTestHelpersIssuingAuthorizations(p: {
+    requestBody: {
+      amount: number
+      amount_details?: {
+        atm_fee?: number
+        cashback_amount?: number
+      }
+      authorization_method?:
+        | "chip"
+        | "contactless"
+        | "keyed_in"
+        | "online"
+        | "swipe"
+      card: string
+      currency?: string
+      expand?: string[]
+      is_amount_controllable?: boolean
+      merchant_data?: {
+        category?:
+          | "ac_refrigeration_repair"
+          | "accounting_bookkeeping_services"
+          | "advertising_services"
+          | "agricultural_cooperative"
+          | "airlines_air_carriers"
+          | "airports_flying_fields"
+          | "ambulance_services"
+          | "amusement_parks_carnivals"
+          | "antique_reproductions"
+          | "antique_shops"
+          | "aquariums"
+          | "architectural_surveying_services"
+          | "art_dealers_and_galleries"
+          | "artists_supply_and_craft_shops"
+          | "auto_and_home_supply_stores"
+          | "auto_body_repair_shops"
+          | "auto_paint_shops"
+          | "auto_service_shops"
+          | "automated_cash_disburse"
+          | "automated_fuel_dispensers"
+          | "automobile_associations"
+          | "automotive_parts_and_accessories_stores"
+          | "automotive_tire_stores"
+          | "bail_and_bond_payments"
+          | "bakeries"
+          | "bands_orchestras"
+          | "barber_and_beauty_shops"
+          | "betting_casino_gambling"
+          | "bicycle_shops"
+          | "billiard_pool_establishments"
+          | "boat_dealers"
+          | "boat_rentals_and_leases"
+          | "book_stores"
+          | "books_periodicals_and_newspapers"
+          | "bowling_alleys"
+          | "bus_lines"
+          | "business_secretarial_schools"
+          | "buying_shopping_services"
+          | "cable_satellite_and_other_pay_television_and_radio"
+          | "camera_and_photographic_supply_stores"
+          | "candy_nut_and_confectionery_stores"
+          | "car_and_truck_dealers_new_used"
+          | "car_and_truck_dealers_used_only"
+          | "car_rental_agencies"
+          | "car_washes"
+          | "carpentry_services"
+          | "carpet_upholstery_cleaning"
+          | "caterers"
+          | "charitable_and_social_service_organizations_fundraising"
+          | "chemicals_and_allied_products"
+          | "child_care_services"
+          | "childrens_and_infants_wear_stores"
+          | "chiropodists_podiatrists"
+          | "chiropractors"
+          | "cigar_stores_and_stands"
+          | "civic_social_fraternal_associations"
+          | "cleaning_and_maintenance"
+          | "clothing_rental"
+          | "colleges_universities"
+          | "commercial_equipment"
+          | "commercial_footwear"
+          | "commercial_photography_art_and_graphics"
+          | "commuter_transport_and_ferries"
+          | "computer_network_services"
+          | "computer_programming"
+          | "computer_repair"
+          | "computer_software_stores"
+          | "computers_peripherals_and_software"
+          | "concrete_work_services"
+          | "construction_materials"
+          | "consulting_public_relations"
+          | "correspondence_schools"
+          | "cosmetic_stores"
+          | "counseling_services"
+          | "country_clubs"
+          | "courier_services"
+          | "court_costs"
+          | "credit_reporting_agencies"
+          | "cruise_lines"
+          | "dairy_products_stores"
+          | "dance_hall_studios_schools"
+          | "dating_escort_services"
+          | "dentists_orthodontists"
+          | "department_stores"
+          | "detective_agencies"
+          | "digital_goods_applications"
+          | "digital_goods_games"
+          | "digital_goods_large_volume"
+          | "digital_goods_media"
+          | "direct_marketing_catalog_merchant"
+          | "direct_marketing_combination_catalog_and_retail_merchant"
+          | "direct_marketing_inbound_telemarketing"
+          | "direct_marketing_insurance_services"
+          | "direct_marketing_other"
+          | "direct_marketing_outbound_telemarketing"
+          | "direct_marketing_subscription"
+          | "direct_marketing_travel"
+          | "discount_stores"
+          | "doctors"
+          | "door_to_door_sales"
+          | "drapery_window_covering_and_upholstery_stores"
+          | "drinking_places"
+          | "drug_stores_and_pharmacies"
+          | "drugs_drug_proprietaries_and_druggist_sundries"
+          | "dry_cleaners"
+          | "durable_goods"
+          | "duty_free_stores"
+          | "eating_places_restaurants"
+          | "educational_services"
+          | "electric_razor_stores"
+          | "electric_vehicle_charging"
+          | "electrical_parts_and_equipment"
+          | "electrical_services"
+          | "electronics_repair_shops"
+          | "electronics_stores"
+          | "elementary_secondary_schools"
+          | "emergency_services_gcas_visa_use_only"
+          | "employment_temp_agencies"
+          | "equipment_rental"
+          | "exterminating_services"
+          | "family_clothing_stores"
+          | "fast_food_restaurants"
+          | "financial_institutions"
+          | "fines_government_administrative_entities"
+          | "fireplace_fireplace_screens_and_accessories_stores"
+          | "floor_covering_stores"
+          | "florists"
+          | "florists_supplies_nursery_stock_and_flowers"
+          | "freezer_and_locker_meat_provisioners"
+          | "fuel_dealers_non_automotive"
+          | "funeral_services_crematories"
+          | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+          | "furniture_repair_refinishing"
+          | "furriers_and_fur_shops"
+          | "general_services"
+          | "gift_card_novelty_and_souvenir_shops"
+          | "glass_paint_and_wallpaper_stores"
+          | "glassware_crystal_stores"
+          | "golf_courses_public"
+          | "government_licensed_horse_dog_racing_us_region_only"
+          | "government_licensed_online_casions_online_gambling_us_region_only"
+          | "government_owned_lotteries_non_us_region"
+          | "government_owned_lotteries_us_region_only"
+          | "government_services"
+          | "grocery_stores_supermarkets"
+          | "hardware_equipment_and_supplies"
+          | "hardware_stores"
+          | "health_and_beauty_spas"
+          | "hearing_aids_sales_and_supplies"
+          | "heating_plumbing_a_c"
+          | "hobby_toy_and_game_shops"
+          | "home_supply_warehouse_stores"
+          | "hospitals"
+          | "hotels_motels_and_resorts"
+          | "household_appliance_stores"
+          | "industrial_supplies"
+          | "information_retrieval_services"
+          | "insurance_default"
+          | "insurance_underwriting_premiums"
+          | "intra_company_purchases"
+          | "jewelry_stores_watches_clocks_and_silverware_stores"
+          | "landscaping_services"
+          | "laundries"
+          | "laundry_cleaning_services"
+          | "legal_services_attorneys"
+          | "luggage_and_leather_goods_stores"
+          | "lumber_building_materials_stores"
+          | "manual_cash_disburse"
+          | "marinas_service_and_supplies"
+          | "marketplaces"
+          | "masonry_stonework_and_plaster"
+          | "massage_parlors"
+          | "medical_and_dental_labs"
+          | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+          | "medical_services"
+          | "membership_organizations"
+          | "mens_and_boys_clothing_and_accessories_stores"
+          | "mens_womens_clothing_stores"
+          | "metal_service_centers"
+          | "miscellaneous_apparel_and_accessory_shops"
+          | "miscellaneous_auto_dealers"
+          | "miscellaneous_business_services"
+          | "miscellaneous_food_stores"
+          | "miscellaneous_general_merchandise"
+          | "miscellaneous_general_services"
+          | "miscellaneous_home_furnishing_specialty_stores"
+          | "miscellaneous_publishing_and_printing"
+          | "miscellaneous_recreation_services"
+          | "miscellaneous_repair_shops"
+          | "miscellaneous_specialty_retail"
+          | "mobile_home_dealers"
+          | "motion_picture_theaters"
+          | "motor_freight_carriers_and_trucking"
+          | "motor_homes_dealers"
+          | "motor_vehicle_supplies_and_new_parts"
+          | "motorcycle_shops_and_dealers"
+          | "motorcycle_shops_dealers"
+          | "music_stores_musical_instruments_pianos_and_sheet_music"
+          | "news_dealers_and_newsstands"
+          | "non_fi_money_orders"
+          | "non_fi_stored_value_card_purchase_load"
+          | "nondurable_goods"
+          | "nurseries_lawn_and_garden_supply_stores"
+          | "nursing_personal_care"
+          | "office_and_commercial_furniture"
+          | "opticians_eyeglasses"
+          | "optometrists_ophthalmologist"
+          | "orthopedic_goods_prosthetic_devices"
+          | "osteopaths"
+          | "package_stores_beer_wine_and_liquor"
+          | "paints_varnishes_and_supplies"
+          | "parking_lots_garages"
+          | "passenger_railways"
+          | "pawn_shops"
+          | "pet_shops_pet_food_and_supplies"
+          | "petroleum_and_petroleum_products"
+          | "photo_developing"
+          | "photographic_photocopy_microfilm_equipment_and_supplies"
+          | "photographic_studios"
+          | "picture_video_production"
+          | "piece_goods_notions_and_other_dry_goods"
+          | "plumbing_heating_equipment_and_supplies"
+          | "political_organizations"
+          | "postal_services_government_only"
+          | "precious_stones_and_metals_watches_and_jewelry"
+          | "professional_services"
+          | "public_warehousing_and_storage"
+          | "quick_copy_repro_and_blueprint"
+          | "railroads"
+          | "real_estate_agents_and_managers_rentals"
+          | "record_stores"
+          | "recreational_vehicle_rentals"
+          | "religious_goods_stores"
+          | "religious_organizations"
+          | "roofing_siding_sheet_metal"
+          | "secretarial_support_services"
+          | "security_brokers_dealers"
+          | "service_stations"
+          | "sewing_needlework_fabric_and_piece_goods_stores"
+          | "shoe_repair_hat_cleaning"
+          | "shoe_stores"
+          | "small_appliance_repair"
+          | "snowmobile_dealers"
+          | "special_trade_services"
+          | "specialty_cleaning"
+          | "sporting_goods_stores"
+          | "sporting_recreation_camps"
+          | "sports_and_riding_apparel_stores"
+          | "sports_clubs_fields"
+          | "stamp_and_coin_stores"
+          | "stationary_office_supplies_printing_and_writing_paper"
+          | "stationery_stores_office_and_school_supply_stores"
+          | "swimming_pools_sales"
+          | "t_ui_travel_germany"
+          | "tailors_alterations"
+          | "tax_payments_government_agencies"
+          | "tax_preparation_services"
+          | "taxicabs_limousines"
+          | "telecommunication_equipment_and_telephone_sales"
+          | "telecommunication_services"
+          | "telegraph_services"
+          | "tent_and_awning_shops"
+          | "testing_laboratories"
+          | "theatrical_ticket_agencies"
+          | "timeshares"
+          | "tire_retreading_and_repair"
+          | "tolls_bridge_fees"
+          | "tourist_attractions_and_exhibits"
+          | "towing_services"
+          | "trailer_parks_campgrounds"
+          | "transportation_services"
+          | "travel_agencies_tour_operators"
+          | "truck_stop_iteration"
+          | "truck_utility_trailer_rentals"
+          | "typesetting_plate_making_and_related_services"
+          | "typewriter_stores"
+          | "u_s_federal_government_agencies_or_departments"
+          | "uniforms_commercial_clothing"
+          | "used_merchandise_and_secondhand_stores"
+          | "utilities"
+          | "variety_stores"
+          | "veterinary_services"
+          | "video_amusement_game_supplies"
+          | "video_game_arcades"
+          | "video_tape_rental_stores"
+          | "vocational_trade_schools"
+          | "watch_jewelry_repair"
+          | "welding_repair"
+          | "wholesale_clubs"
+          | "wig_and_toupee_stores"
+          | "wires_money_orders"
+          | "womens_accessory_and_specialty_shops"
+          | "womens_ready_to_wear_stores"
+          | "wrecking_and_salvage_yards"
+        city?: string
+        country?: string
+        name?: string
+        network_id?: string
+        postal_code?: string
+        state?: string
+        terminal_id?: string
+      }
+      network_data?: {
+        acquiring_institution_id?: string
+      }
+      verification_data?: {
+        address_line1_check?: "match" | "mismatch" | "not_provided"
+        address_postal_code_check?: "match" | "mismatch" | "not_provided"
+        cvc_check?: "match" | "mismatch" | "not_provided"
+        expiry_check?: "match" | "mismatch" | "not_provided"
+      }
+      wallet?: "apple_pay" | "google_pay" | "samsung_pay"
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/test_helpers/issuing/authorizations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingAuthorizationsAuthorizationCapture(p: {
+    authorization: string
+    requestBody?: {
+      capture_amount?: number
+      close_authorization?: boolean
+      expand?: string[]
+      purchase_details?: {
+        flight?: {
+          departure_at?: number
+          passenger_name?: string
+          refundable?: boolean
+          segments?: {
+            arrival_airport_code?: string
+            carrier?: string
+            departure_airport_code?: string
+            flight_number?: string
+            service_class?: string
+            stopover_allowed?: boolean
+          }[]
+          travel_agency?: string
+        }
+        fuel?: {
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?: "liter" | "us_gallon"
+          unit_cost_decimal?: string
+          volume_decimal?: string
+        }
+        lodging?: {
+          check_in_at?: number
+          nights?: number
+        }
+        receipt?: {
+          description?: string
+          quantity?: string
+          total?: number
+          unit_cost?: number
+        }[]
+        reference?: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/capture`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingAuthorizationsAuthorizationExpire(p: {
+    authorization: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingAuthorizationsAuthorizationIncrement(p: {
+    authorization: string
+    requestBody: {
+      expand?: string[]
+      increment_amount: number
+      is_amount_controllable?: boolean
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/increment`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingAuthorizationsAuthorizationReverse(p: {
+    authorization: string
+    requestBody?: {
+      expand?: string[]
+      reverse_amount?: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/reverse`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postTestHelpersIssuingCardsCardShippingDeliver(p: {
     card: string
     requestBody?: {
@@ -26931,6 +28570,779 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingTransactionsCreateForceCapture(p: {
+    requestBody: {
+      amount: number
+      card: string
+      currency?: string
+      expand?: string[]
+      merchant_data?: {
+        category?:
+          | "ac_refrigeration_repair"
+          | "accounting_bookkeeping_services"
+          | "advertising_services"
+          | "agricultural_cooperative"
+          | "airlines_air_carriers"
+          | "airports_flying_fields"
+          | "ambulance_services"
+          | "amusement_parks_carnivals"
+          | "antique_reproductions"
+          | "antique_shops"
+          | "aquariums"
+          | "architectural_surveying_services"
+          | "art_dealers_and_galleries"
+          | "artists_supply_and_craft_shops"
+          | "auto_and_home_supply_stores"
+          | "auto_body_repair_shops"
+          | "auto_paint_shops"
+          | "auto_service_shops"
+          | "automated_cash_disburse"
+          | "automated_fuel_dispensers"
+          | "automobile_associations"
+          | "automotive_parts_and_accessories_stores"
+          | "automotive_tire_stores"
+          | "bail_and_bond_payments"
+          | "bakeries"
+          | "bands_orchestras"
+          | "barber_and_beauty_shops"
+          | "betting_casino_gambling"
+          | "bicycle_shops"
+          | "billiard_pool_establishments"
+          | "boat_dealers"
+          | "boat_rentals_and_leases"
+          | "book_stores"
+          | "books_periodicals_and_newspapers"
+          | "bowling_alleys"
+          | "bus_lines"
+          | "business_secretarial_schools"
+          | "buying_shopping_services"
+          | "cable_satellite_and_other_pay_television_and_radio"
+          | "camera_and_photographic_supply_stores"
+          | "candy_nut_and_confectionery_stores"
+          | "car_and_truck_dealers_new_used"
+          | "car_and_truck_dealers_used_only"
+          | "car_rental_agencies"
+          | "car_washes"
+          | "carpentry_services"
+          | "carpet_upholstery_cleaning"
+          | "caterers"
+          | "charitable_and_social_service_organizations_fundraising"
+          | "chemicals_and_allied_products"
+          | "child_care_services"
+          | "childrens_and_infants_wear_stores"
+          | "chiropodists_podiatrists"
+          | "chiropractors"
+          | "cigar_stores_and_stands"
+          | "civic_social_fraternal_associations"
+          | "cleaning_and_maintenance"
+          | "clothing_rental"
+          | "colleges_universities"
+          | "commercial_equipment"
+          | "commercial_footwear"
+          | "commercial_photography_art_and_graphics"
+          | "commuter_transport_and_ferries"
+          | "computer_network_services"
+          | "computer_programming"
+          | "computer_repair"
+          | "computer_software_stores"
+          | "computers_peripherals_and_software"
+          | "concrete_work_services"
+          | "construction_materials"
+          | "consulting_public_relations"
+          | "correspondence_schools"
+          | "cosmetic_stores"
+          | "counseling_services"
+          | "country_clubs"
+          | "courier_services"
+          | "court_costs"
+          | "credit_reporting_agencies"
+          | "cruise_lines"
+          | "dairy_products_stores"
+          | "dance_hall_studios_schools"
+          | "dating_escort_services"
+          | "dentists_orthodontists"
+          | "department_stores"
+          | "detective_agencies"
+          | "digital_goods_applications"
+          | "digital_goods_games"
+          | "digital_goods_large_volume"
+          | "digital_goods_media"
+          | "direct_marketing_catalog_merchant"
+          | "direct_marketing_combination_catalog_and_retail_merchant"
+          | "direct_marketing_inbound_telemarketing"
+          | "direct_marketing_insurance_services"
+          | "direct_marketing_other"
+          | "direct_marketing_outbound_telemarketing"
+          | "direct_marketing_subscription"
+          | "direct_marketing_travel"
+          | "discount_stores"
+          | "doctors"
+          | "door_to_door_sales"
+          | "drapery_window_covering_and_upholstery_stores"
+          | "drinking_places"
+          | "drug_stores_and_pharmacies"
+          | "drugs_drug_proprietaries_and_druggist_sundries"
+          | "dry_cleaners"
+          | "durable_goods"
+          | "duty_free_stores"
+          | "eating_places_restaurants"
+          | "educational_services"
+          | "electric_razor_stores"
+          | "electric_vehicle_charging"
+          | "electrical_parts_and_equipment"
+          | "electrical_services"
+          | "electronics_repair_shops"
+          | "electronics_stores"
+          | "elementary_secondary_schools"
+          | "emergency_services_gcas_visa_use_only"
+          | "employment_temp_agencies"
+          | "equipment_rental"
+          | "exterminating_services"
+          | "family_clothing_stores"
+          | "fast_food_restaurants"
+          | "financial_institutions"
+          | "fines_government_administrative_entities"
+          | "fireplace_fireplace_screens_and_accessories_stores"
+          | "floor_covering_stores"
+          | "florists"
+          | "florists_supplies_nursery_stock_and_flowers"
+          | "freezer_and_locker_meat_provisioners"
+          | "fuel_dealers_non_automotive"
+          | "funeral_services_crematories"
+          | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+          | "furniture_repair_refinishing"
+          | "furriers_and_fur_shops"
+          | "general_services"
+          | "gift_card_novelty_and_souvenir_shops"
+          | "glass_paint_and_wallpaper_stores"
+          | "glassware_crystal_stores"
+          | "golf_courses_public"
+          | "government_licensed_horse_dog_racing_us_region_only"
+          | "government_licensed_online_casions_online_gambling_us_region_only"
+          | "government_owned_lotteries_non_us_region"
+          | "government_owned_lotteries_us_region_only"
+          | "government_services"
+          | "grocery_stores_supermarkets"
+          | "hardware_equipment_and_supplies"
+          | "hardware_stores"
+          | "health_and_beauty_spas"
+          | "hearing_aids_sales_and_supplies"
+          | "heating_plumbing_a_c"
+          | "hobby_toy_and_game_shops"
+          | "home_supply_warehouse_stores"
+          | "hospitals"
+          | "hotels_motels_and_resorts"
+          | "household_appliance_stores"
+          | "industrial_supplies"
+          | "information_retrieval_services"
+          | "insurance_default"
+          | "insurance_underwriting_premiums"
+          | "intra_company_purchases"
+          | "jewelry_stores_watches_clocks_and_silverware_stores"
+          | "landscaping_services"
+          | "laundries"
+          | "laundry_cleaning_services"
+          | "legal_services_attorneys"
+          | "luggage_and_leather_goods_stores"
+          | "lumber_building_materials_stores"
+          | "manual_cash_disburse"
+          | "marinas_service_and_supplies"
+          | "marketplaces"
+          | "masonry_stonework_and_plaster"
+          | "massage_parlors"
+          | "medical_and_dental_labs"
+          | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+          | "medical_services"
+          | "membership_organizations"
+          | "mens_and_boys_clothing_and_accessories_stores"
+          | "mens_womens_clothing_stores"
+          | "metal_service_centers"
+          | "miscellaneous_apparel_and_accessory_shops"
+          | "miscellaneous_auto_dealers"
+          | "miscellaneous_business_services"
+          | "miscellaneous_food_stores"
+          | "miscellaneous_general_merchandise"
+          | "miscellaneous_general_services"
+          | "miscellaneous_home_furnishing_specialty_stores"
+          | "miscellaneous_publishing_and_printing"
+          | "miscellaneous_recreation_services"
+          | "miscellaneous_repair_shops"
+          | "miscellaneous_specialty_retail"
+          | "mobile_home_dealers"
+          | "motion_picture_theaters"
+          | "motor_freight_carriers_and_trucking"
+          | "motor_homes_dealers"
+          | "motor_vehicle_supplies_and_new_parts"
+          | "motorcycle_shops_and_dealers"
+          | "motorcycle_shops_dealers"
+          | "music_stores_musical_instruments_pianos_and_sheet_music"
+          | "news_dealers_and_newsstands"
+          | "non_fi_money_orders"
+          | "non_fi_stored_value_card_purchase_load"
+          | "nondurable_goods"
+          | "nurseries_lawn_and_garden_supply_stores"
+          | "nursing_personal_care"
+          | "office_and_commercial_furniture"
+          | "opticians_eyeglasses"
+          | "optometrists_ophthalmologist"
+          | "orthopedic_goods_prosthetic_devices"
+          | "osteopaths"
+          | "package_stores_beer_wine_and_liquor"
+          | "paints_varnishes_and_supplies"
+          | "parking_lots_garages"
+          | "passenger_railways"
+          | "pawn_shops"
+          | "pet_shops_pet_food_and_supplies"
+          | "petroleum_and_petroleum_products"
+          | "photo_developing"
+          | "photographic_photocopy_microfilm_equipment_and_supplies"
+          | "photographic_studios"
+          | "picture_video_production"
+          | "piece_goods_notions_and_other_dry_goods"
+          | "plumbing_heating_equipment_and_supplies"
+          | "political_organizations"
+          | "postal_services_government_only"
+          | "precious_stones_and_metals_watches_and_jewelry"
+          | "professional_services"
+          | "public_warehousing_and_storage"
+          | "quick_copy_repro_and_blueprint"
+          | "railroads"
+          | "real_estate_agents_and_managers_rentals"
+          | "record_stores"
+          | "recreational_vehicle_rentals"
+          | "religious_goods_stores"
+          | "religious_organizations"
+          | "roofing_siding_sheet_metal"
+          | "secretarial_support_services"
+          | "security_brokers_dealers"
+          | "service_stations"
+          | "sewing_needlework_fabric_and_piece_goods_stores"
+          | "shoe_repair_hat_cleaning"
+          | "shoe_stores"
+          | "small_appliance_repair"
+          | "snowmobile_dealers"
+          | "special_trade_services"
+          | "specialty_cleaning"
+          | "sporting_goods_stores"
+          | "sporting_recreation_camps"
+          | "sports_and_riding_apparel_stores"
+          | "sports_clubs_fields"
+          | "stamp_and_coin_stores"
+          | "stationary_office_supplies_printing_and_writing_paper"
+          | "stationery_stores_office_and_school_supply_stores"
+          | "swimming_pools_sales"
+          | "t_ui_travel_germany"
+          | "tailors_alterations"
+          | "tax_payments_government_agencies"
+          | "tax_preparation_services"
+          | "taxicabs_limousines"
+          | "telecommunication_equipment_and_telephone_sales"
+          | "telecommunication_services"
+          | "telegraph_services"
+          | "tent_and_awning_shops"
+          | "testing_laboratories"
+          | "theatrical_ticket_agencies"
+          | "timeshares"
+          | "tire_retreading_and_repair"
+          | "tolls_bridge_fees"
+          | "tourist_attractions_and_exhibits"
+          | "towing_services"
+          | "trailer_parks_campgrounds"
+          | "transportation_services"
+          | "travel_agencies_tour_operators"
+          | "truck_stop_iteration"
+          | "truck_utility_trailer_rentals"
+          | "typesetting_plate_making_and_related_services"
+          | "typewriter_stores"
+          | "u_s_federal_government_agencies_or_departments"
+          | "uniforms_commercial_clothing"
+          | "used_merchandise_and_secondhand_stores"
+          | "utilities"
+          | "variety_stores"
+          | "veterinary_services"
+          | "video_amusement_game_supplies"
+          | "video_game_arcades"
+          | "video_tape_rental_stores"
+          | "vocational_trade_schools"
+          | "watch_jewelry_repair"
+          | "welding_repair"
+          | "wholesale_clubs"
+          | "wig_and_toupee_stores"
+          | "wires_money_orders"
+          | "womens_accessory_and_specialty_shops"
+          | "womens_ready_to_wear_stores"
+          | "wrecking_and_salvage_yards"
+        city?: string
+        country?: string
+        name?: string
+        network_id?: string
+        postal_code?: string
+        state?: string
+        terminal_id?: string
+      }
+      purchase_details?: {
+        flight?: {
+          departure_at?: number
+          passenger_name?: string
+          refundable?: boolean
+          segments?: {
+            arrival_airport_code?: string
+            carrier?: string
+            departure_airport_code?: string
+            flight_number?: string
+            service_class?: string
+            stopover_allowed?: boolean
+          }[]
+          travel_agency?: string
+        }
+        fuel?: {
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?: "liter" | "us_gallon"
+          unit_cost_decimal?: string
+          volume_decimal?: string
+        }
+        lodging?: {
+          check_in_at?: number
+          nights?: number
+        }
+        receipt?: {
+          description?: string
+          quantity?: string
+          total?: number
+          unit_cost?: number
+        }[]
+        reference?: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/transactions/create_force_capture`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingTransactionsCreateUnlinkedRefund(p: {
+    requestBody: {
+      amount: number
+      card: string
+      currency?: string
+      expand?: string[]
+      merchant_data?: {
+        category?:
+          | "ac_refrigeration_repair"
+          | "accounting_bookkeeping_services"
+          | "advertising_services"
+          | "agricultural_cooperative"
+          | "airlines_air_carriers"
+          | "airports_flying_fields"
+          | "ambulance_services"
+          | "amusement_parks_carnivals"
+          | "antique_reproductions"
+          | "antique_shops"
+          | "aquariums"
+          | "architectural_surveying_services"
+          | "art_dealers_and_galleries"
+          | "artists_supply_and_craft_shops"
+          | "auto_and_home_supply_stores"
+          | "auto_body_repair_shops"
+          | "auto_paint_shops"
+          | "auto_service_shops"
+          | "automated_cash_disburse"
+          | "automated_fuel_dispensers"
+          | "automobile_associations"
+          | "automotive_parts_and_accessories_stores"
+          | "automotive_tire_stores"
+          | "bail_and_bond_payments"
+          | "bakeries"
+          | "bands_orchestras"
+          | "barber_and_beauty_shops"
+          | "betting_casino_gambling"
+          | "bicycle_shops"
+          | "billiard_pool_establishments"
+          | "boat_dealers"
+          | "boat_rentals_and_leases"
+          | "book_stores"
+          | "books_periodicals_and_newspapers"
+          | "bowling_alleys"
+          | "bus_lines"
+          | "business_secretarial_schools"
+          | "buying_shopping_services"
+          | "cable_satellite_and_other_pay_television_and_radio"
+          | "camera_and_photographic_supply_stores"
+          | "candy_nut_and_confectionery_stores"
+          | "car_and_truck_dealers_new_used"
+          | "car_and_truck_dealers_used_only"
+          | "car_rental_agencies"
+          | "car_washes"
+          | "carpentry_services"
+          | "carpet_upholstery_cleaning"
+          | "caterers"
+          | "charitable_and_social_service_organizations_fundraising"
+          | "chemicals_and_allied_products"
+          | "child_care_services"
+          | "childrens_and_infants_wear_stores"
+          | "chiropodists_podiatrists"
+          | "chiropractors"
+          | "cigar_stores_and_stands"
+          | "civic_social_fraternal_associations"
+          | "cleaning_and_maintenance"
+          | "clothing_rental"
+          | "colleges_universities"
+          | "commercial_equipment"
+          | "commercial_footwear"
+          | "commercial_photography_art_and_graphics"
+          | "commuter_transport_and_ferries"
+          | "computer_network_services"
+          | "computer_programming"
+          | "computer_repair"
+          | "computer_software_stores"
+          | "computers_peripherals_and_software"
+          | "concrete_work_services"
+          | "construction_materials"
+          | "consulting_public_relations"
+          | "correspondence_schools"
+          | "cosmetic_stores"
+          | "counseling_services"
+          | "country_clubs"
+          | "courier_services"
+          | "court_costs"
+          | "credit_reporting_agencies"
+          | "cruise_lines"
+          | "dairy_products_stores"
+          | "dance_hall_studios_schools"
+          | "dating_escort_services"
+          | "dentists_orthodontists"
+          | "department_stores"
+          | "detective_agencies"
+          | "digital_goods_applications"
+          | "digital_goods_games"
+          | "digital_goods_large_volume"
+          | "digital_goods_media"
+          | "direct_marketing_catalog_merchant"
+          | "direct_marketing_combination_catalog_and_retail_merchant"
+          | "direct_marketing_inbound_telemarketing"
+          | "direct_marketing_insurance_services"
+          | "direct_marketing_other"
+          | "direct_marketing_outbound_telemarketing"
+          | "direct_marketing_subscription"
+          | "direct_marketing_travel"
+          | "discount_stores"
+          | "doctors"
+          | "door_to_door_sales"
+          | "drapery_window_covering_and_upholstery_stores"
+          | "drinking_places"
+          | "drug_stores_and_pharmacies"
+          | "drugs_drug_proprietaries_and_druggist_sundries"
+          | "dry_cleaners"
+          | "durable_goods"
+          | "duty_free_stores"
+          | "eating_places_restaurants"
+          | "educational_services"
+          | "electric_razor_stores"
+          | "electric_vehicle_charging"
+          | "electrical_parts_and_equipment"
+          | "electrical_services"
+          | "electronics_repair_shops"
+          | "electronics_stores"
+          | "elementary_secondary_schools"
+          | "emergency_services_gcas_visa_use_only"
+          | "employment_temp_agencies"
+          | "equipment_rental"
+          | "exterminating_services"
+          | "family_clothing_stores"
+          | "fast_food_restaurants"
+          | "financial_institutions"
+          | "fines_government_administrative_entities"
+          | "fireplace_fireplace_screens_and_accessories_stores"
+          | "floor_covering_stores"
+          | "florists"
+          | "florists_supplies_nursery_stock_and_flowers"
+          | "freezer_and_locker_meat_provisioners"
+          | "fuel_dealers_non_automotive"
+          | "funeral_services_crematories"
+          | "furniture_home_furnishings_and_equipment_stores_except_appliances"
+          | "furniture_repair_refinishing"
+          | "furriers_and_fur_shops"
+          | "general_services"
+          | "gift_card_novelty_and_souvenir_shops"
+          | "glass_paint_and_wallpaper_stores"
+          | "glassware_crystal_stores"
+          | "golf_courses_public"
+          | "government_licensed_horse_dog_racing_us_region_only"
+          | "government_licensed_online_casions_online_gambling_us_region_only"
+          | "government_owned_lotteries_non_us_region"
+          | "government_owned_lotteries_us_region_only"
+          | "government_services"
+          | "grocery_stores_supermarkets"
+          | "hardware_equipment_and_supplies"
+          | "hardware_stores"
+          | "health_and_beauty_spas"
+          | "hearing_aids_sales_and_supplies"
+          | "heating_plumbing_a_c"
+          | "hobby_toy_and_game_shops"
+          | "home_supply_warehouse_stores"
+          | "hospitals"
+          | "hotels_motels_and_resorts"
+          | "household_appliance_stores"
+          | "industrial_supplies"
+          | "information_retrieval_services"
+          | "insurance_default"
+          | "insurance_underwriting_premiums"
+          | "intra_company_purchases"
+          | "jewelry_stores_watches_clocks_and_silverware_stores"
+          | "landscaping_services"
+          | "laundries"
+          | "laundry_cleaning_services"
+          | "legal_services_attorneys"
+          | "luggage_and_leather_goods_stores"
+          | "lumber_building_materials_stores"
+          | "manual_cash_disburse"
+          | "marinas_service_and_supplies"
+          | "marketplaces"
+          | "masonry_stonework_and_plaster"
+          | "massage_parlors"
+          | "medical_and_dental_labs"
+          | "medical_dental_ophthalmic_and_hospital_equipment_and_supplies"
+          | "medical_services"
+          | "membership_organizations"
+          | "mens_and_boys_clothing_and_accessories_stores"
+          | "mens_womens_clothing_stores"
+          | "metal_service_centers"
+          | "miscellaneous_apparel_and_accessory_shops"
+          | "miscellaneous_auto_dealers"
+          | "miscellaneous_business_services"
+          | "miscellaneous_food_stores"
+          | "miscellaneous_general_merchandise"
+          | "miscellaneous_general_services"
+          | "miscellaneous_home_furnishing_specialty_stores"
+          | "miscellaneous_publishing_and_printing"
+          | "miscellaneous_recreation_services"
+          | "miscellaneous_repair_shops"
+          | "miscellaneous_specialty_retail"
+          | "mobile_home_dealers"
+          | "motion_picture_theaters"
+          | "motor_freight_carriers_and_trucking"
+          | "motor_homes_dealers"
+          | "motor_vehicle_supplies_and_new_parts"
+          | "motorcycle_shops_and_dealers"
+          | "motorcycle_shops_dealers"
+          | "music_stores_musical_instruments_pianos_and_sheet_music"
+          | "news_dealers_and_newsstands"
+          | "non_fi_money_orders"
+          | "non_fi_stored_value_card_purchase_load"
+          | "nondurable_goods"
+          | "nurseries_lawn_and_garden_supply_stores"
+          | "nursing_personal_care"
+          | "office_and_commercial_furniture"
+          | "opticians_eyeglasses"
+          | "optometrists_ophthalmologist"
+          | "orthopedic_goods_prosthetic_devices"
+          | "osteopaths"
+          | "package_stores_beer_wine_and_liquor"
+          | "paints_varnishes_and_supplies"
+          | "parking_lots_garages"
+          | "passenger_railways"
+          | "pawn_shops"
+          | "pet_shops_pet_food_and_supplies"
+          | "petroleum_and_petroleum_products"
+          | "photo_developing"
+          | "photographic_photocopy_microfilm_equipment_and_supplies"
+          | "photographic_studios"
+          | "picture_video_production"
+          | "piece_goods_notions_and_other_dry_goods"
+          | "plumbing_heating_equipment_and_supplies"
+          | "political_organizations"
+          | "postal_services_government_only"
+          | "precious_stones_and_metals_watches_and_jewelry"
+          | "professional_services"
+          | "public_warehousing_and_storage"
+          | "quick_copy_repro_and_blueprint"
+          | "railroads"
+          | "real_estate_agents_and_managers_rentals"
+          | "record_stores"
+          | "recreational_vehicle_rentals"
+          | "religious_goods_stores"
+          | "religious_organizations"
+          | "roofing_siding_sheet_metal"
+          | "secretarial_support_services"
+          | "security_brokers_dealers"
+          | "service_stations"
+          | "sewing_needlework_fabric_and_piece_goods_stores"
+          | "shoe_repair_hat_cleaning"
+          | "shoe_stores"
+          | "small_appliance_repair"
+          | "snowmobile_dealers"
+          | "special_trade_services"
+          | "specialty_cleaning"
+          | "sporting_goods_stores"
+          | "sporting_recreation_camps"
+          | "sports_and_riding_apparel_stores"
+          | "sports_clubs_fields"
+          | "stamp_and_coin_stores"
+          | "stationary_office_supplies_printing_and_writing_paper"
+          | "stationery_stores_office_and_school_supply_stores"
+          | "swimming_pools_sales"
+          | "t_ui_travel_germany"
+          | "tailors_alterations"
+          | "tax_payments_government_agencies"
+          | "tax_preparation_services"
+          | "taxicabs_limousines"
+          | "telecommunication_equipment_and_telephone_sales"
+          | "telecommunication_services"
+          | "telegraph_services"
+          | "tent_and_awning_shops"
+          | "testing_laboratories"
+          | "theatrical_ticket_agencies"
+          | "timeshares"
+          | "tire_retreading_and_repair"
+          | "tolls_bridge_fees"
+          | "tourist_attractions_and_exhibits"
+          | "towing_services"
+          | "trailer_parks_campgrounds"
+          | "transportation_services"
+          | "travel_agencies_tour_operators"
+          | "truck_stop_iteration"
+          | "truck_utility_trailer_rentals"
+          | "typesetting_plate_making_and_related_services"
+          | "typewriter_stores"
+          | "u_s_federal_government_agencies_or_departments"
+          | "uniforms_commercial_clothing"
+          | "used_merchandise_and_secondhand_stores"
+          | "utilities"
+          | "variety_stores"
+          | "veterinary_services"
+          | "video_amusement_game_supplies"
+          | "video_game_arcades"
+          | "video_tape_rental_stores"
+          | "vocational_trade_schools"
+          | "watch_jewelry_repair"
+          | "welding_repair"
+          | "wholesale_clubs"
+          | "wig_and_toupee_stores"
+          | "wires_money_orders"
+          | "womens_accessory_and_specialty_shops"
+          | "womens_ready_to_wear_stores"
+          | "wrecking_and_salvage_yards"
+        city?: string
+        country?: string
+        name?: string
+        network_id?: string
+        postal_code?: string
+        state?: string
+        terminal_id?: string
+      }
+      purchase_details?: {
+        flight?: {
+          departure_at?: number
+          passenger_name?: string
+          refundable?: boolean
+          segments?: {
+            arrival_airport_code?: string
+            carrier?: string
+            departure_airport_code?: string
+            flight_number?: string
+            service_class?: string
+            stopover_allowed?: boolean
+          }[]
+          travel_agency?: string
+        }
+        fuel?: {
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?: "liter" | "us_gallon"
+          unit_cost_decimal?: string
+          volume_decimal?: string
+        }
+        lodging?: {
+          check_in_at?: number
+          nights?: number
+        }
+        receipt?: {
+          description?: string
+          quantity?: string
+          total?: number
+          unit_cost?: number
+        }[]
+        reference?: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/transactions/create_unlinked_refund`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingTransactionsTransactionRefund(p: {
+    transaction: string
+    requestBody?: {
+      expand?: string[]
+      refund_amount?: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_transaction> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/transactions/${p["transaction"]}/refund`,
       {
         headers,
         body,
@@ -27586,6 +29998,7 @@ export class ApiClient {
               | "government_instrumentality"
               | "governmental_unit"
               | "incorporated_non_profit"
+              | "incorporated_partnership"
               | "limited_liability_partnership"
               | "llc"
               | "multi_member_llc"
@@ -27601,6 +30014,7 @@ export class ApiClient {
               | "tax_exempt_government_instrumentality"
               | "unincorporated_association"
               | "unincorporated_non_profit"
+              | "unincorporated_partnership"
             tax_id?: string
             tax_id_registrar?: string
             vat_id?: string
@@ -27752,13 +30166,13 @@ export class ApiClient {
             | ""
           documents?: {
             company_authorization?: {
-              files?: string[]
+              files?: (string | "")[]
             }
             passport?: {
-              files?: string[]
+              files?: (string | "")[]
             }
             visa?: {
-              files?: string[]
+              files?: (string | "")[]
             }
           }
           email?: string
@@ -29071,8 +31485,8 @@ export class ApiClient {
               }
             | ""
           email?: string | ""
-          name?: string
-          phone?: string
+          name?: string | ""
+          phone?: string | ""
         }
         financial_account?: string
         metadata?: {
@@ -29806,8 +32220,9 @@ export class ApiClient {
         | "2020-08-27"
         | "2022-08-01"
         | "2022-11-15"
+        | "2023-08-16"
       connect?: boolean
-      description?: string
+      description?: string | ""
       enabled_events: (
         | "*"
         | "account.application.authorized"
@@ -29897,7 +32312,6 @@ export class ApiClient {
         | "invoice.voided"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
-        | "invoiceitem.updated"
         | "issuing_authorization.created"
         | "issuing_authorization.request"
         | "issuing_authorization.updated"
@@ -29987,6 +32401,7 @@ export class ApiClient {
         | "subscription_schedule.expiring"
         | "subscription_schedule.released"
         | "subscription_schedule.updated"
+        | "tax.settings.updated"
         | "tax_rate.created"
         | "tax_rate.updated"
         | "terminal.reader.action_failed"
@@ -30119,7 +32534,7 @@ export class ApiClient {
   postWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
     requestBody?: {
-      description?: string
+      description?: string | ""
       disabled?: boolean
       enabled_events?: (
         | "*"
@@ -30210,7 +32625,6 @@ export class ApiClient {
         | "invoice.voided"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
-        | "invoiceitem.updated"
         | "issuing_authorization.created"
         | "issuing_authorization.request"
         | "issuing_authorization.updated"
@@ -30300,6 +32714,7 @@ export class ApiClient {
         | "subscription_schedule.expiring"
         | "subscription_schedule.released"
         | "subscription_schedule.updated"
+        | "tax.settings.updated"
         | "tax_rate.created"
         | "tax_rate.updated"
         | "terminal.reader.action_failed"
