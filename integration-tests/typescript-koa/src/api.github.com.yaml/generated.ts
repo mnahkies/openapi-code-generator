@@ -10,7 +10,6 @@ import {
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
   t_ActionsAddSelectedRepoToOrgSecretParamSchema,
   t_ActionsAddSelectedRepoToOrgVariableParamSchema,
-  t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema,
   t_ActionsApproveWorkflowRunParamSchema,
   t_ActionsCancelWorkflowRunParamSchema,
   t_ActionsCreateEnvironmentVariableBodySchema,
@@ -29,8 +28,6 @@ import {
   t_ActionsCreateRemoveTokenForRepoParamSchema,
   t_ActionsCreateRepoVariableBodySchema,
   t_ActionsCreateRepoVariableParamSchema,
-  t_ActionsCreateRequiredWorkflowBodySchema,
-  t_ActionsCreateRequiredWorkflowParamSchema,
   t_ActionsCreateWorkflowDispatchBodySchema,
   t_ActionsCreateWorkflowDispatchParamSchema,
   t_ActionsDeleteActionsCacheByIdParamSchema,
@@ -43,7 +40,6 @@ import {
   t_ActionsDeleteOrgVariableParamSchema,
   t_ActionsDeleteRepoSecretParamSchema,
   t_ActionsDeleteRepoVariableParamSchema,
-  t_ActionsDeleteRequiredWorkflowParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
   t_ActionsDeleteWorkflowRunLogsParamSchema,
@@ -56,6 +52,10 @@ import {
   t_ActionsDownloadWorkflowRunLogsParamSchema,
   t_ActionsEnableSelectedRepositoryGithubActionsOrganizationParamSchema,
   t_ActionsEnableWorkflowParamSchema,
+  t_ActionsGenerateRunnerJitconfigForOrgBodySchema,
+  t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
+  t_ActionsGenerateRunnerJitconfigForRepoBodySchema,
+  t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
   t_ActionsGetActionsCacheListParamSchema,
   t_ActionsGetActionsCacheListQuerySchema,
   t_ActionsGetActionsCacheUsageByRepoForOrgParamSchema,
@@ -79,11 +79,8 @@ import {
   t_ActionsGetOrgVariableParamSchema,
   t_ActionsGetPendingDeploymentsForRunParamSchema,
   t_ActionsGetRepoPublicKeyParamSchema,
-  t_ActionsGetRepoRequiredWorkflowParamSchema,
-  t_ActionsGetRepoRequiredWorkflowUsageParamSchema,
   t_ActionsGetRepoSecretParamSchema,
   t_ActionsGetRepoVariableParamSchema,
-  t_ActionsGetRequiredWorkflowParamSchema,
   t_ActionsGetReviewsForRunParamSchema,
   t_ActionsGetSelfHostedRunnerForOrgParamSchema,
   t_ActionsGetSelfHostedRunnerForRepoParamSchema,
@@ -115,18 +112,12 @@ import {
   t_ActionsListRepoOrganizationSecretsQuerySchema,
   t_ActionsListRepoOrganizationVariablesParamSchema,
   t_ActionsListRepoOrganizationVariablesQuerySchema,
-  t_ActionsListRepoRequiredWorkflowsParamSchema,
-  t_ActionsListRepoRequiredWorkflowsQuerySchema,
   t_ActionsListRepoSecretsParamSchema,
   t_ActionsListRepoSecretsQuerySchema,
   t_ActionsListRepoVariablesParamSchema,
   t_ActionsListRepoVariablesQuerySchema,
   t_ActionsListRepoWorkflowsParamSchema,
   t_ActionsListRepoWorkflowsQuerySchema,
-  t_ActionsListRequiredWorkflowRunsParamSchema,
-  t_ActionsListRequiredWorkflowRunsQuerySchema,
-  t_ActionsListRequiredWorkflowsParamSchema,
-  t_ActionsListRequiredWorkflowsQuerySchema,
   t_ActionsListRunnerApplicationsForOrgParamSchema,
   t_ActionsListRunnerApplicationsForRepoParamSchema,
   t_ActionsListSelectedReposForOrgSecretParamSchema,
@@ -135,7 +126,6 @@ import {
   t_ActionsListSelectedReposForOrgVariableQuerySchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
-  t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema,
   t_ActionsListSelfHostedRunnersForOrgParamSchema,
   t_ActionsListSelfHostedRunnersForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForRepoParamSchema,
@@ -158,7 +148,6 @@ import {
   t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
-  t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
   t_ActionsReviewCustomGatesForRunBodySchema,
   t_ActionsReviewCustomGatesForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunBodySchema,
@@ -185,8 +174,6 @@ import {
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
   t_ActionsSetSelectedReposForOrgVariableBodySchema,
   t_ActionsSetSelectedReposForOrgVariableParamSchema,
-  t_ActionsSetSelectedReposToRequiredWorkflowBodySchema,
-  t_ActionsSetSelectedReposToRequiredWorkflowParamSchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsSetWorkflowAccessToRepositoryBodySchema,
@@ -197,8 +184,6 @@ import {
   t_ActionsUpdateOrgVariableParamSchema,
   t_ActionsUpdateRepoVariableBodySchema,
   t_ActionsUpdateRepoVariableParamSchema,
-  t_ActionsUpdateRequiredWorkflowBodySchema,
-  t_ActionsUpdateRequiredWorkflowParamSchema,
   t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
   t_ActivityDeleteRepoSubscriptionParamSchema,
   t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -314,6 +299,14 @@ import {
   t_ChecksSetSuitesPreferencesParamSchema,
   t_ChecksUpdateBodySchema,
   t_ChecksUpdateParamSchema,
+  t_ClassroomGetAClassroomParamSchema,
+  t_ClassroomGetAnAssignmentParamSchema,
+  t_ClassroomGetAssignmentGradesParamSchema,
+  t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
+  t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+  t_ClassroomListAssignmentsForAClassroomParamSchema,
+  t_ClassroomListAssignmentsForAClassroomQuerySchema,
+  t_ClassroomListClassroomsQuerySchema,
   t_CodeScanningDeleteAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisQuerySchema,
   t_CodeScanningGetAlertParamSchema,
@@ -351,8 +344,8 @@ import {
   t_CodespacesCreateWithPrForAuthenticatedUserParamSchema,
   t_CodespacesCreateWithRepoForAuthenticatedUserBodySchema,
   t_CodespacesCreateWithRepoForAuthenticatedUserParamSchema,
-  t_CodespacesDeleteCodespacesBillingUsersBodySchema,
-  t_CodespacesDeleteCodespacesBillingUsersParamSchema,
+  t_CodespacesDeleteCodespacesAccessUsersBodySchema,
+  t_CodespacesDeleteCodespacesAccessUsersParamSchema,
   t_CodespacesDeleteForAuthenticatedUserParamSchema,
   t_CodespacesDeleteFromOrganizationParamSchema,
   t_CodespacesDeleteOrgSecretParamSchema,
@@ -391,10 +384,10 @@ import {
   t_CodespacesRemoveSelectedRepoFromOrgSecretParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserParamSchema,
   t_CodespacesRepoMachinesForAuthenticatedUserQuerySchema,
-  t_CodespacesSetCodespacesBillingBodySchema,
-  t_CodespacesSetCodespacesBillingParamSchema,
-  t_CodespacesSetCodespacesBillingUsersBodySchema,
-  t_CodespacesSetCodespacesBillingUsersParamSchema,
+  t_CodespacesSetCodespacesAccessBodySchema,
+  t_CodespacesSetCodespacesAccessParamSchema,
+  t_CodespacesSetCodespacesAccessUsersBodySchema,
+  t_CodespacesSetCodespacesAccessUsersParamSchema,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserBodySchema,
   t_CodespacesSetRepositoriesForSecretForAuthenticatedUserParamSchema,
   t_CodespacesSetSelectedReposForOrgSecretBodySchema,
@@ -404,6 +397,18 @@ import {
   t_CodespacesStopInOrganizationParamSchema,
   t_CodespacesUpdateForAuthenticatedUserBodySchema,
   t_CodespacesUpdateForAuthenticatedUserParamSchema,
+  t_CopilotAddCopilotForBusinessSeatsForTeamsBodySchema,
+  t_CopilotAddCopilotForBusinessSeatsForTeamsParamSchema,
+  t_CopilotAddCopilotForBusinessSeatsForUsersBodySchema,
+  t_CopilotAddCopilotForBusinessSeatsForUsersParamSchema,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+  t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
+  t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema,
+  t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
+  t_CopilotGetCopilotOrganizationDetailsParamSchema,
+  t_CopilotGetCopilotSeatAssignmentDetailsForUserParamSchema,
+  t_CopilotListCopilotSeatsParamSchema,
+  t_CopilotListCopilotSeatsQuerySchema,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretBodySchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
@@ -616,6 +621,7 @@ import {
   t_OrgsCreateWebhookParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
+  t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
   t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
   t_OrgsGetMembershipForUserParamSchema,
@@ -859,6 +865,7 @@ import {
   t_ReposAddTeamAccessRestrictionsParamSchema,
   t_ReposAddUserAccessRestrictionsBodySchema,
   t_ReposAddUserAccessRestrictionsParamSchema,
+  t_ReposCheckAutomatedSecurityFixesParamSchema,
   t_ReposCheckCollaboratorParamSchema,
   t_ReposCheckVulnerabilityAlertsParamSchema,
   t_ReposCodeownersErrorsParamSchema,
@@ -934,12 +941,12 @@ import {
   t_ReposDeleteWebhookParamSchema,
   t_ReposDisableAutomatedSecurityFixesParamSchema,
   t_ReposDisableDeploymentProtectionRuleParamSchema,
-  t_ReposDisableLfsForRepoParamSchema,
+  t_ReposDisablePrivateVulnerabilityReportingParamSchema,
   t_ReposDisableVulnerabilityAlertsParamSchema,
   t_ReposDownloadTarballArchiveParamSchema,
   t_ReposDownloadZipballArchiveParamSchema,
   t_ReposEnableAutomatedSecurityFixesParamSchema,
-  t_ReposEnableLfsForRepoParamSchema,
+  t_ReposEnablePrivateVulnerabilityReportingParamSchema,
   t_ReposEnableVulnerabilityAlertsParamSchema,
   t_ReposGenerateReleaseNotesBodySchema,
   t_ReposGenerateReleaseNotesParamSchema,
@@ -956,6 +963,7 @@ import {
   t_ReposGetBranchParamSchema,
   t_ReposGetBranchProtectionParamSchema,
   t_ReposGetBranchRulesParamSchema,
+  t_ReposGetBranchRulesQuerySchema,
   t_ReposGetClonesParamSchema,
   t_ReposGetClonesQuerySchema,
   t_ReposGetCodeFrequencyStatsParamSchema,
@@ -981,6 +989,7 @@ import {
   t_ReposGetLatestReleaseParamSchema,
   t_ReposGetOrgRulesetParamSchema,
   t_ReposGetOrgRulesetsParamSchema,
+  t_ReposGetOrgRulesetsQuerySchema,
   t_ReposGetPagesBuildParamSchema,
   t_ReposGetPagesHealthCheckParamSchema,
   t_ReposGetPagesParamSchema,
@@ -1009,6 +1018,8 @@ import {
   t_ReposGetWebhookConfigForRepoParamSchema,
   t_ReposGetWebhookDeliveryParamSchema,
   t_ReposGetWebhookParamSchema,
+  t_ReposListActivitiesParamSchema,
+  t_ReposListActivitiesQuerySchema,
   t_ReposListAutolinksParamSchema,
   t_ReposListAutolinksQuerySchema,
   t_ReposListBranchesForHeadCommitParamSchema,
@@ -1150,8 +1161,13 @@ import {
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportBodySchema,
   t_SecurityAdvisoriesCreatePrivateVulnerabilityReportParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryBodySchema,
+  t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
   t_SecurityAdvisoriesCreateRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema,
   t_SecurityAdvisoriesGetRepositoryAdvisoryParamSchema,
+  t_SecurityAdvisoriesListGlobalAdvisoriesQuerySchema,
+  t_SecurityAdvisoriesListOrgRepositoryAdvisoriesParamSchema,
+  t_SecurityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema,
   t_SecurityAdvisoriesListRepositoryAdvisoriesParamSchema,
   t_SecurityAdvisoriesListRepositoryAdvisoriesQuerySchema,
   t_SecurityAdvisoriesUpdateRepositoryAdvisoryBodySchema,
@@ -1309,6 +1325,7 @@ import {
   t_actions_secret,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
+  t_activity,
   t_actor,
   t_added_to_project_issue_event,
   t_alert_auto_dismissed_at,
@@ -1338,9 +1355,14 @@ import {
   t_branch_short,
   t_branch_with_protection,
   t_check_annotation,
+  t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
+  t_classroom,
+  t_classroom_accepted_assignment,
+  t_classroom_assignment,
+  t_classroom_assignment_grade,
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
@@ -1358,6 +1380,7 @@ import {
   t_code_scanning_alert_set_state,
   t_code_scanning_alert_severity,
   t_code_scanning_alert_state,
+  t_code_scanning_alert_state_query,
   t_code_scanning_analysis,
   t_code_scanning_analysis_analysis_key,
   t_code_scanning_analysis_category,
@@ -1406,6 +1429,9 @@ import {
   t_contributor,
   t_contributor_activity,
   t_converted_note_to_issue_issue_event,
+  t_copilot_organization_details,
+  t_copilot_seat_breakdown,
+  t_copilot_seat_details,
   t_custom_deployment_rule_app,
   t_demilestoned_issue_event,
   t_dependabot_alert,
@@ -1446,6 +1472,7 @@ import {
   t_git_tag,
   t_git_tree,
   t_gitignore_template,
+  t_global_advisory,
   t_gpg_key,
   t_hook,
   t_hook_delivery,
@@ -1567,13 +1594,10 @@ import {
   t_removed_from_project_issue_event,
   t_renamed_issue_event,
   t_repo_codespaces_secret,
-  t_repo_required_workflow,
   t_repo_search_result_item,
   t_repository,
   t_repository_advisory,
   t_repository_advisory_credit,
-  t_repository_advisory_credit_types,
-  t_repository_advisory_ecosystems,
   t_repository_advisory_vulnerability,
   t_repository_collaborator_permission,
   t_repository_invitation,
@@ -1584,6 +1608,7 @@ import {
   t_repository_rule_committer_email_pattern,
   t_repository_rule_creation,
   t_repository_rule_deletion,
+  t_repository_rule_detailed,
   t_repository_rule_enforcement,
   t_repository_rule_non_fast_forward,
   t_repository_rule_params_status_check_configuration,
@@ -1592,14 +1617,15 @@ import {
   t_repository_rule_required_linear_history,
   t_repository_rule_required_signatures,
   t_repository_rule_required_status_checks,
+  t_repository_rule_ruleset_info,
   t_repository_rule_tag_name_pattern,
   t_repository_rule_update,
   t_repository_ruleset,
   t_repository_ruleset_bypass_actor,
   t_repository_ruleset_conditions,
+  t_repository_ruleset_conditions_repository_id_target,
   t_repository_ruleset_conditions_repository_name_target,
   t_repository_subscription,
-  t_required_workflow,
   t_review_comment,
   t_review_custom_gates_comment_required,
   t_review_custom_gates_state_required,
@@ -1621,11 +1647,18 @@ import {
   t_secret_scanning_location_issue_body,
   t_secret_scanning_location_issue_comment,
   t_secret_scanning_location_issue_title,
+  t_security_advisory_credit_types,
+  t_security_advisory_ecosystems,
   t_security_and_analysis,
   t_selected_actions,
   t_selected_actions_url,
   t_short_blob,
   t_short_branch,
+  t_simple_classroom,
+  t_simple_classroom_assignment,
+  t_simple_classroom_organization,
+  t_simple_classroom_repository,
+  t_simple_classroom_user,
   t_simple_commit,
   t_simple_commit_status,
   t_simple_repository,
@@ -1695,6 +1728,7 @@ import {
   s_actions_set_default_workflow_permissions,
   s_actions_variable,
   s_actions_workflow_access_to_repository,
+  s_activity,
   s_alert_number,
   s_allowed_actions,
   s_api_overview,
@@ -1711,9 +1745,14 @@ import {
   s_branch_short,
   s_branch_with_protection,
   s_check_annotation,
+  s_check_automated_security_fixes,
   s_check_run,
   s_check_suite,
   s_check_suite_preference,
+  s_classroom,
+  s_classroom_accepted_assignment,
+  s_classroom_assignment,
+  s_classroom_assignment_grade,
   s_clone_traffic,
   s_code_frequency_stat,
   s_code_of_conduct,
@@ -1724,7 +1763,7 @@ import {
   s_code_scanning_alert_items,
   s_code_scanning_alert_set_state,
   s_code_scanning_alert_severity,
-  s_code_scanning_alert_state,
+  s_code_scanning_alert_state_query,
   s_code_scanning_analysis,
   s_code_scanning_analysis_commit_sha,
   s_code_scanning_analysis_deletion,
@@ -1766,6 +1805,8 @@ import {
   s_content_traffic,
   s_contributor,
   s_contributor_activity,
+  s_copilot_organization_details,
+  s_copilot_seat_details,
   s_custom_deployment_rule_app,
   s_dependabot_alert,
   s_dependabot_alert_with_repository,
@@ -1799,6 +1840,7 @@ import {
   s_git_tag,
   s_git_tree,
   s_gitignore_template,
+  s_global_advisory,
   s_gpg_key,
   s_hook,
   s_hook_delivery,
@@ -1880,7 +1922,6 @@ import {
   s_release_asset,
   s_release_notes_content,
   s_repo_codespaces_secret,
-  s_repo_required_workflow,
   s_repo_search_result_item,
   s_repository,
   s_repository_advisory,
@@ -1889,12 +1930,12 @@ import {
   s_repository_collaborator_permission,
   s_repository_invitation,
   s_repository_rule,
+  s_repository_rule_detailed,
   s_repository_rule_enforcement,
   s_repository_ruleset,
   s_repository_ruleset_bypass_actor,
   s_repository_ruleset_conditions,
   s_repository_subscription,
-  s_required_workflow,
   s_review_comment,
   s_review_custom_gates_comment_required,
   s_review_custom_gates_state_required,
@@ -1911,6 +1952,8 @@ import {
   s_selected_actions,
   s_short_blob,
   s_short_branch,
+  s_simple_classroom,
+  s_simple_classroom_assignment,
   s_simple_user,
   s_snapshot,
   s_social_account,
@@ -1977,6 +2020,24 @@ export type MetaRoot = (
   params: Params<void, void, void>,
   ctx: Context,
 ) => Promise<Response<200, t_root>>
+
+export type SecurityAdvisoriesListGlobalAdvisories = (
+  params: Params<
+    void,
+    t_SecurityAdvisoriesListGlobalAdvisoriesQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_global_advisory[]>
+  | Response<422, t_validation_error_simple>
+  | Response<429, t_basic_error>
+>
+
+export type SecurityAdvisoriesGetGlobalAdvisory = (
+  params: Params<t_SecurityAdvisoriesGetGlobalAdvisoryParamSchema, void, void>,
+  ctx: Context,
+) => Promise<Response<200, t_global_advisory> | Response<404, t_basic_error>>
 
 export type AppsGetAuthenticated = (
   params: Params<void, void, void>,
@@ -2147,6 +2208,48 @@ export type AppsGetBySlug = (
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
 >
+
+export type ClassroomGetAnAssignment = (
+  params: Params<t_ClassroomGetAnAssignmentParamSchema, void, void>,
+  ctx: Context,
+) => Promise<
+  Response<200, t_classroom_assignment> | Response<404, t_basic_error>
+>
+
+export type ClassroomListAcceptedAssigmentsForAnAssignment = (
+  params: Params<
+    t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
+    t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<Response<200, t_classroom_accepted_assignment[]>>
+
+export type ClassroomGetAssignmentGrades = (
+  params: Params<t_ClassroomGetAssignmentGradesParamSchema, void, void>,
+  ctx: Context,
+) => Promise<
+  Response<200, t_classroom_assignment_grade[]> | Response<404, t_basic_error>
+>
+
+export type ClassroomListClassrooms = (
+  params: Params<void, t_ClassroomListClassroomsQuerySchema, void>,
+  ctx: Context,
+) => Promise<Response<200, t_simple_classroom[]>>
+
+export type ClassroomGetAClassroom = (
+  params: Params<t_ClassroomGetAClassroomParamSchema, void, void>,
+  ctx: Context,
+) => Promise<Response<200, t_classroom> | Response<404, t_basic_error>>
+
+export type ClassroomListAssignmentsForAClassroom = (
+  params: Params<
+    t_ClassroomListAssignmentsForAClassroomParamSchema,
+    t_ClassroomListAssignmentsForAClassroomQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<Response<200, t_simple_classroom_assignment[]>>
 
 export type CodesOfConductGetAllCodesOfConduct = (
   params: Params<void, void, void>,
@@ -2713,124 +2816,6 @@ export type OrgsList = (
   ctx: Context,
 ) => Promise<Response<200, t_organization_simple[]> | Response<304, void>>
 
-export type OrgsListPatGrantRequests = (
-  params: Params<
-    t_OrgsListPatGrantRequestsParamSchema,
-    t_OrgsListPatGrantRequestsQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<200, t_organization_programmatic_access_grant_request[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsReviewPatGrantRequestsInBulk = (
-  params: Params<
-    t_OrgsReviewPatGrantRequestsInBulkParamSchema,
-    void,
-    t_OrgsReviewPatGrantRequestsInBulkBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<202, EmptyObject>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsReviewPatGrantRequest = (
-  params: Params<
-    t_OrgsReviewPatGrantRequestParamSchema,
-    void,
-    t_OrgsReviewPatGrantRequestBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsListPatGrantRequestRepositories = (
-  params: Params<
-    t_OrgsListPatGrantRequestRepositoriesParamSchema,
-    t_OrgsListPatGrantRequestRepositoriesQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<200, t_minimal_repository[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsListPatGrants = (
-  params: Params<
-    t_OrgsListPatGrantsParamSchema,
-    t_OrgsListPatGrantsQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<200, t_organization_programmatic_access_grant[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsUpdatePatAccesses = (
-  params: Params<
-    t_OrgsUpdatePatAccessesParamSchema,
-    void,
-    t_OrgsUpdatePatAccessesBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<202, EmptyObject>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsUpdatePatAccess = (
-  params: Params<
-    t_OrgsUpdatePatAccessParamSchema,
-    void,
-    t_OrgsUpdatePatAccessBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<204, void>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<422, t_validation_error>
-  | Response<500, t_basic_error>
->
-
-export type OrgsListPatGrantRepositories = (
-  params: Params<
-    t_OrgsListPatGrantRepositoriesParamSchema,
-    t_OrgsListPatGrantRepositoriesQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<200, t_minimal_repository[]>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
->
-
 export type OrgsGet = (
   params: Params<t_OrgsGetParamSchema, void, void>,
   ctx: Context,
@@ -2993,100 +2978,6 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
   ctx: Context,
 ) => Promise<Response<204, void>>
 
-export type ActionsListRequiredWorkflows = (
-  params: Params<
-    t_ActionsListRequiredWorkflowsParamSchema,
-    t_ActionsListRequiredWorkflowsQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  Response<
-    200,
-    {
-      required_workflows: t_required_workflow[]
-      total_count: number
-    }
-  >
->
-
-export type ActionsCreateRequiredWorkflow = (
-  params: Params<
-    t_ActionsCreateRequiredWorkflowParamSchema,
-    void,
-    t_ActionsCreateRequiredWorkflowBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  Response<201, t_required_workflow> | Response<422, t_validation_error_simple>
->
-
-export type ActionsGetRequiredWorkflow = (
-  params: Params<t_ActionsGetRequiredWorkflowParamSchema, void, void>,
-  ctx: Context,
-) => Promise<Response<200, t_required_workflow>>
-
-export type ActionsUpdateRequiredWorkflow = (
-  params: Params<
-    t_ActionsUpdateRequiredWorkflowParamSchema,
-    void,
-    t_ActionsUpdateRequiredWorkflowBodySchema
-  >,
-  ctx: Context,
-) => Promise<
-  Response<200, t_required_workflow> | Response<422, t_validation_error_simple>
->
-
-export type ActionsDeleteRequiredWorkflow = (
-  params: Params<t_ActionsDeleteRequiredWorkflowParamSchema, void, void>,
-  ctx: Context,
-) => Promise<Response<204, void>>
-
-export type ActionsListSelectedRepositoriesRequiredWorkflow = (
-  params: Params<
-    t_ActionsListSelectedRepositoriesRequiredWorkflowParamSchema,
-    void,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<
-      200,
-      {
-        repositories: t_repository[]
-        total_count: number
-      }
-    >
-  | Response<404, void>
->
-
-export type ActionsSetSelectedReposToRequiredWorkflow = (
-  params: Params<
-    t_ActionsSetSelectedReposToRequiredWorkflowParamSchema,
-    void,
-    t_ActionsSetSelectedReposToRequiredWorkflowBodySchema
-  >,
-  ctx: Context,
-) => Promise<Response<204, void>>
-
-export type ActionsAddSelectedRepoToRequiredWorkflow = (
-  params: Params<
-    t_ActionsAddSelectedRepoToRequiredWorkflowParamSchema,
-    void,
-    void
-  >,
-  ctx: Context,
-) => Promise<Response<204, void> | Response<404, void> | Response<422, void>>
-
-export type ActionsRemoveSelectedRepoFromRequiredWorkflow = (
-  params: Params<
-    t_ActionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
-    void,
-    void
-  >,
-  ctx: Context,
-) => Promise<Response<204, void> | Response<404, void> | Response<422, void>>
-
 export type ActionsListSelfHostedRunnersForOrg = (
   params: Params<
     t_ActionsListSelfHostedRunnersForOrgParamSchema,
@@ -3108,6 +2999,25 @@ export type ActionsListRunnerApplicationsForOrg = (
   params: Params<t_ActionsListRunnerApplicationsForOrgParamSchema, void, void>,
   ctx: Context,
 ) => Promise<Response<200, t_runner_application[]>>
+
+export type ActionsGenerateRunnerJitconfigForOrg = (
+  params: Params<
+    t_ActionsGenerateRunnerJitconfigForOrgParamSchema,
+    void,
+    t_ActionsGenerateRunnerJitconfigForOrgBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      201,
+      {
+        encoded_jit_config: string
+        runner: t_runner
+      }
+    >
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error_simple>
+>
 
 export type ActionsCreateRegistrationTokenForOrg = (
   params: Params<t_ActionsCreateRegistrationTokenForOrgParamSchema, void, void>,
@@ -3455,11 +3365,11 @@ export type CodespacesListInOrganization = (
   | Response<500, t_basic_error>
 >
 
-export type CodespacesSetCodespacesBilling = (
+export type CodespacesSetCodespacesAccess = (
   params: Params<
-    t_CodespacesSetCodespacesBillingParamSchema,
+    t_CodespacesSetCodespacesAccessParamSchema,
     void,
-    t_CodespacesSetCodespacesBillingBodySchema
+    t_CodespacesSetCodespacesAccessBodySchema
   >,
   ctx: Context,
 ) => Promise<
@@ -3471,11 +3381,11 @@ export type CodespacesSetCodespacesBilling = (
   | Response<500, t_basic_error>
 >
 
-export type CodespacesSetCodespacesBillingUsers = (
+export type CodespacesSetCodespacesAccessUsers = (
   params: Params<
-    t_CodespacesSetCodespacesBillingUsersParamSchema,
+    t_CodespacesSetCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesSetCodespacesBillingUsersBodySchema
+    t_CodespacesSetCodespacesAccessUsersBodySchema
   >,
   ctx: Context,
 ) => Promise<
@@ -3487,11 +3397,11 @@ export type CodespacesSetCodespacesBillingUsers = (
   | Response<500, t_basic_error>
 >
 
-export type CodespacesDeleteCodespacesBillingUsers = (
+export type CodespacesDeleteCodespacesAccessUsers = (
   params: Params<
-    t_CodespacesDeleteCodespacesBillingUsersParamSchema,
+    t_CodespacesDeleteCodespacesAccessUsersParamSchema,
     void,
-    t_CodespacesDeleteCodespacesBillingUsersBodySchema
+    t_CodespacesDeleteCodespacesAccessUsersBodySchema
   >,
   ctx: Context,
 ) => Promise<
@@ -3600,6 +3510,122 @@ export type CodespacesRemoveSelectedRepoFromOrgSecret = (
   | Response<404, t_basic_error>
   | Response<409, void>
   | Response<422, t_validation_error>
+>
+
+export type CopilotGetCopilotOrganizationDetails = (
+  params: Params<t_CopilotGetCopilotOrganizationDetailsParamSchema, void, void>,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_copilot_organization_details>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type CopilotListCopilotSeats = (
+  params: Params<
+    t_CopilotListCopilotSeatsParamSchema,
+    t_CopilotListCopilotSeatsQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      200,
+      {
+        seats?: t_copilot_seat_details[]
+        total_seats?: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type CopilotAddCopilotForBusinessSeatsForTeams = (
+  params: Params<
+    t_CopilotAddCopilotForBusinessSeatsForTeamsParamSchema,
+    void,
+    t_CopilotAddCopilotForBusinessSeatsForTeamsBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      201,
+      {
+        seats_created: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, void>
+  | Response<500, t_basic_error>
+>
+
+export type CopilotCancelCopilotSeatAssignmentForTeams = (
+  params: Params<
+    t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
+    void,
+    t_CopilotCancelCopilotSeatAssignmentForTeamsBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      200,
+      {
+        seats_cancelled: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, void>
+  | Response<500, t_basic_error>
+>
+
+export type CopilotAddCopilotForBusinessSeatsForUsers = (
+  params: Params<
+    t_CopilotAddCopilotForBusinessSeatsForUsersParamSchema,
+    void,
+    t_CopilotAddCopilotForBusinessSeatsForUsersBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      201,
+      {
+        seats_created: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, void>
+  | Response<500, t_basic_error>
+>
+
+export type CopilotCancelCopilotSeatAssignmentForUsers = (
+  params: Params<
+    t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
+    void,
+    t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      200,
+      {
+        seats_cancelled: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, void>
+  | Response<500, t_basic_error>
 >
 
 export type DependabotListAlertsForOrg = (
@@ -3987,6 +4013,22 @@ export type CodespacesStopInOrganization = (
   | Response<500, t_basic_error>
 >
 
+export type CopilotGetCopilotSeatAssignmentDetailsForUser = (
+  params: Params<
+    t_CopilotGetCopilotSeatAssignmentDetailsForUserParamSchema,
+    void,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_copilot_seat_details>
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, void>
+  | Response<500, t_basic_error>
+>
+
 export type OrgsGetMembershipForUser = (
   params: Params<t_OrgsGetMembershipForUserParamSchema, void, void>,
   ctx: Context,
@@ -4198,6 +4240,124 @@ export type PackagesRestorePackageVersionForOrg = (
   | Response<404, t_basic_error>
 >
 
+export type OrgsListPatGrantRequests = (
+  params: Params<
+    t_OrgsListPatGrantRequestsParamSchema,
+    t_OrgsListPatGrantRequestsQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_organization_programmatic_access_grant_request[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsReviewPatGrantRequestsInBulk = (
+  params: Params<
+    t_OrgsReviewPatGrantRequestsInBulkParamSchema,
+    void,
+    t_OrgsReviewPatGrantRequestsInBulkBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<202, EmptyObject>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsReviewPatGrantRequest = (
+  params: Params<
+    t_OrgsReviewPatGrantRequestParamSchema,
+    void,
+    t_OrgsReviewPatGrantRequestBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrantRequestRepositories = (
+  params: Params<
+    t_OrgsListPatGrantRequestRepositoriesParamSchema,
+    t_OrgsListPatGrantRequestRepositoriesQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_minimal_repository[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrants = (
+  params: Params<
+    t_OrgsListPatGrantsParamSchema,
+    t_OrgsListPatGrantsQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_organization_programmatic_access_grant[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsUpdatePatAccesses = (
+  params: Params<
+    t_OrgsUpdatePatAccessesParamSchema,
+    void,
+    t_OrgsUpdatePatAccessesBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<202, EmptyObject>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsUpdatePatAccess = (
+  params: Params<
+    t_OrgsUpdatePatAccessParamSchema,
+    void,
+    t_OrgsUpdatePatAccessBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsListPatGrantRepositories = (
+  params: Params<
+    t_OrgsListPatGrantRepositoriesParamSchema,
+    t_OrgsListPatGrantRepositoriesQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_minimal_repository[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type ProjectsListForOrg = (
   params: Params<
     t_ProjectsListForOrgParamSchema,
@@ -4280,7 +4440,11 @@ export type ReposCreateInOrg = (
 >
 
 export type ReposGetOrgRulesets = (
-  params: Params<t_ReposGetOrgRulesetsParamSchema, void, void>,
+  params: Params<
+    t_ReposGetOrgRulesetsParamSchema,
+    t_ReposGetOrgRulesetsQuerySchema,
+    void
+  >,
   ctx: Context,
 ) => Promise<
   | Response<200, t_repository_ruleset[]>
@@ -4350,6 +4514,19 @@ export type SecretScanningListAlertsForOrg = (
         message?: string
       }
     >
+>
+
+export type SecurityAdvisoriesListOrgRepositoryAdvisories = (
+  params: Params<
+    t_SecurityAdvisoriesListOrgRepositoryAdvisoriesParamSchema,
+    t_SecurityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<200, t_repository_advisory[]>
+  | Response<400, t_scim_error>
+  | Response<404, t_basic_error>
 >
 
 export type OrgsListSecurityManagerTeams = (
@@ -4664,7 +4841,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   params: Params<
     t_OrgsEnableOrDisableSecurityProductOnAllOrgReposParamSchema,
     void,
-    void
+    t_OrgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema | undefined
   >,
   ctx: Context,
 ) => Promise<Response<204, void> | Response<422, void>>
@@ -4991,36 +5168,6 @@ export type RateLimitGet = (
   | Response<404, t_basic_error>
 >
 
-export type ActionsListRepoRequiredWorkflows = (
-  params: Params<
-    t_ActionsListRepoRequiredWorkflowsParamSchema,
-    t_ActionsListRepoRequiredWorkflowsQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  | Response<
-      200,
-      {
-        required_workflows: t_repo_required_workflow[]
-        total_count: number
-      }
-    >
-  | Response<404, t_basic_error>
->
-
-export type ActionsGetRepoRequiredWorkflow = (
-  params: Params<t_ActionsGetRepoRequiredWorkflowParamSchema, void, void>,
-  ctx: Context,
-) => Promise<
-  Response<200, t_repo_required_workflow> | Response<404, t_basic_error>
->
-
-export type ActionsGetRepoRequiredWorkflowUsage = (
-  params: Params<t_ActionsGetRepoRequiredWorkflowUsageParamSchema, void, void>,
-  ctx: Context,
-) => Promise<Response<200, t_workflow_usage> | Response<404, t_basic_error>>
-
 export type ReposGet = (
   params: Params<t_ReposGetParamSchema, void, void>,
   ctx: Context,
@@ -5262,23 +5409,6 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsRepository = (
   ctx: Context,
 ) => Promise<Response<204, void> | Response<409, void>>
 
-export type ActionsListRequiredWorkflowRuns = (
-  params: Params<
-    t_ActionsListRequiredWorkflowRunsParamSchema,
-    t_ActionsListRequiredWorkflowRunsQuerySchema,
-    void
-  >,
-  ctx: Context,
-) => Promise<
-  Response<
-    200,
-    {
-      total_count: number
-      workflow_runs: t_workflow_run[]
-    }
-  >
->
-
 export type ActionsListSelfHostedRunnersForRepo = (
   params: Params<
     t_ActionsListSelfHostedRunnersForRepoParamSchema,
@@ -5300,6 +5430,25 @@ export type ActionsListRunnerApplicationsForRepo = (
   params: Params<t_ActionsListRunnerApplicationsForRepoParamSchema, void, void>,
   ctx: Context,
 ) => Promise<Response<200, t_runner_application[]>>
+
+export type ActionsGenerateRunnerJitconfigForRepo = (
+  params: Params<
+    t_ActionsGenerateRunnerJitconfigForRepoParamSchema,
+    void,
+    t_ActionsGenerateRunnerJitconfigForRepoBodySchema
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<
+      201,
+      {
+        encoded_jit_config: string
+        runner: t_runner
+      }
+    >
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error_simple>
+>
 
 export type ActionsCreateRegistrationTokenForRepo = (
   params: Params<
@@ -5751,6 +5900,17 @@ export type ActionsGetWorkflowUsage = (
   ctx: Context,
 ) => Promise<Response<200, t_workflow_usage>>
 
+export type ReposListActivities = (
+  params: Params<
+    t_ReposListActivitiesParamSchema,
+    t_ReposListActivitiesQuerySchema,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  Response<200, t_activity[]> | Response<422, t_validation_error_simple>
+>
+
 export type IssuesListAssignees = (
   params: Params<
     t_IssuesListAssigneesParamSchema,
@@ -5792,6 +5952,13 @@ export type ReposDeleteAutolink = (
   params: Params<t_ReposDeleteAutolinkParamSchema, void, void>,
   ctx: Context,
 ) => Promise<Response<204, void> | Response<404, t_basic_error>>
+
+export type ReposCheckAutomatedSecurityFixes = (
+  params: Params<t_ReposCheckAutomatedSecurityFixesParamSchema, void, void>,
+  ctx: Context,
+) => Promise<
+  Response<200, t_check_automated_security_fixes> | Response<404, void>
+>
 
 export type ReposEnableAutomatedSecurityFixes = (
   params: Params<t_ReposEnableAutomatedSecurityFixesParamSchema, void, void>,
@@ -6649,7 +6816,11 @@ export type ReposAddCollaborator = (
 export type ReposRemoveCollaborator = (
   params: Params<t_ReposRemoveCollaboratorParamSchema, void, void>,
   ctx: Context,
-) => Promise<Response<204, void>>
+) => Promise<
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<422, t_validation_error>
+>
 
 export type ReposGetCollaboratorPermissionLevel = (
   params: Params<t_ReposGetCollaboratorPermissionLevelParamSchema, void, void>,
@@ -7667,6 +7838,7 @@ export type IssuesCreate = (
   ctx: Context,
 ) => Promise<
   | Response<201, t_issue>
+  | Response<400, t_scim_error>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<410, t_basic_error>
@@ -8062,16 +8234,6 @@ export type ReposListLanguages = (
   ctx: Context,
 ) => Promise<Response<200, t_language>>
 
-export type ReposEnableLfsForRepo = (
-  params: Params<t_ReposEnableLfsForRepoParamSchema, void, void>,
-  ctx: Context,
-) => Promise<Response<202, EmptyObject> | Response<403, void>>
-
-export type ReposDisableLfsForRepo = (
-  params: Params<t_ReposDisableLfsForRepoParamSchema, void, void>,
-  ctx: Context,
-) => Promise<Response<204, void>>
-
 export type LicensesGetForRepo = (
   params: Params<t_LicensesGetForRepoParamSchema, void, void>,
   ctx: Context,
@@ -8267,6 +8429,24 @@ export type ReposGetPagesHealthCheck = (
   | Response<404, t_basic_error>
   | Response<422, void>
 >
+
+export type ReposEnablePrivateVulnerabilityReporting = (
+  params: Params<
+    t_ReposEnablePrivateVulnerabilityReportingParamSchema,
+    void,
+    void
+  >,
+  ctx: Context,
+) => Promise<Response<204, void> | Response<422, t_scim_error>>
+
+export type ReposDisablePrivateVulnerabilityReporting = (
+  params: Params<
+    t_ReposDisablePrivateVulnerabilityReportingParamSchema,
+    void,
+    void
+  >,
+  ctx: Context,
+) => Promise<Response<204, void> | Response<422, t_scim_error>>
 
 export type ProjectsListForRepo = (
   params: Params<
@@ -8754,7 +8934,7 @@ export type ReposGetReleaseByTag = (
 export type ReposGetRelease = (
   params: Params<t_ReposGetReleaseParamSchema, void, void>,
   ctx: Context,
-) => Promise<Response<200, t_release> | Response<404, t_basic_error>>
+) => Promise<Response<200, t_release> | Response<401, void>>
 
 export type ReposUpdateRelease = (
   params: Params<
@@ -8816,9 +8996,13 @@ export type ReactionsDeleteForRelease = (
 ) => Promise<Response<204, void>>
 
 export type ReposGetBranchRules = (
-  params: Params<t_ReposGetBranchRulesParamSchema, void, void>,
+  params: Params<
+    t_ReposGetBranchRulesParamSchema,
+    t_ReposGetBranchRulesQuerySchema,
+    void
+  >,
   ctx: Context,
-) => Promise<Response<200, t_repository_rule[]>>
+) => Promise<Response<200, t_repository_rule_detailed[]>>
 
 export type ReposGetRepoRulesets = (
   params: Params<
@@ -9028,6 +9212,21 @@ export type SecurityAdvisoriesUpdateRepositoryAdvisory = (
   | Response<422, t_validation_error>
 >
 
+export type SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest = (
+  params: Params<
+    t_SecurityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
+    void,
+    void
+  >,
+  ctx: Context,
+) => Promise<
+  | Response<202, EmptyObject>
+  | Response<400, t_scim_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
 export type ActivityListStargazersForRepo = (
   params: Params<
     t_ActivityListStargazersForRepoParamSchema,
@@ -9168,7 +9367,7 @@ export type ReposListTeams = (
     void
   >,
   ctx: Context,
-) => Promise<Response<200, t_team[]>>
+) => Promise<Response<200, t_team[]> | Response<404, t_basic_error>>
 
 export type ReposGetAllTopics = (
   params: Params<
@@ -10376,6 +10575,7 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
   | Response<304, void>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
+  | Response<422, void>
 >
 
 export type InteractionsGetRestrictionsForAuthenticatedUser = (
@@ -11330,6 +11530,8 @@ export type MetaGetZen = (
 
 export type Implementation = {
   metaRoot: MetaRoot
+  securityAdvisoriesListGlobalAdvisories: SecurityAdvisoriesListGlobalAdvisories
+  securityAdvisoriesGetGlobalAdvisory: SecurityAdvisoriesGetGlobalAdvisory
   appsGetAuthenticated: AppsGetAuthenticated
   appsCreateFromManifest: AppsCreateFromManifest
   appsGetWebhookConfigForApp: AppsGetWebhookConfigForApp
@@ -11350,6 +11552,12 @@ export type Implementation = {
   appsDeleteToken: AppsDeleteToken
   appsScopeToken: AppsScopeToken
   appsGetBySlug: AppsGetBySlug
+  classroomGetAnAssignment: ClassroomGetAnAssignment
+  classroomListAcceptedAssigmentsForAnAssignment: ClassroomListAcceptedAssigmentsForAnAssignment
+  classroomGetAssignmentGrades: ClassroomGetAssignmentGrades
+  classroomListClassrooms: ClassroomListClassrooms
+  classroomGetAClassroom: ClassroomGetAClassroom
+  classroomListAssignmentsForAClassroom: ClassroomListAssignmentsForAClassroom
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   emojisGet: EmojisGet
@@ -11402,14 +11610,6 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
-  orgsListPatGrantRequests: OrgsListPatGrantRequests
-  orgsReviewPatGrantRequestsInBulk: OrgsReviewPatGrantRequestsInBulk
-  orgsReviewPatGrantRequest: OrgsReviewPatGrantRequest
-  orgsListPatGrantRequestRepositories: OrgsListPatGrantRequestRepositories
-  orgsListPatGrants: OrgsListPatGrants
-  orgsUpdatePatAccesses: OrgsUpdatePatAccesses
-  orgsUpdatePatAccess: OrgsUpdatePatAccess
-  orgsListPatGrantRepositories: OrgsListPatGrantRepositories
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
   orgsDelete: OrgsDelete
@@ -11427,17 +11627,9 @@ export type Implementation = {
   actionsSetAllowedActionsOrganization: ActionsSetAllowedActionsOrganization
   actionsGetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization
   actionsSetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization
-  actionsListRequiredWorkflows: ActionsListRequiredWorkflows
-  actionsCreateRequiredWorkflow: ActionsCreateRequiredWorkflow
-  actionsGetRequiredWorkflow: ActionsGetRequiredWorkflow
-  actionsUpdateRequiredWorkflow: ActionsUpdateRequiredWorkflow
-  actionsDeleteRequiredWorkflow: ActionsDeleteRequiredWorkflow
-  actionsListSelectedRepositoriesRequiredWorkflow: ActionsListSelectedRepositoriesRequiredWorkflow
-  actionsSetSelectedReposToRequiredWorkflow: ActionsSetSelectedReposToRequiredWorkflow
-  actionsAddSelectedRepoToRequiredWorkflow: ActionsAddSelectedRepoToRequiredWorkflow
-  actionsRemoveSelectedRepoFromRequiredWorkflow: ActionsRemoveSelectedRepoFromRequiredWorkflow
   actionsListSelfHostedRunnersForOrg: ActionsListSelfHostedRunnersForOrg
   actionsListRunnerApplicationsForOrg: ActionsListRunnerApplicationsForOrg
+  actionsGenerateRunnerJitconfigForOrg: ActionsGenerateRunnerJitconfigForOrg
   actionsCreateRegistrationTokenForOrg: ActionsCreateRegistrationTokenForOrg
   actionsCreateRemoveTokenForOrg: ActionsCreateRemoveTokenForOrg
   actionsGetSelfHostedRunnerForOrg: ActionsGetSelfHostedRunnerForOrg
@@ -11471,9 +11663,9 @@ export type Implementation = {
   orgsUnblockUser: OrgsUnblockUser
   codeScanningListAlertsForOrg: CodeScanningListAlertsForOrg
   codespacesListInOrganization: CodespacesListInOrganization
-  codespacesSetCodespacesBilling: CodespacesSetCodespacesBilling
-  codespacesSetCodespacesBillingUsers: CodespacesSetCodespacesBillingUsers
-  codespacesDeleteCodespacesBillingUsers: CodespacesDeleteCodespacesBillingUsers
+  codespacesSetCodespacesAccess: CodespacesSetCodespacesAccess
+  codespacesSetCodespacesAccessUsers: CodespacesSetCodespacesAccessUsers
+  codespacesDeleteCodespacesAccessUsers: CodespacesDeleteCodespacesAccessUsers
   codespacesListOrgSecrets: CodespacesListOrgSecrets
   codespacesGetOrgPublicKey: CodespacesGetOrgPublicKey
   codespacesGetOrgSecret: CodespacesGetOrgSecret
@@ -11483,6 +11675,12 @@ export type Implementation = {
   codespacesSetSelectedReposForOrgSecret: CodespacesSetSelectedReposForOrgSecret
   codespacesAddSelectedRepoToOrgSecret: CodespacesAddSelectedRepoToOrgSecret
   codespacesRemoveSelectedRepoFromOrgSecret: CodespacesRemoveSelectedRepoFromOrgSecret
+  copilotGetCopilotOrganizationDetails: CopilotGetCopilotOrganizationDetails
+  copilotListCopilotSeats: CopilotListCopilotSeats
+  copilotAddCopilotForBusinessSeatsForTeams: CopilotAddCopilotForBusinessSeatsForTeams
+  copilotCancelCopilotSeatAssignmentForTeams: CopilotCancelCopilotSeatAssignmentForTeams
+  copilotAddCopilotForBusinessSeatsForUsers: CopilotAddCopilotForBusinessSeatsForUsers
+  copilotCancelCopilotSeatAssignmentForUsers: CopilotCancelCopilotSeatAssignmentForUsers
   dependabotListAlertsForOrg: DependabotListAlertsForOrg
   dependabotListOrgSecrets: DependabotListOrgSecrets
   dependabotGetOrgPublicKey: DependabotGetOrgPublicKey
@@ -11523,6 +11721,7 @@ export type Implementation = {
   codespacesGetCodespacesForUserInOrg: CodespacesGetCodespacesForUserInOrg
   codespacesDeleteFromOrganization: CodespacesDeleteFromOrganization
   codespacesStopInOrganization: CodespacesStopInOrganization
+  copilotGetCopilotSeatAssignmentDetailsForUser: CopilotGetCopilotSeatAssignmentDetailsForUser
   orgsGetMembershipForUser: OrgsGetMembershipForUser
   orgsSetMembershipForUser: OrgsSetMembershipForUser
   orgsRemoveMembershipForUser: OrgsRemoveMembershipForUser
@@ -11544,6 +11743,14 @@ export type Implementation = {
   packagesGetPackageVersionForOrganization: PackagesGetPackageVersionForOrganization
   packagesDeletePackageVersionForOrg: PackagesDeletePackageVersionForOrg
   packagesRestorePackageVersionForOrg: PackagesRestorePackageVersionForOrg
+  orgsListPatGrantRequests: OrgsListPatGrantRequests
+  orgsReviewPatGrantRequestsInBulk: OrgsReviewPatGrantRequestsInBulk
+  orgsReviewPatGrantRequest: OrgsReviewPatGrantRequest
+  orgsListPatGrantRequestRepositories: OrgsListPatGrantRequestRepositories
+  orgsListPatGrants: OrgsListPatGrants
+  orgsUpdatePatAccesses: OrgsUpdatePatAccesses
+  orgsUpdatePatAccess: OrgsUpdatePatAccess
+  orgsListPatGrantRepositories: OrgsListPatGrantRepositories
   projectsListForOrg: ProjectsListForOrg
   projectsCreateForOrg: ProjectsCreateForOrg
   orgsListPublicMembers: OrgsListPublicMembers
@@ -11558,6 +11765,7 @@ export type Implementation = {
   reposUpdateOrgRuleset: ReposUpdateOrgRuleset
   reposDeleteOrgRuleset: ReposDeleteOrgRuleset
   secretScanningListAlertsForOrg: SecretScanningListAlertsForOrg
+  securityAdvisoriesListOrgRepositoryAdvisories: SecurityAdvisoriesListOrgRepositoryAdvisories
   orgsListSecurityManagerTeams: OrgsListSecurityManagerTeams
   orgsAddSecurityManagerTeam: OrgsAddSecurityManagerTeam
   orgsRemoveSecurityManagerTeam: OrgsRemoveSecurityManagerTeam
@@ -11620,9 +11828,6 @@ export type Implementation = {
   projectsListColumns: ProjectsListColumns
   projectsCreateColumn: ProjectsCreateColumn
   rateLimitGet: RateLimitGet
-  actionsListRepoRequiredWorkflows: ActionsListRepoRequiredWorkflows
-  actionsGetRepoRequiredWorkflow: ActionsGetRepoRequiredWorkflow
-  actionsGetRepoRequiredWorkflowUsage: ActionsGetRepoRequiredWorkflowUsage
   reposGet: ReposGet
   reposUpdate: ReposUpdate
   reposDelete: ReposDelete
@@ -11649,9 +11854,9 @@ export type Implementation = {
   actionsSetAllowedActionsRepository: ActionsSetAllowedActionsRepository
   actionsGetGithubActionsDefaultWorkflowPermissionsRepository: ActionsGetGithubActionsDefaultWorkflowPermissionsRepository
   actionsSetGithubActionsDefaultWorkflowPermissionsRepository: ActionsSetGithubActionsDefaultWorkflowPermissionsRepository
-  actionsListRequiredWorkflowRuns: ActionsListRequiredWorkflowRuns
   actionsListSelfHostedRunnersForRepo: ActionsListSelfHostedRunnersForRepo
   actionsListRunnerApplicationsForRepo: ActionsListRunnerApplicationsForRepo
+  actionsGenerateRunnerJitconfigForRepo: ActionsGenerateRunnerJitconfigForRepo
   actionsCreateRegistrationTokenForRepo: ActionsCreateRegistrationTokenForRepo
   actionsCreateRemoveTokenForRepo: ActionsCreateRemoveTokenForRepo
   actionsGetSelfHostedRunnerForRepo: ActionsGetSelfHostedRunnerForRepo
@@ -11697,12 +11902,14 @@ export type Implementation = {
   actionsEnableWorkflow: ActionsEnableWorkflow
   actionsListWorkflowRuns: ActionsListWorkflowRuns
   actionsGetWorkflowUsage: ActionsGetWorkflowUsage
+  reposListActivities: ReposListActivities
   issuesListAssignees: IssuesListAssignees
   issuesCheckUserCanBeAssigned: IssuesCheckUserCanBeAssigned
   reposListAutolinks: ReposListAutolinks
   reposCreateAutolink: ReposCreateAutolink
   reposGetAutolink: ReposGetAutolink
   reposDeleteAutolink: ReposDeleteAutolink
+  reposCheckAutomatedSecurityFixes: ReposCheckAutomatedSecurityFixes
   reposEnableAutomatedSecurityFixes: ReposEnableAutomatedSecurityFixes
   reposDisableAutomatedSecurityFixes: ReposDisableAutomatedSecurityFixes
   reposListBranches: ReposListBranches
@@ -11919,8 +12126,6 @@ export type Implementation = {
   issuesUpdateLabel: IssuesUpdateLabel
   issuesDeleteLabel: IssuesDeleteLabel
   reposListLanguages: ReposListLanguages
-  reposEnableLfsForRepo: ReposEnableLfsForRepo
-  reposDisableLfsForRepo: ReposDisableLfsForRepo
   licensesGetForRepo: LicensesGetForRepo
   reposMergeUpstream: ReposMergeUpstream
   reposMerge: ReposMerge
@@ -11942,6 +12147,8 @@ export type Implementation = {
   reposGetPagesBuild: ReposGetPagesBuild
   reposCreatePagesDeployment: ReposCreatePagesDeployment
   reposGetPagesHealthCheck: ReposGetPagesHealthCheck
+  reposEnablePrivateVulnerabilityReporting: ReposEnablePrivateVulnerabilityReporting
+  reposDisablePrivateVulnerabilityReporting: ReposDisablePrivateVulnerabilityReporting
   projectsListForRepo: ProjectsListForRepo
   projectsCreateForRepo: ProjectsCreateForRepo
   pullsList: PullsList
@@ -12008,6 +12215,7 @@ export type Implementation = {
   securityAdvisoriesCreatePrivateVulnerabilityReport: SecurityAdvisoriesCreatePrivateVulnerabilityReport
   securityAdvisoriesGetRepositoryAdvisory: SecurityAdvisoriesGetRepositoryAdvisory
   securityAdvisoriesUpdateRepositoryAdvisory: SecurityAdvisoriesUpdateRepositoryAdvisory
+  securityAdvisoriesCreateRepositoryAdvisoryCveRequest: SecurityAdvisoriesCreateRepositoryAdvisoryCveRequest
   activityListStargazersForRepo: ActivityListStargazersForRepo
   reposGetCodeFrequencyStats: ReposGetCodeFrequencyStats
   reposGetCommitActivityStats: ReposGetCommitActivityStats
@@ -12245,6 +12453,115 @@ export function bootstrap(
     ctx.status = status
     return next()
   })
+
+  const securityAdvisoriesListGlobalAdvisoriesQuerySchema = z.object({
+    ghsa_id: z.coerce.string().optional(),
+    type: z.enum(["reviewed", "malware", "unreviewed"]).optional(),
+    cve_id: z.coerce.string().optional(),
+    ecosystem: z
+      .enum([
+        "actions",
+        "composer",
+        "erlang",
+        "go",
+        "maven",
+        "npm",
+        "nuget",
+        "other",
+        "pip",
+        "pub",
+        "rubygems",
+        "rust",
+      ])
+      .optional(),
+    severity: z
+      .enum(["unknown", "low", "medium", "high", "critical"])
+      .optional(),
+    cwes: z.union([z.coerce.string(), z.array(z.coerce.string())]),
+    is_withdrawn: z.coerce.boolean().optional(),
+    affects: z.union([z.coerce.string(), z.array(z.coerce.string())]),
+    published: z.coerce.string().optional(),
+    updated: z.coerce.string().optional(),
+    modified: z.coerce.string().optional(),
+    before: z.coerce.string().optional(),
+    after: z.coerce.string().optional(),
+    direction: z.enum(["asc", "desc"]).optional(),
+    per_page: z.coerce.number().optional(),
+    sort: z.enum(["updated", "published"]).optional(),
+  })
+
+  const securityAdvisoriesListGlobalAdvisoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_global_advisory)],
+        ["422", s_validation_error_simple],
+        ["429", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "securityAdvisoriesListGlobalAdvisories",
+    "/advisories",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          securityAdvisoriesListGlobalAdvisoriesQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesListGlobalAdvisories(input, ctx)
+
+      ctx.body = securityAdvisoriesListGlobalAdvisoriesResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const securityAdvisoriesGetGlobalAdvisoryParamSchema = z.object({
+    ghsa_id: z.coerce.string(),
+  })
+
+  const securityAdvisoriesGetGlobalAdvisoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_global_advisory],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "securityAdvisoriesGetGlobalAdvisory",
+    "/advisories/:ghsaId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesGetGlobalAdvisoryParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesGetGlobalAdvisory(input, ctx)
+
+      ctx.body = securityAdvisoriesGetGlobalAdvisoryResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
 
   const appsGetAuthenticatedResponseValidator = responseValidationFactory(
     [["200", s_integration]],
@@ -12955,6 +13272,230 @@ export function bootstrap(
     ctx.status = status
     return next()
   })
+
+  const classroomGetAnAssignmentParamSchema = z.object({
+    assignment_id: z.coerce.number(),
+  })
+
+  const classroomGetAnAssignmentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_classroom_assignment],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "classroomGetAnAssignment",
+    "/assignments/:assignmentId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          classroomGetAnAssignmentParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.classroomGetAnAssignment(
+        input,
+        ctx,
+      )
+
+      ctx.body = classroomGetAnAssignmentResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const classroomListAcceptedAssigmentsForAnAssignmentParamSchema = z.object({
+    assignment_id: z.coerce.number(),
+  })
+
+  const classroomListAcceptedAssigmentsForAnAssignmentQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const classroomListAcceptedAssigmentsForAnAssignmentResponseValidator =
+    responseValidationFactory(
+      [["200", z.array(s_classroom_accepted_assignment)]],
+      undefined,
+    )
+
+  router.get(
+    "classroomListAcceptedAssigmentsForAnAssignment",
+    "/assignments/:assignmentId/accepted_assignments",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          classroomListAcceptedAssigmentsForAnAssignmentParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          classroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.classroomListAcceptedAssigmentsForAnAssignment(
+          input,
+          ctx,
+        )
+
+      ctx.body =
+        classroomListAcceptedAssigmentsForAnAssignmentResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const classroomGetAssignmentGradesParamSchema = z.object({
+    assignment_id: z.coerce.number(),
+  })
+
+  const classroomGetAssignmentGradesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_classroom_assignment_grade)],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "classroomGetAssignmentGrades",
+    "/assignments/:assignmentId/grades",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          classroomGetAssignmentGradesParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.classroomGetAssignmentGrades(input, ctx)
+
+      ctx.body = classroomGetAssignmentGradesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const classroomListClassroomsQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const classroomListClassroomsResponseValidator = responseValidationFactory(
+    [["200", z.array(s_simple_classroom)]],
+    undefined,
+  )
+
+  router.get("classroomListClassrooms", "/classrooms", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(classroomListClassroomsQuerySchema, ctx.query),
+      body: undefined,
+    }
+
+    const { status, body } = await implementation.classroomListClassrooms(
+      input,
+      ctx,
+    )
+
+    ctx.body = classroomListClassroomsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const classroomGetAClassroomParamSchema = z.object({
+    classroom_id: z.coerce.number(),
+  })
+
+  const classroomGetAClassroomResponseValidator = responseValidationFactory(
+    [
+      ["200", s_classroom],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "classroomGetAClassroom",
+    "/classrooms/:classroomId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          classroomGetAClassroomParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.classroomGetAClassroom(
+        input,
+        ctx,
+      )
+
+      ctx.body = classroomGetAClassroomResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const classroomListAssignmentsForAClassroomParamSchema = z.object({
+    classroom_id: z.coerce.number(),
+  })
+
+  const classroomListAssignmentsForAClassroomQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const classroomListAssignmentsForAClassroomResponseValidator =
+    responseValidationFactory(
+      [["200", z.array(s_simple_classroom_assignment)]],
+      undefined,
+    )
+
+  router.get(
+    "classroomListAssignmentsForAClassroom",
+    "/classrooms/:classroomId/assignments",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          classroomListAssignmentsForAClassroomParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          classroomListAssignmentsForAClassroomQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.classroomListAssignmentsForAClassroom(input, ctx)
+
+      ctx.body = classroomListAssignmentsForAClassroomResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
 
   const codesOfConductGetAllCodesOfConductResponseValidator =
     responseValidationFactory(
@@ -14771,380 +15312,6 @@ export function bootstrap(
     return next()
   })
 
-  const orgsListPatGrantRequestsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const orgsListPatGrantRequestsQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    sort: z.enum(["created_at"]).optional(),
-    direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.coerce.string()).optional(),
-    repository: z.coerce.string().optional(),
-    permission: z.coerce.string().optional(),
-    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
-    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
-  })
-
-  const orgsListPatGrantRequestsResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_organization_programmatic_access_grant_request)],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "orgsListPatGrantRequests",
-    "/organizations/:org/personal-access-token-requests",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          orgsListPatGrantRequestsParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          orgsListPatGrantRequestsQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListPatGrantRequests(
-        input,
-        ctx,
-      )
-
-      ctx.body = orgsListPatGrantRequestsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsReviewPatGrantRequestsInBulkParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
-    pat_request_ids: z.array(z.coerce.number()).optional(),
-    action: z.enum(["approve", "deny"]),
-    reason: z.coerce.string().optional().nullable(),
-  })
-
-  const orgsReviewPatGrantRequestsInBulkResponseValidator =
-    responseValidationFactory(
-      [
-        ["202", z.object({})],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["422", s_validation_error],
-        ["500", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "orgsReviewPatGrantRequestsInBulk",
-    "/organizations/:org/personal-access-token-requests",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          orgsReviewPatGrantRequestsInBulkParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          orgsReviewPatGrantRequestsInBulkBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } =
-        await implementation.orgsReviewPatGrantRequestsInBulk(input, ctx)
-
-      ctx.body = orgsReviewPatGrantRequestsInBulkResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsReviewPatGrantRequestParamSchema = z.object({
-    org: z.coerce.string(),
-    pat_request_id: z.coerce.number(),
-  })
-
-  const orgsReviewPatGrantRequestBodySchema = z.object({
-    action: z.enum(["approve", "deny"]),
-    reason: z.coerce.string().optional().nullable(),
-  })
-
-  const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
-    [
-      ["204", z.void()],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "orgsReviewPatGrantRequest",
-    "/organizations/:org/personal-access-token-requests/:patRequestId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          orgsReviewPatGrantRequestParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          orgsReviewPatGrantRequestBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } = await implementation.orgsReviewPatGrantRequest(
-        input,
-        ctx,
-      )
-
-      ctx.body = orgsReviewPatGrantRequestResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsListPatGrantRequestRepositoriesParamSchema = z.object({
-    org: z.coerce.string(),
-    pat_request_id: z.coerce.number(),
-  })
-
-  const orgsListPatGrantRequestRepositoriesQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-  })
-
-  const orgsListPatGrantRequestRepositoriesResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", z.array(s_minimal_repository)],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["500", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "orgsListPatGrantRequestRepositories",
-    "/organizations/:org/personal-access-token-requests/:patRequestId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          orgsListPatGrantRequestRepositoriesParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          orgsListPatGrantRequestRepositoriesQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.orgsListPatGrantRequestRepositories(input, ctx)
-
-      ctx.body = orgsListPatGrantRequestRepositoriesResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsListPatGrantsParamSchema = z.object({ org: z.coerce.string() })
-
-  const orgsListPatGrantsQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    sort: z.enum(["created_at"]).optional(),
-    direction: z.enum(["asc", "desc"]).optional(),
-    owner: z.array(z.coerce.string()).optional(),
-    repository: z.coerce.string().optional(),
-    permission: z.coerce.string().optional(),
-    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
-    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
-  })
-
-  const orgsListPatGrantsResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_organization_programmatic_access_grant)],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "orgsListPatGrants",
-    "/organizations/:org/personal-access-tokens",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(orgsListPatGrantsParamSchema, ctx.params),
-        query: parseRequestInput(orgsListPatGrantsQuerySchema, ctx.query),
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.orgsListPatGrants(
-        input,
-        ctx,
-      )
-
-      ctx.body = orgsListPatGrantsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsUpdatePatAccessesParamSchema = z.object({ org: z.coerce.string() })
-
-  const orgsUpdatePatAccessesBodySchema = z.object({
-    action: z.enum(["revoke"]),
-    pat_ids: z.array(z.coerce.number()),
-  })
-
-  const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
-    [
-      ["202", z.object({})],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "orgsUpdatePatAccesses",
-    "/organizations/:org/personal-access-tokens",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(orgsUpdatePatAccessesParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(
-          orgsUpdatePatAccessesBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } = await implementation.orgsUpdatePatAccesses(
-        input,
-        ctx,
-      )
-
-      ctx.body = orgsUpdatePatAccessesResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsUpdatePatAccessParamSchema = z.object({
-    org: z.coerce.string(),
-    pat_id: z.coerce.number(),
-  })
-
-  const orgsUpdatePatAccessBodySchema = z.object({ action: z.enum(["revoke"]) })
-
-  const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
-    [
-      ["204", z.void()],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "orgsUpdatePatAccess",
-    "/organizations/:org/personal-access-tokens/:patId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(orgsUpdatePatAccessParamSchema, ctx.params),
-        query: undefined,
-        body: parseRequestInput(
-          orgsUpdatePatAccessBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } = await implementation.orgsUpdatePatAccess(
-        input,
-        ctx,
-      )
-
-      ctx.body = orgsUpdatePatAccessResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const orgsListPatGrantRepositoriesParamSchema = z.object({
-    org: z.coerce.string(),
-    pat_id: z.coerce.number(),
-  })
-
-  const orgsListPatGrantRepositoriesQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-  })
-
-  const orgsListPatGrantRepositoriesResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", z.array(s_minimal_repository)],
-        ["403", s_basic_error],
-        ["404", s_basic_error],
-        ["500", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "orgsListPatGrantRepositories",
-    "/organizations/:org/personal-access-tokens/:patId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          orgsListPatGrantRepositoriesParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          orgsListPatGrantRepositoriesQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.orgsListPatGrantRepositories(input, ctx)
-
-      ctx.body = orgsListPatGrantRepositoriesResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
   const orgsGetParamSchema = z.object({ org: z.coerce.string() })
 
   const orgsGetResponseValidator = responseValidationFactory(
@@ -15832,394 +15999,12 @@ export function bootstrap(
     },
   )
 
-  const actionsListRequiredWorkflowsParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const actionsListRequiredWorkflowsQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-  })
-
-  const actionsListRequiredWorkflowsResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            required_workflows: z.array(s_required_workflow),
-          }),
-        ],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsListRequiredWorkflows",
-    "/orgs/:org/actions/required_workflows",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListRequiredWorkflowsParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          actionsListRequiredWorkflowsQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListRequiredWorkflows(input, ctx)
-
-      ctx.body = actionsListRequiredWorkflowsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsCreateRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-  })
-
-  const actionsCreateRequiredWorkflowBodySchema = z.object({
-    workflow_file_path: z.coerce.string(),
-    repository_id: z.coerce.string(),
-    scope: z.enum(["selected", "all"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
-
-  const actionsCreateRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        ["201", s_required_workflow],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
-
-  router.post(
-    "actionsCreateRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsCreateRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsCreateRequiredWorkflowBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsCreateRequiredWorkflow(input, ctx)
-
-      ctx.body = actionsCreateRequiredWorkflowResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsGetRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-  })
-
-  const actionsGetRequiredWorkflowResponseValidator = responseValidationFactory(
-    [["200", s_required_workflow]],
-    undefined,
-  )
-
-  router.get(
-    "actionsGetRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsGetRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.actionsGetRequiredWorkflow(
-        input,
-        ctx,
-      )
-
-      ctx.body = actionsGetRequiredWorkflowResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsUpdateRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-  })
-
-  const actionsUpdateRequiredWorkflowBodySchema = z.object({
-    workflow_file_path: z.coerce.string().optional(),
-    repository_id: z.coerce.string().optional(),
-    scope: z.enum(["selected", "all"]).optional(),
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
-  })
-
-  const actionsUpdateRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_required_workflow],
-        ["422", s_validation_error_simple],
-      ],
-      undefined,
-    )
-
-  router.patch(
-    "actionsUpdateRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsUpdateRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsUpdateRequiredWorkflowBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsUpdateRequiredWorkflow(input, ctx)
-
-      ctx.body = actionsUpdateRequiredWorkflowResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsDeleteRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-  })
-
-  const actionsDeleteRequiredWorkflowResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.delete(
-    "actionsDeleteRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsDeleteRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsDeleteRequiredWorkflow(input, ctx)
-
-      ctx.body = actionsDeleteRequiredWorkflowResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsListSelectedRepositoriesRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-  })
-
-  const actionsListSelectedRepositoriesRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            repositories: z.array(s_repository),
-          }),
-        ],
-        ["404", z.void()],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsListSelectedRepositoriesRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListSelectedRepositoriesRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListSelectedRepositoriesRequiredWorkflow(
-          input,
-          ctx,
-        )
-
-      ctx.body =
-        actionsListSelectedRepositoriesRequiredWorkflowResponseValidator(
-          status,
-          body,
-        )
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsSetSelectedReposToRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-  })
-
-  const actionsSetSelectedReposToRequiredWorkflowBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()),
-  })
-
-  const actionsSetSelectedReposToRequiredWorkflowResponseValidator =
-    responseValidationFactory([["204", z.void()]], undefined)
-
-  router.put(
-    "actionsSetSelectedReposToRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsSetSelectedReposToRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          actionsSetSelectedReposToRequiredWorkflowBodySchema,
-          ctx.request.body,
-        ),
-      }
-
-      const { status, body } =
-        await implementation.actionsSetSelectedReposToRequiredWorkflow(
-          input,
-          ctx,
-        )
-
-      ctx.body = actionsSetSelectedReposToRequiredWorkflowResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsAddSelectedRepoToRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-    repository_id: z.coerce.number(),
-  })
-
-  const actionsAddSelectedRepoToRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["404", z.void()],
-        ["422", z.void()],
-      ],
-      undefined,
-    )
-
-  router.put(
-    "actionsAddSelectedRepoToRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsAddSelectedRepoToRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsAddSelectedRepoToRequiredWorkflow(
-          input,
-          ctx,
-        )
-
-      ctx.body = actionsAddSelectedRepoToRequiredWorkflowResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    required_workflow_id: z.coerce.number(),
-    repository_id: z.coerce.number(),
-  })
-
-  const actionsRemoveSelectedRepoFromRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        ["204", z.void()],
-        ["404", z.void()],
-        ["422", z.void()],
-      ],
-      undefined,
-    )
-
-  router.delete(
-    "actionsRemoveSelectedRepoFromRequiredWorkflow",
-    "/orgs/:org/actions/required_workflows/:requiredWorkflowId/repositories/:repositoryId",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsRemoveSelectedRepoFromRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsRemoveSelectedRepoFromRequiredWorkflow(
-          input,
-          ctx,
-        )
-
-      ctx.body = actionsRemoveSelectedRepoFromRequiredWorkflowResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
-    },
-  )
-
   const actionsListSelfHostedRunnersForOrgParamSchema = z.object({
     org: z.coerce.string(),
   })
 
   const actionsListSelfHostedRunnersForOrgQuerySchema = z.object({
+    name: z.coerce.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -16293,6 +16078,58 @@ export function bootstrap(
         await implementation.actionsListRunnerApplicationsForOrg(input, ctx)
 
       ctx.body = actionsListRunnerApplicationsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGenerateRunnerJitconfigForOrgParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const actionsGenerateRunnerJitconfigForOrgBodySchema = z.object({
+    name: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
+    labels: z.array(z.coerce.string()),
+    work_folder: z.coerce.string().optional(),
+  })
+
+  const actionsGenerateRunnerJitconfigForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "201",
+          z.object({ runner: s_runner, encoded_jit_config: z.coerce.string() }),
+        ],
+        ["404", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "actionsGenerateRunnerJitconfigForOrg",
+    "/orgs/:org/actions/runners/generate-jitconfig",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGenerateRunnerJitconfigForOrgParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsGenerateRunnerJitconfigForOrgBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.actionsGenerateRunnerJitconfigForOrg(input, ctx)
+
+      ctx.body = actionsGenerateRunnerJitconfigForOrgResponseValidator(
         status,
         body,
       )
@@ -17555,7 +17392,7 @@ export function bootstrap(
     page: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    state: s_code_scanning_alert_state,
+    state: s_code_scanning_alert_state_query,
     sort: z.enum(["created", "updated"]).optional(),
     severity: s_code_scanning_alert_severity,
   })
@@ -17655,11 +17492,11 @@ export function bootstrap(
     },
   )
 
-  const codespacesSetCodespacesBillingParamSchema = z.object({
+  const codespacesSetCodespacesAccessParamSchema = z.object({
     org: z.coerce.string(),
   })
 
-  const codespacesSetCodespacesBillingBodySchema = z.object({
+  const codespacesSetCodespacesAccessBodySchema = z.object({
     visibility: z.enum([
       "disabled",
       "selected_members",
@@ -17669,7 +17506,7 @@ export function bootstrap(
     selected_usernames: z.array(z.coerce.string()).optional(),
   })
 
-  const codespacesSetCodespacesBillingResponseValidator =
+  const codespacesSetCodespacesAccessResponseValidator =
     responseValidationFactory(
       [
         ["204", z.void()],
@@ -17683,39 +17520,39 @@ export function bootstrap(
     )
 
   router.put(
-    "codespacesSetCodespacesBilling",
-    "/orgs/:org/codespaces/billing",
+    "codespacesSetCodespacesAccess",
+    "/orgs/:org/codespaces/access",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          codespacesSetCodespacesBillingParamSchema,
+          codespacesSetCodespacesAccessParamSchema,
           ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesBillingBodySchema,
+          codespacesSetCodespacesAccessBodySchema,
           ctx.request.body,
         ),
       }
 
       const { status, body } =
-        await implementation.codespacesSetCodespacesBilling(input, ctx)
+        await implementation.codespacesSetCodespacesAccess(input, ctx)
 
-      ctx.body = codespacesSetCodespacesBillingResponseValidator(status, body)
+      ctx.body = codespacesSetCodespacesAccessResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const codespacesSetCodespacesBillingUsersParamSchema = z.object({
+  const codespacesSetCodespacesAccessUsersParamSchema = z.object({
     org: z.coerce.string(),
   })
 
-  const codespacesSetCodespacesBillingUsersBodySchema = z.object({
+  const codespacesSetCodespacesAccessUsersBodySchema = z.object({
     selected_usernames: z.array(z.coerce.string()),
   })
 
-  const codespacesSetCodespacesBillingUsersResponseValidator =
+  const codespacesSetCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
         ["204", z.void()],
@@ -17729,25 +17566,25 @@ export function bootstrap(
     )
 
   router.post(
-    "codespacesSetCodespacesBillingUsers",
-    "/orgs/:org/codespaces/billing/selected_users",
+    "codespacesSetCodespacesAccessUsers",
+    "/orgs/:org/codespaces/access/selected_users",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          codespacesSetCodespacesBillingUsersParamSchema,
+          codespacesSetCodespacesAccessUsersParamSchema,
           ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesSetCodespacesBillingUsersBodySchema,
+          codespacesSetCodespacesAccessUsersBodySchema,
           ctx.request.body,
         ),
       }
 
       const { status, body } =
-        await implementation.codespacesSetCodespacesBillingUsers(input, ctx)
+        await implementation.codespacesSetCodespacesAccessUsers(input, ctx)
 
-      ctx.body = codespacesSetCodespacesBillingUsersResponseValidator(
+      ctx.body = codespacesSetCodespacesAccessUsersResponseValidator(
         status,
         body,
       )
@@ -17756,15 +17593,15 @@ export function bootstrap(
     },
   )
 
-  const codespacesDeleteCodespacesBillingUsersParamSchema = z.object({
+  const codespacesDeleteCodespacesAccessUsersParamSchema = z.object({
     org: z.coerce.string(),
   })
 
-  const codespacesDeleteCodespacesBillingUsersBodySchema = z.object({
+  const codespacesDeleteCodespacesAccessUsersBodySchema = z.object({
     selected_usernames: z.array(z.coerce.string()),
   })
 
-  const codespacesDeleteCodespacesBillingUsersResponseValidator =
+  const codespacesDeleteCodespacesAccessUsersResponseValidator =
     responseValidationFactory(
       [
         ["204", z.void()],
@@ -17778,25 +17615,25 @@ export function bootstrap(
     )
 
   router.delete(
-    "codespacesDeleteCodespacesBillingUsers",
-    "/orgs/:org/codespaces/billing/selected_users",
+    "codespacesDeleteCodespacesAccessUsers",
+    "/orgs/:org/codespaces/access/selected_users",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          codespacesDeleteCodespacesBillingUsersParamSchema,
+          codespacesDeleteCodespacesAccessUsersParamSchema,
           ctx.params,
         ),
         query: undefined,
         body: parseRequestInput(
-          codespacesDeleteCodespacesBillingUsersBodySchema,
+          codespacesDeleteCodespacesAccessUsersBodySchema,
           ctx.request.body,
         ),
       }
 
       const { status, body } =
-        await implementation.codespacesDeleteCodespacesBillingUsers(input, ctx)
+        await implementation.codespacesDeleteCodespacesAccessUsers(input, ctx)
 
-      ctx.body = codespacesDeleteCodespacesBillingUsersResponseValidator(
+      ctx.body = codespacesDeleteCodespacesAccessUsersResponseValidator(
         status,
         body,
       )
@@ -18188,6 +18025,305 @@ export function bootstrap(
         )
 
       ctx.body = codespacesRemoveSelectedRepoFromOrgSecretResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotGetCopilotOrganizationDetailsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotGetCopilotOrganizationDetailsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_organization_details],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotGetCopilotOrganizationDetails",
+    "/orgs/:org/copilot/billing",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotGetCopilotOrganizationDetailsParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.copilotGetCopilotOrganizationDetails(input, ctx)
+
+      ctx.body = copilotGetCopilotOrganizationDetailsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotListCopilotSeatsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotListCopilotSeatsQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const copilotListCopilotSeatsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          total_seats: z.coerce.number().optional(),
+          seats: z.array(s_copilot_seat_details).optional(),
+        }),
+      ],
+      ["401", s_basic_error],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "copilotListCopilotSeats",
+    "/orgs/:org/copilot/billing/seats",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotListCopilotSeatsParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(copilotListCopilotSeatsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.copilotListCopilotSeats(
+        input,
+        ctx,
+      )
+
+      ctx.body = copilotListCopilotSeatsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotAddCopilotForBusinessSeatsForTeamsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotAddCopilotForBusinessSeatsForTeamsBodySchema = z.object({
+    selected_teams: z.array(z.coerce.string()),
+  })
+
+  const copilotAddCopilotForBusinessSeatsForTeamsResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", z.object({ seats_created: z.coerce.number() })],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", z.void()],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotAddCopilotForBusinessSeatsForTeams",
+    "/orgs/:org/copilot/billing/selected_teams",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotAddCopilotForBusinessSeatsForTeamsParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          copilotAddCopilotForBusinessSeatsForTeamsBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.copilotAddCopilotForBusinessSeatsForTeams(
+          input,
+          ctx,
+        )
+
+      ctx.body = copilotAddCopilotForBusinessSeatsForTeamsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotCancelCopilotSeatAssignmentForTeamsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotCancelCopilotSeatAssignmentForTeamsBodySchema = z.object({
+    selected_teams: z.array(z.coerce.string()),
+  })
+
+  const copilotCancelCopilotSeatAssignmentForTeamsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({ seats_cancelled: z.coerce.number() })],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", z.void()],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotCancelCopilotSeatAssignmentForTeams",
+    "/orgs/:org/copilot/billing/selected_teams",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCancelCopilotSeatAssignmentForTeamsParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          copilotCancelCopilotSeatAssignmentForTeamsBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.copilotCancelCopilotSeatAssignmentForTeams(
+          input,
+          ctx,
+        )
+
+      ctx.body = copilotCancelCopilotSeatAssignmentForTeamsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotAddCopilotForBusinessSeatsForUsersParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotAddCopilotForBusinessSeatsForUsersBodySchema = z.object({
+    selected_usernames: z.array(z.coerce.string()),
+  })
+
+  const copilotAddCopilotForBusinessSeatsForUsersResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", z.object({ seats_created: z.coerce.number() })],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", z.void()],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "copilotAddCopilotForBusinessSeatsForUsers",
+    "/orgs/:org/copilot/billing/selected_users",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotAddCopilotForBusinessSeatsForUsersParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          copilotAddCopilotForBusinessSeatsForUsersBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.copilotAddCopilotForBusinessSeatsForUsers(
+          input,
+          ctx,
+        )
+
+      ctx.body = copilotAddCopilotForBusinessSeatsForUsersResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotCancelCopilotSeatAssignmentForUsersParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const copilotCancelCopilotSeatAssignmentForUsersBodySchema = z.object({
+    selected_usernames: z.array(z.coerce.string()),
+  })
+
+  const copilotCancelCopilotSeatAssignmentForUsersResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.object({ seats_cancelled: z.coerce.number() })],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", z.void()],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "copilotCancelCopilotSeatAssignmentForUsers",
+    "/orgs/:org/copilot/billing/selected_users",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCancelCopilotSeatAssignmentForUsersParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          copilotCancelCopilotSeatAssignmentForUsersBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.copilotCancelCopilotSeatAssignmentForUsers(
+          input,
+          ctx,
+        )
+
+      ctx.body = copilotCancelCopilotSeatAssignmentForUsersResponseValidator(
         status,
         body,
       )
@@ -19809,6 +19945,52 @@ export function bootstrap(
     },
   )
 
+  const copilotGetCopilotSeatAssignmentDetailsForUserParamSchema = z.object({
+    org: z.coerce.string(),
+    username: z.coerce.string(),
+  })
+
+  const copilotGetCopilotSeatAssignmentDetailsForUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_copilot_seat_details],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", z.void()],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotGetCopilotSeatAssignmentDetailsForUser",
+    "/orgs/:org/members/:username/copilot",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotGetCopilotSeatAssignmentDetailsForUserParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.copilotGetCopilotSeatAssignmentDetailsForUser(
+          input,
+          ctx,
+        )
+
+      ctx.body = copilotGetCopilotSeatAssignmentDetailsForUserResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const orgsGetMembershipForUserParamSchema = z.object({
     org: z.coerce.string(),
     username: z.coerce.string(),
@@ -20749,6 +20931,380 @@ export function bootstrap(
     },
   )
 
+  const orgsListPatGrantRequestsParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const orgsListPatGrantRequestsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+    sort: z.enum(["created_at"]).optional(),
+    direction: z.enum(["asc", "desc"]).optional(),
+    owner: z.array(z.coerce.string()).optional(),
+    repository: z.coerce.string().optional(),
+    permission: z.coerce.string().optional(),
+    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
+    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+  })
+
+  const orgsListPatGrantRequestsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_organization_programmatic_access_grant_request)],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "orgsListPatGrantRequests",
+    "/orgs/:org/personal-access-token-requests",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRequestsParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRequestsQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListPatGrantRequests(
+        input,
+        ctx,
+      )
+
+      ctx.body = orgsListPatGrantRequestsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsReviewPatGrantRequestsInBulkParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const orgsReviewPatGrantRequestsInBulkBodySchema = z.object({
+    pat_request_ids: z.array(z.coerce.number()).optional(),
+    action: z.enum(["approve", "deny"]),
+    reason: z.coerce.string().optional().nullable(),
+  })
+
+  const orgsReviewPatGrantRequestsInBulkResponseValidator =
+    responseValidationFactory(
+      [
+        ["202", z.object({})],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "orgsReviewPatGrantRequestsInBulk",
+    "/orgs/:org/personal-access-token-requests",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsReviewPatGrantRequestsInBulkParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsReviewPatGrantRequestsInBulkBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.orgsReviewPatGrantRequestsInBulk(input, ctx)
+
+      ctx.body = orgsReviewPatGrantRequestsInBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsReviewPatGrantRequestParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_request_id: z.coerce.number(),
+  })
+
+  const orgsReviewPatGrantRequestBodySchema = z.object({
+    action: z.enum(["approve", "deny"]),
+    reason: z.coerce.string().optional().nullable(),
+  })
+
+  const orgsReviewPatGrantRequestResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsReviewPatGrantRequest",
+    "/orgs/:org/personal-access-token-requests/:patRequestId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsReviewPatGrantRequestParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsReviewPatGrantRequestBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } = await implementation.orgsReviewPatGrantRequest(
+        input,
+        ctx,
+      )
+
+      ctx.body = orgsReviewPatGrantRequestResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsListPatGrantRequestRepositoriesParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_request_id: z.coerce.number(),
+  })
+
+  const orgsListPatGrantRequestRepositoriesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const orgsListPatGrantRequestRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_minimal_repository)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsListPatGrantRequestRepositories",
+    "/orgs/:org/personal-access-token-requests/:patRequestId/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRequestRepositoriesParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRequestRepositoriesQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.orgsListPatGrantRequestRepositories(input, ctx)
+
+      ctx.body = orgsListPatGrantRequestRepositoriesResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsListPatGrantsParamSchema = z.object({ org: z.coerce.string() })
+
+  const orgsListPatGrantsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+    sort: z.enum(["created_at"]).optional(),
+    direction: z.enum(["asc", "desc"]).optional(),
+    owner: z.array(z.coerce.string()).optional(),
+    repository: z.coerce.string().optional(),
+    permission: z.coerce.string().optional(),
+    last_used_before: z.coerce.string().datetime({ offset: true }).optional(),
+    last_used_after: z.coerce.string().datetime({ offset: true }).optional(),
+  })
+
+  const orgsListPatGrantsResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_organization_programmatic_access_grant)],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "orgsListPatGrants",
+    "/orgs/:org/personal-access-tokens",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsListPatGrantsParamSchema, ctx.params),
+        query: parseRequestInput(orgsListPatGrantsQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.orgsListPatGrants(
+        input,
+        ctx,
+      )
+
+      ctx.body = orgsListPatGrantsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsUpdatePatAccessesParamSchema = z.object({ org: z.coerce.string() })
+
+  const orgsUpdatePatAccessesBodySchema = z.object({
+    action: z.enum(["revoke"]),
+    pat_ids: z.array(z.coerce.number()),
+  })
+
+  const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
+    [
+      ["202", z.object({})],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsUpdatePatAccesses",
+    "/orgs/:org/personal-access-tokens",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsUpdatePatAccessesParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdatePatAccessesBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } = await implementation.orgsUpdatePatAccesses(
+        input,
+        ctx,
+      )
+
+      ctx.body = orgsUpdatePatAccessesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsUpdatePatAccessParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_id: z.coerce.number(),
+  })
+
+  const orgsUpdatePatAccessBodySchema = z.object({ action: z.enum(["revoke"]) })
+
+  const orgsUpdatePatAccessResponseValidator = responseValidationFactory(
+    [
+      ["204", z.void()],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsUpdatePatAccess",
+    "/orgs/:org/personal-access-tokens/:patId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(orgsUpdatePatAccessParamSchema, ctx.params),
+        query: undefined,
+        body: parseRequestInput(
+          orgsUpdatePatAccessBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } = await implementation.orgsUpdatePatAccess(
+        input,
+        ctx,
+      )
+
+      ctx.body = orgsUpdatePatAccessResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsListPatGrantRepositoriesParamSchema = z.object({
+    org: z.coerce.string(),
+    pat_id: z.coerce.number(),
+  })
+
+  const orgsListPatGrantRepositoriesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
+  const orgsListPatGrantRepositoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_minimal_repository)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "orgsListPatGrantRepositories",
+    "/orgs/:org/personal-access-tokens/:patId/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListPatGrantRepositoriesParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          orgsListPatGrantRepositoriesQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.orgsListPatGrantRepositories(input, ctx)
+
+      ctx.body = orgsListPatGrantRepositoriesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const projectsListForOrgParamSchema = z.object({ org: z.coerce.string() })
 
   const projectsListForOrgQuerySchema = z.object({
@@ -21059,6 +21615,11 @@ export function bootstrap(
 
   const reposGetOrgRulesetsParamSchema = z.object({ org: z.coerce.string() })
 
+  const reposGetOrgRulesetsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
   const reposGetOrgRulesetsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_repository_ruleset)],
@@ -21074,7 +21635,7 @@ export function bootstrap(
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetOrgRulesetsParamSchema, ctx.params),
-        query: undefined,
+        query: parseRequestInput(reposGetOrgRulesetsQuerySchema, ctx.query),
         body: undefined,
       }
 
@@ -21305,6 +21866,60 @@ export function bootstrap(
         await implementation.secretScanningListAlertsForOrg(input, ctx)
 
       ctx.body = secretScanningListAlertsForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const securityAdvisoriesListOrgRepositoryAdvisoriesParamSchema = z.object({
+    org: z.coerce.string(),
+  })
+
+  const securityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema = z.object({
+    direction: z.enum(["asc", "desc"]).optional(),
+    sort: z.enum(["created", "updated", "published"]).optional(),
+    before: z.coerce.string().optional(),
+    after: z.coerce.string().optional(),
+    per_page: z.coerce.number().optional(),
+    state: z.enum(["triage", "draft", "published", "closed"]).optional(),
+  })
+
+  const securityAdvisoriesListOrgRepositoryAdvisoriesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_repository_advisory)],
+        ["400", s_scim_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "securityAdvisoriesListOrgRepositoryAdvisories",
+    "/orgs/:org/security-advisories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesListOrgRepositoryAdvisoriesParamSchema,
+          ctx.params,
+        ),
+        query: parseRequestInput(
+          securityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema,
+          ctx.query,
+        ),
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesListOrgRepositoryAdvisories(
+          input,
+          ctx,
+        )
+
+      ctx.body = securityAdvisoriesListOrgRepositoryAdvisoriesResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -22940,6 +23555,10 @@ export function bootstrap(
     enablement: z.enum(["enable_all", "disable_all"]),
   })
 
+  const orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema = z
+    .object({ query_suite: z.enum(["default", "extended"]).optional() })
+    .optional()
+
   const orgsEnableOrDisableSecurityProductOnAllOrgReposResponseValidator =
     responseValidationFactory(
       [
@@ -22959,7 +23578,10 @@ export function bootstrap(
           ctx.params,
         ),
         query: undefined,
-        body: undefined,
+        body: parseRequestInput(
+          orgsEnableOrDisableSecurityProductOnAllOrgReposBodySchema,
+          ctx.request.body,
+        ),
       }
 
       const { status, body } =
@@ -23801,133 +24423,6 @@ export function bootstrap(
     ctx.status = status
     return next()
   })
-
-  const actionsListRepoRequiredWorkflowsParamSchema = z.object({
-    org: z.coerce.string(),
-    repo: z.coerce.string(),
-  })
-
-  const actionsListRepoRequiredWorkflowsQuerySchema = z.object({
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-  })
-
-  const actionsListRepoRequiredWorkflowsResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            required_workflows: z.array(s_repo_required_workflow),
-          }),
-        ],
-        ["404", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsListRepoRequiredWorkflows",
-    "/repos/:org/:repo/actions/required_workflows",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListRepoRequiredWorkflowsParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          actionsListRepoRequiredWorkflowsQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListRepoRequiredWorkflows(input, ctx)
-
-      ctx.body = actionsListRepoRequiredWorkflowsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsGetRepoRequiredWorkflowParamSchema = z.object({
-    org: z.coerce.string(),
-    repo: z.coerce.string(),
-    required_workflow_id_for_repo: z.coerce.number(),
-  })
-
-  const actionsGetRepoRequiredWorkflowResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_repo_required_workflow],
-        ["404", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsGetRepoRequiredWorkflow",
-    "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsGetRepoRequiredWorkflowParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsGetRepoRequiredWorkflow(input, ctx)
-
-      ctx.body = actionsGetRepoRequiredWorkflowResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const actionsGetRepoRequiredWorkflowUsageParamSchema = z.object({
-    org: z.coerce.string(),
-    repo: z.coerce.string(),
-    required_workflow_id_for_repo: z.coerce.number(),
-  })
-
-  const actionsGetRepoRequiredWorkflowUsageResponseValidator =
-    responseValidationFactory(
-      [
-        ["200", s_workflow_usage],
-        ["404", s_basic_error],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsGetRepoRequiredWorkflowUsage",
-    "/repos/:org/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/timing",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsGetRepoRequiredWorkflowUsageParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsGetRepoRequiredWorkflowUsage(input, ctx)
-
-      ctx.body = actionsGetRepoRequiredWorkflowUsageResponseValidator(
-        status,
-        body,
-      )
-      ctx.status = status
-      return next()
-    },
-  )
 
   const reposGetParamSchema = z.object({
     owner: z.coerce.string(),
@@ -24996,87 +25491,13 @@ export function bootstrap(
     },
   )
 
-  const actionsListRequiredWorkflowRunsParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-    required_workflow_id_for_repo: z.coerce.number(),
-  })
-
-  const actionsListRequiredWorkflowRunsQuerySchema = z.object({
-    actor: z.coerce.string().optional(),
-    branch: z.coerce.string().optional(),
-    event: z.coerce.string().optional(),
-    status: z
-      .enum([
-        "completed",
-        "action_required",
-        "cancelled",
-        "failure",
-        "neutral",
-        "skipped",
-        "stale",
-        "success",
-        "timed_out",
-        "in_progress",
-        "queued",
-        "requested",
-        "waiting",
-        "pending",
-      ])
-      .optional(),
-    per_page: z.coerce.number().optional(),
-    page: z.coerce.number().optional(),
-    created: z.coerce.string().datetime({ offset: true }).optional(),
-    exclude_pull_requests: z.coerce.boolean().optional(),
-    check_suite_id: z.coerce.number().optional(),
-    head_sha: z.coerce.string().optional(),
-  })
-
-  const actionsListRequiredWorkflowRunsResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            total_count: z.coerce.number(),
-            workflow_runs: z.array(s_workflow_run),
-          }),
-        ],
-      ],
-      undefined,
-    )
-
-  router.get(
-    "actionsListRequiredWorkflowRuns",
-    "/repos/:owner/:repo/actions/required_workflows/:requiredWorkflowIdForRepo/runs",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          actionsListRequiredWorkflowRunsParamSchema,
-          ctx.params,
-        ),
-        query: parseRequestInput(
-          actionsListRequiredWorkflowRunsQuerySchema,
-          ctx.query,
-        ),
-        body: undefined,
-      }
-
-      const { status, body } =
-        await implementation.actionsListRequiredWorkflowRuns(input, ctx)
-
-      ctx.body = actionsListRequiredWorkflowRunsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
   const actionsListSelfHostedRunnersForRepoParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
   })
 
   const actionsListSelfHostedRunnersForRepoQuerySchema = z.object({
+    name: z.coerce.string().optional(),
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
   })
@@ -25151,6 +25572,59 @@ export function bootstrap(
         await implementation.actionsListRunnerApplicationsForRepo(input, ctx)
 
       ctx.body = actionsListRunnerApplicationsForRepoResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGenerateRunnerJitconfigForRepoParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const actionsGenerateRunnerJitconfigForRepoBodySchema = z.object({
+    name: z.coerce.string(),
+    runner_group_id: z.coerce.number(),
+    labels: z.array(z.coerce.string()),
+    work_folder: z.coerce.string().optional(),
+  })
+
+  const actionsGenerateRunnerJitconfigForRepoResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "201",
+          z.object({ runner: s_runner, encoded_jit_config: z.coerce.string() }),
+        ],
+        ["404", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "actionsGenerateRunnerJitconfigForRepo",
+    "/repos/:owner/:repo/actions/runners/generate-jitconfig",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGenerateRunnerJitconfigForRepoParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsGenerateRunnerJitconfigForRepoBodySchema,
+          ctx.request.body,
+        ),
+      }
+
+      const { status, body } =
+        await implementation.actionsGenerateRunnerJitconfigForRepo(input, ctx)
+
+      ctx.body = actionsGenerateRunnerJitconfigForRepoResponseValidator(
         status,
         body,
       )
@@ -25787,6 +26261,7 @@ export function bootstrap(
   const actionsListWorkflowRunArtifactsQuerySchema = z.object({
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
+    name: z.coerce.string().optional(),
   })
 
   const actionsListWorkflowRunArtifactsResponseValidator =
@@ -27036,6 +27511,60 @@ export function bootstrap(
     },
   )
 
+  const reposListActivitiesParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposListActivitiesQuerySchema = z.object({
+    direction: z.enum(["asc", "desc"]).optional(),
+    per_page: z.coerce.number().optional(),
+    before: z.coerce.string().optional(),
+    after: z.coerce.string().optional(),
+    ref: z.coerce.string().optional(),
+    actor: z.coerce.string().optional(),
+    time_period: z.enum(["day", "week", "month", "quarter", "year"]).optional(),
+    activity_type: z
+      .enum([
+        "push",
+        "force_push",
+        "branch_creation",
+        "branch_deletion",
+        "pr_merge",
+        "merge_queue_merge",
+      ])
+      .optional(),
+  })
+
+  const reposListActivitiesResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_activity)],
+      ["422", s_validation_error_simple],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "reposListActivities",
+    "/repos/:owner/:repo/activity",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(reposListActivitiesParamSchema, ctx.params),
+        query: parseRequestInput(reposListActivitiesQuerySchema, ctx.query),
+        body: undefined,
+      }
+
+      const { status, body } = await implementation.reposListActivities(
+        input,
+        ctx,
+      )
+
+      ctx.body = reposListActivitiesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const issuesListAssigneesParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -27252,6 +27781,42 @@ export function bootstrap(
       )
 
       ctx.body = reposDeleteAutolinkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const reposCheckAutomatedSecurityFixesParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposCheckAutomatedSecurityFixesResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_check_automated_security_fixes],
+        ["404", z.void()],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "reposCheckAutomatedSecurityFixes",
+    "/repos/:owner/:repo/automated-security-fixes",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposCheckAutomatedSecurityFixesParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposCheckAutomatedSecurityFixes(input, ctx)
+
+      ctx.body = reposCheckAutomatedSecurityFixesResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -29317,7 +29882,7 @@ export function bootstrap(
     ref: s_code_scanning_ref,
     direction: z.enum(["asc", "desc"]).optional(),
     sort: z.enum(["created", "updated"]).optional(),
-    state: s_code_scanning_alert_state,
+    state: s_code_scanning_alert_state_query,
     severity: s_code_scanning_alert_severity,
   })
 
@@ -30226,6 +30791,7 @@ export function bootstrap(
   const codespacesRepoMachinesForAuthenticatedUserQuerySchema = z.object({
     location: z.coerce.string().optional(),
     client_ip: z.coerce.string().optional(),
+    ref: z.coerce.string().optional(),
   })
 
   const codespacesRepoMachinesForAuthenticatedUserResponseValidator =
@@ -30679,7 +31245,11 @@ export function bootstrap(
   })
 
   const reposRemoveCollaboratorResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
+    [
+      ["204", z.void()],
+      ["403", s_basic_error],
+      ["422", s_validation_error],
+    ],
     undefined,
   )
 
@@ -32512,7 +33082,7 @@ export function bootstrap(
     target_url: z.coerce.string().optional(),
     log_url: z.coerce.string().optional(),
     description: z.coerce.string().optional(),
-    environment: z.enum(["production", "staging", "qa"]).optional(),
+    environment: z.coerce.string().optional(),
     environment_url: z.coerce.string().optional(),
     auto_inactive: z.coerce.boolean().optional(),
   })
@@ -35024,6 +35594,7 @@ export function bootstrap(
   const issuesCreateResponseValidator = responseValidationFactory(
     [
       ["201", s_issue],
+      ["400", s_scim_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["410", s_basic_error],
@@ -36618,74 +37189,6 @@ export function bootstrap(
     },
   )
 
-  const reposEnableLfsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-  })
-
-  const reposEnableLfsForRepoResponseValidator = responseValidationFactory(
-    [
-      ["202", z.object({})],
-      ["403", z.void()],
-    ],
-    undefined,
-  )
-
-  router.put(
-    "reposEnableLfsForRepo",
-    "/repos/:owner/:repo/lfs",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(reposEnableLfsForRepoParamSchema, ctx.params),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposEnableLfsForRepo(
-        input,
-        ctx,
-      )
-
-      ctx.body = reposEnableLfsForRepoResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const reposDisableLfsForRepoParamSchema = z.object({
-    owner: z.coerce.string(),
-    repo: z.coerce.string(),
-  })
-
-  const reposDisableLfsForRepoResponseValidator = responseValidationFactory(
-    [["204", z.void()]],
-    undefined,
-  )
-
-  router.delete(
-    "reposDisableLfsForRepo",
-    "/repos/:owner/:repo/lfs",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          reposDisableLfsForRepoParamSchema,
-          ctx.params,
-        ),
-        query: undefined,
-        body: undefined,
-      }
-
-      const { status, body } = await implementation.reposDisableLfsForRepo(
-        input,
-        ctx,
-      )
-
-      ctx.body = reposDisableLfsForRepoResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
   const licensesGetForRepoParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -37531,6 +38034,90 @@ export function bootstrap(
     },
   )
 
+  const reposEnablePrivateVulnerabilityReportingParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposEnablePrivateVulnerabilityReportingResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.void()],
+        ["422", s_scim_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "reposEnablePrivateVulnerabilityReporting",
+    "/repos/:owner/:repo/private-vulnerability-reporting",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposEnablePrivateVulnerabilityReportingParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposEnablePrivateVulnerabilityReporting(
+          input,
+          ctx,
+        )
+
+      ctx.body = reposEnablePrivateVulnerabilityReportingResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const reposDisablePrivateVulnerabilityReportingParamSchema = z.object({
+    owner: z.coerce.string(),
+    repo: z.coerce.string(),
+  })
+
+  const reposDisablePrivateVulnerabilityReportingResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.void()],
+        ["422", s_scim_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "reposDisablePrivateVulnerabilityReporting",
+    "/repos/:owner/:repo/private-vulnerability-reporting",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposDisablePrivateVulnerabilityReportingParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.reposDisablePrivateVulnerabilityReporting(
+          input,
+          ctx,
+        )
+
+      ctx.body = reposDisablePrivateVulnerabilityReportingResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const projectsListForRepoParamSchema = z.object({
     owner: z.coerce.string(),
     repo: z.coerce.string(),
@@ -38235,7 +38822,7 @@ export function bootstrap(
     start_line: z.coerce.number().optional(),
     start_side: z.enum(["LEFT", "RIGHT", "side"]).optional(),
     in_reply_to: z.coerce.number().optional(),
-    subject_type: z.enum(["LINE", "FILE"]).optional(),
+    subject_type: z.enum(["line", "file"]).optional(),
   })
 
   const pullsCreateReviewCommentResponseValidator = responseValidationFactory(
@@ -39407,7 +39994,7 @@ export function bootstrap(
   const reposGetReleaseResponseValidator = responseValidationFactory(
     [
       ["200", s_release],
-      ["404", s_basic_error],
+      ["401", z.void()],
     ],
     undefined,
   )
@@ -39732,8 +40319,13 @@ export function bootstrap(
     branch: z.coerce.string(),
   })
 
+  const reposGetBranchRulesQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
+  })
+
   const reposGetBranchRulesResponseValidator = responseValidationFactory(
-    [["200", z.array(s_repository_rule)]],
+    [["200", z.array(s_repository_rule_detailed)]],
     undefined,
   )
 
@@ -39743,7 +40335,7 @@ export function bootstrap(
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(reposGetBranchRulesParamSchema, ctx.params),
-        query: undefined,
+        query: parseRequestInput(reposGetBranchRulesQuerySchema, ctx.query),
         body: undefined,
       }
 
@@ -39764,6 +40356,8 @@ export function bootstrap(
   })
 
   const reposGetRepoRulesetsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    page: z.coerce.number().optional(),
     includes_parents: z.coerce.boolean().optional(),
   })
 
@@ -39806,7 +40400,6 @@ export function bootstrap(
     name: z.coerce.string(),
     target: z.enum(["branch", "tag"]).optional(),
     enforcement: s_repository_rule_enforcement,
-    bypass_mode: z.enum(["none", "repository", "organization"]).optional(),
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
     conditions: s_repository_ruleset_conditions,
     rules: z.array(s_repository_rule).optional(),
@@ -39899,7 +40492,6 @@ export function bootstrap(
       name: z.coerce.string().optional(),
       target: z.enum(["branch", "tag"]).optional(),
       enforcement: s_repository_rule_enforcement,
-      bypass_mode: z.enum(["none", "repository", "organization"]).optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
       conditions: s_repository_ruleset_conditions,
       rules: z.array(s_repository_rule).optional(),
@@ -40441,6 +41033,54 @@ export function bootstrap(
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const securityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema =
+    z.object({
+      owner: z.coerce.string(),
+      repo: z.coerce.string(),
+      ghsa_id: z.coerce.string(),
+    })
+
+  const securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator =
+    responseValidationFactory(
+      [
+        ["202", z.object({})],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "securityAdvisoriesCreateRepositoryAdvisoryCveRequest",
+    "/repos/:owner/:repo/security-advisories/:ghsaId/cve",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          securityAdvisoriesCreateRepositoryAdvisoryCveRequestParamSchema,
+          ctx.params,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const { status, body } =
+        await implementation.securityAdvisoriesCreateRepositoryAdvisoryCveRequest(
+          input,
+          ctx,
+        )
+
+      ctx.body =
+        securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator(
+          status,
+          body,
+        )
       ctx.status = status
       return next()
     },
@@ -41070,7 +41710,10 @@ export function bootstrap(
   })
 
   const reposListTeamsResponseValidator = responseValidationFactory(
-    [["200", z.array(s_team)]],
+    [
+      ["200", z.array(s_team)],
+      ["404", s_basic_error],
+    ],
     undefined,
   )
 
@@ -45472,6 +46115,7 @@ export function bootstrap(
         ["304", z.void()],
         ["403", s_basic_error],
         ["404", s_basic_error],
+        ["422", z.void()],
       ],
       undefined,
     )

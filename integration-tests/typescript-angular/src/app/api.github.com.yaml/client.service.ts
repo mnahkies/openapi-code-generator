@@ -17,6 +17,7 @@ import {
   t_actions_set_default_workflow_permissions,
   t_actions_variable,
   t_actions_workflow_access_to_repository,
+  t_activity,
   t_alert_number,
   t_allowed_actions,
   t_api_overview,
@@ -33,9 +34,14 @@ import {
   t_branch_short,
   t_branch_with_protection,
   t_check_annotation,
+  t_check_automated_security_fixes,
   t_check_run,
   t_check_suite,
   t_check_suite_preference,
+  t_classroom,
+  t_classroom_accepted_assignment,
+  t_classroom_assignment,
+  t_classroom_assignment_grade,
   t_clone_traffic,
   t_code_frequency_stat,
   t_code_of_conduct,
@@ -46,7 +52,7 @@ import {
   t_code_scanning_alert_items,
   t_code_scanning_alert_set_state,
   t_code_scanning_alert_severity,
-  t_code_scanning_alert_state,
+  t_code_scanning_alert_state_query,
   t_code_scanning_analysis,
   t_code_scanning_analysis_commit_sha,
   t_code_scanning_analysis_deletion,
@@ -88,6 +94,8 @@ import {
   t_content_traffic,
   t_contributor,
   t_contributor_activity,
+  t_copilot_organization_details,
+  t_copilot_seat_details,
   t_custom_deployment_rule_app,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -121,6 +129,7 @@ import {
   t_git_tag,
   t_git_tree,
   t_gitignore_template,
+  t_global_advisory,
   t_gpg_key,
   t_hook,
   t_hook_delivery,
@@ -202,7 +211,6 @@ import {
   t_release_asset,
   t_release_notes_content,
   t_repo_codespaces_secret,
-  t_repo_required_workflow,
   t_repo_search_result_item,
   t_repository,
   t_repository_advisory,
@@ -211,12 +219,12 @@ import {
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_rule,
+  t_repository_rule_detailed,
   t_repository_rule_enforcement,
   t_repository_ruleset,
   t_repository_ruleset_bypass_actor,
   t_repository_ruleset_conditions,
   t_repository_subscription,
-  t_required_workflow,
   t_review_comment,
   t_review_custom_gates_comment_required,
   t_review_custom_gates_state_required,
@@ -233,6 +241,8 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_simple_classroom,
+  t_simple_classroom_assignment,
   t_simple_user,
   t_snapshot,
   t_social_account,
@@ -367,6 +377,90 @@ export class ApiClient {
       observe: "response",
       reportProgress: false,
     })
+  }
+
+  securityAdvisoriesListGlobalAdvisories(
+    p: {
+      ghsaId?: string
+      type?: "reviewed" | "malware" | "unreviewed"
+      cveId?: string
+      ecosystem?:
+        | "actions"
+        | "composer"
+        | "erlang"
+        | "go"
+        | "maven"
+        | "npm"
+        | "nuget"
+        | "other"
+        | "pip"
+        | "pub"
+        | "rubygems"
+        | "rust"
+      severity?: "unknown" | "low" | "medium" | "high" | "critical"
+      cwes?: string | string[]
+      isWithdrawn?: boolean
+      affects?: string | string[]
+      published?: string
+      updated?: string
+      modified?: string
+      before?: string
+      after?: string
+      direction?: "asc" | "desc"
+      perPage?: number
+      sort?: "updated" | "published"
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_global_advisory[]> & { status: 200 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      ghsa_id: p["ghsaId"],
+      type: p["type"],
+      cve_id: p["cveId"],
+      ecosystem: p["ecosystem"],
+      severity: p["severity"],
+      cwes: p["cwes"],
+      is_withdrawn: p["isWithdrawn"],
+      affects: p["affects"],
+      published: p["published"],
+      updated: p["updated"],
+      modified: p["modified"],
+      before: p["before"],
+      after: p["after"],
+      direction: p["direction"],
+      per_page: p["perPage"],
+      sort: p["sort"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/advisories`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  securityAdvisoriesGetGlobalAdvisory(p: {
+    ghsaId: string
+  }): Observable<
+    | (HttpResponse<t_global_advisory> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/advisories/${p["ghsaId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
   }
 
   appsGetAuthenticated(): Observable<
@@ -818,6 +912,131 @@ export class ApiClient {
     )
   }
 
+  classroomGetAnAssignment(p: {
+    assignmentId: number
+  }): Observable<
+    | (HttpResponse<t_classroom_assignment> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/assignments/${p["assignmentId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  classroomListAcceptedAssigmentsForAnAssignment(p: {
+    assignmentId: number
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_classroom_accepted_assignment[]> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/assignments/${p["assignmentId"]}/accepted_assignments`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  classroomGetAssignmentGrades(p: {
+    assignmentId: number
+  }): Observable<
+    | (HttpResponse<t_classroom_assignment_grade[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/assignments/${p["assignmentId"]}/grades`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  classroomListClassrooms(
+    p: {
+      page?: number
+      perPage?: number
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_simple_classroom[]> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/classrooms`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  classroomGetAClassroom(p: {
+    classroomId: number
+  }): Observable<
+    | (HttpResponse<t_classroom> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/classrooms/${p["classroomId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  classroomListAssignmentsForAClassroom(p: {
+    classroomId: number
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_simple_classroom_assignment[]> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/classrooms/${p["classroomId"]}/assignments`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codesOfConductGetAllCodesOfConduct(): Observable<
     | (HttpResponse<t_code_of_conduct[]> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
@@ -1157,7 +1376,10 @@ export class ApiClient {
     requestBody: {
       description?: string
       files?: {
-        [key: string]: EmptyObject | null
+        [key: string]: {
+          content?: string
+          filename?: string | null
+        } | null
       }
     } | null
   }): Observable<
@@ -2116,276 +2338,6 @@ export class ApiClient {
     )
   }
 
-  orgsListPatGrantRequests(p: {
-    org: string
-    perPage?: number
-    page?: number
-    sort?: "created_at"
-    direction?: "asc" | "desc"
-    owner?: string[]
-    repository?: string
-    permission?: string
-    lastUsedBefore?: string
-    lastUsedAfter?: string
-  }): Observable<
-    | (HttpResponse<t_organization_programmatic_access_grant_request[]> & {
-        status: 200
-      })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-token-requests`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsReviewPatGrantRequestsInBulk(p: {
-    org: string
-    requestBody: {
-      action: "approve" | "deny"
-      pat_request_ids?: number[]
-      reason?: string | null
-    }
-  }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-token-requests`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsReviewPatGrantRequest(p: {
-    org: string
-    patRequestId: number
-    requestBody: {
-      action: "approve" | "deny"
-      reason?: string | null
-    }
-  }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsListPatGrantRequestRepositories(p: {
-    org: string
-    patRequestId: number
-    perPage?: number
-    page?: number
-  }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsListPatGrants(p: {
-    org: string
-    perPage?: number
-    page?: number
-    sort?: "created_at"
-    direction?: "asc" | "desc"
-    owner?: string[]
-    repository?: string
-    permission?: string
-    lastUsedBefore?: string
-    lastUsedAfter?: string
-  }): Observable<
-    | (HttpResponse<t_organization_programmatic_access_grant[]> & {
-        status: 200
-      })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-      sort: p["sort"],
-      direction: p["direction"],
-      owner: p["owner"],
-      repository: p["repository"],
-      permission: p["permission"],
-      last_used_before: p["lastUsedBefore"],
-      last_used_after: p["lastUsedAfter"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-tokens`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsUpdatePatAccesses(p: {
-    org: string
-    requestBody: {
-      action: "revoke"
-      pat_ids: number[]
-    }
-  }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-tokens`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsUpdatePatAccess(p: {
-    org: string
-    patId: number
-    requestBody: {
-      action: "revoke"
-    }
-  }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsListPatGrantRepositories(p: {
-    org: string
-    patId: number
-    perPage?: number
-    page?: number
-  }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/organizations/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   orgsGet(p: {
     org: string
   }): Observable<
@@ -2763,216 +2715,8 @@ export class ApiClient {
     )
   }
 
-  actionsListRequiredWorkflows(p: {
-    org: string
-    perPage?: number
-    page?: number
-  }): Observable<
-    | (HttpResponse<{
-        required_workflows: t_required_workflow[]
-        total_count: number
-      }> & { status: 200 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/orgs/${p["org"]}/actions/required_workflows`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsCreateRequiredWorkflow(p: {
-    org: string
-    requestBody: {
-      repository_id: string
-      scope?: "selected" | "all"
-      selected_repository_ids?: number[]
-      workflow_file_path: string
-    }
-  }): Observable<
-    | (HttpResponse<t_required_workflow> & { status: 201 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/orgs/${p["org"]}/actions/required_workflows`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsGetRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Observable<
-    | (HttpResponse<t_required_workflow> & { status: 200 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsUpdateRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    requestBody: {
-      repository_id?: string
-      scope?: "selected" | "all"
-      selected_repository_ids?: number[]
-      workflow_file_path?: string
-    }
-  }): Observable<
-    | (HttpResponse<t_required_workflow> & { status: 200 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PATCH",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsDeleteRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsListSelectedRepositoriesRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-  }): Observable<
-    | (HttpResponse<{
-        repositories: t_repository[]
-        total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsSetSelectedReposToRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    requestBody: {
-      selected_repository_ids: number[]
-    }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsAddSelectedRepoToRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    repositoryId: number
-  }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsRemoveSelectedRepoFromRequiredWorkflow(p: {
-    org: string
-    requiredWorkflowId: number
-    repositoryId: number
-  }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath +
-        `/orgs/${p["org"]}/actions/required_workflows/${p["requiredWorkflowId"]}/repositories/${p["repositoryId"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   actionsListSelfHostedRunnersForOrg(p: {
+    name?: string
     org: string
     perPage?: number
     page?: number
@@ -2984,6 +2728,7 @@ export class ApiClient {
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
+      name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -3009,6 +2754,39 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/downloads`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGenerateRunnerJitconfigForOrg(p: {
+    org: string
+    requestBody: {
+      labels: string[]
+      name: string
+      runner_group_id: number
+      work_folder?: string
+    }
+  }): Observable<
+    | (HttpResponse<{
+        encoded_jit_config: string
+        runner: t_runner
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runners/generate-jitconfig`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3708,7 +3486,7 @@ export class ApiClient {
     page?: number
     perPage?: number
     direction?: "asc" | "desc"
-    state?: t_code_scanning_alert_state
+    state?: t_code_scanning_alert_state_query
     sort?: "created" | "updated"
     severity?: t_code_scanning_alert_severity
   }): Observable<
@@ -3779,7 +3557,7 @@ export class ApiClient {
     )
   }
 
-  codespacesSetCodespacesBilling(p: {
+  codespacesSetCodespacesAccess(p: {
     org: string
     requestBody: {
       selected_usernames?: string[]
@@ -3803,7 +3581,7 @@ export class ApiClient {
 
     return this.httpClient.request<any>(
       "PUT",
-      this.config.basePath + `/orgs/${p["org"]}/codespaces/billing`,
+      this.config.basePath + `/orgs/${p["org"]}/codespaces/access`,
       {
         headers,
         body,
@@ -3813,7 +3591,7 @@ export class ApiClient {
     )
   }
 
-  codespacesSetCodespacesBillingUsers(p: {
+  codespacesSetCodespacesAccessUsers(p: {
     org: string
     requestBody: {
       selected_usernames: string[]
@@ -3833,7 +3611,7 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
-        `/orgs/${p["org"]}/codespaces/billing/selected_users`,
+        `/orgs/${p["org"]}/codespaces/access/selected_users`,
       {
         headers,
         body,
@@ -3843,7 +3621,7 @@ export class ApiClient {
     )
   }
 
-  codespacesDeleteCodespacesBillingUsers(p: {
+  codespacesDeleteCodespacesAccessUsers(p: {
     org: string
     requestBody: {
       selected_usernames: string[]
@@ -3863,7 +3641,7 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
-        `/orgs/${p["org"]}/codespaces/billing/selected_users`,
+        `/orgs/${p["org"]}/codespaces/access/selected_users`,
       {
         headers,
         body,
@@ -4081,6 +3859,181 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotGetCopilotOrganizationDetails(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<t_copilot_organization_details> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotListCopilotSeats(p: {
+    org: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<{
+        seats?: t_copilot_seat_details[]
+        total_seats?: number
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing/seats`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotAddCopilotForBusinessSeatsForTeams(p: {
+    org: string
+    requestBody: {
+      selected_teams: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        seats_created: number
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing/selected_teams`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCancelCopilotSeatAssignmentForTeams(p: {
+    org: string
+    requestBody: {
+      selected_teams: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        seats_cancelled: number
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing/selected_teams`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotAddCopilotForBusinessSeatsForUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        seats_created: number
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing/selected_users`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCancelCopilotSeatAssignmentForUsers(p: {
+    org: string
+    requestBody: {
+      selected_usernames: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        seats_cancelled: number
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/billing/selected_users`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5068,6 +5021,29 @@ export class ApiClient {
     )
   }
 
+  copilotGetCopilotSeatAssignmentDetailsForUser(p: {
+    org: string
+    username: string
+  }): Observable<
+    | (HttpResponse<t_copilot_seat_details> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/members/${p["username"]}/copilot`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   orgsGetMembershipForUser(p: {
     org: string
     username: string
@@ -5569,6 +5545,272 @@ export class ApiClient {
     )
   }
 
+  orgsListPatGrantRequests(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Observable<
+    | (HttpResponse<t_organization_programmatic_access_grant_request[]> & {
+        status: 200
+      })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/personal-access-token-requests`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsReviewPatGrantRequestsInBulk(p: {
+    org: string
+    requestBody: {
+      action: "approve" | "deny"
+      pat_request_ids?: number[]
+      reason?: string | null
+    }
+  }): Observable<
+    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/personal-access-token-requests`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsReviewPatGrantRequest(p: {
+    org: string
+    patRequestId: number
+    requestBody: {
+      action: "approve" | "deny"
+      reason?: string | null
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsListPatGrantRequestRepositories(p: {
+    org: string
+    patRequestId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsListPatGrants(p: {
+    org: string
+    perPage?: number
+    page?: number
+    sort?: "created_at"
+    direction?: "asc" | "desc"
+    owner?: string[]
+    repository?: string
+    permission?: string
+    lastUsedBefore?: string
+    lastUsedAfter?: string
+  }): Observable<
+    | (HttpResponse<t_organization_programmatic_access_grant[]> & {
+        status: 200
+      })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      sort: p["sort"],
+      direction: p["direction"],
+      owner: p["owner"],
+      repository: p["repository"],
+      permission: p["permission"],
+      last_used_before: p["lastUsedBefore"],
+      last_used_after: p["lastUsedAfter"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/personal-access-tokens`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsUpdatePatAccesses(p: {
+    org: string
+    requestBody: {
+      action: "revoke"
+      pat_ids: number[]
+    }
+  }): Observable<
+    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/personal-access-tokens`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsUpdatePatAccess(p: {
+    org: string
+    patId: number
+    requestBody: {
+      action: "revoke"
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsListPatGrantRepositories(p: {
+    org: string
+    patId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   projectsListForOrg(p: {
     org: string
     state?: "open" | "closed" | "all"
@@ -5785,16 +6027,24 @@ export class ApiClient {
 
   reposGetOrgRulesets(p: {
     org: string
+    perPage?: number
+    page?: number
   }): Observable<
     | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_basic_error> & { status: 500 })
     | HttpResponse<unknown>
   > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/rulesets`,
       {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -5938,6 +6188,40 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  securityAdvisoriesListOrgRepositoryAdvisories(p: {
+    org: string
+    direction?: "asc" | "desc"
+    sort?: "created" | "updated" | "published"
+    before?: string
+    after?: string
+    perPage?: number
+    state?: "triage" | "draft" | "published" | "closed"
+  }): Observable<
+    | (HttpResponse<t_repository_advisory[]> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      direction: p["direction"],
+      sort: p["sort"],
+      before: p["before"],
+      after: p["after"],
+      per_page: p["perPage"],
+      state: p["state"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/security-advisories`,
       {
         params,
         observe: "response",
@@ -6943,16 +7227,24 @@ export class ApiClient {
       | "secret_scanning"
       | "secret_scanning_push_protection"
     enablement: "enable_all" | "disable_all"
+    requestBody?: {
+      query_suite?: "default" | "extended"
+    }
   }): Observable<
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`,
       {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7497,76 +7789,6 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/rate_limit`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsListRepoRequiredWorkflows(p: {
-    org: string
-    repo: string
-    perPage?: number
-    page?: number
-  }): Observable<
-    | (HttpResponse<{
-        required_workflows: t_repo_required_workflow[]
-        total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsGetRepoRequiredWorkflow(p: {
-    org: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-  }): Observable<
-    | (HttpResponse<t_repo_required_workflow> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  actionsGetRepoRequiredWorkflowUsage(p: {
-    org: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-  }): Observable<
-    | (HttpResponse<t_workflow_usage> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/repos/${p["org"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/timing`,
       {
         observe: "response",
         reportProgress: false,
@@ -8198,67 +8420,8 @@ export class ApiClient {
     )
   }
 
-  actionsListRequiredWorkflowRuns(p: {
-    owner: string
-    repo: string
-    requiredWorkflowIdForRepo: number
-    actor?: string
-    branch?: string
-    event?: string
-    status?:
-      | "completed"
-      | "action_required"
-      | "cancelled"
-      | "failure"
-      | "neutral"
-      | "skipped"
-      | "stale"
-      | "success"
-      | "timed_out"
-      | "in_progress"
-      | "queued"
-      | "requested"
-      | "waiting"
-      | "pending"
-    perPage?: number
-    page?: number
-    created?: string
-    excludePullRequests?: boolean
-    checkSuiteId?: number
-    headSha?: string
-  }): Observable<
-    | (HttpResponse<{
-        total_count: number
-        workflow_runs: t_workflow_run[]
-      }> & { status: 200 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      actor: p["actor"],
-      branch: p["branch"],
-      event: p["event"],
-      status: p["status"],
-      per_page: p["perPage"],
-      page: p["page"],
-      created: p["created"],
-      exclude_pull_requests: p["excludePullRequests"],
-      check_suite_id: p["checkSuiteId"],
-      head_sha: p["headSha"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/repos/${p["owner"]}/${p["repo"]}/actions/required_workflows/${p["requiredWorkflowIdForRepo"]}/runs`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   actionsListSelfHostedRunnersForRepo(p: {
+    name?: string
     owner: string
     repo: string
     perPage?: number
@@ -8271,6 +8434,7 @@ export class ApiClient {
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
+      name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
     })
@@ -8299,6 +8463,40 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGenerateRunnerJitconfigForRepo(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      labels: string[]
+      name: string
+      runner_group_id: number
+      work_folder?: string
+    }
+  }): Observable<
+    | (HttpResponse<{
+        encoded_jit_config: string
+        runner: t_runner
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/actions/runners/generate-jitconfig`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8658,6 +8856,7 @@ export class ApiClient {
     runId: number
     perPage?: number
     page?: number
+    name?: string
   }): Observable<
     | (HttpResponse<{
         artifacts: t_artifact[]
@@ -8668,6 +8867,7 @@ export class ApiClient {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
+      name: p["name"],
     })
 
     return this.httpClient.request<any>(
@@ -9413,6 +9613,50 @@ export class ApiClient {
     )
   }
 
+  reposListActivities(p: {
+    owner: string
+    repo: string
+    direction?: "asc" | "desc"
+    perPage?: number
+    before?: string
+    after?: string
+    ref?: string
+    actor?: string
+    timePeriod?: "day" | "week" | "month" | "quarter" | "year"
+    activityType?:
+      | "push"
+      | "force_push"
+      | "branch_creation"
+      | "branch_deletion"
+      | "pr_merge"
+      | "merge_queue_merge"
+  }): Observable<
+    | (HttpResponse<t_activity[]> & { status: 200 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      direction: p["direction"],
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      ref: p["ref"],
+      actor: p["actor"],
+      time_period: p["timePeriod"],
+      activity_type: p["activityType"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/activity`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   issuesListAssignees(p: {
     owner: string
     repo: string
@@ -9540,6 +9784,25 @@ export class ApiClient {
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposCheckAutomatedSecurityFixes(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_check_automated_security_fixes> & { status: 200 })
+    | (HttpResponse<void> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
         observe: "response",
         reportProgress: false,
@@ -10819,7 +11082,7 @@ export class ApiClient {
     ref?: t_code_scanning_ref
     direction?: "asc" | "desc"
     sort?: "created" | "updated"
-    state?: t_code_scanning_alert_state
+    state?: t_code_scanning_alert_state_query
     severity?: t_code_scanning_alert_severity
   }): Observable<
     | (HttpResponse<t_code_scanning_alert_items[]> & { status: 200 })
@@ -11379,6 +11642,7 @@ export class ApiClient {
     repo: string
     location?: string
     clientIp?: string
+    ref?: string
   }): Observable<
     | (HttpResponse<{
         machines: t_codespace_machine[]
@@ -11394,6 +11658,7 @@ export class ApiClient {
     const params = this._queryParams({
       location: p["location"],
       client_ip: p["clientIp"],
+      ref: p["ref"],
     })
 
     return this.httpClient.request<any>(
@@ -11640,7 +11905,10 @@ export class ApiClient {
     repo: string
     username: string
   }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "DELETE",
@@ -12823,7 +13091,7 @@ export class ApiClient {
     requestBody: {
       auto_inactive?: boolean
       description?: string
-      environment?: "production" | "staging" | "qa"
+      environment?: string
       environment_url?: string
       log_url?: string
       state:
@@ -14393,6 +14661,7 @@ export class ApiClient {
     }
   }): Observable<
     | (HttpResponse<t_issue> & { status: 201 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_basic_error> & { status: 410 })
@@ -15461,40 +15730,6 @@ export class ApiClient {
     )
   }
 
-  reposEnableLfsForRepo(p: {
-    owner: string
-    repo: string
-  }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
-    | (HttpResponse<void> & { status: 403 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "PUT",
-      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  reposDisableLfsForRepo(p: {
-    owner: string
-    repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "DELETE",
-      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/lfs`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   licensesGetForRepo(p: {
     owner: string
     repo: string
@@ -16024,6 +16259,44 @@ export class ApiClient {
     )
   }
 
+  reposEnablePrivateVulnerabilityReporting(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposDisablePrivateVulnerabilityReporting(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   projectsListForRepo(p: {
     owner: string
     repo: string
@@ -16498,7 +16771,7 @@ export class ApiClient {
       side?: "LEFT" | "RIGHT"
       start_line?: number
       start_side?: "LEFT" | "RIGHT" | "side"
-      subject_type?: "LINE" | "FILE"
+      subject_type?: "line" | "file"
     }
   }): Observable<
     | (HttpResponse<t_pull_request_review_comment> & { status: 201 })
@@ -17262,7 +17535,7 @@ export class ApiClient {
     releaseId: number
   }): Observable<
     | (HttpResponse<t_release> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 401 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17469,15 +17742,23 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
+    perPage?: number
+    page?: number
   }): Observable<
-    | (HttpResponse<t_repository_rule[]> & { status: 200 })
+    | (HttpResponse<t_repository_rule_detailed[]> & { status: 200 })
     | HttpResponse<unknown>
   > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`,
       {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -17487,6 +17768,8 @@ export class ApiClient {
   reposGetRepoRulesets(p: {
     owner: string
     repo: string
+    perPage?: number
+    page?: number
     includesParents?: boolean
   }): Observable<
     | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
@@ -17494,7 +17777,11 @@ export class ApiClient {
     | (HttpResponse<t_basic_error> & { status: 500 })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ includes_parents: p["includesParents"] })
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      includes_parents: p["includesParents"],
+    })
 
     return this.httpClient.request<any>(
       "GET",
@@ -17512,7 +17799,6 @@ export class ApiClient {
     repo: string
     requestBody: {
       bypass_actors?: t_repository_ruleset_bypass_actor[]
-      bypass_mode?: "none" | "repository" | "organization"
       conditions?: t_repository_ruleset_conditions
       enforcement: t_repository_rule_enforcement
       name: string
@@ -17571,7 +17857,6 @@ export class ApiClient {
     rulesetId: number
     requestBody?: {
       bypass_actors?: t_repository_ruleset_bypass_actor[]
-      bypass_mode?: "none" | "repository" | "organization"
       conditions?: t_repository_ruleset_conditions
       enforcement?: t_repository_rule_enforcement
       name?: string
@@ -17896,6 +18181,29 @@ export class ApiClient {
       {
         headers,
         body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  securityAdvisoriesCreateRepositoryAdvisoryCveRequest(p: {
+    owner: string
+    repo: string
+    ghsaId: string
+  }): Observable<
+    | (HttpResponse<EmptyObject> & { status: 202 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`,
+      {
         observe: "response",
         reportProgress: false,
       },
@@ -18257,7 +18565,9 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_team[]> & { status: 200 }) | HttpResponse<unknown>
+    | (HttpResponse<t_team[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       per_page: p["perPage"],
@@ -20963,6 +21273,7 @@ export class ApiClient {
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
