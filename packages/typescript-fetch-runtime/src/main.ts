@@ -118,9 +118,9 @@ export abstract class AbstractFetchClient {
     // caller to choose between:
     // - await the Promise and ignore the AbortController
     // - destructure the Promise to get the Promise and the AbortController
-    // @ts-ignore
+    // @ts-ignore decorating with itself
     res.res = res
-    // @ts-ignore
+    // @ts-ignore decorating with abort controller
     res.cancelRequest = cancelRequest
     return res as any
   }
