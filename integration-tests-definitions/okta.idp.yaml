@@ -1,0 +1,2536 @@
+openapi: 3.0.3
+info:
+  title: MyAccount Management
+  version: 2.0.0
+  description: APIs for managing a user's own emails, phones, profile, and app authenticators.
+  termsOfService: https://developer.okta.com/terms/
+  contact:
+    name: Okta Developer Team
+    url: https://developer.okta.com/
+    email: devex-public@okta.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: logo.svg
+    backgroundColor: transparent
+    altText: Okta Developer
+externalDocs:
+  description: Find more info here
+  url: https://developer.okta.com
+servers:
+  - url: https://{yourOktaDomain}
+    variables:
+      yourOktaDomain:
+        default: subdomain.okta.com
+        description: The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
+tags:
+  - name: AppAuthenticator
+    x-displayName: App Authenticators
+    description: The My Account App Authenticators API provides operations to enroll, update and delete an app authenticator enrollment. The API also allows a user to view and verify pending notification challenges. Current support of the API is only applicable to custom authenticators. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
+  - name: Email
+  - name: Phone
+  - name: Profile
+paths:
+  /idp/myaccount/app-authenticators:
+    post:
+      summary: Create an app authenticator enrollment
+      description: Creates an app authenticator enrollment
+      operationId: createAppAuthenticatorEnrollment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppAuthenticatorEnrollmentRequest'
+            examples:
+              Create App Authenticator Enrollment:
+                $ref: '#/components/examples/CreateAppAuthenticatorEnrollment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/AppAuthenticatorEnrollment'
+        '400':
+          description: Bad Request
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /idp/myaccount/app-authenticators/challenge/{challengeId}/verify:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorChallengeId'
+    post:
+      summary: Verify a push notification challenge response from the app authenticator
+      description: Verifies a push notification challenge from the app authenticator
+      operationId: verifyAppAuthenticatorPushNotificationChallenge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushNotificationVerification'
+            examples:
+              Push Notification Challenge Response:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeRequest'
+              JWT Header:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTHeader'
+              JWT Payload:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTPayload'
+      responses:
+        '200':
+          description: Verification Success
+        '204':
+          description: User denied challenge attempt
+        '400':
+          description: Bad Request
+      security: []
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/app-authenticators/{enrollmentId}:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    patch:
+      summary: Update an app authenticator enrollment
+      description: 'Updates an app authenticator enrollment. Allowed operations: update the user verification key, remove the user verification key, update the push token, and updating the push method transaction types.'
+      operationId: updateAppAuthenticatorEnrollment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppAuthenticatorEnrollmentRequest'
+            examples:
+              Update App Authenticator Enrollment Push Token:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushToken'
+              Enroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentUserVerificationKey'
+              Unenroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UnenrollAppAuthenticatorEnrollmentUserVerificationKey'
+              Update App Authenticator Enrollment Transaction Type:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentTransactionType'
+              Update App Authenticator Enrollment Push Token and Enroll User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/merge-patch+json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/UpdateAppAuthenticatorEnrollmentRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    delete:
+      summary: Delete an app authenticator enrollment
+      description: Deletes an app authenticator enrollment
+      operationId: deleteAppAuthenticatorEnrollment
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /idp/myaccount/app-authenticators/{enrollmentId}/push/notifications:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    get:
+      summary: List all pending push notification challenges
+      description: Lists all pending push notification challenges
+      operationId: listAppAuthenticatorPendingPushNotificationChallenges
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotificationChallenge'
+              examples:
+                Success Response:
+                  $ref: '#/components/examples/GetPendingNotificationsSuccessResponse'
+                JWT Header:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTHeader'
+                JWT Payload:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTPayload'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.read
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /idp/myaccount/emails:
+    get:
+      summary: List all Emails
+      description: Lists all emails
+      operationId: listEmails
+      responses:
+        '200':
+          $ref: '#/components/responses/Email-Array-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - oauth2:
+            - okta.myAccount.email.read
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    post:
+      summary: Create an Email
+      description: Creates a new email
+      operationId: createEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  required:
+                    - email
+                  properties:
+                    email:
+                      type: string
+                      example: saml.jackson@example.com
+                      format: email
+                      writeOnly: true
+                sendEmail:
+                  type: boolean
+                  default: true
+                  description: Specifies whether Okta should send an email to the end-user or whether the application will handle this itself.
+                state:
+                  type: string
+                  example: JPcFLTwOq7UvoFtmRd3EnyQwsR0PbDSI
+                  description: |
+                    Any application state that the client wishes to persist across the email challenge flow and receive back at the callback URL defined in the OIDC app configuration. This param is REQUIRED as a mechanism to prove back to the client that the email link was verified.
+                  writeOnly: true
+                role:
+                  type: string
+                  enum:
+                    - PRIMARY
+                    - SECONDARY
+                  example: PRIMARY
+                  writeOnly: true
+              required:
+                - profile
+            examples:
+              New Email:
+                value:
+                  profile:
+                    email: saml.jackson@example.com
+                  sendEmail: true
+                  role: PRIMARY
+                  state: JPcFLTwOq7UvoFtmRd3EnyQwsR0PbDSI
+        description: New email
+      responses:
+        '201':
+          $ref: '#/components/responses/Unverified-Email-Response'
+        '400':
+          $ref: '#/components/responses/Error-InvalidEmail-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-EmailConflict-Response-409'
+      security:
+        - oauth2:
+            - okta.myAccount.email.manage
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/emails/{id}:
+    parameters:
+      - schema:
+          type: string
+          example: 69dca29c2d8dbb0dca14395ccdb92317
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Retrieve an Email
+      description: Retrieves an email by email id
+      operationId: getEmail
+      responses:
+        '200':
+          $ref: '#/components/responses/Verified-Email-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - oauth2:
+            - okta.myAccount.email.read
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    delete:
+      summary: Delete an Email
+      description: Deletes an email by email id
+      operationId: deleteEmail
+      parameters: []
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json;okta-version=1.0.0: {}
+        '400':
+          $ref: '#/components/responses/Error-InvalidEmailDeletion-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.email.manage
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/emails/{id}/challenge:
+    parameters:
+      - schema:
+          type: string
+          example: 00T196qTp3LIMZQ0L0g3
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Send an Email Challenge
+      description: Sends a challenge on an email
+      operationId: sendEmailChallenge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: string
+                  example: JPcFLTwOq7UvoFtmRd3EnyQwsR0PbDSI
+                  writeOnly: true
+              required:
+                - state
+            examples:
+              Challenge Example:
+                value:
+                  state: JPcFLTwOq7UvoFtmRd3EnyQwsR0PbDSI
+      responses:
+        '201':
+          description: Created
+          headers: {}
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                description: ''
+                type: object
+                example:
+                  id: myaccount.2wdtXPtmS0WpKq4bnjlYIw
+                  status: UNVERIFIED
+                  expiresAt: '2022-02-01T00:19:08.220Z'
+                  profile:
+                    email: s.jackson@example.com
+                  _links:
+                    verify:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
+                      hints:
+                        allow:
+                          - POST
+                    poll:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw
+                      hints:
+                        allow:
+                          - GET
+                properties:
+                  id:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                  expiresAt:
+                    type: string
+                    minLength: 1
+                  profile:
+                    type: object
+                    required:
+                      - email
+                    properties:
+                      email:
+                        type: string
+                        minLength: 1
+                  _links:
+                    type: object
+                    required:
+                      - verify
+                      - poll
+                    properties:
+                      verify:
+                        type: object
+                        required:
+                          - href
+                          - hints
+                        properties:
+                          href:
+                            type: string
+                            minLength: 1
+                          hints:
+                            type: object
+                            required:
+                              - allow
+                            properties:
+                              allow:
+                                type: array
+                                items:
+                                  type: string
+                      poll:
+                        type: object
+                        required:
+                          - href
+                          - hints
+                        properties:
+                          href:
+                            type: string
+                            minLength: 1
+                          hints:
+                            type: object
+                            required:
+                              - allow
+                            properties:
+                              allow:
+                                type: array
+                                items:
+                                  type: string
+                required:
+                  - id
+                  - status
+                  - expiresAt
+                  - profile
+                  - _links
+              examples:
+                challenge created response:
+                  value:
+                    id: myaccount.2wdtXPtmS0WpKq4bnjlYIw
+                    status: UNVERIFIED
+                    expiresAt: '2022-02-01T00:19:08.220Z'
+                    profile:
+                      email: s.jackson@example.com
+                    _links:
+                      verify:
+                        href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
+                        hints:
+                          allow:
+                            - POST
+                      poll:
+                        href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw
+                        hints:
+                          allow:
+                            - GET
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.email.manage
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/emails/{id}/challenge/{challengeId}:
+    parameters:
+      - schema:
+          type: string
+          example: 00T196qTp3LIMZQ0L0g3
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: x1MDGzUb
+        name: challengeId
+        in: path
+        required: true
+    get:
+      summary: Poll the Challenge for Email Magic Link
+      description: Polls for challenge status for an email
+      operationId: pollChallengeForEmailMagicLink
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                description: ''
+                type: object
+                example:
+                  id: myaccount.DDvNA6XORA2dIfB894o32g
+                  status: UNVERIFIED
+                  expiresAt: '2022-02-01T00:41:25.497Z'
+                  profile:
+                    email: s.jackson@example.com
+                  _links:
+                    verify:
+                      href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify
+                      hints:
+                        allow:
+                          - POST
+                    poll:
+                      href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g
+                      hints:
+                        allow:
+                          - GET
+                properties:
+                  id:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                  expiresAt:
+                    type: string
+                    minLength: 1
+                  profile:
+                    type: object
+                    required:
+                      - email
+                    properties:
+                      email:
+                        type: string
+                        minLength: 1
+                  _links:
+                    type: object
+                    required:
+                      - verify
+                      - poll
+                    properties:
+                      verify:
+                        type: object
+                        required:
+                          - href
+                          - hints
+                        properties:
+                          href:
+                            type: string
+                            minLength: 1
+                          hints:
+                            type: object
+                            required:
+                              - allow
+                            properties:
+                              allow:
+                                type: array
+                                items:
+                                  type: string
+                      poll:
+                        type: object
+                        required:
+                          - href
+                          - hints
+                        properties:
+                          href:
+                            type: string
+                            minLength: 1
+                          hints:
+                            type: object
+                            required:
+                              - allow
+                            properties:
+                              allow:
+                                type: array
+                                items:
+                                  type: string
+                required:
+                  - id
+                  - status
+                  - expiresAt
+                  - profile
+                  - _links
+              examples:
+                Polling Response Example:
+                  value:
+                    id: myaccount.DDvNA6XORA2dIfB894o32g
+                    status: UNVERIFIED
+                    expiresAt: '2022-02-01T00:41:25.497Z'
+                    profile:
+                      email: s.jackson@example.com
+                    _links:
+                      verify:
+                        href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify
+                        hints:
+                          allow:
+                            - POST
+                      poll:
+                        href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g
+                        hints:
+                          allow:
+                            - GET
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '404':
+          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.email.read
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/emails/{id}/challenge/{challengeId}/verify:
+    parameters:
+      - schema:
+          type: string
+          example: 00T196qTp3LIMZQ0L0g3
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: challengeId
+        in: path
+        required: true
+    post:
+      summary: Verify an Email OTP
+      description: Verifies a OTP for an email challenge
+      operationId: verifyEmailOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                verificationCode:
+                  type: string
+                  example: '498560'
+                  format: password
+                  writeOnly: true
+              required:
+                - verificationCode
+            examples:
+              OTP Example:
+                value:
+                  verificationCode: '456058'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0: {}
+        '401':
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.email.manage
+      tags:
+        - Email
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/phones:
+    get:
+      summary: List all Phones
+      description: Lists all my phones
+      operationId: listPhones
+      responses:
+        '200':
+          $ref: '#/components/responses/Phone-Array-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.read
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    post:
+      summary: Create a Phone
+      description: Creates a new phone
+      operationId: createPhone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  properties:
+                    phoneNumber:
+                      type: string
+                      example: 555-555-5555
+                sendCode:
+                  type: boolean
+                  default: true
+                method:
+                  type: string
+                  enum:
+                    - SMS
+                    - CALL
+                  example: SMS
+                  writeOnly: true
+            examples:
+              Okta-Sends-Challenge:
+                value:
+                  profile:
+                    phoneNumber: +1(444)444-4444
+                  sendCode: true
+                  method: SMS
+      responses:
+        '201':
+          $ref: '#/components/responses/Unverified-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Create-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-PhoneNumberExists-Response-409'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.manage
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/phones/{id}:
+    parameters:
+      - schema:
+          type: string
+          example: sms10ltpSdwXJCem80g4
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Retrieve a Phone
+      description: Retrieves a phone given a phone id
+      operationId: getPhone
+      responses:
+        '200':
+          $ref: '#/components/responses/Verified-Phone-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.read
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    delete:
+      summary: Delete a Phone
+      description: Deletes a phone given a phone id
+      operationId: deletePhone
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json;okta-version=1.0.0: {}
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Delete-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.manage
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/phones/{id}/challenge:
+    parameters:
+      - schema:
+          type: string
+          example: sms18vtfKgzqDhNqP0g4
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Send a Phone Challenge
+      description: Sends a phone challenge
+      operationId: sendPhoneChallenge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                method:
+                  type: string
+                  example: SMS
+                  enum:
+                    - SMS
+                    - CALL
+                  writeOnly: true
+                retry:
+                  type: boolean
+                  default: false
+              required:
+                - method
+            examples:
+              Send-SMS-Challenge:
+                value:
+                  method: SMS
+              Send-Voice-Challenge:
+                value:
+                  method: CALL
+      responses:
+        '200':
+          $ref: '#/components/responses/Challenged-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Challenge-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.manage
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/phones/{id}/verify:
+    parameters:
+      - schema:
+          type: string
+          example: sms18vtfKgzqDhNqP0g4
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Verify a Phone Challenge
+      description: Verifies a phone challenge
+      operationId: verifyPhoneChallenge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                verificationCode:
+                  type: string
+                  example: '492592'
+                  format: password
+                  writeOnly: true
+              required:
+                - verificationCode
+            examples:
+              Verify-SMS-Challenge:
+                value:
+                  verificationCode: '048284'
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json;okta-version=1.0.0: {}
+        '400':
+          $ref: '#/components/responses/Error-Verify-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '409':
+          $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
+      security:
+        - oauth2:
+            - okta.myAccount.phone.manage
+      tags:
+        - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/profile:
+    get:
+      summary: Retrieve my Profile
+      description: Retrieves my profile
+      operationId: getProfile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Success Response:
+                  value:
+                    createdAt: '2020-01-14T20:05:32.000Z'
+                    modifiedAt: '2020-01-14T20:05:32.000Z'
+                    profile:
+                      customBoolean: false
+                      foo: bar
+                      login: example@ex.ample.com
+                      mobilePhone: +1(555)555-5555
+                      customInteger: 42
+                    _links:
+                      self:
+                        href: https://example.okta.com/idp/myaccount/profile
+                      describedBy:
+                        href: https://example.okta.com/idp/myaccount/profile/schema
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - oauth2:
+            - okta.myAccount.profile.read
+      tags:
+        - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+    put:
+      summary: Replace my Profile
+      description: Replaces my profile
+      operationId: replaceProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+            examples:
+              Update Profile:
+                value:
+                  profile:
+                    customBoolean: true
+                    foo: bar
+                    login: example@ex.ample.com
+                    mobilePhone: 555-555-5555
+                    customInteger: 42
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Success Response:
+                  value:
+                    createdAt: '2020-01-14T20:05:32.000Z'
+                    modifiedAt: '2020-01-14T20:05:32.000Z'
+                    profile:
+                      customBoolean: true
+                      foo: bar
+                      login: example@ex.ample.com
+                      mobilePhone: 555-555-5555
+                      customInteger: 42
+                    _links:
+                      self:
+                        href: https://example.okta.com/idp/myaccount/profile
+                      describedBy:
+                        href: https://example.okta.com/idp/myaccount/profile/schema
+        '400':
+          $ref: '#/components/responses/Error-UpdateProfile-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
+      security:
+        - oauth2:
+            - okta.myAccount.profile.manage
+      tags:
+        - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/profile/schema:
+    get:
+      summary: Retrieve my Profile Schema
+      description: Retrieves my profile schema
+      operationId: getProfileSchema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Schema'
+              examples:
+                Success Response:
+                  value:
+                    properties:
+                      customBoolean:
+                        permissions:
+                          SELF: READ_WRITE
+                        title: customBoolean
+                        type: boolean
+                      foo:
+                        permissions:
+                          SELF: READ_ONLY
+                        title: foo
+                        type: string
+                      login:
+                        maxLength: 100
+                        minLength: 5
+                        permissions:
+                          SELF: READ_ONLY
+                        required: true
+                        title: Username
+                        type: string
+                      mobilePhone:
+                        maxLength: 100
+                        permissions:
+                          SELF: READ_WRITE
+                        title: Mobile phone
+                        type: string
+                      customInteger:
+                        permissions:
+                          SELF: READ_WRITE
+                        title: customInteger
+                        type: integer
+                    _links:
+                      self:
+                        href: https://example.okta.com/idp/myaccount/profile/schema
+                      user:
+                        href: https://example.okta.com/idp/myaccount/profile
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - oauth2:
+            - okta.myAccount.profile.read
+      tags:
+        - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+components:
+  examples:
+    CreateAppAuthenticatorEnrollment:
+      value:
+        authenticatorId: aut12i8bdXk90NIfr0q5
+        device:
+          secureHardwarePresent: true
+          clientInstanceKey:
+            x: O0N1H3AIXj5p5cpQx5RUzowIRz1iPnheo7SbEC-CtFw
+            'y': Cea3KAFqsyxqPni2QJ6LjjqgRKgRHpsVzkNazd3m8To
+            kty: EC
+            okta:kpr: HARDWARE
+            crv: P-256
+            kid: DF47DEE2-D1B0-40B6-BEB7-09134CC4A19B
+          osVersion: '14.3'
+          clientInstanceBundleId: com.company.authenticatorApp
+          platform: IOS
+          manufacturer: APPLE
+          deviceAttestation: {}
+          clientInstanceVersion: 6.4.0
+          clientInstanceDeviceSdkVersion: DeviceSDK 1.0.0
+          model: iPhone
+          displayName: My device name
+          udid: 4956095A-D99E-4A4E-A6DC-9E63E5978722
+        methods:
+          push:
+            apsEnvironment: development
+            pushToken: 667b773e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+            keys:
+              proofOfPossession:
+                x: hFr-xcGSMHbWKq2_SUAOMkif1ARYAU-X_8ZGprOhxfw
+                'y': HVqAxDCiGcV7H0QAQas6CMbh2wyG-cPU_cwXv3kPqcI
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 2078892D-BC96-4C8C-A3FA-34045C002C4A
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+            capabilities:
+              transactionTypes:
+                - LOGIN
+                - CIBA
+    GetPendingNotificationsJWTHeader:
+      value:
+        - kid: seD0hUMrcpFtlVVTmkDyJ0mGxlEygWEZ42ts9z4ih9M
+          typ: okta-pushbind+jwt
+          alg: RS256
+    GetPendingNotificationsJWTPayload:
+      value:
+        - iss: https://{{yourOktaDomain}}
+          aud: okta.63c081db-1f13-5084-882f-e79e1e5e2da7
+          exp: 1648339796
+          iat: 1648339496
+          jti: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+          nonce: LA_OIcYdr4R0GqMDJ08p
+          transactionId: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+          signals:
+            - id
+            - displayName
+            - platform
+            - manufacturer
+            - model
+            - osVersion
+            - serialNumber
+            - udid
+            - sid
+            - imei
+            - meid
+            - secureHardwarePresent
+            - deviceAttestation
+          verificationUri: https://{{yourOktaDomain}}/idp/myaccount/app-authenticators/challenge/ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW/verify
+          orgId: 00o54bswOJKhBhzy20w5
+          appInstanceName: Okta Dashboard
+          method: push
+          methodEnrollmentId: opf6aeq9U2hoM8aqO0w5
+          userMediation: REQUIRED
+          userVerification: PREFERRED
+          authenticatorEnrollmentId": pfd7rzcmvlhmE0Y1w0g4
+          challengeContext:
+            clientOS: MAC_OS_X
+            clientLocation: San Francisco, California, United States
+            transactionTime: '2022-03-27T00:04:56.861Z'
+            transactionType: LOGIN
+            bindingMessage: Required if transactionType = CIBA
+          userId: 00u44bx5BuSpiLUMl0w5
+          ver: 0
+    GetPendingNotificationsSuccessResponse:
+      value:
+        - payloadVersion: IDXv1
+          challenge: Your encoded challenge request JWT
+    UnenrollAppAuthenticatorEnrollmentUserVerificationKey:
+      value:
+        methods:
+          push:
+            keys:
+              userVerification: null
+    UpdateAppAuthenticatorEnrollmentPushToken:
+      value:
+        methods:
+          push:
+            pushToken: 667b713e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+    UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey:
+      value:
+        methods:
+          push:
+            pushToken: 667b713e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+            keys:
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+    UpdateAppAuthenticatorEnrollmentTransactionType:
+      value:
+        methods:
+          push:
+            capabilities:
+              transactionTypes:
+                - LOGIN
+                - CIBA
+    UpdateAppAuthenticatorEnrollmentUserVerificationKey:
+      value:
+        methods:
+          push:
+            keys:
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+    VerifyPushNotificationChallengeJWTHeader:
+      value:
+        typ: okta-pushbind+jwt
+        kid: b33b262d-b054-4519-833e-0893f53616ec
+        alg: RS256
+    VerifyPushNotificationChallengeJWTPayload:
+      value:
+        iss: pfd7rzcmvlhmE0Y1w0g4
+        sub: 00u12xkg3YOQqFyeC0g6
+        aud: https://{{yourOktaDomain}}
+        jti: 9866e66d-e173-487a-878b-4059ffb15255
+        iat: 1648687225
+        exp: 1648687525
+        nbf: 1648686925
+        methodEnrollmentId: opf13zf81eK3VfeHE0g6
+        tx: ftxWtAah8d4Gv-P-ZcMdbSmELeRlRShWNR
+        nonce: 4OvrzlCotGBJIVCAzHb9
+        deviceSignals:
+          id: guo13zf7vXryjyUCU0g6
+          isHardwareProtectionEnabled: false,
+          deviceAttestation:
+            clientInstanceKeyAttestation: eyJraWQiOiIyODY5OTFmYi0zMzg2LTRmZDMtOGE0OC1jODVmYzJiOWJkODMiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJjbGkxM3pmN3dmWjI3eENSUTBnNiIsInN1YiI6Imd1bzEzemY3dlhyeWp5VUNVMGc2IiwiYXVkIjoiaHR0cHM6XC9cL2RldmljZXNkay5oaW9rdGFuZS5jb20iLCJzdWJqZWN0VHlwZSI6IkRFVklDRSIsImp0aSI6IjQxNWM1MDNiLWQxMDMtNDEwYi1hM2Q1LTE4YzFhZTEzNzJkZCIsImlhdCI6MTY0ODY4NzIyNSwiZXhwIjoxNjQ4Njg3NTI1LCJuYmYiOjE2NDg2ODY5MjV9.fOFEVGHqdQJx6LQHgxAyOhPi-pJOGbuEZ0aeIVhurSgCrxzdXWml94uRn2ykU1JfIOBwtiIDihRE8HiozQZUVqgpxYkAiOCicc1ZlsY2rCCTR_G5qGhDyvnIVt1LuirNt1vwLJY8W0LbJ5sXeiQRjvNENsdOFA4l-88AMev3oxRi0VC0lKtFiNu6zvXlPuf3armUZXGFr04LcMMCA7yobmtl85fuxCcaQ2mDEvOpjNDQmPPnUQKlGKN6Po4YbjLnb0Vb_nx45mGNe8jTo2GZv2e38fejLhCvS8cIaxtEMGe7ixbw0V3e_PfRjNQVR54F8IkO0HW3OHzShYaWUwhDaQ
+          model: Pixel 4
+          manufacturer: Google
+          displayName: Pixel 4
+          platform": ANDROID
+          osVersion": 12:2022-03-05
+          clientInstanceId": cli13zf7wfZ27xCRQ0g6
+          clientInstanceBundleId: com.okta.devices.push.app
+          clientInstanceVersion: 1
+          clientInstanceDeviceSdkVersion: DeviceSDK 0.37.0
+          secureHardwarePresent: true
+          screenLockType: BIOMETRIC
+          diskEncryptionType: USER
+        keyType: proofOfPossession
+        challengeResponseContext:
+          originHeader: ''
+          userConsent: APPROVED_CONSENT_PROMPT
+          transactionType: LOGIN
+    VerifyPushNotificationChallengeRequest:
+      value:
+        method: push
+        challengeResponse: Your encoded challenge response JWT
+  parameters:
+    appAuthenticatorChallengeId:
+      name: challengeId
+      in: path
+      required: true
+      description: Id of the challenge associated with the app authenticator.
+      schema:
+        type: string
+        example: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+    appAuthenticatorEnrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: Id of the user's app authenticator enrollment
+      schema:
+        type: string
+        example: pfd7rzcmvlhmE0Y1w0g4
+  responses:
+    Verified-Email-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Email'
+          examples:
+            Success Response:
+              value:
+                id: 69dca29c2d8dbb0dca14395ccdb92317
+                status: VERIFIED
+                roles:
+                  - PRIMARY
+                profile:
+                  email: saml.jackson@example.com
+                _links:
+                  self:
+                    href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317
+                    hints:
+                      allow:
+                        - GET
+                  challenge:
+                    href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge
+                    hints:
+                      allow:
+                        - POST
+    Unverified-Email-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Email'
+          examples:
+            Success Response:
+              value:
+                id: e2a84ed3cc538f75457596faa74a4532
+                status: UNVERIFIED
+                roles:
+                  - PRIMARY
+                profile:
+                  email: s.jackson@company.com
+                _links:
+                  self:
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532
+                    hints:
+                      allow:
+                        - GET
+                        - DELETE
+                  challenge:
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge
+                    hints:
+                      allow:
+                        - POST
+                  verify:
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify
+                    hints:
+                      allow:
+                        - POST
+                  poll:
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q
+                    hints:
+                      allow:
+                        - GET
+    Email-Array-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Email'
+          examples:
+            Success Response:
+              value:
+                - id: 69dca29c2d8dbb0dca14395ccdb92317
+                  status: VERIFIED
+                  roles:
+                    - PRIMARY
+                  profile:
+                    email: saml.jackson@example.com
+                  _links:
+                    self:
+                      href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317
+                      hints:
+                        allow:
+                          - GET
+                    challenge:
+                      href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge
+                      hints:
+                        allow:
+                          - POST
+                - id: e2a84ed3cc538f75457596faa74a4532
+                  status: UNVERIFIED
+                  roles:
+                    - PRIMARY
+                  profile:
+                    email: s.jackson@company.com
+                  _links:
+                    self:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532
+                      hints:
+                        allow:
+                          - GET
+                          - DELETE
+                    challenge:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge
+                      hints:
+                        allow:
+                          - POST
+                    verify:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify
+                      hints:
+                        allow:
+                          - POST
+                    poll:
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q
+                      hints:
+                        allow:
+                          - GET
+    Phone-Array-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Phone'
+          examples:
+            Success Response:
+              value:
+                - id: sms10ltpSdwXJCem80g4
+                  status: VERIFIED
+                  profile:
+                    phoneNumber: '+13333333333'
+                  _links:
+                    self:
+                      href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4
+                      hints:
+                        allow:
+                          - GET
+                          - DELETE
+                    challenge:
+                      href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge
+                      hints:
+                        allow:
+                          - POST
+                - id: sms18vrvVDDmi4Qlz0g4
+                  status: UNVERIFIED
+                  profile:
+                    phoneNumber: '+12222222222'
+                  _links:
+                    self:
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4
+                      hints:
+                        allow:
+                          - GET
+                          - DELETE
+                    challenge:
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/challenge
+                      hints:
+                        allow:
+                          - POST
+                    verify:
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/verify
+                      hints:
+                        allow:
+                          - POST
+    Unverified-Phone-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Phone'
+          examples:
+            Success Response:
+              value:
+                id: sms18vtfKgzqDhNqP0g4
+                status: UNVERIFIED
+                profile:
+                  phoneNumber: +1(444)444-4444
+                _links:
+                  self:
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4
+                    hints:
+                      allow:
+                        - GET
+                        - DELETE
+                  challenge:
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/challenge
+                    hints:
+                      allow:
+                        - POST
+                  verify:
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/verify
+                    hints:
+                      allow:
+                        - POST
+    Verified-Phone-Response:
+      description: Example response
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Phone'
+          examples:
+            Success Response:
+              value:
+                id: sms10ltpSdwXJCem80g4
+                status: VERIFIED
+                profile:
+                  phoneNumber: +1(333)333-3333
+                _links:
+                  self:
+                    href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4
+                    hints:
+                      allow:
+                        - GET
+                        - DELETE
+                  challenge:
+                    href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge
+                    hints:
+                      allow:
+                        - POST
+    Challenged-Phone-Response:
+      description: Example response after challenging a phone
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            type: object
+            properties:
+              _links:
+                type: object
+                properties:
+                  verify:
+                    type: object
+                    required:
+                      - href
+                      - hints
+                    properties:
+                      href:
+                        type: string
+                        minLength: 1
+                      hints:
+                        type: object
+                        required:
+                          - allow
+                        properties:
+                          allow:
+                            type: array
+                            items:
+                              type: string
+          examples:
+            Success Response:
+              value:
+                _links:
+                  verify:
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
+                    hints:
+                      allow:
+                        - POST
+    Error-InvalidFactorId-Response-404:
+      description: Not Found
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Phone Factor Id - 404:
+              value:
+                errorCode: E0000008
+                errorSummary: The requested path was not found
+                errorLink: E0000008
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an issue with the specified authenticator.
+    Error-NoAccessForAdminUser-Response-403:
+      description: Forbidden
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User - 403:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
+    Error-FailedToSendOutOfBandChallenge-Response-500:
+      description: Internal Server Error
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Failed To Send Out Of Band Challenge - 500:
+              value:
+                errorCode: E0000138
+                errorSummary: There was an internal error with call provider(s).
+                errorLink: E0000138
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Failed to send the out of band OTP challenge. Set "retry" to "true" in the API request body and resubmit the API call to the endpoint.
+    Error-InvalidTransaction-Response-409:
+      description: Conflict
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Transaction - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: transactionHandle is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Failed to find a transaction. Either the challenge was answered or the factor id is invalid.
+    Error-UpdateProfile-Response-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email Update From Profile:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: You cannot update email attributes using the profile endpoint. Use the emails endpoint to make any required changes.
+            Invalid Value Type For Property:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid value data type for property 'some-property'
+            Missing Property Value For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' needs a value passed.  To unset it, explicitly set it to null.
+            Read Only Property Changed For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' is read only.  The value supplied must exactly match the existing value.
+            Corrupt Profile Prevents Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Your profile is corrupt in a way that requires administrative intervention.  Please contact support.
+            Concealed Or Unknown Property For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' does not exist or is not accessible.
+    Error-PhoneNumberExists-Response-409:
+      description: Conflict
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Phone Number Exists - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: +14161111111 is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This phone number is already assigned to the current user account.
+    Error-InvalidEmailDeletion-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email Deletion - 400:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Email'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Can't delete a verified email address.
+    Error-InvalidEmail-Response-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email - 400:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Email'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid email address.
+    Error-EmailConflict-Response-409:
+      description: Conflict
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Conflict - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: Email is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: The email example@email.com is already registered to the current user profile.
+    Error-EmailResourceNotFound-Response-404:
+      description: Not Found
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Resource Not Found - 404:
+              value:
+                errorCode: E0000007
+                errorSummary: 'Not found: Resource not found: 796bc844c1802c5ad5a65e1dbd26c30a (UserProfileEmail)'
+                errorLink: E0000007
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses: []
+    Error-EmailChallengeResourceNotFound-Response-404:
+      description: Not Found
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Challenge Resource Not Found - 404:
+              value:
+                errorCode: E0000007
+                errorSummary: 'Not found: Resource not found: myaccount.WJLzOhehQwSVUFLVTy2ywb (IdpMyAccountChallenge)'
+                errorLink: E0000007
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses: []
+    Error-Email-Response-403:
+      description: Forbidden
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
+            Secondary Email:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Secondary email is not enabled as an authenticator for your org.
+    Error-Create-Phone-Response-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Not A Number:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: NOT_A_NUMBER. The string supplied did not seem to be a phone number.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Invalid Country Code:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: INVALID_COUNTRY_CODE. Could not interpret numbers after plus-sign.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Too Long:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: TOO_LONG. The string supplied is too long to be a phone number.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+            Cardinality Max Reached:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Exceeded cardinality max'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This user account has reached the maximum number of enrolled phone numbers.
+    Error-Challenge-Phone-Response-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+    Error-Verify-Phone-Response-400:
+      description: Bad Request
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+            Invalid Phone Factor Id:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: factorId and/or verificationCode'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an issue with the specified authenticator.
+    Error-IdpMyAccountNotEnabled-Response-401:
+      description: Unauthorized
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            IDP MyAccount not enabled - 401:
+              value:
+                errorCode: E0000015
+                errorSummary: You do not have permission to access the feature you are requesting
+                errorLink: E0000015
+                errorId: oaeStOuPPxDRUm3PJhf-tL7bQ
+                errorCauses: []
+    Error-VerifyPhoneEmail-Response-401:
+      description: Unauthorized
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            IDP MyAccount not enabled - 401:
+              value:
+                errorCode: E0000015
+                errorSummary: You do not have permission to access the feature you are requesting
+                errorLink: E0000015
+                errorId: oaeStOuPPxDRUm3PJhf-tL7bQ
+                errorCauses: []
+            Unauthorized User - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: User is not authorized.
+            User Failed To Answer Challenge - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: The verification challenge failed due to an invalid code.
+    Error-CreateChallengeVerify-Phone-Response-403:
+      description: Forbidden
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
+            Phone Authenticator Disabled:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Phone authenticator is not enabled for your org.
+            Invalid Authentication Method Type:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Method some_invalid_method is not enabled for your org.
+    Error-Delete-Phone-Response-403:
+      description: Forbidden
+      content:
+        application/json;okta-version=1.0.0:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
+            Phone Authenticator Disabled:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Phone authenticator is not enabled for your org.
+  schemas:
+    AppAuthenticatorEnrollment:
+      description: App authenticator enrollment object
+      type: object
+      properties:
+        authenticatorId:
+          type: string
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        device:
+          type: object
+          properties:
+            id:
+              type: string
+            status:
+              type: string
+              enum:
+                - ACTIVE
+            createdDate:
+              type: string
+              format: date-time
+            lastUpdated:
+              type: string
+              format: date-time
+            clientInstanceId:
+              type: string
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          readOnly: true
+        links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                          - PATCH
+                          - DELETE
+          readOnly: true
+        methods:
+          type: object
+          properties:
+            push:
+              type: object
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+          readOnly: true
+    AppAuthenticatorEnrollmentRequest:
+      description: App Authenticator enrollment request
+      type: object
+      properties:
+        authenticatorId:
+          type: string
+        device:
+          type: object
+          properties:
+            secureHardwarePresent:
+              type: boolean
+              description: Indicates if the device is equipped with TPM storage for storing signing keys.
+            clientInstanceKey:
+              $ref: '#/components/schemas/KeyObject'
+              description: A public key in Json Web Keys format that is not tied to a user. It can be used to identify a device across orgs.
+            osVersion:
+              type: string
+            clientInstanceBundleId:
+              type: string
+            platform:
+              type: string
+              enum:
+                - ANDROID
+                - IOS
+            manufacturer:
+              type: string
+              example:
+                - APPLE
+                - Google
+            deviceAttestation:
+              type: object
+            clientInstanceVersion:
+              type: string
+            clientInstanceDeviceSdkVersion:
+              type: string
+            model:
+              type: string
+              example:
+                - iPhone 14
+                - Pixel 4
+            displayName:
+              type: string
+              description: The device's display name.
+            udid:
+              type: string
+          required:
+            - clientInstanceKey
+            - clientInstanceBundleId
+            - clientInstanceVersion
+            - clientInstanceDeviceSdkVersion
+            - osVersion
+            - platform
+            - displayName
+        methods:
+          type: object
+          required:
+            - push
+          properties:
+            push:
+              type: object
+              required:
+                - pushToken
+                - keys
+              properties:
+                apsEnvironment:
+                  type: string
+                  description: Target APS type that application registers to. Required for iOS enrollments.
+                  enum:
+                    - PRODUCTION
+                    - DEVELOPMENT
+                pushToken:
+                  type: string
+                keys:
+                  type: object
+                  required:
+                    - proofOfPossession
+                  properties:
+                    proofOfPossession:
+                      $ref: '#/components/schemas/KeyObject'
+                    userVerification:
+                      $ref: '#/components/schemas/KeyObject'
+                    capabilities:
+                      $ref: '#/components/schemas/AppAuthenticatorMethodCapabilities'
+      required:
+        - authenticatorId
+        - device
+        - methods
+    AppAuthenticatorMethodCapabilities:
+      type: object
+      properties:
+        transactionTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - LOGIN
+              - CIBA
+    Email:
+      description: Email Object
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+          readOnly: true
+        profile:
+          type: object
+          required:
+            - email
+          properties:
+            email:
+              type: string
+              minLength: 1
+        roles:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+            challenge:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+            verify:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+            poll:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+      required:
+        - id
+        - status
+        - profile
+        - roles
+    Error:
+      description: Standard API Error Object
+      type: object
+      properties:
+        errorCauses:
+          type: array
+          items:
+            type: object
+            properties:
+              errorSummary:
+                type: string
+                example: Bad request because XYZ is missing.
+                readOnly: true
+        errorCode:
+          type: string
+          example: E0000001
+          readOnly: true
+        errorId:
+          type: string
+          example: oaeWGQKoQHeQmy0u8w8bPwi_Q
+          readOnly: true
+        errorLink:
+          type: string
+          example: E0000001
+          readOnly: true
+        errorSummary:
+          type: string
+          example: Bad request because XYZ is missing.
+          readOnly: true
+    KeyEC:
+      type: object
+      properties:
+        crv:
+          type: string
+          enum:
+            - P-256
+        kid:
+          type: string
+          description: The unique identifier of the key.
+        kty:
+          type: string
+          enum:
+            - EC
+          description: The type of public key.
+        okta:kpr:
+          type: string
+          enum:
+            - HARDWARE
+            - SOFTWARE
+        x:
+          type: string
+          description: The public x coordinate for the elliptic curve point.
+        'y':
+          type: string
+          description: The public y coordinate for the elliptic curve point.
+      required:
+        - x
+        - 'y'
+        - kty
+        - okta:kpr
+        - crv
+        - kid
+    KeyObject:
+      oneOf:
+        - $ref: '#/components/schemas/KeyEC'
+        - $ref: '#/components/schemas/KeyRSA'
+      type: object
+    KeyRSA:
+      type: object
+      properties:
+        e:
+          type: string
+          description: The key exponent of a RSA key.
+        kid:
+          type: string
+          description: The unique identifier of the key.
+        kty:
+          type: string
+          enum:
+            - RSA
+          description: The type of public key.
+        'n':
+          type: string
+          description: The modulus of the RSA key.
+        okta:kpr:
+          type: string
+          enum:
+            - HARDWARE
+            - SOFTWARE
+      required:
+        - 'n'
+        - e
+        - kty
+        - okta:kpr
+        - kid
+    Phone:
+      description: Phone Object
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+          readOnly: true
+        profile:
+          type: object
+          required:
+            - phoneNumber
+          properties:
+            phoneNumber:
+              type: string
+              minLength: 1
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+            challenge:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+            verify:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+      required:
+        - id
+        - status
+        - profile
+    Profile:
+      description: Profile object based on the user's directory profile schema (based on UD).
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        modifiedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        profile:
+          type: object
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
+            describedBy:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
+    PushNotificationChallenge:
+      description: Push notification challenge request object for an app authenticator
+      type: object
+      properties:
+        challenge:
+          type: string
+          description: JWT issued at the time of a push notification challenge
+        payloadVersion:
+          type: string
+          enum:
+            - IDXv1
+    PushNotificationVerification:
+      description: Push notification challenge response object for an app authenticator
+      type: object
+      properties:
+        challengeResponse:
+          type: string
+          description: JWT issued by the app authenticator at the time of push notification verification
+        method:
+          type: string
+          enum:
+            - push
+    Schema:
+      title: Schema
+      description: Describes a user's directory profile schema (based on UD).
+      type: object
+      properties:
+        properties:
+          type: object
+          description: Based on https://developer.okta.com/docs/reference/api/schemas/#schema-properties
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
+            user:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
+    UpdateAppAuthenticatorEnrollmentRequest:
+      type: object
+      properties:
+        methods:
+          type: object
+          properties:
+            push:
+              type: object
+              properties:
+                pushToken:
+                  type: string
+                keys:
+                  type: object
+                  properties:
+                    userVerification:
+                      $ref: '#/components/schemas/KeyObject'
+                      nullable: true
+                capabilities:
+                  type: object
+                  $ref: '#/components/schemas/AppAuthenticatorMethodCapabilities'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: 'Pass the access_token as the value of the Authorization header: `Authorization: Bearer {access_token}`'
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth2/v1/authorize
+          tokenUrl: /oauth2/v1/token
+          scopes:
+            okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
+            okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
+            okta.myAccount.email.manage: Write access to user emails
+            okta.myAccount.email.read: Read access to user emails
+            okta.myAccount.phone.manage: Write access to user phones
+            okta.myAccount.phone.read: Read access to user phones
+            okta.myAccount.profile.manage: Write access to user profile and schema
+            okta.myAccount.profile.read: Read access to user profile and schema
